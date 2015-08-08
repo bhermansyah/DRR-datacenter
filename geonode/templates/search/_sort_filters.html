@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="col-md-6">
+<div class="col-md-6 sort-style-custom">
   <ul class="list-inline pull-left" id="sort">
     <li><a data-value="-date" data-filter="order_by" class="selected" ng-click="single_choice_listener($event)">{% trans "Most recent" %}</a></li>
     <li><a data-value="date" data-filter="order_by" ng-click="single_choice_listener($event)">{% trans "Less recent" %}</a></li>
@@ -12,7 +12,7 @@
 <div class="col-md3">
   {% block bulk_perms_button %}
     {% if request.user.is_authenticated %}
-    <button data-toggle="modal" class="btn btn-default pull-right" data-target="#_bulk_permissions">{% trans "Set permissions" %}</button>
+    <button style="margin-right: 10px;padding: 7px;" data-toggle="modal" class="btn btn-default pull-right" data-target="#_bulk_permissions">{% trans "Set permissions" %}</button>
     {% endif %}
   {% endblock %}
 </div>

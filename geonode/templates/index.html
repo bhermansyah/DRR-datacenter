@@ -10,18 +10,193 @@
 {% block middle %}
    {{ block.super }}
   {% block hero %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans "Welcome" %}</h1>
-      <p>{% blocktrans %}GeoNode is an open source platform for sharing geospatial data and maps.{% endblocktrans %}</p>
-      <p>{% blocktrans %}If you have any questions about the software or service, join our <a href="http://lists.osgeo.org/cgi-bin/mailman/listinfo/geonode-users">mailing list</a>.{% endblocktrans %}</p>
-      <span>{% trans 'Need help?' %} <a href="http://docs.geonode.org/en/latest/tutorials/users/quickstart/index.html">{% trans 'Getting Started' %}</a></span>
+  <div id="myCarousel" class="carousel slide container" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img src="{{ STATIC_URL }}lib/foto/flood-cover-2.jpg" alt="Flood Cover, Credit for Google Crisis">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Topic 1</h1>
+              <p>{% trans "Here perhaps we could put some statement something, some short description on the methodology, source of data, etc" %}</p>
+              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse Flood Assesstment</a></p> -->
+              <p class="image-credit">Photo: Google Crisis</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="{{ STATIC_URL }}lib/foto/cyclone1.jpg" alt="Cyclone, Credit for NOAA">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Topic 2</h1>
+              <p>Here perhaps we could put some statement something, some short description on the methodology, source of data, etc</p>
+              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse Cyclone Assesstment</a></p> -->
+              <p class="image-credit">Photo: NOAA</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="{{ STATIC_URL }}lib/foto/drought.jpg" alt="Drought, Credit for telegraph.co.uk">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Topic 3</h1>
+              <p>Here perhaps we could put some statement something, some short description on the methodology, source of data, etc</p>
+              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse Drought Assestment</a></p> -->
+              <p class="image-credit">Photo: telegraph.co.uk</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-  </div>
   {% endblock %}
 
   {% block mainbody %}
+
+  <section class="social">
+    <div class="container forceCenter">
+      <!-- <div class="row"> -->
+        <!-- <div class="span8"> -->
+          <!-- <div class="row"> -->
+          {% with facet_type='home' %}
+          {% facets as facets %}
+            <ul class="breadcrumb">
+              <li><a href="{% url "layer_browse" %}"><span class="count badge warning">
+                {{ facets.layer|default:_("0") }} 
+              </span>{% trans "Layers" %}&nbsp; 
+              </a></li>
+              <li><a href="{% url "maps_browse" %}"><span class="count badge">
+                {{ facets.map|default:_("0") }} 
+              </span>{% trans "Interactive Maps" %} &nbsp;
+              </a></li>
+              <li><a href="{% url "document_browse" %}"><span class="count badge">
+                {{ facets.document|default:_("0") }} 
+              </span>{% trans "Static Maps" %} &nbsp;
+              </a></li>
+              <li><a href="{% url "profile_browse" %}"><span class="count badge">
+                {{ facets.user|default:_("0") }} 
+              </span>{% trans "User" %} &nbsp;
+              </a></li>
+              <li><a href="#"></a></li>
+            </ul>
+            <!-- <div class="span2"><p><a href="{% url "layer_browse" %}"><span class="count">
+                {{ facets.layer|default:_("0") }} 
+              </span>Layers 
+              </a></p>
+            </div>
+            <div class="span2"><p><a href="{% url "maps_browse" %}"><span class="count">
+                {{ facets.map|default:_("0") }} 
+              </span>Interactive Maps 
+              </a></p>
+            </div>
+            <div class="span2"><p><a href="{% url "document_browse" %}"><span class="count">
+                {{ facets.document|default:_("0") }} 
+              </span>Static Maps 
+              </a></p>
+            </div>
+            <div class="span2"><p><a href="{% url "profile_browse" %}"><span class="count">
+                {{ facets.user|default:_("0") }} 
+              </span>Users 
+              </a></p>
+            </div> -->
+          {% endwith %}  
+          <!-- </div>  --> 
+        <!-- </div>  --> 
+      <!-- </div> -->  
+    </div>  
+  </section>  
+ <div ng-app="featured">
+  <section class="social">
+    <div class="container forceCenter panel-title-custom">
+      Featured Maps
+    </div>  
+  </section> 
+
+  <div class="container forceCenter featured-maps-custom">
+    <section class="featured-maps">
+<!--       <h3>{% trans "Featured Maps" %}</h3> -->
+      <div class="row">
+        {% verbatim %}
+       <!--  <div ng-app="featured"> -->
+          <div ng-repeat="item in featured">
+            <div class="span3">
+              <div class="map-thumb thumbnail">
+                <a href="{{ item.detail_url }}" class="map-link">
+                  <img src="{{ item.thumbnail_url }}" />
+                </a>
+                <div class="map-abstract">
+                  <p class="cust_date"><a href="{{ item.detail_url }}">{% endverbatim %}{% trans "from" %}{% verbatim %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p>
+                  <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>        
+                  <p class="cust_tag"><a href="{{ item.detail_url }}">{{ item.abstract }}</a></p>
+                </div>  
+                <div class="map-title"><a href="{{ item.detail_url }}" class="map-link">{{ item.title }}</a></div>
+                <div class="views pull-right"><i class="icon-eye-open"></i>{{ item.popular_count }}</div>
+              </div>
+              <!-- <div class="map-exp">
+                <div class="thumb-type-custom">{{ item.category__gn_description }}</div>
+                <div class="thumb-title-custom">{{ item.title }}</div>
+                <div class="thum-level2-custom">{{ item.abstract }}</div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+        
+      <!-- </div> -->
+      {% endverbatim %}
+    </section>
+  </div>  
+
+  <section class="social">
+    <div class="container forceCenter panel-title-custom">
+      Latest Static Maps
+    </div>  
+  </section> 
+  <div class="container forceCenter featured-maps-custom">
+    <section class="featured-maps">
+      <div class="row">
+        {% verbatim %}
+<!--         <div ng-app="featured"> -->
+          <div ng-repeat="item in test">
+            <div class="span3">
+              <div class="map-thumb thumbnail">
+                <a href="{{ item.detail_url }}" class="map-link">
+                  <img src="{{ item.thumbnail_url }}" />
+                </a>
+                <div class="map-abstract">
+                  <p class="cust_date"><a href="{{ item.detail_url }}">{% endverbatim %}{% trans "from" %}{% verbatim %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p> 
+                  <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>         
+                  <p class="cust_tag"><a href="{{ item.detail_url }}">{{ item.abstract }}</a></p>
+                </div>  
+                <div class="map-title"><a href="{{ item.detail_url }}" class="map-link">{{ item.title }}</a></div>
+                <div class="views pull-right"><i class="icon-eye-open"></i>{{ item.popular_count }}</div>
+              </div>
+          </div>
+        </div>
+      <!-- </div> -->
+      {% endverbatim %}
+    </section>
+  </div>
+
+</div>  
+
   <div class="container">
+    
+  </div>  
+  
+
+  <!-- <div class="container">
     <div class="row home-facets">
     {% with facet_type='home' %}
      {% facets as facets %}
@@ -53,14 +228,8 @@
       </div>
     {% endwith %}
     </div>
-  </div>
-  {% verbatim %}
-  <div ng-app="featured">
-    <div ng-repeat="item in featured">
-      <!--{{ item.title }}-->
-    </div>
-  </div>
-  {% endverbatim %}
+  </div> --> 
+  
   {% endblock %}
   
 {% endblock %}
@@ -70,13 +239,17 @@
 <script src="{{ STATIC_URL }}lib/js/angular.js"></script>
 {% endif %}
   <script type="text/javascript">
-    FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}'
+    FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}';
+    LATESTDOCS_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='lastestdocument' %}';
     'use strict';
     (function(){  
       var module = angular.module('featured', []);
       module.run(function($http, $rootScope){
         $http.get(FEATURED_URL).success(function(data){
           $rootScope.featured = data.objects;
+        });
+        $http.get(LATESTDOCS_URL).success(function(data){
+          $rootScope.test = data.objects;
         });
       });
     })(); 

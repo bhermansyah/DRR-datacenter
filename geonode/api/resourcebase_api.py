@@ -3,6 +3,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.conf import settings
 
+import copy
+
 from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.resources import ModelResource
 from tastypie import fields
@@ -536,3 +538,16 @@ class DocumentResource(CommonModelApi):
         if settings.RESOURCE_PUBLISHING:
             queryset = queryset.filter(is_published=True)
         resource_name = 'documents'
+
+# added by boedy1996@gmail.com
+class LatestDocumentResource(CommonModelApi):
+
+    """Only the lastest documents resourcebases"""
+
+    class Meta(CommonMetaApi):
+        max_limit = CommonMetaApi.max_limit
+        max_limit=5
+        queryset = Document.objects.distinct().order_by('-date')
+        if settings.RESOURCE_PUBLISHING:
+            queryset = queryset.filter(is_published=True)
+        resource_name = 'lastestdocument'       

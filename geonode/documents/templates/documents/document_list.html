@@ -8,10 +8,16 @@
 {% block body_class %}documents documents-list explore{% endblock %}
 
 {% block body %}
-<div class="page-header">
-  <a href="{% url "document_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Documents" %}</a>
-  <h2>{% trans "Explore Documents" %}</h2>
-</div>
+<section class="social">
+  <div class="container forceCenter panel-header-custom">
+    <div class="page-header">
+      <a href="{% url "document_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Document" %}</a>
+      <div class="each-page-title">{% trans "Documents" %} <span ng-bind="total_counts" class="badge"></span></div>
+      {% include "search/_sort_filters.html" %}
+    </div>
+  </div>
+</section>  
+
   {% with include_type_filter='true' %}
   {% with facet_type='documents' %}
   {% with header='Document Type' %}

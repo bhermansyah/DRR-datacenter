@@ -428,28 +428,38 @@
     }, true);
 
     /*
-    * Spatial search
+    * Spatial search http://a.tiles.mapbox.com/v3/mapbox.world-light/{z}/{x}/{y}.png
     */
     if ($('.leaflet_map').length > 0) {
       angular.extend($scope, {
         layers: {
           baselayers: {
-            stamen: {
+            // stamen: {
+            //   name: 'Toner Lite',
+            //   type: 'xyz',
+            //   url: 'http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png',
+            //   layerOptions: {
+            //     subdomains: ['a', 'b', 'c'],
+            //     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>',
+            //     continuousWorld: true
+            //   }
+            // }
+            mapbox: {
               name: 'Toner Lite',
               type: 'xyz',
-              url: 'http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png',
+              url: 'http://api.mapbox.com/v4/ndi.afghanistan-hillshade-en/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYm9lZHkxOTk2IiwiYSI6Iks0dmpIeU0ifQ.VL89ejzEuAPzAaYIkYfYdw',
               layerOptions: {
                 subdomains: ['a', 'b', 'c'],
-                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>',
+                attribution: '',
                 continuousWorld: true
               }
             }
           }
         },
         map_center: {
-          lat: 5.6,
-          lng: 3.9,
-          zoom: 1
+          lat: 34,
+          lng: 66,
+          zoom: 5
         },
         defaults: {
           zoomControl: false

@@ -1,17 +1,33 @@
 {% load i18n announcements_tags %}
 
 {% announcements as site_wide_announcements %}
-{% if site_wide_announcements %}
-<div id="site_wide_announcements">
-    {% for announcement in site_wide_announcements %}
-    <div class="alert alert-block announcement {{ announcement.level_css  }}">
-        {% if announcement.dismissal_type > 1 %}
-        <a type="button" class="close" data-dismiss="alert" data-dismiss-url="{% url "announcements_dismiss" announcement.pk %}" href="#">×</a>
+
+<div class="dropdown">
+  <button type="button" class="btn btn-primary" data-toggle="dropdown" data-target="#"> <i class="announcement_custom glyphicon glyphicon-bullhorn"></i><span class="badge">{{ site_wide_announcements |length }}</span></button>
+  <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+    <div class="notification-heading">
+      <h4 class="menu-title"><i class="glyphicon glyphicon-bullhorn"></i> Notifications</h4>
+        <li class="divider"></li>
+        <div class="notifications-wrapper">
+        {% if site_wide_announcements %}
+          <div id="site_wide_announcements">
+            {% for announcement in site_wide_announcements %}
+            <div class="alert alert-block announcement {{ announcement.level_css  }}">
+                {% if announcement.dismissal_type > 1 %}
+                <a type="button" class="close" data-dismiss="alert" data-dismiss-url="{% url "announcements_dismiss" announcement.pk %}" href="#">×</a>
+                {% endif %}
+                <h4><a href="{{ announcement.get_absolute_url }}">{{ announcement }}</a></h4>
+                <p><small><em>{{ announcement.creation_date }}</em></small></p>
+                <div>{{ announcement.content }}</div>
+            </div>
+            {% endfor %}
+          </div>
         {% endif %}
-        <h4><a href="{{ announcement.get_absolute_url }}">{{ announcement }}</a></h4>
-        <p><small><em>{{ announcement.creation_date }}</em></small></p>
-        <div>{{ announcement.content }}</div>
+       </div>
+      </h4>
     </div>
-    {% endfor %}
+  </ul>  
 </div>
-{% endif %}
+
+
+

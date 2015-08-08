@@ -6,10 +6,15 @@
 {% block body_class %}maps explore{% endblock %}
 
 {% block body %}
-<div class="page-header">
-  <a href="{% url "new_map" %}" class="btn btn-primary pull-right">{% trans "Create a New Map" %}</a>
-  <h2>{% trans "Explore Maps" %}</h2>
-</div>
+<section class="social">
+  <div class="container forceCenter panel-header-custom">
+    <div class="page-header">
+      <a href="{% url "new_map" %}" class="btn btn-primary pull-right">{% trans "Create a New Map" %}</a>
+      <div class="each-page-title">{% trans "Maps" %} <span ng-bind="total_counts" class="badge"></span></div>
+      {% include "search/_sort_filters.html" %}
+    </div>
+  </div>
+</section> 
   {% include "search/_search_content.html" %}
   {% include "_bulk_permissions_form.html" %}
 {% endblock %}

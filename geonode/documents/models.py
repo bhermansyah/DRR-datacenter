@@ -65,7 +65,8 @@ class Document(ResourceBase):
     def _render_thumbnail(self):
         from cStringIO import StringIO
 
-        size = 200, 150
+        #size = 200, 150
+        size = 1000, 750
 
         try:
             from PIL import Image, ImageOps
@@ -160,10 +161,14 @@ def pre_save_document(instance, sender, **kwargs):
         instance.bbox_y0 = instance.resource.bbox_y0
         instance.bbox_y1 = instance.resource.bbox_y1
     else:
-        instance.bbox_x0 = -180
-        instance.bbox_x1 = 180
-        instance.bbox_y0 = -90
-        instance.bbox_y1 = 90
+        # instance.bbox_x0 = -180
+        # instance.bbox_x1 = 180
+        # instance.bbox_y0 = -90
+        # instance.bbox_y1 = 90
+        instance.bbox_x0 = 60
+        instance.bbox_x1 = 74
+        instance.bbox_y0 = 30
+        instance.bbox_y1 = 38
 
 
 def post_save_document(instance, *args, **kwargs):
