@@ -72,11 +72,15 @@
         
         <div style="float:right;  padding-top: 10px;">
           <div id="navbarTop" class="navbar-collapse collapse">
-            <!-- <span class="navbar-brand-text">DRR Data Center</span> -->
+            {% if not user.is_authenticated and REGISTRATION_OPEN %}
+              <ul class="nav navbar-right">
+                <li>
+                  <!-- <a href="{% url "account_signup" %}">{% trans "Register" %}</a> -->
+                  <button id="register" type="button" class="btn btn-primary" onclick="location.href='{% url "account_signup" %}'">{% trans "Register" %}</button>
+                </li>
+              </ul>  
+            {% endif %}
             <ul class="nav navbar-right">
-              {% if not user.is_authenticated and REGISTRATION_OPEN %}
-              <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
-              {% endif %}
               {% if user.is_authenticated %}
               <li>
                 <!-- <a href="#" data-toggle="modal" data-target="#UserModal" role="button" aria-expanded="false">
