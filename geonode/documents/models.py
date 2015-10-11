@@ -66,7 +66,7 @@ class Document(ResourceBase):
         from cStringIO import StringIO
 
         #size = 200, 150
-        size = 1000, 750
+        size = 600, 450
 
         try:
             from PIL import Image, ImageOps
