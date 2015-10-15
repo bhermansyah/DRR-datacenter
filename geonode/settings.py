@@ -274,6 +274,9 @@ INSTALLED_APPS = (
     'modeltranslation',
     'djcelery',
 
+    # added by boedy
+    'south',
+
     # Theme
     "pinax_theme_bootstrap_account",
     "pinax_theme_bootstrap",
