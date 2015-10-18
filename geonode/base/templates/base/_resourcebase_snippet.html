@@ -67,6 +67,29 @@
                 </div>
               </a>  
             </li>
+            <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.papersize">
+              <a>
+                <div>
+                  <i class="papersizesymbol glyphicon glyphicon-file"><span class="papersizevalue">{{ item.papersize }}</span></i> 
+                </div>
+              </a>  
+            </li>
+            <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.datasource">
+              <a>
+                <div>
+                  <div>Data Sources</div>
+                  <div>{{ item.datasource }}</div>
+                </div>
+              </a>  
+            </li>
+            <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.version">
+              <a>
+                <div>
+                  <div>Version</div>
+                  <div>{{ item.version }}</div>
+                </div>
+              </a>  
+            </li>
           </ul>  
         </div>
       </div>

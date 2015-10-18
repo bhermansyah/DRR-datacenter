@@ -4,7 +4,7 @@ from .api import TagResource, TopicCategoryResource, ProfileResource, \
     GroupResource, RegionResource
 from .resourcebase_api import LayerResource, MapResource, DocumentResource, \
     ResourceBaseResource, FeaturedResourceBaseResource, \
-    LatestDocumentResource
+    LatestDocumentResource, LatestDocumentHazardResource
 
 api = Api(api_name='api')
 
@@ -21,3 +21,4 @@ api.register(FeaturedResourceBaseResource())
 
 # added
 api.register(LatestDocumentResource())
+api.register(LatestDocumentHazardResource())

@@ -63,6 +63,7 @@ class CommonModelApi(ModelResource):
         null=True,
         full=True)
     owner = fields.ToOneField(ProfileResource, 'owner', full=True)
+    papersize = fields.CharField(default='')
 
     def build_filters(self, filters={}):
         orm_filters = super(CommonModelApi, self).build_filters(filters)
@@ -453,6 +454,12 @@ class CommonModelApi(ModelResource):
             'rating',
         ]
 
+        if '/documents/' in request.path:
+            VALUES.append('papersize')
+            VALUES.append('version')
+            VALUES.append('datasource')
+            VALUES.append('subtitle')
+
         if isinstance(
                 data,
                 dict) and 'objects' in data and not isinstance(
@@ -546,8 +553,20 @@ class LatestDocumentResource(CommonModelApi):
 
     class Meta(CommonMetaApi):
         max_limit = CommonMetaApi.max_limit
-        max_limit=5
+        max_limit=4
         queryset = Document.objects.distinct().order_by('-date')
         if settings.RESOURCE_PUBLISHING:
             queryset = queryset.filter(is_published=True)
         resource_name = 'lastestdocument'       
+
+class LatestDocumentHazardResource(CommonModelApi):
+
+    """Only the lastest documents resourcebases"""
+
+    class Meta(CommonMetaApi):
+        max_limit = CommonMetaApi.max_limit
+        max_limit=6
+        queryset = Document.objects.distinct().order_by('-date')
+        if settings.RESOURCE_PUBLISHING:
+            queryset = queryset.filter(is_published=True)
+        resource_name = 'lastestflood'           
