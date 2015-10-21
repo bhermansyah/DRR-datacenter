@@ -128,14 +128,14 @@ class RegionResource(TypeFilteredResource):
         return super(RegionResource, self).serialize(request, data, format, options)
 
     class Meta:
-        queryset = Region.objects.all().order_by('name')
+        queryset = Region.objects.all().order_by('code')
         resource_name = 'regions'
         allowed_methods = ['get']
         filtering = {
             'name': ALL,
         }
         # To activate the counts on regions uncomment the following line
-        # serializer = CountJSONSerializer()
+        serializer = CountJSONSerializer()
 
 
 class TopicCategoryResource(TypeFilteredResource):

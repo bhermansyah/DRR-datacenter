@@ -12,7 +12,7 @@
 
         </div> 
         <div style=""> 
-          <h3><i class="fa fa-file-text-o"></i> <a href="{{ item.detail_url }}">{{ item.title }}</a></h3>
+          <h3><a href="{{ item.detail_url }}">{{ item.title }}</a></h3>
           <p ng-if="item.detail_url.indexOf('/documents/') > -1">Document from <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }} </a> published {{ item.date | timeAgo }}</p>
           <p ng-if="item.detail_url.indexOf('/layers/') > -1">Layer from <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }} </a> published {{ item.date | timeAgo }}</p>
           <p ng-if="item.detail_url.indexOf('/maps/') > -1">Map from <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }} </a> published {{ item.date | timeAgo }}</p>
@@ -87,6 +87,22 @@
                 <div>
                   <div>Version</div>
                   <div>{{ item.version }}</div>
+                </div>
+              </a>  
+            </li>
+            <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.region_description">
+              <a>
+                <div>
+                  <div>Region</div>
+                  <div>{{ item.region_description }}</div>
+                </div>
+              </a>  
+            </li>
+            <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.keyword_description">
+              <a>
+                <div>
+                  <div>Keywords</div>
+                  <div>{{ item.keyword_description }}</div>
                 </div>
               </a>  
             </li>

@@ -63,7 +63,6 @@ class CommonModelApi(ModelResource):
         null=True,
         full=True)
     owner = fields.ToOneField(ProfileResource, 'owner', full=True)
-    papersize = fields.CharField(default='')
 
     def build_filters(self, filters={}):
         orm_filters = super(CommonModelApi, self).build_filters(filters)
@@ -312,7 +311,7 @@ class CommonModelApi(ModelResource):
         self.method_check(request, allowed=['get'])
         self.is_authenticated(request)
         self.throttle_check(request)
-
+        print 'kontol'
         # Get the list of objects that matches the filter
         sqs = self.build_haystack_filters(request.GET)
 
@@ -390,6 +389,11 @@ class CommonModelApi(ModelResource):
                              if not re.search('_exact$|_sortable$', k))
         return object_fields
 
+    # def alter_list_data_to_serialize(self, request, data):
+    #     for index, row in enumerate(data['objects']):
+    #         data['objects'][index].constraints_other_en = 'test' 
+    #     return data    
+
     def get_list(self, request, **kwargs):
         """
         Returns a serialized list of resources.
@@ -406,7 +410,7 @@ class CommonModelApi(ModelResource):
             bundle=base_bundle,
             **self.remove_api_resource_names(kwargs))
         sorted_objects = self.apply_sorting(objects, options=request.GET)
-
+                
         paginator = self._meta.paginator_class(
             request.GET,
             sorted_objects,
@@ -427,6 +431,7 @@ class CommonModelApi(ModelResource):
             data,
             response_class=HttpResponse,
             **response_kwargs):
+        
         """
         Extracts the common "which-format/serialize/return-response" cycle.
 
@@ -466,6 +471,18 @@ class CommonModelApi(ModelResource):
                 data['objects'],
                 list):
             data['objects'] = list(data['objects'].values(*VALUES))
+        
+        if '/documents/' in request.path:
+            for row in data['objects']:
+                location = Document.objects.get(pk=row['id'])
+                row['region_description'] = ''
+                row['keyword_description'] = ''
+                for item in location.regions.all():
+                    row['region_description'] = row['region_description'] + ' ' +str(item)
+                for item in location.keywords.all():
+                    row['keyword_description'] = row['keyword_description'] + ' ' +str(item)    
+            
+
 
         desired_format = self.determine_format(request)
         serialized = self.serialize(request, data, desired_format)
@@ -535,7 +552,7 @@ class MapResource(CommonModelApi):
 
 
 class DocumentResource(CommonModelApi):
-
+    
     """Maps API"""
 
     class Meta(CommonMetaApi):
@@ -544,7 +561,7 @@ class DocumentResource(CommonModelApi):
         queryset = Document.objects.distinct().order_by('-date')
         if settings.RESOURCE_PUBLISHING:
             queryset = queryset.filter(is_published=True)
-        resource_name = 'documents'
+        resource_name = 'documents'  
 
 # added by boedy1996@gmail.com
 class LatestDocumentResource(CommonModelApi):
