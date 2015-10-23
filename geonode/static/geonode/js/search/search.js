@@ -32,6 +32,21 @@
         if ($location.search().hasOwnProperty('title__icontains')){
           params['title__icontains'] = $location.search()['title__icontains'];
         }
+        if ($location.search().hasOwnProperty('keywords__slug__in')){
+          params['keywords__slug__in'] = $location.search()['keywords__slug__in'];
+        }
+        if ($location.search().hasOwnProperty('regions__name__in')){
+          params['regions__name__in'] = $location.search()['regions__name__in'];
+        }
+        if ($location.search().hasOwnProperty('date__gte')){
+          params['date__gte'] = $location.search()['date__gte'];
+        }
+        if ($location.search().hasOwnProperty('date__lte')){
+          params['date__lte'] = $location.search()['date__lte'];
+        }
+        if ($location.search().hasOwnProperty('date__range')){
+          params['date__range'] = $location.search()['date__range'];
+        }
         $http.get(CATEGORIES_ENDPOINT, {params: params}).success(function(data){
             if($location.search().hasOwnProperty('category__identifier__in')){
                 data.objects = module.set_initial_filters_from_query(data.objects,
@@ -49,6 +64,21 @@
         if ($location.search().hasOwnProperty('title__icontains')){
           params['title__icontains'] = $location.search()['title__icontains'];
         }
+        if ($location.search().hasOwnProperty('category__identifier__in')){
+          params['category__identifier__in'] = $location.search()['category__identifier__in'];
+        }
+        if ($location.search().hasOwnProperty('regions__name__in')){
+          params['regions__name__in'] = $location.search()['regions__name__in'];
+        }
+        if ($location.search().hasOwnProperty('date__gte')){
+          params['date__gte'] = $location.search()['date__gte'];
+        }
+        if ($location.search().hasOwnProperty('date__lte')){
+          params['date__lte'] = $location.search()['date__lte'];
+        }
+        if ($location.search().hasOwnProperty('date__range')){
+          params['date__range'] = $location.search()['date__range'];
+        }
         $http.get(KEYWORDS_ENDPOINT, {params: params}).success(function(data){
             if($location.search().hasOwnProperty('keywords__slug__in')){
                 data.objects = module.set_initial_filters_from_query(data.objects,
@@ -65,6 +95,21 @@
         var params = typeof FILTER_TYPE == 'undefined' ? {} : {'type': FILTER_TYPE};
         if ($location.search().hasOwnProperty('title__icontains')){
           params['title__icontains'] = $location.search()['title__icontains'];
+        }
+        if ($location.search().hasOwnProperty('category__identifier__in')){
+          params['category__identifier__in'] = $location.search()['category__identifier__in'];
+        }
+        if ($location.search().hasOwnProperty('keywords__slug__in')){
+          params['keywords__slug__in'] = $location.search()['keywords__slug__in'];
+        }
+        if ($location.search().hasOwnProperty('date__gte')){
+          params['date__gte'] = $location.search()['date__gte'];
+        }
+        if ($location.search().hasOwnProperty('date__lte')){
+          params['date__lte'] = $location.search()['date__lte'];
+        }
+        if ($location.search().hasOwnProperty('date__range')){
+          params['date__range'] = $location.search()['date__range'];
         }
         $http.get(REGIONS_ENDPOINT, {params: params}).success(function(data){
             if($location.search().hasOwnProperty('regions__name__in')){
@@ -209,6 +254,11 @@
     */
     // Control what happens when the total results change
     $scope.$watch('total_counts', function(){
+      // console.log($scope);
+      module.load_categories($http, $scope.$parent, $location);
+      module.load_keywords($http, $scope.$parent, $location);
+      module.load_regions($http, $scope.$parent, $location);
+
       $scope.numpages = Math.round(
         ($scope.total_counts / $scope.query.limit) + 0.49
       );

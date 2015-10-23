@@ -52,6 +52,24 @@ class CountJSONSerializer(Serializer):
         if options['title_filter']:
             resources = resources.filter(title__icontains=options['title_filter'])
 
+        if options['category_filter']:
+            resources = resources.filter(category__identifier__in=options['category_filter'])      
+
+        if options['keyword_filter']:
+            resources = resources.filter(keywords__slug__in=options['keyword_filter'])  
+
+        if options['region_filter']:
+            resources = resources.filter(regions__name__in=options['region_filter'])   
+
+        if options['date_gte_filter']:
+            resources = resources.filter(date__gte=options['date_gte_filter'])  
+
+        if options['date_lte_filter']:
+            resources = resources.filter(date__lte=options['date_lte_filter'])    
+
+        if options['date_range_filter']:
+            resources = resources.filter(date__range=options['date_range_filter'])              
+
         if options['type_filter']:
             resources = resources.instance_of(options['type_filter'])
 
@@ -81,6 +99,12 @@ class TypeFilteredResource(ModelResource):
     def build_filters(self, filters={}):
         self.type_filter = None
         self.title_filter = None
+        self.category_filter = None
+        self.keyword_filter = None
+        self.region_filter = None
+        self.date_gte_filter = None
+        self.date_lte_filter = None
+        self.date_range_filter = None
 
         orm_filters = super(TypeFilteredResource, self).build_filters(filters)
 
@@ -90,11 +114,28 @@ class TypeFilteredResource(ModelResource):
             self.type_filter = None
         if 'title__icontains' in filters:
             self.title_filter = filters['title__icontains']
-
+        if 'category__identifier__in' in filters:
+            self.category_filter = filters.getlist('category__identifier__in')     
+        if 'keywords__slug__in' in filters:
+            self.keyword_filter = filters.getlist('keywords__slug__in')    
+        if 'regions__name__in' in filters:
+            self.region_filter = filters.getlist('regions__name__in')    
+        if 'date__gte' in filters:
+            self.date_gte_filter = filters['date__gte'] 
+        if 'date__lte' in filters:
+            self.date_lte_filter = filters['date__lte'] 
+        if 'date__range' in filters:
+            self.date_range_filter = filters['date__range']               
         return orm_filters
 
     def serialize(self, request, data, format, options={}):
         options['title_filter'] = self.title_filter
+        options['category_filter'] = self.category_filter
+        options['keyword_filter'] = self.keyword_filter
+        options['region_filter'] = self.region_filter
+        options['date_gte_filter'] = self.date_gte_filter
+        options['date_lte_filter'] = self.date_lte_filter
+        options['date_range_filter'] = self.date_range_filter
         options['type_filter'] = self.type_filter
         options['user'] = request.user
 
