@@ -6,7 +6,7 @@
     
     <ul class="nav closed" id="regions">
     {% verbatim %}
-      <li ng-switch on="region.level" ng-repeat="region in regions" ng-if="region.count > 0">
+      <!-- <li ng-switch on="region.level" ng-repeat="region in regions" ng-if="region.count > 0 || region.level==4 ">
             <a ng-switch-when=4 style="padding-left:20px" data-value="{{ region.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)" class="{{keyword.active}}"><i class="glyphicon glyphicon-minus"></i> {{ region.name }} 
               <span class="badge pull-right">{{ region.count }}</span>
             </a>
@@ -16,6 +16,28 @@
             <a ng-switch-default style="padding-left:5px" data-value="{{ region.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)" class="{{keyword.active}}"><i class="glyphicon glyphicon-minus"></i> {{ region.name }} 
               <span class="badge pull-right">{{ region.count }}</span>
             </a>
+      </li> --> 
+      <li ng-repeat="region in regions" ng-if="region.count > 0 || region.children.length > 0">
+            <a data-value="{{ region.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)" class="{{region.active}}">{{ region.name }} 
+              <span class="badge pull-right">{{ region.count }}</span>
+            </a>
+            <ul class="nav opened" ng-if="region.children.length > 0">
+              <li ng-repeat="item in region.children" ng-if="item.count > 0 || item.children.length > 0">
+                <a style="padding-left:20px" data-value="{{ item.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)" class="{{item.active}}">
+                  <i ng-if="!item.show" class="glyphicon glyphicon-plus" ng-click="test($event)"></i> 
+                  <i ng-if="item.show" class="glyphicon glyphicon-minus" ng-click="test($event)"></i> 
+                  {{ item.name }} 
+                  <span class="badge pull-right">{{ item.count }}</span>
+                </a>
+                <ul ng-show="item.show" class="nav" ng-if="item.children.length > 0">
+                  <li ng-repeat="entity in item.children" ng-if="entity.count > 0">
+                    <a style="padding-left:50px" data-value="{{ entity.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)" class="{{entity.active}}">{{ entity.name }} 
+                      <span class="badge pull-right">{{ entity.count }}</span>
+                    </a>
+                  </li>  
+                </ul> 
+              </li>  
+            </ul>  
       </li>
     {% endverbatim %}
   </ul>

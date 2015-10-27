@@ -16,12 +16,33 @@
 
     // Used to set the class of the filters based on the url parameters
     module.set_initial_filters_from_query = function (data, url_query, filter_param){
+        
         for(var i=0;i<data.length;i++){
             if( url_query == data[i][filter_param] || url_query.indexOf(data[i][filter_param] ) != -1){
                 data[i].active = 'active';
             }else{
                 data[i].active = '';
             }
+            if (data[i].children){
+              for(var x=0;x<data[i].children.length;x++){
+                if( url_query == data[i].children[x][filter_param] || url_query.indexOf(data[i].children[x][filter_param] ) != -1){
+                    data[i].children[x].active = 'active';
+                }else{
+                    data[i].children[x].active = '';
+                }
+                if (data[i].children[x].children){
+                  // data[i].children[x].show = false;
+                  for(var y=0;y<data[i].children[x].children.length;y++){
+                    if( url_query == data[i].children[x].children[y][filter_param] || url_query.indexOf(data[i].children[x].children[y][filter_param] ) != -1){
+                        data[i].children[x].children[y].active = 'active';
+                        data[i].children[x].show = true;
+                    }else{
+                        data[i].children[x].children[y].active = '';
+                    }   
+                  }
+                }
+              }
+            }  
         }
         return data;
     }
@@ -378,6 +399,21 @@
 
         query_api($scope.query);
       }     
+    }
+
+    $scope.test = function($event){
+      var element = $($event.target)
+      if(element.parents('a').next().hasClass('ng-hide')){
+        element.parents('a').next().removeClass('ng-hide');
+        element.parents('a').next().addClass('ng-show');
+        element.removeClass('glyphicon-plus');
+        element.addClass('glyphicon-minus');
+      } else {
+        element.parents('a').next().addClass('ng-hide');
+        element.parents('a').next().removeClass('ng-show');
+        element.removeClass('glyphicon-minus');
+        element.addClass('glyphicon-plus')
+      }
     }
 
     /*

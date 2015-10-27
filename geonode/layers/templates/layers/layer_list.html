@@ -10,11 +10,9 @@
 {% block body %}
 <section class="social">
   <div class="container forceCenter panel-header-custom">
-    <div class="page-header">
-      <a href="{% url "layer_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Layers" %}</a>
+      <a style="margin: 3px;" href="{% url "layer_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Layers" %}</a>
       <div class="each-page-title">{% trans "Layers" %} <span ng-bind="total_counts" class="badge"></span></div>
       {% include "search/_sort_filters.html" %}
-    </div>
   </div>
 </section> 
   {% with include_type_filter='true' %}

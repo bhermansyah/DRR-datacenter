@@ -1,5 +1,5 @@
 import json
-import time
+import time, copy
 
 from django.conf.urls import url
 from django.contrib.auth import get_user_model
@@ -83,10 +83,30 @@ class CountJSONSerializer(Serializer):
         counts = self.get_resources_counts(options)
         for item in data['objects']:
             item['count'] = counts.get(item['id'], 0)
+        
         # Add in the current time.
         data['requested_time'] = time.time()
 
-        return json.dumps(data, cls=DjangoJSONEncoder, sort_keys=True)
+        cloned_data = copy.copy(data) 
+        cloned_data['objects'] = []
+
+        if options['count_type']=='regions':
+            lev3 = [z for z in data['objects'] if z['level'] == 3 and z['code']=='AFG']
+            for lev3item in lev3: 
+                lev3item['children']=[]   
+                lev4 = [x for x in data['objects'] if x['level'] == 4]
+                for lev4item in lev4:
+                    lev4item['children']=[]
+                    lev4item['show']=False
+                    lev5 = [y for y in data['objects'] if y['level'] == 5 and y['code'][:2]==lev4item['code'] and y['count']>0]
+                    for lev5item in lev5:
+                        lev4item['children'].append(lev5item)
+                    lev3item['children'].append(lev4item)    
+                cloned_data['objects'].append(lev3item)
+
+            return json.dumps(cloned_data, cls=DjangoJSONEncoder, sort_keys=True)
+        else:
+            return json.dumps(data, cls=DjangoJSONEncoder, sort_keys=True)
 
 
 class TypeFilteredResource(ModelResource):
@@ -169,7 +189,7 @@ class RegionResource(TypeFilteredResource):
         return super(RegionResource, self).serialize(request, data, format, options)
 
     class Meta:
-        queryset = Region.objects.all().order_by('code')
+        queryset = Region.objects.all().order_by('name')
         resource_name = 'regions'
         allowed_methods = ['get']
         filtering = {

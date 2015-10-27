@@ -4,19 +4,21 @@
 {% block body_class %}people people-list explore{% endblock %}
 
 {% block body %}
-<div class="page-header">
-  <h2>{% trans "Explore People" %}</h2>
-</div>
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <ul class="nav nav-pills filter" id="sort">
+<section class="social">
+  <div class="container forceCenter panel-header-custom">
+     <div class="each-page-title">{% trans "People" %} <span ng-bind="total_counts" class="badge"></span></div>
+     <ul class="nav breadcrumb_detail" id="sort">
       <li><a data-value="-date_joined" data-filter="order_by" class="selected" ng-click="single_choice_listener($event)">{% trans "Most recent" %}</a></li>
       <li><a data-value="date_joined" data-filter="order_by" ng-click="single_choice_listener($event)">{% trans "Less recent" %}</a></li>
       <li><a data-value="username" data-filter="order_by" ng-click="single_choice_listener($event)">{% trans "A - Z" %}</a></li>
       <li><a data-value="-username" data-filter="order_by" ng-click="single_choice_listener($event)">{% trans "Z - A" %}</a></li>
+      <li><a>&nbsp;</a></li>
+      <li><a>&nbsp;</a></li>
+      <li><a href='#'></a></li>
     </ul>
-  </div>
-</div>
+  </div>  
+</section> 
+
 <div class="row">
     <div class="col-md-12">
       <div class="row">
