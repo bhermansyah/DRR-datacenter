@@ -4,10 +4,17 @@
   <ul class="nav closed" id="categories">
     {% verbatim %}
       <li ng-repeat="category in categories" ng-if="category.count > 0">
-        <a data-value="{{ category.identifier }}" data-filter="category__identifier__in" 
-         ng-click="multiple_choice_listener($event)" class="{{category.active}}">{{ category.gn_description | limitTo: 25 }}{{ category.gn_description.length > 25 ? '...' : ''}}
+        <a style="font-weight:bolder" data-value="{{ category.identifier }}" data-filter="category__identifier__in" >{{ category.gn_description | limitTo: 25 }}{{ category.gn_description.length > 25 ? '...' : ''}}
           <span class="badge pull-right">{{ category.count }}</span>
         </a>
+        <ul class="nav open">
+          <li ng-repeat="item in category.children" ng-if="item.count > 0">
+            <a  style="padding-left:20px"  data-value="{{ item.identifier }}" data-filter="category__identifier__in" 
+             ng-click="multiple_choice_listener($event)" class="{{item.active}}">{{ item.gn_description | limitTo: 25 }}{{ item.gn_description.length > 25 ? '...' : ''}}
+              <span class="badge pull-right">{{ item.count }}</span>
+            </a>
+          </li>  
+        </ul>  
       </li>
     {% endverbatim %}
   </ul>
