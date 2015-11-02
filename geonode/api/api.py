@@ -130,6 +130,7 @@ class CountJSONSerializer(Serializer):
                 for filteredItem in filteredItems: 
                     group_state['children'].append(filteredItem)
                     group_state['count'] = group_state['count'] + filteredItem['count'] 
+                    group_state['show']=False
             cloned_data['objects'] = group              
             return json.dumps(cloned_data, cls=DjangoJSONEncoder, sort_keys=True)
         else:

@@ -27,11 +27,11 @@
               for(var x=0;x<data[i].children.length;x++){
                 if( url_query == data[i].children[x][filter_param] || url_query.indexOf(data[i].children[x][filter_param] ) != -1){
                     data[i].children[x].active = 'active';
+                    data[i].show = true
                 }else{
                     data[i].children[x].active = '';
                 }
                 if (data[i].children[x].children){
-                  // data[i].children[x].show = false;
                   for(var y=0;y<data[i].children[x].children.length;y++){
                     if( url_query == data[i].children[x].children[y][filter_param] || url_query.indexOf(data[i].children[x].children[y][filter_param] ) != -1){
                         data[i].children[x].children[y].active = 'active';
