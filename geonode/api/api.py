@@ -1,5 +1,6 @@
 import json
 import time, copy
+import operator
 
 from django.conf.urls import url
 from django.contrib.auth import get_user_model
@@ -124,13 +125,15 @@ class CountJSONSerializer(Serializer):
             group.append({'count': 0, 'gn_description_en': 'Meteorology', 'description': 'Meteorology', 'gn_description': 'Meteorology', 'is_choice': True, 'description_en': 'Meteorology', 'identifier': 'met', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Settlements', 'description': 'Settlements', 'gn_description': 'Settlements', 'is_choice': True, 'description_en': 'Settlements', 'identifier': 'ppl', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Security', 'description': 'Security', 'gn_description': 'Security', 'is_choice': True, 'description_en': 'Security', 'identifier': 'sec', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Socio Demographics', 'description': 'Socio Demographics', 'gn_description': 'Socio Demographics', 'is_choice': True, 'description_en': 'Socio Demographics', 'identifier': 'sos', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': 'Socio-demographics', 'description': 'Socio-demographics', 'gn_description': 'Socio-demographics', 'is_choice': True, 'description_en': 'Socio-demographics', 'identifier': 'sos', 'id': 0, u'resource_uri': '','children':[]})
             for group_state in group: 
                 filteredItems = [x for x in data['objects'] if x['identifier'].split('-', 1 )[0] == group_state['identifier']]
-                for filteredItem in filteredItems: 
+                
+                test = copy.copy(sorted(filteredItems, key=lambda filteredItem:filteredItem['gn_description'] ))
+                for filteredItem in test: 
                     group_state['children'].append(filteredItem)
                     group_state['count'] = group_state['count'] + filteredItem['count'] 
-                    group_state['show']=False
+                    group_state['show']=False 
             cloned_data['objects'] = group              
             return json.dumps(cloned_data, cls=DjangoJSONEncoder, sort_keys=True)
         else:
