@@ -282,7 +282,7 @@
   <script type="text/javascript">
     FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}';
     LATESTDOCS_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='lastestdocument' %}';
-    LATESTFLOOD_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents' %}?keywords__slug__in=hazard&limit=6&offset=0&order_by=-date';
+    LATESTFLOOD_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents' %}?category__identifier__in=fl-01&category__identifier__in=fl-02&limit=6&offset=0&order_by=-date';
     'use strict';
     (function(){  
       var module = angular.module('featured', []);

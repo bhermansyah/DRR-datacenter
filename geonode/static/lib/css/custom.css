@@ -82,12 +82,12 @@ body
   text-indent: 80px;
 }
 .navbar-brand-immap h1{
-  color: #222;
-  font: normal 500 22px/80px "LeagueGothicRegular";
-  letter-spacing: 1px;
+  color: #535353;
+  font: normal 500 22px/80px 'Gill Sans', 'Gill Sans MT';
+  letter-spacing: 0.5px;
   text-align: left;
-  text-shadow: 0px 1px 1px #4d4d4d;
-    margin-top: 20px;
+  /*text-shadow: 0px 1px 1px #4d4d4d;*/
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 

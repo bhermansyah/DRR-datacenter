@@ -37,7 +37,7 @@
     
     {% if resource.date %}
     <dt>{% trans resource.date_type|title %} {% trans "Date" %}</dt>
-    <dd>{{ resource.date }}</dd>
+    <dd>{{ resource.date | date:'d M Y'}}</dd>
     {% endif %}
 
     {% if resource.display_type %}
