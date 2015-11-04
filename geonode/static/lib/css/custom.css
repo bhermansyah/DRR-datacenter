@@ -1309,7 +1309,7 @@ body.groups li#nav_groups>a::after {
 }
 
 .items-list .abstract {
-  min-height: 40px;
+  min-height: 0px;
 }
 
 ul.stats {

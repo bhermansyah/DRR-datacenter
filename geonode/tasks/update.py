@@ -1,7 +1,10 @@
 from celery.task import task
 from geonode.geoserver.helpers import gs_slurp
 from geonode.documents.models import Document
+from django.core.files import File
 
+import os
+from django.conf import settings
 
 @task(name='geonode.tasks.update.geoserver_update_layers', queue='update')
 def geoserver_update_layers(*args, **kwargs):
@@ -23,6 +26,19 @@ def create_document_thumbnail(object_id):
     except Document.DoesNotExist:
         return
 
-    image = document._render_thumbnail()
+    image = document._render_thumbnail('thumb')
+    
     filename = 'doc-%s-thumb.png' % document.id
     document.save_thumbnail(filename, image)
+
+    thumb_folder = 'thumbs'
+    preview = document._render_thumbnail('preview')
+    filenamePreview = 'doc-%s-preview.png' % document.id
+    upload_path = os.path.join(settings.MEDIA_ROOT, thumb_folder)
+    if not os.path.exists(upload_path):
+        os.makedirs(upload_path)
+
+    with open(os.path.join(upload_path, filenamePreview), 'w') as f:
+        thumbnail = File(f)
+        thumbnail.write(preview)
+

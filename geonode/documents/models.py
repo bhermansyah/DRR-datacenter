@@ -68,7 +68,7 @@ class Document(ResourceBase):
         else:
             return '%s (%s)' % (self.title, self.id)
 
-    def _render_thumbnail(self):
+    def _render_thumbnail(self, type_in):
         from cStringIO import StringIO
 
         #size = 200, 150
@@ -96,7 +96,9 @@ class Document(ResourceBase):
                 u'Generating a thumbnail for document: {0}'.format(
                     self.title))
             with image.Image(filename=self.doc_file.path) as img:
-                img.sample(*size)
+                # img.sample(*size)
+                if type_in == 'thumb':
+                    img.transform(resize='x300')
                 return img.make_blob('png')
         elif self.extension and self.extension.lower() in IMGTYPES and self.doc_file:
 

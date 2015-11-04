@@ -88,13 +88,14 @@ def document_detail(request, docid):
 
         metadata = document.link_set.metadata().filter(
             name__in=settings.DOWNLOAD_FORMATS_METADATA)
-
+        preview_url = document.thumbnail_url.replace("-thumb", "-preview")
         context_dict = {
             'permissions_json': _perms_info_json(document),
             'resource': document,
             'metadata': metadata,
             'imgtypes': IMGTYPES,
-            'related': related}
+            'related': related,
+            'preview_url':preview_url}
 
         if settings.SOCIAL_ORIGINS:
             context_dict["social_links"] = build_social_links(request, document)
