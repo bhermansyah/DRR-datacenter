@@ -28,12 +28,12 @@ def create_document_thumbnail(object_id):
 
     image = document._render_thumbnail('thumb')
     
-    filename = 'doc-%s-thumb.png' % document.id
+    filename = 'doc-%s-thumb.jpg' % document.id
     document.save_thumbnail(filename, image)
 
     thumb_folder = 'thumbs'
     preview = document._render_thumbnail('preview')
-    filenamePreview = 'doc-%s-preview.png' % document.id
+    filenamePreview = 'doc-%s-preview.jpg' % document.id
     upload_path = os.path.join(settings.MEDIA_ROOT, thumb_folder)
     if not os.path.exists(upload_path):
         os.makedirs(upload_path)

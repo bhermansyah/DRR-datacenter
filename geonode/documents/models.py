@@ -95,11 +95,14 @@ class Document(ResourceBase):
             logger.debug(
                 u'Generating a thumbnail for document: {0}'.format(
                     self.title))
-            with image.Image(filename=self.doc_file.path) as img:
+            with image.Image(filename=self.doc_file.path, resolution=150) as img:
                 # img.sample(*size)
+                img.compression_quality = 25
+                img.alpha_channel=False
+                img.type = 'truecolor'
                 if type_in == 'thumb':
                     img.transform(resize='x300')
-                return img.make_blob('png')
+                return img.make_blob('jpg')
         elif self.extension and self.extension.lower() in IMGTYPES and self.doc_file:
 
             img = Image.open(self.doc_file.path)
@@ -114,7 +117,7 @@ class Document(ResourceBase):
             img = Image.open(filename)
 
         imgfile = StringIO()
-        img.save(imgfile, format='PNG')
+        img.save(imgfile, format='JPG')
         return imgfile.getvalue()
 
     @property
