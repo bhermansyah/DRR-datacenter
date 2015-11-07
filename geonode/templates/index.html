@@ -162,7 +162,7 @@
         <div class="panel-heading">
           {% verbatim %}
           <h3 class="panel-title">Latest Flood Maps</h3>
-          <h5 class="panel-subtitle">{% endverbatim %}<a href="{% url "document_browse" %}?keywords__slug__in=hazard&order_by=-date">{% verbatim %}See all, total {{ latestflood.meta.total_count }} maps</a><h5>
+          <h5 class="panel-subtitle">{% endverbatim %}<a href="{% url "document_browse" %}?category__identifier__in=fl-01&category__identifier__in=fl-02&order_by=-date">{% verbatim %}See all, total {{ latestflood.meta.total_count }} maps</a><h5>
         </div>
         <div class="panel-body">
           <section class="featured-maps">
