@@ -296,10 +296,10 @@ INSTALLED_APPS = (
     'guardian',
 
     'dataqs',
-    # 'dataqs.forecastio',
+    'dataqs.forecastio',
     'dataqs.gfms',
-    # 'dataqs.airnow',
-    # 'dataqs.wqp',
+    'dataqs.airnow',
+    'dataqs.wqp',
 
 ) + GEONODE_APPS
 
