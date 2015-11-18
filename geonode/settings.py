@@ -295,6 +295,12 @@ INSTALLED_APPS = (
     'polymorphic',
     'guardian',
 
+    'dataqs',
+    'dataqs.forecastio',
+    'dataqs.gfms',
+    'dataqs.airnow',
+    'dataqs.wqp',
+
 ) + GEONODE_APPS
 
 LOGGING = {
@@ -497,7 +503,7 @@ OGC_SERVER = {
         'GEOGIG_ENABLED': True,
         'WMST_ENABLED': False,
         'BACKEND_WRITE_ENABLED': True,
-        'WPS_ENABLED': False,
+        'WPS_ENABLED': True,
         'LOG_FILE': '%s/geoserver/data/logs/geoserver.log' % os.path.abspath(os.path.join(PROJECT_ROOT, os.pardir)),
         # Set to name of database in DATABASES dictionary to enable
         'DATASTORE': '',  # 'datastore',
@@ -621,12 +627,12 @@ MAP_BASELAYERS = [{
     "name": "naip",
     "group": "background",
     "visibility": False
-}, {
-    "source": {"ptype": "gxp_bingsource"},
-    "name": "AerialWithLabels",
-    "fixed": True,
-    "visibility": False,
-    "group": "background"
+# }, {
+#     "source": {"ptype": "gxp_bingsource"},
+#     "name": "AerialWithLabels",
+#     "fixed": True,
+#     "visibility": False,
+#     "group": "background"
 }, {
     "source": {"ptype": "gxp_mapboxsource"},
 }]
@@ -872,3 +878,18 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
+
+from celery.schedules import crontab
+CELERYBEAT_SCHEDULE = {
+    'gfms': {
+        'task': 'dataqs.gfms.tasks.gfms_task',
+        'schedule': crontab(minute='3'),
+        'args': ()
+    },
+    'forecast_io': {
+        'task': 'dataqs.forecastio.tasks.forecast_io_task',
+        'schedule': crontab(minute='1'),
+        'args': ()
+    },
+}
+    
