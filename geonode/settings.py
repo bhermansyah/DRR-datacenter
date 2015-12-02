@@ -683,11 +683,11 @@ SRID = {
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # Require users to authenticate before using Geonode
-LOCKDOWN_GEONODE = False
+LOCKDOWN_GEONODE = True
 
 # Add additional paths (as regular expressions) that don't require
 # authentication.
-AUTH_EXEMPT_URLS = ()
+AUTH_EXEMPT_URLS = (r'^/?$','/api')
 
 if LOCKDOWN_GEONODE:
     MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \
