@@ -301,6 +301,9 @@ INSTALLED_APPS = (
     'dataqs.airnow',
     'dataqs.wqp',
 
+    #custom app
+    'geodb',
+
 ) + GEONODE_APPS
 
 LOGGING = {
@@ -509,7 +512,7 @@ OGC_SERVER = {
         'DATASTORE': '',  # 'datastore',
         'TIMEOUT': 10  # number of seconds to allow for HTTP requests
     }
-}
+}   
 
 # Uploader Settings
 UPLOADER = {
@@ -893,3 +896,5 @@ CELERYBEAT_SCHEDULE = {
     },
 }
     
+POSTGIS_VERSION = (2, 1, 2)
+DATABASE_ROUTERS = ['geodb.router.geodbRouter']

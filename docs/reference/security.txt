@@ -228,3 +228,7 @@ eventually possible to publish again the resource by a staff member, or from
 the layer details page, accessible by any user with the publish_resourcebase 
 permission on that layer.
 
+from django.db.models import Sum 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop    
+AfgFldzonea100KRiskLandcoverPop.objects.all().aggregate(Sum('fldarea_population'))
+
