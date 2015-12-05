@@ -172,8 +172,9 @@ def exportdata(request):
     	row.append(lancoverareabase.get('Rangeland', 0))
     	row.append(lancoverareabase.get('Vineyards', 0)+lancoverareabase.get('Rainfed agricultural land', 0)+lancoverareabase.get('Irrigated agricultural land', 0)+lancoverareabase.get('Fruit trees', 0))
 
-    	countsBase = qryTargetBase.aggregate(numbersettlements=Count('vuid', distinct=True), countbase=Sum('area_population'),areabase=Sum('area_sqm'))
+    	countsBase = qryTargetBase.aggregate(numbersettlements=Count('vuid', distinct=True))
     	row.append(countsBase['numbersettlements'])
+    	countsBase = qryTargetBase.aggregate(countbase=Sum('area_population'),areabase=Sum('area_sqm'))
     	row.append(countsBase['countbase'])
     	row.append(countsBase['areabase'])
 
