@@ -3,15 +3,19 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv
 from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2 
+
 from django.db.models import Count, Sum, F
 
 # Create your views here.
 def exportdata(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="exportdata.csv"'
-    resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  # ingat nanti ganti
+    resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')#.filter(dist_code='1524').order_by('dist_code')  # ingat nanti ganti
+    print 'AfgAdmbndaAdm2 Loaded !'
     targetRisk = AfgFldzonea100KRiskLandcoverPop.objects.all()
+    print 'AfgFldzonea100KRiskLandcoverPop Loaded !'
     targetBase = AfgLndcrva.objects.all()
+    print 'AfgLndcrva Loaded !'
     writer = csv.writer(response)
     writer.writerow([
     	'aoi_id', 
@@ -85,6 +89,7 @@ def exportdata(request):
     ])
 
     for aoi in resources:
+        print aoi.dist_code + ' : '+aoi.dist_na_en
     	## for the flood risk matrix
     	filteredLandCoverRisk = targetRisk.filter(wkb_geometry__intersects=aoi.wkb_geometry)
     	filteredTargetRisk = filteredLandCoverRisk.exclude(agg_simplified_description='Water body and marshland')
@@ -92,7 +97,7 @@ def exportdata(request):
     	# counts = list(filteredTargetRisk.values('deeperthan').annotate(count=Sum('fldarea_population'),areaatrisk=Sum('fldarea_sqm')))
     	counts = list(filteredTargetRisk.values('deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
-                'count':'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_population)',
+                'count':'SUM(st_area(st_intersection(wkb_geometry,ST_MakeValid(ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)))) / st_area(wkb_geometry)*fldarea_population)',
                 'areaatrisk': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_sqm)'
             }).values('deeperthan','count','areaatrisk'))
 
@@ -103,7 +108,7 @@ def exportdata(request):
     	# counts = list(filteredLandCoverRisk.values('agg_simplified_description').annotate(count=Sum('fldarea_population'),areaatrisk=Sum('fldarea_sqm')))
     	counts = list(filteredLandCoverRisk.values('agg_simplified_description').annotate(counter=Count('ogc_fid')).extra(
             select={
-                'count':'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_population)',
+                'count':'SUM(st_area(st_intersection(wkb_geometry,ST_MakeValid(ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)))) / st_area(wkb_geometry)*fldarea_population)',
                 'areaatrisk': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_sqm)'
             }).values('agg_simplified_description','count','areaatrisk'))
 
@@ -115,7 +120,7 @@ def exportdata(request):
     	# counts = list(qryTargetBase.values('agg_simplified_description').annotate(count=Sum('area_population'),areaatrisk=Sum('area_sqm')))
     	counts = list(qryTargetBase.values('agg_simplified_description').annotate(counter=Count('ogc_fid')).extra(
             select={
-                'count':'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*area_population)',
+                'count':'SUM(st_area(st_intersection(wkb_geometry,ST_MakeValid(ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)))) / st_area(wkb_geometry)*area_population)',
                 'areaatrisk': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*area_sqm)'
             }).values('agg_simplified_description','count','areaatrisk'))
 
@@ -199,12 +204,12 @@ def exportdata(request):
         countsBase = qryTargetBase.extra(
             select={
                 'numbersettlements': 'count(distinct vuid)'}, 
-            where = {'st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*area_sqm > 1'}).values('numbersettlements')
+            where = {'st_area(st_intersection(wkb_geometry,ST_MakeValid(ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)))) / st_area(wkb_geometry)*area_sqm > 1'}).values('numbersettlements')
     	row.append(countsBase[0]['numbersettlements'])
 
-        countsBase = qryTargetBase.extra(select={'countbase': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*area_population)'}).values('countbase')
+        countsBase = qryTargetBase.extra(select={'countbase': 'SUM(st_area(st_intersection(wkb_geometry,ST_MakeValid(ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)))) / st_area(wkb_geometry)*area_population)'}).values('countbase')
         row.append(countsBase[0]['countbase'])
-        countsBase = qryTargetBase.extra(select={'areabase': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*area_sqm)'}).values('areabase')
+        countsBase = qryTargetBase.extra(select={'areabase': 'SUM(st_area(st_intersection(wkb_geometry,ST_MakeValid(ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)))) / st_area(wkb_geometry)*area_sqm)'}).values('areabase')
     	row.append(countsBase[0]['areabase'])
 
     	writer.writerow(row)
