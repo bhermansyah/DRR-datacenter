@@ -89,7 +89,7 @@ def exportdata(request):
     ])
 
     for aoi in resources:
-        print aoi.dist_code + ' : '+aoi.dist_na_en
+        print aoi.dist_code
     	## for the flood risk matrix
     	filteredLandCoverRisk = targetRisk.filter(wkb_geometry__intersects=aoi.wkb_geometry)
     	filteredTargetRisk = filteredLandCoverRisk.exclude(agg_simplified_description='Water body and marshland')
