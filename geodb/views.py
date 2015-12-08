@@ -5,18 +5,42 @@ import csv
 from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2 
 
 from django.db.models import Count, Sum, F
+import time, sys
 
 # Create your views here.
-def exportdata(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="exportdata.csv"'
-    resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code') #.filter(dist_code='408').order_by('dist_code')  # ingat nanti ganti
-    print 'AfgAdmbndaAdm2 Loaded !'
+def update_progress(progress):
+    barLength = 25 # Modify this to change the length of the progress bar
+    status = ""
+    if isinstance(progress, int):
+        progress = float(progress)
+    if not isinstance(progress, float):
+        progress = 0
+        status = "error: progress var must be float\r\n"
+    if progress < 0:
+        progress = 0
+        status = "Halt...\r\n"
+    if progress >= 1:
+        progress = 1
+        status = "Done...\r\n"
+    block = int(round(barLength*progress))
+    text = "\rPercent: [{0}] {1}% {2}".format( "#"*block + "-"*(barLength-block), progress*100, status)
+    sys.stdout.write(text)
+    sys.stdout.flush()
+
+def exportdata():
+    # response = HttpResponse(content_type='text/csv')
+    # response['Content-Disposition'] = 'attachment; filename="exportdata.csv"'
+    # outfile_path = '/Users/budi/Documents/iMMAP/out.csv' # for local
+    outfile_path = '/home/ubuntu/DRR-datacenter/geonode/static_root/intersection_stats.csv' # for server
+    csvFile = open(outfile_path, 'w')
+    # resources = AfgAdmbndaAdm2.objects.all().filter(dist_code='408').order_by('dist_code')  # ingat nanti ganti
+    resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  # ingat nanti ganti
+    # print 'AfgAdmbndaAdm2 Loaded !'
     targetRisk = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    print 'AfgFldzonea100KRiskLandcoverPop Loaded !'
+    # print 'AfgFldzonea100KRiskLandcoverPop Loaded !'
     targetBase = AfgLndcrva.objects.all()
-    print 'AfgLndcrva Loaded !'
-    writer = csv.writer(response)
+    # print 'AfgLndcrva Loaded !'
+    writer = csv.writer(csvFile)
     writer.writerow([
     	'aoi_id', 
     	'name_en', 
@@ -87,13 +111,15 @@ def exportdata(request):
     	'tot_pop',
     	'tot_area'
     ])
-
+    ppp = resources.count()
+    xxx = 0
+    update_progress(xxx/ppp)
     for aoi in resources:
-        print aoi.dist_code
+        # print aoi.dist_code
     	## for the flood risk matrix
     	filteredLandCoverRisk = targetRisk.filter(wkb_geometry__intersects=aoi.wkb_geometry)
     	filteredTargetRisk = filteredLandCoverRisk.exclude(agg_simplified_description='Water body and marshland')
-        print 'lewat'
+        # print 'lewat'
         # filteredTargetRisk.query.group_by.append(("deeperthan"))
     	# counts = list(filteredTargetRisk.values('deeperthan').annotate(count=Sum('fldarea_population'),areaatrisk=Sum('fldarea_sqm')))
     	counts = list(filteredTargetRisk.values('deeperthan').annotate(counter=Count('ogc_fid')).extra(
@@ -101,7 +127,7 @@ def exportdata(request):
                 'count':'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_population)',
                 'areaatrisk': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_sqm)'
             }).values('deeperthan','count','areaatrisk'))
-        print 'lewat2'
+        # print 'lewat2'
         popatrisk = dict([(c['deeperthan'], c['count']) for c in counts])
     	areaatrisk = dict([(c['deeperthan'], c['areaatrisk']) for c in counts])
 
@@ -115,16 +141,16 @@ def exportdata(request):
 
         landcoverpopatrisk = dict([(c['agg_simplified_description'], c['count']) for c in counts])
     	landcoverareaatrisk = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
-        print 'lewat100 '
+        # print 'lewat100 '
     	qryTargetBase = targetBase.filter(wkb_geometry__intersects=aoi.wkb_geometry)
-        print 'lewat200'
+        # print 'lewat200'
     	# counts = list(qryTargetBase.values('agg_simplified_description').annotate(count=Sum('area_population'),areaatrisk=Sum('area_sqm')))
     	counts = list(qryTargetBase.values('agg_simplified_description').annotate(counter=Count('ogc_fid')).extra(
             select={
                 'count':'SUM(st_area(st_intersection(ST_MakeValid(wkb_geometry),ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*area_population)',
                 'areaatrisk': 'SUM(st_area(st_intersection(ST_MakeValid(wkb_geometry), ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*area_sqm)'
             }).values('agg_simplified_description','count','areaatrisk'))
-        print 'lewat3'
+        # print 'lewat3'
         lancoverpopbase = dict([(c['agg_simplified_description'], c['count']) for c in counts])
     	lancoverareabase = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
 
@@ -174,7 +200,7 @@ def exportdata(request):
             where = {'st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_sqm > 1'}).values('numbersettlementsatrisk')
 
     	row.append(countsBase[0]['numbersettlementsatrisk'])
-        print 'lewat4'
+        # print 'lewat4'
     	## total
     	row.append(lancoverpopbase.get('Barren land', 0))
     	row.append(lancoverpopbase.get('Built-up', 0))
@@ -214,4 +240,6 @@ def exportdata(request):
     	row.append(countsBase[0]['areabase'])
 
     	writer.writerow(row)
-    return response
+        xxx=xxx+1
+        update_progress(xxx/ppp)
+    return
