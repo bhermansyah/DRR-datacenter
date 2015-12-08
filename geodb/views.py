@@ -9,7 +9,7 @@ import time, sys
 
 # Create your views here.
 def update_progress(progress):
-    barLength = 25 # Modify this to change the length of the progress bar
+    barLength = 100 # Modify this to change the length of the progress bar
     status = ""
     if isinstance(progress, int):
         progress = float(progress)
