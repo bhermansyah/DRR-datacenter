@@ -30,9 +30,9 @@ def update_progress(progress, msg, proctime):
 
 def exportdata():
     # response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="exportdata_test.csv"'
+    # response['Content-Disposition'] = 'attachment; filename="exportdata_test.csv"'
     # outfile_path = '/Users/budi/Documents/iMMAP/out.csv' # for local
-    # outfile_path = '/home/ubuntu/DRR-datacenter/geonode/static_root/intersection_stats.csv' # for server
+    outfile_path = '/home/ubuntu/DRR-datacenter/geonode/static_root/intersection_stats_1.csv' # for server
     csvFile = open(outfile_path, 'w')
     # resources = AfgAdmbndaAdm2.objects.all().filter(dist_code__in=['1201','1203','1205']).order_by('dist_code')  # ingat nanti ganti
     resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  # ingat nanti ganti
