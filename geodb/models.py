@@ -291,7 +291,7 @@ class AfgLndcrva(models.Model):
     lccsperc = models.CharField(max_length=255, blank=True)
     aggcode = models.CharField(max_length=255, blank=True)
     aggcode_simplified = models.CharField(max_length=255, blank=True)
-    agg_simplified_description = models.CharField(max_length=255, blank=True)
+    agg_simplified_description = models.CharField(max_length=255, blank=True, db_index=True)
     vuid = models.CharField(max_length=255, blank=True)
     vuid_population_landscan = models.IntegerField(blank=True, null=True)
     vuid_area_sqm = models.FloatField(blank=True, null=True)
