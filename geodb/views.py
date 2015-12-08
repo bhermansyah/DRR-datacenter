@@ -8,7 +8,7 @@ from django.db.models import Count, Sum, F
 import time, sys
 
 # Create your views here.
-def update_progress(progress):
+def update_progress(progress, msg):
     barLength = 100 # Modify this to change the length of the progress bar
     status = ""
     if isinstance(progress, int):
@@ -23,7 +23,7 @@ def update_progress(progress):
         progress = 1
         status = "Done...\r\n"
     block = int(round(barLength*progress))
-    text = "\rPercent: [{0}] {1}% {2}".format( "#"*block + "-"*(barLength-block), progress*100, status)
+    text = "\rPercent: [{0}] {1}% {2} {3}".format( "#"*block + "-"*(barLength-block), progress*100, status, msg)
     sys.stdout.write(text)
     sys.stdout.flush()
 
@@ -113,7 +113,7 @@ def exportdata():
     ])
     ppp = resources.count()
     xxx = 0
-    update_progress(xxx/ppp)
+    update_progress(xxx/ppp, 'start')
     for aoi in resources:
         # print aoi.dist_code
     	## for the flood risk matrix
@@ -241,5 +241,5 @@ def exportdata():
 
     	writer.writerow(row)
         xxx=xxx+1
-        update_progress(xxx/ppp)
+        update_progress(xxx/ppp, aoi.dist_code)
     return
