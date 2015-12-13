@@ -35000,7 +35000,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                         var params = Ext.urlDecode(split[1]);
                         console.log(params)
                         params['SCALE'] = scale;
-                        params['legend_options'] = 'fontSize:8'
+                        params['legend_options'] = 'fontAntiAliasing:true;fontSize:9;fontName:Dialog.plain';
+                        params['width'] = 15;
+                        params['height'] = 15;
                         url = split[0] + "?" + Ext.urlEncode(params);
                     }
                     icons.push(this.getAbsoluteUrl(url));
