@@ -34987,7 +34987,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         },
         "legends": {
             "gx_wmslegend": function(legend, scale) {
-                console.log(legend.layerRecord.data.title);
+                console.log(legend.layerRecord.data);
                 var enc = this.encoders.legends.base.call(this, legend);
                 var icons = [];
                 for(var i=1, len=legend.items.getCount(); i<len; ++i) {
@@ -34999,6 +34999,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                         var split = url.split("?");
                         var params = Ext.urlDecode(split[1]);
                         params['SCALE'] = scale;
+                        params['legend_options'] = 'fontAntiAliasing:true'
                         url = split[0] + "?" + Ext.urlEncode(params);
                     }
                     icons.push(this.getAbsoluteUrl(url));
