@@ -34596,24 +34596,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             }, page.customParams));
         }, this);
         jsonData.pages = encodedPages;
-
-        var encodedOverviewLayers = [];
-        Ext.each(layers, function(layer) {
-            var enc = this.encodeLayer(layer);
-            console.log(enc);
-            enc && encodedOverviewLayers.push(enc);
-        }, this);
-        jsonData.overviewLayers = encodedOverviewLayers;
         
-        
-        // if (options.overview) {
-        //     var encodedOverviewLayers = [];
-        //     Ext.each(options.overview.layers, function(layer) {
-        //         var enc = this.encodeLayer(layer);
-        //         enc && encodedOverviewLayers.push(enc);
-        //     }, this);
-        //     jsonData.overviewLayers = encodedOverviewLayers;
-        // }
+        if (options.overview) {
+            var encodedOverviewLayers = [];
+            Ext.each(options.overview.layers, function(layer) {
+                var enc = this.encodeLayer(layer);
+                enc && encodedOverviewLayers.push(enc);
+            }, this);
+            jsonData.overviewLayers = encodedOverviewLayers;
+        }
         
         if(options.legend && !(this.fireEvent("beforeencodelegend", this, jsonData, options.legend) === false)) {
             var legend = options.legend;
