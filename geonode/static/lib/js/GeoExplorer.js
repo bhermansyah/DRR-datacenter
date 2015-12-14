@@ -34596,15 +34596,24 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             }, page.customParams));
         }, this);
         jsonData.pages = encodedPages;
+
+        var encodedOverviewLayers = [];
+        Ext.each(layers, function(layer) {
+            var enc = this.encodeLayer(layer);
+            console.log(enc);
+            enc && encodedOverviewLayers.push(enc);
+        }, this);
+        jsonData.overviewLayers = encodedOverviewLayers;
         
-        if (options.overview) {
-            var encodedOverviewLayers = [];
-            Ext.each(options.overview.layers, function(layer) {
-                var enc = this.encodeLayer(layer);
-                enc && encodedOverviewLayers.push(enc);
-            }, this);
-            jsonData.overviewLayers = encodedOverviewLayers;
-        }
+        
+        // if (options.overview) {
+        //     var encodedOverviewLayers = [];
+        //     Ext.each(options.overview.layers, function(layer) {
+        //         var enc = this.encodeLayer(layer);
+        //         enc && encodedOverviewLayers.push(enc);
+        //     }, this);
+        //     jsonData.overviewLayers = encodedOverviewLayers;
+        // }
         
         if(options.legend && !(this.fireEvent("beforeencodelegend", this, jsonData, options.legend) === false)) {
             var legend = options.legend;
@@ -34987,7 +34996,6 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         },
         "legends": {
             "gx_wmslegend": function(legend, scale) {
-                console.log(legend.layerRecord.data);
                 var enc = this.encoders.legends.base.call(this, legend);
                 var icons = [];
                 for(var i=1, len=legend.items.getCount(); i<len; ++i) {
