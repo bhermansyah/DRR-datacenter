@@ -34631,6 +34631,16 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             jsonData.legends = encodedLegends;
         }
 
+        // test boedy1996@gmail.com
+        var xxx = map.getExtent().transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326")).toGeometry();
+        // console.log(map.getExtent().transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326")).toGeometry().toString());
+        var attributes={'type':'extent'};
+        var xx1 = new OpenLayers.Feature.Vector(xxx, attributes);
+        console.log(xx1);
+        gml = new OpenLayers.Format.GML();
+        // gml.write(xx1);
+        console.log(gml.write(xx1));
+
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));

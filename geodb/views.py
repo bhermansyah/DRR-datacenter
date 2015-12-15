@@ -2,10 +2,36 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2 
-
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas 
+import requests
+from django.core.files.base import ContentFile
+import urllib2
+from PIL import Image
+from StringIO import StringIO
 from django.db.models import Count, Sum, F
 import time, sys
+
+def getOverviewMaps(request):
+    response = HttpResponse(mimetype="image/png") 
+    url = 'http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=geonode%3Aafg_admbnda_adm2%2Cgeonode%3Aafg_admbnda_adm1&STYLES=overview_adm2,overview_adm1&SRS=EPSG%3A4326&WIDTH=768&HEIGHT=485&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375'
+    url2='http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&SRS=EPSG%3A4326&WIDTH=768&HEIGHT=485&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375&SLD=http://asdc.immap.org/geoserver/styles/overview_box.sld'
+    # r = requests.get(url)
+    # r2 = requests.get(url2)
+    # background = Image.open(url)
+    # new_img = Image.blend(r, r2, 0.5)
+    input_file = StringIO(urllib2.urlopen(url).read())
+    background = Image.open(input_file)
+    if background.mode != "RGB":
+            background = background.convert("RGB")
+    input_file = StringIO(urllib2.urlopen(url2).read())
+    overlay = Image.open(input_file)
+    if overlay.mode != "RGB":
+            overlay = overlay.convert("RGB")
+    new_img = Image.blend(background, overlay, 0.5)  #background.paste(overlay, overlay.size, overlay)
+    
+    new_img.save(response, 'PNG', quality=300)
+    
+    return response
 
 # Create your views here.
 def update_progress(progress, msg, proctime):
@@ -31,11 +57,11 @@ def update_progress(progress, msg, proctime):
 def exportdata():
     # response = HttpResponse(content_type='text/csv')
     # response['Content-Disposition'] = 'attachment; filename="exportdata_test.csv"'
-    # outfile_path = '/Users/budi/Documents/iMMAP/out.csv' # for local
-    outfile_path = '/home/ubuntu/DRR-datacenter/geonode/static_root/intersection_stats_1.csv' # for server
+    outfile_path = '/Users/budi/Documents/iMMAP/out.csv' # for local
+    # outfile_path = '/home/ubuntu/DRR-datacenter/geonode/static_root/intersection_stats_1.csv' # for server
     csvFile = open(outfile_path, 'w')
-    # resources = AfgAdmbndaAdm2.objects.all().filter(dist_code__in=['1201','1203','1205']).order_by('dist_code')  # ingat nanti ganti
-    resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  # ingat nanti ganti
+    resources = AfgAdmbndaAdm2.objects.all().filter(dist_code__in=['1201','1203','1205']).order_by('dist_code')  # ingat nanti ganti
+    # resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  # ingat nanti ganti
     # print 'AfgAdmbndaAdm2 Loaded !'
     targetRisk = AfgFldzonea100KRiskLandcoverPop.objects.all()
     # print 'AfgFldzonea100KRiskLandcoverPop Loaded !'

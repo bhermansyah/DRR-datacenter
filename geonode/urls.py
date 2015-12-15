@@ -99,7 +99,7 @@ urlpatterns = patterns('',
                        (r'^services/', include('geonode.services.urls')),
                        url(r'', include(api.urls)),
                        url(r'', include(geoapi.urls)),
-                       (r'^exportcutomdata/', include('geodb.custom_urls')),
+                       (r'^getOverviewMaps/', include('geodb.custom_urls')),
                        )
 
 if "geonode.contrib.dynamic" in settings.INSTALLED_APPS:
