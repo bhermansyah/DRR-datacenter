@@ -546,4 +546,33 @@ class LandcoverDescription(models.Model):
         managed = False
         db_table = 'landcover_description'        
 
-
+class AfgFldzonea100KRiskMitigatedAreas(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.MultiPolygonField(dim=3, blank=True, null=True)
+    aggcode = models.CharField(max_length=255, blank=True)
+    aggcode_simplified = models.CharField(max_length=255, blank=True)
+    agg_simplified_description = models.CharField(max_length=255, blank=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    vuid_population_landscan = models.IntegerField(blank=True, null=True)
+    vuid_area_sqm = models.FloatField(blank=True, null=True)
+    name_en = models.CharField(max_length=255, blank=True)
+    type_settlement = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    dist_na_en = models.CharField(max_length=255, blank=True)
+    prov_na_en = models.CharField(max_length=255, blank=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    dist_na_dar = models.CharField(max_length=255, blank=True)
+    prov_na_dar = models.CharField(max_length=255, blank=True)
+    reg_unama_na_en = models.CharField(max_length=255, blank=True)
+    dist_na_ps = models.CharField(max_length=255, blank=True)
+    reg_unama_na_dar = models.CharField(max_length=255, blank=True)
+    deeperthan = models.CharField(max_length=255, blank=True)
+    mitigated_fld_pop = models.FloatField(blank=True, null=True)
+    mitigated_fld_area_sqm = models.FloatField(blank=True, null=True)
+    basin_id = models.FloatField(blank=True, null=True)
+    shape_length = models.FloatField(blank=True, null=True)
+    shape_area = models.FloatField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = False
+        db_table = 'afg_fldzonea_100k_risk_mitigated_areas'
