@@ -35056,9 +35056,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                         var split = url.split("?");
                         var params = Ext.urlDecode(split[1]);
                         params['SCALE'] = scale;
-                        params['legend_options'] = 'fontSize:8;dpi:300';
-                        params['width'] = 12;
-                        params['height'] = 12;
+                        params['legend_options'] = 'fontSize:7;dpi:350';
+                        params['width'] = 15;
+                        params['height'] = 15;
                         url = split[0] + "?" + Ext.urlEncode(params);   
                     }
                     icons.push(this.getAbsoluteUrl(url));
