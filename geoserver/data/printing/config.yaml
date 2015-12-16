@@ -1,7 +1,7 @@
 #===========================================================================
 # allowed DPIs
 #===========================================================================
-dpis: [75, 150, 300]
+dpis: [90, 150, 300]
 
 #===========================================================================
 # the allowed scales
@@ -16,12 +16,26 @@ scales:
   - 2000000
   - 4000000
 
+
+headers: ['Cookie', 'Referer', 'Authorization']
 #===========================================================================
 # the list of allowed ips
 #===========================================================================
 hosts:
   - !localMatch
     dummy: true
+  - !dnsMatch
+    host: 52.24.183.157 
+    port: 80
+  - !dnsMatch
+    host: 52.24.183.157
+    port: 8080
+  - !dnsMatch
+    host: asdc.immap.org
+    port: 8080
+  - !dnsMatch
+    host: asdc.immap.org
+    port: 80
   - !dnsMatch
     host: otile1.mqcdn.com 
     port: 80
@@ -60,7 +74,7 @@ layouts:
           width: 440
           height: 483
   #===========================================================================
-  A4 portrait:
+  A3 portrait:
   #===========================================================================
     metaData:
       title: '${mapTitle}'
@@ -111,7 +125,7 @@ layouts:
 
     #-------------------------------------------------------------------------
     mainPage:
-      pageSize: A4
+      pageSize: A3
       rotation: true
 #      header:
 #        height: 50
@@ -122,18 +136,46 @@ layouts:
 #            align: right
 #            text: '${layout}'
       items:
-        - !text
-          text: '${mapTitle}'
-          fontSize: 30
-          spacingAfter: 30
-        - !map
-          spacingAfter: 30
-          width: 440
-          height: 483
+        - !columns
+          widths: [75,12,12]
+          width: 800
+          absoluteX: 20
+          absoluteY: 1175
+          items:
+            - !text
+              text: '${mapTitle}'
+              fontSize: 30
+            - !image
+              maxWidth: 0
+              maxHeight: 75
+              spacingAfter: 0
+              align: right
+              vertAlign: middle
+              url: http://asdc.immap.org/static/lib/img/usaid-logo.png  
+            - !image
+              maxWidth: 0
+              maxHeight: 75
+              spacingAfter: 0
+              align: right
+              vertAlign: middle
+              url: http://asdc.immap.org/static/lib/img/immap.jpg
+        - !columns          
+          absoluteX: 20
+          absoluteY: 1100
+          width: 802 
+          config:
+            borderWidth: 0.3
+            cells:
+              - padding: 2   
+          items:     
+            - !map
+              name: mainMap
+              width: 800
+              height: 750
         - !columns
           # columns can have an absolute position. In that case, they need the 3 following fields:
-          absoluteX: 410
-          absoluteY: 310
+          absoluteX: 710
+          absoluteY: 370
           width: 100
           items:
             - !scalebar
@@ -142,47 +184,76 @@ layouts:
               barBgColor: white
               fontSize: 8
               align: right
-        - !text
-          text: '${comment}'
-          spacingAfter: 30
-        - !attributes
-          source: data
-          spacingAfter: 30
-          columnDefs:
-            id:
-              columnWeight: 2
-              header: !text
-                text: ID
-                backgroundColor: #A0A0A0
-              cell: !text
-                text: '${id}'
-            name:
-              columnWeight: 5
-              header: !text
-                text: Name
-                backgroundColor: #A0A0A0
-              cell: !columns
-                config:
-                  cells:
-                    - backgroundColor: '${nameBackgroundColor}'
-                      borderWidth: 1
-                      borderColor: '${nameBorderColor}'
-                items:
-                  - !text
-                    text: '${name}'
-            icon:
-              columnWeight: 2
-              header: !text
-                text: Symbol
-                backgroundColor: #A0A0A0
-              cell: !image
-                align: center
-                maxWidth: 15
-                maxHeight: 15
-                url: 'http://www.mapfish.org/svn/mapfish/trunk/MapFish/client/mfbase/mapfish/img/${icon}.png'
-        - !text
-          font: Helvetica
-          fontSize: 9
-          align: right
-          text: '1:${scale} ${now MM.dd.yyyy}'
+        #- !text
+        #  text: '${comment}'
+        #  spacingAfter: 30
+        - !columns
+          absoluteX: 20
+          absoluteY: 340
+          width: 802
+          widths: [75,25]
+          items:
+             - !image
+               maxWidth: 192
+               maxHeight: 121
+               spacingAfter: 0
+               align: left
+               vertAlign: top
+               url: 'http://localhost:8000/getOverviewMaps/?send=${selectedBox}'
+             - !legends
+               backgroundColor: #FFFFFF
+               iconMaxWidth: 0
+               iconMaxHeight: 0
+               layerSpace: 5
+               # layerFont: Dialog.plain
+               # layerFontSize: 10
+               defaultScale:  0.25
+               classIndentation: 10
+               classFontSize: 8
+               classSpace: 3
+               maxWidth: 0
+               maxHeight: 310
+               inline: false
+               columnMargin: 1
+          #columnMaxWidth: 25
+        #- !attributes
+        #  source: data
+        #  spacingAfter: 30
+        #  columnDefs:
+        #    id:
+      #      columnWeight: 2
+      #        header: !text
+      #          text: ID
+      #          backgroundColor: #A0A0A0
+      #        cell: !text
+      #          text: '${id}'
+      #      name:
+      #        columnWeight: 5
+      #        header: !text
+      #          text: Name
+      #          backgroundColor: #A0A0A0
+      #        cell: !columns
+      #          config:
+      #            cells:
+      #              - backgroundColor: '${nameBackgroundColor}'
+      #                borderWidth: 1
+      #                borderColor: '${nameBorderColor}'
+      #          items:
+      #            - !text
+      #              text: '${name}'
+      #      icon:
+      #        columnWeight: 2
+      #        header: !text
+      #          text: Symbol
+      #          backgroundColor: #A0A0A0
+      #        cell: !image
+      #          align: center
+      #          maxWidth: 15
+      #          maxHeight: 15
+      #          url: 'http://www.mapfish.org/svn/mapfish/trunk/MapFish/client/mfbase/mapfish/img/${icon}.png'
+        #- !text
+        #  font: Helvetica
+        #  fontSize: 9
+        #  align: right
+        #  text: '1:${scale} ${now MM.dd.yyyy}'
       footer: *commonFooter

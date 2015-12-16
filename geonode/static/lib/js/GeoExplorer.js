@@ -34632,14 +34632,62 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         }
 
         // test boedy1996@gmail.com
-        var xxx = map.getExtent().transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326")).toGeometry();
-        // console.log(map.getExtent().transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326")).toGeometry().toString());
-        var attributes={'type':'extent'};
-        var xx1 = new OpenLayers.Feature.Vector(xxx, attributes);
-        console.log(xx1);
-        gml = new OpenLayers.Format.GML();
-        // gml.write(xx1);
-        console.log(gml.write(xx1));
+        console.log(pages[0].getPrintExtent(map));
+        var batas = pages[0].getPrintExtent(map)
+        batas = batas.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326")).toGeometry();
+        // console.log(this);
+        var stringHasil = batas.toString();
+        var hasil = stringHasil.substring(9,stringHasil.length-(2));
+        hasil = hasil.replace(new RegExp(' ', 'g'),'#');
+        hasil = hasil.replace(new RegExp(',', 'g'),'&');
+
+        hasil = hasil.replace(new RegExp('#', 'g'),',');
+        hasil = hasil.replace(new RegExp('&', 'g'),' ');
+        // template = '<sld:StyledLayerDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" version="1.0.0">';
+        // template +='<sld:UserLayer>';
+        // template +=     '<sld:Name>Inline</sld:Name>';
+        // template +=      '<sld:InlineFeature>';
+        // template +=         '<sld:FeatureCollection>';
+        // template +=             '<gml:featureMember>';
+        // template +=                 '<feature>';
+        // template +=                     '<polygonProperty>';
+        // template +=                         '<gml:Polygon  srsName="4326">';
+        // template +=                             '<gml:outerBoundaryIs>';
+        // template +=                                 '<gml:LinearRing>';
+        // template +=                                     '<gml:coordinates xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">'+hasil;
+        // template +=                                     '</gml:coordinates>';
+        // template +=                                 '</gml:LinearRing>';
+        // template +=                             '</gml:outerBoundaryIs>';
+        // template +=                         '</gml:Polygon>';
+        // template +=                      '</polygonProperty>';
+        // template +=                      '<title>Pacific NW</title>';
+        // template +=                 '</feature>';
+        // template +=             '</gml:featureMember>';
+        // template +=         '</sld:FeatureCollection>';
+        // template +=     '</sld:InlineFeature>';
+        // // template +=     '<sld:LayerFeatureConstraints>';
+        // // template +=         '<sld:FeatureTypeConstraint/>';
+        // // template +=     '</sld:LayerFeatureConstraints>';
+        // template +=     '<sld:UserStyle>';
+        // template +=         '<sld:FeatureTypeStyle>';
+        // template +=             '<sld:Rule>';
+        // template +=                 '<sld:PolygonSymbolizer>';
+        // template +=                     '<sld:Stroke>';
+        // template +=                         '<sld:CssParameter name="stroke">#FF0000</sld:CssParameter>';
+        // template +=                         '<sld:CssParameter name="stroke-width">3</sld:CssParameter>';
+        // template +=                     '</sld:Stroke>';
+        // template +=                 '</sld:PolygonSymbolizer>';
+        // template +=             '</sld:Rule>';
+        // template +=         '</sld:FeatureTypeStyle>';
+        // template +=     '</sld:UserStyle>';
+        // template += '</sld:UserLayer>';  
+        // template +='</sld:StyledLayerDescriptor>';
+        // console.log(template);
+        hasil =  encodeURI(hasil);
+        console.log(hasil);
+        // console.log(GeoExt.data.PrintPage.getPrintExtent());
+
+        jsonData.selectedBox = hasil
 
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
@@ -35124,6 +35172,7 @@ GeoExt.data.PrintPage = Ext.extend(Ext.util.Observable, {
     /** private: method[constructor]
      *  Private constructor override.
      */
+
     constructor: function(config) {
         this.initialConfig = config;
         Ext.apply(this, config);
