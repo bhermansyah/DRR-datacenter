@@ -7,139 +7,249 @@ from tastypie import fields
 from tastypie.constants import ALL
 from django.db.models import Count, Sum
 from django.core.serializers.json import DjangoJSONEncoder
+from tastypie.authorization import DjangoAuthorization
+
 
 FILTER_TYPES = {
     'flood': AfgFldzonea100KRiskLandcoverPop
 }
 
-class CountJSONSerializer(Serializer):
-    """Custom serializer to post process the api and add counts  """
+# class CountJSONSerializer(Serializer):
+#     """Custom serializer to post process the api and add counts  """
 
-    def get_resources_counts(self, options):
-        """Target table"""
-        result = []
-        resources = AfgFldzonea100KRiskLandcoverPop.objects.all()
-        
-        if options['district_filter']:
-            resources = resources.filter(dist_code__icontains=options['district_filter'])
+#     def get_resources_counts(self, options):
+#         """Target table"""
+#         result = []
+#         resources = AfgFldzonea100KRiskLandcoverPop.objects.all()
 
-        counts = list(resources.values(options['count_type']).annotate(count=Sum('fldarea_population'),areaatrisk=Sum('fldarea_sqm'),numbersettlementsatrisk=Count('vuid', distinct=True)))
+#         counts = list(resources.values(options['count_type']).annotate(count=Sum('fldarea_population'),areaatrisk=Sum('fldarea_sqm'),numbersettlementsatrisk=Count('vuid', distinct=True)))
                
-        result.append(dict([(c[options['count_type']], c['count']) for c in counts]))
-        result.append(dict([(c[options['count_type']], c['areaatrisk']) for c in counts]))
-        result.append(dict([(c[options['count_type']], c['numbersettlementsatrisk']) for c in counts]))
-        return result
+#         result.append(dict([(c[options['count_type']], c['count']) for c in counts]))
+#         result.append(dict([(c[options['count_type']], c['areaatrisk']) for c in counts]))
+#         result.append(dict([(c[options['count_type']], c['numbersettlementsatrisk']) for c in counts]))
+#         return result 
 
-    def get_resourcesbase_counts(self, options):
-        """base table"""
-        result = []
-        resourcesBase = AfgLndcrva.objects.all()
+#     def to_json(self, data, options=None):
+#         options = options or {}
+#         data = self.to_simple(data, options)
+
+#         counts = self.get_resources_counts(options)
+#         print data
+#         if 'objects' in data:
+#             for item in data['objects']:
+#                 print item
+#                 item['popatrisk'] = counts[0].get(item['code'], 0)
+#                 item['areaatrisk'] = counts[1].get(item['code'], 0)
+
+#                 item['numbersettlementsatrisk'] = counts[2].get(item['code'], 0)
+
+#         data['requested_time'] = time.time()    
         
-        if options['district_filter']:
-            resourcesBase = resourcesBase.filter(dist_code__icontains=options['district_filter'])
+#         return json.dumps(data, cls=DjangoJSONEncoder, sort_keys=True)    
 
-        # counts = list(resources.values(options['count_type']).annotate(count=Sum('fldarea_population'),areaatrisk=Sum('fldarea_sqm'),numbersettlementsatrisk=Count('vuid', distinct=True)))
-        countsBase = list(resourcesBase.values(options['count_type']).annotate(countbase=Sum('area_population'),areaatriskbase=Sum('area_sqm'),numbersettlements=Count('vuid', distinct=True)))
-        print countsBase
-        # print countsBase
-        # result.append(dict([(c[options['count_type']], c['count']) for c in counts]))
-        # result.append(dict([(c[options['count_type']], c['areaatrisk']) for c in counts]))
-        # if options['count_type']=='agg_simplified_description':
-        #     countsBase = resourcesBase.values(options['count_type']).annotate(countbase=Sum('area_population'),areaatriskbase=Sum('area_sqm'),numbersettlements=Count('vuid', distinct=True))
-        #     # print countsBase
-        #     result.append(countsBase)
-        # else:    
-        #     countsBase = resourcesBase.aggregate(countbase=Sum('area_population'),areaatriskbase=Sum('area_sqm'),numbersettlements=Count('vuid', distinct=True))
-        #     result.append(countsBase)
-        # result.append(dict([(c[options['count_type']], c['numbersettlementsatrisk']) for c in counts]))
-        return result    
+# class TypeFilteredResource(ModelResource):
 
-    def to_json(self, data, options=None):
-        options = options or {}
-        data = self.to_simple(data, options)
-        if options['resource_name'] == 'landcoverbase':
-            counts = self.get_resourcesbase_counts(options)
-        else:
-            counts = self.get_resources_counts(options)
-        
-        # data['numbersettlementsatrisktotal']=0
-        if 'objects' in data:
-            for item in data['objects']:
-                # print item
-                item['popatrisk'] = counts[0].get(item['code'], 0)
-                item['areaatrisk'] = counts[1].get(item['code'], 0)
-                # item['countpercent']=(counts[0].get(item['code'], 0)/counts[2]['countbase'])*100
-                # item['areaatriskpercent']=(counts[1].get(item['code'], 0)/counts[2]['areaatriskbase'])*100
-                item['numbersettlementsatrisk'] = counts[2].get(item['code'], 0)
-                # data['numbersettlementsatrisktotal'] = data['numbersettlementsatrisktotal'] + counts[3].get(item['code'], 0)
+#     count = fields.IntegerField()
+#     areaatrisk = fields.IntegerField()
 
-        # data['countbasese'] = counts[2]['countbase']
-        # data['areaatriskbase'] = counts[2]['areaatriskbase']
-        # data['numbersettlements'] = counts[2]['numbersettlements']
-        data['requested_time'] = time.time()    
-        
-        return json.dumps(data, cls=DjangoJSONEncoder, sort_keys=True)    
-
-class TypeFilteredResource(ModelResource):
-
-    count = fields.IntegerField()
-    areaatrisk = fields.IntegerField()
-
-    def build_filters(self, filters={}):
-        self.district_filter = None
-
-        orm_filters = super(TypeFilteredResource, self).build_filters(filters)   
+#     def build_filters(self, filters={}):
+#         # self.district_filter = None
+#         # print filters
+#         orm_filters = super(TypeFilteredResource, self).build_filters(filters)   
 
         
-        if 'dist_code__icontains' in filters:
-            self.district_filter = filters['dist_code__icontains']
+#         # if 'dist_code__icontains' in filters:
+#         #     self.district_filter = filters['dist_code__icontains']
 
 
-        return orm_filters
+#         return orm_filters
 
-    def serialize(self, request, data, format, options={}):
-        options['district_filter'] = self.district_filter
-        return super(TypeFilteredResource, self).serialize(request, data, format, options)
+#     def serialize(self, request, data, format, options={}):
+#         # print request
+#         # options['district_filter'] = self.district_filter
+#         return super(TypeFilteredResource, self).serialize(request, data, format, options)
 
 
-class FloodRiskStatisticResource(TypeFilteredResource):
+# class FloodRiskStatisticResource(TypeFilteredResource):
+#     """Flood api"""
+
+#     def serialize(self, request, data, format, options={}):
+#         options['count_type'] = 'deeperthan'
+#         options['resource_name'] = 'floodrisk'
+#         return super(FloodRiskStatisticResource, self).serialize(request, data, format, options)
+
+#     class Meta:
+#         queryset = FloodRiskExposure.objects.all()
+#         resource_name = 'floodrisk'
+#         allowed_methods = ['post']
+#         serializer = CountJSONSerializer()
+
+
+class FloodRiskStatisticResource(ModelResource):
     """Flood api"""
 
-    def serialize(self, request, data, format, options={}):
-        options['count_type'] = 'deeperthan'
-        options['resource_name'] = 'floodrisk'
-        return super(FloodRiskStatisticResource, self).serialize(request, data, format, options)
+    # def serialize(self, request, data, format, options={}):
+    #     options['count_type'] = 'deeperthan'
+    #     options['resource_name'] = 'floodrisk'
+    #     return super(FloodRiskStatisticResource, self).serialize(request, data, format, options)
 
     class Meta:
-        queryset = FloodRiskExposure.objects.all()
+        authorization = DjangoAuthorization()
+        # queryset = FloodRiskExposure.objects.all()
+
         resource_name = 'floodrisk'
-        allowed_methods = ['get']
-        serializer = CountJSONSerializer()
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        always_return_data = True
 
-class LandCoverFloodRiskStatisticResource(TypeFilteredResource):
-    """Flood api"""
+    def getRiskNumber(self, data, filterLock, fieldGroup, popField, areaField):
+        counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
+            select={
+                'count' : 'SUM(  \
+                        case \
+                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then '+popField+' \
+                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*'+popField+' end \
+                    )',
+                # 'areaatrisk': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_sqm)'
+                'areaatrisk' : 'SUM(  \
+                        case \
+                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then '+areaField+' \
+                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*'+areaField+' end \
+                    )'
+            },
+            where = {
+                'ST_Intersects(wkb_geometry, '+filterLock+')'
+            }).values(fieldGroup,'count','areaatrisk')) 
+        return counts       
 
-    def serialize(self, request, data, format, options={}):
-        options['count_type'] = 'agg_simplified_description'
-        options['resource_name'] = 'landcoveratrisk'
-        return super(LandCoverFloodRiskStatisticResource, self).serialize(request, data, format, options)
+    def getRisk(self, request):
+        response = {}
+        targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
+        targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
+        targetBase = AfgLndcrva.objects.all()
 
-    class Meta:
-        queryset = LandcoverDescription.objects.all()
-        resource_name = 'landcoveratrisk'
-        allowed_methods = ['get']
-        serializer = CountJSONSerializer()
+        boundaryFilter = json.loads(request.body)
+        temp1 = []
+        for i in boundaryFilter['spatialfilter']:
+            temp1.append('ST_GeomFromText(\''+i+'\',4326)')
 
-class LandCoverBaseStatisticResource(TypeFilteredResource):
-    """Flood api"""
+        temp2 = 'ARRAY['
+        first=True
+        for i in temp1:
+            if first:
+                 temp2 = temp2 + i
+                 first=False
+            else :
+                 temp2 = temp2 + ', ' + i  
 
-    def serialize(self, request, data, format, options={}):
-        options['count_type'] = 'agg_simplified_description'
-        options['resource_name'] = 'landcoverbase'
-        return super(LandCoverBaseStatisticResource, self).serialize(request, data, format, options)
+        temp2 = temp2+']'
+        
+        filterLock = 'ST_Union('+temp2+')'
+        
+        counts =  self.getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm')
+        
+        # pop at risk level
+        temp = dict([(c['deeperthan'], c['count']) for c in counts])
+        response['high_risk_population']=round(temp.get('271 cm', 0),0)
+        response['med_risk_population']=round(temp.get('121 cm', 0), 0)
+        response['low_risk_population']=round(temp.get('029 cm', 0),0)
+        response['total_risk_population']=response['high_risk_population']+response['med_risk_population']+response['low_risk_population']
 
-    class Meta:
-        queryset = LandcoverDescription.objects.all()
-        resource_name = 'landcoverbase'
-        allowed_methods = ['get']
-        serializer = CountJSONSerializer()        
+        # area at risk level
+        temp = dict([(c['deeperthan'], c['areaatrisk']) for c in counts])
+        response['high_risk_area']=round(temp.get('271 cm', 0)/1000000,1)
+        response['med_risk_area']=round(temp.get('121 cm', 0)/1000000,1)
+        response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)    
+        response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2) 
+
+        counts =  self.getRiskNumber(targetRiskIncludeWater, filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm')
+
+        # landcover/pop/atrisk
+        temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
+        response['built_up_pop_risk']=round(temp.get('Built-up', 0),0)
+        response['irrigated_agricultural_land_pop_risk']=round(temp.get('Irrigated agricultural land', 0),0)
+
+        temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
+        response['built_up_area_risk']=round(temp.get('Built-up', 0)/1000000,1)
+        response['irrigated_agricultural_land_area_risk']=round(temp.get('Irrigated agricultural land', 0)/1000000,1)
+
+        # landcover all
+        counts =  self.getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm')
+        temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
+        response['built_up_pop']=round(temp.get('Built-up', 0),0)
+        response['irrigated_agricultural_land_pop']=round(temp.get('Irrigated agricultural land', 0),0)
+
+        temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
+        response['built_up_area']=round(temp.get('Built-up', 0)/1000000,1)
+        response['irrigated_agricultural_land_area']=round(temp.get('Irrigated agricultural land', 0)/1000000,1)
+
+        countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+            select={
+                'numbersettlementsatrisk': 'count(distinct vuid)'}, 
+            where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*fldarea_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
+        response['settlements_at_risk'] = round(countsBase[0]['numbersettlementsatrisk'],0)
+
+        countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+            select={
+                'numbersettlements': 'count(distinct vuid)'}, 
+            where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
+        response['settlements'] = round(countsBase[0]['numbersettlements'],0)
+
+        countsBase = targetBase.extra(
+            select={
+                'countbase' : 'SUM(  \
+                        case \
+                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then area_population \
+                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_population end \
+                    )'
+            },
+            where = {
+                'ST_Intersects(wkb_geometry, '+filterLock+')'
+            }).values('countbase')
+        response['Population']=round(countsBase[0]['countbase'],0)
+
+        countsBase = targetBase.extra(
+            select={
+                'areabase' : 'SUM(  \
+                        case \
+                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then area_sqm \
+                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm end \
+                    )'
+            },
+            where = {
+                'ST_Intersects(wkb_geometry, '+filterLock+')'
+            }).values('areabase')
+        response['Area']=round(countsBase[0]['areabase']/1000000,0)
+
+        response['percent_total_risk_population'] = round((response['total_risk_population']/response['Population'])*100,0)
+        response['percent_high_risk_population'] = round((response['high_risk_population']/response['Population'])*100,0)
+        response['percent_med_risk_population'] = round((response['med_risk_population']/response['Population'])*100,0)
+        response['percent_low_risk_population'] = round((response['low_risk_population']/response['Population'])*100,0)
+
+        response['percent_total_risk_area'] = round((response['total_risk_area']/response['Area'])*100,0)
+        response['percent_high_risk_area'] = round((response['high_risk_area']/response['Area'])*100,0)
+        response['percent_med_risk_area'] = round((response['med_risk_area']/response['Area'])*100,0)
+        response['percent_low_risk_area'] = round((response['low_risk_area']/response['Area'])*100,0)
+
+        response['precent_built_up_pop_risk'] = round((response['built_up_pop_risk']/response['built_up_pop'])*100,0)
+        response['precent_built_up_area_risk'] = round((response['built_up_area_risk']/response['built_up_area'])*100,0)
+
+        response['precent_irrigated_agricultural_land_pop_risk'] = round((response['irrigated_agricultural_land_pop_risk']/response['irrigated_agricultural_land_pop'])*100,0)
+        response['precent_irrigated_agricultural_land_area_risk'] = round((response['irrigated_agricultural_land_area_risk']/response['irrigated_agricultural_land_area'])*100,0)
+
+        return response
+
+
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+
+        # print self
+        # print request
+        # print request.body
+
+        response = self.getRisk(request)
+        # print tt
+
+        # Do any operation here and return in form of json in next line
+        return self.create_response(request, response)    
+   

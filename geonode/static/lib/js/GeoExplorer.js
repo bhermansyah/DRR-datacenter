@@ -32813,14 +32813,27 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
         this.previewScales = new Ext.data.Store();
         this.previewScales.add(this.printProvider.scales.getRange());
 
+        // boedy1996@gmail.com
         this.layers = [];
         var layer;
+        var style = {
+            strokeColor: '#ee0000',
+            strokeWidth: 2,
+            strokeOpacity: 1,
+            fillColor: '#ee0000',
+            fillOpacity: 0.1
+        };
+
         Ext.each(this.sourceMap.layers, function(layer) {
             if (layer.getVisibility() === true) {
                 if (layer instanceof OpenLayers.Layer.Vector) {
                     var features = layer.features,
                         clonedFeatures = new Array(features.length),
-                        vector = new OpenLayers.Layer.Vector(layer.name);
+                        vector = new OpenLayers.Layer.Vector(layer.name,{
+                             styleMap: new OpenLayers.StyleMap({
+                                "default": style
+                            })
+                       });
                     for (var i=0, ii=features.length; i<ii; ++i) {
                         clonedFeatures[i] = features[i].clone();
                     }
@@ -32830,8 +32843,11 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
                     this.layers.push(layer.clone());
                 }
             }
+
         }, this);
 
+        // console.log(this);
+        this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Filter Layer')[0], this.sourceMap.layers.length);
         this.extent = this.sourceMap.getExtent();
         
         GeoExt.PrintMapPanel.superclass.initComponent.call(this);
@@ -34322,6 +34338,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      */
     layout: null,
 
+    showRiskTable: false,
+
     /** private:  method[constructor]
      *  Private constructor override.
      */
@@ -34501,6 +34519,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             this.initialConfig.autoLoad && this.loadCapabilities();
         }
     },
+
+    isStoreEmpty: function(){
+        var xxx = _storeCalc.getStore();
+        if (xxx==null){
+            return true;
+        } else {
+            return false;
+        }
+    },
     
     /** api: method[setLayout]
      *  :param layout: ``Ext.data.Record`` the record of the layout.
@@ -34587,14 +34614,20 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         }, this);
         jsonData.layers = encodedLayers;
         
+        var calcStore = _storeCalc;
+        calcData = calcStore.getStore();
+
+        if (calcData === null) {
+            calcData = {};
+        }
         var encodedPages = [];
         Ext.each(pages, function(page) {
-            encodedPages.push(Ext.apply({
-                center: [page.center.lon, page.center.lat],
-                scale: page.scale.get("value"),
-                rotation: page.rotation
-            }, page.customParams));
+            calcData.center = [page.center.lon, page.center.lat];
+            calcData.scale = page.scale.get("value");
+            calcData.rotation = page.rotation;
+            encodedPages.push(Ext.apply(calcData, page.customParams));
         }, this);
+
         jsonData.pages = encodedPages;
         
         if (options.overview) {
@@ -34631,8 +34664,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             jsonData.legends = encodedLegends;
         }
 
-        // test boedy1996@gmail.com
-        console.log(pages[0].getPrintExtent(map));
+        // added by boedy1996@gmail.com
         var batas = pages[0].getPrintExtent(map)
         batas = batas.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326")).toGeometry();
         // console.log(this);
@@ -34643,51 +34675,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
         hasil = hasil.replace(new RegExp('#', 'g'),',');
         hasil = hasil.replace(new RegExp('&', 'g'),' ');
-        // template = '<sld:StyledLayerDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" version="1.0.0">';
-        // template +='<sld:UserLayer>';
-        // template +=     '<sld:Name>Inline</sld:Name>';
-        // template +=      '<sld:InlineFeature>';
-        // template +=         '<sld:FeatureCollection>';
-        // template +=             '<gml:featureMember>';
-        // template +=                 '<feature>';
-        // template +=                     '<polygonProperty>';
-        // template +=                         '<gml:Polygon  srsName="4326">';
-        // template +=                             '<gml:outerBoundaryIs>';
-        // template +=                                 '<gml:LinearRing>';
-        // template +=                                     '<gml:coordinates xmlns:gml="http://www.opengis.net/gml" decimal="." cs="," ts=" ">'+hasil;
-        // template +=                                     '</gml:coordinates>';
-        // template +=                                 '</gml:LinearRing>';
-        // template +=                             '</gml:outerBoundaryIs>';
-        // template +=                         '</gml:Polygon>';
-        // template +=                      '</polygonProperty>';
-        // template +=                      '<title>Pacific NW</title>';
-        // template +=                 '</feature>';
-        // template +=             '</gml:featureMember>';
-        // template +=         '</sld:FeatureCollection>';
-        // template +=     '</sld:InlineFeature>';
-        // // template +=     '<sld:LayerFeatureConstraints>';
-        // // template +=         '<sld:FeatureTypeConstraint/>';
-        // // template +=     '</sld:LayerFeatureConstraints>';
-        // template +=     '<sld:UserStyle>';
-        // template +=         '<sld:FeatureTypeStyle>';
-        // template +=             '<sld:Rule>';
-        // template +=                 '<sld:PolygonSymbolizer>';
-        // template +=                     '<sld:Stroke>';
-        // template +=                         '<sld:CssParameter name="stroke">#FF0000</sld:CssParameter>';
-        // template +=                         '<sld:CssParameter name="stroke-width">3</sld:CssParameter>';
-        // template +=                     '</sld:Stroke>';
-        // template +=                 '</sld:PolygonSymbolizer>';
-        // template +=             '</sld:Rule>';
-        // template +=         '</sld:FeatureTypeStyle>';
-        // template +=     '</sld:UserStyle>';
-        // template += '</sld:UserLayer>';  
-        // template +='</sld:StyledLayerDescriptor>';
-        // console.log(template);
         hasil =  encodeURI(hasil);
-        console.log(hasil);
-        // console.log(GeoExt.data.PrintPage.getPrintExtent());
 
         jsonData.selectedBox = hasil
+
+        jsonData.showRiskTable = this.showRiskTable
 
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
@@ -77191,6 +77183,7 @@ gxp.plugins.QueryForm = Ext.extend(gxp.plugins.Tool, {
                 toggleHandler: function(button, pressed) {
                     if (this.autoExpand && this.output.length > 0) {
                         var expandContainer = Ext.getCmp(this.autoExpand);
+                        // console.log(expandContainer);
                         expandContainer[pressed ? 'expand' : 'collapse']();
                         if (pressed) {
                             expandContainer.expand();
@@ -80161,7 +80154,7 @@ gxp.plugins.WMSGetFeatureInfo = Ext.extend(gxp.plugins.Tool, {
         } else {
             popup = this.popupCache[popupKey];
         }
-
+        var mapPanel = this.target.mapPanel;
         var features = evt.features, config = [];
         if (!text && features) {
             var feature;
@@ -80169,6 +80162,21 @@ gxp.plugins.WMSGetFeatureInfo = Ext.extend(gxp.plugins.Tool, {
                 feature = features[i];
                 config.push(Ext.apply({
                     xtype: "gxp_editorgrid",
+                    tbar:['->',{
+                        text: 'Add to Filter',
+                        iconCls: 'gxp-icon-addfeature',
+                        handler : function(){
+                            // console.log(feature.geometry);
+                            var data = new OpenLayers.Feature.Vector(feature.geometry.transform(new OpenLayers.Projection('EPSG:4326'), new OpenLayers.Projection('EPSG:900913')), {
+                                fid: feature.fid
+                            });
+                            data.attributes = {
+                                featureid: feature.fid,
+                                type: 'Layer Feature'
+                            };
+                            mapPanel.map.getLayersByName('Filter Layer')[0].addFeatures(data);
+                        }
+                    }],
                     readOnly: true,
                     listeners: {
                         'beforeedit': function (e) {
@@ -86659,7 +86667,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                 buttonText: this.buttonText,
                 tooltip: this.tooltip,
                 iconCls: "gxp-icon-print",
-                disabled: this.printCapabilities !== null ? false : true,
+                // disabled: this.printCapabilities !== null ? false : true,
                 handler: function() {
                     var supported = getPrintableLayers();
                     if (supported.length > 0) {
@@ -86706,6 +86714,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                 var supported = [];
                 mapPanel.layers.each(function(record) {
                     var layer = record.getLayer();
+                    // console.log(record.data.title, isPrintable(layer));
                     if (isPrintable(layer)) {
                         supported.push(layer);
                     }
@@ -86716,7 +86725,8 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
             function isPrintable(layer) {
                 return layer.getVisibility() === true && (
                     layer instanceof OpenLayers.Layer.WMS ||
-                    layer instanceof OpenLayers.Layer.OSM
+                    layer instanceof OpenLayers.Layer.OSM ||
+                    layer.name == 'Filter Layer' 
                 );
             }
 
@@ -89033,6 +89043,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     emptyTitleText: "Enter map title here.",
     /** api: config[includeLegendText] ``String`` i18n */
     includeLegendText: "Include legend?",
+
+    includeRiskText: "Include risk table?",
     /** api: config[emptyCommentText] ``String`` i18n */
     emptyCommentText: "Enter comments here.",
     /** api: config[creatingPdfText] ``String`` i18n */
@@ -89098,6 +89110,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      *  ignored if :ref:`GeoExt.ux.PrintPreview.legend` is not provided.
      */
     includeLegend: false,
+
+    includeRiskTable: false,
     
     /** api: config[mapTitle]
      *  ``String`` An optional title to set for the mapTitle field when
@@ -89289,6 +89303,20 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                 scope: this
             });
         }
+
+        var riskTableCheckbox = new Ext.form.Checkbox({
+                name: "risktable",
+                checked: this.includeRiskTable,
+                boxLabel: this.includeRiskText,
+                hideLabel: true,
+                ctCls: "gx-item-nowrap",
+                disabled : this.printProvider.isStoreEmpty(),
+                handler: function(cb, checked) {
+                    this.includeRiskTable = checked;
+                    this.printProvider.showRiskTable = this.includeRiskTable;
+                },
+                scope: this
+            });
         
         return new Ext.form.FormPanel({
             autoHeight: true,
@@ -89303,7 +89331,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                     cls: "x-form-item",
                     items: [
                         titleCfg,
-                        legendCheckbox
+                        legendCheckbox,
+                        riskTableCheckbox
                     ]
                 } : titleCfg, {
                     xtype: "textarea",
@@ -89324,6 +89353,20 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      */
     createMapOverlay: function() {
         var map = this.printMapPanel.map;
+        // boedy1996@gmail.com
+        // console.log(this.sourceMap.getLayersByName('Filter Layer')[0]);
+        // // map.addLayer(this.sourceMap.getLayersByName('Filter Layer')[0].clone());
+        // var features = this.sourceMap.getLayersByName('Filter Layer')[0].features,
+        //     clonedFeatures = new Array(features.length),
+        //     vector = new OpenLayers.Layer.Vector('Filter Layer');
+        // for (var i=0, ii=features.length; i<ii; ++i) {
+        //     clonedFeatures[i] = features[i].clone();
+        // }
+        // vector.addFeatures(clonedFeatures, {silent: true});
+        // map.addLayer(vector);
+
+        // console.log(map);
+
         var scaleLine = new OpenLayers.Control.ScaleLine({
             geodesic: !(map.getProjectionObject() || new OpenLayers.Projection(map.projection || "EPSG:4326")).equals("EPSG:4326")
         });
@@ -89547,14 +89590,14 @@ var GeoExplorer = Ext.extend(gxp.Viewer, {
         }, {
             hidden: true, actions: ["-"], checked: true
         }, {
-            leaf: true,
-            text: gxp.plugins.Print.prototype.tooltip,
-            ptype: "gxp_print",
-            iconCls: "gxp-icon-print",
-            customParams: {outputFilename: 'GeoExplorer-print'},
-            printService: config.printService,
-            checked: true
-        }, {
+        //     leaf: true,
+        //     text: gxp.plugins.Print.prototype.tooltip,
+        //     ptype: "gxp_print",
+        //     iconCls: "gxp-icon-print",
+        //     customParams: {outputFilename: 'GeoExplorer-print'},
+        //     printService: config.printService,
+        //     checked: true
+        // }, {
             leaf: true, 
             text: gxp.plugins.Navigation.prototype.tooltip, 
             checked: true, 
@@ -89950,7 +89993,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 ptype: "gxp_print",
                 customParams: {outputFilename: 'GeoExplorer-print'},
                 printService: config.printService,
-                actionTarget: "paneltbar",
+                actionTarget: ["paneltbar","paneltbarcalc"],
                 showButtonText: true
             }, {
                 actions: ["-"],
@@ -89992,6 +90035,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 featureManager: "querymanager",
                 actionTarget: ["featuregrid.contextMenu", "featuregrid.bbar"]
             }, {
+                ptype: "gxp_addFeatureFilter",
+                featureManager: "querymanager",
+                actionTarget: ["featuregrid.contextMenu", "featuregrid.bbar"]
+            }, {
                 ptype: "gxp_measure", toggleGroup: "interaction",
                 controlOptions: {immediate: true},
                 showButtonText: true,
@@ -90009,6 +90056,19 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 showButtonText: true,
                 toggleGroup: "interaction",
                 actionTarget: "paneltbar"
+            }, 
+            // Add by boedy1996@gmail.com 
+            {
+                actions: ["statMenu"],  actionTarget: "paneltbar"
+            },{
+                actions: ["statSelectedGrid"],  actionTarget: "statselectedtable"
+            },{
+                actions: ["statGrid"],  actionTarget: "stattable"
+            }, {
+                ptype: "gxp_statfeaturemanager",
+                id: "statfeaturemanager",
+                maxFeatures: 20,
+                paging: false
             }, {
                 actions: ["->"],
                 actionTarget: "paneltbar"
@@ -90236,6 +90296,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
     /** private: method[initPortal]
      * Create the various parts that compose the layout.
+     * kontol
      */
     initPortal: function() {
         
@@ -90249,6 +90310,33 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             hideCollapseTool: true,
             header: false
         });
+
+        var eastPanel = new Ext.Panel({
+            region: "east",
+            id: "east",
+            // height: 220,
+            width: 320,
+            border: false,
+            split: true,
+            collapsible: true,
+            collapseMode: "mini",
+            collapsed: true,
+            hideCollapseTool: true,
+            header: false,
+            layout: "accordion",
+            items: [{
+                region: "center",
+                id: "statselectedtable",
+                title: 'Filter Tool',
+                layout: "fit"
+            },{
+                region: "south",
+                id: "stattable",
+                title: 'Results',
+                layout: "fit"
+            }]
+        });
+
         var southPanel = new Ext.Panel({
             region: "south",
             id: "south",
@@ -90375,7 +90463,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             items: [
                 this.mapPanelContainer,
                 westPanel,
-                southPanel
+                southPanel,
+                eastPanel
             ]
         }];
         
@@ -90430,6 +90519,204 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 }]
             })            
         });
+
+        new Ext.Button({
+            id: "statMenu",
+            text: 'Tools',
+            iconCls: 'icon-export',
+            enableToggle: true,      
+            pressed: false,
+            toggleHandler: function(){
+                if (this.pressed){
+                    // filtercontrol.activate();
+                    Ext.getCmp('east').expand();
+                } else {
+                    // filtercontrol.deactivate();
+                    Ext.getCmp('east').collapse();
+                }
+            }       
+        });
+
+       // console.log(this);
+       // boedy1996@gmail.com
+       var style = {
+            strokeColor: '#ee0000',
+            strokeWidth: 2,
+            strokeOpacity: 1,
+            fillColor: '#ee0000',
+            fillOpacity: 0.1
+        };
+
+       var vector_layer = new OpenLayers.Layer.Vector("Filter Layer",{
+            'displayInLayerSwitcher':false,
+             renderers: ['Canvas', 'VML'],
+             styleMap: new OpenLayers.StyleMap({
+                "default": style
+            })
+       }); 
+       this.mapPanel.map.addLayer(vector_layer);
+       var filtercontrol = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon,{
+            eventListeners: {
+                "featureadded": function(evt){
+                    
+                }    
+            }
+       });
+       vector_layer.events.register("sketchcomplete", filtercontrol, function(event) { 
+            event.feature.attributes.featureid = event.feature.id;
+            event.feature.attributes.type = 'Free Draw';
+        });
+       this.mapPanel.map.addControl(filtercontrol);
+       
+       // this.mapPanel.map.raiseLayer(this.mapPanel.map.getLayersByName('Filter Layer')[0], this.mapPanel.map.layers.length);
+       // this.mapPanel.map.setLayerIndex(this.mapPanel.map.getLayersByName('Filter Layer')[0], 0);
+  
+        var selectedStore = new GeoExt.data.FeatureStore({
+            layer: vector_layer,
+            fields: [
+                {name: 'featureid', type: 'string'},
+                {name: 'type', type: 'string'}
+            ]
+        });
+
+        new Ext.grid.GridPanel({
+            id: 'statSelectedGrid',
+            width: 300,
+            store: selectedStore,
+            columnLines: true,
+            viewConfig: {
+               stripeRows: true
+            },
+            columns: [{
+                header: "FID",
+                width: 200,
+                dataIndex: "featureid"
+            },{
+                header: "Type",
+                width: 200,
+                dataIndex: "type"
+            }],
+            sm: new GeoExt.grid.FeatureSelectionModel(),
+            height: 50,
+            tbar: [{
+                text: 'draw a polygon',
+                iconCls: 'gxp-icon-addfeature',
+                enableToggle: true,      
+                pressed: false,
+                toggleHandler: function(){
+                    if (this.pressed){
+                        filtercontrol.activate();
+                    } else {
+                        filtercontrol.deactivate();
+                    }
+                }
+            },'->',
+            {
+                 text: 'Delete',
+                 iconCls: 'gxp-icon-removelayers',
+                 handler:function(evt){
+                    vector_layer.removeFeatures(vector_layer.selectedFeatures[0]);
+                 }
+            },
+            {
+                text: 'Apply',
+                iconCls: "save",
+                // disabled : vector_layer.features.length == 0 ? false : true,
+                handler: function(){
+                    var filter = [];
+                    vector_layer.features.forEach(function(record) {
+                        var temp = record.geometry.clone().transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));
+                        if (record.attributes.type == 'Free Draw'){
+                            filter.push(temp.toString());
+                        } else {
+                            filter.push(temp.components[0].toString());
+                        }    
+                    });
+                    _storeCalc.setFeatureStore(filter);
+                }
+            }],
+            propertyNames: {
+                tested: 'At Risk Property'
+            },
+            listeners: {
+                'be`eedit': {
+                    fn: function () {
+                        return false;
+                    }
+                },
+                'afteredit': {
+                    fn: function () {
+                        return false;
+                    }
+                }
+            }
+        });
+
+        new Ext.Panel({
+            id: 'statGrid',
+            width: 300,
+            bbar: new Ext.Toolbar({
+                disabled: true,
+                id: "paneltbarcalc",
+                items:['->']
+            }),
+            html: '<p><i>Apply the filter to see the results</i></p>'
+        });    
+
+        // new Ext.grid.PropertyGrid({
+        //     id: 'statGrid',
+        //     width: 300,
+        //     // autoHeight: true,
+        //     // viewConfig: {
+        //     //     stripeRows: true
+        //     // },
+        //     groupingConfig: {
+        //         groupHeaderTpl: 'Settings: {name}',
+        //         disabled: false
+        //     },
+        //     height: 50,
+        //     bbar: ['->',{
+        //         text: 'Print',
+        //         iconCls : 'gxp-icon-print'
+        //     }],
+        //     // propertyNames: {
+        //     //     tested: 'At Risk Property'
+        //     // },
+        //     source: store.store,
+        //     // viewConfig : {
+        //     //     forceFit: true,
+        //     //     scrollOffset: 2 // the grid will never have scrollbars
+        //     // },
+        //     listeners: {
+        //         'beforeedit': {
+        //             fn: function () {
+        //                 return false;
+        //             }
+        //         },
+        //         'afteredit': {
+        //             fn: function () {
+        //                 return false;
+        //             }
+        //         }
+        //     }
+        // });
+    },
+
+    /** private: method[openStats]
+     */
+    openStats: function() {
+        var stats = new Ext.Window({
+            title: 'kontol',
+            layout: "fit",
+            resizable: false,
+            modal: true,
+            items: []
+        });
+        stats.show();
+        // var body = stats.items.get(0).body;
+        // var loading = new Ext.LoadMask(body);
+        // loading.show();
+        // Ext.get(iframe).on('load', function() { loading.hide(); });
     },
 
     /** private: method[openPreview]
@@ -90545,6 +90832,7 @@ GeoExplorer.Viewer = Ext.extend(GeoExplorer, {
         var toolConfig;
         for (var i=0, len=allTools.length; i<len; i++) {
             var tool = allTools[i];
+            // console.log(tool);
             if (tool.checked === true) {
                 var properties = ['checked', 'iconCls', 'id', 'leaf', 'loader', 'text'];
                 for (var key in properties) {

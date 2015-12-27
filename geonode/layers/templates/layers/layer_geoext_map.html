@@ -40,6 +40,7 @@
                     "ready": function() {
                         var map = app.mapPanel.map;
                         var layer = app.map.layers.slice(-1)[0];
+                        console.log(layer);
 
                         // FIXME(Ariel): Zoom to extent until #1795 is fixed.
                         //map.zoomToExtent(layer.maxExtent, false)

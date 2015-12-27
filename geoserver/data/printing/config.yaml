@@ -191,7 +191,7 @@ layouts:
           absoluteX: 20
           absoluteY: 340
           width: 802
-          widths: [75,25]
+          widths: [20,60,20]
           items:
              - !image
                maxWidth: 192
@@ -200,57 +200,68 @@ layouts:
                align: left
                vertAlign: top
                url: 'http://localhost:8000/getOverviewMaps/?send=${selectedBox}'
+             - !text
+              text: ''
+              fontSize: 10
              - !legends
+               horizontalAlignment: left
                backgroundColor: #FFFFFF
                iconMaxWidth: 0
                iconMaxHeight: 0
                layerSpace: 5
                # layerFont: Dialog.plain
-               # layerFontSize: 10
                defaultScale:  0.25
                classIndentation: 10
                classFontSize: 8
+               layerFontSize: 5
                classSpace: 3
                maxWidth: 0
-               maxHeight: 310
+               maxHeight: 275
                inline: false
-               columnMargin: 1
-          #columnMaxWidth: 25
-        #- !attributes
-        #  source: data
-        #  spacingAfter: 30
-        #  columnDefs:
-        #    id:
-      #      columnWeight: 2
-      #        header: !text
-      #          text: ID
-      #          backgroundColor: #A0A0A0
-      #        cell: !text
-      #          text: '${id}'
-      #      name:
-      #        columnWeight: 5
-      #        header: !text
-      #          text: Name
-      #          backgroundColor: #A0A0A0
-      #        cell: !columns
-      #          config:
-      #            cells:
-      #              - backgroundColor: '${nameBackgroundColor}'
-      #                borderWidth: 1
-      #                borderColor: '${nameBorderColor}'
-      #          items:
-      #            - !text
-      #              text: '${name}'
-      #      icon:
-      #        columnWeight: 2
-      #        header: !text
-      #          text: Symbol
-      #          backgroundColor: #A0A0A0
-      #        cell: !image
-      #          align: center
-      #          maxWidth: 15
-      #          maxHeight: 15
-      #          url: 'http://www.mapfish.org/svn/mapfish/trunk/MapFish/client/mfbase/mapfish/img/${icon}.png'
+               columnMargin: 0
+        - !columns
+          absoluteX: 220
+          absoluteY: 340
+          width: 400
+          items:
+             - !attributes
+               source: data
+               tableConfig:
+                  borderWidth: 0.75
+                  cells:
+                    # match every cell (default cell formatting)
+                    - borderWidthBottom: 0.5
+                      borderWidthLeft: 0.5
+                      padding: 4
+                      # paddingTop: 3
+                      # match every even cell (yellowish background)
+                    - row: '\d*[02468]'
+                      backgroundColor: #FFFFCC
+                    # for the header
+                    - row: 0
+                      borderWidthBottom: 0.5
+                      backgroundColor: red
+               columnDefs:
+                    id: 
+                      columnWeight: 1 
+                      header: !text
+                         text: 'ID'
+                         align: center
+                         font: Helvetica
+                         fontSize: 40
+                         vertAlign: middle
+                      cell: !text
+                         text: 'test' 
+                    name:
+                      columnWeight: 1
+                      header: !text
+                          text: 'NAME'
+                          align: center
+                          # backgroundColor: #A0A0A0
+                      cell: !columns
+                          items:
+                             - !text
+                                text: 'test'   
         #- !text
         #  font: Helvetica
         #  fontSize: 9
