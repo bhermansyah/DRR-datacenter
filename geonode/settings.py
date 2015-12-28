@@ -287,7 +287,7 @@ INSTALLED_APPS = (
     'avatar',
     'dialogos',
     'agon_ratings',
-    #'notification',
+    'notification',
     'announcements',
     'actstream',
     'user_messages',
@@ -690,7 +690,7 @@ LOCKDOWN_GEONODE = True
 
 # Add additional paths (as regular expressions) that don't require
 # authentication.
-AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps')
+AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps','/account/signup')
 
 if LOCKDOWN_GEONODE:
     MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \
