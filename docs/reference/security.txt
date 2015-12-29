@@ -210,7 +210,24 @@ By default GeoNode does not implement any kind of mechanism to publish/unpublish
 Setting the RESOURCE_PUBLISHING to True such a workflow is used, and by default
 new uploaded resources are unpublished.
 
-It is possible for any GeoNode staff member that has permissions on the 
+It is possible for 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:q1
+:1any GeoNode staff member that has permissions on the 
 base/ResourceBase model to decide to publish/unpublish a layer, map or document.
 
 The staff member can go to the resource base Django admin page, and publish or

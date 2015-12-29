@@ -22,6 +22,8 @@ from geonode.documents.forms import DocumentForm, DocumentCreateForm, DocumentRe
 from geonode.documents.models import IMGTYPES
 from geonode.utils import build_social_links
 
+from geodb.models import matrix
+
 ALLOWED_DOC_TYPES = settings.ALLOWED_DOCUMENT_TYPES
 
 _PERMISSION_MSG_DELETE = _("You are not permitted to delete this document")
@@ -85,6 +87,8 @@ def document_detail(request, docid):
         # but do not includes admins or resource owners
         if request.user != document.owner and not request.user.is_superuser:
             Document.objects.filter(id=document.id).update(popular_count=F('popular_count') + 1)
+            queryset = matrix(user=request.user,resourceid=document,action='View')
+            queryset.save()
 
         metadata = document.link_set.metadata().filter(
             name__in=settings.DOWNLOAD_FORMATS_METADATA)
@@ -107,6 +111,9 @@ def document_detail(request, docid):
 
 def document_download(request, docid):
     document = get_object_or_404(Document, pk=docid)
+    if request.user != document.owner and not request.user.is_superuser:
+        queryset = matrix(user=request.user,resourceid=document,action='Download')
+        queryset.save()
     if not request.user.has_perm(
             'base.download_resourcebase',
             obj=document.get_self_resource()):
