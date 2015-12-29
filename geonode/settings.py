@@ -303,6 +303,7 @@ INSTALLED_APPS = (
 
     #custom app
     'geodb',
+    'matrix',
 
 ) + GEONODE_APPS
 
