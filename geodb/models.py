@@ -10,8 +10,6 @@
 from __future__ import unicode_literals
 
 from django.contrib.gis.db import models
-from django.contrib.auth import get_user_model
-from geonode.base.models import ResourceBase
 
 class AfgAdmbndaAdm1(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
@@ -578,16 +576,3 @@ class AfgFldzonea100KRiskMitigatedAreas(models.Model):
     class Meta:
         managed = False
         db_table = 'afg_fldzonea_100k_risk_mitigated_areas'
-
-
-# Added by boedy1996@gmail.com
-class matrix(models.Model):
-    user = models.ForeignKey(get_user_model())
-    resourceid = models.ForeignKey(ResourceBase)
-    action = models.CharField(max_length=255, help_text='for example "download,view"')
-    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
-    objects = models.GeoManager()        
-
-    class Meta:
-        managed = True      # add this
-        app_label = 'matrix' # & this

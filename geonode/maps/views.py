@@ -46,15 +46,13 @@ from geonode.utils import layer_from_viewer_config
 from geonode.maps.forms import MapForm
 from geonode.security.views import _perms_info_json
 from geonode.base.forms import CategoryForm
-from geonode.base.models import TopicCategory
+from geonode.base.models import TopicCategory, matrix
 from geonode.tasks.deletion import delete_map
 
 from geonode.documents.models import get_related_documents
 from geonode.people.forms import ProfileForm
 from geonode.utils import num_encode, num_decode
 from geonode.utils import build_social_links
-
-from geodb.models import matrix
 
 if 'geonode.geoserver' in settings.INSTALLED_APPS:
     # FIXME: The post service providing the map_status object

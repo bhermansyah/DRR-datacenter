@@ -47,7 +47,7 @@ from geonode.base.enumerations import CHARSETS
 from geonode.base.models import TopicCategory
 
 # add by boedy1996  
-from geodb.models import matrix
+from geonode.base.models import matrix
 
 from geonode.utils import default_map_config
 from geonode.utils import GXPLayer

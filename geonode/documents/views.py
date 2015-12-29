@@ -16,13 +16,11 @@ from geonode.utils import resolve_object
 from geonode.security.views import _perms_info_json
 from geonode.people.forms import ProfileForm
 from geonode.base.forms import CategoryForm
-from geonode.base.models import TopicCategory, ResourceBase
+from geonode.base.models import TopicCategory, ResourceBase, matrix
 from geonode.documents.models import Document
 from geonode.documents.forms import DocumentForm, DocumentCreateForm, DocumentReplaceForm
 from geonode.documents.models import IMGTYPES
 from geonode.utils import build_social_links
-
-from geodb.models import matrix
 
 ALLOWED_DOC_TYPES = settings.ALLOWED_DOCUMENT_TYPES
 
