@@ -587,3 +587,7 @@ class matrix(models.Model):
     action = models.CharField(max_length=255, help_text='for example "download,view"')
     wkb_geometry = models.MultiPolygonField(blank=True, null=True)
     objects = models.GeoManager()        
+
+    class Meta:
+        managed = True      # add this
+        app_label = 'matrix' # & this
