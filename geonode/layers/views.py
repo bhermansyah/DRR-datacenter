@@ -46,8 +46,8 @@ from geonode.layers.models import Layer, Attribute, UploadSession
 from geonode.base.enumerations import CHARSETS
 from geonode.base.models import TopicCategory
 
-# add by boedy1996  
-# from geonode.base.models import matrix
+# addded by boedy
+from matrix.models import matrix
 
 from geonode.utils import default_map_config
 from geonode.utils import GXPLayer
@@ -261,8 +261,8 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
     if request.user != layer.owner and not request.user.is_superuser:
         Layer.objects.filter(
             id=layer.id).update(popular_count=F('popular_count') + 1)
-        # queryset = matrix(user=request.user,resourceid=layer,action='View')
-        # queryset.save()
+        queryset = matrix(user=request.user,resourceid=layer,action='View')
+        queryset.save()
 
 
     # center/zoom don't matter; the viewer will center on the layer bounds
