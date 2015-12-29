@@ -46,7 +46,7 @@ from geonode.utils import layer_from_viewer_config
 from geonode.maps.forms import MapForm
 from geonode.security.views import _perms_info_json
 from geonode.base.forms import CategoryForm
-from geonode.base.models import TopicCategory, matrix
+from geonode.base.models import TopicCategory#, matrix
 from geonode.tasks.deletion import delete_map
 
 from geonode.documents.models import get_related_documents
@@ -106,8 +106,8 @@ def map_detail(request, mapid, snapshot=None, template='maps/map_detail.html'):
     # but do not includes admins or resource owners
     if request.user != map_obj.owner and not request.user.is_superuser:
         Map.objects.filter(id=map_obj.id).update(popular_count=F('popular_count') + 1)
-        queryset = matrix(user=request.user,resourceid=map_obj,action='View')
-        queryset.save()
+        # queryset = matrix(user=request.user,resourceid=map_obj,action='View')
+        # queryset.save()
 
     if snapshot is None:
         config = map_obj.viewer_json(request.user)
@@ -281,8 +281,8 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
     if request.user != map_obj.owner and not request.user.is_superuser:
         Map.objects.filter(id=map_obj.id).update(popular_count=F('popular_count') + 1)
-        queryset = matrix(user=request.user,resourceid=map_obj,action='View')
-        queryset.save()
+        # queryset = matrix(user=request.user,resourceid=map_obj,action='View')
+        # queryset.save()
     if snapshot is None:
         config = map_obj.viewer_json(request.user)
     else:

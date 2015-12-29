@@ -16,7 +16,7 @@ from geonode.utils import resolve_object
 from geonode.security.views import _perms_info_json
 from geonode.people.forms import ProfileForm
 from geonode.base.forms import CategoryForm
-from geonode.base.models import TopicCategory, ResourceBase, matrix
+from geonode.base.models import TopicCategory, ResourceBase#, matrix
 from geonode.documents.models import Document
 from geonode.documents.forms import DocumentForm, DocumentCreateForm, DocumentReplaceForm
 from geonode.documents.models import IMGTYPES
@@ -85,8 +85,8 @@ def document_detail(request, docid):
         # but do not includes admins or resource owners
         if request.user != document.owner and not request.user.is_superuser:
             Document.objects.filter(id=document.id).update(popular_count=F('popular_count') + 1)
-            queryset = matrix(user=request.user,resourceid=document,action='View')
-            queryset.save()
+            # queryset = matrix(user=request.user,resourceid=document,action='View')
+            # queryset.save()
 
         metadata = document.link_set.metadata().filter(
             name__in=settings.DOWNLOAD_FORMATS_METADATA)
@@ -109,9 +109,9 @@ def document_detail(request, docid):
 
 def document_download(request, docid):
     document = get_object_or_404(Document, pk=docid)
-    if request.user != document.owner and not request.user.is_superuser:
-        queryset = matrix(user=request.user,resourceid=document,action='Download')
-        queryset.save()
+    # if request.user != document.owner and not request.user.is_superuser:
+    #     queryset = matrix(user=request.user,resourceid=document,action='Download')
+    #     queryset.save()
     if not request.user.has_perm(
             'base.download_resourcebase',
             obj=document.get_self_resource()):
