@@ -284,7 +284,7 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
     if request.user != map_obj.owner and not request.user.is_superuser:
         Map.objects.filter(id=map_obj.id).update(popular_count=F('popular_count') + 1)
-        queryset = matrix(user=request.user,resourceid=map_obj,action='View')
+        queryset = matrix(user=request.user,resourceid=map_obj,action='View Geoexplorer')
         queryset.save()
     if snapshot is None:
         config = map_obj.viewer_json(request.user)
