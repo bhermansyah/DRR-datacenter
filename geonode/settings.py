@@ -898,3 +898,4 @@ CELERYBEAT_SCHEDULE = {
     
 POSTGIS_VERSION = (2, 1, 2)
 DATABASE_ROUTERS = ['geodb.router.geodbRouter']
+DATABASE_APPS_MAPPING = {'geodb': 'geodb'}
