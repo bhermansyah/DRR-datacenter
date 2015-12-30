@@ -14,9 +14,8 @@ import time, sys
 
 def getOverviewMaps(request):
     selectedBox = request.GET['send']
-    print request
-    # print 'selectedBox ----- :'
-    # print selectedBox
+    print request.user
+
     response = HttpResponse(mimetype="image/png") 
     url = 'http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=geonode%3Aafg_admbnda_adm2%2Cgeonode%3Aafg_admbnda_adm1&STYLES=overview_adm2,overview_adm1&SRS=EPSG%3A4326&WIDTH=192&HEIGHT=121&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375'
     # url2='http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&SRS=EPSG%3A4326&WIDTH=768&HEIGHT=485&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375&SLD_BODY='+selectedBox
@@ -57,30 +56,14 @@ def getOverviewMaps(request):
     template +=     '</sld:UserStyle>'
     template += '</sld:UserLayer>'
     template +='</sld:StyledLayerDescriptor>'
-    # ~print template
 
-    # print url2
-    # r = requests.get(url)
-    # r2 = requests.get(url2)
-    # background = Image.open(url)
-    # new_img = Image.blend(r, r2, 0.5)
     input_file = StringIO(urllib2.urlopen(url).read())
     background = Image.open(input_file)
-    # if background.mode != "RGB":
-    #         background = background.convert("RGB")
 
     values = {'SLD_BODY' : template }
-    # print 'values ----- :'
-    # print values
-    data = urllib.urlencode(values)  
-    print 'data ----- :'
-    print data      
-    # url2 = 'http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&SRS=EPSG%3A4326&WIDTH=768&HEIGHT=485&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375&SLD_BODY=%3Csld%3AStyledLayerDescriptor+xmlns%3Axsi%3D%22http%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema-instance%22+xsi%3AschemaLocation%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld+StyledLayerDescriptor.xsd%22+xmlns%3Asld%3D%22http%3A%2F%2Fwww.opengis.net%2Fsld%22+xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22+xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22+version%3D%221.0.0%22%3E%3Csld%3AUserLayer%3E%3Csld%3AName%3EInline%3C%2Fsld%3AName%3E%3Csld%3AInlineFeature%3E%3Csld%3AFeatureCollection%3E%3Cgml%3AfeatureMember%3E%3Cfeature%3E%3CpolygonProperty%3E%3Cgml%3APolygon++srsName%3D%224326%22%3E%3Cgml%3AouterBoundaryIs%3E%3Cgml%3ALinearRing%3E%3Cgml%3Acoordinates+xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22+decimal%3D%22.%22+cs%3D%22%2C%22+ts%3D%22+%22%3E65.3128092154469%2C32.96283247426929+66.5804344295749%2C32.96283247426929+66.5804344295749%2C33.954272307947306+65.3128092154469%2C33.954272307947306+65.3128092154469%2C32.96283247426929%3C%2Fgml%3Acoordinates%3E%3C%2Fgml%3ALinearRing%3E%3C%2Fgml%3AouterBoundaryIs%3E%3C%2Fgml%3APolygon%3E%3C%2FpolygonProperty%3E%3Ctitle%3EPacific+NW%3C%2Ftitle%3E%3C%2Ffeature%3E%3C%2Fgml%3AfeatureMember%3E%3C%2Fsld%3AFeatureCollection%3E%3C%2Fsld%3AInlineFeature%3E%3Csld%3AUserStyle%3E%3Csld%3AFeatureTypeStyle%3E%3Csld%3ARule%3E%3Csld%3APolygonSymbolizer%3E%3Csld%3AStroke%3E%3Csld%3ACssParameter+name%3D%22stroke%22%3E%23FF0000%3C%2Fsld%3ACssParameter%3E%3Csld%3ACssParameter+name%3D%22stroke-width%22%3E3%3C%2Fsld%3ACssParameter%3E%3C%2Fsld%3AStroke%3E%3C%2Fsld%3APolygonSymbolizer%3E%3C%2Fsld%3ARule%3E%3C%2Fsld%3AFeatureTypeStyle%3E%3C%2Fsld%3AUserStyle%3E%3C%2Fsld%3AUserLayer%3E%3C%2Fsld%3AStyledLayerDescriptor%3E'
+    data = urllib.urlencode(values)     
     input_file = StringIO(urllib2.urlopen(url2, data).read())
-    # input_file = StringIO(urllib2.urlopen(url2).read())
     overlay = Image.open(input_file)
-    # if overlay.mode != "RGB":
-    #         overlay = overlay.convert("RGB")
     new_img = Image.blend(background, overlay, 0.5)  #background.paste(overlay, overlay.size, overlay)
     
     new_img.save(response, 'PNG', quality=300)
