@@ -21,11 +21,7 @@ from matrix.models import matrix
 
 def getOverviewMaps(request):
     selectedBox = request.GET['send']
-    print request.user
 
-    o = urlparse(request.META.get('HTTP_REFERER')).path
-    o=o.split('/')
-    mapCode = o[2]
     map_obj = _resolve_map(request.user, request.GET['mapID'], 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
     queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
     queryset.save()
