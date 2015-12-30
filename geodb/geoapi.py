@@ -8,6 +8,12 @@ from tastypie.constants import ALL
 from django.db.models import Count, Sum
 from django.core.serializers.json import DjangoJSONEncoder
 from tastypie.authorization import DjangoAuthorization
+from urlparse import urlparse
+from geonode.maps.models import Map
+from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
+
+# addded by boedy
+from matrix.models import matrix
 
 
 FILTER_TYPES = {
@@ -123,6 +129,16 @@ class FloodRiskStatisticResource(ModelResource):
         return counts       
 
     def getRisk(self, request):
+        o = urlparse(request.META.get('HTTP_REFERER')).path
+        o=o.split('/')
+        mapCode = o[2]
+        map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+
+        queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
+        queryset.save()
+
+
+
         response = {}
         targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
         targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
