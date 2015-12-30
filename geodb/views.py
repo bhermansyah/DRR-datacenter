@@ -22,7 +22,7 @@ from matrix.models import matrix
 def getOverviewMaps(request):
     selectedBox = request.GET['send']
 
-    map_obj = _resolve_map(request.user, request.GET['mapID'], 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+    map_obj = _resolve_map(request, request.GET['mapID'], 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
     queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
     queryset.save()
 
