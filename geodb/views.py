@@ -12,9 +12,23 @@ from StringIO import StringIO
 from django.db.models import Count, Sum, F
 import time, sys
 
+from urlparse import urlparse
+from geonode.maps.models import Map
+from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
+
+# addded by boedy
+from matrix.models import matrix
+
 def getOverviewMaps(request):
     selectedBox = request.GET['send']
     print request.user
+
+    o = urlparse(request.META.get('HTTP_REFERER')).path
+    o=o.split('/')
+    mapCode = o[2]
+    map_obj = _resolve_map(request.user, request.GET['mapID'], 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+    queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
+    queryset.save()
 
     response = HttpResponse(mimetype="image/png") 
     url = 'http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=geonode%3Aafg_admbnda_adm2%2Cgeonode%3Aafg_admbnda_adm1&STYLES=overview_adm2,overview_adm1&SRS=EPSG%3A4326&WIDTH=192&HEIGHT=121&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375'

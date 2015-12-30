@@ -34681,6 +34681,12 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
         jsonData.showRiskTable = this.showRiskTable
 
+        var tempMapId = window.location.pathname;
+        tempMapId = tempMapId.split("/");
+        tempMapId = tempMapId[2];
+        console.log(tempMapId);
+        jsonData.mapID = tempMapId;
+
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
