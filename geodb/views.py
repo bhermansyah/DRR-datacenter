@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa 
 import requests
 from django.core.files.base import ContentFile
 import urllib2

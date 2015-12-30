@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa 
 import json
 import time
 from tastypie.resources import ModelResource, Resource
@@ -126,42 +126,33 @@ class FloodRiskStatisticResource(ModelResource):
             where = {
                 'ST_Intersects(wkb_geometry, '+filterLock+')'
             }).values(fieldGroup,'count','areaatrisk')) 
-        return counts       
+        return counts    
 
-    def getRisk(self, request):
-        o = urlparse(request.META.get('HTTP_REFERER')).path
-        o=o.split('/')
-        mapCode = o[2]
-        map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
-
-        queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
-        queryset.save()
-
-
-
-        response = {}
+    def getRiskExecute(self, filterLock):
         targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
         targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
         targetBase = AfgLndcrva.objects.all()
+        targetAvalanche = AfgAvsa.objects.all()
+        response = {}
 
-        boundaryFilter = json.loads(request.body)
-        temp1 = []
-        for i in boundaryFilter['spatialfilter']:
-            temp1.append('ST_GeomFromText(\''+i+'\',4326)')
+        #Avalanche Risk
+        counts =  self.getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm')
+        # pop at risk level
+        temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
+        response['high_ava_population']=round(temp.get('High', 0),0)
+        response['med_ava_population']=round(temp.get('Moderate', 0), 0)
+        response['low_ava_population']=0
+        response['total_ava_population']=response['high_ava_population']+response['med_ava_population']+response['low_ava_population']
 
-        temp2 = 'ARRAY['
-        first=True
-        for i in temp1:
-            if first:
-                 temp2 = temp2 + i
-                 first=False
-            else :
-                 temp2 = temp2 + ', ' + i  
+        # area at risk level
+        temp = dict([(c['avalanche_cat'], c['areaatrisk']) for c in counts])
+        response['high_ava_area']=round(temp.get('High', 0)/1000000,1)
+        response['med_ava_area']=round(temp.get('Moderate', 0)/1000000,1)
+        response['low_ava_area']=0    
+        response['total_ava_area']=round(response['high_ava_area']+response['med_ava_area']+response['low_ava_area'],2) 
 
-        temp2 = temp2+']'
-        
-        filterLock = 'ST_Union('+temp2+')'
-        
+
+        # Flood Risk
         counts =  self.getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm')
         
         # pop at risk level
@@ -247,6 +238,16 @@ class FloodRiskStatisticResource(ModelResource):
         response['percent_med_risk_area'] = round((response['med_risk_area']/response['Area'])*100,0)
         response['percent_low_risk_area'] = round((response['low_risk_area']/response['Area'])*100,0)
 
+        response['percent_total_ava_population'] = round((response['total_ava_population']/response['Population'])*100,0)
+        response['percent_high_ava_population'] = round((response['high_ava_population']/response['Population'])*100,0)
+        response['percent_med_ava_population'] = round((response['med_ava_population']/response['Population'])*100,0)
+        response['percent_low_ava_population'] = round((response['low_ava_population']/response['Population'])*100,0)
+
+        response['percent_total_ava_area'] = round((response['total_ava_area']/response['Area'])*100,0)
+        response['percent_high_ava_area'] = round((response['high_ava_area']/response['Area'])*100,0)
+        response['percent_med_ava_area'] = round((response['med_ava_area']/response['Area'])*100,0)
+        response['percent_low_ava_area'] = round((response['low_ava_area']/response['Area'])*100,0)
+
         response['precent_built_up_pop_risk'] = round((response['built_up_pop_risk']/response['built_up_pop'])*100,0)
         response['precent_built_up_area_risk'] = round((response['built_up_area_risk']/response['built_up_area'])*100,0)
 
@@ -254,7 +255,40 @@ class FloodRiskStatisticResource(ModelResource):
         response['precent_irrigated_agricultural_land_area_risk'] = round((response['irrigated_agricultural_land_area_risk']/response['irrigated_agricultural_land_area'])*100,0)
 
         return response
+ 
 
+    def getRisk(self, request):
+        # saving the user tracking records
+        o = urlparse(request.META.get('HTTP_REFERER')).path
+        o=o.split('/')
+        mapCode = o[2]
+        map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+
+        queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
+        queryset.save()
+
+        boundaryFilter = json.loads(request.body)
+        temp1 = []
+        for i in boundaryFilter['spatialfilter']:
+            temp1.append('ST_GeomFromText(\''+i+'\',4326)')
+
+        temp2 = 'ARRAY['
+        first=True
+        for i in temp1:
+            if first:
+                 temp2 = temp2 + i
+                 first=False
+            else :
+                 temp2 = temp2 + ', ' + i  
+
+        temp2 = temp2+']'
+        
+        filterLock = 'ST_Union('+temp2+')'
+        response = self.getRiskExecute(filterLock)
+
+        return response
+
+        
 
     def post_list(self, request, **kwargs):
         self.method_check(request, allowed=['post'])

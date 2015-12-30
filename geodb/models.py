@@ -576,3 +576,27 @@ class AfgFldzonea100KRiskMitigatedAreas(models.Model):
     class Meta:
         managed = False
         db_table = 'afg_fldzonea_100k_risk_mitigated_areas'
+
+class AfgAvsa(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
+    avalanche_cat = models.CharField(max_length=255, blank=True)
+    avalanche_id = models.IntegerField(blank=True, null=True)
+    avalanche_zone = models.CharField(max_length=255, blank=True)
+    avalanche_area = models.IntegerField(blank=True, null=True)
+    avalanche_lenght_m = models.IntegerField(blank=True, null=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    dist_na_en = models.CharField(max_length=255, blank=True)
+    prov_na_en = models.CharField(max_length=255, blank=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    basin_id = models.FloatField(blank=True, null=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    sum_area_sqm = models.FloatField(blank=True, null=True)
+    avalanche_pop = models.IntegerField(blank=True, null=True)
+    shape_length = models.FloatField(blank=True, null=True)
+    shape_area = models.FloatField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = False
+        db_table = 'afg_avsa'
