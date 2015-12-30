@@ -14,6 +14,7 @@ import time, sys
 
 def getOverviewMaps(request):
     selectedBox = request.GET['send']
+    print request
     # print 'selectedBox ----- :'
     # print selectedBox
     response = HttpResponse(mimetype="image/png") 
