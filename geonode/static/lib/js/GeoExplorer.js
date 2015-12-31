@@ -56914,7 +56914,7 @@ gxp.WMSStylesDialog = Ext.extend(Ext.Container, {
                 version = "1.1.1";
             }
             Ext.Ajax.request({
-                url: layer.url,
+                url: (typeof layer.url === "string") ? layer.url : layer.url[0],
                 params: {
                     "SERVICE": "WMS",
                     "VERSION": version,
@@ -87410,6 +87410,7 @@ gxp.plugins.Styler = Ext.extend(gxp.plugins.Tool, {
                 url = source.url.split("?")
                     .shift().replace(/\/(wms|ows)\/?$/, "/rest/styles");
             }
+
             if (this.sameOriginStyling) {
                 // this could be made more robust
                 // for now, only style for sources with relative url
