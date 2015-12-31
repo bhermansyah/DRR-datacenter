@@ -50691,15 +50691,17 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                             baseRecords.push(record);
                         } else {
                             if (record.get("source") == 3){
-                                // var tempUrls = [
-                                //     'http://asdc.immap.org/geoserver/wms',
-                                //     'http://map1.asdc.immap.org/geoserver/wms',
-                                //     'http://map2.asdc.immap.org/geoserver/wms',
-                                //     'http://map3.asdc.immap.org/geoserver/wms',
-                                //     'http://map4.asdc.immap.org/geoserver/wms'
-                                // ]
-                                // record.data.layer.url = tempUrls;
-                                // console.log(record.data.layer.url);
+                                var tempUrls = [
+                                    'http://asdc.immap.org/geoserver/wms',
+                                    'http://52.24.183.157/geoserver/wms',
+                                    'http://52.24.183.157:8080/geoserver/wms'
+                                    // 'http://map1.asdc.immap.org/geoserver/wms',
+                                    // 'http://map2.asdc.immap.org/geoserver/wms',
+                                    // 'http://map3.asdc.immap.org/geoserver/wms',
+                                    // 'http://map4.asdc.immap.org/geoserver/wms'
+                                ]
+                                record.data.layer.url = tempUrls;
+                                console.log(record.data.layer.url);
                             }    
                             overlayRecords.push(record);
                         }
