@@ -6818,6 +6818,7 @@ OpenLayers.Map = OpenLayers.Class({
      * non-default options, supply the options instead or alternatively supply
      * an instance of {<OpenLayers.TileManager>}.
      */
+     tileManager : OpenLayers.TileManager,
 
     /**
      * APIProperty: fallThrough
@@ -7054,6 +7055,8 @@ OpenLayers.Map = OpenLayers.Class({
             if (!(this.tileManager instanceof OpenLayers.TileManager)) {
                 this.tileManager = new OpenLayers.TileManager(this.tileManager);
             }
+            // console.log(this.tileManager);
+
             this.tileManager.addMap(this);
         }
 
@@ -49218,10 +49221,11 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
         this.dragPan.draw();
         this.zoomBox.draw();
         var wheelOptions = this.map.fractionalZoom ? {} : {
-            cumulative: false,
-            interval: 50,
+            cumulative: true,
+            interval: 250,
             maxDelta: 6
         };
+
         this.handlers.wheel = new OpenLayers.Handler.MouseWheel(
             this, {up : this.wheelUp, down: this.wheelDown},
             OpenLayers.Util.extend(wheelOptions, this.mouseWheelOptions)
@@ -50686,6 +50690,17 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                         if (record.get("group") === "background") {
                             baseRecords.push(record);
                         } else {
+                            if (record.get("source") == 3){
+                                // var tempUrls = [
+                                //     'http://asdc.immap.org/geoserver/wms',
+                                //     'http://map1.asdc.immap.org/geoserver/wms',
+                                //     'http://map2.asdc.immap.org/geoserver/wms',
+                                //     'http://map3.asdc.immap.org/geoserver/wms',
+                                //     'http://map4.asdc.immap.org/geoserver/wms'
+                                // ]
+                                // record.data.layer.url = tempUrls;
+                                // console.log(record.data.layer.url);
+                            }    
                             overlayRecords.push(record);
                         }
                     }
