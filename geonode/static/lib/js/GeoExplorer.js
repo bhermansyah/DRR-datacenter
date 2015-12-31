@@ -23397,7 +23397,7 @@ OpenLayers.Protocol.WFS.fromWMSLayer = function(layer, options) {
     }
     typeName = parts.pop();
     var protocolOptions = {
-        url: layer.url,
+        url: (typeof layer.url === "string") ? layer.url : layer.url[0],
         featureType: typeName,
         featurePrefix: featurePrefix,
         srsName: layer.projection && layer.projection.getCode() ||
@@ -56951,7 +56951,7 @@ gxp.WMSStylesDialog = Ext.extend(Ext.Container, {
                 version = "1.1.1";
             }
             Ext.Ajax.request({
-                url: layer.url,
+                url: (typeof layer.url === "string") ? layer.url : layer.url[0],
                 params: {
                     "SERVICE": "WMS",
                     "VERSION": version,
@@ -80101,7 +80101,7 @@ gxp.plugins.WMSGetFeatureInfo = Ext.extend(gxp.plugins.Tool, {
                     infoFormat = this.format == "html" ? "text/html" : "application/vnd.ogc.gml";
                 }
                 var control = new OpenLayers.Control.WMSGetFeatureInfo(Ext.applyIf({
-                    url: layer.url,
+                    url: (typeof layer.url === "string") ? layer.url : layer.url[0],
                     queryVisible: true,
                     layers: [layer],
                     infoFormat: infoFormat,
