@@ -3916,7 +3916,11 @@ OpenLayers.Util.createUrlObject = function(url, options) {
     }
   
     if (options.ignoreCase) {
-        url = url.toLowerCase(); 
+        if (url instanceof Array){
+            url = url[0].toLowerCase(); 
+        } else {
+            url = url.toLowerCase(); 
+        }
     }
 
     var a = document.createElement('a');
@@ -79736,6 +79740,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      * format - {String} The format from the corresponding GetMap request
      */
     buildWMSOptions: function(url, layers, clickPosition, format) {
+        url = OpenLayers.Util.isArray(url) ? url[0] : url;
         var layerNames = [], styleNames = [];
         for (var i = 0, len = layers.length; i < len; i++) {
             if (layers[i].params.LAYERS != null) {
