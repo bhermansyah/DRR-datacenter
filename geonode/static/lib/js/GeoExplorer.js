@@ -6822,7 +6822,7 @@ OpenLayers.Map = OpenLayers.Class({
      * non-default options, supply the options instead or alternatively supply
      * an instance of {<OpenLayers.TileManager>}.
      */
-     tileManager : OpenLayers.TileManager,
+     tileManager : {zoomDelay: 100, moveDelay: 50},
 
     /**
      * APIProperty: fallThrough
@@ -7059,7 +7059,7 @@ OpenLayers.Map = OpenLayers.Class({
             if (!(this.tileManager instanceof OpenLayers.TileManager)) {
                 this.tileManager = new OpenLayers.TileManager(this.tileManager);
             }
-            // console.log(this.tileManager);
+            console.log(this.tileManager);
 
             this.tileManager.addMap(this);
         }
