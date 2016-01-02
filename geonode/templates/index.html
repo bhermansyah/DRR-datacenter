@@ -22,10 +22,10 @@
           <!-- <img src="{{ STATIC_URL }}lib/foto/drought.jpg" alt="Flood Cover, Credit for Google Crisis"> -->
           <div class="container">
             <div class="carousel-caption">
-              <h1>Topic 1</h1>
-              <p>{% trans "Here perhaps we could put some statement something, some short description on the methodology, source of data, etc" %}</p>
-              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse Flood Assesstment</a></p> -->
-              <p class="image-credit">Photo: Google Crisis</p>
+              <h1>Static Maps</h1>
+              <p>{% trans "Browse the static maps, adjust the filter to easily find the static maps" %}</p>
+              <p><a class="btn btn-xs btn-warning" href="{% url "document_browse" %}" role="button">Browse Static maps</a></p>
+              <p class="image-credit">Afghanistan Spatial Datacenter</p>
             </div>
           </div>
         </div>
@@ -33,10 +33,10 @@
           <!-- <img src="{{ STATIC_URL }}lib/foto/cyclone1.jpg" alt="Cyclone, Credit for NOAA"> -->
           <div class="container">
             <div class="carousel-caption">
-              <h1>Topic 2</h1>
+              <h1>Interactive Maps</h1>
               <p>Here perhaps we could put some statement something, some short description on the methodology, source of data, etc</p>
-              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse Cyclone Assesstment</a></p> -->
-              <p class="image-credit">Photo: NOAA</p>
+              <p><a class="btn btn-xs btn-warning" href="{% url "maps_browse" %}" role="button">Browse Interactive Maps</a></p>
+              <p class="image-credit">Afghanistan Spatial Datacenter</p>
             </div>
           </div>
         </div>
@@ -44,10 +44,10 @@
           <!-- <img src="{{ STATIC_URL }}lib/foto/drought.jpg" alt="Drought, Credit for telegraph.co.uk"> -->
           <div class="container">
             <div class="carousel-caption">
-              <h1>Topic 3</h1>
-              <p>Here perhaps we could put some statement something, some short description on the methodology, source of data, etc</p>
-              <!-- <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse Drought Assestment</a></p> -->
-              <p class="image-credit">Photo: telegraph.co.uk</p>
+              <h1>Analysis tools</h1>
+              <p>Populate analysis figure and export map pdf using geoexplorer</p>
+              <p><a class="btn btn-xs btn-warning" href="{% url "maps_browse" %}656/view" role="button">Open DRR Interactive Map</a></p>
+              <p class="image-credit">Afghanistan Spatial Datacenter</p>
             </div>
           </div>
         </div>
