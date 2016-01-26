@@ -6822,7 +6822,7 @@ OpenLayers.Map = OpenLayers.Class({
      * non-default options, supply the options instead or alternatively supply
      * an instance of {<OpenLayers.TileManager>}.
      */
-     tileManager : {zoomDelay: 10, moveDelay: 10},
+     tileManager : {zoomDelay: 100, moveDelay: 50},
 
     /**
      * APIProperty: fallThrough
