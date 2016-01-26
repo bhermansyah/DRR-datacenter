@@ -50697,15 +50697,17 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                             if (record.get("source") == 3){
                                 var tempUrls = [
                                     'http://asdc.immap.org/geoserver/wms',
-                                    'http://52.24.183.157/geoserver/wms',
-                                    'http://52.24.183.157:8080/geoserver/wms'
-                                    // 'http://map1.asdc.immap.org/geoserver/wms',
-                                    // 'http://map2.asdc.immap.org/geoserver/wms',
-                                    // 'http://map3.asdc.immap.org/geoserver/wms',
-                                    // 'http://map4.asdc.immap.org/geoserver/wms'
+                                    'http://map1.asdc.immap.org/geoserver/wms',
+                                    'http://map2.asdc.immap.org/geoserver/wms',
+                                    'http://map3.asdc.immap.org/geoserver/wms',
+                                    'http://map4.asdc.immap.org/geoserver/wms',
+                                    'http://map5.asdc.immap.org/geoserver/wms',
+                                    'http://map6.asdc.immap.org/geoserver/wms',
+                                    'http://map7.asdc.immap.org/geoserver/wms',
+                                    'http://map8.asdc.immap.org/geoserver/wms'
                                 ]
                                 record.data.layer.url = tempUrls;
-                                console.log(record.data.layer.url);
+                                // console.log(record.data.layer.url);
                             }    
                             overlayRecords.push(record);
                         }
@@ -90539,6 +90541,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     text: this.saveMapText,
                     handler: function() {
                         this.doAuthorized(["ROLE_ADMINISTRATOR"], function() {
+                            console.log(this);
                             this.save(this.showUrl);
                         }, this);
                     },

@@ -137,7 +137,7 @@ GeoNode.plugins.Save = Ext.extend(gxp.plugins.Tool, {
             autoHeight: true,
             bbar: [
                 "->",
-                saveAsButton,
+                // saveAsButton,
                 saveButton,
                 new Ext.Button({
                     text: this.metadataFormCancelText,
