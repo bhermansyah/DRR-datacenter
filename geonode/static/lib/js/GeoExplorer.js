@@ -90553,7 +90553,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         new Ext.Button({
             id: "statMenu",
-            text: 'Tools',
+            text: 'Statistics',
             iconCls: 'icon-export',
             enableToggle: true,      
             pressed: false,
@@ -90670,7 +90670,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 tested: 'At Risk Property'
             },
             listeners: {
-                'be`eedit': {
+                'beforeedit': {
                     fn: function () {
                         return false;
                     }
@@ -90693,6 +90693,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }),
             html: '<p><i>Apply the filter to see the results</i></p>'
         });    
+
+        
 
         // new Ext.grid.PropertyGrid({
         //     id: 'statGrid',
