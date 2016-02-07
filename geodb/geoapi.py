@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1
 import json
 import time
 from tastypie.resources import ModelResource, Resource
@@ -259,6 +259,7 @@ class FloodRiskStatisticResource(ModelResource):
 
     def getRisk(self, request):
         # saving the user tracking records
+
         o = urlparse(request.META.get('HTTP_REFERER')).path
         o=o.split('/')
         mapCode = o[2]
@@ -268,6 +269,7 @@ class FloodRiskStatisticResource(ModelResource):
         queryset.save()
 
         boundaryFilter = json.loads(request.body)
+
         temp1 = []
         for i in boundaryFilter['spatialfilter']:
             temp1.append('ST_GeomFromText(\''+i+'\',4326)')
@@ -284,7 +286,7 @@ class FloodRiskStatisticResource(ModelResource):
         temp2 = temp2+']'
         
         filterLock = 'ST_Union('+temp2+')'
-        response = getRiskExecuteExternal(filterLock)
+        response = getRiskExecuteExternal(filterLock,boundaryFilter['flag'],boundaryFilter['code'])
 
         return response
 
@@ -303,7 +305,7 @@ class FloodRiskStatisticResource(ModelResource):
         # Do any operation here and return in form of json in next line
         return self.create_response(request, response)    
 
-def getRiskExecuteExternal(filterLock):
+def getRiskExecuteExternal(filterLock, flag, code):
         targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
         targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
         targetBase = AfgLndcrva.objects.all()
@@ -311,7 +313,7 @@ def getRiskExecuteExternal(filterLock):
         response = {}
 
         #Avalanche Risk
-        counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm')
+        counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', flag, code)
         # pop at risk level
         temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
         response['high_ava_population']=round(temp.get('High', 0),0)
@@ -328,7 +330,7 @@ def getRiskExecuteExternal(filterLock):
 
 
         # Flood Risk
-        counts =  getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm')
+        counts =  getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code)
         
         # pop at risk level
         temp = dict([(c['deeperthan'], c['count']) for c in counts])
@@ -344,63 +346,200 @@ def getRiskExecuteExternal(filterLock):
         response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)    
         response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2) 
 
-        counts =  getRiskNumber(targetRiskIncludeWater, filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm')
+        counts =  getRiskNumber(targetRiskIncludeWater, filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code)
 
         # landcover/pop/atrisk
         temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
+        response['water_body_pop_risk']=round(temp.get('Water body and marshland', 0),0)
+        response['barren_land_pop_risk']=round(temp.get('Barren land', 0),0)
         response['built_up_pop_risk']=round(temp.get('Built-up', 0),0)
+        response['fruit_trees_pop_risk']=round(temp.get('Fruit trees', 0),0)
         response['irrigated_agricultural_land_pop_risk']=round(temp.get('Irrigated agricultural land', 0),0)
+        response['permanent_snow_pop_risk']=round(temp.get('Permanent snow', 0),0)
+        response['rainfed_agricultural_land_pop_risk']=round(temp.get('Rainfed agricultural land', 0),0)
+        response['rangeland_pop_risk']=round(temp.get('Rangeland', 0),0)
+        response['sandcover_pop_risk']=round(temp.get('Sand cover', 0),0)
+        response['vineyards_pop_risk']=round(temp.get('Vineyards', 0),0)
+        response['forest_pop_risk']=round(temp.get('Forest and shrubs', 0),0)
 
         temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
+        response['water_body_area_risk']=round(temp.get('Water body and marshland', 0)/1000000,1)
+        response['barren_land_area_risk']=round(temp.get('Barren land', 0)/1000000,1)
         response['built_up_area_risk']=round(temp.get('Built-up', 0)/1000000,1)
+        response['fruit_trees_area_risk']=round(temp.get('Fruit trees', 0)/1000000,1)
         response['irrigated_agricultural_land_area_risk']=round(temp.get('Irrigated agricultural land', 0)/1000000,1)
+        response['permanent_snow_area_risk']=round(temp.get('Permanent snow', 0)/1000000,1)
+        response['rainfed_agricultural_land_area_risk']=round(temp.get('Rainfed agricultural land', 0)/1000000,1)
+        response['rangeland_area_risk']=round(temp.get('Rangeland', 0)/1000000,1)
+        response['sandcover_area_risk']=round(temp.get('Sand cover', 0)/1000000,1)
+        response['vineyards_area_risk']=round(temp.get('Vineyards', 0)/1000000,1)
+        response['forest_area_risk']=round(temp.get('Forest and shrubs', 0),0)
 
         # landcover all
-        counts =  getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm')
+        counts =  getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', flag, code)
         temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
+        response['water_body_pop']=round(temp.get('Water body and marshland', 0),0)
+        response['barren_land_pop']=round(temp.get('Barren land', 0),0)
         response['built_up_pop']=round(temp.get('Built-up', 0),0)
+        response['fruit_trees_pop']=round(temp.get('Fruit trees', 0),0)
         response['irrigated_agricultural_land_pop']=round(temp.get('Irrigated agricultural land', 0),0)
+        response['permanent_snow_pop']=round(temp.get('Permanent snow', 0),0)
+        response['rainfed_agricultural_land_pop']=round(temp.get('Rainfed agricultural land', 0),0)
+        response['rangeland_pop']=round(temp.get('Rangeland', 0),0)
+        response['sandcover_pop']=round(temp.get('Sand cover', 0),0)
+        response['vineyards_pop']=round(temp.get('Vineyards', 0),0)
+        response['forest_pop']=round(temp.get('Forest and shrubs', 0),0)
 
         temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
+        response['water_body_area']=round(temp.get('Water body and marshland', 0)/1000000,1)
+        response['barren_land_area']=round(temp.get('Barren land', 0)/1000000,1)
         response['built_up_area']=round(temp.get('Built-up', 0)/1000000,1)
+        response['fruit_trees_area']=round(temp.get('Fruit trees', 0)/1000000,1)
         response['irrigated_agricultural_land_area']=round(temp.get('Irrigated agricultural land', 0)/1000000,1)
+        response['permanent_snow_area']=round(temp.get('Permanent snow', 0)/1000000,1)
+        response['rainfed_agricultural_land_area']=round(temp.get('Rainfed agricultural land', 0)/1000000,1)
+        response['rangeland_area']=round(temp.get('Rangeland', 0)/1000000,1)
+        response['sandcover_area']=round(temp.get('Sand cover', 0)/1000000,1)
+        response['vineyards_area']=round(temp.get('Vineyards', 0)/1000000,1)
+        response['forest_area']=round(temp.get('Forest and shrubs', 0),0)
 
-        countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
-            select={
-                'numbersettlementsatrisk': 'count(distinct vuid)'}, 
-            where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*fldarea_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
+        if flag=='drawArea':
+            countsBase = targetAvalanche.extra(
+                select={
+                    'numbersettlementsatava': 'count(distinct vuid)'}, 
+                where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*sum_area_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatava')
+        elif flag=='entireAfg':
+            countsBase = targetAvalanche.extra(
+                select={
+                    'numbersettlementsatava': 'count(distinct vuid)'}).values('numbersettlementsatava')
+        elif flag=='currentProvince':
+            countsBase = targetAvalanche.extra(
+                select={
+                    'numbersettlementsatava': 'count(distinct vuid)'}, 
+                where = {"left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"}).values('numbersettlementsatava')
+        else:
+            countsBase = targetAvalanche.extra(
+                select={
+                    'numbersettlementsatava': 'count(distinct vuid)'}, 
+                where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatava')
+
+        response['numbersettlementsatava'] = round(countsBase[0]['numbersettlementsatava'],0)
+
+        if flag=='drawArea':
+            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+                select={
+                    'numbersettlementsatrisk': 'count(distinct vuid)'}, 
+                where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*fldarea_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
+        elif flag=='entireAfg':
+            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+                select={
+                    'numbersettlementsatrisk': 'count(distinct vuid)'}).values('numbersettlementsatrisk')
+        elif flag=='currentProvince':
+            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+                select={
+                    'numbersettlementsatrisk': 'count(distinct vuid)'}, 
+                where = {"left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"}).values('numbersettlementsatrisk')
+        else:
+            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+                select={
+                    'numbersettlementsatrisk': 'count(distinct vuid)'}, 
+                where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
+
         response['settlements_at_risk'] = round(countsBase[0]['numbersettlementsatrisk'],0)
 
-        countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
-            select={
-                'numbersettlements': 'count(distinct vuid)'}, 
-            where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
+        if flag=='drawArea':
+            countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+                select={
+                    'numbersettlements': 'count(distinct vuid)'}, 
+                where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
+        elif flag=='entireAfg':
+            countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+                select={
+                    'numbersettlements': 'count(distinct vuid)'}).values('numbersettlements')
+        elif flag=='currentProvince':
+            countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+                select={
+                    'numbersettlements': 'count(distinct vuid)'}, 
+                where = {"left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"}).values('numbersettlements')
+        else:
+            countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+                select={
+                    'numbersettlements': 'count(distinct vuid)'}, 
+                where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
+        
         response['settlements'] = round(countsBase[0]['numbersettlements'],0)
 
-        countsBase = targetBase.extra(
-            select={
-                'countbase' : 'SUM(  \
-                        case \
-                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then area_population \
-                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_population end \
-                    )'
-            },
-            where = {
-                'ST_Intersects(wkb_geometry, '+filterLock+')'
-            }).values('countbase')
+        if flag=='drawArea':
+            countsBase = targetBase.extra(
+                select={
+                    'countbase' : 'SUM(  \
+                            case \
+                                when ST_CoveredBy(wkb_geometry,'+filterLock+') then area_population \
+                                else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_population end \
+                        )'
+                },
+                where = {
+                    'ST_Intersects(wkb_geometry, '+filterLock+')'
+                }).values('countbase')
+        elif flag=='entireAfg':
+            countsBase = targetBase.extra(
+                select={
+                    'countbase' : 'SUM(area_population)'
+                }).values('countbase')
+        elif flag=='currentProvince':
+            countsBase = targetBase.extra(
+                select={
+                    'countbase' : 'SUM(area_population)'
+                },
+                where = {
+                    "left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"
+                }).values('countbase')
+        else:
+            countsBase = targetBase.extra(
+                select={
+                    'countbase' : 'SUM(area_population)'
+                },
+                where = {
+                    'ST_Within(wkb_geometry, '+filterLock+')'
+                }).values('countbase')
+                    
         response['Population']=round(countsBase[0]['countbase'],0)
 
-        countsBase = targetBase.extra(
-            select={
-                'areabase' : 'SUM(  \
-                        case \
-                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then area_sqm \
-                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm end \
-                    )'
-            },
-            where = {
-                'ST_Intersects(wkb_geometry, '+filterLock+')'
-            }).values('areabase')
+        if flag=='drawArea':
+            countsBase = targetBase.extra(
+                select={
+                    'areabase' : 'SUM(  \
+                            case \
+                                when ST_CoveredBy(wkb_geometry,'+filterLock+') then area_sqm \
+                                else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm end \
+                        )'
+                },
+                where = {
+                    'ST_Intersects(wkb_geometry, '+filterLock+')'
+                }).values('areabase')
+        elif flag=='entireAfg':
+            countsBase = targetBase.extra(
+                select={
+                    'areabase' : 'SUM(area_sqm)'
+                }).values('areabase')
+        elif flag=='currentProvince':
+            countsBase = targetBase.extra(
+                select={
+                    'areabase' : 'SUM(area_sqm)'
+                },
+                where = {
+                    "left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"
+                }).values('areabase')
+
+        else:
+            countsBase = targetBase.extra(
+                select={
+                    'areabase' : 'SUM(area_sqm)'
+                },
+                where = {
+                    'ST_Within(wkb_geometry, '+filterLock+')'
+                }).values('areabase')
+
         response['Area']=round(countsBase[0]['areabase']/1000000,0)
 
         response['percent_total_risk_population'] = round((response['total_risk_population']/response['Population'])*100,0)
@@ -423,25 +562,98 @@ def getRiskExecuteExternal(filterLock):
         response['percent_med_ava_area'] = round((response['med_ava_area']/response['Area'])*100,0)
         response['percent_low_ava_area'] = round((response['low_ava_area']/response['Area'])*100,0)
 
+        # Population percentage
+        try:
+            response['precent_barren_land_pop_risk'] = round((response['barren_land_pop_risk']/response['barren_land_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_barren_land_pop_risk'] = 0
         try:
             response['precent_built_up_pop_risk'] = round((response['built_up_pop_risk']/response['built_up_pop'])*100,0)
         except ZeroDivisionError:
-            response['precent_built_up_pop_risk'] = 0
+            response['precent_built_up_pop_risk'] = 0       
+        try:
+            response['precent_fruit_trees_pop_risk'] = round((response['fruit_trees_pop_risk']/response['fruit_trees_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_fruit_trees_pop_risk'] = 0
+        try:
+            response['precent_irrigated_agricultural_land_pop_risk'] = round((response['irrigated_agricultural_land_pop_risk']/response['irrigated_agricultural_land_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_irrigated_agricultural_land_pop_risk'] = 0     
+        try:
+            response['precent_permanent_snow_pop_risk'] = round((response['permanent_snow_pop_risk']/response['permanent_snow_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_permanent_snow_pop_risk'] = 0 
+        try:
+            response['precent_rainfed_agricultural_land_pop_risk'] = round((response['rainfed_agricultural_land_pop_risk']/response['rainfed_agricultural_land_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_rainfed_agricultural_land_pop_risk'] = 0  
+        try:
+            response['precent_rangeland_pop_risk'] = round((response['rangeland_pop_risk']/response['rangeland_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_rangeland_pop_risk'] = 0  
+        try:
+            response['precent_sandcover_pop_risk'] = round((response['sandcover_pop_risk']/response['sandcover_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_sandcover_pop_risk'] = 0  
+        try:
+            response['precent_vineyards_pop_risk'] = round((response['vineyards_pop_risk']/response['vineyards_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_vineyards_pop_risk'] = 0  
+        try:
+            response['precent_water_body_pop_risk'] = round((response['water_body_pop_risk']/response['water_body_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_water_body_pop_risk'] = 0     
+        try:
+            response['precent_forest_pop_risk'] = round((response['forest_pop_risk']/response['forest_pop'])*100,0)
+        except ZeroDivisionError:
+            response['precent_forest_pop_risk'] = 0                         
 
+
+        # Area percentage
+        try:
+            response['precent_barren_land_area_risk'] = round((response['barren_land_area_risk']/response['barren_land_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_barren_land_area_risk'] = 0
         try:        
             response['precent_built_up_area_risk'] = round((response['built_up_area_risk']/response['built_up_area'])*100,0)
         except ZeroDivisionError:
             response['precent_built_up_area_risk'] = 0    
-
         try:
-            response['precent_irrigated_agricultural_land_pop_risk'] = round((response['irrigated_agricultural_land_pop_risk']/response['irrigated_agricultural_land_pop'])*100,0)
+            response['precent_fruit_trees_area_risk'] = round((response['fruit_trees_area_risk']/response['fruit_trees_area'])*100,0)
         except ZeroDivisionError:
-            response['precent_irrigated_agricultural_land_pop_risk'] = 0    
-        
+            response['precent_fruit_trees_area_risk'] = 0        
         try:
             response['precent_irrigated_agricultural_land_area_risk'] = round((response['irrigated_agricultural_land_area_risk']/response['irrigated_agricultural_land_area'])*100,0)
         except ZeroDivisionError:
-            response['precent_irrigated_agricultural_land_area_risk'] = 0    
+            response['precent_irrigated_agricultural_land_area_risk'] = 0 
+        try:
+            response['precent_permanent_snow_area_risk'] = round((response['permanent_snow_area_risk']/response['permanent_snow_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_permanent_snow_area_risk'] = 0 
+        try:
+            response['precent_rainfed_agricultural_land_area_risk'] = round((response['rainfed_agricultural_land_area_risk']/response['rainfed_agricultural_land_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_rainfed_agricultural_land_area_risk'] = 0  
+        try:
+            response['precent_rangeland_area_risk'] = round((response['rangeland_area_risk']/response['rangeland_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_rangeland_area_risk'] = 0  
+        try:
+            response['precent_sandcover_area_risk'] = round((response['sandcover_area_risk']/response['sandcover_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_sandcover_area_risk'] = 0  
+        try:
+            response['precent_vineyards_area_risk'] = round((response['vineyards_area_risk']/response['vineyards_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_vineyards_area_risk'] = 0  
+        try:
+            response['precent_water_body_area_risk'] = round((response['water_body_area_risk']/response['water_body_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_water_body_area_risk'] = 0     
+        try:
+            response['precent_forest_area_risk'] = round((response['forest_area_risk']/response['forest_area'])*100,0)
+        except ZeroDivisionError:
+            response['precent_forest_area_risk'] = 0 
 
         return response        
 
@@ -476,7 +688,8 @@ def getRisk(request):
 
         return response        
    
-def getRiskNumber(data, filterLock, fieldGroup, popField, areaField):
+def getRiskNumber(data, filterLock, fieldGroup, popField, areaField, aflag, acode):
+    if aflag=='drawArea':
         counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
             select={
                 'count' : 'SUM(  \
@@ -484,7 +697,6 @@ def getRiskNumber(data, filterLock, fieldGroup, popField, areaField):
                             when ST_CoveredBy(wkb_geometry,'+filterLock+') then '+popField+' \
                             else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*'+popField+' end \
                     )',
-                # 'areaatrisk': 'SUM(st_area(st_intersection(wkb_geometry,ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326))) / st_area(wkb_geometry)*fldarea_sqm)'
                 'areaatrisk' : 'SUM(  \
                         case \
                             when ST_CoveredBy(wkb_geometry,'+filterLock+') then '+areaField+' \
@@ -494,4 +706,39 @@ def getRiskNumber(data, filterLock, fieldGroup, popField, areaField):
             where = {
                 'ST_Intersects(wkb_geometry, '+filterLock+')'
             }).values(fieldGroup,'count','areaatrisk')) 
-        return counts       
+    elif aflag=='entireAfg':
+        counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
+            select={
+                'count' : 'SUM('+popField+')',
+                'areaatrisk' : 'SUM('+areaField+')'
+            }).values(fieldGroup,'count','areaatrisk'))   
+    elif aflag=='currentProvince':
+        print "left(dist_code), "+str(len(str(acode)))+") = '"+str(acode)+"'"
+        # print "left(dist_code, "+len(str(acode))+") = '"+str(acode)+"'"
+        counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
+            select={
+                'count' : 'SUM('+popField+')',
+                'areaatrisk' : 'SUM('+areaField+')'
+            },
+            where = {
+                "left(cast(dist_code as text), "+str(len(str(acode)))+") = '"+str(acode)+"'"
+            }).values(fieldGroup,'count','areaatrisk'))        
+    else:
+        counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
+            select={
+                'count' : 'SUM('+popField+')',
+                'areaatrisk' : 'SUM('+areaField+')'
+            },
+            where = {
+                'ST_Within(wkb_geometry, '+filterLock+')'
+            }).values(fieldGroup,'count','areaatrisk')) 
+    return counts     
+
+class getProvince(ModelResource):
+    """Provinces api"""
+    class Meta:
+        queryset = AfgAdmbndaAdm1.objects.all().defer('wkb_geometry')
+        resource_name = 'getprovince'
+        allowed_methods = ('get')
+        filtering = { "id" : ALL }
+    

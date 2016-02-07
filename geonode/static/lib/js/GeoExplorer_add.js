@@ -1,3 +1,40 @@
+Ext.apply(Ext.util.Format, {
+    stripStylesRe: /(?:<style.*?>)((\n|\r|.)*?)(?:<\/style>)/ig,
+
+    stripStyles: function(v){
+        return !v ? v : String(v).replace(this.stripStylesRe, "");
+    },
+
+    toMega : function(size) {
+        if (size < 1000) {
+            return size + "";
+        } else if (size < 1000000) {
+            return (Math.round(((size*10) / 1000))/10) + " K";
+        } else {
+            return (Math.round(((size*10) / 1000000))/10) + " M";
+        }
+    },
+
+    toNumberCustom : function(v) {
+        v = (Math.round((v-0)*100))/100;
+        v = (v == Math.floor(v)) ? v + "" : ((v*10 == Math.floor(v*10)) ? v + "0" : v);
+        v = String(v);
+        var ps = v.split('.'),
+            whole = ps[0],
+            sub = ps[1] ? '.'+ ps[1] : '',
+            r = /(\d+)(\d{3})/;
+        while (r.test(whole)) {
+            whole = whole.replace(r, '$1' + ',' + '$2');
+        }
+        v = whole + sub;
+        if (v.charAt(0) == '-') {
+            return '-$' + v.substr(1);
+        }
+        return "" +  v;
+    },
+
+});
+
 OpenLayers.TileManager = OpenLayers.Class({
     
     /**
@@ -485,168 +522,284 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         return this.store;
     },
     getPageExtent: function() {},
-    setFeatureStore: function(filter, autoLoad) {
-        // console.log(filter);
+    setFeatureStore: function(filter, flag, code) {
+        console.log(flag);
         var myObj = {
             filterdata : filter
         };
 
-        var myMask = new Ext.LoadMask(Ext.getCmp('stattable').body, {msg:"Please wait..."});
+        var myMask = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
         myMask.show();
-        Ext.getCmp('stattable').expand();
+        // Ext.getCmp('stattable').expand();
 
         Ext.Ajax.request({
             url: '../../geoapi/floodrisk/',
             // timeout: this.timeout,
             method: 'POST', 
-            params: Ext.encode({'spatialfilter':filter}),
+            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code}),
             headers: {"Content-Type": "application/json"},
             success: function(response) {
                 myMask.hide();
                 // console.log(response);
                 this.store = Ext.decode(response.responseText);
                 // console.log(this.store);
-                var tpl = new Ext.Template(
-                    '<br/>',
-                    '<table>',
-                     //header
-                        '<tr vertical-align: middle;">',
-                            '<td colspan=4></td>',
-                            '<td colspan=3 style="padding: 10px;background-color:#CCCCCC;border:1px solid;" align="center">Risk</td>',
-                        '</tr>',
-                        '<tr vertical-align: middle;">',
-                            '<td style="border-left:0px solid !important;"></td>',
-                            '<td style="border-left:0px solid !important;"></td>',
-                            '<td align="center" style="background-color:#CCCCCC;border:1px solid;">Total</td>',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">all risk</td>',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">High</td>',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">Moderate</td>',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">Low</td>',
-                        '</tr>',
+                
+                var tplBaseLine = new Ext.Template(
+                    '<div class="statisticsPanel">',
+                        '<ul>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Population</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{Population:toMega}</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_pop:toMega}</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">', //647625 43689
+                                      '<h1>Area (KM2)</h1>',
+                                    '</header>',
 
-                        // floodrisk exposure
-                        '<tr>',
-                            '<td rowspan=4 style="padding: 5px;background-color:#CCCCCC;border:1px solid;" align="left;">Flood Risk</td>',
-                            '<td rowspan=2 style="padding: 5px;background-color:#CCCCCC;border:1px solid;" align="left;">Population</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{Population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{total_risk_population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{high_risk_population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{med_risk_population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{low_risk_population}</td>',
-                        '</tr>',
-                        '<tr>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_total_risk_population}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_high_risk_population}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_med_risk_population}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_low_risk_population}%</td>',
-                        '</tr>',
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{Area:toMega}</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_area:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_area:toMega}</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Settlements</h1>',
+                                    '</header>',
 
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{settlements:toNumberCustom}</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Road (KM)</h1>',
+                                    '</header>',
 
-                        '<tr>',
-                            '<td rowspan=2 style="padding: 5px; background-color:#CCCCCC;border:1px solid;" align="left">Area(km2)</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{Area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{total_risk_area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{high_risk_area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{med_risk_area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{low_risk_area}</td>',
-                        '</tr>',
-                        '<tr>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_total_risk_area}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_high_risk_area}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_med_risk_area}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_low_risk_area}%</td>',
-                        '</tr>',
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">xxx km</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Health Facilities</h1>',
+                                    '</header>',
 
-                        '<tr>',
-                            '<td rowspan=4 style="padding: 5px;background-color:#CCCCCC;border:1px solid;" align="left;">Avalanche Risk</td>',
-                            '<td rowspan=2 style="padding: 5px;background-color:#CCCCCC;border:1px solid;" align="left;">Population</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{Population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{total_ava_population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{high_ava_population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{med_ava_population}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{low_ava_population}</td>',
-                        '</tr>',
-                        '<tr>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_total_ava_population}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_high_ava_population}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_med_ava_population}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_low_ava_population}%</td>',
-                        '</tr>',
-
-
-                        '<tr>',
-                            '<td rowspan=2 style="padding: 5px; background-color:#CCCCCC;border:1px solid;" align="left">Area(km2)</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{Area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{total_ava_area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{high_ava_area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{med_ava_area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{low_ava_area}</td>',
-                        '</tr>',
-                        '<tr>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_total_ava_area}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_high_ava_area}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_med_ava_area}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{percent_low_ava_area}%</td>',
-                        '</tr>',
-                    '</table><br/>',
-
-                    '<table>',
-                     //header
-                        '<tr vertical-align: middle;">',
-                            '<td rowspan=2 style="border-left:0px solid !important;"></td>',
-                            '<td rowspan=2 align="center" style="background-color:#CCCCCC;border:1px solid;"># Settlements</td>',
-                            '<td colspan=2 style="padding: 10px;background-color:#CCCCCC;border:1px solid;" align="center">Built-Up Area</td>',
-                            '<td colspan=2 style="padding: 10px;background-color:#CCCCCC;border:1px solid;" align="center">Irrigated Agg Area</td>',
-                        '</tr>',
-                        '<tr vertical-align: middle;">',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">Pop</td>',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">Area(km2)</td>',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">Pop</td>',
-                            '<td style="padding: 10px; background-color:#CCCCCC;border:1px solid;" align="center">Area(km2)</td>',
-                        '</tr>',
-
-                        '<tr>',
-                            '<td rowspan=2 style="padding: 5px;background-color:#CCCCCC;border:1px solid;" align="left;">Total</td>',
-                            '<td rowspan=2 style="padding: 5px;border:1px solid;" align="right">{settlements}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{built_up_pop}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{built_up_area}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{irrigated_agricultural_land_pop}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{irrigated_agricultural_land_area}</td>',
-                        '</tr>',
-                        '<tr>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">100%</td>',
-                        '</tr>',
-
-
-                        '<tr>',
-                            '<td rowspan=2 style="padding: 5px; background-color:#CCCCCC;border:1px solid;" align="left">Flood Risk Exposure</td>',
-                            '<td rowspan=2 style="padding: 5px;border:1px solid;" align="right">{settlements_at_risk}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{built_up_pop_risk}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{built_up_area_risk}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{irrigated_agricultural_land_pop_risk}</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{irrigated_agricultural_land_area_risk}</td>',
-                        '</tr>',
-                        '<tr>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{precent_built_up_pop_risk}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{precent_built_up_area_risk}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{precent_irrigated_agricultural_land_pop_risk}%</td>',
-                            '<td style="padding: 5px;border:1px solid;" align="right">{precent_irrigated_agricultural_land_area_risk}%</td>',
-                        '</tr>',
-                    '</table><br/>'
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">xxx</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                        '</ul>',
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>'    
                 );
 
-                tpl.overwrite(Ext.getCmp('statGrid').body, this.store);
-                Ext.getCmp('statGrid').body.highlight('#c3daf9', {block:true});
+                var tplFloodRisk = new Ext.XTemplate(
+                    '<div class="statisticsPanel">',
+                        '<ul>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Population</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_risk_population:toMega}/({percent_total_risk_population}%)</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_risk_population:toMega}/({percent_high_risk_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_risk_population:toMega}/({percent_med_risk_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_risk_population:toMega}/({percent_low_risk_population}%)</div></p><br/>',       
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_pop_risk:toMega}/({precent_barren_land_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_pop_risk:toMega}/({precent_built_up_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_pop_risk:toMega}/({precent_fruit_trees_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_pop_risk:toMega}/({precent_irrigated_agricultural_land_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_pop_risk:toMega}/({precent_permanent_snow_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_pop_risk:toMega}/({precent_rainfed_agricultural_land_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_pop_risk:toMega}/({precent_rangeland_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_pop_risk:toMega}/({precent_sandcover_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_pop_risk:toMega}/({precent_vineyards_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_pop_risk:toMega}/({precent_water_body_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_pop_risk:toMega}/({precent_forest_pop_risk}%)</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">', 
+                                      '<h1>Area (KM2)</h1>',
+                                    '</header>',
 
-                // Ext.getCmp('statGrid').setSource(this.store);
-                // console.log(Ext.getCmp('statGrid'));
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_risk_area:toMega}/({percent_total_risk_area}%)</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_risk_area:toMega}/({percent_high_risk_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_risk_area:toMega}/({percent_med_risk_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_risk_area:toMega}/({percent_low_risk_area}%)</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_area_risk:toMega}/({precent_barren_land_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_area_risk:toMega}/({precent_built_up_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_area_risk:toMega}/({precent_fruit_trees_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_area_risk:toMega}/({precent_irrigated_agricultural_land_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_area_risk:toMega}/({precent_barren_land_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_area_risk:toMega}/({precent_permanent_snow_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_area_risk:toMega}/({precent_rangeland_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_area_risk:toMega}/({precent_sandcover_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_area_risk:toMega}/({precent_vineyards_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_area_risk:toMega}/({precent_water_body_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_area_risk:toMega}/({precent_forest_area_risk}%)</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Settlements</h1>',
+                                    '</header>',
+
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{settlements_at_risk:toNumberCustom}</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Road (KM)</h1>',
+                                    '</header>',
+
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">xxx km</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Health Facilities</h1>',
+                                    '</header>',
+
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">xxx</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                        '</ul>',
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                );
+
+                var tplAvalancheRisk = new Ext.XTemplate(
+                    '<div class="statisticsPanel">',
+                        '<ul>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Population</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_ava_population:toMega}/({percent_total_ava_population}%)</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_population:toMega}/({percent_high_ava_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_population:toMega}/({percent_med_ava_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_population:toMega}/({percent_low_ava_population}%)</div></p><br/>',       
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">', 
+                                      '<h1>Area (KM2)</h1>',
+                                    '</header>',
+
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_ava_area:toMega}/({percent_total_ava_area}%)</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_area:toMega}/({percent_high_ava_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_area:toMega}/({percent_med_ava_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_area:toMega}/({percent_low_ava_area}%)</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            // '<li>',
+                            //     '<div class="w3-card-4">',
+                            //         '<header class="w3-container w3-blue">',
+                            //           '<h1>Settlements</h1>',
+                            //         '</header>',
+
+                            //         '<div class="w3-container">',
+                            //             '<p><div style="float:left;">Total</div><div style="float:right;">{numbersettlementsatava:toNumberCustom}</div></p><br/>',
+                            //         '</div>',
+                            //     '</div>',
+                            // '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Road (KM)</h1>',
+                                    '</header>',
+
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">xxx km</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Health Facilities</h1>',
+                                    '</header>',
+
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">xxx</div></p><br/>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                        '</ul>',
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                );
+                // tpl.overwrite(Ext.getCmp('baselineView').body, this.store);
+
+                
+                tplBaseLine.overwrite(Ext.getCmp('baselineView').body, this.store);
+                tplFloodRisk.overwrite(Ext.getCmp('floodriskView').body, this.store);
+                tplAvalancheRisk.overwrite(Ext.getCmp('avalancheView').body, this.store);
+
+                Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
+                Ext.getCmp('floodriskView').body.highlight('#c3daf9', {block:true});
+
             },
             failure: function(response) {
                 myMask.hide();

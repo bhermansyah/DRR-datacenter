@@ -90090,10 +90090,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             // Add by boedy1996@gmail.com 
             {
                 actions: ["statMenu"],  actionTarget: "paneltbar"
-            },{
-                actions: ["statSelectedGrid"],  actionTarget: "statselectedtable"
-            },{
-                actions: ["statGrid"],  actionTarget: "stattable"
+            // },{
+            //     actions: ["statSelectedGrid"],  actionTarget: "statselectedtable"
+            // },{
+            //     actions: ["statGrid"],  actionTarget: "stattable"
             }, {
                 ptype: "gxp_statfeaturemanager",
                 id: "statfeaturemanager",
@@ -90341,30 +90341,439 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             header: false
         });
 
+        // var eastPanel = new Ext.Panel({
+        //     region: "east",
+        //     id: "east",
+        //     // height: 220,
+        //     width: 320,
+        //     border: false,
+        //     split: true,
+        //     collapsible: true,
+        //     collapseMode: "mini",
+        //     collapsed: true,
+        //     hideCollapseTool: true,
+        //     header: false,
+        //     layout: "accordion",
+        //     items: [{
+        //         region: "center",
+        //         id: "statselectedtable",
+        //         title: 'Filter Tool',
+        //         layout: "fit"
+        //     },{
+        //         region: "south",
+        //         id: "stattable",
+        //         title: 'Results',
+        //         layout: "fit"
+        //     }]
+        // });
+
+        // var eastPanel = new Ext.TabPanel({
+        //     region: "east",
+        //     id: "east",
+        //     activeTab: 0,
+        //     width: 320,
+        //     border: false,
+        //     split: true,
+        //     height:250,
+        //     plain:true,
+        //     collapseMode: "mini",
+        //     collapsible: true,
+        //     hideCollapseTool: true,
+        //     defaults:{autoScroll: true},
+        //     items: [{
+        //         title: 'Population',
+        //         html: ""
+        //     },{
+        //         title: 'Land Cover',
+        //         html: ""
+        //     }]
+        // });
+        var required = '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>';
+
+        var style = {
+            strokeColor: '#ee0000',
+            strokeWidth: 2,
+            strokeOpacity: 1,
+            fillColor: '#ee0000',
+            fillOpacity: 0.1
+        };
+
+       var vector_layer = new OpenLayers.Layer.Vector("Filter Layer",{
+            'displayInLayerSwitcher':false,
+             renderers: ['Canvas', 'VML'],
+             styleMap: new OpenLayers.StyleMap({
+                "default": style
+            })
+       }); 
+       this.mapPanel.map.addLayer(vector_layer);
+       var filtercontrol = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon,{
+            eventListeners: {
+                "featureadded": function(evt){
+                    
+                }    
+            }
+       });
+       vector_layer.events.register("sketchcomplete", filtercontrol, function(event) { 
+            event.feature.attributes.featureid = event.feature.id;
+            event.feature.attributes.type = 'Free Draw';
+            filtercontrol.deactivate();
+        });
+       this.mapPanel.map.addControl(filtercontrol);
+       
+       var dataSelected = new GeoExt.data.FeatureStore({
+            layer : vector_layer,
+            fields: [{
+                name:"prov_code"
+            },{
+                name:"prov_na_en"
+            }],
+            proxy: new GeoExt.data.ProtocolProxy({
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "http://asdc.immap.org/geoserver/wfs",
+                    format: new OpenLayers.Format.GeoJSON(),
+                    params: {
+                        service: "WFS",
+                        version: "1.1.0",
+                        request: "GetFeature",
+                        typeName: "geonode:afg_admbnda_adm1",
+                        srsName: "EPSG:900913",
+                        outputFormat: "json"    
+                    }
+                })
+            }),
+            autoLoad: false
+        });
+
+        dataSelected.on({
+            'load': function(){
+                if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='drawArea')
+                    tempMap.zoomToExtent(vector_layer.getDataExtent());
+            }
+        });    
+
+
+        var data1 = new GeoExt.data.FeatureStore({
+            // layer : vector_layer,
+            fields: [{
+                name:"prov_code"
+            },{
+                name:"prov_na_en"
+            }],
+            proxy: new GeoExt.data.ProtocolProxy({
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "http://asdc.immap.org/geoserver/wfs",
+                    format: new OpenLayers.Format.GeoJSON(),
+                    params: {
+                        service: "WFS",
+                        version: "1.1.0",
+                        request: "GetFeature",
+                        typeName: "geonode:afg_admbnda_adm1",
+                        srsName: "EPSG:900913",
+                        outputFormat: "json",
+                        // maxFeatures: 50,
+                        propertyName:'prov_code,prov_na_en'
+                    }
+                })
+            }),
+            autoLoad: true
+        });
+
+        var data2 = new GeoExt.data.FeatureStore({
+            // layer : vector_layer,
+            fields: [{
+                name:"dist_code"
+            },{
+                name:"dist_na_en"
+            }],
+            proxy: new GeoExt.data.ProtocolProxy({
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "http://asdc.immap.org/geoserver/wfs",
+                    format: new OpenLayers.Format.GeoJSON(),
+                    params: {
+                        service: "WFS",
+                        version: "1.1.0",
+                        request: "GetFeature",
+                        typeName: "geonode:afg_admbnda_adm2",
+                        srsName: "EPSG:900913",
+                        outputFormat: "json",
+                        // maxFeatures: 50,
+                        propertyName:'dist_code,dist_na_en'
+                    }
+                })
+            }),
+            autoLoad: false
+        });
+        var tempMap = this.mapPanel.map;
+
         var eastPanel = new Ext.Panel({
             region: "east",
             id: "east",
-            // height: 220,
-            width: 320,
+            title: 'Statistics',
+            xtype: 'form',
             border: false,
             split: true,
             collapsible: true,
             collapseMode: "mini",
-            collapsed: true,
             hideCollapseTool: true,
-            header: false,
-            layout: "accordion",
-            items: [{
-                region: "center",
-                id: "statselectedtable",
-                title: 'Filter Tool',
-                layout: "fit"
-            },{
-                region: "south",
-                id: "stattable",
-                title: 'Results',
-                layout: "fit"
-            }]
+            bodyPadding: 5,
+            collapsed: true,
+            width: 320,
+            bbar: new Ext.Toolbar({
+                disabled: false,
+                id: "paneltbarcalc",
+                items:['->']
+            }),
+            fieldDefaults: {
+                labelAlign: 'top',
+                msgTarget: 'side'
+            },
+            defaults: {
+                anchor: '100%',
+                autoScroll: true
+            },
+            items: [new Ext.form.FormPanel({
+                // title: "Basic Form",
+                id: 'filterForm',
+                width: '100%',
+                frame: true,
+                layout:'table',
+                frame: true,
+                layoutConfig: {columns: 1},
+                bbar: new Ext.Toolbar({
+                    items:['->',
+                    {
+                        text: 'Reset',
+                        iconCls: 'gxp-icon-reset',
+                        scope : this,
+                        handler: function(){
+                            vector_layer.removeAllFeatures();
+                            var tpl = new Ext.Template('Apply filter to generate the statistics');
+                            tpl.overwrite(Ext.getCmp('baselineView').body, {});
+                            tpl.overwrite(Ext.getCmp('floodriskView').body, {});
+                            tpl.overwrite(Ext.getCmp('avalancheView').body, {});
+                            Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
+                        }
+                    },{
+                        text: 'Apply',
+                        iconCls: "save",
+                        scope : this,
+                        // disabled : Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'] == 'drawArea' || Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'] == 'currentProvince',
+                        handler: function(){
+                            // console.log(Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']);
+                            var filter = [];
+                            var adminCode = '';
+                            // console.log(Ext.getCmp('districtSelection').value);
+
+                            if (Ext.getCmp('provSelection').value != '') adminCode=Ext.getCmp('provSelection').value;
+                            if (Ext.getCmp('districtSelection').value != '') adminCode=Ext.getCmp('districtSelection').value;
+
+                            if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']=='currentExtent'){
+                                var data = new OpenLayers.Feature.Vector(this.mapPanel.map.getExtent().toGeometry(), {
+                                    fid: 'extent01'
+                                });
+                                data.attributes = {
+                                    featureid: 'extent01',
+                                    type: 'extent'
+                                };
+                                this.mapPanel.map.getLayersByName('Filter Layer')[0].addFeatures(data);
+                            } else if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']=='entireAfg'){
+
+                            } else if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']=='currentProvince'){
+                                
+                            } else if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']=='drawArea'){
+                                
+                            }
+
+                            vector_layer.features.forEach(function(record) {
+                                var temp = record.geometry.clone().transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));                                
+                                if (record.attributes.type == 'Free Draw' || record.attributes.type == 'extent'){
+                                    filter.push(temp.toString());
+                                } else {
+                                    filter.push(temp.components[0].toString());
+                                }  
+                            });
+                            _storeCalc.setFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
+                        }
+                    }]
+                }),
+                items: [
+                    {
+                        xtype: 'radio',
+                        boxLabel: 'Current Extent',
+                        name: 'selectedFilter',
+                        inputValue: 'currentExtent',
+                        checked: true
+                    },
+                    {
+                        xtype: 'radio',
+                        boxLabel: 'Entire Afghanistan',
+                        name: 'selectedFilter',
+                        inputValue: 'entireAfg'
+                    },
+                    {
+                        xtype: 'radio',
+                        boxLabel: 'Provinces and Districts',
+                        name: 'selectedFilter',
+                        inputValue: 'currentProvince',
+                        listeners: {
+                            check: function(cb, value) {
+                                if (value){
+                                    console.log(Ext.getCmp('provSelection'));
+                                    Ext.getCmp('provSelection').disabled  = false;
+                                    Ext.getCmp('districtSelection').disabled  = false;
+                                } else { 
+                                    Ext.getCmp('provSelection').disabled  = true;
+                                    Ext.getCmp('provSelection').reset();
+                                    Ext.getCmp('districtSelection').disabled  = true;
+                                    Ext.getCmp('districtSelection').reset();
+                                    vector_layer.destroyFeatures();
+                                }    
+                            }
+                        }
+
+                    },
+                    {
+                        xtype: 'combo',
+                        fieldLabel: 'Provinces',
+                        emptyText:'Select a province...', 
+                        id:'provSelection',
+                        disabled : true,
+                        typeAhead: true,
+                        triggerAction: 'all',
+                        forceSelection: true,  
+                        editable:false,  
+                        lazyRender:true,
+                        mode: 'local',
+                        store: data1,
+                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                        valueField: 'prov_code',
+                        displayField: 'prov_na_en',
+                        scope: this,
+                        listeners       : {
+                            'select': function(combo, record, index) {
+                                Ext.getCmp('districtSelection').reset();
+                                dataSelected.load({
+                                    params: {
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_admbnda_adm1",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        CQL_FILTER: "prov_code = "+record.data.prov_code
+                                    }    
+                                }); 
+                                
+                                data2.load({
+                                    params:{
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_admbnda_adm2",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        // maxFeatures: 50,
+                                        propertyName:'dist_code,dist_na_en',
+                                        CQL_FILTER: "prov_code = "+record.data.prov_code
+                                    }
+                                });
+                            }
+
+
+                        }
+
+                    },
+                    {
+                        xtype: 'combo',
+                        fieldLabel: 'Districts',
+                        id:'districtSelection',
+                        emptyText:'Select a district...', 
+                        typeAhead: true,
+                        disabled : true,
+                        triggerAction: 'all',
+                        forceSelection: true,  
+                        editable:false,  
+                        lazyRender:true,
+                        mode: 'local',
+                        store: data2,
+                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                        valueField: 'dist_code',
+                        displayField: 'dist_na_en',
+                        listeners       : {
+                            'select': function(combo, record, index) {
+                                dataSelected.load({
+                                    params: {
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_admbnda_adm2",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        CQL_FILTER: "dist_code = "+record.data.dist_code
+                                    }    
+                                });
+                            }
+                        }
+
+                    },
+                    {
+                        xtype: 'radio',
+                        boxLabel: 'Draw Area',
+                        name: 'selectedFilter',
+                        inputValue: 'drawArea',
+                        listeners: {
+                            check: function(cb, value) {
+                                if (value){
+                                    filtercontrol.activate();
+                                } else {
+                                    filtercontrol.deactivate();
+                                    vector_layer.destroyFeatures();
+                                }    
+                            }
+                        }
+                    }
+                ]
+            }),
+            new Ext.TabPanel({
+                activeTab: 0,
+                enableTabScroll:true,
+                width: '100%',
+                defaults: {autoScroll: true, layout:'fit'},  
+                items: [{
+                    title: 'Baseline',
+                    id: 'baselineView',
+                    defaults: {autoScroll: true},  
+                    height : 800,
+                    overflowY: 'scroll',
+                    html:'Apply filter to generate the statistics'
+                },{
+                    title: 'Flood Forecasted',
+                    defaults: {autoScroll: true},  
+                    height : 800,
+                    overflowY: 'scroll',
+                    html:'Coming soon'
+                },{
+                    title: 'Flood Risk',
+                    id: 'floodriskView',
+                    defaults: {autoScroll: true},  
+                    height : 800,
+                    overflowY: 'scroll',
+                    html:'Apply filter to generate the statistics'
+                },{
+                    title: 'Avalanche Forecasted',
+                    defaults: {autoScroll: true},  
+                    height : 800,
+                    overflowY: 'scroll',
+                    html:'Coming soon'
+                },{
+                    title: 'Avalanche Risk',
+                    id: 'avalancheView',
+                    defaults: {autoScroll: true},  
+                    height : 800,
+                    overflowY: 'scroll',
+                    html:'Apply filter to generate the statistics'
+                }]
+            })]
         });
 
         var southPanel = new Ext.Panel({
@@ -90541,7 +90950,6 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     text: this.saveMapText,
                     handler: function() {
                         this.doAuthorized(["ROLE_ADMINISTRATOR"], function() {
-                            console.log(this);
                             this.save(this.showUrl);
                         }, this);
                     },
@@ -90570,156 +90978,74 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
        // console.log(this);
        // boedy1996@gmail.com
-       var style = {
-            strokeColor: '#ee0000',
-            strokeWidth: 2,
-            strokeOpacity: 1,
-            fillColor: '#ee0000',
-            fillOpacity: 0.1
-        };
-
-       var vector_layer = new OpenLayers.Layer.Vector("Filter Layer",{
-            'displayInLayerSwitcher':false,
-             renderers: ['Canvas', 'VML'],
-             styleMap: new OpenLayers.StyleMap({
-                "default": style
-            })
-       }); 
-       this.mapPanel.map.addLayer(vector_layer);
-       var filtercontrol = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon,{
-            eventListeners: {
-                "featureadded": function(evt){
-                    
-                }    
-            }
-       });
-       vector_layer.events.register("sketchcomplete", filtercontrol, function(event) { 
-            event.feature.attributes.featureid = event.feature.id;
-            event.feature.attributes.type = 'Free Draw';
-        });
-       this.mapPanel.map.addControl(filtercontrol);
-       
-       // this.mapPanel.map.raiseLayer(this.mapPanel.map.getLayersByName('Filter Layer')[0], this.mapPanel.map.layers.length);
-       // this.mapPanel.map.setLayerIndex(this.mapPanel.map.getLayersByName('Filter Layer')[0], 0);
-  
-        var selectedStore = new GeoExt.data.FeatureStore({
-            layer: vector_layer,
-            fields: [
-                {name: 'featureid', type: 'string'},
-                {name: 'type', type: 'string'}
-            ]
-        });
-
-        new Ext.grid.GridPanel({
-            id: 'statSelectedGrid',
-            width: 300,
-            store: selectedStore,
-            columnLines: true,
-            viewConfig: {
-               stripeRows: true
-            },
-            columns: [{
-                header: "FID",
-                width: 200,
-                dataIndex: "featureid"
-            },{
-                header: "Type",
-                width: 200,
-                dataIndex: "type"
-            }],
-            sm: new GeoExt.grid.FeatureSelectionModel(),
-            height: 50,
-            tbar: [{
-                text: 'draw a polygon',
-                iconCls: 'gxp-icon-addfeature',
-                enableToggle: true,      
-                pressed: false,
-                toggleHandler: function(){
-                    if (this.pressed){
-                        filtercontrol.activate();
-                    } else {
-                        filtercontrol.deactivate();
-                    }
-                }
-            },'->',
-            {
-                 text: 'Delete',
-                 iconCls: 'gxp-icon-removelayers',
-                 handler:function(evt){
-                    vector_layer.removeFeatures(vector_layer.selectedFeatures[0]);
-                 }
-            },
-            {
-                text: 'Apply',
-                iconCls: "save",
-                // disabled : vector_layer.features.length == 0 ? false : true,
-                handler: function(){
-                    var filter = [];
-                    vector_layer.features.forEach(function(record) {
-                        var temp = record.geometry.clone().transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));
-                        if (record.attributes.type == 'Free Draw'){
-                            filter.push(temp.toString());
-                        } else {
-                            filter.push(temp.components[0].toString());
-                        }    
-                    });
-                    _storeCalc.setFeatureStore(filter);
-                }
-            }],
-            propertyNames: {
-                tested: 'At Risk Property'
-            },
-            listeners: {
-                'beforeedit': {
-                    fn: function () {
-                        return false;
-                    }
-                },
-                'afteredit': {
-                    fn: function () {
-                        return false;
-                    }
-                }
-            }
-        });
-
-        new Ext.Panel({
-            id: 'statGrid',
-            width: 300,
-            bbar: new Ext.Toolbar({
-                disabled: true,
-                id: "paneltbarcalc",
-                items:['->']
-            }),
-            html: '<p><i>Apply the filter to see the results</i></p>'
-        });    
-
         
+        // var selectedStore = new GeoExt.data.FeatureStore({
+        //     layer: vector_layer,
+        //     fields: [
+        //         {name: 'featureid', type: 'string'},
+        //         {name: 'type', type: 'string'}
+        //     ]
+        // });
 
-        // new Ext.grid.PropertyGrid({
-        //     id: 'statGrid',
+        // new Ext.grid.GridPanel({
+        //     id: 'statSelectedGrid',
         //     width: 300,
-        //     // autoHeight: true,
-        //     // viewConfig: {
-        //     //     stripeRows: true
-        //     // },
-        //     groupingConfig: {
-        //         groupHeaderTpl: 'Settings: {name}',
-        //         disabled: false
+        //     store: selectedStore,
+        //     columnLines: true,
+        //     viewConfig: {
+        //        stripeRows: true
         //     },
-        //     height: 50,
-        //     bbar: ['->',{
-        //         text: 'Print',
-        //         iconCls : 'gxp-icon-print'
+        //     columns: [{
+        //         header: "FID",
+        //         width: 200,
+        //         dataIndex: "featureid"
+        //     },{
+        //         header: "Type",
+        //         width: 200,
+        //         dataIndex: "type"
         //     }],
-        //     // propertyNames: {
-        //     //     tested: 'At Risk Property'
-        //     // },
-        //     source: store.store,
-        //     // viewConfig : {
-        //     //     forceFit: true,
-        //     //     scrollOffset: 2 // the grid will never have scrollbars
-        //     // },
+        //     sm: new GeoExt.grid.FeatureSelectionModel(),
+        //     height: 50,
+        //     tbar: [{
+        //         text: 'draw a polygon',
+        //         iconCls: 'gxp-icon-addfeature',
+        //         enableToggle: true,      
+        //         pressed: false,
+        //         toggleHandler: function(){
+        //             if (this.pressed){
+        //                 filtercontrol.activate();
+        //             } else {
+        //                 filtercontrol.deactivate();
+        //             }
+        //         }
+        //     },'->',
+        //     {
+        //          text: 'Delete',
+        //          iconCls: 'gxp-icon-removelayers',
+        //          handler:function(evt){
+        //             vector_layer.removeFeatures(vector_layer.selectedFeatures[0]);
+        //          }
+        //     },
+        //     {
+        //         text: 'Apply',
+        //         iconCls: "save",
+        //         // disabled : vector_layer.features.length == 0 ? false : true,
+        //         handler: function(){
+        //             var filter = [];
+        //             vector_layer.features.forEach(function(record) {
+        //                 var temp = record.geometry.clone().transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));
+        //                 if (record.attributes.type == 'Free Draw'){
+        //                     filter.push(temp.toString());
+        //                 } else {
+        //                     filter.push(temp.components[0].toString());
+        //                 }    
+        //             });
+        //             _storeCalc.setFeatureStore(filter);
+        //         }
+        //     }],
+        //     propertyNames: {
+        //         tested: 'At Risk Property'
+        //     },
         //     listeners: {
         //         'beforeedit': {
         //             fn: function () {
@@ -90733,6 +91059,18 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         //         }
         //     }
         // });
+
+        // new Ext.Panel({
+        //     id: 'statGrid',
+        //     width: 300,
+        //     bbar: new Ext.Toolbar({
+        //         disabled: true,
+        //         id: "paneltbarcalc",
+        //         items:['->']
+        //     }),
+        //     html: '<p><i>Apply the filter to see the results</i></p>'
+        // });    
+
     },
 
     /** private: method[openStats]
