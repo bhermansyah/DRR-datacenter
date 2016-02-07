@@ -523,13 +523,19 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
     },
     getPageExtent: function() {},
     setFeatureStore: function(filter, flag, code) {
-        console.log(flag);
+        console.log(Ext.getCmp('statContainer'));
         var myObj = {
             filterdata : filter
         };
-
-        var myMask = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
-        myMask.show();
+        Ext.getCmp('statContainer').setActiveTab('floodriskView');
+        Ext.getCmp('statContainer').setActiveTab('avalancheView');
+        Ext.getCmp('statContainer').setActiveTab('baselineView');
+        var myMaskBaseLine = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
+        var myMaskFloodRisk = new Ext.LoadMask(Ext.getCmp('floodriskView').body, {msg:"Please wait..."});
+        var myMaskAvalancheRisk = new Ext.LoadMask(Ext.getCmp('avalancheView').body, {msg:"Please wait..."});
+        myMaskBaseLine.show();
+        myMaskFloodRisk.show();
+        myMaskAvalancheRisk.show();
         // Ext.getCmp('stattable').expand();
 
         Ext.Ajax.request({
@@ -539,7 +545,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code}),
             headers: {"Content-Type": "application/json"},
             success: function(response) {
-                myMask.hide();
+                myMaskBaseLine.hide();
                 // console.log(response);
                 this.store = Ext.decode(response.responseText);
                 // console.log(this.store);
@@ -626,7 +632,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                 '</div>',
                             '</li>',
                         '</ul>',
-                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>'    
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>'    
                 );
 
                 var tplFloodRisk = new Ext.XTemplate(
@@ -719,7 +725,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                 '</div>',
                             '</li>',
                         '</ul>',
-                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
                 );
 
                 var tplAvalancheRisk = new Ext.XTemplate(
@@ -788,7 +794,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                 '</div>',
                             '</li>',
                         '</ul>',
-                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
                 );
                 // tpl.overwrite(Ext.getCmp('baselineView').body, this.store);
 

@@ -90446,7 +90446,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         dataSelected.on({
             'load': function(){
-                if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='drawArea')
+                if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='drawArea' && Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='currentExtent' )
                     tempMap.zoomToExtent(vector_layer.getDataExtent());
             }
         });    
@@ -90592,6 +90592,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     filter.push(temp.components[0].toString());
                                 }  
                             });
+                            if (typeof adminCode == 'undefined'){
+                                adminCode = '';
+                            }
+                            // console.log(adminCode);
                             _storeCalc.setFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
                         }
                     }]
@@ -90738,6 +90742,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 activeTab: 0,
                 enableTabScroll:true,
                 width: '100%',
+                id: 'statContainer',
                 defaults: {autoScroll: true, layout:'fit'},  
                 items: [{
                     title: 'Baseline',
