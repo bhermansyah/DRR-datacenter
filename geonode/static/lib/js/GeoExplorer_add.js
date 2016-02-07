@@ -546,6 +546,8 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             headers: {"Content-Type": "application/json"},
             success: function(response) {
                 myMaskBaseLine.hide();
+                myMaskFloodRisk.hide();
+                myMaskAvalancheRisk.hide();
                 // console.log(response);
                 this.store = Ext.decode(response.responseText);
                 // console.log(this.store);
