@@ -93,7 +93,7 @@ class Profile(AbstractUser):
         'commonly used word(s) or formalised word(s) or phrase(s) used to describe the subject \
             (space or comma-separated'))
     title = models.CharField(
-         _(' Title'),
+         _('Title'),
         max_length=30,
         blank=True,
         null=True,
