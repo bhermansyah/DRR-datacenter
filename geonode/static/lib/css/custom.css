@@ -1926,3 +1926,7 @@ position:relative;-webkit-animation-name:animatebottom;-webkit-animation-duratio
     left: 20px !important;
     padding-bottom: 5px !important;
 }
+
+#div_id_title > div > .radio {
+  float:left;
+}
