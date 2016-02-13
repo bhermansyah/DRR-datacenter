@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4 
 import requests
 from django.core.files.base import ContentFile
-import urllib2
+import urllib2, base64
 import urllib
 from PIL import Image
 from StringIO import StringIO
@@ -20,6 +20,113 @@ from geodb.geoapi import getRiskExecuteExternal
 
 # addded by boedy
 from matrix.models import matrix
+import datetime
+
+# from geodb.views import getForecastedDisaster
+# getForecastedDisaster()
+
+def getForecastedDisaster():
+    username = 'wmo'
+    password = 'SAsia:14-ffg'
+    auth_encoded = base64.encodestring('%s:%s' % (username, password))[:-1]
+
+    year = datetime.datetime.utcnow().strftime("%Y")
+    month = datetime.datetime.utcnow().strftime("%m")
+    day = datetime.datetime.utcnow().strftime("%d")
+    hh = datetime.datetime.utcnow().strftime("%H")
+
+    hh = int(hh)-1
+
+    if len(str(hh)) == 1:
+        hhLabel = '0'+str(hh)
+    else:
+        hhLabel = str(hh)    
+
+    url = 'https://sasiaffg.hrcwater.org/CONSOLE/EXPORTS/AFGHANISTAN/'+year+'/'+month+'/'+day+'/COMPOSITE_CSV/'+year+month+day+'-'+hhLabel+'00_ffgs_prod_composite_table_01hr_afghanistan.csv'
+    print url
+
+    req = urllib2.Request(url)
+    req.add_header('Authorization', 'Basic %s' % auth_encoded)
+    response = urllib2.urlopen(req)
+
+    csv_f = csv.reader(response)
+    Forcastedvalue.objects.all()
+    pertama=True
+    for row in csv_f:
+        if not pertama:
+            try:
+                flashfloodArray = [float(row[21]),float(row[24]),float(row[27])]
+                flashflood = max(flashfloodArray)
+            except:
+                flashflood = 0
+
+            try:
+                snowWater  = float(row[29])  
+            except:
+                snowWater = 0    
+
+            flashFloodState = 0
+            if flashflood > 0 and flashflood <= 5:
+                flashFloodState = 1 # very low
+            elif flashflood > 5 and flashflood <= 10:
+                flashFloodState = 2 # low
+            elif flashflood > 10 and flashflood <= 25:
+                flashFloodState = 3 # moderate
+            elif flashflood > 25 and flashflood <= 60:
+                flashFloodState = 4 # high           
+            elif flashflood > 60 and flashflood <= 100:
+                flashFloodState = 5 # very high
+            elif flashflood > 100:
+                flashFloodState = 6 # Extreme
+
+
+            snowWaterState = 0
+            if snowWater > 60 and snowWater <= 100:
+                snowWaterState = 1 #low
+            elif snowWater > 100 and snowWater <= 140:
+                snowWaterState = 2 #moderate
+            elif snowWater > 140:
+                snowWaterState = 3 #high    
+    
+            if flashFloodState>0:
+                basin = AfgShedaLvl4.objects.get(value=row[0]) 
+                recordExists = Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='flashflood',basin=basin)  
+                if recordExists.count() > 0:
+                    if recordExists[0].riskstate < flashFloodState:
+                        c = Forcastedvalue(pk=recordExists[0].pk,basin=basin)  
+                        c.riskstate = flashFloodState
+                        c.save()
+                        print 'flashflood modified'
+                    print 'flashflood skip'    
+                else:
+                    c = Forcastedvalue(basin=basin)  
+                    c.datadate = year+'-'+month+'-'+day
+                    c.forecasttype = 'flashflood'
+                    c.riskstate = flashFloodState 
+                    c.save()
+                    print 'flashflood added'
+
+            if snowWaterState>0:
+                basin = AfgShedaLvl4.objects.get(value=row[0]) 
+                recordExists = Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='snowwater',basin=basin)  
+                if recordExists.count() > 0:
+                    if recordExists[0].riskstate < snowWaterState:
+                        c = Forcastedvalue(pk=recordExists[0].pk,basin=basin)  
+                        c.riskstate = snowWaterState
+                        c.save()
+                        print 'snowwater modified'
+                    print 'snowwater skip'    
+                else:
+                    c = Forcastedvalue(basin=basin)  
+                    c.datadate = year+'-'+month+'-'+day
+                    c.forecasttype = 'snowwater'
+                    c.riskstate = snowWaterState 
+                    c.save()
+                    print 'snowwater added'        
+
+
+
+        pertama=False    
 
 def getOverviewMaps(request):
     selectedBox = request.GET['send']

@@ -80217,6 +80217,7 @@ gxp.plugins.WMSGetFeatureInfo = Ext.extend(gxp.plugins.Tool, {
                     fields: featureinfo.fields,
                     propertyNames: featureinfo.propertyNames
                 }, this.itemConfig));
+                console.log(title, feature);
             }
         } else if (text) {
             config.push(Ext.apply({

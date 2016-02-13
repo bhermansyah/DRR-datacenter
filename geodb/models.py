@@ -253,37 +253,6 @@ class AfgFldzonea100KNciaV2Risk25Mbuffer(models.Model):
         managed = False
         db_table = 'afg_fldzonea_100k_ncia_v2_risk_25mbuffer'
 
-class AfgFldzonea100KRiskLandcoverPop(models.Model):
-    ogc_fid = models.IntegerField(primary_key=True)
-    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
-    aggcode = models.CharField(max_length=255, blank=True)
-    aggcode_simplified = models.CharField(max_length=255, blank=True)
-    agg_simplified_description = models.CharField(max_length=255, blank=True)
-    vuid = models.CharField(max_length=255, blank=True)
-    vuid_population_landscan = models.IntegerField(blank=True, null=True)
-    vuid_area_sqm = models.FloatField(blank=True, null=True)
-    name_en = models.CharField(max_length=255, blank=True)
-    type_settlement = models.CharField(max_length=255, blank=True)
-    dist_code = models.IntegerField(blank=True, null=True)
-    dist_na_en = models.CharField(max_length=255, blank=True)
-    prov_na_en = models.CharField(max_length=255, blank=True)
-    prov_code = models.IntegerField(blank=True, null=True)
-    dist_na_dar = models.CharField(max_length=255, blank=True)
-    prov_na_dar = models.CharField(max_length=255, blank=True)
-    reg_unama_na_en = models.CharField(max_length=255, blank=True)
-    dist_na_ps = models.CharField(max_length=255, blank=True)
-    reg_unama_na_dar = models.CharField(max_length=255, blank=True)
-    deeperthan = models.CharField(max_length=255, blank=True)
-    basinname = models.CharField(max_length=255, blank=True)
-    fldarea_population = models.FloatField(blank=True, null=True) # this is ......
-    fldarea_sqm = models.FloatField(blank=True, null=True)
-    basin_id = models.FloatField(blank=True, null=True)
-    shape_length = models.FloatField(blank=True, null=True)
-    shape_area = models.FloatField(blank=True, null=True)
-    objects = models.GeoManager()
-    class Meta():
-        managed = False
-        db_table = 'afg_fldzonea_100k_risk_landcover_pop'
 
 class AfgLndcrva(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
@@ -469,23 +438,7 @@ class AfgShedaLvl3(models.Model):
 class AfgShedaLvl4(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
     wkb_geometry = models.MultiPolygonField(blank=True, null=True)
-    cat = models.FloatField(blank=True, null=True)
     value = models.FloatField(blank=True, null=True)
-    label = models.CharField(max_length=255, blank=True)
-    gfms = models.FloatField(blank=True, null=True)
-    gfms_description = models.CharField(max_length=255, blank=True)
-    map24 = models.FloatField(blank=True, null=True)
-    asmu06 = models.FloatField(blank=True, null=True)
-    ffg06 = models.FloatField(blank=True, null=True)
-    prevffg06 = models.FloatField(blank=True, null=True)
-    fmap06 = models.FloatField(blank=True, null=True)
-    ifft06 = models.FloatField(blank=True, null=True)
-    pfft06 = models.FloatField(blank=True, null=True)
-    ffft06 = models.FloatField(blank=True, null=True)
-    swe06 = models.FloatField(blank=True, null=True)
-    melt96 = models.FloatField(blank=True, null=True)
-    ffg_description = models.CharField(max_length=255, blank=True)
-    ffg = models.FloatField(blank=True, null=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
@@ -596,7 +549,82 @@ class AfgAvsa(models.Model):
     avalanche_pop = models.IntegerField(blank=True, null=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
+    basinmember = models.ForeignKey(AfgShedaLvl4, related_name='basinmembersava')
     objects = models.GeoManager()
     class Meta:
         managed = False
         db_table = 'afg_avsa'
+
+
+class AfgFldzonea100KRiskLandcoverPop(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
+    aggcode = models.CharField(max_length=255, blank=True)
+    aggcode_simplified = models.CharField(max_length=255, blank=True)
+    agg_simplified_description = models.CharField(max_length=255, blank=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    vuid_population_landscan = models.IntegerField(blank=True, null=True)
+    vuid_area_sqm = models.FloatField(blank=True, null=True)
+    name_en = models.CharField(max_length=255, blank=True)
+    type_settlement = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    dist_na_en = models.CharField(max_length=255, blank=True)
+    prov_na_en = models.CharField(max_length=255, blank=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    dist_na_dar = models.CharField(max_length=255, blank=True)
+    prov_na_dar = models.CharField(max_length=255, blank=True)
+    reg_unama_na_en = models.CharField(max_length=255, blank=True)
+    dist_na_ps = models.CharField(max_length=255, blank=True)
+    reg_unama_na_dar = models.CharField(max_length=255, blank=True)
+    deeperthan = models.CharField(max_length=255, blank=True)
+    basinname = models.CharField(max_length=255, blank=True)
+    fldarea_population = models.FloatField(blank=True, null=True) # this is ......
+    fldarea_sqm = models.FloatField(blank=True, null=True)
+    basin_id = models.FloatField(blank=True, null=True)
+    shape_length = models.FloatField(blank=True, null=True)
+    shape_area = models.FloatField(blank=True, null=True)
+    basinmember = models.ForeignKey(AfgShedaLvl4, related_name='basinmembers')
+    objects = models.GeoManager()
+    class Meta():
+        managed = False
+        db_table = 'afg_fldzonea_100k_risk_landcover_pop'
+
+class Forcastedvalue(models.Model):
+    basin = models.ForeignKey(AfgShedaLvl4, related_name='basins')
+    datadate = models.DateTimeField(blank=False, null=False)
+    forecasttype = models.CharField(max_length=50, blank=False)
+    riskstate = models.IntegerField(blank=False, null=False)
+    # map01 = models.FloatField(blank=True, null=True)
+    # map03 = models.FloatField(blank=True, null=True)
+    # map06 = models.FloatField(blank=True, null=True)
+    # map24 = models.FloatField(blank=True, null=True)
+    # gmap06 = models.FloatField(blank=True, null=True)
+    # gmap24 = models.FloatField(blank=True, null=True)
+    # asmu06 = models.FloatField(blank=True, null=True)
+    # asml06 = models.FloatField(blank=True, null=True)
+    # asmt06 = models.FloatField(blank=True, null=True)
+    # ffg01 = models.FloatField(blank=True, null=True)
+    # ffg03 = models.FloatField(blank=True, null=True)
+    # ffg06 = models.FloatField(blank=True, null=True)
+    # prevffg01 = models.FloatField(blank=True, null=True)
+    # prevffg03 = models.FloatField(blank=True, null=True)
+    # prevffg06 = models.FloatField(blank=True, null=True)
+    # fmap01 = models.FloatField(blank=True, null=True)
+    # fmap03 = models.FloatField(blank=True, null=True)
+    # fmap06 = models.FloatField(blank=True, null=True)
+    # ifft01 = models.FloatField(blank=True, null=True)
+    # ifft03 = models.FloatField(blank=True, null=True)
+    # ifft06 = models.FloatField(blank=True, null=True) 21
+    # pfft01 = models.FloatField(blank=True, null=True) 
+    # pfft03 = models.FloatField(blank=True, null=True)
+    # pfft06 = models.FloatField(blank=True, null=True) 24
+    # ffft01 = models.FloatField(blank=True, null=True)
+    # ffft03 = models.FloatField(blank=True, null=True)
+    # ffft06 = models.FloatField(blank=True, null=True) 27
+    # pet06 = models.FloatField(blank=True, null=True)
+    # swe06 = models.FloatField(blank=True, null=True)
+    # melt24 = models.FloatField(blank=True, null=True)
+    # melt96 = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'forcastedvalue'        

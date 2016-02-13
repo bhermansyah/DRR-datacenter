@@ -836,7 +836,8 @@ CELERY_CREATE_MISSING_QUEUES = True
 CELERY_IMPORTS = (
     'geonode.tasks.deletion',
     'geonode.tasks.update',
-    'geonode.tasks.email'
+    'geonode.tasks.email',
+    'geodb.tasks'
 )
 
 
@@ -846,6 +847,8 @@ CELERY_QUEUES = [
     Queue('update', routing_key='update'),
     Queue('email', routing_key='email'),
 ]
+
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
 import djcelery
 djcelery.setup_loader()
@@ -883,19 +886,39 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
 
-from celery.schedules import crontab
-CELERYBEAT_SCHEDULE = {
-    'gfms': {
-        'task': 'dataqs.gfms.tasks.gfms_task',
-        'schedule': crontab(minute='3'),
-        'args': ()
-    },
-    'forecast_io': {
-        'task': 'dataqs.forecastio.tasks.forecast_io_task',
-        'schedule': crontab(minute='1'),
-        'args': ()
-    },
-}
+# from celery.schedules import crontab
+# from datetime import timedelta
+# CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+# CELERYBEAT_SCHEDULE = {
+#     'gfms': {
+#         'task': 'dataqs.gfms.tasks.gfms_task',
+#         'schedule': crontab(minute='3'),
+#         'args': ()
+#     },
+#     'forecast_io': {
+#         'task': 'dataqs.forecastio.tasks.forecast_io_task',
+#         'schedule': crontab(minute='1'),
+#         'args': ()
+#     },
+#     'foracestdata':{
+#         'task': 'geodb.tasks.scraper_example',
+#         'schedule': timedelta(seconds=30),
+#         'args': ()
+#     },
+# }
+
+# from celery.schedules import crontab
+
+# CELERYBEAT_SCHEDULE = {
+#     # Executes every Monday morning at 7:30 A.M
+#     'add-every-monday-morning': {
+#         'task': 'geodb.tasks',
+#         'schedule': crontab(minute='1'),
+#         'args': (16, 16),
+#     },
+# }
     
 POSTGIS_VERSION = (2, 1, 2)
 DATABASE_ROUTERS = ['geodb.router.geodbRouter']
