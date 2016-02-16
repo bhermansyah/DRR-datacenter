@@ -837,7 +837,8 @@ CELERY_IMPORTS = (
     'geonode.tasks.deletion',
     'geonode.tasks.update',
     'geonode.tasks.email',
-    'geodb.tasks'
+    'geodb.tasks',
+    'dataqs.gfms.tasks'
 )
 
 

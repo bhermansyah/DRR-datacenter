@@ -7,8 +7,7 @@ from geodb.views import getForecastedDisaster
 
 logger = get_task_logger(__name__)
 
-@periodic_task(run_every=(crontab(minute='10')))
+@periodic_task(run_every=(crontab(hour='*')))
 def scraper_example():
-	print "kontol"
 	getForecastedDisaster()
 
