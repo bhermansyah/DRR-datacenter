@@ -273,6 +273,7 @@ INSTALLED_APPS = (
     'mptt',
     'modeltranslation',
     'djcelery',
+    'kombu',
 
     # added by boedy
     'south',
