@@ -1930,3 +1930,9 @@ position:relative;-webkit-animation-name:animatebottom;-webkit-animation-duratio
 #div_id_title > div > .radio {
   float:left;
 }
+
+.lineCustom4Table {
+    height: 2px;
+    width: 100%;
+    background: #2196F3;
+}

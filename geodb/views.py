@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
-import csv
+import csv, os
 from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4 
 import requests
 from django.core.files.base import ContentFile
@@ -11,6 +11,7 @@ from PIL import Image
 from StringIO import StringIO
 from django.db.models import Count, Sum, F
 import time, sys
+import subprocess
 
 from urlparse import urlparse
 from geonode.maps.models import Map
@@ -21,9 +22,83 @@ from geodb.geoapi import getRiskExecuteExternal
 # addded by boedy
 from matrix.models import matrix
 import datetime
+from django.conf import settings
+from ftplib import FTP
+
+import StringIO
+import gzip
+import glob
+from django.contrib.gis.gdal import DataSource
+from django.db import connection
+from django.contrib.gis.geos import fromstr
+
 
 # from geodb.views import getForecastedDisaster
 # getForecastedDisaster()
+
+GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
+
+initial_data_path = "/home/ubuntu/DRR-datacenter/geodb/initialdata/" # Production
+gdal_path = '/usr/bin/' # production
+# initial_data_path = "/Users/budi/Documents/iMMAP/DRR-datacenter/geodb/initialdata/" # in developement
+# gdal_path = '/usr/local/bin/' # development
+
+
+def getLatestShakemap():
+    print 'kontol'
+
+def getSnowCover():
+    today  = datetime.datetime.now()
+    year = today.strftime("%Y")
+    
+    base_url = 'sidads.colorado.edu' 
+    filelist=[]
+ 
+    ftp = FTP(base_url)
+    ftp.login()
+    ftp.cwd("pub/DATASETS/NOAA/G02156/GIS/1km/"+ "{year}/".format(year=year))
+
+    ftp.retrlines('LIST',filelist.append)
+
+    ftp.retrbinary("RETR " + filelist[-1].split()[8], open(os.path.join(GS_TMP_DIR,filelist[-1].split()[8]),"wb").write)
+
+
+    decompressedFile = gzip.GzipFile(os.path.join(GS_TMP_DIR,filelist[-1].split()[8]), 'rb')
+    s=decompressedFile.read()
+    decompressedFile.close()
+    outF = file(os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-3]), 'wb')
+    outF.write(s)
+    outF.close()
+
+    ftp.quit()
+
+    # print filelist[-1].split()[8][:-7]
+    # print os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-3])
+    # print os.path.join(gdal_path,'gdalwarp')
+
+    subprocess.call('%s -te 2438000 4432000 4429000 6301000 %s %s' %(os.path.join(gdal_path,'gdalwarp'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-3]), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_cropped.tif'),shell=True)
+    subprocess.call('%s -t_srs EPSG:4326 %s %s' %(os.path.join(gdal_path,'gdalwarp'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_cropped.tif', os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_reproj.tif'),shell=True)
+
+    subprocess.call('%s %s -f "ESRI Shapefile" %s' %(os.path.join(gdal_path,'gdal_polygonize.py'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_reproj.tif', os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly_temp.shp'),shell=True)
+    subprocess.call('%s %s %s -where "DN=4"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly.shp', os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly_temp.shp'),shell=True)
+    
+    dsSHP = DataSource(os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly.shp')
+    lyrSHP = dsSHP[0]
+
+    # for feat in lyrSHP:
+    #     p = AfgAvsa.objects.filter(wkb_geometry__within=feat.geom.wkt)
+    #     for row in p:
+    #         print str(row.ogc_fid) + ' - ' + str(row.vuid)
+
+    cleantmpfile('ims')
+    
+
+def cleantmpfile(filepattern):
+
+    tmpfilelist = glob.glob("{}*.*".format(
+        os.path.join(GS_TMP_DIR, filepattern)))
+    for f in tmpfilelist:
+        os.remove(f) 
 
 def getForecastedDisaster():
     username = 'wmo'

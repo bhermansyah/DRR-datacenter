@@ -90551,7 +90551,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             var tpl = new Ext.Template('Apply filter to generate the statistics');
                             tpl.overwrite(Ext.getCmp('baselineView').body, {});
                             tpl.overwrite(Ext.getCmp('floodriskView').body, {});
+                            tpl.overwrite(Ext.getCmp('floodForecastView').body, {});
                             tpl.overwrite(Ext.getCmp('avalancheView').body, {});
+                            tpl.overwrite(Ext.getCmp('avalancheForecastView').body, {});
                             Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
                         }
                     },{
@@ -90754,6 +90756,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Flood Forecasted',
+                    id: 'floodForecastView',
                     defaults: {autoScroll: true},  
                     height : 800,
                     overflowY: 'scroll',
@@ -90767,6 +90770,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Avalanche Forecasted',
+                    id: 'avalancheForecastView',
                     defaults: {autoScroll: true},  
                     height : 800,
                     overflowY: 'scroll',

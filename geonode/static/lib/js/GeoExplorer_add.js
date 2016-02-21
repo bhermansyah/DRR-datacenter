@@ -527,7 +527,9 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         var myObj = {
             filterdata : filter
         };
+        Ext.getCmp('statContainer').setActiveTab('floodForecastView');
         Ext.getCmp('statContainer').setActiveTab('floodriskView');
+        Ext.getCmp('statContainer').setActiveTab('avalancheForecastView');
         Ext.getCmp('statContainer').setActiveTab('avalancheView');
         Ext.getCmp('statContainer').setActiveTab('baselineView');
         var myMaskBaseLine = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
@@ -798,19 +800,126 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                         '</ul>',
                     '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
                 );
-                // tpl.overwrite(Ext.getCmp('baselineView').body, this.store);
+                
+                var tplFloodForecast = new Ext.XTemplate(
+                    '<div class="statisticsPanel">',
+                        '<ul>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Population</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td align="left">Total</td><td align="center">Flash Flood</td><td align="right">River Flood</td></tr>',
+                                            '<tr><td align="left">{total_flood_forecast_pop:toMega}</td><td align="center">{total_flashflood_forecast_pop:toMega}</td><td align="right">{total_riverflood_forecast_pop:toMega}</td></tr>',
+                                            '<tr><td colspan="3"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr><td align="left">Extreme</td><td align="center">{flashflood_forecast_extreme_pop:toMega}</td><td align="right">{riverflood_forecast_extreme_pop:toMega}</td></tr>',
+                                            '<tr><td align="left">Very High</td><td align="center">{flashflood_forecast_veryhigh_pop:toMega}</td><td align="right">{riverflood_forecast_veryhigh_pop:toMega}</td></tr>',
+                                            '<tr><td align="left">High</td><td align="center">{flashflood_forecast_high_pop:toMega}</td><td align="right">{riverflood_forecast_high_pop:toMega}</td></tr>',
+                                            '<tr><td align="left">Moderate</td><td align="center">{flashflood_forecast_med_pop:toMega}</td><td align="right">{riverflood_forecast_med_pop:toMega}</td></tr>',
+                                            '<tr><td align="left">Low</td><td align="center">{flashflood_forecast_low_pop:toMega}</td><td align="right">{riverflood_forecast_low_pop:toMega}</td></tr>',
+                                            '<tr><td align="left">Very Low</td><td align="center">{flashflood_forecast_verylow_pop:toMega}</td><td align="right">{riverflood_forecast_verylow_pop:toMega}</td></tr>',
+                                        '</table>',   
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">', 
+                                      '<h1>Area (KM2)</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td align="left">Total</td><td align="center">Flash Flood</td><td align="right">River Flood</td></tr>',
+                                            '<tr><td align="left">{total_flood_forecast_area:toMega}</td><td align="center">{total_flashflood_forecast_area:toMega}</td><td align="right">{total_riverflood_forecast_area:toMega}</td></tr>',
+                                            '<tr><td colspan="3"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr><td align="left">Extreme</td><td align="center">{flashflood_forecast_extreme_area:toMega}</td><td align="right">{riverflood_forecast_extreme_area:toMega}</td></tr>',
+                                            '<tr><td align="left">Very High</td><td align="center">{flashflood_forecast_veryhigh_area:toMega}</td><td align="right">{riverflood_forecast_veryhigh_area:toMega}</td></tr>',
+                                            '<tr><td align="left">High</td><td align="center">{flashflood_forecast_high_area:toMega}</td><td align="right">{riverflood_forecast_high_area:toMega}</td></tr>',
+                                            '<tr><td align="left">Moderate</td><td align="center">{flashflood_forecast_med_area:toMega}</td><td align="right">{riverflood_forecast_med_area:toMega}</td></tr>',
+                                            '<tr><td align="left">Low</td><td align="center">{flashflood_forecast_low_area:toMega}</td><td align="right">{riverflood_forecast_low_area:toMega}</td></tr>',
+                                            '<tr><td align="left">Very Low</td><td align="center">{flashflood_forecast_verylow_area:toMega}</td><td align="right">{riverflood_forecast_verylow_area:toMega}</td></tr>',
+                                        '</table>',  
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            // '<li>',
+                            //     '<div class="w3-card-4">',
+                            //         '<header class="w3-container w3-blue">',
+                            //           '<h1>Settlements</h1>',
+                            //         '</header>',
+
+                            //         '<div class="w3-container">',
+                            //             '<p><div style="float:left;">Total</div><div style="float:right;">{settlements_at_risk:toNumberCustom}</div></p><br/>',
+                            //         '</div>',
+                            //     '</div>',
+                            // '</li>',
+                            // '<li>',
+                            //     '<div class="w3-card-4">',
+                            //         '<header class="w3-container w3-blue">',
+                            //           '<h1>Road (KM)</h1>',
+                            //         '</header>',
+
+                            //         '<div class="w3-container">',
+                            //             '<p><div style="float:left;">Total</div><div style="float:right;">xxx km</div></p><br/>',
+                            //         '</div>',
+                            //     '</div>',
+                            // '</li>',
+                            // '<li>',
+                            //     '<div class="w3-card-4">',
+                            //         '<header class="w3-container w3-blue">',
+                            //           '<h1>Health Facilities</h1>',
+                            //         '</header>',
+
+                            //         '<div class="w3-container">',
+                            //             '<p><div style="float:left;">Total</div><div style="float:right;">xxx</div></p><br/>',
+                            //         '</div>',
+                            //     '</div>',
+                            // '</li>',
+                        '</ul>',
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                );
+
+                var tplAvalancheForecast = new Ext.XTemplate(
+                    '<div class="statisticsPanel">',
+                        '<ul>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1>Population</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_ava_forecast_pop:toMega}</div></p><br/>',
+                                        '<p><div class="lineCustom"> </div></p> <br/>',
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{ava_forecast_high_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{ava_forecast_med_pop:toMega}</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{ava_forecast_low_pop:toMega}</div></p><br/>',       
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                        '</ul>',
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                );
 
                 
                 tplBaseLine.overwrite(Ext.getCmp('baselineView').body, this.store);
                 tplFloodRisk.overwrite(Ext.getCmp('floodriskView').body, this.store);
+                tplFloodForecast.overwrite(Ext.getCmp('floodForecastView').body, this.store);
                 tplAvalancheRisk.overwrite(Ext.getCmp('avalancheView').body, this.store);
+                tplAvalancheForecast.overwrite(Ext.getCmp('avalancheForecastView').body, this.store);
 
                 Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
                 Ext.getCmp('floodriskView').body.highlight('#c3daf9', {block:true});
+                Ext.getCmp('floodForecastView').body.highlight('#c3daf9', {block:true});
+                Ext.getCmp('avalancheView').body.highlight('#c3daf9', {block:true});
+                Ext.getCmp('avalancheForecastView').body.highlight('#c3daf9', {block:true});
 
             },
             failure: function(response) {
-                myMask.hide();
+                myMaskBaseLine.hide();
+                myMaskFloodRisk.hide();
+                myMaskAvalancheRisk.hide();
                 this.fireEvent("printexception", this, response);
             },
             // params: this.initialConfig.baseParams,

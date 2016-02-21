@@ -1,6 +1,6 @@
 from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1
 import json
-import time
+import time, datetime
 from tastypie.resources import ModelResource, Resource
 from tastypie.serializers import Serializer
 from tastypie import fields
@@ -14,6 +14,11 @@ from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
 
 # addded by boedy
 from matrix.models import matrix
+
+
+YEAR = datetime.datetime.utcnow().strftime("%Y")
+MONTH = datetime.datetime.utcnow().strftime("%m")
+DAY = datetime.datetime.utcnow().strftime("%d")
 
 
 FILTER_TYPES = {
@@ -328,6 +333,15 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['low_ava_area']=0    
         response['total_ava_area']=round(response['high_ava_area']+response['med_ava_area']+response['low_ava_area'],2) 
 
+        # Avalanche Forecasted
+        counts =  getRiskNumber(targetAvalanche.select_related("basinmembersava").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='snowwater',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'avalanche_pop', 'sum_area_sqm', flag, code)
+        temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
+        response['ava_forecast_low_pop']=round(temp.get(1, 0),0) 
+        response['ava_forecast_med_pop']=round(temp.get(2, 0),0) 
+        response['ava_forecast_high_pop']=round(temp.get(3, 0),0) 
+        response['total_ava_forecast_pop']=response['ava_forecast_low_pop'] + response['ava_forecast_med_pop'] + response['ava_forecast_high_pop']
+
+
 
         # Flood Risk
         counts =  getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code)
@@ -374,6 +388,53 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['sandcover_area_risk']=round(temp.get('Sand cover', 0)/1000000,1)
         response['vineyards_area_risk']=round(temp.get('Vineyards', 0)/1000000,1)
         response['forest_area_risk']=round(temp.get('Forest and shrubs', 0),0)
+
+
+        # River Flood Forecasted
+        # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
+        counts =  getRiskNumber(targetRisk.select_related("basinmembers").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,int(DAY)-1)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code)
+        temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
+        response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
+        response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
+        response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0) 
+        response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0) 
+        response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
+        response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+        response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] + response['riverflood_forecast_low_pop'] + response['riverflood_forecast_med_pop'] + response['riverflood_forecast_high_pop'] + response['riverflood_forecast_veryhigh_pop'] + response['riverflood_forecast_extreme_pop']
+
+        temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
+        response['riverflood_forecast_verylow_area']=round(temp.get(1, 0),0) 
+        response['riverflood_forecast_low_area']=round(temp.get(2, 0),0) 
+        response['riverflood_forecast_med_area']=round(temp.get(3, 0),0) 
+        response['riverflood_forecast_high_area']=round(temp.get(4, 0),0) 
+        response['riverflood_forecast_veryhigh_area']=round(temp.get(5, 0),0) 
+        response['riverflood_forecast_extreme_area']=round(temp.get(6, 0),0) 
+        response['total_riverflood_forecast_area']=response['riverflood_forecast_verylow_area'] + response['riverflood_forecast_low_area'] + response['riverflood_forecast_med_area'] + response['riverflood_forecast_high_area'] + response['riverflood_forecast_veryhigh_area'] + response['riverflood_forecast_extreme_area']
+
+        # Flash Flood Forecasted
+        # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
+        counts =  getRiskNumber(targetRisk.select_related("basinmembers").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code)
+        temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
+
+        response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
+        response['flashflood_forecast_low_pop']=round(temp.get(2, 0),0) 
+        response['flashflood_forecast_med_pop']=round(temp.get(3, 0),0) 
+        response['flashflood_forecast_high_pop']=round(temp.get(4, 0),0) 
+        response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
+        response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+        response['total_flashflood_forecast_pop']=response['flashflood_forecast_verylow_pop'] + response['flashflood_forecast_low_pop'] + response['flashflood_forecast_med_pop'] + response['flashflood_forecast_high_pop'] + response['flashflood_forecast_veryhigh_pop'] + response['flashflood_forecast_extreme_pop']
+
+        temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
+        response['flashflood_forecast_verylow_area']=round(temp.get(1, 0),0) 
+        response['flashflood_forecast_low_area']=round(temp.get(2, 0),0) 
+        response['flashflood_forecast_med_area']=round(temp.get(3, 0),0) 
+        response['flashflood_forecast_high_area']=round(temp.get(4, 0),0) 
+        response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0),0) 
+        response['flashflood_forecast_extreme_area']=round(temp.get(6, 0),0) 
+        response['total_flashflood_forecast_area']=response['flashflood_forecast_verylow_area'] + response['flashflood_forecast_low_area'] + response['flashflood_forecast_med_area'] + response['flashflood_forecast_high_area'] + response['flashflood_forecast_veryhigh_area'] + response['flashflood_forecast_extreme_area']
+
+        response['total_flood_forecast_pop'] = response['total_riverflood_forecast_pop'] + response['total_flashflood_forecast_pop']
+        response['total_flood_forecast_area'] = response['total_riverflood_forecast_area'] + response['total_flashflood_forecast_area']
 
         # landcover all
         counts =  getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', flag, code)
