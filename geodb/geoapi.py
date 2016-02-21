@@ -318,7 +318,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response = {}
 
         #Avalanche Risk
-        counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', flag, code)
+        counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', flag, code, None)
         # pop at risk level
         temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
         response['high_ava_population']=round(temp.get('High', 0),0)
@@ -334,8 +334,9 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['total_ava_area']=round(response['high_ava_area']+response['med_ava_area']+response['low_ava_area'],2) 
 
         # Avalanche Forecasted
-        counts =  getRiskNumber(targetAvalanche.select_related("basinmembersava").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='snowwater',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'avalanche_pop', 'sum_area_sqm', flag, code)
+        counts =  getRiskNumber(targetAvalanche.select_related("basinmembersava").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='snowwater',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'avalanche_pop', 'sum_area_sqm', flag, code, 'afg_avsa.wkb_geometry')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
+        print temp
         response['ava_forecast_low_pop']=round(temp.get(1, 0),0) 
         response['ava_forecast_med_pop']=round(temp.get(2, 0),0) 
         response['ava_forecast_high_pop']=round(temp.get(3, 0),0) 
@@ -344,7 +345,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
 
         # Flood Risk
-        counts =  getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code)
+        counts =  getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code, None)
         
         # pop at risk level
         temp = dict([(c['deeperthan'], c['count']) for c in counts])
@@ -360,7 +361,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)    
         response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2) 
 
-        counts =  getRiskNumber(targetRiskIncludeWater, filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code)
+        counts =  getRiskNumber(targetRiskIncludeWater, filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code, None)
 
         # landcover/pop/atrisk
         temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
@@ -391,8 +392,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
 
         # River Flood Forecasted
-        # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
-        counts =  getRiskNumber(targetRisk.select_related("basinmembers").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,int(DAY)-1)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code)
+        counts =  getRiskNumber(targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,int(DAY)-1)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop.wkb_geometry')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
         response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
         response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
@@ -413,7 +413,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
         # Flash Flood Forecasted
         # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
-        counts =  getRiskNumber(targetRisk.select_related("basinmembers").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code)
+        counts =  getRiskNumber(targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop.wkb_geometry')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
 
         response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
@@ -437,7 +437,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['total_flood_forecast_area'] = response['total_riverflood_forecast_area'] + response['total_flashflood_forecast_area']
 
         # landcover all
-        counts =  getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', flag, code)
+        counts =  getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', flag, code, None)
         temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
         response['water_body_pop']=round(temp.get('Water body and marshland', 0),0)
         response['barren_land_pop']=round(temp.get('Barren land', 0),0)
@@ -749,23 +749,28 @@ def getRisk(request):
 
         return response        
    
-def getRiskNumber(data, filterLock, fieldGroup, popField, areaField, aflag, acode):
+def getRiskNumber(data, filterLock, fieldGroup, popField, areaField, aflag, acode, aGeomField):
+    if aGeomField == None:
+        geometryField = 'wkb_geometry'
+    else:
+        geometryField = aGeomField    
+
     if aflag=='drawArea':
         counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
             select={
                 'count' : 'SUM(  \
                         case \
-                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then '+popField+' \
-                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*'+popField+' end \
+                            when ST_CoveredBy('+geometryField+','+filterLock+') then '+popField+' \
+                            else st_area(st_intersection('+geometryField+','+filterLock+')) / st_area('+geometryField+')*'+popField+' end \
                     )',
                 'areaatrisk' : 'SUM(  \
                         case \
-                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then '+areaField+' \
-                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*'+areaField+' end \
+                            when ST_CoveredBy('+geometryField+','+filterLock+') then '+areaField+' \
+                            else st_area(st_intersection('+geometryField+','+filterLock+')) / st_area('+geometryField+')*'+areaField+' end \
                     )'
             },
             where = {
-                'ST_Intersects(wkb_geometry, '+filterLock+')'
+                'ST_Intersects('+geometryField+', '+filterLock+')'
             }).values(fieldGroup,'count','areaatrisk')) 
     elif aflag=='entireAfg':
         counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
@@ -791,7 +796,7 @@ def getRiskNumber(data, filterLock, fieldGroup, popField, areaField, aflag, acod
                 'areaatrisk' : 'SUM('+areaField+')'
             },
             where = {
-                'ST_Within(wkb_geometry, '+filterLock+')'
+                'ST_Within('+geometryField+', '+filterLock+')'
             }).values(fieldGroup,'count','areaatrisk')) 
     return counts     
 
