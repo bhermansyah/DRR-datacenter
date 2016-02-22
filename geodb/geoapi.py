@@ -336,7 +336,6 @@ def getRiskExecuteExternal(filterLock, flag, code):
         # Avalanche Forecasted
         counts =  getRiskNumber(targetAvalanche.select_related("basinmembersava").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='snowwater',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'avalanche_pop', 'sum_area_sqm', flag, code, 'afg_avsa.wkb_geometry')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
-        print temp
         response['ava_forecast_low_pop']=round(temp.get(1, 0),0) 
         response['ava_forecast_med_pop']=round(temp.get(2, 0),0) 
         response['ava_forecast_high_pop']=round(temp.get(3, 0),0) 
@@ -779,7 +778,7 @@ def getRiskNumber(data, filterLock, fieldGroup, popField, areaField, aflag, acod
                 'areaatrisk' : 'SUM('+areaField+')'
             }).values(fieldGroup,'count','areaatrisk'))   
     elif aflag=='currentProvince':
-        print "left(dist_code), "+str(len(str(acode)))+") = '"+str(acode)+"'"
+        # print "left(dist_code), "+str(len(str(acode)))+") = '"+str(acode)+"'"
         # print "left(dist_code, "+len(str(acode))+") = '"+str(acode)+"'"
         counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
             select={

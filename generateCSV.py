@@ -1,6 +1,7 @@
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geonode.settings")
-from geodb.views import exportdata
+from geodb.views import exportdata, updateSummaryTable
 
-exportdata()
+# exportdata()
+updateSummaryTable()
 
