@@ -25,7 +25,6 @@ import datetime
 from django.conf import settings
 from ftplib import FTP
 
-import StringIO
 import gzip
 import glob
 from django.contrib.gis.gdal import DataSource
