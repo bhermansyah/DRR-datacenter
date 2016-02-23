@@ -391,7 +391,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
 
         # River Flood Forecasted
-        counts =  getRiskNumber(targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,int(DAY)-1)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop.wkb_geometry')
+        counts =  getRiskNumber(targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop.wkb_geometry')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
         response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
         response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
