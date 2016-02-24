@@ -284,7 +284,7 @@ def update_progress(progress, msg, proctime):
     sys.stdout.write(text)
     sys.stdout.flush()
 
-def updateSummaryTable():   
+def updateSummaryTable():   # for district
     resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  # ingat nanti ganti
 
     header = []
