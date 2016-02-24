@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla 
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -285,47 +285,62 @@ def update_progress(progress, msg, proctime):
     sys.stdout.flush()
 
 def updateSummaryTable():   # for district
-    resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  # ingat nanti ganti
+    resourcesProvinces = AfgAdmbndaAdm1.objects.all().order_by('prov_code') 
+    resourcesDistricts = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  
+    resourcesBasin = AfgPpla.objects.all()
 
     header = []
-    ppp = resources.count()
-    xxx = 0
-    update_progress(float(xxx/ppp), 'start', 0)
+
+    print '----- Process Provinces Statistics ------'
+    databaseFields = provincesummary._meta.get_all_field_names()
+    databaseFields.remove('id')
+    databaseFields.remove('province')
+    for aoi in resourcesProvinces:
+        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.prov_code)
+        px = provincesummary.objects.filter(province=aoi.prov_code)
+        
+        if px.count()>0:
+            a = provincesummary(id=px[0].id,province=aoi.prov_code)
+        else:
+            a = provincesummary(province=aoi.prov_code)
+
+        for i in databaseFields:
+            setattr(a, i, riskNumber[i])
+        a.save()
+
+    print '----- Process Districts Statistics ------'
     databaseFields = districtsummary._meta.get_all_field_names()
     databaseFields.remove('id')
     databaseFields.remove('district')
-    # print databaseFields
-    for aoi in resources:
+    for aoi in resourcesDistricts:
         riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.dist_code)
         px = districtsummary.objects.filter(district=aoi.dist_code)
         
         if px.count()>0:
-            # kalo ada
-            print px[0].id
             a = districtsummary(id=px[0].id,district=aoi.dist_code)
         else:
             a = districtsummary(district=aoi.dist_code)
 
         for i in databaseFields:
             setattr(a, i, riskNumber[i])
-            # print getattr(a, i)
-        # print a.Population
-        print aoi.dist_code
         a.save()
 
+    print '----- Process Villages Statistics ------'
+    databaseFields = basinsummary._meta.get_all_field_names()
+    databaseFields.remove('id')
+    databaseFields.remove('basin')
+    for aoi in resourcesBasin:
+        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentBasin', aoi.vuid)
+        px = basinsummary.objects.filter(basin=aoi.vuid)       
+        if px.count()>0:
+            a = basinsummary(id=px[0].id,basin=aoi.vuid)
+        else:
+            a = basinsummary(basin=aoi.vuid)
 
+        for i in databaseFields:
+            setattr(a, i, riskNumber[i])
+        a.save()
 
-    #     start = time.time()
-    #     row = []
-    #     # test = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'drawArea', None) # real calculation
-    #     test = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.dist_code)
-    #     if len(header) == 0:
-    #         for i in test:
-    #             header.append(i)
-   
-    #     loadingtime = time.time() - start
-    #     xxx=xxx+1
-    #     update_progress(float(float(xxx)/float(ppp)), aoi.dist_code, loadingtime)
     return    
 
 def exportdata():   

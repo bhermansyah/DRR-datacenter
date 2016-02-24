@@ -596,7 +596,141 @@ class Forcastedvalue(models.Model):
     riskstate = models.IntegerField(blank=False, null=False)
     class Meta:
         managed = False
-        db_table = 'forcastedvalue'      
+        db_table = 'forcastedvalue' 
+
+class provincesummary(models.Model):
+    province                                    = models.CharField(max_length=255, blank=False)
+    
+    # total
+    Population                                  = models.FloatField(blank=True, null=True)
+    Area                                        = models.FloatField(blank=True, null=True)
+    settlements                                 = models.FloatField(blank=True, null=True) 
+    
+    # landcover total population
+    water_body_pop                              = models.FloatField(blank=True, null=True) 
+    barren_land_pop                             = models.FloatField(blank=True, null=True)
+    built_up_pop                                = models.FloatField(blank=True, null=True)
+    fruit_trees_pop                             = models.FloatField(blank=True, null=True) 
+    irrigated_agricultural_land_pop             = models.FloatField(blank=True, null=True)  
+    permanent_snow_pop                          = models.FloatField(blank=True, null=True)
+    rainfed_agricultural_land_pop               = models.FloatField(blank=True, null=True)
+    rangeland_pop                               = models.FloatField(blank=True, null=True)
+    sandcover_pop                               = models.FloatField(blank=True, null=True)
+    vineyards_pop                               = models.FloatField(blank=True, null=True)
+    forest_pop                                  = models.FloatField(blank=True, null=True)
+    
+    # landcover total area
+    water_body_area                             = models.FloatField(blank=True, null=True)
+    barren_land_area                            = models.FloatField(blank=True, null=True)
+    built_up_area                               = models.FloatField(blank=True, null=True) 
+    fruit_trees_area                            = models.FloatField(blank=True, null=True) 
+    irrigated_agricultural_land_area            = models.FloatField(blank=True, null=True)
+    permanent_snow_area                         = models.FloatField(blank=True, null=True)
+    rainfed_agricultural_land_area              = models.FloatField(blank=True, null=True)
+    rangeland_area                              = models.FloatField(blank=True, null=True) 
+    sandcover_area                              = models.FloatField(blank=True, null=True)
+    vineyards_area                              = models.FloatField(blank=True, null=True)
+    forest_area                                 = models.FloatField(blank=True, null=True)
+    
+    # Flood Risk Population
+    high_risk_population                        = models.FloatField(blank=True, null=True)
+    med_risk_population                         = models.FloatField(blank=True, null=True)
+    low_risk_population                         = models.FloatField(blank=True, null=True)
+    total_risk_population                       = models.FloatField(blank=True, null=True) 
+    settlements_at_risk                         = models.FloatField(blank=True, null=True)
+    
+    # Flood Risk Area
+    high_risk_area                              = models.FloatField(blank=True, null=True) 
+    med_risk_area                               = models.FloatField(blank=True, null=True)
+    low_risk_area                               = models.FloatField(blank=True, null=True)  
+    total_risk_area                             = models.FloatField(blank=True, null=True)
+    
+    # landcover flood risk population
+    water_body_pop_risk                         = models.FloatField(blank=True, null=True)
+    barren_land_pop_risk                        = models.FloatField(blank=True, null=True) 
+    built_up_pop_risk                           = models.FloatField(blank=True, null=True)
+    fruit_trees_pop_risk                        = models.FloatField(blank=True, null=True)
+    irrigated_agricultural_land_pop_risk        = models.FloatField(blank=True, null=True)    
+    permanent_snow_pop_risk                     = models.FloatField(blank=True, null=True) 
+    rainfed_agricultural_land_pop_risk          = models.FloatField(blank=True, null=True)
+    rangeland_pop_risk                          = models.FloatField(blank=True, null=True) 
+    sandcover_pop_risk                          = models.FloatField(blank=True, null=True)
+    vineyards_pop_risk                          = models.FloatField(blank=True, null=True)
+    forest_pop_risk                             = models.FloatField(blank=True, null=True) 
+
+    # landcover flood risk area
+    water_body_area_risk                        = models.FloatField(blank=True, null=True)
+    barren_land_area_risk                       = models.FloatField(blank=True, null=True)
+    built_up_area_risk                          = models.FloatField(blank=True, null=True)
+    fruit_trees_area_risk                       = models.FloatField(blank=True, null=True) 
+    irrigated_agricultural_land_area_risk       = models.FloatField(blank=True, null=True) 
+    permanent_snow_area_risk                    = models.FloatField(blank=True, null=True)
+    rainfed_agricultural_land_area_risk         = models.FloatField(blank=True, null=True)
+    rangeland_area_risk                         = models.FloatField(blank=True, null=True)
+    sandcover_area_risk                         = models.FloatField(blank=True, null=True)
+    vineyards_area_risk                         = models.FloatField(blank=True, null=True)
+    forest_area_risk                            = models.FloatField(blank=True, null=True)
+
+    # Avalanche Risk Population
+    high_ava_population                         = models.FloatField(blank=True, null=True)
+    med_ava_population                          = models.FloatField(blank=True, null=True)
+    low_ava_population                          = models.FloatField(blank=True, null=True)    
+    total_ava_population                        = models.FloatField(blank=True, null=True)
+
+    # Avalanche Risk Area
+    high_ava_area                               = models.FloatField(blank=True, null=True)
+    med_ava_area                                = models.FloatField(blank=True, null=True) 
+    low_ava_area                                = models.FloatField(blank=True, null=True)
+    total_ava_area                              = models.FloatField(blank=True, null=True)
+
+    ### Forecasting Sections  ###
+    # --- This section values will be updated every 3 hours --- #
+
+    # River Flood Forecasted Population 
+    riverflood_forecast_verylow_pop             = models.FloatField(blank=True, null=True)
+    riverflood_forecast_low_pop                 = models.FloatField(blank=True, null=True)
+    riverflood_forecast_med_pop                 = models.FloatField(blank=True, null=True)
+    riverflood_forecast_high_pop                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_veryhigh_pop            = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_extreme_pop             = models.FloatField(blank=True, null=True)
+    total_riverflood_forecast_pop               = models.FloatField(blank=True, null=True)
+    
+    # River Flood Forecasted Area
+    riverflood_forecast_verylow_area            = models.FloatField(blank=True, null=True)
+    riverflood_forecast_low_area                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_med_area                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_high_area               = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_veryhigh_area           = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_extreme_area            = models.FloatField(blank=True, null=True)
+    total_riverflood_forecast_area              = models.FloatField(blank=True, null=True) 
+
+    # Flash Flood Forecasted Population
+    flashflood_forecast_verylow_pop             = models.FloatField(blank=True, null=True) 
+    flashflood_forecast_low_pop                 = models.FloatField(blank=True, null=True)     
+    flashflood_forecast_med_pop                 = models.FloatField(blank=True, null=True)
+    flashflood_forecast_high_pop                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_veryhigh_pop            = models.FloatField(blank=True, null=True)
+    flashflood_forecast_extreme_pop             = models.FloatField(blank=True, null=True)
+    total_flashflood_forecast_pop               = models.FloatField(blank=True, null=True)
+
+    # Flash Flood Forecasted Area
+    flashflood_forecast_verylow_area            = models.FloatField(blank=True, null=True)
+    flashflood_forecast_low_area                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_med_area                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_high_area               = models.FloatField(blank=True, null=True)
+    flashflood_forecast_veryhigh_area           = models.FloatField(blank=True, null=True)
+    flashflood_forecast_extreme_area            = models.FloatField(blank=True, null=True) 
+    total_flashflood_forecast_area              = models.FloatField(blank=True, null=True) 
+
+    # Avalanche Forecasted Population
+    ava_forecast_low_pop                        = models.FloatField(blank=True, null=True) 
+    ava_forecast_med_pop                        = models.FloatField(blank=True, null=True) 
+    ava_forecast_high_pop                       = models.FloatField(blank=True, null=True)
+    total_ava_forecast_pop                      = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'provincesummary'             
 
 class districtsummary(models.Model):
     district                                    = models.CharField(max_length=255, blank=False)
@@ -731,6 +865,140 @@ class districtsummary(models.Model):
     class Meta:
         managed = True
         db_table = 'districtsummary'
+
+class basinsummary(models.Model):
+    basin                                      = models.CharField(max_length=255, blank=False)
+    
+    # total
+    Population                                  = models.FloatField(blank=True, null=True)
+    Area                                        = models.FloatField(blank=True, null=True)
+    settlements                                 = models.FloatField(blank=True, null=True) 
+    
+    # landcover total population
+    water_body_pop                              = models.FloatField(blank=True, null=True) 
+    barren_land_pop                             = models.FloatField(blank=True, null=True)
+    built_up_pop                                = models.FloatField(blank=True, null=True)
+    fruit_trees_pop                             = models.FloatField(blank=True, null=True) 
+    irrigated_agricultural_land_pop             = models.FloatField(blank=True, null=True)  
+    permanent_snow_pop                          = models.FloatField(blank=True, null=True)
+    rainfed_agricultural_land_pop               = models.FloatField(blank=True, null=True)
+    rangeland_pop                               = models.FloatField(blank=True, null=True)
+    sandcover_pop                               = models.FloatField(blank=True, null=True)
+    vineyards_pop                               = models.FloatField(blank=True, null=True)
+    forest_pop                                  = models.FloatField(blank=True, null=True)
+    
+    # landcover total area
+    water_body_area                             = models.FloatField(blank=True, null=True)
+    barren_land_area                            = models.FloatField(blank=True, null=True)
+    built_up_area                               = models.FloatField(blank=True, null=True) 
+    fruit_trees_area                            = models.FloatField(blank=True, null=True) 
+    irrigated_agricultural_land_area            = models.FloatField(blank=True, null=True)
+    permanent_snow_area                         = models.FloatField(blank=True, null=True)
+    rainfed_agricultural_land_area              = models.FloatField(blank=True, null=True)
+    rangeland_area                              = models.FloatField(blank=True, null=True) 
+    sandcover_area                              = models.FloatField(blank=True, null=True)
+    vineyards_area                              = models.FloatField(blank=True, null=True)
+    forest_area                                 = models.FloatField(blank=True, null=True)
+    
+    # Flood Risk Population
+    high_risk_population                        = models.FloatField(blank=True, null=True)
+    med_risk_population                         = models.FloatField(blank=True, null=True)
+    low_risk_population                         = models.FloatField(blank=True, null=True)
+    total_risk_population                       = models.FloatField(blank=True, null=True) 
+    settlements_at_risk                         = models.FloatField(blank=True, null=True)
+    
+    # Flood Risk Area
+    high_risk_area                              = models.FloatField(blank=True, null=True) 
+    med_risk_area                               = models.FloatField(blank=True, null=True)
+    low_risk_area                               = models.FloatField(blank=True, null=True)  
+    total_risk_area                             = models.FloatField(blank=True, null=True)
+    
+    # landcover flood risk population
+    water_body_pop_risk                         = models.FloatField(blank=True, null=True)
+    barren_land_pop_risk                        = models.FloatField(blank=True, null=True) 
+    built_up_pop_risk                           = models.FloatField(blank=True, null=True)
+    fruit_trees_pop_risk                        = models.FloatField(blank=True, null=True)
+    irrigated_agricultural_land_pop_risk        = models.FloatField(blank=True, null=True)    
+    permanent_snow_pop_risk                     = models.FloatField(blank=True, null=True) 
+    rainfed_agricultural_land_pop_risk          = models.FloatField(blank=True, null=True)
+    rangeland_pop_risk                          = models.FloatField(blank=True, null=True) 
+    sandcover_pop_risk                          = models.FloatField(blank=True, null=True)
+    vineyards_pop_risk                          = models.FloatField(blank=True, null=True)
+    forest_pop_risk                             = models.FloatField(blank=True, null=True) 
+
+    # landcover flood risk area
+    water_body_area_risk                        = models.FloatField(blank=True, null=True)
+    barren_land_area_risk                       = models.FloatField(blank=True, null=True)
+    built_up_area_risk                          = models.FloatField(blank=True, null=True)
+    fruit_trees_area_risk                       = models.FloatField(blank=True, null=True) 
+    irrigated_agricultural_land_area_risk       = models.FloatField(blank=True, null=True) 
+    permanent_snow_area_risk                    = models.FloatField(blank=True, null=True)
+    rainfed_agricultural_land_area_risk         = models.FloatField(blank=True, null=True)
+    rangeland_area_risk                         = models.FloatField(blank=True, null=True)
+    sandcover_area_risk                         = models.FloatField(blank=True, null=True)
+    vineyards_area_risk                         = models.FloatField(blank=True, null=True)
+    forest_area_risk                            = models.FloatField(blank=True, null=True)
+
+    # Avalanche Risk Population
+    high_ava_population                         = models.FloatField(blank=True, null=True)
+    med_ava_population                          = models.FloatField(blank=True, null=True)
+    low_ava_population                          = models.FloatField(blank=True, null=True)    
+    total_ava_population                        = models.FloatField(blank=True, null=True)
+
+    # Avalanche Risk Area
+    high_ava_area                               = models.FloatField(blank=True, null=True)
+    med_ava_area                                = models.FloatField(blank=True, null=True) 
+    low_ava_area                                = models.FloatField(blank=True, null=True)
+    total_ava_area                              = models.FloatField(blank=True, null=True)
+
+    ### Forecasting Sections  ###
+    # --- This section values will be updated every 3 hours --- #
+
+    # River Flood Forecasted Population 
+    riverflood_forecast_verylow_pop             = models.FloatField(blank=True, null=True)
+    riverflood_forecast_low_pop                 = models.FloatField(blank=True, null=True)
+    riverflood_forecast_med_pop                 = models.FloatField(blank=True, null=True)
+    riverflood_forecast_high_pop                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_veryhigh_pop            = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_extreme_pop             = models.FloatField(blank=True, null=True)
+    total_riverflood_forecast_pop               = models.FloatField(blank=True, null=True)
+    
+    # River Flood Forecasted Area
+    riverflood_forecast_verylow_area            = models.FloatField(blank=True, null=True)
+    riverflood_forecast_low_area                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_med_area                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_high_area               = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_veryhigh_area           = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_extreme_area            = models.FloatField(blank=True, null=True)
+    total_riverflood_forecast_area              = models.FloatField(blank=True, null=True) 
+
+    # Flash Flood Forecasted Population
+    flashflood_forecast_verylow_pop             = models.FloatField(blank=True, null=True) 
+    flashflood_forecast_low_pop                 = models.FloatField(blank=True, null=True)     
+    flashflood_forecast_med_pop                 = models.FloatField(blank=True, null=True)
+    flashflood_forecast_high_pop                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_veryhigh_pop            = models.FloatField(blank=True, null=True)
+    flashflood_forecast_extreme_pop             = models.FloatField(blank=True, null=True)
+    total_flashflood_forecast_pop               = models.FloatField(blank=True, null=True)
+
+    # Flash Flood Forecasted Area
+    flashflood_forecast_verylow_area            = models.FloatField(blank=True, null=True)
+    flashflood_forecast_low_area                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_med_area                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_high_area               = models.FloatField(blank=True, null=True)
+    flashflood_forecast_veryhigh_area           = models.FloatField(blank=True, null=True)
+    flashflood_forecast_extreme_area            = models.FloatField(blank=True, null=True) 
+    total_flashflood_forecast_area              = models.FloatField(blank=True, null=True) 
+
+    # Avalanche Forecasted Population
+    ava_forecast_low_pop                        = models.FloatField(blank=True, null=True) 
+    ava_forecast_med_pop                        = models.FloatField(blank=True, null=True) 
+    ava_forecast_high_pop                       = models.FloatField(blank=True, null=True)
+    total_ava_forecast_pop                      = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'basinsummary'   
 
 
 
