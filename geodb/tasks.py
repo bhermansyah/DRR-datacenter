@@ -12,6 +12,6 @@ def scraper_example():
 	getForecastedDisaster()
 
 @periodic_task(run_every=(crontab(hour='*')))
-def scraper_example():
+def updateDistrictsSummary():
 	updateSummaryTable()
 
