@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC 
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -28,9 +28,9 @@ from ftplib import FTP
 import gzip
 import glob
 from django.contrib.gis.gdal import DataSource
-from django.db import connection
+from django.db import connection, connections
 from django.contrib.gis.geos import fromstr
-
+from django.contrib.gis.utils import LayerMapping
 
 # from geodb.views import getForecastedDisaster
 # getForecastedDisaster()
@@ -71,24 +71,27 @@ def getSnowCover():
 
     ftp.quit()
 
-    # print filelist[-1].split()[8][:-7]
-    # print os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-3])
-    # print os.path.join(gdal_path,'gdalwarp')
-
     subprocess.call('%s -te 2438000 4432000 4429000 6301000 %s %s' %(os.path.join(gdal_path,'gdalwarp'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-3]), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_cropped.tif'),shell=True)
     subprocess.call('%s -t_srs EPSG:4326 %s %s' %(os.path.join(gdal_path,'gdalwarp'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_cropped.tif', os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_reproj.tif'),shell=True)
 
     subprocess.call('%s %s -f "ESRI Shapefile" %s' %(os.path.join(gdal_path,'gdal_polygonize.py'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_reproj.tif', os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly_temp.shp'),shell=True)
     subprocess.call('%s %s %s -where "DN=4"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly.shp', os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly_temp.shp'),shell=True)
+    mapping = {
+        'wkb_geometry' : 'POLYGON',
+    } # The mapping is a dictionary
+
+    # update snow cover in geodb
+    tempCurrentSC.objects.all().delete() 
+    lm = LayerMapping(tempCurrentSC, os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly.shp', mapping)
+    lm.save(verbose=True)
+
+    # create intersects layer of basin with SC
+    cursor = connections['geodb'].cursor()
+    cursor.execute("delete from current_sc_basins")
+    cursor.execute("insert into current_sc_basins(basin,wkb_geometry) select a.value, a.wkb_geometry from afg_sheda_lvl4 as a, temp_current_sc as b where st_intersects(a.wkb_geometry, b.wkb_geometry)")
+    # cursor.fetchall()
     
-    dsSHP = DataSource(os.path.join(GS_TMP_DIR,filelist[-1].split()[8][:-7])+'_poly.shp')
-    lyrSHP = dsSHP[0]
-
-    # for feat in lyrSHP:
-    #     p = AfgAvsa.objects.filter(wkb_geometry__within=feat.geom.wkt)
-    #     for row in p:
-    #         print str(row.ogc_fid) + ' - ' + str(row.vuid)
-
+    # clean temporary files
     cleantmpfile('ims')
     
 
@@ -108,9 +111,9 @@ def getForecastedDisaster():
     month = datetime.datetime.utcnow().strftime("%m")
     day = datetime.datetime.utcnow().strftime("%d")
     hh = datetime.datetime.utcnow().strftime("%H")
-
-    hh = int(hh)-1
-
+    # print hh
+    hh = int(hh)-2
+    # print hh
     if len(str(hh)) == 1:
         hhLabel = '0'+str(hh)
     else:
@@ -161,9 +164,10 @@ def getForecastedDisaster():
                 snowWaterState = 2 #moderate
             elif snowWater > 140:
                 snowWaterState = 3 #high    
-    
+            
+            basin = AfgShedaLvl4.objects.get(value=row[0]) 
             if flashFloodState>0:
-                basin = AfgShedaLvl4.objects.get(value=row[0]) 
+                # basin = AfgShedaLvl4.objects.get(value=row[0]) 
                 recordExists = Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='flashflood',basin=basin)  
                 if recordExists.count() > 0:
                     if recordExists[0].riskstate < flashFloodState:
@@ -181,7 +185,7 @@ def getForecastedDisaster():
                     print 'flashflood added'
 
             if snowWaterState>0:
-                basin = AfgShedaLvl4.objects.get(value=row[0]) 
+                # basin = AfgShedaLvl4.objects.get(value=row[0]) 
                 recordExists = Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='snowwater',basin=basin)  
                 if recordExists.count() > 0:
                     if recordExists[0].riskstate < snowWaterState:
@@ -196,7 +200,25 @@ def getForecastedDisaster():
                     c.forecasttype = 'snowwater'
                     c.riskstate = snowWaterState 
                     c.save()
-                    print 'snowwater added'        
+                    print 'snowwater added'       
+
+            if snowWater>0:
+                # basin = AfgShedaLvl4.objects.get(value=row[0]) 
+                recordExists = Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='snowwaterreal',basin=basin)  
+                if recordExists.count() > 0:
+                    if recordExists[0].riskstate < snowWater:
+                        c = Forcastedvalue(pk=recordExists[0].pk,basin=basin)  
+                        c.riskstate = snowWater
+                        c.save()
+                        print 'snowwaterreal modified'
+                    print 'snowwaterreal skip'    
+                else:
+                    c = Forcastedvalue(basin=basin)  
+                    c.datadate = year+'-'+month+'-'+day
+                    c.forecasttype = 'snowwaterreal'
+                    c.riskstate = snowWater 
+                    c.save()
+                    print 'snowwaterreal added'            
 
 
 

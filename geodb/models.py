@@ -1000,6 +1000,11 @@ class basinsummary(models.Model):
         managed = True
         db_table = 'basinsummary'   
 
-
+class tempCurrentSC(models.Model):
+    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = True
+        db_table = 'temp_current_sc'
 
 
