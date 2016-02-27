@@ -37,10 +37,10 @@ from django.contrib.gis.utils import LayerMapping
 
 GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
 
-# initial_data_path = "/home/ubuntu/DRR-datacenter/geodb/initialdata/" # Production
-# gdal_path = '/usr/bin/' # production
-initial_data_path = "/Users/budi/Documents/iMMAP/DRR-datacenter/geodb/initialdata/" # in developement
-gdal_path = '/usr/local/bin/' # development
+initial_data_path = "/home/ubuntu/DRR-datacenter/geodb/initialdata/" # Production
+gdal_path = '/usr/bin/' # production
+# initial_data_path = "/Users/budi/Documents/iMMAP/DRR-datacenter/geodb/initialdata/" # in developement
+# gdal_path = '/usr/local/bin/' # development
 
 
 def getLatestShakemap():
