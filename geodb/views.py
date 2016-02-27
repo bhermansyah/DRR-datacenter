@@ -21,7 +21,7 @@ from geodb.geoapi import getRiskExecuteExternal
 
 # addded by boedy
 from matrix.models import matrix
-import datetime
+import datetime, re
 from django.conf import settings
 from ftplib import FTP
 
@@ -37,10 +37,10 @@ from django.contrib.gis.utils import LayerMapping
 
 GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
 
-initial_data_path = "/home/ubuntu/DRR-datacenter/geodb/initialdata/" # Production
-gdal_path = '/usr/bin/' # production
-# initial_data_path = "/Users/budi/Documents/iMMAP/DRR-datacenter/geodb/initialdata/" # in developement
-# gdal_path = '/usr/local/bin/' # development
+# initial_data_path = "/home/ubuntu/DRR-datacenter/geodb/initialdata/" # Production
+# gdal_path = '/usr/bin/' # production
+initial_data_path = "/Users/budi/Documents/iMMAP/DRR-datacenter/geodb/initialdata/" # in developement
+gdal_path = '/usr/local/bin/' # development
 
 
 def getLatestShakemap():
@@ -107,19 +107,36 @@ def getForecastedDisaster():
     password = 'SAsia:14-ffg'
     auth_encoded = base64.encodestring('%s:%s' % (username, password))[:-1]
 
-    year = datetime.datetime.utcnow().strftime("%Y")
-    month = datetime.datetime.utcnow().strftime("%m")
-    day = datetime.datetime.utcnow().strftime("%d")
-    hh = datetime.datetime.utcnow().strftime("%H")
-    # print hh
-    hh = int(hh)-2
-    # print hh
-    if len(str(hh)) == 1:
-        hhLabel = '0'+str(hh)
-    else:
-        hhLabel = str(hh)    
+    currentdate = datetime.datetime.utcnow()
+    
+    try:
+        year = currentdate.strftime("%Y")
+        month = currentdate.strftime("%m")
+        day = currentdate.strftime("%d")
+        hh = currentdate.strftime("%H")
+        req = urllib2.Request('https://sasiaffg.hrcwater.org/CONSOLE/EXPORTS/AFGHANISTAN/'+year+'/'+month+'/'+day+'/COMPOSITE_CSV/')
+        req.add_header('Authorization', 'Basic %s' % auth_encoded)
+        response = urllib2.urlopen(req)   
 
-    url = 'https://sasiaffg.hrcwater.org/CONSOLE/EXPORTS/AFGHANISTAN/'+year+'/'+month+'/'+day+'/COMPOSITE_CSV/'+year+month+day+'-'+hhLabel+'00_ffgs_prod_composite_table_01hr_afghanistan.csv'
+    except urllib2.HTTPError, err:
+        currentdate = currentdate - datetime.timedelta(days=1)
+        year = currentdate.strftime("%Y")
+        month = currentdate.strftime("%m")
+        day = currentdate.strftime("%d")
+        hh = currentdate.strftime("%H")
+
+        req = urllib2.Request('https://sasiaffg.hrcwater.org/CONSOLE/EXPORTS/AFGHANISTAN/'+year+'/'+month+'/'+day+'/COMPOSITE_CSV/')
+        req.add_header('Authorization', 'Basic %s' % auth_encoded)
+        response = urllib2.urlopen(req)
+        # print response
+    
+    string = response.read().decode('utf-8')
+    pattern = '<a href="*?.*?00_ffgs_prod_composite_table_01hr_afghanistan.csv">(.*?)</a>'
+    for filename in re.findall(pattern, string):
+        selectedFile = filename
+
+
+    url = 'https://sasiaffg.hrcwater.org/CONSOLE/EXPORTS/AFGHANISTAN/'+year+'/'+month+'/'+day+'/COMPOSITE_CSV/'+selectedFile
     print url
 
     req = urllib2.Request(url)
@@ -129,6 +146,15 @@ def getForecastedDisaster():
     csv_f = csv.reader(response)
     Forcastedvalue.objects.all()
     pertama=True
+
+    # put the date back to the current date for storing data 
+    # it will stored the latest data from yesterday in case no result it on today
+    currentdate = datetime.datetime.utcnow()
+    year = currentdate.strftime("%Y")
+    month = currentdate.strftime("%m")
+    day = currentdate.strftime("%d")
+    hh = currentdate.strftime("%H")
+    
     for row in csv_f:
         if not pertama:
             try:
