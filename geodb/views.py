@@ -89,8 +89,8 @@ def getSnowCover():
     cursor = connections['geodb'].cursor()
     cursor.execute("delete from current_sc_basins")
     cursor.execute("insert into current_sc_basins(basin,wkb_geometry) select a.value, a.wkb_geometry from afg_sheda_lvl4 as a, temp_current_sc as b where st_intersects(a.wkb_geometry, b.wkb_geometry)")
-    # cursor.fetchall()
-    
+
+    cursor.close()
     # clean temporary files
     cleantmpfile('ims')
     
