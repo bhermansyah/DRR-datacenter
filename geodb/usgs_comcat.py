@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 
 #stdlib imports
 import urllib2
@@ -1134,6 +1134,5 @@ def readEventURL(product,contentlist,outfolder,eid,listURL=False,productProperti
     except Exception,msg:
         raise Exception,'Could not parse event information from "%s". Error: "%s"' % (furl,str(msg))
     return contenturl
-
 
     
