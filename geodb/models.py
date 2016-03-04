@@ -1007,4 +1007,75 @@ class tempCurrentSC(models.Model):
         managed = True
         db_table = 'temp_current_sc'
 
+class earthquake_events(models.Model):
+    wkb_geometry = models.PointField(blank=True, null=True)
+    event_code = models.CharField(max_length=25, blank=False)
+    title = models.CharField(max_length=255, blank=False)
+    dateofevent = models.DateTimeField(blank=False, null=False)
+    magnitude = models.FloatField(blank=True, null=True)
+    depth = models.FloatField(blank=True, null=True)
+    shakemaptimestamp = models.BigIntegerField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = True
+        db_table = 'earthquake_events'
 
+class earthquake_shakemap(models.Model):
+    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
+    event_code = models.CharField(max_length=25, blank=True)
+    shakemaptimestamp = models.BigIntegerField(blank=True, null=True)
+    grid_value = models.IntegerField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = True
+        db_table = 'earthquake_shakemap'        
+
+
+# class districtsummaryEQ(models.Model):
+#     event_code = models.CharField(max_length=20, blank=False)
+#     district = models.CharField(max_length=255, blank=False)
+#     pop_shake_weak =  models.FloatField(blank=True, null=True) 
+#     pop_shake_light =  models.FloatField(blank=True, null=True) 
+#     pop_shake_moderate =  models.FloatField(blank=True, null=True) 
+#     pop_shake_strong =  models.FloatField(blank=True, null=True) 
+#     pop_shake_verystrong =  models.FloatField(blank=True, null=True) 
+#     pop_shake_severe =  models.FloatField(blank=True, null=True) 
+#     pop_shake_violent =  models.FloatField(blank=True, null=True) 
+#     pop_shake_extreme =  models.FloatField(blank=True, null=True)   
+
+#     settlement_shake_weak =  models.FloatField(blank=True, null=True) 
+#     settlement_shake_light =  models.FloatField(blank=True, null=True) 
+#     settlement_shake_moderate =  models.FloatField(blank=True, null=True) 
+#     settlement_shake_strong =  models.FloatField(blank=True, null=True) 
+#     settlement_shake_verystrong =  models.FloatField(blank=True, null=True) 
+#     settlement_shake_severe =  models.FloatField(blank=True, null=True) 
+#     settlement_shake_violent =  models.FloatField(blank=True, null=True) 
+#     settlement_shake_extreme =  models.FloatField(blank=True, null=True)     
+#     class Meta:
+#         managed = True
+#         db_table = 'districtsummaryEQ' 
+
+class villagesummaryEQ(models.Model):
+    event_code = models.CharField(max_length=20, blank=False)
+    village = models.CharField(max_length=255, blank=False)
+    district = models.CharField(max_length=255, blank=False)
+    pop_shake_weak =  models.FloatField(blank=True, null=True) 
+    pop_shake_light =  models.FloatField(blank=True, null=True) 
+    pop_shake_moderate =  models.FloatField(blank=True, null=True) 
+    pop_shake_strong =  models.FloatField(blank=True, null=True) 
+    pop_shake_verystrong =  models.FloatField(blank=True, null=True) 
+    pop_shake_severe =  models.FloatField(blank=True, null=True) 
+    pop_shake_violent =  models.FloatField(blank=True, null=True) 
+    pop_shake_extreme =  models.FloatField(blank=True, null=True)   
+
+    settlement_shake_weak =  models.FloatField(blank=True, null=True) 
+    settlement_shake_light =  models.FloatField(blank=True, null=True) 
+    settlement_shake_moderate =  models.FloatField(blank=True, null=True) 
+    settlement_shake_strong =  models.FloatField(blank=True, null=True) 
+    settlement_shake_verystrong =  models.FloatField(blank=True, null=True) 
+    settlement_shake_severe =  models.FloatField(blank=True, null=True) 
+    settlement_shake_violent =  models.FloatField(blank=True, null=True) 
+    settlement_shake_extreme =  models.FloatField(blank=True, null=True)     
+    class Meta:
+        managed = True
+        db_table = 'villagesummary_eq'         

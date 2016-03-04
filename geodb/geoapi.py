@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -11,6 +11,7 @@ from tastypie.authorization import DjangoAuthorization
 from urlparse import urlparse
 from geonode.maps.models import Map
 from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
+from django.db import connection, connections
 
 # addded by boedy
 from matrix.models import matrix
@@ -667,4 +668,109 @@ class getProvince(ModelResource):
         resource_name = 'getprovince'
         allowed_methods = ('get')
         filtering = { "id" : ALL }
+
+
+class EarthQuakeStatisticResource(ModelResource):
+    """Flood api"""
+
+    class Meta:
+        authorization = DjangoAuthorization()
+        resource_name = 'earthquakestat'
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        always_return_data = True
+
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        response = self.getEarthQuakeStats(request)
+        return self.create_response(request, response)   
+
+    def getEarthQuakeStats(self, request):
+        # o = urlparse(request.META.get('HTTP_REFERER')).path
+        # o=o.split('/')
+        # mapCode = o[2]
+        # map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+
+        # queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
+        # queryset.save()
+
+        boundaryFilter = json.loads(request.body)
+
+        temp1 = []
+        for i in boundaryFilter['spatialfilter']:
+            temp1.append('ST_GeomFromText(\''+i+'\',4326)')
+
+        temp2 = 'ARRAY['
+        first=True
+        for i in temp1:
+            if first:
+                 temp2 = temp2 + i
+                 first=False
+            else :
+                 temp2 = temp2 + ', ' + i  
+
+        temp2 = temp2+']'
+        
+        filterLock = 'ST_Union('+temp2+')'
+        response = getEarthQuakeExecuteExternal(filterLock,boundaryFilter['flag'],boundaryFilter['code'])  
+        return response 
+
+def getEarthQuakeExecuteExternal(filterLock, flag, code, event_code):   
+    response = {} 
+    cursor = connections['geodb'].cursor()
+    cursor.execute("\
+        select b.grid_value, sum(   \
+        case    \
+            when ST_CoveredBy(a.wkb_geometry,b.wkb_geometry) then a.area_population \
+            else st_area(st_intersection(a.wkb_geometry,b.wkb_geometry))/st_area(a.wkb_geometry)*a.area_population \
+        end) as pop     \
+        from afg_lndcrva a, earthquake_shakemap b   \
+        where b.event_code = '"+event_code+"' and b.grid_value > 1 and a.vuid = '"+str(code)+"'    \
+        and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
+        group by b.grid_value\
+    ")
+    # cursor.execute("\
+    #     select b.grid_value, sum(   \
+    #     case    \
+    #         when ST_CoveredBy(a.wkb_geometry,b.wkb_geometry) then a.vuid_population_landscan \
+    #         else st_area(st_intersection(a.wkb_geometry,b.wkb_geometry))/st_area(a.wkb_geometry)*a.vuid_population_landscan \
+    #     end) as pop     \
+    #     from afg_ppla a, earthquake_shakemap b   \
+    #     where b.event_code = '"+event_code+"' and b.grid_value > 1 and a.vuid = '"+str(code)+"'    \
+    #     and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
+    #     group by b.grid_value\
+    # ")
+    row = cursor.fetchall()
+
+    temp = dict([(c[0], c[1]) for c in row])
+    response['pop_shake_weak']=round(temp.get(2, 0),0) + round(temp.get(3, 0),0) 
+    response['pop_shake_light']=round(temp.get(4, 0),0) 
+    response['pop_shake_moderate']=round(temp.get(5, 0),0) 
+    response['pop_shake_strong']=round(temp.get(6, 0),0) 
+    response['pop_shake_verystrong']=round(temp.get(7, 0),0)
+    response['pop_shake_severe']=round(temp.get(8, 0),0)  
+    response['pop_shake_violent']=round(temp.get(9, 0),0) 
+    response['pop_shake_extreme']=round(temp.get(10, 0),0)+round(temp.get(11, 0),0)+round(temp.get(12, 0),0)+round(temp.get(13, 0),0)+round(temp.get(14, 0),0)+round(temp.get(15, 0),0)
+
+    cursor.execute("\
+        select b.grid_value, count(*) as numbersettlements     \
+        from afg_pplp a, earthquake_shakemap b   \
+        where b.event_code = '"+event_code+"' and b.grid_value > 1 and a.vuid = '"+str(code)+"'    \
+        and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
+        group by b.grid_value\
+    ")
+    row = cursor.fetchall()
+
+    temp = dict([(c[0], c[1]) for c in row])
+    response['settlement_shake_weak']=round(temp.get(2, 0),0) + round(temp.get(3, 0),0) 
+    response['settlement_shake_light']=round(temp.get(4, 0),0) 
+    response['settlement_shake_moderate']=round(temp.get(5, 0),0) 
+    response['settlement_shake_strong']=round(temp.get(6, 0),0) 
+    response['settlement_shake_verystrong']=round(temp.get(7, 0),0)
+    response['settlement_shake_severe']=round(temp.get(8, 0),0)  
+    response['settlement_shake_violent']=round(temp.get(9, 0),0) 
+    response['settlement_shake_extreme']=round(temp.get(10, 0),0)+round(temp.get(11, 0),0)+round(temp.get(12, 0),0)+round(temp.get(13, 0),0)+round(temp.get(14, 0),0)+round(temp.get(15, 0),0)
+    
+    cursor.close()
+    return response
     
