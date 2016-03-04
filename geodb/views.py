@@ -572,7 +572,7 @@ def updateEarthQuakeSummaryTable(event_code):
             else st_area(st_intersection(a.wkb_geometry,b.wkb_geometry))/st_area(a.wkb_geometry)*a.area_population \
         end) as pop     \
         from afg_lndcrva a, earthquake_shakemap b   \
-        where b.event_code = '"+event_code+"' and b.grid_value > 1   \
+        where b.event_code = '"+event_code+"' and b.grid_value > 1  \
         and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
         group by a.vuid, b.grid_value\
     ")
@@ -582,7 +582,7 @@ def updateEarthQuakeSummaryTable(event_code):
     cursor.execute("\
         select a.vuid, a.dist_code, b.grid_value, count(*) as numbersettlements     \
         from afg_pplp a, earthquake_shakemap b   \
-        where b.event_code = '"+event_code+"' and b.grid_value > 1   \
+        where b.event_code = '"+event_code+"' and b.grid_value > 1  \
         and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
         group by a.vuid, a.dist_code, b.grid_value\
     ")
@@ -596,82 +596,92 @@ def updateEarthQuakeSummaryTable(event_code):
     update_progress(float(xxx/ppp), 'start', 0)
 
     for settlement in settlementData:
-        start = time.time()
-        # print settlement[0]
-        settlementInPopData = [x for x in popData if x[0]==settlement[0]]
-        
-        temp = [x for x in settlementInPopData if x[1]==2]
-        riskNumber['pop_shake_weak']=round(temp[2],0) 
-        temp = [x for x in settlementInPopData if x[1]==3]
-        riskNumber['pop_shake_weak']= riskNumber['pop_shake_weak'] + round(temp[2],0) 
+        if settlement[0] != None:
+            start = time.time()
 
-        temp = [x for x in settlementInPopData if x[1]==4]
-        riskNumber['pop_shake_light']=round(temp[2],0) 
-        
-        temp = [x for x in settlementInPopData if x[1]==5]
-        riskNumber['pop_shake_moderate']=round(temp[2],0) 
+            settlementInPopData = [x for x in popData if x[0]==settlement[0]]
+            
+            temp = [x for x in settlementInPopData if x[1]==2]
+            riskNumber['pop_shake_weak']= getKeyCustom(temp)
+            temp = [x for x in settlementInPopData if x[1]==3]
+            riskNumber['pop_shake_weak']= riskNumber['pop_shake_weak'] + getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==6]
-        riskNumber['pop_shake_strong']=round(temp[2],0) 
-        
-        temp = [x for x in settlementInPopData if x[1]==7]
-        riskNumber['pop_shake_verystrong']=round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==4]
+            riskNumber['pop_shake_light']=getKeyCustom(temp) 
+            
+            temp = [x for x in settlementInPopData if x[1]==5]
+            riskNumber['pop_shake_moderate']=getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==8]
-        riskNumber['pop_shake_severe']=round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==6]
+            riskNumber['pop_shake_strong']=getKeyCustom(temp) 
+            
+            temp = [x for x in settlementInPopData if x[1]==7]
+            riskNumber['pop_shake_verystrong']=getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==9]  
-        riskNumber['pop_shake_violent']=round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==8]
+            riskNumber['pop_shake_severe']=getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==10] 
-        riskNumber['pop_shake_extreme']=round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==9]  
+            riskNumber['pop_shake_violent']=getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==11] 
-        riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==10] 
+            riskNumber['pop_shake_extreme']=getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==12] 
-        riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==11] 
+            riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==13] 
-        riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==12] 
+            riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==14] 
-        riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==13] 
+            riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp) 
 
-        temp = [x for x in settlementInPopData if x[1]==15] 
-        riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+round(temp[2],0) 
+            temp = [x for x in settlementInPopData if x[1]==14] 
+            riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp) 
 
-        if settlement[1] in [2,3]:
-            riskNumber['settlement_shake_weak']=1
-        elif settlement[1]==4:
-            riskNumber['settlement_shake_light']=1
-        elif settlement[1]==5:
-            riskNumber['settlement_shake_moderate']=1  
-        elif settlement[1]==6:
-            riskNumber['settlement_shake_strong']=1          
-        elif settlement[1]==7:
-            riskNumber['settlement_shake_verystrong']=1
-        elif settlement[1]==8:
-            riskNumber['settlement_shake_severe']=1
-        elif settlement[1]==9:
-            riskNumber['settlement_shake_violent']=1
-        elif settlement[1]>=10:
-            riskNumber['settlement_shake_extreme']=1
-        
+            temp = [x for x in settlementInPopData if x[1]==15] 
+            riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp) 
 
-        px = villagesummaryEQ.objects.filter(event_code=event_code,village=settlement[0],district=settlement[1])
-        if px.count()>0:
-            a = villagesummaryEQ(id=px[0].id,event_code=event_code,village=settlement[0],district=settlement[1])
-        else:
-            a = villagesummaryEQ(event_code=event_code,village=settlement[0],district=settlement[1])
+            riskNumber['settlement_shake_weak']=0
+            riskNumber['settlement_shake_light']=0
+            riskNumber['settlement_shake_moderate']=0
+            riskNumber['settlement_shake_strong']=0
+            riskNumber['settlement_shake_verystrong']=0
+            riskNumber['settlement_shake_severe']=0
+            riskNumber['settlement_shake_violent']=0
+            riskNumber['settlement_shake_extreme']=0
 
-        for i in databaseFields:
-            setattr(a, i, riskNumber[i])
+            if settlement[1] in [2,3]:
+                riskNumber['settlement_shake_weak']=1
+            elif settlement[1]==4:
+                riskNumber['settlement_shake_light']=1
+            elif settlement[1]==5:
+                riskNumber['settlement_shake_moderate']=1  
+            elif settlement[1]==6:
+                riskNumber['settlement_shake_strong']=1          
+            elif settlement[1]==7:
+                riskNumber['settlement_shake_verystrong']=1
+            elif settlement[1]==8:
+                riskNumber['settlement_shake_severe']=1
+            elif settlement[1]==9:
+                riskNumber['settlement_shake_violent']=1
+            elif settlement[1]>=10:
+                riskNumber['settlement_shake_extreme']=1
+            
 
-        a.save()
-        loadingtime = time.time() - start
-        xxx=xxx+1
-        update_progress(float(float(xxx)/float(ppp)),  settlement[0], loadingtime)
+            px = villagesummaryEQ.objects.filter(event_code=event_code,village=settlement[0],district=settlement[1])
+            if px.count()>0:
+                a = villagesummaryEQ(id=px[0].id,event_code=event_code,village=settlement[0],district=settlement[1])
+            else:
+                a = villagesummaryEQ(event_code=event_code,village=settlement[0],district=settlement[1])
+
+            for i in databaseFields:
+                setattr(a, i, riskNumber[i])
+
+            a.save()
+            loadingtime = time.time() - start
+            xxx=xxx+1
+            update_progress(float(float(xxx)/float(ppp)),  settlement[0], loadingtime)
 
     # for aoi in row:
     #     start = time.time()
@@ -690,6 +700,11 @@ def updateEarthQuakeSummaryTable(event_code):
     #     update_progress(float(float(xxx)/float(ppp)),  aoi[1], loadingtime)
     return      
 
+def getKeyCustom(dt):
+    result = 0
+    if len(dt)>0:
+        result = round(dt[0][2],0)
+    return result    
 
 
 
