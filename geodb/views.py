@@ -32,7 +32,7 @@ from django.db import connection, connections
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.utils import LayerMapping
 
-# from geodb.usgs_comcat import getContents,getUTCTimeStamp
+from geodb.usgs_comcat import getContents,getUTCTimeStamp
 from django.contrib.gis.geos import Point
 
 from zipfile import ZipFile
@@ -50,7 +50,7 @@ gdal_path = '/usr/bin/' # production
 def getLatestEarthQuake():
     startdate = datetime.datetime.utcnow()
     startdate = startdate - datetime.timedelta(days=30)
-    # contents = getContents('dyfi',['stationlist.txt'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
+    contents = getContents('dyfi',['stationlist.txt'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
     
     for content in contents:
         point = Point(x=content['geometry']['coordinates'][0], y=content['geometry']['coordinates'][1],srid=4326)
@@ -79,7 +79,7 @@ def getLatestEarthQuake():
 def getLatestShakemap(includeShakeMap=False):
     startdate = datetime.datetime.utcnow()
     startdate = startdate - datetime.timedelta(days=30)
-    # contents = getContents('shakemap',['shape.zip'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
+    contents = getContents('shakemap',['shape.zip'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
     
     for content in contents:
         point = Point(x=content['geometry']['coordinates'][0], y=content['geometry']['coordinates'][1],srid=4326)
