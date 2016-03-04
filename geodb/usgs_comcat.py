@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 
 #stdlib imports
 import urllib2
