@@ -1135,48 +1135,5 @@ def readEventURL(product,contentlist,outfolder,eid,listURL=False,productProperti
         raise Exception,'Could not parse event information from "%s". Error: "%s"' % (furl,str(msg))
     return contenturl
 
-if __name__ == '__main__':
-    #test associate functionality
-    event = {'lat':40.828,'lon':-125.135,'time':ShakeDateTime(2014,3,10,5,18,15)}
-    origins = associate(event)
-    for origin in origins:
-        print origin
 
-    sys.exit(0)
-    #test catalog/contributor checkers
-    catalogs = checkCatalogs()
-    print 'Catalogs are:'
-    print catalogs
-    print
-    print 'Contributors are:'
-    contributors = checkContributors()
-    print contributors
-    print
-
-    #Downloads all of the shakemap stationlist.txt files for this California bounding box
-    #within the last year
-    #california bbox
-    xmin = -125.15625
-    xmax = -113.774414
-    ymin = 32.600048
-    ymax = 41.851151
-    maxtime = ShakeDateTime.utcnow()
-    mintime = maxtime - timedelta(days=60)
-    bounds = (xmin,xmax,ymin,ymax)
-    outfolder = os.path.join(os.path.expanduser('~'),'tmpcomcatdata')
-    outlist = getContents('shakemap',['stationlist.txt'],
-                          outfolder = outfolder,
-                          bounds=bounds,starttime=mintime,endtime=maxtime)
-    print 'Downloaded %i files to %s.  Now deleting those files and the folder.' % (len(outlist),outfolder)
-    shutil.rmtree(outfolder)
-
-    #Get the shakemap grid from just a single event - let's choose Northridge
-    eventid = 'pde19940117123055390_18'
-    outlist = getContents('shakemap',['grid.xml'],
-                          outfolder = outfolder,eventid=eventid)
-    print 'I downloaded:'
-    print outlist
-    print 'Now cleaning up...'
-    shutil.rmtree(outfolder)
-    print 'Done.'
     
