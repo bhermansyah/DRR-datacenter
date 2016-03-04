@@ -584,7 +584,7 @@ def updateEarthQuakeSummaryTable(event_code):
         from afg_pplp a, earthquake_shakemap b   \
         where b.event_code = '"+event_code+"' and b.grid_value > 1   \
         and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
-        group by a.vuid, b.grid_value\
+        group by a.vuid, a.dist_code, b.grid_value\
     ")
     settlementData = cursor.fetchall()  
 
