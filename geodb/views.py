@@ -689,7 +689,7 @@ def updateEarthQuakeSummaryTable(event_code):
                 a.save()
         loadingtime = time.time() - start
         xxx=xxx+1
-        update_progress(float(float(xxx)/float(ppp)),  aoi.dit_na_en, loadingtime)
+        update_progress(float(float(xxx)/float(ppp)),  aoi.dist_na_en, loadingtime)
     cursor.close()
     # for aoi in row:
     #     start = time.time()
