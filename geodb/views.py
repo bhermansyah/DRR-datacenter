@@ -566,7 +566,7 @@ def updateEarthQuakeSummaryTable(event_code):
 
     cursor = connections['geodb'].cursor()
     
-    resources = AfgAdmbndaAdm1.objects.all().order_by('prov_code')
+    resources = AfgAdmbndaAdm2.objects.all().order_by('dist_code')
 
     ppp = resources.count()
     xxx = 0
@@ -581,7 +581,7 @@ def updateEarthQuakeSummaryTable(event_code):
                 else st_area(st_intersection(a.wkb_geometry,b.wkb_geometry))/st_area(a.wkb_geometry)*a.area_population \
             end) as pop     \
             from afg_lndcrva a, earthquake_shakemap b   \
-            where b.event_code = '"+event_code+"' and b.grid_value > 1  and a.prov_code="+str(aoi.prov_code)+"\
+            where b.event_code = '"+event_code+"' and b.grid_value > 3  and a.dist_code="+str(aoi.dist_code)+"\
             and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
             group by a.vuid, b.grid_value\
         ")
@@ -591,7 +591,7 @@ def updateEarthQuakeSummaryTable(event_code):
         cursor.execute("\
             select a.vuid, a.dist_code, b.grid_value, count(*) as numbersettlements     \
             from afg_pplp a, earthquake_shakemap b   \
-            where b.event_code = '"+event_code+"' and b.grid_value > 1  and a.prov_code="+str(aoi.prov_code)+" \
+            where b.event_code = '"+event_code+"' and b.grid_value > 3  and a.dist_code="+str(aoi.dist_code)+" \
             and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
             group by a.vuid, a.dist_code, b.grid_value\
         ")
@@ -689,7 +689,7 @@ def updateEarthQuakeSummaryTable(event_code):
                 a.save()
         loadingtime = time.time() - start
         xxx=xxx+1
-        update_progress(float(float(xxx)/float(ppp)),  aoi.prov_na_en, loadingtime)
+        update_progress(float(float(xxx)/float(ppp)),  aoi.dist_code, loadingtime)
     cursor.close()
     # for aoi in row:
     #     start = time.time()
