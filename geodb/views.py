@@ -687,9 +687,9 @@ def updateEarthQuakeSummaryTable(event_code):
                     setattr(a, i, riskNumber[i])
 
                 a.save()
-                loadingtime = time.time() - start
-                xxx=xxx+1
-                update_progress(float(float(xxx)/float(ppp)),  settlement[0], loadingtime)
+        loadingtime = time.time() - start
+        xxx=xxx+1
+        update_progress(float(float(xxx)/float(ppp)),  aoi.dit_na_en, loadingtime)
     cursor.close()
     # for aoi in row:
     #     start = time.time()
