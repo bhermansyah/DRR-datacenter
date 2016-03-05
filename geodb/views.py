@@ -565,6 +565,7 @@ def updateEarthQuakeSummaryTable(event_code):
     print '----- Process baseline historical Statistics for EarthQuake------\n'
 
     cursor = connections['geodb'].cursor()
+    cursor.execute("set statement_timeout to 9000000000000")
     cursor.execute("\
         select a.vuid, b.grid_value, sum(   \
         case    \
