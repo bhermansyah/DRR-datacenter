@@ -573,7 +573,7 @@ def updateEarthQuakeSummaryTable(event_code):
             else st_area(st_intersection(a.wkb_geometry,b.wkb_geometry))/st_area(a.wkb_geometry)*a.area_population \
         end) as pop     \
         from afg_lndcrva a, earthquake_shakemap b   \
-        where b.event_code = '"+event_code+"' and b.grid_value > 1  \
+        where b.event_code = '"+event_code+"' and b.grid_value > 3  \
         and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
         group by a.vuid, b.grid_value\
     ")
@@ -583,7 +583,7 @@ def updateEarthQuakeSummaryTable(event_code):
     cursor.execute("\
         select a.vuid, a.dist_code, b.grid_value, count(*) as numbersettlements     \
         from afg_pplp a, earthquake_shakemap b   \
-        where b.event_code = '"+event_code+"' and b.grid_value > 1  \
+        where b.event_code = '"+event_code+"' and b.grid_value > 3  \
         and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
         group by a.vuid, a.dist_code, b.grid_value\
     ")
