@@ -78,7 +78,7 @@ def getLatestEarthQuake():
 
 def getLatestShakemap(includeShakeMap=False):
     startdate = datetime.datetime.utcnow()
-    startdate = startdate - datetime.timedelta(days=30)
+    startdate = startdate - datetime.timedelta(days=365)
     contents = getContents('shakemap',['shape.zip'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
     
     for content in contents:
