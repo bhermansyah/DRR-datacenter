@@ -667,21 +667,21 @@ def updateEarthQuakeSummaryTable(event_code):
                 riskNumber['settlement_shake_violent']=0
                 riskNumber['settlement_shake_extreme']=0
 
-                if settlement[1] in [2,3]:
+                if settlement[2] in [2,3]:
                     riskNumber['settlement_shake_weak']=1
-                elif settlement[1]==4:
+                elif settlement[2]==4:
                     riskNumber['settlement_shake_light']=1
-                elif settlement[1]==5:
+                elif settlement[2]==5:
                     riskNumber['settlement_shake_moderate']=1  
-                elif settlement[1]==6:
+                elif settlement[2]==6:
                     riskNumber['settlement_shake_strong']=1          
-                elif settlement[1]==7:
+                elif settlement[2]==7:
                     riskNumber['settlement_shake_verystrong']=1
-                elif settlement[1]==8:
+                elif settlement[2]==8:
                     riskNumber['settlement_shake_severe']=1
-                elif settlement[1]==9:
+                elif settlement[2]==9:
                     riskNumber['settlement_shake_violent']=1
-                elif settlement[1]>=10:
+                elif settlement[2]>=10:
                     riskNumber['settlement_shake_extreme']=1
                 
 
