@@ -574,16 +574,24 @@ def updateEarthQuakeSummaryTable(event_code):
 
     for aoi in resources:
         start = time.time()
+        # cursor.execute("\
+        #     select a.vuid, b.grid_value, sum(   \
+        #     case    \
+        #         when ST_CoveredBy(a.wkb_geometry,b.wkb_geometry) then a.area_population \
+        #         else st_area(st_intersection(a.wkb_geometry,b.wkb_geometry))/st_area(a.wkb_geometry)*a.area_population \
+        #     end) as pop     \
+        #     from afg_lndcrva a, earthquake_shakemap b   \
+        #     where b.event_code = '"+event_code+"' and b.grid_value > 1  and a.dist_code="+str(aoi.dist_code)+"\
+        #     and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
+        #     group by a.vuid, b.grid_value\
+        # ")
+        
         cursor.execute("\
-            select a.vuid, b.grid_value, sum(   \
-            case    \
-                when ST_CoveredBy(a.wkb_geometry,b.wkb_geometry) then a.area_population \
-                else st_area(st_intersection(a.wkb_geometry,b.wkb_geometry))/st_area(a.wkb_geometry)*a.area_population \
-            end) as pop     \
-            from afg_lndcrva a, earthquake_shakemap b   \
-            where b.event_code = '"+event_code+"' and b.grid_value > 3  and a.dist_code="+str(aoi.dist_code)+"\
-            and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
-            group by a.vuid, b.grid_value\
+            select a.vil_uid, b.grid_value, sum(a.vuid_population_landscan) as pop     \
+            from afg_pplp a, earthquake_shakemap b   \
+            where b.event_code = '"+event_code+"' and b.grid_value > 1  and a.dist_code="+str(aoi.dist_code)+"\
+            and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
+            group by a.vil_uid, b.grid_value\
         ")
         popData = cursor.fetchall()   
 
@@ -591,12 +599,12 @@ def updateEarthQuakeSummaryTable(event_code):
         cursor.execute("\
             select a.vuid, a.dist_code, b.grid_value, count(*) as numbersettlements     \
             from afg_pplp a, earthquake_shakemap b   \
-            where b.event_code = '"+event_code+"' and b.grid_value > 3  and a.dist_code="+str(aoi.dist_code)+" \
+            where b.event_code = '"+event_code+"' and b.grid_value > 1  and a.dist_code="+str(aoi.dist_code)+" \
             and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
             group by a.vuid, a.dist_code, b.grid_value\
         ")
         settlementData = cursor.fetchall()  
-
+        # print popData
         
 
         riskNumber = {}
@@ -691,21 +699,6 @@ def updateEarthQuakeSummaryTable(event_code):
         xxx=xxx+1
         update_progress(float(float(xxx)/float(ppp)),  aoi.dist_code, loadingtime)
     cursor.close()
-    # for aoi in row:
-    #     start = time.time()
-    #     riskNumber = getEarthQuakeExecuteExternal('ST_GeomFromText(\''+aoi[0]+'\',4326)', 'currentProvince', aoi[1], event_code)     
-    #     px = villagesummaryEQ.objects.filter(event_code=event_code,village=aoi[1],district=aoi[2])       
-    #     if px.count()>0:
-    #         a = villagesummaryEQ(id=px[0].id,event_code=event_code,village=aoi[1],district=aoi[2])
-    #     else:
-    #         a = villagesummaryEQ(event_code=event_code,village=aoi[1],district=aoi[2])
-
-    #     for i in databaseFields:
-    #         setattr(a, i, riskNumber[i])
-    #     a.save()
-    #     loadingtime = time.time() - start
-    #     xxx=xxx+1
-    #     update_progress(float(float(xxx)/float(ppp)),  aoi[1], loadingtime)
     return      
 
 def getKeyCustom(dt):
