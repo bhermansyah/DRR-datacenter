@@ -78,7 +78,7 @@ def getLatestEarthQuake():
 
 def getLatestShakemap(includeShakeMap=False):
     startdate = datetime.datetime.utcnow()
-    startdate = startdate - datetime.timedelta(days=365)
+    startdate = startdate - datetime.timedelta(days=30)
     contents = getContents('shakemap',['shape.zip'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
     
     for content in contents:
@@ -107,7 +107,7 @@ def getLatestShakemap(includeShakeMap=False):
                     outfile.close()
             thefile.close()
 
-            if includeShakeMap and recordExists[0].shakemaptimestamp < shakemaptimestamp:
+            if includeShakeMap and long(recordExists[0].shakemaptimestamp) < long(shakemaptimestamp):
                 mapping = {
                     'wkb_geometry' : 'POLYGON',
                     'grid_value':  'GRID_CODE',
