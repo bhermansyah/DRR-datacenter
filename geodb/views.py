@@ -459,8 +459,13 @@ def updateSummaryTable():   # for district
     databaseFields.remove('province')
     for aoi in resourcesProvinces:
         riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.prov_code)
-        provincesummary.objects.filter(province=aoi.prov_code).delete()
-        a = provincesummary(province=aoi.prov_code)
+        px = provincesummary.objects.filter(province=aoi.prov_code)
+        
+        if px.count()>0:
+            a = provincesummary(id=px[0].id,province=aoi.prov_code)
+        else:
+            a = provincesummary(province=aoi.prov_code)
+
         for i in databaseFields:
             setattr(a, i, riskNumber[i])
         a.save()
@@ -471,8 +476,13 @@ def updateSummaryTable():   # for district
     databaseFields.remove('district')
     for aoi in resourcesDistricts:
         riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.dist_code)
-        districtsummary.objects.filter(district=aoi.dist_code).delete()
-        a = districtsummary(district=aoi.dist_code)
+        px = districtsummary.objects.filter(district=aoi.dist_code)
+        
+        if px.count()>0:
+            a = districtsummary(id=px[0].id,district=aoi.dist_code)
+        else:
+            a = districtsummary(district=aoi.dist_code)
+
         for i in databaseFields:
             setattr(a, i, riskNumber[i])
         a.save()
@@ -482,8 +492,13 @@ def updateSummaryTable():   # for district
     databaseFields.remove('id')
     databaseFields.remove('basin')
     for aoi in resourcesBasin:
-        basinsummary.objects.filter(basin=aoi.vuid).delete()       
-        a = basinsummary(basin=aoi.vuid)
+        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentBasin', aoi.vuid)
+        px = basinsummary.objects.filter(basin=aoi.vuid)       
+        if px.count()>0:
+            a = basinsummary(id=px[0].id,basin=aoi.vuid)
+        else:
+            a = basinsummary(basin=aoi.vuid)
+
         for i in databaseFields:
             setattr(a, i, riskNumber[i])
         a.save()
