@@ -1936,3 +1936,15 @@ position:relative;-webkit-animation-name:animatebottom;-webkit-animation-duratio
     width: 100%;
     background: #2196F3;
 }
+.search-item{
+  padding: 10px;
+  text-align: center;
+}
+.search-item:nth-child(even){
+  background: #9E9E9E;
+}
+
+div.search-item.x-combo-selected {
+  border-color: #F44336 !important;
+  background-color: #F44336;
+}

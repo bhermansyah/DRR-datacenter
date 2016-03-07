@@ -90504,6 +90504,25 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }),
             autoLoad: false
         });
+
+        var dataEQEvents = new Ext.data.JsonStore({
+            url: "../../geoapi/geteqevents/",
+            root: 'objects',                   
+            totalProperty: 'total_count',
+            fields: [
+                {name:'id', type: 'integer'},
+                {name:'title', type: 'string'},
+                {name:'date_custom', type: 'string'},
+                {name:'event_code', type: 'string'}
+            ],
+            autoLoad: true
+        });
+
+        dataEQEvents.on( 'load', function( store, records, options ) {
+            var recordSelected = store.getAt(store.totalLength-1);                
+            Ext.getCmp('eventsEQSelection').setValue(recordSelected.get('event_code'));
+        });
+
         var tempMap = this.mapPanel.map;
 
         var eastPanel = new Ext.Panel({
@@ -90554,6 +90573,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             tpl.overwrite(Ext.getCmp('floodForecastView').body, {});
                             tpl.overwrite(Ext.getCmp('avalancheView').body, {});
                             tpl.overwrite(Ext.getCmp('avalancheForecastView').body, {});
+                            tpl.overwrite(Ext.getCmp('eqView').body, {});
                             Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
                         }
                     },{
@@ -90598,8 +90618,18 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             if (typeof adminCode == 'undefined'){
                                 adminCode = '';
                             }
-                            // console.log(adminCode);
+
+                            selIndex = Ext.getCmp('eventsEQSelection').selectedIndex;
+                            if (selIndex < 0){
+                                selIndex = Ext.getCmp('eventsEQSelection').getStore().totalLength-1
+                            }
+
+                            selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
+
                             _storeCalc.setFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
+                            _storeCalc.setEarthQuakeFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode, Ext.getCmp('eventsEQSelection').getValue(), Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.title, Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.date_custom);
+                            _storeCalc.filter = filter;
+                            _storeCalc.adminCode = adminCode;
                         }
                     }]
                 }),
@@ -90608,14 +90638,14 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         xtype: 'radio',
                         boxLabel: 'Current Extent',
                         name: 'selectedFilter',
-                        inputValue: 'currentExtent',
-                        checked: true
+                        inputValue: 'currentExtent'
                     },
                     {
                         xtype: 'radio',
                         boxLabel: 'Entire Afghanistan',
                         name: 'selectedFilter',
-                        inputValue: 'entireAfg'
+                        inputValue: 'entireAfg',
+                        checked: true
                     },
                     {
                         xtype: 'radio',
@@ -90760,7 +90790,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     defaults: {autoScroll: true},  
                     height : 800,
                     overflowY: 'scroll',
-                    html:'Coming soon'
+                    html:'Apply filter to generate the statistics'
                 },{
                     title: 'Flood Risk',
                     id: 'floodriskView',
@@ -90774,13 +90804,62 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     defaults: {autoScroll: true},  
                     height : 800,
                     overflowY: 'scroll',
-                    html:'Coming soon'
+                    html:'Apply filter to generate the statistics'
                 },{
                     title: 'Avalanche Risk',
                     id: 'avalancheView',
                     defaults: {autoScroll: true},  
                     height : 800,
                     overflowY: 'scroll',
+                    html:'Apply filter to generate the statistics'
+                },{
+                    title: 'Earthquake',
+                    id: 'eqView',
+                    defaults: {autoScroll: true},  
+                    height : 800,
+                    overflowY: 'scroll',
+                    tbar: new Ext.Toolbar({
+                        items:[{
+                            xtype: 'combo',
+                            fieldLabel: 'Events',
+                            id:'eventsEQSelection',
+                            emptyText:'Select an EQ Event...', 
+                            width : 275,
+                            typeAhead: true,
+                            triggerAction: 'all',
+                            forceSelection: true,  
+                            editable:false,  
+                            lazyRender:true,
+                            tpl : new Ext.XTemplate(
+                                '<tpl for="."><div class="search-item">',
+                                    '<span>{title}<br />{date_custom}',
+                                '</div></tpl>'
+                            ),
+                            mode: 'local',
+                            store: dataEQEvents,
+                            valueField: 'event_code',
+                            displayField: 'title',
+                            itemSelector: 'div.search-item',
+                            listeners       : {
+                                'select': function(combo, record, index) {
+                                    // console.log(record);
+                                    // console.log(tempMap.getLayersByName('Earthquake shakemap'));
+                                    var wmsDynlayer = null;
+                                    if (tempMap.getLayersByName('Earthquake shakemap').length > 0) {
+                                        wmsDynlayer = tempMap.getLayersByName('Earthquake shakemap')[0]
+                                        wmsDynlayer.mergeNewParams({'CQL_FILTER': "event_code='"+record.data.event_code+"'"});
+                                    }
+                                    _storeCalc.setEarthQuakeFeatureStore(_storeCalc.filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], _storeCalc.adminCode, record.data.event_code, record.data.title, record.data.date_custom);
+                                    
+                                },
+                                'afterrender': function(combo) {
+                                    // var recordSelected = combo.getStore().getAt(combo.getStore().totalLength-1);                
+                                    // combo.setValue(recordSelected.get('event_code'));
+                                }
+                            }
+
+                        }]
+                    }),    
                     html:'Apply filter to generate the statistics'
                 }]
             })]

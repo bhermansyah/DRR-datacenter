@@ -504,8 +504,10 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
     ptype: "gxp_statfeaturemanager",
     featureStore: null,
     store: null,
+    EQStore: null,
     active : true,
-
+    filter : [],
+    adminCode: null,
     constructor: function(config) {
         this.addEvents(
             "clearfeatures"
@@ -522,8 +524,56 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         return this.store;
     },
     getPageExtent: function() {},
+    setEarthQuakeFeatureStore: function(filter, flag, code, event_code, title, date_custom){
+        var myObj = {
+            filterdata : filter
+        };
+        var myMaskEQ = new Ext.LoadMask(Ext.getCmp('eqView').body, {msg:"Please wait..."});
+        myMaskEQ.show();
+        Ext.Ajax.request({
+            url: '../../geoapi/earthquakestat/',
+            method: 'POST', 
+            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code,'event_code':event_code }),
+            headers: {"Content-Type": "application/json"},
+            success: function(response) {
+                myMaskEQ.hide();
+                this.EQStore = Ext.decode(response.responseText);
+                var tplEarthQuake = new Ext.Template(
+                    '<div class="statisticsPanel">',
+                        '<ul>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1 align="center">'+title+'</h1>',
+                                      '<h1 align="center">'+date_custom+'</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td colspan="2" align="center" style="padding: 5px;">Mercali Intensity Scale</td><td style="padding: 5px;" align="center">Population</td><td style="padding: 5px;" align="right">Settlements</td></tr>',
+                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr bgcolor="#d20003"><td style="padding: 5px;" align="left">X+</td><td style="padding: 5px;" align="left">Extreme</td><td style="padding: 5px;" align="center">{pop_shake_extreme:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_extreme:toMega}</td></tr>',
+                                            '<tr bgcolor="#ff1f00"><td style="padding: 5px;" align="left">IX</td><td style="padding: 5px;" align="left">Violent</td><td style="padding: 5px;" align="center">{pop_shake_violent:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_violent:toMega}</td></tr>',
+                                            '<tr bgcolor="#fd6500"><td style="padding: 5px;" align="left">VIII</td><td style="padding: 5px;" align="left">Severe</td><td style="padding: 5px;" align="center">{pop_shake_severe:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_severe:toMega}</td></tr>',
+                                            '<tr bgcolor="#ffb700"><td style="padding: 5px;" align="left">VII</td><td style="padding: 5px;" align="left">Very-Strong</td><td style="padding: 5px;" align="center">{pop_shake_verystrong:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_verystrong:toMega}</td></tr>',
+                                            '<tr bgcolor="#fcf109"><td style="padding: 5px;" align="left">VI</td><td style="padding: 5px;" align="left">Strong</td><td style="padding: 5px;" align="center">{pop_shake_strong:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_strong:toMega}</td></tr>',
+                                            '<tr bgcolor="#b1ff55"><td style="padding: 5px;" align="left">V</td><td style="padding: 5px;" align="left">Moderate</td><td style="padding: 5px;" align="center">{pop_shake_moderate:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_moderate:toMega}</td></tr>',
+                                            '<tr bgcolor="#7cfddf"><td style="padding: 5px;" align="left">IV</td><td style="padding: 5px;" align="left">Light</td><td style="padding: 5px;" align="center">{pop_shake_light:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_light:toMega}</td></tr>',
+                                            '<tr bgcolor="#c4ceff"><td style="padding: 5px;" align="left">II-III</td><td style="padding: 5px;" align="left">Weak</td><td style="padding: 5px;" align="center">{pop_shake_weak:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_weak:toMega}</td></tr>',
+                                        '</table>',   
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                        '</ul>',
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                );
+                
+                tplEarthQuake.overwrite(Ext.getCmp('eqView').body, this.EQStore);
+                Ext.getCmp('eqView').body.highlight('#c3daf9', {block:true});
+            }
+        });    
+    },
     setFeatureStore: function(filter, flag, code) {
-        console.log(Ext.getCmp('statContainer'));
+        // console.log(Ext.getCmp('statContainer'));
         var myObj = {
             filterdata : filter
         };
@@ -531,7 +581,9 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         Ext.getCmp('statContainer').setActiveTab('floodriskView');
         Ext.getCmp('statContainer').setActiveTab('avalancheForecastView');
         Ext.getCmp('statContainer').setActiveTab('avalancheView');
+        Ext.getCmp('statContainer').setActiveTab('eqView');
         Ext.getCmp('statContainer').setActiveTab('baselineView');
+
         var myMaskBaseLine = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
         var myMaskFloodRisk = new Ext.LoadMask(Ext.getCmp('floodriskView').body, {msg:"Please wait..."});
         var myMaskAvalancheRisk = new Ext.LoadMask(Ext.getCmp('avalancheView').body, {msg:"Please wait..."});
@@ -648,23 +700,23 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                       '<h1>Population</h1>',
                                     '</header>',
                                     '<div class="w3-container">',
-                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_risk_population:toMega}/({percent_total_risk_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_risk_population:toMega}({percent_total_risk_population}%)</div></p><br/>',
                                         '<p><div class="lineCustom"> </div></p> <br/>',
-                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_risk_population:toMega}/({percent_high_risk_population}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_risk_population:toMega}/({percent_med_risk_population}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_risk_population:toMega}/({percent_low_risk_population}%)</div></p><br/>',       
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_risk_population:toMega}({percent_high_risk_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_risk_population:toMega}({percent_med_risk_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_risk_population:toMega}({percent_low_risk_population}%)</div></p><br/>',       
                                         '<p><div class="lineCustom"> </div></p> <br/>',
-                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_pop_risk:toMega}/({precent_barren_land_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_pop_risk:toMega}/({precent_built_up_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_pop_risk:toMega}/({precent_fruit_trees_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_pop_risk:toMega}/({precent_irrigated_agricultural_land_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_pop_risk:toMega}/({precent_permanent_snow_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_pop_risk:toMega}/({precent_rainfed_agricultural_land_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_pop_risk:toMega}/({precent_rangeland_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_pop_risk:toMega}/({precent_sandcover_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_pop_risk:toMega}/({precent_vineyards_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_pop_risk:toMega}/({precent_water_body_pop_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_pop_risk:toMega}/({precent_forest_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_pop_risk:toMega}({precent_barren_land_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_pop_risk:toMega}({precent_built_up_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_pop_risk:toMega}({precent_fruit_trees_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_pop_risk:toMega}({precent_irrigated_agricultural_land_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_pop_risk:toMega}({precent_permanent_snow_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_pop_risk:toMega}({precent_rainfed_agricultural_land_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_pop_risk:toMega}({precent_rangeland_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_pop_risk:toMega}({precent_sandcover_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_pop_risk:toMega}({precent_vineyards_pop_risk}%)</div></p><br/>',
+                                        // '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_pop_risk:toMega}({precent_water_body_pop_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_pop_risk:toMega}({precent_forest_pop_risk}%)</div></p><br/>',
                                     '</div>',
                                 '</div>',
                             '</li>',
@@ -675,23 +727,23 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                     '</header>',
 
                                     '<div class="w3-container">',
-                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_risk_area:toMega}/({percent_total_risk_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_risk_area:toMega}({percent_total_risk_area}%)</div></p><br/>',
                                         '<p><div class="lineCustom"> </div></p> <br/>',
-                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_risk_area:toMega}/({percent_high_risk_area}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_risk_area:toMega}/({percent_med_risk_area}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_risk_area:toMega}/({percent_low_risk_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_risk_area:toMega}({percent_high_risk_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_risk_area:toMega}({percent_med_risk_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_risk_area:toMega}({percent_low_risk_area}%)</div></p><br/>',
                                         '<p><div class="lineCustom"> </div></p> <br/>',
-                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_area_risk:toMega}/({precent_barren_land_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_area_risk:toMega}/({precent_built_up_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_area_risk:toMega}/({precent_fruit_trees_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_area_risk:toMega}/({precent_irrigated_agricultural_land_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_area_risk:toMega}/({precent_barren_land_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_area_risk:toMega}/({precent_permanent_snow_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_area_risk:toMega}/({precent_rangeland_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_area_risk:toMega}/({precent_sandcover_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_area_risk:toMega}/({precent_vineyards_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_area_risk:toMega}/({precent_water_body_area_risk}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_area_risk:toMega}/({precent_forest_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Barren Land</div><div style="float:right;">{barren_land_area_risk:toMega}({precent_barren_land_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Built-up</div><div style="float:right;">{built_up_area_risk:toMega}({precent_built_up_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Fruit trees</div><div style="float:right;">{fruit_trees_area_risk:toMega}({precent_fruit_trees_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Irrigated Agg land</div><div style="float:right;">{irrigated_agricultural_land_area_risk:toMega}({precent_irrigated_agricultural_land_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Permanent Snow</div><div style="float:right;">{permanent_snow_area_risk:toMega}({precent_barren_land_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rainfeld Agg land</div><div style="float:right;">{rainfed_agricultural_land_area_risk:toMega}({precent_permanent_snow_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Rangeland</div><div style="float:right;">{rangeland_area_risk:toMega}({precent_rangeland_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Sand cover</div><div style="float:right;">{sandcover_area_risk:toMega}({precent_sandcover_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Vineyards</div><div style="float:right;">{vineyards_area_risk:toMega}({precent_vineyards_area_risk}%)</div></p><br/>',
+                                        // '<p><div style="float:left;">Water body and marshland</div><div style="float:right;">{water_body_area_risk:toMega}({precent_water_body_area_risk}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Forest and shrubs</div><div style="float:right;">{forest_area_risk:toMega}({precent_forest_area_risk}%)</div></p><br/>',
                                     '</div>',
                                 '</div>',
                             '</li>',
@@ -741,11 +793,11 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                       '<h1>Population</h1>',
                                     '</header>',
                                     '<div class="w3-container">',
-                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_ava_population:toMega}/({percent_total_ava_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_ava_population:toMega}({percent_total_ava_population}%)</div></p><br/>',
                                         '<p><div class="lineCustom"> </div></p> <br/>',
-                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_population:toMega}/({percent_high_ava_population}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_population:toMega}/({percent_med_ava_population}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_population:toMega}/({percent_low_ava_population}%)</div></p><br/>',       
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_population:toMega}({percent_high_ava_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_population:toMega}({percent_med_ava_population}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_population:toMega}({percent_low_ava_population}%)</div></p><br/>',       
                                     '</div>',
                                 '</div>',
                             '</li>',
@@ -756,11 +808,11 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                     '</header>',
 
                                     '<div class="w3-container">',
-                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_ava_area:toMega}/({percent_total_ava_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Total</div><div style="float:right;">{total_ava_area:toMega}({percent_total_ava_area}%)</div></p><br/>',
                                         '<p><div class="lineCustom"> </div></p> <br/>',
-                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_area:toMega}/({percent_high_ava_area}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_area:toMega}/({percent_med_ava_area}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_area:toMega}/({percent_low_ava_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_area:toMega}({percent_high_ava_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_area:toMega}({percent_med_ava_area}%)</div></p><br/>',
+                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_area:toMega}({percent_low_ava_area}%)</div></p><br/>',
                                     '</div>',
                                 '</div>',
                             '</li>',
