@@ -925,3 +925,4 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     
 POSTGIS_VERSION = (2, 1, 2)
 DATABASE_ROUTERS = ['geodb.router.geodbRouter']
+CORS_ORIGIN_ALLOW_ALL = True
