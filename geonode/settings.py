@@ -306,6 +306,7 @@ INSTALLED_APPS = (
     #custom app
     'geodb',
     'matrix',
+    'corsheaders',
 
 ) + GEONODE_APPS
 
@@ -391,6 +392,8 @@ MIDDLEWARE_CLASSES = (
     # It sets temporary the involved layers as public before restoring the permissions.
     # Beware that for few seconds the involved layers are public there could be risks.
     # 'geonode.middleware.PrintProxyMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 
