@@ -577,19 +577,22 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         var myObj = {
             filterdata : filter
         };
+        console.log('kontol1');
         Ext.getCmp('statContainer').setActiveTab('floodForecastView');
         Ext.getCmp('statContainer').setActiveTab('floodriskView');
         Ext.getCmp('statContainer').setActiveTab('avalancheForecastView');
         Ext.getCmp('statContainer').setActiveTab('avalancheView');
         Ext.getCmp('statContainer').setActiveTab('eqView');
         Ext.getCmp('statContainer').setActiveTab('baselineView');
-
+        console.log('kontol2');
         var myMaskBaseLine = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
         var myMaskFloodRisk = new Ext.LoadMask(Ext.getCmp('floodriskView').body, {msg:"Please wait..."});
         var myMaskAvalancheRisk = new Ext.LoadMask(Ext.getCmp('avalancheView').body, {msg:"Please wait..."});
+        console.log('kontol3');
         myMaskBaseLine.show();
         myMaskFloodRisk.show();
         myMaskAvalancheRisk.show();
+        console.log('kontol4');
         // Ext.getCmp('stattable').expand();
 
         Ext.Ajax.request({
@@ -599,6 +602,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code}),
             headers: {"Content-Type": "application/json"},
             success: function(response) {
+                console.log('kontol5');
                 myMaskBaseLine.hide();
                 myMaskFloodRisk.hide();
                 myMaskAvalancheRisk.hide();
