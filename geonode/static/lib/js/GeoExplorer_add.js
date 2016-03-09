@@ -528,15 +528,15 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         var myObj = {
             filterdata : filter
         };
-        var myMaskEQ = new Ext.LoadMask(Ext.getCmp('eqView').body, {msg:"Please wait..."});
-        myMaskEQ.show();
+        // var myMaskEQ = new Ext.LoadMask(Ext.getCmp('eqView').body, {msg:"Please wait..."});
+        // myMaskEQ.show();
         Ext.Ajax.request({
             url: '../../geoapi/earthquakestat/',
             method: 'POST', 
             params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code,'event_code':event_code }),
             headers: {"Content-Type": "application/json"},
             success: function(response) {
-                myMaskEQ.hide();
+                // myMaskEQ.hide();
                 this.EQStore = Ext.decode(response.responseText);
                 var tplEarthQuake = new Ext.Template(
                     '<div class="statisticsPanel">',
@@ -577,22 +577,19 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         var myObj = {
             filterdata : filter
         };
-        console.log('kontol1');
         Ext.getCmp('statContainer').setActiveTab('floodForecastView');
         Ext.getCmp('statContainer').setActiveTab('floodriskView');
         Ext.getCmp('statContainer').setActiveTab('avalancheForecastView');
         Ext.getCmp('statContainer').setActiveTab('avalancheView');
         Ext.getCmp('statContainer').setActiveTab('eqView');
         Ext.getCmp('statContainer').setActiveTab('baselineView');
-        console.log('kontol2');
-        var myMaskBaseLine = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
-        var myMaskFloodRisk = new Ext.LoadMask(Ext.getCmp('floodriskView').body, {msg:"Please wait..."});
-        var myMaskAvalancheRisk = new Ext.LoadMask(Ext.getCmp('avalancheView').body, {msg:"Please wait..."});
-        console.log('kontol3');
-        myMaskBaseLine.show();
-        myMaskFloodRisk.show();
-        myMaskAvalancheRisk.show();
-        console.log('kontol4');
+
+        // var myMaskBaseLine = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
+        // var myMaskFloodRisk = new Ext.LoadMask(Ext.getCmp('floodriskView').body, {msg:"Please wait..."});
+        // var myMaskAvalancheRisk = new Ext.LoadMask(Ext.getCmp('avalancheView').body, {msg:"Please wait..."});
+        // myMaskBaseLine.show();
+        // myMaskFloodRisk.show();
+        // myMaskAvalancheRisk.show();
         // Ext.getCmp('stattable').expand();
 
         Ext.Ajax.request({
@@ -602,10 +599,9 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code}),
             headers: {"Content-Type": "application/json"},
             success: function(response) {
-                console.log('kontol5');
-                myMaskBaseLine.hide();
-                myMaskFloodRisk.hide();
-                myMaskAvalancheRisk.hide();
+                // myMaskBaseLine.hide();
+                // myMaskFloodRisk.hide();
+                // myMaskAvalancheRisk.hide();
                 // console.log(response);
                 this.store = Ext.decode(response.responseText);
                 // console.log(this.store);
@@ -973,9 +969,9 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
 
             },
             failure: function(response) {
-                myMaskBaseLine.hide();
-                myMaskFloodRisk.hide();
-                myMaskAvalancheRisk.hide();
+                // myMaskBaseLine.hide();
+                // myMaskFloodRisk.hide();
+                // myMaskAvalancheRisk.hide();
                 this.fireEvent("printexception", this, response);
             },
             // params: this.initialConfig.baseParams,
