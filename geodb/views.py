@@ -453,11 +453,16 @@ def updateSummaryTable():   # for district
 
     header = []
 
-    print '----- Process Provinces Statistics ------'
+    print '----- Process Provinces Statistics ------\n'
+    ppp = resourcesProvinces.count()
+    xxx = 0
+    update_progress(float(xxx/ppp), 'start', 0)
+
     databaseFields = provincesummary._meta.get_all_field_names()
     databaseFields.remove('id')
     databaseFields.remove('province')
     for aoi in resourcesProvinces:
+        start = time.time()
         riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.prov_code)
         px = provincesummary.objects.filter(province=aoi.prov_code)
         
@@ -469,12 +474,20 @@ def updateSummaryTable():   # for district
         for i in databaseFields:
             setattr(a, i, riskNumber[i])
         a.save()
+        loadingtime = time.time() - start
+        xxx=xxx+1
+        update_progress(float(float(xxx)/float(ppp)), aoi.prov_code, loadingtime)
 
-    print '----- Process Districts Statistics ------'
+    print '----- Process Districts Statistics ------\n'
+    ppp = resourcesDistricts.count()
+    xxx = 0
+    update_progress(float(xxx/ppp), 'start', 0)
+
     databaseFields = districtsummary._meta.get_all_field_names()
     databaseFields.remove('id')
     databaseFields.remove('district')
     for aoi in resourcesDistricts:
+        start = time.time()
         riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.dist_code)
         px = districtsummary.objects.filter(district=aoi.dist_code)
         
@@ -486,12 +499,20 @@ def updateSummaryTable():   # for district
         for i in databaseFields:
             setattr(a, i, riskNumber[i])
         a.save()
+        loadingtime = time.time() - start
+        xxx=xxx+1
+        update_progress(float(float(xxx)/float(ppp)), aoi.dist_code, loadingtime)
 
-    print '----- Process Villages Statistics ------'
+    print '----- Process Villages Statistics ------\n'
+    ppp = resourcesBasin.count()
+    xxx = 0
+    update_progress(float(xxx/ppp), 'start', 0)
+
     databaseFields = basinsummary._meta.get_all_field_names()
     databaseFields.remove('id')
     databaseFields.remove('basin')
     for aoi in resourcesBasin:
+        start = time.time()
         riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentBasin', aoi.vuid)
         px = basinsummary.objects.filter(basin=aoi.vuid)       
         if px.count()>0:
@@ -502,6 +523,9 @@ def updateSummaryTable():   # for district
         for i in databaseFields:
             setattr(a, i, riskNumber[i])
         a.save()
+        loadingtime = time.time() - start
+        xxx=xxx+1
+        update_progress(float(float(xxx)/float(ppp)), aoi.vuid, loadingtime)
 
     return    
 
