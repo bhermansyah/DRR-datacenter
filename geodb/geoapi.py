@@ -240,10 +240,14 @@ def getRiskExecuteExternal(filterLock, flag, code):
                 select={
                     'numbersettlementsatava': 'count(distinct vuid)'}).values('numbersettlementsatava')
         elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                ff0001 =  "prov_code  = '"+str(code)+"'"
             countsBase = targetAvalanche.extra(
                 select={
                     'numbersettlementsatava': 'count(distinct vuid)'}, 
-                where = {"left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"}).values('numbersettlementsatava')
+                where = {ff0001}).values('numbersettlementsatava')
         elif flag=='currentBasin':
             countsBase = targetAvalanche.extra(
                 select={
@@ -267,10 +271,14 @@ def getRiskExecuteExternal(filterLock, flag, code):
                 select={
                     'numbersettlementsatrisk': 'count(distinct vuid)'}).values('numbersettlementsatrisk')
         elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                ff0001 =  "prov_code  = '"+str(code)+"'"
             countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
                 select={
                     'numbersettlementsatrisk': 'count(distinct vuid)'}, 
-                where = {"left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"}).values('numbersettlementsatrisk')
+                where = {ff0001}).values('numbersettlementsatrisk')
         elif flag=='currentBasin':
             countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
                 select={
@@ -294,6 +302,10 @@ def getRiskExecuteExternal(filterLock, flag, code):
                 select={
                     'numbersettlements': 'count(distinct vuid)'}).values('numbersettlements')
         elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                ff0001 =  "prov_code  = '"+str(code)+"'"
             countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
                 select={
                     'numbersettlements': 'count(distinct vuid)'}, 
@@ -329,12 +341,16 @@ def getRiskExecuteExternal(filterLock, flag, code):
                     'countbase' : 'SUM(area_population)'
                 }).values('countbase')
         elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                ff0001 =  "prov_code  = '"+str(code)+"'"
             countsBase = targetBase.extra(
                 select={
                     'countbase' : 'SUM(area_population)'
                 },
                 where = {
-                    "left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"
+                    ff0001
                 }).values('countbase')
         elif flag=='currentBasin':
             countsBase = targetBase.extra(
@@ -371,12 +387,16 @@ def getRiskExecuteExternal(filterLock, flag, code):
                     'areabase' : 'SUM(area_sqm)'
                 }).values('areabase')
         elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                ff0001 =  "prov_code  = '"+str(code)+"'"
             countsBase = targetBase.extra(
                 select={
                     'areabase' : 'SUM(area_sqm)'
                 },
                 where = {
-                    "left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"
+                    ff0001
                 }).values('areabase')
         elif flag=='currentBasin':
             countsBase = targetBase.extra(
@@ -633,13 +653,18 @@ def getRiskNumber(data, filterLock, fieldGroup, popField, areaField, aflag, acod
     elif aflag=='currentProvince':
         # print "left(dist_code), "+str(len(str(acode)))+") = '"+str(acode)+"'"
         # print "left(dist_code, "+len(str(acode))+") = '"+str(acode)+"'"
+        if len(str(acode)) > 2:
+            ff0001 =  "dist_code  = '"+str(acode)+"'"
+        else :
+            ff0001 =  "prov_code  = '"+str(acode)+"'"
+                
         counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
             select={
                 'count' : 'SUM('+popField+')',
                 'areaatrisk' : 'SUM('+areaField+')'
             },
             where = {
-                "left(cast(dist_code as text), "+str(len(str(acode)))+") = '"+str(acode)+"'"
+                ff0001
             }).values(fieldGroup,'count','areaatrisk'))    
     elif aflag=='currentBasin':
             counts = list(data.values(fieldGroup).annotate(counter=Count('ogc_fid')).extra(
@@ -869,6 +894,10 @@ class EarthQuakeStatisticResource(ModelResource):
                     'settlement_shake_extreme'
                 ))   
         elif flag =='currentProvince':
+            if len(str(boundaryFilter['code'])) > 2:
+                ff0001 =  "district  = '"+str(boundaryFilter['code'])+"'"
+            else :
+                ff0001 =  "left(cast(district as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"'"
             counts = list(villagesummaryEQ.objects.all().extra(
                 select={
                     'pop_shake_weak' : 'coalesce(SUM(pop_shake_weak),0)',
@@ -890,7 +919,7 @@ class EarthQuakeStatisticResource(ModelResource):
                     'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
                 },
                 where = {
-                    "event_code = '"+boundaryFilter['event_code']+"' and left(cast(district as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"'"        
+                    "event_code = '"+boundaryFilter['event_code']+"' and "+ff0001       
                 }).values(
                     'pop_shake_weak',
                     'pop_shake_light',
