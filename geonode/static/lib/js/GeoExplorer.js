@@ -28741,6 +28741,16 @@ OpenLayers.Layer = OpenLayers.Class({
      *     will have a base layer.  To be overridden by subclasses.
      */
     afterAdd: function() {
+        // console.log(this);
+        if (this.name == 'Earthquake shakemap' && Ext.getCmp('eventsEQSelection')){
+            selIndex = Ext.getCmp('eventsEQSelection').selectedIndex;
+            if (selIndex < 0){
+                selIndex = Ext.getCmp('eventsEQSelection').getStore().totalLength-1
+            }
+
+            selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
+            if (selectedEQ) this.mergeNewParams({'CQL_FILTER': "event_code='"+selectedEQ.data.event_code+"'"});
+        }    
     },
     
     /**
@@ -90399,6 +90409,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fillOpacity: 0.1
         };
 
+        var styleEQ = {
+            strokeColor: '#FF0000',
+            strokeWidth: 5,
+            strokeOpacity: 1,
+            'pointRadius': 10,
+            graphicName: "circle",  
+            fillColor: '#ee0000',
+            fillOpacity: 0
+        };
+
        var vector_layer = new OpenLayers.Layer.Vector("Filter Layer",{
             'displayInLayerSwitcher':false,
              renderers: ['Canvas', 'VML'],
@@ -90406,7 +90426,17 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 "default": style
             })
        }); 
+
+       var vector_layerEQ = new OpenLayers.Layer.Vector("Selected EQ Layer",{
+            'displayInLayerSwitcher':false,
+             renderers: ['Canvas', 'VML'],
+             styleMap: new OpenLayers.StyleMap({
+                "default": styleEQ
+            })
+       });
+
        this.mapPanel.map.addLayer(vector_layer);
+       this.mapPanel.map.addLayer(vector_layerEQ);
        var filtercontrol = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon,{
             eventListeners: {
                 "featureadded": function(evt){
@@ -90504,16 +90534,21 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }),
             autoLoad: false
         });
-
+        var today = new Date()
+        var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7).format('Y-m-d');
+        var lastmonth = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30).format('Y-m-d');
+        var lastyear = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 365).format('Y-m-d');
+        // console.log(lastmonth);
         var dataEQEvents = new Ext.data.JsonStore({
-            url: "../../geoapi/geteqevents/",
+            url: "../../geoapi/geteqevents/?dateofevent__gte="+lastmonth,
             root: 'objects',                   
             totalProperty: 'total_count',
             fields: [
                 {name:'id', type: 'integer'},
                 {name:'title', type: 'string'},
                 {name:'date_custom', type: 'string'},
-                {name:'event_code', type: 'string'}
+                {name:'event_code', type: 'string'},
+                {name:'sm_available', type: 'string'}
             ],
             autoLoad: true
         });
@@ -90521,6 +90556,31 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         dataEQEvents.on( 'load', function( store, records, options ) {
             var recordSelected = store.getAt(store.totalLength-1);                
             Ext.getCmp('eventsEQSelection').setValue(recordSelected.get('event_code'));
+
+            var wmsDynlayer = null;
+            if (tempMap.getLayersByName('Earthquake shakemap').length > 0) {
+                wmsDynlayer = tempMap.getLayersByName('Earthquake shakemap')[0]
+                wmsDynlayer.mergeNewParams({'CQL_FILTER': "event_code='"+recordSelected.get('event_code')+"'"});
+            }
+
+            var tempArray = [];
+            store.data.each(function(e,d){
+                tempArray.push(e.data.event_code);
+            });
+            
+            tempArray = JSON.stringify(tempArray);
+            
+            tempArray = tempArray.replace('[', '(');
+            tempArray = tempArray.replace(']', ')');
+            var find = '"';
+            var re = new RegExp(find, 'g');
+            tempArray = tempArray.replace(re,"'");
+
+            var wmsEQlayer = null;
+            if (tempMap.getLayersByName('Earthquake events').length > 0) {
+                wmsEQlayer = tempMap.getLayersByName('Earthquake events')[0]
+                wmsEQlayer.mergeNewParams({'CQL_FILTER': "event_code in "+tempArray});
+            }
         });
 
         var tempMap = this.mapPanel.map;
@@ -90818,48 +90878,105 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     defaults: {autoScroll: true},  
                     height : 800,
                     overflowY: 'scroll',
-                    tbar: new Ext.Toolbar({
-                        items:[{
-                            xtype: 'combo',
-                            fieldLabel: 'Events',
-                            id:'eventsEQSelection',
-                            emptyText:'Select an EQ Event...', 
-                            width : 275,
-                            typeAhead: true,
-                            triggerAction: 'all',
-                            forceSelection: true,  
-                            editable:false,  
-                            lazyRender:true,
-                            tpl : new Ext.XTemplate(
-                                '<tpl for="."><div class="search-item">',
-                                    '<span>{title}<br />{date_custom}',
-                                '</div></tpl>'
-                            ),
-                            mode: 'local',
-                            store: dataEQEvents,
-                            valueField: 'event_code',
-                            displayField: 'title',
-                            itemSelector: 'div.search-item',
-                            listeners       : {
-                                'select': function(combo, record, index) {
-                                    // console.log(record);
-                                    // console.log(tempMap.getLayersByName('Earthquake shakemap'));
-                                    var wmsDynlayer = null;
-                                    if (tempMap.getLayersByName('Earthquake shakemap').length > 0) {
-                                        wmsDynlayer = tempMap.getLayersByName('Earthquake shakemap')[0]
-                                        wmsDynlayer.mergeNewParams({'CQL_FILTER': "event_code='"+record.data.event_code+"'"});
+                    tbar: new Ext.Container({
+                        height: 54,
+                        layout: 'anchor',
+                        xtype: 'container',
+                        defaults: {
+                            anchor: '100%',
+                            height: 27
+                        },
+                        items: [
+                            new Ext.Toolbar({
+                                items:[{
+                                    xtype: 'combo',
+                                    fieldLabel: 'Events',
+                                    id:'periodEQ',
+                                    emptyText:'Select an EQ Period...', 
+                                    width : 275,
+                                    typeAhead: true,
+                                    triggerAction: 'all',
+                                    forceSelection: true,  
+                                    editable:false,  
+                                    lazyRender:true,
+                                    mode: 'local',
+                                    store: new Ext.data.ArrayStore({
+                                        fields: ['code', 'period'],
+                                        data : [['1', 'Show Last Week Events'],['2', 'Show Last Month Events'],['3', 'Show Last Year Events']] 
+                                    }),
+                                    valueField: 'code',
+                                    value : 2,
+                                    displayField: 'period',
+                                    listeners       : {
+                                        'select': function(combo, record, index){
+                                            // console.log(record);
+                                            var datefilter = null;
+                                            if (record.data.code == '1'){
+                                                datefilter = lastWeek;
+                                            } else if (record.data.code == '2'){
+                                                datefilter = lastmonth;
+                                            } else if(record.data.code == '3'){
+                                                datefilter = lastyear;
+                                            }
+                                            dataEQEvents.proxy.conn.url = "../../geoapi/geteqevents/?dateofevent__gte="+datefilter;
+                                            dataEQEvents.load();
+                                        }
                                     }
-                                    _storeCalc.setEarthQuakeFeatureStore(_storeCalc.filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], _storeCalc.adminCode, record.data.event_code, record.data.title, record.data.date_custom);
-                                    
-                                },
-                                'afterrender': function(combo) {
-                                    // var recordSelected = combo.getStore().getAt(combo.getStore().totalLength-1);                
-                                    // combo.setValue(recordSelected.get('event_code'));
-                                }
-                            }
 
-                        }]
-                    }),    
+                                }]
+                            }),
+                            new Ext.Toolbar({
+                                items:[{
+                                    xtype: 'combo',
+                                    fieldLabel: 'Events',
+                                    id:'eventsEQSelection',
+                                    emptyText:'Select an EQ Event...', 
+                                    width : 275,
+                                    typeAhead: true,
+                                    triggerAction: 'all',
+                                    forceSelection: true,  
+                                    editable:false,  
+                                    lazyRender:true,
+                                    tpl : new Ext.XTemplate(
+                                        '<tpl for="."><div class="search-item">',
+                                            '<span>{title}</span><br />{date_custom} <br/>{sm_available}<br />',
+                                        '</div></tpl>'
+                                    ),
+                                    mode: 'local',
+                                    store: dataEQEvents,
+                                    valueField: 'event_code',
+                                    displayField: 'title',
+                                    itemSelector: 'div.search-item',
+                                    listeners       : {
+                                        'select': function(combo, record, index) {
+                                            // console.log(record);
+                                            // console.log(tempMap.getLayersByName('Earthquake shakemap'));
+                                            var wmsDynlayer = null;
+                                            if (tempMap.getLayersByName('Earthquake shakemap').length > 0) {
+                                                wmsDynlayer = tempMap.getLayersByName('Earthquake shakemap')[0]
+                                                wmsDynlayer.mergeNewParams({'CQL_FILTER': "event_code='"+record.data.event_code+"'"});
+                                            }
+                                            _storeCalc.setEarthQuakeFeatureStore(_storeCalc.filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], _storeCalc.adminCode, record.data.event_code, record.data.title, record.data.date_custom);
+                                            // console.log(record);
+                                            wkt = new OpenLayers.Format.WKT();
+                                            var features = wkt.read(record.json.wkb_geometry);
+                                            
+                                            features.geometry.transform(new OpenLayers.Projection('EPSG:4326'),new OpenLayers.Projection('EPSG:900913'));
+                                            
+                                            tempMap.getLayersByName('Selected EQ Layer')[0].removeAllFeatures();
+                                            tempMap.getLayersByName('Selected EQ Layer')[0].addFeatures(features);
+                                            tempMap.panTo(new OpenLayers.LonLat(features.geometry.x, features.geometry.y));
+                                        },
+                                        'afterrender': function(combo) {
+                                            // var recordSelected = combo.getStore().getAt(combo.getStore().totalLength-1);                
+                                            // combo.setValue(recordSelected.get('event_code'));
+                                        }
+                                    }
+
+                                }]
+                            })
+                        ]
+                    }),
                     html:'Apply filter to generate the statistics'
                 }]
             })]

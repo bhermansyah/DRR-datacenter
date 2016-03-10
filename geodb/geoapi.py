@@ -737,7 +737,12 @@ class EarthQuakeStatisticResource(ModelResource):
         
         filterLock = 'ST_Union('+temp2+')'
 
-        # villagesummaryEQ
+        # villagesummaryEQ earthquake_shakemap
+
+        p = earthquake_shakemap.objects.all().filter(event_code=boundaryFilter['event_code'])
+        if p.count() == 0:
+            return {'message':'Mercalli Intensity Scale are not Available'}
+
         # Book.objects.all().aggregate(Avg('price'))
         # response = getEarthQuakeExecuteExternal(filterLock,boundaryFilter['flag'],boundaryFilter['code'])  
         if flag=='drawArea':
@@ -1031,19 +1036,66 @@ def getEarthQuakeExecuteExternal(filterLock, flag, code, event_code):
     cursor.close()
     return response
 
+class EQEventsSerializer(Serializer):
+     def to_json(self, data, options=None):
+        options = options or {}
+        data = self.to_simple(data, options)
+        data2 = self.to_simple({'objects':[]}, options)
+        for i in data['objects']:
+            if i['evFlag'] == 1 or i['smFlag'] == 1:
+                if i['smFlag'] == 1:
+                    i['sm_available'] = 'ShakeMap are Available'
+                else :
+                    i['sm_available'] = 'ShakeMap are not Available'    
+                data2['objects'].append(i)
+
+        return json.dumps(data2, cls=DjangoJSONEncoder, sort_keys=True)       
+
 class getEQEvents(ModelResource):
     """Provinces api"""
     detail_title = fields.CharField()
     date_custom = fields.CharField()
+    evFlag = fields.IntegerField()
+    smFlag = fields.IntegerField()
+    sm_available = fields.CharField()
     def dehydrate_detail_title(self, bundle):
         return bundle.obj.title + ' on ' +  bundle.obj.dateofevent.strftime("%d-%m-%Y %H:%M:%S")
     def dehydrate_date_custom(self, bundle):
         return bundle.obj.dateofevent.strftime("%d-%m-%Y %H:%M:%S")
+    def dehydrate_evFlag(self, bundle):    
+        pEV = earthquake_events.objects.extra(
+            tables={'afg_admbnda_adm1'},
+            where={"ST_Intersects(afg_admbnda_adm1.wkb_geometry,earthquake_events.wkb_geometry) and earthquake_events.event_code = '"+bundle.obj.event_code+"'"}
+        )
+        if pEV.count()>0:
+            return 1
+        else:
+            return 0  
+    def dehydrate_smFlag(self, bundle):    
+        pSM = earthquake_shakemap.objects.extra(
+            tables={'afg_admbnda_adm1'},
+            where={"ST_Intersects(afg_admbnda_adm1.wkb_geometry,earthquake_shakemap.wkb_geometry) and earthquake_shakemap.event_code = '"+bundle.obj.event_code+"'"}
+        )
+        if pSM.count()>0:
+            return 1
+        else:
+            return 0                  
     class Meta:
         queryset = earthquake_events.objects.all().order_by('dateofevent')
+        # queryset = earthquake_events.objects.extra(
+        #     tables={'earthquake_shakemap'},
+        #     where={'earthquake_events.event_code=earthquake_shakemap.event_code'
+        #            # 'logsource_domain="example.com"',
+        #            }
+        # ).values('event_code','title','dateofevent','magnitude','depth', 'shakemaptimestamp','wkb_geometry')   
         resource_name = 'geteqevents'
         allowed_methods = ('get')
-        filtering = { "id" : ALL }     
+        filtering = { 
+            "dateofevent" : ['gte', 'lte']
+        } 
+        serializer = EQEventsSerializer()   
+
+      
 
 
     

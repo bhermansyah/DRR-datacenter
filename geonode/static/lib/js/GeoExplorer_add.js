@@ -528,8 +528,9 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         var myObj = {
             filterdata : filter
         };
-        // var myMaskEQ = new Ext.LoadMask(Ext.getCmp('eqView').body, {msg:"Please wait..."});
-        // myMaskEQ.show();
+        var tpl = new Ext.Template('Please Wait ...');
+        tpl.overwrite(Ext.getCmp('eqView').body, {});
+
         Ext.Ajax.request({
             url: '../../geoapi/earthquakestat/',
             method: 'POST', 
@@ -538,35 +539,50 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             success: function(response) {
                 // myMaskEQ.hide();
                 this.EQStore = Ext.decode(response.responseText);
-                var tplEarthQuake = new Ext.Template(
-                    '<div class="statisticsPanel">',
-                        '<ul>',
-                            '<li>',
-                                '<div class="w3-card-4">',
-                                    '<header class="w3-container w3-blue">',
-                                      '<h1 align="center">'+title+'</h1>',
-                                      '<h1 align="center">'+date_custom+'</h1>',
-                                    '</header>',
-                                    '<div class="w3-container">',
-                                        '<table style="width:100%"">',
-                                            '<tr><td colspan="2" align="center" style="padding: 5px;">Mercali Intensity Scale</td><td style="padding: 5px;" align="center">Population</td><td style="padding: 5px;" align="right">Settlements</td></tr>',
-                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
-                                            '<tr bgcolor="#d20003"><td style="padding: 5px;" align="left">X+</td><td style="padding: 5px;" align="left">Extreme</td><td style="padding: 5px;" align="center">{pop_shake_extreme:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_extreme:toMega}</td></tr>',
-                                            '<tr bgcolor="#ff1f00"><td style="padding: 5px;" align="left">IX</td><td style="padding: 5px;" align="left">Violent</td><td style="padding: 5px;" align="center">{pop_shake_violent:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_violent:toMega}</td></tr>',
-                                            '<tr bgcolor="#fd6500"><td style="padding: 5px;" align="left">VIII</td><td style="padding: 5px;" align="left">Severe</td><td style="padding: 5px;" align="center">{pop_shake_severe:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_severe:toMega}</td></tr>',
-                                            '<tr bgcolor="#ffb700"><td style="padding: 5px;" align="left">VII</td><td style="padding: 5px;" align="left">Very-Strong</td><td style="padding: 5px;" align="center">{pop_shake_verystrong:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_verystrong:toMega}</td></tr>',
-                                            '<tr bgcolor="#fcf109"><td style="padding: 5px;" align="left">VI</td><td style="padding: 5px;" align="left">Strong</td><td style="padding: 5px;" align="center">{pop_shake_strong:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_strong:toMega}</td></tr>',
-                                            '<tr bgcolor="#b1ff55"><td style="padding: 5px;" align="left">V</td><td style="padding: 5px;" align="left">Moderate</td><td style="padding: 5px;" align="center">{pop_shake_moderate:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_moderate:toMega}</td></tr>',
-                                            '<tr bgcolor="#7cfddf"><td style="padding: 5px;" align="left">IV</td><td style="padding: 5px;" align="left">Light</td><td style="padding: 5px;" align="center">{pop_shake_light:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_light:toMega}</td></tr>',
-                                            '<tr bgcolor="#c4ceff"><td style="padding: 5px;" align="left">II-III</td><td style="padding: 5px;" align="left">Weak</td><td style="padding: 5px;" align="center">{pop_shake_weak:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_weak:toMega}</td></tr>',
-                                        '</table>',   
+                if (this.EQStore.message){
+                    var tplEarthQuake = new Ext.Template(
+                        '<div class="statisticsPanel">',
+                            '<ul>',
+                                '<li>',
+                                    '<div class="w3-card-4">',
+                                        '<header class="w3-container w3-blue">',
+                                          '<h1 align="center">{message}</h1>',
+                                        '</header>',
                                     '</div>',
-                                '</div>',
-                            '</li>',
-                        '</ul>',
-                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
-                );
-                
+                                '</li>',
+                            '</ul>',
+                        '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                    );
+                } else {
+                    var tplEarthQuake = new Ext.Template(
+                        '<div class="statisticsPanel">',
+                            '<ul>',
+                                '<li>',
+                                    '<div class="w3-card-4">',
+                                        '<header class="w3-container w3-blue">',
+                                          '<h1 align="center">'+title+'</h1>',
+                                          '<h1 align="center">'+date_custom+'</h1>',
+                                        '</header>',
+                                        '<div class="w3-container">',
+                                            '<table style="width:100%"">',
+                                                '<tr><td colspan="2" align="center" style="padding: 5px;">Mercali Intensity Scale</td><td style="padding: 5px;" align="center">Population</td><td style="padding: 5px;" align="right">Settlements</td></tr>',
+                                                '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                                '<tr bgcolor="#d20003"><td style="padding: 5px;" align="left">X+</td><td style="padding: 5px;" align="left">Extreme</td><td style="padding: 5px;" align="center">{pop_shake_extreme:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_extreme:toMega}</td></tr>',
+                                                '<tr bgcolor="#ff1f00"><td style="padding: 5px;" align="left">IX</td><td style="padding: 5px;" align="left">Violent</td><td style="padding: 5px;" align="center">{pop_shake_violent:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_violent:toMega}</td></tr>',
+                                                '<tr bgcolor="#fd6500"><td style="padding: 5px;" align="left">VIII</td><td style="padding: 5px;" align="left">Severe</td><td style="padding: 5px;" align="center">{pop_shake_severe:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_severe:toMega}</td></tr>',
+                                                '<tr bgcolor="#ffb700"><td style="padding: 5px;" align="left">VII</td><td style="padding: 5px;" align="left">Very-Strong</td><td style="padding: 5px;" align="center">{pop_shake_verystrong:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_verystrong:toMega}</td></tr>',
+                                                '<tr bgcolor="#fcf109"><td style="padding: 5px;" align="left">VI</td><td style="padding: 5px;" align="left">Strong</td><td style="padding: 5px;" align="center">{pop_shake_strong:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_strong:toMega}</td></tr>',
+                                                '<tr bgcolor="#b1ff55"><td style="padding: 5px;" align="left">V</td><td style="padding: 5px;" align="left">Moderate</td><td style="padding: 5px;" align="center">{pop_shake_moderate:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_moderate:toMega}</td></tr>',
+                                                '<tr bgcolor="#7cfddf"><td style="padding: 5px;" align="left">IV</td><td style="padding: 5px;" align="left">Light</td><td style="padding: 5px;" align="center">{pop_shake_light:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_light:toMega}</td></tr>',
+                                                '<tr bgcolor="#c4ceff"><td style="padding: 5px;" align="left">II-III</td><td style="padding: 5px;" align="left">Weak</td><td style="padding: 5px;" align="center">{pop_shake_weak:toMega}</td><td style="padding: 5px;" align="right">{settlement_shake_weak:toMega}</td></tr>',
+                                            '</table>',   
+                                        '</div>',
+                                    '</div>',
+                                '</li>',
+                            '</ul>',
+                        '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>' 
+                    );
+                }
                 tplEarthQuake.overwrite(Ext.getCmp('eqView').body, this.EQStore);
                 Ext.getCmp('eqView').body.highlight('#c3daf9', {block:true});
             }
@@ -584,13 +600,13 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         Ext.getCmp('statContainer').setActiveTab('eqView');
         Ext.getCmp('statContainer').setActiveTab('baselineView');
 
-        // var myMaskBaseLine = new Ext.LoadMask(Ext.getCmp('baselineView').body, {msg:"Please wait..."});
-        // var myMaskFloodRisk = new Ext.LoadMask(Ext.getCmp('floodriskView').body, {msg:"Please wait..."});
-        // var myMaskAvalancheRisk = new Ext.LoadMask(Ext.getCmp('avalancheView').body, {msg:"Please wait..."});
-        // myMaskBaseLine.show();
-        // myMaskFloodRisk.show();
-        // myMaskAvalancheRisk.show();
-        // Ext.getCmp('stattable').expand();
+        var tpl = new Ext.Template('Please Wait ...');
+        tpl.overwrite(Ext.getCmp('baselineView').body, {});
+        tpl.overwrite(Ext.getCmp('floodriskView').body, {});
+        tpl.overwrite(Ext.getCmp('floodForecastView').body, {});
+        tpl.overwrite(Ext.getCmp('avalancheView').body, {});
+        tpl.overwrite(Ext.getCmp('avalancheForecastView').body, {});
+        
 
         Ext.Ajax.request({
             url: '../../geoapi/floodrisk/',
