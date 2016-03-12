@@ -32864,7 +32864,7 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
         }, this);
 
         // console.log(this);
-        this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Filter Layer')[0], this.sourceMap.layers.length);
+        this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Filter Layer')[0], 10000);
         this.extent = this.sourceMap.getExtent();
         
         GeoExt.PrintMapPanel.superclass.initComponent.call(this);
@@ -90581,6 +90581,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 wmsEQlayer = tempMap.getLayersByName('Earthquake events')[0]
                 wmsEQlayer.mergeNewParams({'CQL_FILTER': "event_code in "+tempArray});
             }
+
+            tempMap.raiseLayer(vector_layer,10000);
+            tempMap.raiseLayer(vector_layerEQ,10000);
         });
 
         var tempMap = this.mapPanel.map;
