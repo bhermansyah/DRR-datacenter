@@ -34295,7 +34295,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *  (in milliseconds). Default of 30 seconds. Has no effect if ``method``
      *  is set to ``GET``.
      */
-    timeout: 30000,
+    timeout: 300000,
     
     /** api: property[customParams]
      *  ``Object`` Key-value pairs of custom data to be sent to the print
