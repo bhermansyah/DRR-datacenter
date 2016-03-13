@@ -3,6 +3,10 @@
 <script type="text/javascript" src="{{ STATIC_URL }}geoexplorer/externals/ext/ext-all.js"></script>
 
 <script type="text/javascript">
+  Ext.Ajax.timeout = 120000; //2 minutes
+  Ext.override(Ext.data.Connection, {
+	 timeout:120000
+  });
   Ext.Ajax.defaultHeaders = { 'X-CSRFToken': '{{ csrf_token|escapejs }}' };
   Ext.BLANK_IMAGE_URL = "{{ STATIC_URL }}geoexplorer/externals/ext/resources/images/default/s.gif";
 </script>

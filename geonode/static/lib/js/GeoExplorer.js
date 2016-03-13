@@ -34295,7 +34295,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *  (in milliseconds). Default of 30 seconds. Has no effect if ``method``
      *  is set to ``GET``.
      */
-    timeout: 300000,
+    timeout: 120000,
     
     /** api: property[customParams]
      *  ``Object`` Key-value pairs of custom data to be sent to the print
@@ -34708,6 +34708,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
             this.download(url);
         } else {
+            console.log(Ext.Ajax);
             Ext.Ajax.request({
                 url: this.capabilities.createURL,
                 timeout: this.timeout,

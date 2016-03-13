@@ -1015,6 +1015,16 @@ body.home li#nav_home a:hover {
   font-weight: bolder !important;
 }
 
+body.dashboard li#nav_dashboard a {
+  color: #333;
+  font-weight: bolder;
+}
+
+body.dashboard li#nav_dashboard a:hover {
+  color: #333 !important;
+  font-weight: bolder !important;
+}
+
 body.layers li#nav_layers a {
   color: #333;
   font-weight: bolder;
@@ -1041,6 +1051,17 @@ body.groups li#nav_groups a {
 }
 
 body.home li#nav_home>a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 0.4em;
+  width: 100%;
+  border-bottom: 2px solid #755467;
+  margin-top: 5px;
+}
+
+body.dashboard li#nav_dashboard>a::after {
   content: '';
   position: absolute;
   left: 0;
