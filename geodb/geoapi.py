@@ -30,11 +30,11 @@ class FloodRiskStatisticResource(ModelResource):
     """Flood api"""
 
     class Meta:
-        authorization = DjangoAuthorization()
+        # authorization = DjangoAuthorization()
         resource_name = 'floodrisk'
         allowed_methods = ['post']
         detail_allowed_methods = ['post']
-        always_return_data = True
+        # always_return_data = True
  
 
     def getRisk(self, request):
