@@ -356,22 +356,30 @@ class AfgPplp(models.Model):
 class AfgRdsl(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
     wkb_geometry = models.MultiLineStringField(blank=True, null=True)
-    objectid_1 = models.IntegerField(blank=True, null=True)
+    z_min = models.FloatField(blank=True, null=True)
+    z_max = models.FloatField(blank=True, null=True)
+    avg_slope = models.FloatField(blank=True, null=True)
+    sinuosity = models.FloatField(blank=True, null=True)
     name = models.CharField(max_length=255, blank=True)
-    region = models.CharField(max_length=255, blank=True)
-    province = models.CharField(max_length=255, blank=True)
-    l_of_road = models.IntegerField(blank=True, null=True)
-    remarks = models.CharField(max_length=255, blank=True)
-    from_dist = models.CharField(db_column='from__dist', max_length=255, blank=True) # Field renamed because it contained more than one '_' in a row.
-    to_dist = models.CharField(max_length=255, blank=True)
-    road_name = models.CharField(max_length=255, blank=True)
-    road_class = models.CharField(max_length=255, blank=True)
-    district = models.CharField(max_length=255, blank=True)
-    name_dari = models.CharField(max_length=255, blank=True)
-    shape_leng = models.FloatField(blank=True, null=True)
-    shape_le_1 = models.FloatField(blank=True, null=True)
-    author = models.CharField(max_length=255, blank=True)
-    date_edited = models.DateTimeField(blank=True, null=True)
+    source = models.CharField(max_length=255, blank=True)
+    speedkmh = models.IntegerField(blank=True, null=True)
+    rivercrossingsn = models.IntegerField(blank=True, null=True)
+    waterlenght = models.IntegerField(blank=True, null=True)
+    builduplenght = models.IntegerField(blank=True, null=True)
+    type_update = models.CharField(max_length=255, blank=True)
+    temp = models.FloatField(blank=True, null=True)
+    reduct_river = models.FloatField(blank=True, null=True)
+    reduct_water = models.FloatField(blank=True, null=True)
+    reduct_urb = models.FloatField(blank=True, null=True)
+    reduct_slope = models.FloatField(blank=True, null=True)
+    reduct_sin = models.FloatField(blank=True, null=True)
+    adjusted_kmh = models.IntegerField(blank=True, null=True)
+    travel_time_in_s = models.FloatField(blank=True, null=True)
+    meter_per_second = models.FloatField(blank=True, null=True)
+    priority_class = models.IntegerField(blank=True, null=True)
+    localtimemin = models.IntegerField(blank=True, null=True)
+    urb_factor = models.FloatField(blank=True, null=True)
+    dist_code = models.IntegerField(blank=True, null=True)
     shape_length = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
     class Meta:
@@ -1030,31 +1038,6 @@ class earthquake_shakemap(models.Model):
         managed = True
         db_table = 'earthquake_shakemap'        
 
-
-# class districtsummaryEQ(models.Model):
-#     event_code = models.CharField(max_length=20, blank=False)
-#     district = models.CharField(max_length=255, blank=False)
-#     pop_shake_weak =  models.FloatField(blank=True, null=True) 
-#     pop_shake_light =  models.FloatField(blank=True, null=True) 
-#     pop_shake_moderate =  models.FloatField(blank=True, null=True) 
-#     pop_shake_strong =  models.FloatField(blank=True, null=True) 
-#     pop_shake_verystrong =  models.FloatField(blank=True, null=True) 
-#     pop_shake_severe =  models.FloatField(blank=True, null=True) 
-#     pop_shake_violent =  models.FloatField(blank=True, null=True) 
-#     pop_shake_extreme =  models.FloatField(blank=True, null=True)   
-
-#     settlement_shake_weak =  models.FloatField(blank=True, null=True) 
-#     settlement_shake_light =  models.FloatField(blank=True, null=True) 
-#     settlement_shake_moderate =  models.FloatField(blank=True, null=True) 
-#     settlement_shake_strong =  models.FloatField(blank=True, null=True) 
-#     settlement_shake_verystrong =  models.FloatField(blank=True, null=True) 
-#     settlement_shake_severe =  models.FloatField(blank=True, null=True) 
-#     settlement_shake_violent =  models.FloatField(blank=True, null=True) 
-#     settlement_shake_extreme =  models.FloatField(blank=True, null=True)     
-#     class Meta:
-#         managed = True
-#         db_table = 'districtsummaryEQ' 
-
 class villagesummaryEQ(models.Model):
     event_code = models.CharField(max_length=20, blank=False)
     village = models.CharField(max_length=255, blank=False)
@@ -1079,3 +1062,75 @@ class villagesummaryEQ(models.Model):
     class Meta:
         managed = True
         db_table = 'villagesummary_eq'         
+
+class AfgPplaBasin(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    name_en = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    dist_na_en = models.CharField(max_length=255, blank=True)
+    prov_na_en = models.CharField(max_length=255, blank=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    basin_id = models.FloatField(blank=True, null=True)
+    area_population = models.FloatField(blank=True, null=True)
+    area_sqm = models.FloatField(blank=True, null=True)
+    shape_length = models.FloatField(blank=True, null=True)
+    shape_area = models.FloatField(blank=True, null=True)
+    basinmember = models.ForeignKey(AfgShedaLvl4, related_name='basinmemberpplp')
+    objects = models.GeoManager()
+    class Meta:
+        managed = True
+        db_table = 'afg_ppla_basin'
+
+class villagesummary(models.Model):
+    vuid                                       = models.CharField(max_length=255, blank=False)
+    basin                                      = models.CharField(max_length=255, blank=False)
+    ### Forecasting Sections  ###
+    # --- This section values will be updated every 3 hours --- #
+
+    # River Flood Forecasted Population 
+    riverflood_forecast_verylow_pop             = models.FloatField(blank=True, null=True)
+    riverflood_forecast_low_pop                 = models.FloatField(blank=True, null=True)
+    riverflood_forecast_med_pop                 = models.FloatField(blank=True, null=True)
+    riverflood_forecast_high_pop                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_veryhigh_pop            = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_extreme_pop             = models.FloatField(blank=True, null=True)
+    total_riverflood_forecast_pop               = models.FloatField(blank=True, null=True)
+    
+    # River Flood Forecasted Area
+    riverflood_forecast_verylow_area            = models.FloatField(blank=True, null=True)
+    riverflood_forecast_low_area                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_med_area                = models.FloatField(blank=True, null=True)
+    riverflood_forecast_high_area               = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_veryhigh_area           = models.FloatField(blank=True, null=True) 
+    riverflood_forecast_extreme_area            = models.FloatField(blank=True, null=True)
+    total_riverflood_forecast_area              = models.FloatField(blank=True, null=True) 
+
+    # Flash Flood Forecasted Population
+    flashflood_forecast_verylow_pop             = models.FloatField(blank=True, null=True) 
+    flashflood_forecast_low_pop                 = models.FloatField(blank=True, null=True)     
+    flashflood_forecast_med_pop                 = models.FloatField(blank=True, null=True)
+    flashflood_forecast_high_pop                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_veryhigh_pop            = models.FloatField(blank=True, null=True)
+    flashflood_forecast_extreme_pop             = models.FloatField(blank=True, null=True)
+    total_flashflood_forecast_pop               = models.FloatField(blank=True, null=True)
+
+    # Flash Flood Forecasted Area
+    flashflood_forecast_verylow_area            = models.FloatField(blank=True, null=True)
+    flashflood_forecast_low_area                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_med_area                = models.FloatField(blank=True, null=True)
+    flashflood_forecast_high_area               = models.FloatField(blank=True, null=True)
+    flashflood_forecast_veryhigh_area           = models.FloatField(blank=True, null=True)
+    flashflood_forecast_extreme_area            = models.FloatField(blank=True, null=True) 
+    total_flashflood_forecast_area              = models.FloatField(blank=True, null=True) 
+
+    # Avalanche Forecasted Population
+    ava_forecast_low_pop                        = models.FloatField(blank=True, null=True) 
+    ava_forecast_med_pop                        = models.FloatField(blank=True, null=True) 
+    ava_forecast_high_pop                       = models.FloatField(blank=True, null=True)
+    total_ava_forecast_pop                      = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = 'villagesummary'   

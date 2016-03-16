@@ -446,7 +446,24 @@ def update_progress(progress, msg, proctime):
     sys.stdout.write(text)
     sys.stdout.flush()
 
+def updateForecastSummary():
+    print 'kontol'
+    # targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)
+    # counts =  getRiskNumber(), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
+    # temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
+    # response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
+    # response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
+    # response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0) 
+    # response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0) 
+    # response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
+    # response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+    # response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] + response['riverflood_forecast_low_pop'] + response['riverflood_forecast_med_pop'] + response['riverflood_forecast_high_pop'] + response['riverflood_forecast_veryhigh_pop'] + response['riverflood_forecast_extreme_pop']
+
+
 def updateSummaryTable():   # for district
+    YEAR = datetime.datetime.utcnow().strftime("%Y")
+    MONTH = datetime.datetime.utcnow().strftime("%m")
+    DAY = datetime.datetime.utcnow().strftime("%d")
     resourcesProvinces = AfgAdmbndaAdm1.objects.all().order_by('prov_code') 
     resourcesDistricts = AfgAdmbndaAdm2.objects.all().order_by('dist_code')  
     resourcesBasin = AfgPpla.objects.all()
@@ -504,28 +521,325 @@ def updateSummaryTable():   # for district
         update_progress(float(float(xxx)/float(ppp)), aoi.dist_code, loadingtime)
 
     print '----- Process Villages Statistics ------\n'
-    ppp = resourcesBasin.count()
-    xxx = 0
-    update_progress(float(xxx/ppp), 'start', 0)
+    cursor = connections['geodb'].cursor()
+    cursor.execute('\
+        update "villagesummary" \
+            set \
+            riverflood_forecast_verylow_pop = 0,\
+            riverflood_forecast_low_pop = 0,\
+            riverflood_forecast_med_pop = 0,\
+            riverflood_forecast_high_pop = 0,\
+            riverflood_forecast_veryhigh_pop = 0,\
+            riverflood_forecast_extreme_pop = 0,\
+            total_riverflood_forecast_pop = 0,\
+            \
+            riverflood_forecast_verylow_area = 0,\
+            riverflood_forecast_low_area = 0,\
+            riverflood_forecast_med_area = 0,\
+            riverflood_forecast_high_area = 0,\
+            riverflood_forecast_veryhigh_area = 0,\
+            riverflood_forecast_extreme_area = 0,\
+            total_riverflood_forecast_area = 0,\
+            \
+            flashflood_forecast_verylow_pop = 0,\
+            flashflood_forecast_low_pop = 0,\
+            flashflood_forecast_med_pop = 0,\
+            flashflood_forecast_high_pop = 0,\
+            flashflood_forecast_veryhigh_pop = 0,\
+            flashflood_forecast_extreme_pop = 0,\
+            total_flashflood_forecast_pop = 0,\
+            \
+            flashflood_forecast_verylow_area = 0,\
+            flashflood_forecast_low_area = 0,\
+            flashflood_forecast_med_area = 0,\
+            flashflood_forecast_high_area = 0,\
+            flashflood_forecast_veryhigh_area = 0,\
+            flashflood_forecast_extreme_area = 0,\
+            total_flashflood_forecast_area = 0,\
+            \
+            ava_forecast_low_pop = 0,\
+            ava_forecast_med_pop = 0,\
+            ava_forecast_high_pop = 0,\
+            total_ava_forecast_pop = 0;\
+            \
+            update "villagesummary"\
+            set\
+            riverflood_forecast_verylow_pop = p.riverflood_forecast_verylow_pop,\
+            riverflood_forecast_low_pop = p.riverflood_forecast_low_pop,\
+            riverflood_forecast_med_pop = p.riverflood_forecast_med_pop,\
+            riverflood_forecast_high_pop = p.riverflood_forecast_high_pop,\
+            riverflood_forecast_veryhigh_pop = p.riverflood_forecast_veryhigh_pop,\
+            riverflood_forecast_extreme_pop = p.riverflood_forecast_extreme_pop,\
+            \
+            riverflood_forecast_verylow_area = p.riverflood_forecast_verylow_area,\
+            riverflood_forecast_low_area = p.riverflood_forecast_low_area,\
+            riverflood_forecast_med_area = p.riverflood_forecast_med_area,\
+            riverflood_forecast_high_area = p.riverflood_forecast_high_area,\
+            riverflood_forecast_veryhigh_area = p.riverflood_forecast_veryhigh_area,\
+            riverflood_forecast_extreme_area = p.riverflood_forecast_extreme_area\
+            from (\
+            SELECT \
+            "afg_fldzonea_100k_risk_landcover_pop"."vuid", \
+            "afg_fldzonea_100k_risk_landcover_pop"."basin_id", \
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 1 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as riverflood_forecast_verylow_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 2 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as riverflood_forecast_low_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 3 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as riverflood_forecast_med_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 4 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as riverflood_forecast_high_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 5 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as riverflood_forecast_veryhigh_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 6 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as riverflood_forecast_extreme_pop,\
+            \
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 1 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as riverflood_forecast_verylow_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 2 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as riverflood_forecast_low_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 3 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as riverflood_forecast_med_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 4 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as riverflood_forecast_high_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 5 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as riverflood_forecast_veryhigh_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 6 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as riverflood_forecast_extreme_area\
+            FROM "afg_fldzonea_100k_risk_landcover_pop" \
+            INNER JOIN "afg_sheda_lvl4" ON ( "afg_fldzonea_100k_risk_landcover_pop"."basinmember_id" = "afg_sheda_lvl4"."ogc_fid" ) \
+            INNER JOIN "forcastedvalue" ON ( "afg_sheda_lvl4"."ogc_fid" = "forcastedvalue"."basin_id" ) \
+            WHERE (NOT ("afg_fldzonea_100k_risk_landcover_pop"."agg_simplified_description" = \'Water body and marshland\' ) \
+            AND NOT ("afg_fldzonea_100k_risk_landcover_pop"."basinmember_id" IN (SELECT U1."ogc_fid" FROM "afg_sheda_lvl4" U1 LEFT OUTER JOIN "forcastedvalue" U2 ON ( U1."ogc_fid" = U2."basin_id" ) WHERE U2."riskstate" IS NULL)) \
+            AND "forcastedvalue"."datadate" = \''+YEAR+'-'+MONTH+'-'+DAY+' 00:00:00\'  \
+            AND "forcastedvalue"."forecasttype" = \'riverflood\' ) \
+            GROUP BY \
+            "afg_fldzonea_100k_risk_landcover_pop"."vuid", \
+            "afg_fldzonea_100k_risk_landcover_pop"."basin_id") as p \
+            WHERE p.vuid = "villagesummary".vuid and p.basin_id = cast("villagesummary".basin as float);\
+            \
+            update "villagesummary"\
+            set\
+            flashflood_forecast_verylow_pop = p.flashflood_forecast_verylow_pop,\
+            flashflood_forecast_low_pop = p.flashflood_forecast_low_pop,\
+            flashflood_forecast_med_pop = p.flashflood_forecast_med_pop,\
+            flashflood_forecast_high_pop = p.flashflood_forecast_high_pop,\
+            flashflood_forecast_veryhigh_pop = p.flashflood_forecast_veryhigh_pop,\
+            flashflood_forecast_extreme_pop = p.flashflood_forecast_extreme_pop,\
+            \
+            flashflood_forecast_verylow_area = p.flashflood_forecast_verylow_area,\
+            flashflood_forecast_low_area = p.flashflood_forecast_low_area,\
+            flashflood_forecast_med_area = p.flashflood_forecast_med_area,\
+            flashflood_forecast_high_area = p.flashflood_forecast_high_area,\
+            flashflood_forecast_veryhigh_area = p.flashflood_forecast_veryhigh_area,\
+            flashflood_forecast_extreme_area = p.flashflood_forecast_extreme_area\
+            from (\
+            SELECT \
+            "afg_fldzonea_100k_risk_landcover_pop"."vuid", \
+            "afg_fldzonea_100k_risk_landcover_pop"."basin_id", \
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 1 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as flashflood_forecast_verylow_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 2 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as flashflood_forecast_low_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 3 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as flashflood_forecast_med_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 4 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as flashflood_forecast_high_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 5 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as flashflood_forecast_veryhigh_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 6 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_population"\
+             else 0\
+            end\
+            )) as flashflood_forecast_extreme_pop,\
+            \
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 1 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as flashflood_forecast_verylow_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 2 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as flashflood_forecast_low_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 3 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as flashflood_forecast_med_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 4 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as flashflood_forecast_high_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 5 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as flashflood_forecast_veryhigh_area,\
+            SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 6 then "afg_fldzonea_100k_risk_landcover_pop"."fldarea_sqm"\
+             else 0\
+            end\
+            )/1000000 as flashflood_forecast_extreme_area\
+            FROM "afg_fldzonea_100k_risk_landcover_pop" \
+            INNER JOIN "afg_sheda_lvl4" ON ( "afg_fldzonea_100k_risk_landcover_pop"."basinmember_id" = "afg_sheda_lvl4"."ogc_fid" ) \
+            INNER JOIN "forcastedvalue" ON ( "afg_sheda_lvl4"."ogc_fid" = "forcastedvalue"."basin_id" ) \
+            WHERE (NOT ("afg_fldzonea_100k_risk_landcover_pop"."agg_simplified_description" = \'Water body and marshland\' ) \
+            AND NOT ("afg_fldzonea_100k_risk_landcover_pop"."basinmember_id" IN (SELECT U1."ogc_fid" FROM "afg_sheda_lvl4" U1 LEFT OUTER JOIN "forcastedvalue" U2 ON ( U1."ogc_fid" = U2."basin_id" ) WHERE U2."riskstate" IS NULL)) \
+            AND "forcastedvalue"."datadate" = \''+YEAR+'-'+MONTH+'-'+DAY+' 00:00:00\'  \
+            AND "forcastedvalue"."forecasttype" = \'flashflood\' ) \
+            GROUP BY \
+            "afg_fldzonea_100k_risk_landcover_pop"."vuid", \
+            "afg_fldzonea_100k_risk_landcover_pop"."basin_id") as p \
+            WHERE p.vuid = "villagesummary".vuid and p.basin_id = cast("villagesummary".basin as float);\
+            \
+            update "villagesummary"\
+            set\
+            ava_forecast_low_pop = p.ava_forecast_low_pop,\
+            ava_forecast_med_pop = p.ava_forecast_med_pop,\
+            ava_forecast_high_pop = p.ava_forecast_high_pop\
+            From (SELECT \
+            "afg_avsa"."vuid", \
+            "afg_avsa"."basin_id",\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 1 then "afg_avsa"."avalanche_pop"\
+             else 0\
+            end\
+            )) as ava_forecast_low_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 2 then "afg_avsa"."avalanche_pop"\
+             else 0\
+            end\
+            )) as ava_forecast_med_pop,\
+            round(SUM(\
+            case\
+             when "forcastedvalue"."riskstate" = 3 then "afg_avsa"."avalanche_pop"\
+             else 0\
+            end\
+            )) as ava_forecast_high_pop\
+            FROM "afg_avsa" \
+            INNER JOIN "afg_sheda_lvl4" ON ( "afg_avsa"."basinmember_id" = "afg_sheda_lvl4"."ogc_fid" ) \
+            INNER JOIN "forcastedvalue" ON ( "afg_sheda_lvl4"."ogc_fid" = "forcastedvalue"."basin_id" ) \
+            WHERE (NOT ("afg_avsa"."basinmember_id" IN (SELECT U1."ogc_fid" FROM "afg_sheda_lvl4" U1 LEFT OUTER JOIN "forcastedvalue" U2 ON ( U1."ogc_fid" = U2."basin_id" ) WHERE U2."riskstate" IS NULL)) \
+            AND "forcastedvalue"."datadate" = \''+YEAR+'-'+MONTH+'-'+DAY+' 00:00:00\'  \
+            AND "forcastedvalue"."forecasttype" = \'snowwater\' )\
+            GROUP BY  \
+            "afg_avsa"."vuid", \
+            "afg_avsa"."basin_id") as p\
+            WHERE p.vuid = "villagesummary".vuid and p.basin_id = cast("villagesummary".basin as float);\
+            \
+            update "villagesummary"\
+            set\
+            total_riverflood_forecast_pop = riverflood_forecast_verylow_pop + riverflood_forecast_low_pop + riverflood_forecast_med_pop + riverflood_forecast_high_pop + riverflood_forecast_veryhigh_pop + riverflood_forecast_extreme_pop,\
+            total_riverflood_forecast_area = riverflood_forecast_verylow_area + riverflood_forecast_low_area + riverflood_forecast_med_area + riverflood_forecast_high_area + riverflood_forecast_veryhigh_area + riverflood_forecast_extreme_area,\
+            total_flashflood_forecast_pop = flashflood_forecast_verylow_pop + flashflood_forecast_low_pop + flashflood_forecast_med_pop + flashflood_forecast_high_pop + flashflood_forecast_veryhigh_pop + flashflood_forecast_extreme_pop,\
+            total_flashflood_forecast_area = flashflood_forecast_verylow_area + flashflood_forecast_low_area + flashflood_forecast_med_area + flashflood_forecast_high_area + flashflood_forecast_veryhigh_area + flashflood_forecast_extreme_area,\
+            total_ava_forecast_pop = ava_forecast_low_pop+ava_forecast_med_pop+ava_forecast_high_pop;\
+    ')
+    cursor.close()
+    print 'done'
+    # ppp = resourcesBasin.count()
+    # xxx = 0
+    # update_progress(float(xxx/ppp), 'start', 0)
 
-    databaseFields = basinsummary._meta.get_all_field_names()
-    databaseFields.remove('id')
-    databaseFields.remove('basin')
-    for aoi in resourcesBasin:
-        start = time.time()
-        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentBasin', aoi.vuid)
-        px = basinsummary.objects.filter(basin=aoi.vuid)       
-        if px.count()>0:
-            a = basinsummary(id=px[0].id,basin=aoi.vuid)
-        else:
-            a = basinsummary(basin=aoi.vuid)
+    # databaseFields = basinsummary._meta.get_all_field_names()
+    # databaseFields.remove('id')
+    # databaseFields.remove('basin')
+    # for aoi in resourcesBasin:
+    #     start = time.time()
+    #     riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentBasin', aoi.vuid)
+    #     px = basinsummary.objects.filter(basin=aoi.vuid)       
+    #     if px.count()>0:
+    #         a = basinsummary(id=px[0].id,basin=aoi.vuid)
+    #     else:
+    #         a = basinsummary(basin=aoi.vuid)
 
-        for i in databaseFields:
-            setattr(a, i, riskNumber[i])
-        a.save()
-        loadingtime = time.time() - start
-        xxx=xxx+1
-        update_progress(float(float(xxx)/float(ppp)), aoi.vuid, loadingtime)
+    #     for i in databaseFields:
+    #         setattr(a, i, riskNumber[i])
+    #     a.save()
+    #     loadingtime = time.time() - start
+    #     xxx=xxx+1
+    #     update_progress(float(float(xxx)/float(ppp)), aoi.vuid, loadingtime)
+
 
     return    
 
