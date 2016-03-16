@@ -15,6 +15,7 @@ from django.db import connection, connections
 from itertools import *
 # addded by boedy
 from matrix.models import matrix
+from tastypie.cache import SimpleCache
 
 
 YEAR = datetime.datetime.utcnow().strftime("%Y")
@@ -34,6 +35,7 @@ class FloodRiskStatisticResource(ModelResource):
         resource_name = 'floodrisk'
         allowed_methods = ['post']
         detail_allowed_methods = ['post']
+        cache = SimpleCache(timeout=120)
         # always_return_data = True
  
 
