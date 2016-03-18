@@ -18,11 +18,6 @@ from matrix.models import matrix
 from tastypie.cache import SimpleCache
 
 
-YEAR = datetime.datetime.utcnow().strftime("%Y")
-MONTH = datetime.datetime.utcnow().strftime("%m")
-DAY = datetime.datetime.utcnow().strftime("%d")
-
-
 FILTER_TYPES = {
     'flood': AfgFldzonea100KRiskLandcoverPop
 }
@@ -80,6 +75,10 @@ class FloodRiskStatisticResource(ModelResource):
         return self.create_response(request, response)    
 
 def getRiskExecuteExternal(filterLock, flag, code):
+        YEAR = datetime.datetime.utcnow().strftime("%Y")
+        MONTH = datetime.datetime.utcnow().strftime("%m")
+        DAY = datetime.datetime.utcnow().strftime("%d")
+        
         targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
         targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
         targetBase = AfgLndcrva.objects.all()
