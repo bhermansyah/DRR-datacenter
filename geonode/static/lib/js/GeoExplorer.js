@@ -32833,14 +32833,6 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
         // boedy1996@gmail.com
         this.layers = [];
         var layer;
-        var style = {
-            strokeColor: '#ee0000',
-            strokeWidth: 2,
-            strokeOpacity: 1,
-            fillColor: '#ee0000',
-            fillOpacity: 0.1
-        };
-
         Ext.each(this.sourceMap.layers, function(layer) {
             if (layer.getVisibility() === true) {
                 if (layer instanceof OpenLayers.Layer.Vector) {
@@ -32848,7 +32840,7 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
                         clonedFeatures = new Array(features.length),
                         vector = new OpenLayers.Layer.Vector(layer.name,{
                              styleMap: new OpenLayers.StyleMap({
-                                "default": style
+                                "default": layer.styleMap.styles.default
                             })
                        });
                     for (var i=0, ii=features.length; i<ii; ++i) {
@@ -32865,6 +32857,7 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
 
         // console.log(this);
         this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Filter Layer')[0], 10000);
+        this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Mask Layer')[0], 10000);
         this.extent = this.sourceMap.getExtent();
         
         GeoExt.PrintMapPanel.superclass.initComponent.call(this);
@@ -86767,7 +86760,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                 return layer.getVisibility() === true && (
                     layer instanceof OpenLayers.Layer.WMS ||
                     layer instanceof OpenLayers.Layer.OSM ||
-                    layer.name == 'Filter Layer' 
+                    layer.name == 'Mask Layer' 
                 );
             }
 
@@ -90405,9 +90398,17 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         var style = {
             strokeColor: '#ee0000',
             strokeWidth: 2,
-            strokeOpacity: 1,
+            strokeOpacity: 0,
             fillColor: '#ee0000',
-            fillOpacity: 0.1
+            fillOpacity: 0
+        };
+
+        var styleMask = {
+            strokeColor : 'purple',
+            strokeWidth : 2,
+            strokeOpacity : 0.6,
+            fillColor : '#FFF',
+            fillOpacity : 0.9
         };
 
         var styleEQ = {
@@ -90428,6 +90429,15 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             })
        }); 
 
+       var mask_layer = new OpenLayers.Layer.Vector("Mask Layer",{
+            'displayInLayerSwitcher':false,
+             renderers: ['Canvas', 'VML'],
+             ratio : 3.0,
+             styleMap: new OpenLayers.StyleMap({
+                "default": styleMask
+            })
+       });
+
        var vector_layerEQ = new OpenLayers.Layer.Vector("Selected EQ Layer",{
             'displayInLayerSwitcher':false,
              renderers: ['Canvas', 'VML'],
@@ -90437,6 +90447,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
        });
 
        this.mapPanel.map.addLayer(vector_layer);
+       this.mapPanel.map.addLayer(mask_layer);
        this.mapPanel.map.addLayer(vector_layerEQ);
        var filtercontrol = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon,{
             eventListeners: {
@@ -90480,6 +90491,35 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             'load': function(){
                 if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='drawArea' && Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='currentExtent' )
                     tempMap.zoomToExtent(vector_layer.getDataExtent());
+
+                mask_layer.removeAllFeatures();
+                var boundary = vector_layer.features[0].geometry;
+                var bounds = boundary.getBounds();
+
+                var features = [];
+                var inversePolygon = bounds.scale(100.0).toGeometry();
+                features.push(new OpenLayers.Feature.Vector(inversePolygon));
+
+                var geom = boundary;
+                if (geom instanceof OpenLayers.Geometry.MultiPolygon) {
+                    // add as holes to outer polygon (admin boundary with exclaves)
+                    for (var i = 0; i < geom.components.length; i++) {
+                        var polygon = geom.components[i];
+                        var linearRing = polygon.components[0];
+                        inversePolygon.addComponent(linearRing);
+                    }
+                } else if (geom instanceof OpenLayers.Geometry.Polygon) {
+                    var linearRing = geom.components[0];
+                    inversePolygon.addComponent(linearRing);
+                    if (geom.components.length > 1) {
+                        // convert inner holes to separate, standalone polygons (enclaves within admin boundary) 
+                        for (var i = 1; i < geom.components.length; i++) {
+                            var poly = new OpenLayers.Geometry.Polygon([geom.components[i]]);
+                            features.push(new OpenLayers.Feature.Vector(poly));
+                        }
+                    }
+                }
+                mask_layer.addFeatures(features);
             }
         });    
 
@@ -90585,6 +90625,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
             tempMap.raiseLayer(vector_layer,10000);
             tempMap.raiseLayer(vector_layerEQ,10000);
+            tempMap.raiseLayer(mask_layer,10000);
         });
 
         var tempMap = this.mapPanel.map;
@@ -90631,6 +90672,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         scope : this,
                         handler: function(){
                             vector_layer.removeAllFeatures();
+                            mask_layer.removeAllFeatures();
                             var tpl = new Ext.Template('Apply filter to generate the statistics');
                             tpl.overwrite(Ext.getCmp('baselineView').body, {});
                             tpl.overwrite(Ext.getCmp('floodriskView').body, {});
