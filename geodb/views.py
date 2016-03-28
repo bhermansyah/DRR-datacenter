@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ 
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -12,6 +12,7 @@ from StringIO import StringIO
 from django.db.models import Count, Sum, F
 import time, sys
 import subprocess
+from django.template import RequestContext
 
 from urlparse import urlparse
 from geonode.maps.models import Map
@@ -38,6 +39,11 @@ from django.contrib.gis.geos import Point
 from zipfile import ZipFile
 from urllib import urlretrieve
 from tempfile import mktemp
+
+from graphos.sources.model import ModelDataSource
+from graphos.renderers import flot, gchart
+from graphos.sources.simple import SimpleDataSource
+from math import degrees, atan2
 
 GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
 
@@ -207,6 +213,7 @@ def getSnowCover():
     cursor.close()
     # clean temporary files
     cleantmpfile('ims')
+    print 'snowCover done'
     
 
 def cleantmpfile(filepattern):
@@ -1045,5 +1052,410 @@ def getKeyCustom(dt):
         result = round(dt[0][2],0)
     return result    
 
+def getSnowVillage(request):
+    template = './snowInfo.html'
+    village = request.GET["v"]
+    context_dict = getCommonVillageData(village)
+    currentdate = datetime.datetime.utcnow()
+    year = currentdate.strftime("%Y")
+    month = currentdate.strftime("%m")
+    day = currentdate.strftime("%d")
+
+    # print context_dict
+
+    snowCal = AfgSnowaAverageExtent.objects.all().filter(dist_code=context_dict['dist_code'])
+    snowCal = snowCal.filter(wkb_geometry__contains=context_dict['position'])
+    
+    currSnow = AfgShedaLvl4.objects.all().filter(wkb_geometry__contains=context_dict['position']).select_related("basins").filter(basins__datadate=year+'-'+month+'-'+day,basins__forecasttype='snowwaterreal').values('basins__riskstate') 
+    tempDepth = None
+    for i in currSnow:
+        tempDepth = i['basins__riskstate']
+    
+    if tempDepth > 0 and tempDepth <=10:
+        context_dict['current_snow_depth'] = 'Snow cover, no info on depth'
+    elif tempDepth > 10 and tempDepth <=25:
+        context_dict['current_snow_depth'] = '5cm - 25cm'
+    elif tempDepth > 25 and tempDepth <=50:
+        context_dict['current_snow_depth'] = '15cm - 50cm'
+    elif tempDepth > 50 and tempDepth <=100:
+        context_dict['current_snow_depth'] = '25cm - 1m'
+    elif tempDepth > 100 and tempDepth <=150:
+        context_dict['current_snow_depth'] = '50cm - 1.5m'    
+    elif tempDepth > 150 and tempDepth <=200:
+        context_dict['current_snow_depth'] = '75cm - 2m'     
+    elif tempDepth > 200:
+        context_dict['current_snow_depth'] = '> 1m - 2m'  
+    else:
+        context_dict['current_snow_depth'] = 'not covered by snow'           
+    # Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='flashflood',basin=basin)  
+    # targetAvalanche.select_related("basinmembersava").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='snowwater',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
+    data1 = []
+    data1.append(['Month','Snow_Cover'])
+    for i in snowCal:
+        data1.append(['Jan',getSnowCoverClassNumber(i.cov_01_jan)])
+        data1.append(['Feb',getSnowCoverClassNumber(i.cov_02_feb)])
+        data1.append(['Mar',getSnowCoverClassNumber(i.cov_03_mar)])
+        data1.append(['Apr',getSnowCoverClassNumber(i.cov_04_apr)])
+        data1.append(['May',getSnowCoverClassNumber(i.cov_05_may)])
+        data1.append(['Jun',getSnowCoverClassNumber(i.cov_06_jun)])
+        data1.append(['Jul',getSnowCoverClassNumber(i.cov_07_jul)])
+        data1.append(['Aug',getSnowCoverClassNumber(i.cov_08_aug)])
+        data1.append(['Sep',getSnowCoverClassNumber(i.cov_09_sep)])
+        data1.append(['Oct',getSnowCoverClassNumber(i.cov_10_oct)])
+        data1.append(['Nov',getSnowCoverClassNumber(i.cov_11_nov)])
+        data1.append(['Dec',getSnowCoverClassNumber(i.cov_12_dec)])
+    
+    context_dict['snowcover_line_chart'] = gchart.LineChart(SimpleDataSource(data=data1), html_id="line_chart1", options={'title': "Snow Cover Calendar", 'width': 500,'height': 250, 'legend': 'none', 'curveType': 'function', 'vAxis': { 'ticks': [{ 'v': 0, 'f': 'No Snow'}, {'v': 1, 'f': 'Very low'}, {'v': 2, 'f': 'Low'}, {'v': 3, 'f': 'Average'}, {'v': 4, 'f': 'High'}, {'v': 5, 'f': 'Very high'}]}})  
+    context_dict.pop('position')
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))
+
+def getAccesibilityInfoVillages(request):
+    template = './accessInfo.html'
+    village = request.GET["v"]
+    context_dict = getCommonVillageData(village)
+
+    px = get_object_or_404(AfgCaptPpl, vil_uid=village)
+    context_dict['cl_road_time']=getConvertedTime(px.time_to_road)
+    context_dict['cl_road_distance']=getConvertedDistance(px.distance_to_road)
+
+    # airport
+    try:
+        ptemp = get_object_or_404(AfgAirdrmp, geonameid=px.airdrm_id)
+        angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+        context_dict['cl_airport_name']=ptemp.namelong
+        context_dict['cl_airport_time']=getConvertedTime(px.airdrm_time)
+        context_dict['cl_airport_distance']=getConvertedDistance(px.airdrm_dist)
+        context_dict['cl_airport_angle']=angle['angle']
+        context_dict['cl_airport_direction_label']=getDirectionLabel(angle['angle'])
+    except:
+        print 'not found'     
+
+    # closest prov capital
+    try:
+        ptemp = get_object_or_404(AfgPplp, vil_uid=px.ppl_provc_vuid)
+        angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+        context_dict['cl_prov_cap_name']=ptemp.name_en
+        context_dict['cl_prov_cap_time']=getConvertedTime(px.ppl_provc_time)
+        context_dict['cl_prov_cap_distance']=getConvertedDistance(px.ppl_provc_dist)
+        context_dict['cl_prov_cap_angle']=angle['angle']
+        context_dict['cl_prov_cap_direction_label']=getDirectionLabel(angle['angle'])
+        context_dict['cl_prov_cap_parent'] = ptemp.prov_na_en
+    except:
+        print 'not found'        
+
+    # Its prov capital
+    try:
+        ptemp = get_object_or_404(AfgPplp, vil_uid=px.ppl_provc_its_vuid)
+        angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+        context_dict['it_prov_cap_name']=ptemp.name_en
+        context_dict['it_prov_cap_time']=getConvertedTime(px.ppl_provc_its_time)
+        context_dict['it_prov_cap_distance']=getConvertedDistance(px.ppl_provc_its_dist)
+        context_dict['it_prov_cap_angle']=angle['angle']
+        context_dict['it_prov_cap_direction_label']=getDirectionLabel(angle['angle'])
+    except:
+        print 'not found'
+
+    # closest district capital
+    try:
+        ptemp = get_object_or_404(AfgPplp, vil_uid=px.ppl_distc_vuid)
+        angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+        context_dict['cl_dist_cap_name']=ptemp.name_en
+        context_dict['cl_dist_cap_time']=getConvertedTime(px.ppl_distc_time)
+        context_dict['cl_dist_cap_distance']=getConvertedDistance(px.ppl_distc_dist)
+        context_dict['cl_dist_cap_angle']=angle['angle']
+        context_dict['cl_dist_cap_direction_label']=getDirectionLabel(angle['angle'])
+        context_dict['cl_dist_cap_parent'] = ptemp.prov_na_en
+    except:
+        print 'not found'
+
+    # Its district capital
+    try:
+        ptemp = get_object_or_404(AfgPplp, vil_uid=px.ppl_distc_its_vuid)
+        angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+        context_dict['it_dist_cap_name']=ptemp.name_en
+        context_dict['it_dist_cap_time']=getConvertedTime(px.ppl_distc_its_time)
+        context_dict['it_dist_cap_distance']=getConvertedDistance(px.ppl_distc_its_dist)
+        context_dict['it_dist_cap_angle']=angle['angle']
+        context_dict['it_dist_cap_direction_label']=getDirectionLabel(angle['angle'])
+    except:
+        print 'not found'
+
+    # Closest HF tier 1
+    try:
+        ptemp = get_object_or_404(AfgHltfac, facility_id=px.hltfac_tier1_id)
+    except:
+        ptemp = AfgHltfac.objects.all().filter(facility_id=px.hltfac_tier1_id)[0]    
+    angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+    context_dict['t1_hf_name']=ptemp.facility_name
+    context_dict['t1_hf_time']=getConvertedTime(px.hltfac_tier1_time)
+    context_dict['t1_hf_distance']=getConvertedDistance(px.hltfac_tier1_dist)
+    context_dict['t1_hf_angle']=angle['angle']
+    context_dict['t1_hf_direction_label']=getDirectionLabel(angle['angle'])
+    context_dict['t1_hf_prov_parent'] = ptemp.prov_na_en
+    context_dict['t1_hf_dist_parent'] = ptemp.dist_na_en
+
+    # Closest HF tier 2
+    try:
+        ptemp = get_object_or_404(AfgHltfac, facility_id=px.hltfac_tier2_id)
+    except:
+        ptemp = AfgHltfac.objects.all().filter(facility_id=px.hltfac_tier2_id)[0]    
+    angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+    context_dict['t2_hf_name']=ptemp.facility_name
+    context_dict['t2_hf_time']=getConvertedTime(px.hltfac_tier2_time)
+    context_dict['t2_hf_distance']=getConvertedDistance(px.hltfac_tier2_dist)
+    context_dict['t2_hf_angle']=angle['angle']
+    context_dict['t2_hf_direction_label']=getDirectionLabel(angle['angle'])
+    context_dict['t2_hf_prov_parent'] = ptemp.prov_na_en
+    context_dict['t2_hf_dist_parent'] = ptemp.dist_na_en
+
+    # Closest HF tier 3
+    try:
+        ptemp = get_object_or_404(AfgHltfac, facility_id=px.hltfac_tier3_id)
+    except:
+        ptemp = AfgHltfac.objects.all().filter(facility_id=px.hltfac_tier3_id)[0]  
+    angle = getAngle(ptemp.wkb_geometry.x, ptemp.wkb_geometry.y, context_dict['position'].x, context_dict['position'].y) 
+    context_dict['t3_hf_name']=ptemp.facility_name
+    context_dict['t3_hf_time']=getConvertedTime(px.hltfac_tier3_time)
+    context_dict['t3_hf_distance']=getConvertedDistance(px.hltfac_tier3_dist)
+    context_dict['t3_hf_angle']=angle['angle']
+    context_dict['t3_hf_direction_label']=getDirectionLabel(angle['angle'])
+    context_dict['t3_hf_prov_parent'] = ptemp.prov_na_en
+    context_dict['t3_hf_dist_parent'] = ptemp.dist_na_en
+
+    context_dict.pop('position')
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))
+
+def getGeneralInfoVillages(request):
+    template = './generalInfo.html'
+    village = request.GET["v"]
+    
+    context_dict = getCommonVillageData(village)
+
+    px = AfgLndcrva.objects.all().filter(vuid=village).values('agg_simplified_description').annotate(totalpop=Sum('area_population'), totalarea=Sum('area_sqm')).values('agg_simplified_description','totalpop', 'totalarea')
+    data1 = []
+    data2 = []
+    data1.append(['agg_simplified_description','area_population'])
+    data2.append(['agg_simplified_description','area_sqm'])
+    for i in px:
+        data1.append([i['agg_simplified_description'],i['totalpop']])
+        data2.append([i['agg_simplified_description'],round(i['totalarea']/1000000,1)])
+
+    context_dict['landcover_pop_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title': "# of Population", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+    context_dict['landcover_area_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title': "# of Area (KM2)", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+    
+    context_dict.pop('position')
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))
+
+def getFloodInfoVillages(request):
+    template = './floodInfo.html'
+    village = request.GET["v"]
+    currentdate = datetime.datetime.utcnow()
+    year = currentdate.strftime("%Y")
+    month = currentdate.strftime("%m")
+    day = currentdate.strftime("%d")
+    
+    context_dict = getCommonVillageData(village)
+
+    targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all().filter(vuid=village)
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
+    
+    # riverflood
+    currRF = targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(year,month,day))
+    currRF = currRF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','pop', 'area')
+    temp = dict([(c['basinmember__basins__riskstate'], c['pop']) for c in currRF])
+    context_dict['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
+    context_dict['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
+    context_dict['riverflood_forecast_med_pop']=round(temp.get(3, 0),0) 
+    context_dict['riverflood_forecast_high_pop']=round(temp.get(4, 0),0) 
+    context_dict['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
+    context_dict['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+
+    currFF = targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(year,month,day))
+    currFF = currFF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','pop', 'area')
+    temp = dict([(c['basinmember__basins__riskstate'], c['pop']) for c in currFF])
+    context_dict['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
+    context_dict['flashflood_forecast_low_pop']=round(temp.get(2, 0),0) 
+    context_dict['flashflood_forecast_med_pop']=round(temp.get(3, 0),0) 
+    context_dict['flashflood_forecast_high_pop']=round(temp.get(4, 0),0) 
+    context_dict['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
+    context_dict['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+
+    floodRisk = targetRisk.values('deeperthan').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('deeperthan','pop', 'area')
+    temp = dict([(c['deeperthan'], c['pop']) for c in floodRisk])
+    context_dict['high_risk_population']=round(temp.get('271 cm', 0),0)
+    context_dict['med_risk_population']=round(temp.get('121 cm', 0), 0)
+    context_dict['low_risk_population']=round(temp.get('029 cm', 0),0)
+    context_dict['total_risk_population']=context_dict['high_risk_population']+context_dict['med_risk_population']+context_dict['low_risk_population']
+    temp = dict([(c['deeperthan'], c['area']) for c in floodRisk])
+    context_dict['high_risk_area']=round(temp.get('271 cm', 0)/1000000,1)
+    context_dict['med_risk_area']=round(temp.get('121 cm', 0)/1000000,1)
+    context_dict['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)
 
 
+    floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','pop', 'area')
+    temp = dict([(c['agg_simplified_description'], c['pop']) for c in floodRiskLC])
+    context_dict['water_body_pop_risk']=round(temp.get('Water body and marshland', 0),0)
+    context_dict['barren_land_pop_risk']=round(temp.get('Barren land', 0),0)
+    context_dict['built_up_pop_risk']=round(temp.get('Built-up', 0),0)
+    context_dict['fruit_trees_pop_risk']=round(temp.get('Fruit trees', 0),0)
+    context_dict['irrigated_agricultural_land_pop_risk']=round(temp.get('Irrigated agricultural land', 0),0)
+    context_dict['permanent_snow_pop_risk']=round(temp.get('Permanent snow', 0),0)
+    context_dict['rainfed_agricultural_land_pop_risk']=round(temp.get('Rainfed agricultural land', 0),0)
+    context_dict['rangeland_pop_risk']=round(temp.get('Rangeland', 0),0)
+    context_dict['sandcover_pop_risk']=round(temp.get('Sand cover', 0),0)
+    context_dict['vineyards_pop_risk']=round(temp.get('Vineyards', 0),0)
+    context_dict['forest_pop_risk']=round(temp.get('Forest and shrubs', 0),0)
+    temp = dict([(c['agg_simplified_description'], c['area']) for c in floodRiskLC])
+    context_dict['water_body_area_risk']=round(temp.get('Water body and marshland', 0)/1000000,1)
+    context_dict['barren_land_area_risk']=round(temp.get('Barren land', 0)/1000000,1)
+    context_dict['built_up_area_risk']=round(temp.get('Built-up', 0)/1000000,1)
+    context_dict['fruit_trees_area_risk']=round(temp.get('Fruit trees', 0)/1000000,1)
+    context_dict['irrigated_agricultural_land_area_risk']=round(temp.get('Irrigated agricultural land', 0)/1000000,1)
+    context_dict['permanent_snow_area_risk']=round(temp.get('Permanent snow', 0)/1000000,1)
+    context_dict['rainfed_agricultural_land_area_risk']=round(temp.get('Rainfed agricultural land', 0)/1000000,1)
+    context_dict['rangeland_area_risk']=round(temp.get('Rangeland', 0)/1000000,1)
+    context_dict['sandcover_area_risk']=round(temp.get('Sand cover', 0)/1000000,1)
+    context_dict['vineyards_area_risk']=round(temp.get('Vineyards', 0)/1000000,1)
+    context_dict['forest_area_risk']=round(temp.get('Forest and shrubs', 0)/1000000,1)
+
+    data = []
+    data.append(['floodtype','Very Low', 'Low', 'Moderate', 'High', 'Very High', 'Extreme', 'Population at flood risk', 'Population'])
+    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], context_dict['vuid_population_landscan']])
+    data.append(['River Flood',context_dict['riverflood_forecast_verylow_pop'], context_dict['riverflood_forecast_low_pop'], context_dict['riverflood_forecast_med_pop'], context_dict['riverflood_forecast_high_pop'], context_dict['riverflood_forecast_veryhigh_pop'], context_dict['riverflood_forecast_extreme_pop'], context_dict['total_risk_population'], context_dict['vuid_population_landscan']])
+    data.append(['Flash Flood',context_dict['flashflood_forecast_verylow_pop'], context_dict['flashflood_forecast_low_pop'], context_dict['flashflood_forecast_med_pop'], context_dict['flashflood_forecast_high_pop'], context_dict['flashflood_forecast_veryhigh_pop'], context_dict['flashflood_forecast_extreme_pop'], context_dict['total_risk_population'], context_dict['vuid_population_landscan']])    
+    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], context_dict['vuid_population_landscan']])
+    context_dict['combo_pop_chart'] = gchart.ComboChart(SimpleDataSource(data=data), html_id="combo_chart", options={'vAxis': {'title': 'Number of population'},'legend': {'position': 'top', 'maxLines':2}, 'colors': ['#b9c246', '#e49307', '#e49307', '#e7711b', '#e2431e', '#d3362d', 'red', 'green' ], 'title': "Flood Forecast Exposure", 'seriesType': 'bars', 'series': {6: {'type': 'area', 'lineDashStyle': [2, 2, 20, 2, 20, 2]}, 7: {'type': 'area', 'lineDashStyle':[10, 2]}}, 'isStacked': 'true'})  
+    
+    dataFLRiskPop = []
+    dataFLRiskPop.append(['Flood Risk','Population'])
+    dataFLRiskPop.append(['Low',context_dict['low_risk_population']])
+    dataFLRiskPop.append(['Moderate',context_dict['med_risk_population']])
+    dataFLRiskPop.append(['High',context_dict['high_risk_population']])
+    context_dict['floodrisk_pop_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskPop), html_id="pie_chart1", options={'title': "Flood Risk Population Exposure", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+
+    dataFLRiskPop = []
+    dataFLRiskPop.append(['Lancover Type','Population'])
+    dataFLRiskPop.append(['water body',context_dict['water_body_pop_risk']])
+    dataFLRiskPop.append(['barren land',context_dict['barren_land_pop_risk']])
+    dataFLRiskPop.append(['built up',context_dict['built_up_pop_risk']])
+    dataFLRiskPop.append(['fruit trees',context_dict['fruit_trees_pop_risk']])
+    dataFLRiskPop.append(['irrigated agricultural',context_dict['irrigated_agricultural_land_pop_risk']])
+    dataFLRiskPop.append(['permanent snow',context_dict['permanent_snow_pop_risk']])
+    dataFLRiskPop.append(['rainfeld agricultural',context_dict['rainfed_agricultural_land_pop_risk']])
+    dataFLRiskPop.append(['rangeland',context_dict['rangeland_pop_risk']])
+    dataFLRiskPop.append(['sandcover',context_dict['sandcover_pop_risk']])
+    dataFLRiskPop.append(['vineyards',context_dict['vineyards_pop_risk']])
+    dataFLRiskPop.append(['forest',context_dict['forest_pop_risk']])
+    context_dict['floodriskLC_pop_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskPop), html_id="pie_chart2", options={'title': "Flood Risk Population Exposure by Landcover type", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+
+    dataFLRiskArea = []
+    dataFLRiskArea.append(['Flood Risk','Area'])
+    dataFLRiskArea.append(['Low',context_dict['low_risk_area']])
+    dataFLRiskArea.append(['Moderate',context_dict['med_risk_area']])
+    dataFLRiskArea.append(['High',context_dict['high_risk_area']])
+    context_dict['floodrisk_area_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskArea), html_id="pie_chart3", options={'title': "Flood Risk Area Exposure", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+
+    dataFLRiskPop = []
+    dataFLRiskPop.append(['Lancover Type','Area'])
+    dataFLRiskPop.append(['water body',context_dict['water_body_area_risk']])
+    dataFLRiskPop.append(['barren land',context_dict['barren_land_area_risk']])
+    dataFLRiskPop.append(['built up',context_dict['built_up_area_risk']])
+    dataFLRiskPop.append(['fruit trees',context_dict['fruit_trees_area_risk']])
+    dataFLRiskPop.append(['irrigated agricultural',context_dict['irrigated_agricultural_land_area_risk']])
+    dataFLRiskPop.append(['permanent snow',context_dict['permanent_snow_area_risk']])
+    dataFLRiskPop.append(['rainfeld agricultural',context_dict['rainfed_agricultural_land_area_risk']])
+    dataFLRiskPop.append(['rangeland',context_dict['rangeland_area_risk']])
+    dataFLRiskPop.append(['sandcover',context_dict['sandcover_area_risk']])
+    dataFLRiskPop.append(['vineyards',context_dict['vineyards_area_risk']])
+    dataFLRiskPop.append(['forest',context_dict['forest_area_risk']])
+    context_dict['floodriskLC_area_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskPop), html_id="pie_chart4", options={'title': "Flood Risk Area Exposure by Landcover type", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+
+    context_dict.pop('position')
+    print context_dict
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))    
+
+def getCommonVillageData(village):
+    databaseFields = AfgPpla._meta.get_all_field_names()
+    databaseFields.remove('ogc_fid')
+    databaseFields.remove('wkb_geometry')
+    databaseFields.remove('shape_length')
+    databaseFields.remove('shape_area')
+    px = get_object_or_404(AfgPpla, vuid=village)
+    context_dict = {}
+    for i in databaseFields:
+        context_dict[i] = getattr(px, i)
+    
+    px = get_object_or_404(AfgPplp, vil_uid=village)
+    context_dict['elevation'] = round(px.elevation,1)
+    context_dict['position'] = px.wkb_geometry
+    return context_dict
+
+def getSnowCoverClassNumber(x):
+    if x == 'Very low':
+        return 1
+    elif x == 'Low':
+        return 2
+    elif x == 'Average':
+        return 3
+    elif x == 'High':
+        return 4
+    elif x == 'Very high':
+        return 5
+    else:
+        return 0       
+
+def getConvertedTime(t):
+    if t>120 and t<3600:
+        return str(round(t/60,1))+' minute(s)'
+    elif t>3600:
+        return str(round(t/3600,1))+' hour(s)' 
+    else :
+        return str(t)+' second(s)'      
+
+def getConvertedDistance(d):
+    if d>1000:
+        return str(round(d/1000,1))+' km'
+    else:
+        return str(d)+' m'     
+
+def getAngle(x, y, center_x, center_y):
+    angle = degrees(atan2(y - center_y, x - center_x))
+    bearing1 = (angle + 360) % 360
+    bearing2 = (90 - angle) % 360
+    if angle < 0:
+        angle = 360 + angle
+    angle = -(angle)  
+    return {'angle':angle,'bearing1':bearing1,'bearing2':bearing2}   
+
+def getDirectionLabel(angle):
+    angle = -(angle)
+    if angle == 0:
+       return 'E'
+    elif angle == 90:           
+        return 'N'
+    elif angle == 180:           
+        return 'W'
+    elif angle == 270:           
+        return 'S'   
+    elif angle == 360:           
+        return 'E'
+    elif angle > 0 and angle<45:           
+        return 'EN'
+    elif angle > 45 and angle<90:           
+        return 'NE'
+    elif angle > 90 and angle<135:           
+        return 'NW'
+    elif angle > 135 and angle<180:           
+        return 'WN'         
+    elif angle > 180 and angle<225:           
+        return 'WS'
+    elif angle > 225 and angle<270:           
+        return 'SW'
+    elif angle > 270 and angle<315:           
+        return 'SE'
+    elif angle > 315 and angle<360:           
+        return 'ES'                   

@@ -1,0 +1,153 @@
+{% load mathfilters %}
+
+<html>
+<head>
+
+<link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
+<style>
+html *
+{
+   font-size: 14px;
+   font-family: Arial;
+}
+table#info {
+	width:90%;
+	border-top:1px solid #e5eff8;
+	/*border-right:1px solid #e5eff8;*/
+	margin:1em auto;
+	border-collapse:collapse;
+}
+
+table#info td{
+	color:#0D63AD;
+	border-bottom:1px solid #e5eff8;
+	/*border-left:1px solid #e5eff8;*/
+	padding:.3em 1em;
+}
+
+table#info tr.odd td {
+	background:#f7fbff
+}
+
+.direction_arrow {
+    background-repeat: no-repeat;
+  	background-size: contain;
+    background-image:url("{{ STATIC_URL }}lib/img/arrow.png");
+}
+
+.direction_label{
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+}
+
+</style>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+</head>
+<body>
+
+<table id='info'>
+	<tr>
+		<td>Settlement</td>
+		<td><strong>{{name_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>Language</td>
+		<td><strong>{{language_field}}</strong></td>
+	</tr>
+	<tr>
+		<td>District</td>
+		<td><strong>{{dist_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>Province</td>
+		<td><strong>{{prov_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Closest Road</td>
+		<td><strong>Travel time : {{cl_road_time}}</strong><br/>
+			<strong>Distance : {{cl_road_distance}}</strong>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Closest Airport</td>
+		<td><strong>{{cl_airport_name}}</strong><br/>
+			<strong>Travel time : {{cl_airport_time}}</strong><br/>
+			<strong>Distance : {{cl_airport_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{cl_airport_angle}}deg);"><div style='transform: rotate({{cl_airport_angle|mul:-1}}deg)' class='direction_label'>{{ cl_airport_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Closest Province Capital</td>
+		<td><strong>{{cl_prov_cap_name}}</strong><br/>
+			<strong>Province : {{ cl_prov_cap_parent }} </strong><br/>
+			<strong>Travel time : {{cl_prov_cap_time}}</strong><br/>
+			<strong>Distance : {{cl_prov_cap_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{cl_prov_cap_angle}}deg);"><div style='transform: rotate({{cl_prov_cap_angle|mul:-1}}deg)' class='direction_label'>{{ cl_prov_cap_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Its Province Capital</td>
+		<td><strong>{{it_prov_cap_name}}</strong><br/>
+			<strong>Travel time : {{it_prov_cap_time}}</strong><br/>
+			<strong>Distance : {{it_prov_cap_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{it_prov_cap_angle}}deg);"><div style='transform: rotate({{it_prov_cap_angle|mul:-1}}deg)' class='direction_label'>{{ it_prov_cap_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Closest District Capital</td>
+		<td><strong>{{cl_dist_cap_name}}</strong><br/>
+			<strong>Province : {{ cl_dist_cap_parent }} </strong><br/>
+			<strong>Travel time     : {{cl_dist_cap_time}}</strong><br/>
+			<strong>Distance : {{cl_dist_cap_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{cl_dist_cap_angle}}deg);"><div style='transform: rotate({{cl_dist_cap_angle|mul:-1}}deg)' class='direction_label'>{{ cl_dist_cap_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Its District Capital</td>
+		<td><strong>{{it_dist_cap_name}}</strong><br/>
+			<strong>Travel time     : {{it_dist_cap_time}}</strong><br/>
+			<strong>Distance : {{it_dist_cap_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{it_dist_cap_angle}}deg);"><div style='transform: rotate({{it_dist_cap_angle|mul:-1}}deg)' class='direction_label'>{{ it_dist_cap_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Closest Health Facility (Tier 1)</td>
+		<td><strong>{{t1_hf_name}}</strong><br/>
+			<strong>Province : {{ t1_hf_prov_parent }} </strong><br/>
+			<strong>District : {{ t1_hf_dist_parent }} </strong><br/>
+			<strong>Travel time     : {{t1_hf_time}}</strong><br/>
+			<strong>Distance : {{t1_hf_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{t1_hf_angle}}deg);"><div style='transform: rotate({{t1_hf_angle|mul:-1}}deg)' class='direction_label'>{{ t1_hf_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Closest Health Facility (Tier 2)</td>
+		<td><strong>{{t2_hf_name}}</strong><br/>
+			<strong>Province : {{ t2_hf_prov_parent }} </strong><br/>
+			<strong>District : {{ t2_hf_dist_parent }} </strong><br/>
+			<strong>Travel time     : {{t2_hf_time}}</strong><br/>
+			<strong>Distance : {{t2_hf_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{t2_hf_angle}}deg);"><div style='transform: rotate({{t2_hf_angle|mul:-1}}deg)' class='direction_label'>{{ t2_hf_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	<tr>
+		<td style='vertical-align: text-top;'>Closest Health Facility (Tier 3)</td>
+		<td><strong>{{t3_hf_name}}</strong><br/>
+			<strong>Province : {{ t3_hf_prov_parent }} </strong><br/>
+			<strong>District : {{ t3_hf_dist_parent }} </strong><br/>
+			<strong>Travel time     : {{t3_hf_time}}</strong><br/>
+			<strong>Distance : {{t3_hf_distance}}</strong><br/><br/>
+			<div class="direction_arrow" style="width: 50px; transform: rotate({{t3_hf_angle}}deg);"><div style='transform: rotate({{t3_hf_angle|mul:-1}}deg)' class='direction_label'>{{ t3_hf_direction_label }}</div></div><br/>
+		</td>
+	</tr>
+	
+</table>
+
+</body>
+</html>

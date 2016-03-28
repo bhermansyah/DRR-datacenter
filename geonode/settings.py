@@ -308,6 +308,8 @@ INSTALLED_APPS = (
     'matrix',
     'corsheaders',
     'dashboard',
+    'mathfilters',
+    'graphos',
 
 ) + GEONODE_APPS
 

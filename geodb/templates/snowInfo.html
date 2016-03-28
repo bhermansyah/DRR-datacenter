@@ -1,0 +1,67 @@
+{% load mathfilters %}
+
+<html>
+<head>
+
+<link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
+<style>
+table#info {
+	width:90%;
+	border-top:1px solid #e5eff8;
+	/*border-right:1px solid #e5eff8;*/
+	margin:1em auto;
+	border-collapse:collapse;
+}
+
+table#info td{
+	color:#0D63AD;
+	border-bottom:1px solid #e5eff8;
+	/*border-left:1px solid #e5eff8;*/
+	padding:.3em 1em;
+}
+
+table#info tr.odd td {
+	background:#f7fbff
+}
+
+#line_chart1{
+	width: 500 !important;
+	height:250 !important;
+}
+
+</style>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+</head>
+<body>
+
+<table id='info'>
+	<tr>
+		<td>Settlement</td>
+		<td><strong>{{name_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>Language</td>
+		<td><strong>{{language_field}}</strong></td>
+	</tr>
+	<tr>
+		<td>District</td>
+		<td><strong>{{dist_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>Province</td>
+		<td><strong>{{prov_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>Approx. Current Snow Depth</td>
+		<td><strong>{{current_snow_depth}}</strong></td>
+	</tr>
+</table>
+<div style='width:90%;margin:1em auto;align=left'>
+	{{ snowcover_line_chart.as_html }}
+</body>
+</html>

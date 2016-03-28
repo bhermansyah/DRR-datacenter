@@ -451,7 +451,7 @@ class AfgShedaLvl4(models.Model):
     shape_area = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
     class Meta:
-        managed = False
+        managed = True
         db_table = 'afg_sheda_lvl4'
 
 class Layer(models.Model):
@@ -1134,3 +1134,94 @@ class villagesummary(models.Model):
     class Meta:
         managed = True
         db_table = 'villagesummary'   
+
+class AfgSnowaAverageExtent(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
+    aver_cov = models.CharField(max_length=50, blank=True)
+    cov_10_oct = models.CharField(max_length=50, blank=True)
+    cov_11_nov = models.CharField(max_length=50, blank=True)
+    cov_05_may = models.CharField(max_length=50, blank=True)
+    cov_03_mar = models.CharField(max_length=50, blank=True)
+    cov_04_apr = models.CharField(max_length=50, blank=True)
+    cov_08_aug = models.CharField(max_length=50, blank=True)
+    cov_12_dec = models.CharField(max_length=50, blank=True)
+    cov_02_feb = models.CharField(max_length=50, blank=True)
+    cov_01_jan = models.CharField(max_length=50, blank=True)
+    cov_07_jul = models.CharField(max_length=50, blank=True)
+    cov_06_jun = models.CharField(max_length=50, blank=True)
+    cov_09_sep = models.CharField(max_length=50, blank=True)
+    source = models.CharField(max_length=250, blank=True)
+    author = models.CharField(max_length=250, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    shape_length = models.FloatField(blank=True, null=True)
+    shape_area = models.FloatField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = True
+        db_table = 'afg_snowa_average_extent'
+
+class AfgCaptPpl(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vil_uid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    distance_to_road = models.IntegerField(blank=True, null=True)
+    time_to_road = models.IntegerField(blank=True, null=True)
+    airdrm_id = models.IntegerField(blank=True, null=True)
+    airdrm_dist = models.IntegerField(blank=True, null=True)
+    airdrm_time = models.IntegerField(blank=True, null=True)
+    ppl_provc_vuid = models.CharField(max_length=50, blank=True)
+    ppl_provc_dist = models.IntegerField(blank=True, null=True)
+    ppl_provc_time = models.IntegerField(blank=True, null=True)
+    ppl_provc_its_vuid = models.CharField(max_length=50, blank=True)
+    ppl_provc_its_dist = models.IntegerField(blank=True, null=True)
+    ppl_provc_its_time = models.IntegerField(blank=True, null=True)
+    ppl_distc_vuid = models.CharField(max_length=50, blank=True)
+    ppl_distc_dist = models.IntegerField(blank=True, null=True)
+    ppl_distc_time = models.IntegerField(blank=True, null=True)
+    ppl_distc_its_vuid = models.CharField(max_length=50, blank=True)
+    ppl_distc_its_dist = models.IntegerField(blank=True, null=True)
+    ppl_distc_its_time = models.IntegerField(blank=True, null=True)
+    hltfac_tier1_id = models.IntegerField(blank=True, null=True)
+    hltfac_tier1_dist = models.IntegerField(blank=True, null=True)
+    hltfac_tier1_time = models.IntegerField(blank=True, null=True)
+    hltfac_tier2_id = models.IntegerField(blank=True, null=True)
+    hltfac_tier2_dist = models.IntegerField(blank=True, null=True)
+    hltfac_tier2_time = models.IntegerField(blank=True, null=True)
+    hltfac_tier3_id = models.IntegerField(blank=True, null=True)
+    hltfac_tier3_dist = models.IntegerField(blank=True, null=True)
+    hltfac_tier3_time = models.IntegerField(blank=True, null=True)
+    class Meta:
+        managed = True
+        db_table = 'afg_capt_ppl'        
+
+class AfgHltfac(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.PointField(blank=True, null=True)
+    facility_id = models.FloatField(blank=True, null=True)
+    vilicode = models.CharField(max_length=50, blank=True)
+    facility_name = models.CharField(max_length=255, blank=True)
+    facility_name_dari = models.CharField(max_length=255, blank=True)
+    facility_name_pashto = models.CharField(max_length=255, blank=True)
+    location = models.CharField(max_length=255, blank=True)
+    location_dari = models.CharField(max_length=255, blank=True)
+    location_pashto = models.CharField(max_length=255, blank=True)
+    facilitytype = models.FloatField(blank=True, null=True)
+    lat = models.FloatField(blank=True, null=True)
+    lon = models.FloatField(blank=True, null=True)
+    activestatus = models.CharField(max_length=255, blank=True)
+    date_established = models.DateTimeField(blank=True, null=True)
+    subimplementer = models.CharField(max_length=255, blank=True)
+    locationsource = models.CharField(max_length=255, blank=True)
+    moph = models.CharField(max_length=250, blank=True)
+    hproreply = models.CharField(max_length=250, blank=True)
+    facility_types_description = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    dist_na_en = models.CharField(max_length=250, blank=True)
+    prov_na_en = models.CharField(max_length=250, blank=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    hpro_facilitytypes_description = models.CharField(max_length=250, blank=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = True
+        db_table = 'afg_hltfac'        

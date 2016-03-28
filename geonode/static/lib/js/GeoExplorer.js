@@ -34701,7 +34701,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
             this.download(url);
         } else {
-            console.log(Ext.Ajax);
+            // console.log(Ext.Ajax);
             Ext.Ajax.request({
                 url: this.capabilities.createURL,
                 timeout: this.timeout,
@@ -80221,7 +80221,7 @@ gxp.plugins.WMSGetFeatureInfo = Ext.extend(gxp.plugins.Tool, {
                     fields: featureinfo.fields,
                     propertyNames: featureinfo.propertyNames
                 }, this.itemConfig));
-                console.log(title, feature);
+                // console.log(title, feature);
             }
         } else if (text) {
             config.push(Ext.apply({
@@ -90100,6 +90100,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             // },{
             //     actions: ["statGrid"],  actionTarget: "stattable"
             }, {
+                ptype: "gxp_villageinspector", format: 'grid',
+                toggleGroup: "interaction",
+                showButtonText: true,
+                actionTarget: "paneltbar"
+            }, {
                 ptype: "gxp_statfeaturemanager",
                 id: "statfeaturemanager",
                 maxFeatures: 20,
@@ -90446,9 +90451,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             })
        });
 
+       var hiddenLayer = new OpenLayers.Layer.WMS("afg_ppla",
+            "http://asdc.immap.org/geoserver/wms", 
+            {'layers': 'geonode:afg_ppla', transparent: true, format: 'image/gif'},
+            {isBaseLayer: false, displayInLayerSwitcher: false, opacity: 0}
+        );
+
        this.mapPanel.map.addLayer(vector_layer);
        this.mapPanel.map.addLayer(mask_layer);
        this.mapPanel.map.addLayer(vector_layerEQ);
+       this.mapPanel.map.addLayer(hiddenLayer);
        var filtercontrol = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon,{
             eventListeners: {
                 "featureadded": function(evt){
@@ -90761,7 +90773,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         listeners: {
                             check: function(cb, value) {
                                 if (value){
-                                    console.log(Ext.getCmp('provSelection'));
+                                    // console.log(Ext.getCmp('provSelection'));
                                     Ext.getCmp('provSelection').disabled  = false;
                                     Ext.getCmp('districtSelection').disabled  = false;
                                 } else { 
@@ -91219,14 +91231,13 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             pressed: false,
             toggleHandler: function(){
                 if (this.pressed){
-                    // filtercontrol.activate();
                     Ext.getCmp('east').expand();
                 } else {
-                    // filtercontrol.deactivate();
                     Ext.getCmp('east').collapse();
                 }
             }       
         });
+
 
        // console.log(this);
        // boedy1996@gmail.com
