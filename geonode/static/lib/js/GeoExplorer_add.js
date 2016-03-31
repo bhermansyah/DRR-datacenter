@@ -1126,18 +1126,18 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
      *  ``String``
      *  Text for feature info action tooltip (i18n).
      */
-    infoActionTip: "Village Inspector",
+    infoActionTip: "Settlement Inspector",
 
     /** api: config[popupTitle]
      *  ``String``
      *  Title for info popup (i18n).
      */
-    popupTitle: "Village Inspector",
+    popupTitle: "Settlement Inspector",
     
     /** api: config[text]
      *  ``String`` Text for the GetFeatureInfo button (i18n).
      */
-    buttonText: "Village Inspector",
+    buttonText: "Settlement Inspector",
     
     /** api: config[format]
      *  ``String`` Either "html" or "grid". If set to "grid", GML will be
@@ -1178,7 +1178,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
         
         var actions = gxp.plugins.villageInspector.superclass.addActions.call(this, [{
             tooltip: this.infoActionTip,
-            iconCls: "icon-zoom-to",
+            iconCls: "icon-village-inspector",
             buttonText: this.buttonText,
             toggleGroup: this.toggleGroup,
             enableToggle: true,

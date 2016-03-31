@@ -1963,3 +1963,79 @@ div.search-item.x-combo-selected {
   border-color: #F44336 !important;
   background-color: #F44336;
 }
+input#ext-comp-1022.x-form-text.x-form-field{
+  width: 215px !important;
+}
+input#ext-comp-1022.x-form-text.x-form-field.x-form-focus{
+  width: 215px !important;
+}
+
+#finderKindFilterTB>div.x-toolbar>table>tbody>tr>td>table>tbody>tr>td.x-toolbar-cell>div.x-form-check-wrap>label {
+  top: 6px !important;
+  font-size: 9px;
+}
+
+
+.locator-item {
+  background-color: black;
+}
+
+.locator-item:select{
+  background-color: red;
+}
+
+.x-item-over {
+  background-color: green;
+}
+
+.gridcellHeight_custom{
+  height: 50px;
+}
+
+.gridcellHeight_custom>table>tbody>tr>td>div{
+  height: 50px !important;
+}
+
+.full-circle {
+ background-color: #ffcc66;
+ border: 2px solid #ff9933;
+ width: 20px;
+ padding:6; 
+ -moz-border-radius:10px;
+ -webkit-border-radius: 10px;
+ position: relative;
+ line-height: 1em;
+}
+
+
+.full-circle .height_fix {
+    margin-top: 100%;
+}
+.full-circle .content {
+    position: absolute;
+    left: 0;
+    top: 95%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -16px; /* Note, this must be half the font size */
+}
+
+.finderheader {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.findersubheader {
+  font-size: 10px;
+  font-style: italic;
+  color: hsla(0, 0%, 62%, 0.79);
+}
+
+.icon-finder-tool {
+    background-image: url(../img/eye.png);
+}
+
+.icon-village-inspector {
+    background-image: url(../img/application_home.png);
+}

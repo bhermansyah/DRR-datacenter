@@ -32858,6 +32858,7 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
         // console.log(this);
         this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Filter Layer')[0], 10000);
         this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Mask Layer')[0], 10000);
+        this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Finder Layer')[0], 10000);
         this.extent = this.sourceMap.getExtent();
         
         GeoExt.PrintMapPanel.superclass.initComponent.call(this);
@@ -90091,14 +90092,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 showButtonText: true,
                 toggleGroup: "interaction",
                 actionTarget: "paneltbar"
-            }, 
-            // Add by boedy1996@gmail.com 
-            {
+            }, {
                 actions: ["statMenu"],  actionTarget: "paneltbar"
-            // },{
-            //     actions: ["statSelectedGrid"],  actionTarget: "statselectedtable"
-            // },{
-            //     actions: ["statGrid"],  actionTarget: "stattable"
+            }, {
+                actions: ["finderTool"],  actionTarget: "paneltbar"    
             }, {
                 ptype: "gxp_villageinspector", format: 'grid',
                 toggleGroup: "interaction",
@@ -90426,6 +90423,41 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fillOpacity: 0
         };
 
+       var finder_style = {
+            fillColor: "#ffcc66",
+            strokeColor: "#ff9933",
+            strokeWidth: 2,
+            graphicName: "circle",  
+            label: "${number}",
+            fontColor: "#333333",
+            fontFamily: "sans-serif",
+            fontWeight: "bold",
+            pointRadius: 12,
+            fontSize: "12px"
+        }; 
+
+        var finder_style_select = {
+            fillColor: "#ff3300",
+            strokeColor: "#ff9933",
+            strokeWidth: 2,
+            graphicName: "circle",  
+            label: "${number}",
+            fontColor: "#333333",
+            fontFamily: "sans-serif",
+            fontWeight: "bold",
+            pointRadius: 15,
+            fontSize: "12px"
+        }; 
+
+       var finder_layer = new OpenLayers.Layer.Vector("Finder Layer",{
+            'displayInLayerSwitcher':false,
+             renderers: ['Canvas', 'VML'],
+             styleMap: new OpenLayers.StyleMap({
+                "default": finder_style,
+                "select" : finder_style_select
+            })
+       }); 
+
        var vector_layer = new OpenLayers.Layer.Vector("Filter Layer",{
             'displayInLayerSwitcher':false,
              renderers: ['Canvas', 'VML'],
@@ -90458,6 +90490,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         );
 
        this.mapPanel.map.addLayer(vector_layer);
+       this.mapPanel.map.addLayer(finder_layer);
        this.mapPanel.map.addLayer(mask_layer);
        this.mapPanel.map.addLayer(vector_layerEQ);
        this.mapPanel.map.addLayer(hiddenLayer);
@@ -90499,6 +90532,66 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             autoLoad: false
         });
 
+       var finderStore = new GeoExt.data.FeatureStore({
+            layer : finder_layer,
+            fields: [{
+                name:"vil_uid"
+            },{
+                name:"name_en"
+            },{
+                name:"namelong"
+            },{
+                name:"city"
+            },{
+                name:"facility_name"
+            },{
+                name:"number"
+            },{
+                name:"type_settlement"
+            },{
+                name:"apttype"
+            },{
+                name:"facility_types_description"
+            },{
+                name:"fromlayer"
+            }],
+            proxy: new GeoExt.data.ProtocolProxy({
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "http://asdc.immap.org/geoserver/wfs",
+                    format: new OpenLayers.Format.GeoJSON(),
+                    params: {
+                        service: "WFS",
+                        version: "1.1.0",
+                        request: "GetFeature",
+                        typeName: "geonode:afg_pplp",
+                        srsName: "EPSG:900913",
+                        outputFormat: "json"    
+                    }
+                })
+            }),
+            autoLoad: false
+        });
+
+        finderStore.on({
+            'load': function(){
+               for (var i = 0; i < this.totalLength; i++){
+                    var record = finderStore.getAt(i);
+                    console.log(record);
+                    record.set("number", i+1);
+                    if (record.get("name_en")!=''){
+                        record.set("fromlayer", 'glyphicon glyphicon-home');
+                    }
+
+                    if (record.get("namelong")!=''){
+                        record.set("fromlayer", 'glyphicon glyphicon-plane');
+                    }
+
+                    if (record.get("facility_name")!=''){
+                        record.set("fromlayer", 'glyphicon glyphicon-header');
+                    }
+               } 
+            }
+        });
         dataSelected.on({
             'load': function(){
                 if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='drawArea' && Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']!='currentExtent' )
@@ -90587,6 +90680,34 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }),
             autoLoad: false
         });
+        data2.setDefaultSort('dist_na_en', 'ASC'); 
+
+        var data3 = new GeoExt.data.FeatureStore({
+            // layer : vector_layer,
+            fields: [{
+                name:"vuid"
+            },{
+                name:"name_en"
+            }],
+            proxy: new GeoExt.data.ProtocolProxy({
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "http://asdc.immap.org/geoserver/wfs",
+                    format: new OpenLayers.Format.GeoJSON(),
+                    params: {
+                        service: "WFS",
+                        version: "1.1.0",
+                        request: "GetFeature",
+                        typeName: "geonode:afg_ppla",
+                        srsName: "EPSG:900913",
+                        outputFormat: "json",
+                        // maxFeatures: 50,
+                        propertyName:'vuid,name_en'
+                    }
+                })
+            }),
+            autoLoad: false
+        });
+        data3.setDefaultSort('name_en', 'ASC'); 
         var today = new Date()
         var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7).format('Y-m-d');
         var lastmonth = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30).format('Y-m-d');
@@ -90642,18 +90763,17 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         var tempMap = this.mapPanel.map;
 
-        var eastPanel = new Ext.Panel({
-            region: "east",
-            id: "east",
+        var statisticsPanel = new Ext.Panel({
             title: 'Statistics',
             xtype: 'form',
+            id:'bd_stats_panel',
             border: false,
             split: true,
             collapsible: true,
             collapseMode: "mini",
-            hideCollapseTool: true,
             bodyPadding: 5,
-            collapsed: true,
+            collapsed: false,
+            hidden: true,
             width: 320,
             bbar: new Ext.Toolbar({
                 disabled: false,
@@ -91040,6 +91160,309 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             })]
         });
 
+        var finderToolsPanel = new Ext.Panel({
+            title: 'Finder',
+            xtype: 'form',
+            id:'bd_findertool_panel',
+            border: false,
+            split: true,
+            collapsible: true,
+            collapseMode: "mini",
+            bodyPadding: 5,
+            collapsed: false,
+            hidden: true,
+            width: 320,
+            layout:'border',
+            bbar: new Ext.Toolbar({
+                // style : 'width:100%',
+                items:['->',{
+                    text: 'Reset',
+                    iconCls: 'gxp-icon-reset',
+                    handler: function(){
+                        vector_layer.removeAllFeatures();
+                        mask_layer.removeAllFeatures();
+                        finder_layer.removeAllFeatures();
+                        Ext.getCmp('provSelectionLocator').reset();
+                        Ext.getCmp('districtSelectionLocator').reset();
+                        Ext.getCmp('settlemnentSelectionLocator').reset();
+                    }    
+                }]
+            }),
+            items : [
+                new Ext.form.FormPanel({
+                    // title: "Basic Form",
+                    id: 'comboLocatorForm',
+                    width: '100%',
+                    frame: true,
+                    region : 'north',
+                    border: false,
+                    layout:'form',
+                    layoutConfig: {columns: 1},
+                    height : 100,
+                    items: [{
+                        xtype: 'combo',
+                        width:175,
+                        fieldLabel: 'Provinces',
+                        labelStyle: 'width:50px',
+                        emptyText:'Select a province...', 
+                        id:'provSelectionLocator',
+                        disabled : false,
+                        typeAhead: true,
+                        triggerAction: 'all',
+                        forceSelection: true,  
+                        editable:false,  
+                        lazyRender:true,
+                        mode: 'local',
+                        store: data1,
+                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                        valueField: 'prov_code',
+                        displayField: 'prov_na_en',
+                        scope: this,
+                        listeners       : {
+                            'select': function(combo, record, index) {
+                                Ext.getCmp('districtSelectionLocator').reset();
+                                dataSelected.load({
+                                    params: {
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_admbnda_adm1",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        CQL_FILTER: "prov_code = "+record.data.prov_code
+                                    }    
+                                }); 
+                                
+                                data2.load({
+                                    params:{
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_admbnda_adm2",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        // maxFeatures: 50,
+                                        propertyName:'dist_code,dist_na_en',
+                                        CQL_FILTER: "prov_code = "+record.data.prov_code
+                                    }
+                                });
+
+                            }
+
+
+                        }
+
+                    },{
+                        xtype: 'combo',
+                        fieldLabel: 'Districts',
+                        id:'districtSelectionLocator',
+                        emptyText:'Select a district...', 
+                        labelStyle: 'width:50px',
+                        typeAhead: true,
+                        width:175,
+                        disabled : false,
+                        triggerAction: 'all',
+                        forceSelection: true,  
+                        editable:false,  
+                        lazyRender:true,
+                        mode: 'local',
+                        store: data2,
+                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                        valueField: 'dist_code',
+                        displayField: 'dist_na_en',
+                        listeners       : {
+                            'select': function(combo, record, index) {
+                                Ext.getCmp('settlemnentSelectionLocator').reset();
+                                dataSelected.load({
+                                    params: {
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_admbnda_adm2",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        CQL_FILTER: "dist_code = "+record.data.dist_code
+                                    }    
+                                });
+
+                                data3.load({
+                                    params:{
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_ppla",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        // maxFeatures: 50,
+                                        propertyName:'vuid,name_en',
+                                        CQL_FILTER: "dist_code = "+record.data.dist_code
+                                    }
+                                });
+                            }
+                        }
+
+                    },{
+                        xtype: 'combo',
+                        fieldLabel: 'Settlements',
+                        id:'settlemnentSelectionLocator',
+                        emptyText:'Select a settlement...', 
+                        labelStyle: 'width:50px',
+                        typeAhead: true,
+                        width:175,
+                        disabled : false,
+                        triggerAction: 'all',
+                        forceSelection: true,  
+                        editable:false,  
+                        lazyRender:true,
+                        mode: 'local',
+                        store: data3,
+                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                        valueField: 'vuid',
+                        displayField: 'name_en',
+                        listeners       : {
+                            'select': function(combo, record, index) {
+                                dataSelected.load({
+                                    params: {
+                                        service: "WFS",
+                                        version: "1.1.0",
+                                        request: "GetFeature",
+                                        typeName: "geonode:afg_ppla",
+                                        srsName: "EPSG:900913",
+                                        outputFormat: "json",
+                                        CQL_FILTER: "vuid = '"+record.data.vuid+"'"
+                                    }    
+                                });
+                            }
+                        }
+
+                    }]
+                }),
+                new Ext.Panel({
+                    //title:'',
+                    // height:350,
+                    region:'center',
+                    autoScroll:true,
+                    width: 320,
+                    border: false,
+                    // autoHeight:true,
+                    layout:'fit',
+                    items: 
+                    // new Ext.DataView({
+                    //     // autoHeight: true,
+                    //     multiSelect: true,
+                    //     trackOver: true,
+                    //     overItemCls: 'x-item-over',
+                    //     emptyText: 'No data to display',
+                    //     tpl: new Ext.XTemplate(
+                    //         '<tpl for=".">',
+                    //         '<div class="locator-item">',
+                    //             '<span>{dist_na_en}</span>',
+                    //         '</div></tpl>'
+                    //     ),
+                    //     store: data2,
+                    //     itemSelector: 'div.locator-item'
+                    // }),
+                    
+                    new Ext.grid.GridPanel({
+                        store: finderStore,
+                        width: 320,
+                        viewConfig: {
+                            getRowClass: function (record, rowIndex, rp, store) {
+                                return 'gridcellHeight_custom';
+                            },
+                            emptyText: 'No data'  
+                        },
+                        columns: [{
+                            header: "Search Results:",
+                            width: 300,
+                            autoHeight: true,
+                            xtype:'templatecolumn',
+                            tpl: new Ext.XTemplate(
+                                '<div style="float:left; padding:3px">',
+                                    '<div class="full-circle"><div class="height_fix"></div><div class="content">{number}</div></div>',
+                                '</div>',
+                                '<div style="float:left; padding-top: 7px; padding-left: 2px;">',
+                                    '<span class="finderheader">{name_en} {facility_name} {namelong}</span>',
+                                    '<br/><span class="findersubheader">{type_settlement}{facility_types_description}{apttype}</span>',
+                                '</div>',
+                                '<div class="{fromlayer}" style="float:right;padding-top: 1px; padding-right: 2px; color: rgba(158, 158, 158, 0.6);">',
+                                '</div>'
+                            ),
+                            flex:1
+                        }],
+                        sm: new GeoExt.grid.FeatureSelectionModel()
+                    }),
+
+                    tbar: {
+                        xtype: 'container',
+                        layout: 'anchor',
+                        id:'finderKindFilterTB',
+                        defaults: {anchor: '0'},
+                        defaultType: 'toolbar',
+                        items : [{
+                            items: [
+                                'Search: ', ' ',
+                                new Ext.ux.form.SearchField({
+                                    store: finderStore,
+                                    style:'width:320px !important',
+                                    width:320
+                                })
+                            ]
+                        },{
+                            items: [
+                                'Tick to apply: ', ' ',
+                                {
+                                    xtype      : 'checkbox',
+                                    id: 'settlementCB',
+                                    fieldLabel : "",
+                                    boxLabel   : 'Settlements',
+                                    inputValue : 'settlement',
+                                    checked : true
+                                },{
+                                    xtype      : 'checkbox',
+                                    id: 'hfCB',
+                                    fieldLabel : "",
+                                    boxLabel   : 'Health Facilities',
+                                    inputValue : 'hf'
+                                },{
+                                    xtype      : 'checkbox',
+                                    id: 'airportCB',
+                                    fieldLabel : "",
+                                    boxLabel   : 'Airports',
+                                    inputValue : 'airport'
+                                }
+                            ]
+                        }]
+                     },   
+
+                    // bbar: new Ext.PagingToolbar({
+                    //     store: data2,
+                    //     // pageSize: 10,
+                    //     displayInfo: true,
+                    //     displayMsg: 'Data {0} - {1} of {2}',
+                    //     emptyMsg: "No data to display"
+                    // })
+                })
+            ]
+        });
+
+        var eastPanel = new Ext.Panel({
+            region: "east",
+            id: "east",
+            title: '',
+            xtype: 'form',
+            border: false,
+            split: true,
+            collapsible: true,
+            collapseMode: "mini",
+            hideCollapseTool: true,
+            bodyPadding: 5,
+            collapsed: true,
+            width: 320,
+            layout: 'accordion',
+            items:[statisticsPanel, finderToolsPanel]
+        });
+
         var southPanel = new Ext.Panel({
             region: "south",
             id: "south",
@@ -91227,13 +91650,38 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             id: "statMenu",
             text: 'Statistics',
             iconCls: 'icon-export',
-            enableToggle: true,      
+            enableToggle: true,    
+            toggleGroup: "interaction",  
             pressed: false,
             toggleHandler: function(){
                 if (this.pressed){
                     Ext.getCmp('east').expand();
+                    Ext.getCmp('bd_stats_panel').show();
+                    Ext.getCmp('bd_stats_panel').expand();
                 } else {
-                    Ext.getCmp('east').collapse();
+                    if (!Ext.getCmp('finderTool').pressed)
+                        Ext.getCmp('east').collapse();
+                    Ext.getCmp('bd_stats_panel').hide();
+                }
+            }       
+        });
+
+        new Ext.Button({
+            id: "finderTool",
+            text: 'Finder Tool',
+            iconCls: 'icon-finder-tool',
+            enableToggle: true,    
+            toggleGroup: "interaction",  
+            pressed: false,
+            toggleHandler: function(){
+                if (this.pressed){
+                    Ext.getCmp('east').expand();
+                    Ext.getCmp('bd_findertool_panel').show();
+                    Ext.getCmp('bd_findertool_panel').expand();
+                } else {
+                    if (!Ext.getCmp('statMenu').pressed)
+                        Ext.getCmp('east').collapse();
+                    Ext.getCmp('bd_findertool_panel').hide();
                 }
             }       
         });
