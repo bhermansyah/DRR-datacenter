@@ -1963,11 +1963,11 @@ div.search-item.x-combo-selected {
   border-color: #F44336 !important;
   background-color: #F44336;
 }
-input#ext-comp-1022.x-form-text.x-form-field{
-  width: 215px !important;
+input#freeSearchForm.x-form-text.x-form-field{
+  width: 153px !important;
 }
-input#ext-comp-1022.x-form-text.x-form-field.x-form-focus{
-  width: 215px !important;
+input#freeSearchForm.x-form-text.x-form-field.x-form-focus{
+  width: 153px !important;
 }
 
 #finderKindFilterTB>div.x-toolbar>table>tbody>tr>td>table>tbody>tr>td.x-toolbar-cell>div.x-form-check-wrap>label {

@@ -90410,7 +90410,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             strokeWidth : 2,
             strokeOpacity : 0.6,
             fillColor : '#FFF',
-            fillOpacity : 0.9
+            fillOpacity : 0.75
         };
 
         var styleEQ = {
@@ -90576,7 +90576,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             'load': function(){
                for (var i = 0; i < this.totalLength; i++){
                     var record = finderStore.getAt(i);
-                    console.log(record);
+                    // console.log(record);
                     record.set("number", i+1);
                     if (record.get("name_en")!=''){
                         record.set("fromlayer", 'glyphicon glyphicon-home');
@@ -91160,6 +91160,42 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             })]
         });
 
+        var gridSelector = new Ext.grid.GridPanel({
+            store: finderStore,
+            width: 320,
+            viewConfig: {
+                getRowClass: function (record, rowIndex, rp, store) {
+                    return 'gridcellHeight_custom';
+                },
+                emptyText: 'No data'  ,
+                loadingText: "Loading..."
+            },
+            columns: [{
+                header: "Search Results:",
+                width: 300,
+                autoHeight: true,
+                xtype:'templatecolumn',
+                tpl: new Ext.XTemplate(
+                    '<div style="float:left; padding:3px">',
+                        '<div class="full-circle"><div class="height_fix"></div><div class="content">{number}</div></div>',
+                    '</div>',
+                    '<div style="float:left; padding-top: 7px; padding-left: 2px;">',
+                        '<span class="finderheader">{name_en} {facility_name} {namelong}</span>',
+                        '<br/><span class="findersubheader">{type_settlement}{facility_types_description}{apttype}</span>',
+                    '</div>',
+                    '<div class="{fromlayer}" style="float:right;padding-top: 1px; padding-right: 2px; color: rgba(158, 158, 158, 0.6);">',
+                    '</div>'
+                ),
+                flex:1
+            }],
+            sm: new GeoExt.grid.FeatureSelectionModel()
+        });
+
+        gridSelector.getSelectionModel().on('rowselect', function(sm, rowIdx, r) {
+            // console.log(sm,rowIdx, r);
+            tempMap.panTo(new OpenLayers.LonLat(r.data.feature.geometry.x, r.data.feature.geometry.y));
+        });
+
         var finderToolsPanel = new Ext.Panel({
             title: 'Finder',
             xtype: 'form',
@@ -91185,9 +91221,76 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         Ext.getCmp('provSelectionLocator').reset();
                         Ext.getCmp('districtSelectionLocator').reset();
                         Ext.getCmp('settlemnentSelectionLocator').reset();
+                        data2.removeAll();
+                        data3.removeAll();
                     }    
                 }]
             }),
+            tbar: {
+                xtype: 'container',
+                layout: 'anchor',
+                id:'finderKindFilterTB',
+                defaults: {anchor: '0'},
+                defaultType: 'toolbar',
+                items : [{
+                    items: [
+                        'Tick to apply: ', ' ',
+                        {
+                            xtype      : 'checkbox',
+                            id: 'settlementCB',
+                            fieldLabel : "",
+                            boxLabel   : 'Settlements',
+                            inputValue : 'settlement',
+                            listeners:{
+                                'check' : {
+                                     fn : function(checkbox, checked){
+                                        if (checked){
+                                            Ext.getCmp('hfCB').setValue(false);
+                                            Ext.getCmp('airportCB').setValue(false);
+                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                        }
+                                    }
+                                }
+                            }
+                        },{
+                            xtype      : 'checkbox',
+                            id: 'hfCB',
+                            fieldLabel : "",
+                            boxLabel   : 'Health Facilities',
+                            inputValue : 'hf',
+                            listeners:{
+                                'check' : {
+                                     fn : function(checkbox, checked){
+                                        if (checked){
+                                            Ext.getCmp('settlementCB').setValue(false);
+                                            Ext.getCmp('airportCB').setValue(false);
+                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                        }
+                                    }
+                                }
+                            }
+                        },{
+                            xtype      : 'checkbox',
+                            id: 'airportCB',
+                            fieldLabel : "",
+                            boxLabel   : 'Airports',
+                            inputValue : 'airport',
+                            checked : true,
+                            listeners:{
+                                'check' : {
+                                     fn : function(checkbox, checked){
+                                        if (checked){
+                                            Ext.getCmp('settlementCB').setValue(false);
+                                            Ext.getCmp('hfCB').setValue(false);
+                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }]
+            },
             items : [
                 new Ext.form.FormPanel({
                     // title: "Basic Form",
@@ -91221,6 +91324,13 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         listeners       : {
                             'select': function(combo, record, index) {
                                 Ext.getCmp('districtSelectionLocator').reset();
+                                Ext.getCmp('settlemnentSelectionLocator').reset();
+                                data2.removeAll();
+                                data3.removeAll();
+
+                                // console.log(Ext.getCmp('freeSearchForm'));
+                                Ext.getCmp('freeSearchForm').onTrigger2Click();
+
                                 dataSelected.load({
                                     params: {
                                         service: "WFS",
@@ -91273,6 +91383,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         listeners       : {
                             'select': function(combo, record, index) {
                                 Ext.getCmp('settlemnentSelectionLocator').reset();
+                                data3.removeAll();
+
+                                Ext.getCmp('freeSearchForm').onTrigger2Click();
+
                                 dataSelected.load({
                                     params: {
                                         service: "WFS",
@@ -91363,74 +91477,22 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     //     itemSelector: 'div.locator-item'
                     // }),
                     
-                    new Ext.grid.GridPanel({
-                        store: finderStore,
-                        width: 320,
-                        viewConfig: {
-                            getRowClass: function (record, rowIndex, rp, store) {
-                                return 'gridcellHeight_custom';
-                            },
-                            emptyText: 'No data'  
-                        },
-                        columns: [{
-                            header: "Search Results:",
-                            width: 300,
-                            autoHeight: true,
-                            xtype:'templatecolumn',
-                            tpl: new Ext.XTemplate(
-                                '<div style="float:left; padding:3px">',
-                                    '<div class="full-circle"><div class="height_fix"></div><div class="content">{number}</div></div>',
-                                '</div>',
-                                '<div style="float:left; padding-top: 7px; padding-left: 2px;">',
-                                    '<span class="finderheader">{name_en} {facility_name} {namelong}</span>',
-                                    '<br/><span class="findersubheader">{type_settlement}{facility_types_description}{apttype}</span>',
-                                '</div>',
-                                '<div class="{fromlayer}" style="float:right;padding-top: 1px; padding-right: 2px; color: rgba(158, 158, 158, 0.6);">',
-                                '</div>'
-                            ),
-                            flex:1
-                        }],
-                        sm: new GeoExt.grid.FeatureSelectionModel()
-                    }),
+                    gridSelector,
 
                     tbar: {
                         xtype: 'container',
                         layout: 'anchor',
-                        id:'finderKindFilterTB',
                         defaults: {anchor: '0'},
                         defaultType: 'toolbar',
                         items : [{
                             items: [
-                                'Search: ', ' ',
+                                'Search by name: ', ' ',
                                 new Ext.ux.form.SearchField({
+                                    id:'freeSearchForm',
                                     store: finderStore,
                                     style:'width:320px !important',
                                     width:320
                                 })
-                            ]
-                        },{
-                            items: [
-                                'Tick to apply: ', ' ',
-                                {
-                                    xtype      : 'checkbox',
-                                    id: 'settlementCB',
-                                    fieldLabel : "",
-                                    boxLabel   : 'Settlements',
-                                    inputValue : 'settlement',
-                                    checked : true
-                                },{
-                                    xtype      : 'checkbox',
-                                    id: 'hfCB',
-                                    fieldLabel : "",
-                                    boxLabel   : 'Health Facilities',
-                                    inputValue : 'hf'
-                                },{
-                                    xtype      : 'checkbox',
-                                    id: 'airportCB',
-                                    fieldLabel : "",
-                                    boxLabel   : 'Airports',
-                                    inputValue : 'airport'
-                                }
                             ]
                         }]
                      },   

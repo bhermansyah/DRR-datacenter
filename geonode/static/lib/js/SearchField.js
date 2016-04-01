@@ -39,20 +39,34 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 
     onTrigger2Click : function(){
         var v = this.getRawValue();
-        if(v.length < 1){
-            this.onTrigger1Click();
-            return;
-        }
+        // if(v.length < 1){
+        //     this.onTrigger1Click();
+        //     return;
+        // }
         v = v.toLowerCase();
         var layers = [];
         var filters = []
+        var addQ = "";
+        // console.log(Ext.getCmp('districtSelectionLocator').getValue());
+        if (Ext.getCmp('provSelectionLocator').getValue() != ''){
+            addQ = " AND prov_code="+Ext.getCmp('provSelectionLocator').value ;
+        } else {
+            this.onTrigger1Click();
+            return;
+        }
+
+        if (Ext.getCmp('districtSelectionLocator').getValue() != '' ){
+            addQ = " AND dist_code="+Ext.getCmp('districtSelectionLocator').value ;
+        }
+        
+        
         if (Ext.getCmp('settlementCB').checked){
             layers.push('geonode:afg_pplp');
-            filters.push("strToLowerCase(name_en) like '%"+v+"%'");
+            filters.push("strToLowerCase(name_en) like '%"+v+"%'"+addQ);
         }
         if (Ext.getCmp('hfCB').checked){
             layers.push('geonode:afg_hltfac');
-            filters.push("strToLowerCase(facility_name) like '%"+v+"%'");
+            filters.push("strToLowerCase(facility_name) like '%"+v+"%'"+addQ);
         }
         if (Ext.getCmp('airportCB').checked){
             layers.push('geonode:afg_airdrmp');
@@ -71,7 +85,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
             }
         }
 
-        console.log(typeName);
+        // console.log(typeName);
 
         // var test = "strToLowerCase(name_en) like '"+v+"%'";
         var o = {start: 0};
