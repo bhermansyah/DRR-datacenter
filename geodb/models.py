@@ -592,6 +592,7 @@ class AfgFldzonea100KRiskLandcoverPop(models.Model):
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
     basinmember = models.ForeignKey(AfgShedaLvl4, related_name='basinmembers')
+    mitigated_pop = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
     class Meta():
         managed = False
@@ -1224,4 +1225,12 @@ class AfgHltfac(models.Model):
     objects = models.GeoManager()
     class Meta:
         managed = True
-        db_table = 'afg_hltfac'        
+        db_table = 'afg_hltfac'       
+
+
+class forecastedLastUpdate(models.Model):
+    datadate = models.DateTimeField(blank=False, null=False)
+    forecasttype = models.CharField(max_length=50, blank=False) 
+    class Meta:
+        managed = True
+        db_table = 'forecastedlastupdate'             

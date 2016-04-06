@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -275,6 +275,7 @@ def getForecastedDisaster():
     month = currentdate.strftime("%m")
     day = currentdate.strftime("%d")
     hh = currentdate.strftime("%H")
+    minute = currentdate.strftime("%M")
     
     for row in csv_f:
         if not pertama:
@@ -320,16 +321,18 @@ def getForecastedDisaster():
                     if recordExists[0].riskstate < flashFloodState:
                         c = Forcastedvalue(pk=recordExists[0].pk,basin=basin)  
                         c.riskstate = flashFloodState
+                        c.datadate = recordExists[0].datadate
+                        c.forecasttype = recordExists[0].forecasttype
                         c.save()
-                        print 'flashflood modified'
-                    print 'flashflood skip'    
+                    #     print 'flashflood modified'
+                    # print 'flashflood skip'    
                 else:
                     c = Forcastedvalue(basin=basin)  
                     c.datadate = year+'-'+month+'-'+day
                     c.forecasttype = 'flashflood'
                     c.riskstate = flashFloodState 
                     c.save()
-                    print 'flashflood added'
+                    # print 'flashflood added'
 
             if snowWaterState>0:
                 # basin = AfgShedaLvl4.objects.get(value=row[0]) 
@@ -338,16 +341,18 @@ def getForecastedDisaster():
                     if recordExists[0].riskstate < snowWaterState:
                         c = Forcastedvalue(pk=recordExists[0].pk,basin=basin)  
                         c.riskstate = snowWaterState
+                        c.datadate = recordExists[0].datadate
+                        c.forecasttype = recordExists[0].forecasttype
                         c.save()
-                        print 'snowwater modified'
-                    print 'snowwater skip'    
+                    #     print 'snowwater modified'
+                    # print 'snowwater skip'    
                 else:
                     c = Forcastedvalue(basin=basin)  
                     c.datadate = year+'-'+month+'-'+day
                     c.forecasttype = 'snowwater'
                     c.riskstate = snowWaterState 
                     c.save()
-                    print 'snowwater added'       
+                    # print 'snowwater added'       
 
             if snowWater>0:
                 # basin = AfgShedaLvl4.objects.get(value=row[0]) 
@@ -356,20 +361,28 @@ def getForecastedDisaster():
                     if recordExists[0].riskstate < snowWater:
                         c = Forcastedvalue(pk=recordExists[0].pk,basin=basin)  
                         c.riskstate = snowWater
+                        c.datadate = recordExists[0].datadate
+                        c.forecasttype = recordExists[0].forecasttype
                         c.save()
-                        print 'snowwaterreal modified'
-                    print 'snowwaterreal skip'    
+                    #     print 'snowwaterreal modified'
+                    # print 'snowwaterreal skip'    
                 else:
                     c = Forcastedvalue(basin=basin)  
                     c.datadate = year+'-'+month+'-'+day
                     c.forecasttype = 'snowwaterreal'
                     c.riskstate = snowWater 
                     c.save()
-                    print 'snowwaterreal added'            
+                    # print 'snowwaterreal added'            
 
 
 
         pertama=False    
+    ff = forecastedLastUpdate(datadate=year+'-'+month+'-'+day+' '+hh+':'+minute,forecasttype='flashflood')
+    ff.save()
+    ff = forecastedLastUpdate(datadate=year+'-'+month+'-'+day+' '+hh+':'+minute,forecasttype='snowwater')
+    ff.save()
+    ff = forecastedLastUpdate(datadate=year+'-'+month+'-'+day+' '+hh+':'+minute,forecasttype='snowwaterreal')
+    ff.save()
 
 def getOverviewMaps(request):
     selectedBox = request.GET['send']

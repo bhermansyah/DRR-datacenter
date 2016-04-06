@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -112,7 +112,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
 
         # Flood Risk
-        counts =  getRiskNumber(targetRisk, filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code, None)
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0), filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code, None)
         
         # pop at risk level
         temp = dict([(c['deeperthan'], c['count']) for c in counts])
@@ -128,7 +128,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)    
         response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2) 
 
-        counts =  getRiskNumber(targetRiskIncludeWater, filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code, None)
+        counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code, None)
 
         # landcover/pop/atrisk
         temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
@@ -157,9 +157,15 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['vineyards_area_risk']=round(temp.get('Vineyards', 0)/1000000,1)
         response['forest_area_risk']=round(temp.get('Forest and shrubs', 0)/1000000,1)
 
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
+        temp = dict([(c['deeperthan'], c['count']) for c in counts])
+        response['high_risk_mitigated_population']=round(temp.get('271 cm', 0),0)
+        response['med_risk_mitigated_population']=round(temp.get('121 cm', 0), 0)
+        response['low_risk_mitigated_population']=round(temp.get('029 cm', 0),0)
+        response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
 
         # River Flood Forecasted
-        counts =  getRiskNumber(targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
         response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
         response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
@@ -180,7 +186,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
         # Flash Flood Forecasted
         # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
-        counts =  getRiskNumber(targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
 
         response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
@@ -263,12 +269,12 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['numbersettlementsatava'] = round(countsBase[0]['numbersettlementsatava'],0)
 
         if flag=='drawArea':
-            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+            countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
                 select={
                     'numbersettlementsatrisk': 'count(distinct vuid)'}, 
                 where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*fldarea_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
         elif flag=='entireAfg':
-            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+            countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
                 select={
                     'numbersettlementsatrisk': 'count(distinct vuid)'}).values('numbersettlementsatrisk')
         elif flag=='currentProvince':
@@ -276,17 +282,17 @@ def getRiskExecuteExternal(filterLock, flag, code):
                 ff0001 =  "dist_code  = '"+str(code)+"'"
             else :
                 ff0001 =  "prov_code  = '"+str(code)+"'"
-            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+            countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
                 select={
                     'numbersettlementsatrisk': 'count(distinct vuid)'}, 
                 where = {ff0001}).values('numbersettlementsatrisk')
         elif flag=='currentBasin':
-            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+            countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
                 select={
                     'numbersettlementsatrisk': 'count(distinct vuid)'}, 
                 where = {"vuid = '"+str(code)+"'"}).values('numbersettlementsatrisk')    
         else:
-            countsBase = targetRisk.filter(agg_simplified_description='Built-up').extra(
+            countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
                 select={
                     'numbersettlementsatrisk': 'count(distinct vuid)'}, 
                 where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
@@ -589,6 +595,123 @@ def getRiskExecuteExternal(filterLock, flag, code):
         except ZeroDivisionError:
             response['precent_forest_area_risk'] = 0 
 
+        # Roads 
+        if flag=='drawArea':
+            countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
+            select={
+                'road_length' : 'SUM(  \
+                        case \
+                            when ST_CoveredBy(wkb_geometry'+','+filterLock+') then ST_Length(wkb_geometry::geography) \
+                            else ST_Length(st_intersection(wkb_geometry::geography'+','+filterLock+')) / ST_Length(wkb_geometry::geography) end \
+                    )/1000'
+            },
+            where = {
+                'ST_Intersects(wkb_geometry'+', '+filterLock+')'
+            }).values('type_update','road_length') 
+
+            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+                    select={
+                        'numberhospital' : 'count(*)'
+                    },
+                    where = {
+                        'ST_Intersects(wkb_geometry'+', '+filterLock+')'
+                    }).values('facility_types_description', 'numberhospital')
+
+        elif flag=='entireAfg':    
+            countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
+                    select={
+                        'road_length' : 'SUM(ST_Length(wkb_geometry::geography))/1000'
+                    }).values('type_update', 'road_length')
+            
+
+            # Health Facilities
+            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+                    select={
+                        'numberhospital' : 'count(*)'
+                    }).values('facility_types_description', 'numberhospital')
+            
+        elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                if len(str(code))==1:
+                    ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
+                else:
+                    ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"    
+                    
+            countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                     'road_length' : 'SUM(ST_Length(wkb_geometry::geography))/1000'
+                },
+                where = {
+                    ff0001
+                 }).values('type_update','road_length') 
+
+            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                        'numberhospital' : 'count(*)'
+                },where = {
+                    ff0001
+                }).values('facility_types_description', 'numberhospital')
+
+        elif flag=='currentBasin':
+            print 'currentBasin'
+        else:
+            countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'road_length' : 'SUM(ST_Length(wkb_geometry::geography))/1000'
+                },
+                where = {
+                    'ST_Within(wkb_geometry'+', '+filterLock+')'
+                }).values('type_update','road_length') 
+
+            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                        'numberhospital' : 'count(*)'
+                },where = {
+                    'ST_Within(wkb_geometry'+', '+filterLock+')'
+                }).values('facility_types_description', 'numberhospital')
+
+
+        tempRoadBase = dict([(c['type_update'], c['road_length']) for c in countsRoadBase])
+        tempHLTBase = dict([(c['facility_types_description'], c['numberhospital']) for c in countsHLTBase])
+
+        response["highway_road_base"]=round(tempRoadBase.get("highway", 0),1)
+        response["primary_road_base"]=round(tempRoadBase.get("primary", 0),1)
+        response["secondary_road_base"]=round(tempRoadBase.get("secondary", 0),1)
+        response["tertiary_road_base"]=round(tempRoadBase.get("tertiary", 0),1)
+        response["residential_road_base"]=round(tempRoadBase.get("residential", 0),1)
+        response["track_road_base"]=round(tempRoadBase.get("track", 0),1)
+        response["path_road_base"]=round(tempRoadBase.get("path", 0),1)
+        response["river_crossing_road_base"]=round(tempRoadBase.get("river crossing", 0),1)
+        response["bridge_road_base"]=round(tempRoadBase.get("bridge", 0),1)
+        response["total_road_base"]=response["highway_road_base"]+response["primary_road_base"]+response["secondary_road_base"]+response["tertiary_road_base"]+response["residential_road_base"]+response["track_road_base"]+response["path_road_base"]+response["river_crossing_road_base"]+response["bridge_road_base"]
+
+        response["h1_health_base"]=round(tempHLTBase.get("Regional / National Hospital (H1)", 0))
+        response["h2_health_base"]=round(tempHLTBase.get("Provincial Hospital (H2)", 0))    
+        response["h3_health_base"]=round(tempHLTBase.get("District Hospital (H3)", 0))
+        response["sh_health_base"]=round(tempHLTBase.get("Special Hospital (SH)", 0))
+        response["rh_health_base"]=round(tempHLTBase.get("Rehabilitation Center (RH)", 0))               
+        response["mh_health_base"]=round(tempHLTBase.get("Maternity Home (MH)", 0))
+        response["datc_health_base"]=round(tempHLTBase.get("Drug Addicted Treatment Center", 0))
+        response["tbc_health_base"]=round(tempHLTBase.get("TB Control Center (TBC)", 0))
+        response["mntc_health_base"]=round(tempHLTBase.get("Mental Clinic / Hospital", 0))
+        response["chc_health_base"]=round(tempHLTBase.get("Comprehensive Health Center (CHC)", 0))
+        response["bhc_health_base"]=round(tempHLTBase.get("Basic Health Center (BHC)", 0))
+        response["dcf_health_base"]=round(tempHLTBase.get("Day Care Feeding", 0))
+        response["mch_health_base"]=round(tempHLTBase.get("MCH Clinic M1 or M2 (MCH)", 0))
+        response["shc_health_base"]=round(tempHLTBase.get("Sub Health Center (SHC)", 0))
+        response["ec_health_base"]=round(tempHLTBase.get("Eye Clinic / Hospital", 0))
+        response["pyc_health_base"]=round(tempHLTBase.get("Physiotherapy Center", 0))
+        response["pic_health_base"]=round(tempHLTBase.get("Private Clinic", 0))        
+        response["mc_health_base"]=round(tempHLTBase.get("Malaria Center (MC)", 0))
+        response["moph_health_base"]=round(tempHLTBase.get("MoPH National", 0))
+        response["epi_health_base"]=round(tempHLTBase.get("EPI Fixed Center (EPI)", 0))
+        response["sfc_health_base"]=round(tempHLTBase.get("Supplementary Feeding Center (SFC)", 0))
+        response["mht_health_base"]=round(tempHLTBase.get("Mobile Health Team (MHT)", 0))
+        response["other_health_base"]=round(tempHLTBase.get("Other", 0))
+        response["total_health_base"] = response["bhc_health_base"]+response["dcf_health_base"]+response["mch_health_base"]+response["rh_health_base"]+response["h3_health_base"]+response["sh_health_base"]+response["mh_health_base"]+response["datc_health_base"]+response["h1_health_base"]+response["shc_health_base"]+response["ec_health_base"]+response["pyc_health_base"]+response["pic_health_base"]+response["tbc_health_base"]+response["mntc_health_base"]+response["chc_health_base"]+response["other_health_base"]+response["h2_health_base"]+response["mc_health_base"]+response["moph_health_base"]+response["epi_health_base"]+response["sfc_health_base"]+response["mht_health_base"]
+        
         return response        
 
 def getRisk(request):
