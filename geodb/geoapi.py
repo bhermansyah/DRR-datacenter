@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -16,6 +16,7 @@ from itertools import *
 # addded by boedy
 from matrix.models import matrix
 from tastypie.cache import SimpleCache
+from pytz import timezone, all_timezones
 
 
 FILTER_TYPES = {
@@ -712,6 +713,15 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response["other_health_base"]=round(tempHLTBase.get("Other", 0))
         response["total_health_base"] = response["bhc_health_base"]+response["dcf_health_base"]+response["mch_health_base"]+response["rh_health_base"]+response["h3_health_base"]+response["sh_health_base"]+response["mh_health_base"]+response["datc_health_base"]+response["h1_health_base"]+response["shc_health_base"]+response["ec_health_base"]+response["pyc_health_base"]+response["pic_health_base"]+response["tbc_health_base"]+response["mntc_health_base"]+response["chc_health_base"]+response["other_health_base"]+response["h2_health_base"]+response["mc_health_base"]+response["moph_health_base"]+response["epi_health_base"]+response["sfc_health_base"]+response["mht_health_base"]
         
+        sw = forecastedLastUpdate.objects.filter(forecasttype='snowwater').latest('datadate')
+        rf = forecastedLastUpdate.objects.filter(forecasttype='riverflood').latest('datadate')
+
+        # print rf.datadate
+        tempRF = rf.datadate + datetime.timedelta(hours=4.5)
+        tempSW = sw.datadate + datetime.timedelta(hours=4.5)
+
+        response["riverflood_lastupdated"] = tempRF.strftime("%d-%m-%Y %H:%M")
+        response["snowwater_lastupdated"] =  tempSW.strftime("%d-%m-%Y %H:%M")
         return response        
 
 def getRisk(request):
