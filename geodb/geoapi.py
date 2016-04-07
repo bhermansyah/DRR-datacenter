@@ -602,8 +602,8 @@ def getRiskExecuteExternal(filterLock, flag, code):
             select={
                 'road_length' : 'SUM(  \
                         case \
-                            when ST_CoveredBy(wkb_geometry'+','+filterLock+') then ST_Length(wkb_geometry::geography) \
-                            else ST_Length(st_intersection(wkb_geometry::geography'+','+filterLock+')) / ST_Length(wkb_geometry::geography) end \
+                            when ST_CoveredBy(wkb_geometry'+','+filterLock+') then road_length \
+                            else ST_Length(st_intersection(wkb_geometry::geography'+','+filterLock+')) / road_length end \
                     )/1000'
             },
             where = {
@@ -621,7 +621,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
         elif flag=='entireAfg':    
             countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
                     select={
-                        'road_length' : 'SUM(ST_Length(wkb_geometry::geography))/1000'
+                        'road_length' : 'SUM(road_length)/1000'
                     }).values('type_update', 'road_length')
             
 
@@ -642,7 +642,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
                     
             countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
                 select={
-                     'road_length' : 'SUM(ST_Length(wkb_geometry::geography))/1000'
+                     'road_length' : 'SUM(road_length)/1000'
                 },
                 where = {
                     ff0001
@@ -660,7 +660,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
         else:
             countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
                 select={
-                    'road_length' : 'SUM(ST_Length(wkb_geometry::geography))/1000'
+                    'road_length' : 'SUM(road_length)/1000'
                 },
                 where = {
                     'ST_Within(wkb_geometry'+', '+filterLock+')'
