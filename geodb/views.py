@@ -1423,15 +1423,20 @@ def getSnowCoverClassNumber(x):
 
 def getConvertedTime(t):
     if t>120 and t<3600:
-        return str(round(t/60,1))+' minute(s)'
+        return str(round(t/60,0))+' minutes'
     elif t>3600:
-        return str(round(t/3600,1))+' hour(s)' 
+        m, s = divmod(t, 60)
+        h, m = divmod(m, 60)
+        return "%d hours %d minutes" % (h, m)
+        # return str(round(t/3600,1))+' hour(s)' 
     else :
         return str(t)+' second(s)'      
 
 def getConvertedDistance(d):
     if d>1000:
-        return str(round(d/1000,1))+' km'
+        km, m = divmod(d, 1000)
+        return str(km)+' km'
+        # return str(round(d/1000))+' km'
     else:
         return str(d)+' m'     
 
