@@ -1423,7 +1423,9 @@ def getSnowCoverClassNumber(x):
 
 def getConvertedTime(t):
     if t>120 and t<3600:
-        return str(round(t/60,0))+' minutes'
+        m, s = divmod(t, 60)
+        return str(m)+' minutes'
+        # return str(round(t/60,0))+' minutes'
     elif t>3600:
         m, s = divmod(t, 60)
         h, m = divmod(m, 60)
