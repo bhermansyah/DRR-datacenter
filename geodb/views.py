@@ -113,7 +113,7 @@ def getLatestShakemap(includeShakeMap=False):
                     outfile.close()
             thefile.close()
 
-            if includeShakeMap and long(recordExists[0].shakemaptimestamp) < long(shakemaptimestamp):
+            if includeShakeMap: #and long(recordExists[0].shakemaptimestamp) < long(shakemaptimestamp):
                 mapping = {
                     'wkb_geometry' : 'POLYGON',
                     'grid_value':  'GRID_CODE',
