@@ -90812,6 +90812,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             tpl.overwrite(Ext.getCmp('avalancheView').body, {});
                             tpl.overwrite(Ext.getCmp('avalancheForecastView').body, {});
                             tpl.overwrite(Ext.getCmp('eqView').body, {});
+                            tpl.overwrite(Ext.getCmp('accessibilitiesView').body, {});
                             Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
                         }
                     },{
@@ -90865,7 +90866,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
 
                             _storeCalc.setFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
+                            
+                            _storeCalc.setAccessibilityStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
+
                             _storeCalc.setEarthQuakeFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode, Ext.getCmp('eventsEQSelection').getValue(), Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.title, Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.date_custom);
+                            
                             _storeCalc.filter = filter;
                             _storeCalc.adminCode = adminCode;
                         }
@@ -91018,6 +91023,13 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 items: [{
                     title: 'Baseline',
                     id: 'baselineView',
+                    defaults: {autoScroll: true},  
+                    height : 800,
+                    overflowY: 'scroll',
+                    html:'Apply filter to generate the statistics'
+                },{
+                    title: 'Accesibilities',
+                    id: 'accessibilitiesView',
                     defaults: {autoScroll: true},  
                     height : 800,
                     overflowY: 'scroll',

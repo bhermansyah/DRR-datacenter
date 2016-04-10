@@ -1233,4 +1233,70 @@ class forecastedLastUpdate(models.Model):
     forecasttype = models.CharField(max_length=50, blank=False) 
     class Meta:
         managed = True
-        db_table = 'forecastedlastupdate'             
+        db_table = 'forecastedlastupdate' 
+
+class AfgCaptAdm1ItsProvcImmap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_adm1_its_provc_immap'
+
+class AfgCaptAdm1NearestProvcImmap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_adm1_nearest_provc_immap'
+
+class AfgCaptAdm2NearestDistrictcImmap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_adm2_nearest_districtc_immap'
+
+class AfgCaptAirdrmImmap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_airdrm_immap'
+
+class AfgCaptHltfacTier1Immap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_hltfac_tier1_immap'
+
+class AfgCaptHltfacTier2Immap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_hltfac_tier2_immap'

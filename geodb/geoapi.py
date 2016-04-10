@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -149,12 +149,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
             response['vineyards_area_risk']=round(temp.get('Vineyards', 0)/1000000,1)
             response['forest_area_risk']=round(temp.get('Forest and shrubs', 0)/1000000,1)
 
-            counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
-            temp = dict([(c['deeperthan'], c['count']) for c in counts])
-            response['high_risk_mitigated_population']=round(temp.get('271 cm', 0),0)
-            response['med_risk_mitigated_population']=round(temp.get('121 cm', 0), 0)
-            response['low_risk_mitigated_population']=round(temp.get('029 cm', 0),0)
-            response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
+            
 
 
             # landcover all
@@ -385,8 +380,14 @@ def getRiskExecuteExternal(filterLock, flag, code):
                  Sum('settlements_at_risk'), Sum('settlements'), Sum('Population'), Sum('Area') )
             
             for p in px:
-                print p[:-5]
                 response[p[:-5]] = px[p]
+
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
+        temp = dict([(c['deeperthan'], c['count']) for c in counts])
+        response['high_risk_mitigated_population']=round(temp.get('271 cm', 0),0)
+        response['med_risk_mitigated_population']=round(temp.get('121 cm', 0), 0)
+        response['low_risk_mitigated_population']=round(temp.get('029 cm', 0),0)
+        response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
 
         # Avalanche Forecasted
         counts =  getRiskNumber(targetAvalanche.select_related("basinmembersava").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='snowwater',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'avalanche_pop', 'sum_area_sqm', flag, code, 'afg_avsa')
@@ -1250,6 +1251,127 @@ class getEQEvents(ModelResource):
         serializer = EQEventsSerializer()   
 
       
+class getAccessibilities(ModelResource):
+    class Meta:
+        resource_name = 'getaccessibilities'
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        cache = SimpleCache() 
 
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        response = self.getData(request)
+        return self.create_response(request, response)   
+
+    def getData(self, request):
+        # AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap
+        # px = provincesummary.objects.aggregate(Sum('high_ava_population')
+        boundaryFilter = json.loads(request.body)
+
+        temp1 = []
+        for i in boundaryFilter['spatialfilter']:
+            temp1.append('ST_GeomFromText(\''+i+'\',4326)')
+
+        temp2 = 'ARRAY['
+        first=True
+        for i in temp1:
+            if first:
+                 temp2 = temp2 + i
+                 first=False
+            else :
+                 temp2 = temp2 + ', ' + i  
+
+        temp2 = temp2+']'
+        
+        filterLock = 'ST_Union('+temp2+')'
+        flag = boundaryFilter['flag']
+        code = boundaryFilter['code']
+
+        response = {}
+        if flag=='entireAfg':
+            q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+            q2 = AfgCaptAdm1NearestProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+            q3 = AfgCaptAdm2NearestDistrictcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+            q4 = AfgCaptAirdrmImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+            q5 = AfgCaptHltfacTier1Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+            q6 = AfgCaptHltfacTier2Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+        elif flag =='currentProvince':
+            if len(str(boundaryFilter['code'])) > 2:
+                ff0001 =  "dist_code  = '"+str(boundaryFilter['code'])+"'"
+            else :
+                ff0001 =  "left(cast(dist_code as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"'"   
+            q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
+                where = {
+                    ff0001       
+                })
+            q2 = AfgCaptAdm1NearestProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
+                where = {
+                    ff0001       
+                })
+            q3 = AfgCaptAdm2NearestDistrictcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
+                where = {
+                    ff0001       
+                })
+            q4 = AfgCaptAirdrmImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
+                where = {
+                    ff0001       
+                })
+            q5 = AfgCaptHltfacTier1Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
+                where = {
+                    ff0001       
+                })
+            q6 = AfgCaptHltfacTier2Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
+                where = {
+                    ff0001       
+                })
+        elif flag =='drawArea':
+            tt = AfgPplp.objects.filter(wkb_geometry__intersects=boundaryFilter['spatialfilter'][0]).values('vuid')
+            q1 = AfgCaptAdm1ItsProvcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q2 = AfgCaptAdm1NearestProvcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q3 = AfgCaptAdm2NearestDistrictcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q4 = AfgCaptAirdrmImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q5 = AfgCaptHltfacTier1Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q6 = AfgCaptHltfacTier2Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+        else:
+            tt = AfgPplp.objects.filter(wkb_geometry__intersects=boundaryFilter['spatialfilter'][0]).values('vuid')
+            q1 = AfgCaptAdm1ItsProvcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q2 = AfgCaptAdm1NearestProvcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q3 = AfgCaptAdm2NearestDistrictcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q4 = AfgCaptAirdrmImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q5 = AfgCaptHltfacTier1Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            q6 = AfgCaptHltfacTier2Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+
+        for i in q1: 
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__itsx_prov']=round(i['pop'])       
+        for i in q2:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_prov']=round(i['pop'])    
+        for i in q3:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_dist']=round(i['pop'])      
+        for i in q4:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_airp']=round(i['pop'])       
+        for i in q5:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_hlt1']=round(i['pop'])     
+        for i in q6:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_hlt2']=round(i['pop'])     
+        
+        return response
 
     
