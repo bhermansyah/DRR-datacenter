@@ -2039,3 +2039,15 @@ input#freeSearchForm.x-form-text.x-form-field.x-form-focus{
 .icon-village-inspector {
     background-image: url(../img/application_home.png);
 }
+
+@media (min-width:500px){
+  .col-md-3{
+    padding-top: 82px;
+  }
+}
+
+@media (min-width:992px){
+  .col-md-3{
+    padding-top: 0px;
+  }
+}
