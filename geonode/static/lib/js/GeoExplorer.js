@@ -91024,56 +91024,56 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     title: 'Baseline',
                     id: 'baselineView',
                     defaults: {autoScroll: true, layout:'fit'},  
-                    height : 800,
-                    style:"height:800px;",
+                    height : 850,
+                    style:"height:850px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Accessibility',
                     id: 'accessibilitiesView',
                     defaults: {autoScroll: true},  
-                    height : 800,
-                    style:"height:800px;",
+                    height : 850,
+                    style:"height:850px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Flood Forecasted',
                     id: 'floodForecastView',
                     defaults: {autoScroll: true},  
-                    height : 800,
-                    style:"height:800px;",
+                    height : 850,
+                    style:"height:850px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Flood Risk',
                     id: 'floodriskView',
                     defaults: {autoScroll: true},  
-                    height : 800,
-                    style:"height:800px;",
+                    height : 850,
+                    style:"height:850px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Avalanche Forecasted',
                     id: 'avalancheForecastView',
                     defaults: {autoScroll: true},  
-                    height : 800,
-                    style:"height:800px;",
+                    height : 850,
+                    style:"height:850px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Avalanche Risk',
                     id: 'avalancheView',
                     defaults: {autoScroll: true},  
-                    height : 800,
-                    style:"height:800px;",
+                    height : 850,
+                    style:"height:850px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
                     title: 'Earthquake',
                     id: 'eqView',
                     defaults: {autoScroll: true},  
-                    height : 800,
-                    style:"height:800px;",
+                    height : 850,
+                    style:"height:850px;",
                     overflowY: 'scroll',
                     tbar: new Ext.Container({
                         height: 54,
