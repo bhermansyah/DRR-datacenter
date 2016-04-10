@@ -91023,8 +91023,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 items: [{
                     title: 'Baseline',
                     id: 'baselineView',
-                    defaults: {autoScroll: true},  
+                    defaults: {autoScroll: true, layout:'fit'},  
                     height : 800,
+                    style:"height:800px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
@@ -91032,6 +91033,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     id: 'accessibilitiesView',
                     defaults: {autoScroll: true},  
                     height : 800,
+                    style:"height:800px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
@@ -91039,6 +91041,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     id: 'floodForecastView',
                     defaults: {autoScroll: true},  
                     height : 800,
+                    style:"height:800px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
@@ -91046,6 +91049,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     id: 'floodriskView',
                     defaults: {autoScroll: true},  
                     height : 800,
+                    style:"height:800px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
@@ -91053,6 +91057,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     id: 'avalancheForecastView',
                     defaults: {autoScroll: true},  
                     height : 800,
+                    style:"height:800px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
@@ -91060,6 +91065,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     id: 'avalancheView',
                     defaults: {autoScroll: true},  
                     height : 800,
+                    style:"height:800px;",
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
@@ -91067,6 +91073,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     id: 'eqView',
                     defaults: {autoScroll: true},  
                     height : 800,
+                    style:"height:800px;",
                     overflowY: 'scroll',
                     tbar: new Ext.Container({
                         height: 54,
