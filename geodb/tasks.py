@@ -22,4 +22,4 @@ def updateLatestEarthQuake():
 
 @periodic_task(run_every=(crontab(hour='*')))
 def updateLatestShakemap():
-	getLatestShakemap()
+	getLatestShakemap(True)
