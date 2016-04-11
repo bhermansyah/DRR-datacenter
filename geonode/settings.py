@@ -614,6 +614,7 @@ DEFAULT_MAP_CENTER = (0, 0)
 # 0 = entire world;
 # maximum zoom is between 12 and 15 (for Google Maps, coverage varies by area)
 DEFAULT_MAP_ZOOM = 0
+GOOGLE_API_KEY = 'AIzaSyDhozz5auHwrVAKsV1WLVqbaha6m1ha5Ww'
 
 MAP_BASELAYERS = [{
     "source": {"ptype": "gxp_olsource"},
@@ -645,6 +646,42 @@ MAP_BASELAYERS = [{
 #     "fixed": True,
 #     "visibility": False,
 #     "group": "background"
+},{
+    "source": {
+        "ptype": "gxp_googlesource",
+        "apiKey": GOOGLE_API_KEY
+    },
+    "group":"background",
+    "name":"SATELLITE",
+    "visibility": False,
+    "fixed": True
+},{
+    "source": {
+        "ptype": "gxp_googlesource",
+        "apiKey": GOOGLE_API_KEY
+    },
+    "group":"background",
+    "name":"ROADMAP",
+    "visibility": False,
+    "fixed": True
+},{
+    "source": {
+        "ptype": "gxp_googlesource",
+        "apiKey": GOOGLE_API_KEY
+    },
+    "group":"background",
+    "name":"HYBRID",
+    "visibility": False,
+    "fixed": True
+},{
+    "source": {
+        "ptype": "gxp_googlesource",
+        "apiKey": GOOGLE_API_KEY
+    },
+    "group":"background",
+    "name":"TERRAIN",
+    "visibility": False,
+    "fixed": True
 }, {
     "source": {"ptype": "gxp_mapboxsource"},
 }]

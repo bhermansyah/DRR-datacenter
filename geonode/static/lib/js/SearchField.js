@@ -66,6 +66,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
         if (Ext.getCmp('settlementCB').checked){
             layers.push('geonode:afg_pplp');
             filters.push("strToLowerCase(name_en) like '%"+v+"%'"+addQS);
+            this.store.baseParams['propertyName'] = 'vil_uid,name_en,type_settlement,dist_na_en,prov_na_en,wkb_geometry';
         }
         if (Ext.getCmp('hfCB').checked){
             layers.push('geonode:afg_hltfac');
@@ -107,6 +108,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
         this.store.baseParams = this.store.baseParams || {};
         this.store.baseParams[this.paramName] = queryFilter;
         this.store.baseParams['typeName'] = typeName;
+
         this.store.reload({params:o});
         this.hasSearch = true;
         this.triggers[0].show();
