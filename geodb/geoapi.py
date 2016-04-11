@@ -262,7 +262,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
                 countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
                     select={
                         'numbersettlements': 'count(distinct vuid)'}, 
-                    where = {"left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"'"}).values('numbersettlements')
+                    where = {ff0001}).values('numbersettlements')
             elif flag=='currentBasin':
                 countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
                     select={
