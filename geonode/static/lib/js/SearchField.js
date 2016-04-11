@@ -46,31 +46,34 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
         v = v.toLowerCase();
         var layers = [];
         var filters = []
-        var addQ = "";
+        var addQS = "";
+        var addQH = "";
         // console.log(Ext.getCmp('districtSelectionLocator').getValue());
         if (Ext.getCmp('provSelectionLocator').getValue() != ''){
-            addQ = " AND prov_code="+Ext.getCmp('provSelectionLocator').value ;
-        } else {
-            this.onTrigger1Click();
-            return;
-        }
+            addQS = " AND prov_code_1="+Ext.getCmp('provSelectionLocator').value ;
+            addQH = " AND prov_code="+Ext.getCmp('provSelectionLocator').value ;
+        } //else {
+          //  this.onTrigger1Click();
+          //  return;
+        //}
 
         if (Ext.getCmp('districtSelectionLocator').getValue() != '' ){
-            addQ = " AND dist_code="+Ext.getCmp('districtSelectionLocator').value ;
+            addQS = " AND dist_code="+Ext.getCmp('districtSelectionLocator').value ;
+            addQH = " AND dist_code="+Ext.getCmp('districtSelectionLocator').value ;
         }
         
         
         if (Ext.getCmp('settlementCB').checked){
             layers.push('geonode:afg_pplp');
-            filters.push("strToLowerCase(name_en) like '%"+v+"%'"+addQ);
+            filters.push("strToLowerCase(name_en) like '%"+v+"%'"+addQS);
         }
         if (Ext.getCmp('hfCB').checked){
             layers.push('geonode:afg_hltfac');
-            filters.push("strToLowerCase(facility_name) like '%"+v+"%'"+addQ);
+            filters.push("strToLowerCase(facility_name) like '%"+v+"%'"+addQH);
         }
         if (Ext.getCmp('airportCB').checked){
             layers.push('geonode:afg_airdrmp');
-            filters.push("strToLowerCase(namelong) like '%"+v+"%'");
+            filters.push("strToLowerCase(namelong) like '%"+v+"%'"+addQH);
         }
 
         var typeName = '';
@@ -85,7 +88,19 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
             }
         }
 
-        // console.log(typeName);
+        // console.log(Ext.getCmp('districtSelectionLocator').getValue());
+
+        if(Ext.getCmp('settlementCB').checked) {   
+            if(v.length < 1 && Ext.getCmp('districtSelectionLocator').getValue() == ''){
+                this.onTrigger1Click();
+                return;
+            }
+        } else {
+            if(v.length < 1 &&  Ext.getCmp('provSelectionLocator').getValue() == ''){
+                this.onTrigger1Click();
+                return;
+            }
+        }
 
         // var test = "strToLowerCase(name_en) like '"+v+"%'";
         var o = {start: 0};

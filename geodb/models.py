@@ -184,6 +184,8 @@ class AfgAirdrmp(models.Model):
     updatedate = models.DateTimeField(blank=True, null=True)
     geonameid = models.IntegerField(blank=True, null=True)
     adjusted_by = models.CharField(max_length=255, blank=True)
+    prov_code = models.CharField(max_length=20, blank=True)
+    dist_code = models.CharField(max_length=20, blank=True)
     objects = models.GeoManager()
     class Meta:
         managed = False
