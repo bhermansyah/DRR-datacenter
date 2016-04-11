@@ -615,6 +615,9 @@ DEFAULT_MAP_CENTER = (0, 0)
 # maximum zoom is between 12 and 15 (for Google Maps, coverage varies by area)
 DEFAULT_MAP_ZOOM = 0
 GOOGLE_API_KEY = 'AIzaSyDhozz5auHwrVAKsV1WLVqbaha6m1ha5Ww'
+# GOOGLE_API_KEY2 = 'AIzaSyDm8c01D9uB6YLO0Bx7N0wWsVFJ8NuVc2s'
+# GOOGLE_API_KEY3 = 'AIzaSyA8EHWLeCQ2Xi0YzY80dM4xvoFPEwA_Dh0'
+# GOOGLE_API_KEY4 = 'AIzaSyAXRuF0rV2c5xm6Sh4rrT5sLb77tcnlp_M'
 
 MAP_BASELAYERS = [{
     "source": {"ptype": "gxp_olsource"},
@@ -653,7 +656,7 @@ MAP_BASELAYERS = [{
     },
     "group":"background",
     "name":"SATELLITE",
-    "visibility": False,
+    "visibility": True,
     "fixed": True
 },{
     "source": {
