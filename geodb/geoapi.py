@@ -382,6 +382,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
             for p in px:
                 response[p[:-5]] = px[p]
 
+
         counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
         temp = dict([(c['deeperthan'], c['count']) for c in counts])
         response['high_risk_mitigated_population']=round(temp.get('271 cm', 0),0)
@@ -420,10 +421,46 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
         # flood risk and riverflood forecast matrix
         px = targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop') 
+        
+        if flag=='entireAfg': 
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+        elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                if len(str(code))==1:
+                    ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
+                else:
+                    ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"   
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)'
+                },where={
+                    ff0001
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+        elif flag=='drawArea':
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(  \
+                            case \
+                                when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then fldarea_population \
+                                else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* fldarea_population end \
+                        )'
+                },
+                where = {
+                    'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')  
+        else:
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)'
+                },
+                where = {
+                    'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')      
 
         temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
         temp = dict([(c['deeperthan'], c['pop']) for c in temp])
@@ -489,10 +526,49 @@ def getRiskExecuteExternal(filterLock, flag, code):
 
         # flood risk and flashflood forecast matrix
         px = targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop') 
+        # px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+        #     select={
+        #         'pop' : 'SUM(fldarea_population)'
+        #     }).values('basinmember__basins__riskstate','deeperthan', 'pop') 
+        if flag=='entireAfg': 
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+        elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                if len(str(code))==1:
+                    ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
+                else:
+                    ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"   
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)'
+                },where={
+                    ff0001
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+        elif flag=='drawArea':
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(  \
+                            case \
+                                when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then fldarea_population \
+                                else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* fldarea_population end \
+                        )'
+                },
+                where = {
+                    'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')  
+        else:
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)'
+                },
+                where = {
+                    'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop')     
 
         temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
         temp = dict([(c['deeperthan'], c['pop']) for c in temp])
