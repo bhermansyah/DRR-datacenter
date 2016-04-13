@@ -6822,7 +6822,8 @@ OpenLayers.Map = OpenLayers.Class({
      * non-default options, supply the options instead or alternatively supply
      * an instance of {<OpenLayers.TileManager>}.
      */
-     tileManager : {zoomDelay: 100, moveDelay: 50, tilesPerFrame:10, frameDelay: 16},
+     tileManager : {zoomDelay: 15, moveDelay: 15, tilesPerFrame:16, frameDelay: 10},
+     // tileManager : {},
 
     /**
      * APIProperty: fallThrough
@@ -7059,7 +7060,7 @@ OpenLayers.Map = OpenLayers.Class({
             if (!(this.tileManager instanceof OpenLayers.TileManager)) {
                 this.tileManager = new OpenLayers.TileManager(this.tileManager);
             }
-            console.log(this.tileManager);
+            // console.log(this.tileManager);
 
             this.tileManager.addMap(this);
         }
@@ -34621,6 +34622,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             if(layer !== pagesLayer && layer.getVisibility() === true) {
                 var enc = this.encodeLayer(layer);
                 enc && encodedLayers.push(enc);
+                // console.log(layer,enc);
             }
         }, this);
         jsonData.layers = encodedLayers;
@@ -34860,6 +34862,22 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     }
                 }
                 return enc;
+            },
+            "Google": function(layer) {
+                return {
+                    type: 'tiledGoogle',
+                    baseURL: 'http://maps.googleapis.com/maps/api/staticmap',
+                    customParams: {}, 
+                    maxExtent: layer.maxExtent.toArray(), 
+                    opacity: (layer.opacity != null) ? layer.opacity : 1.0, 
+                    tileSize: [256,256],
+                    resolutions: layer.resolutions, 
+                    extension: "png",
+                    format : 'png32',
+                    sensor: 'false', 
+                    maptype: 'satellite',
+                    key:'duNjTUSlJeF5O75pYN1s7vopjgs='
+                };
             },
             "OSM": function(layer) {
                 var enc = this.encoders.layers.TileCache.call(this, layer);
@@ -86761,6 +86779,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                 return layer.getVisibility() === true && (
                     layer instanceof OpenLayers.Layer.WMS ||
                     layer instanceof OpenLayers.Layer.OSM ||
+                    layer instanceof OpenLayers.Layer.Google ||
                     layer.name == 'Mask Layer' 
                 );
             }
