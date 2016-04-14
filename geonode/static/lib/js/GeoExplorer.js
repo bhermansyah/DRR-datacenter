@@ -34864,6 +34864,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 return enc;
             },
             "Google": function(layer) {
+                console.log(layer);
                 return {
                     type: 'tiledGoogle',
                     baseURL: 'http://maps.googleapis.com/maps/api/staticmap',
@@ -34875,8 +34876,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     extension: "png",
                     format : 'png32',
                     sensor: 'false', 
-                    maptype: 'satellite',
-                    key:'duNjTUSlJeF5O75pYN1s7vopjgs='
+                    maptype: layer.type,
+                    key:'duNjTUSlJeF5O75pYN1s7vopjgs=',
+                    signature:'nSeI3eoZTPs2E2h1QgFtYLHhm3I='
                 };
             },
             "OSM": function(layer) {
@@ -52565,6 +52567,7 @@ OpenLayers.Renderer.Elements = OpenLayers.Class(OpenLayers.Renderer, {
         } else {
             // if there's no indexer, simply append the node to root,
             // but only if the node is a new one
+            if (typeof node == 'undefined') return;
             if (node.parentNode !== this.vectorRoot){ 
                 this.vectorRoot.appendChild(node);
             }
@@ -53259,6 +53262,8 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 node.onclick = OpenLayers.Event.preventDefault;
             } else if (this.isComplexSymbol(style.graphicName)) {
                 // the symbol viewBox is three times as large as the symbol
+                // boedy1996
+                if (style.graphicName.substring(0,6)=='ttf://') return;
                 var offset = style.pointRadius * 3;
                 var size = offset * 2;
                 var src = this.importSymbol(style.graphicName);
@@ -53875,6 +53880,9 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             return existing;
         }
         
+        // console.log(graphicName.substring(0,6)); 
+        // boedy1996
+        if (graphicName.substring(0,6)=='ttf://') return;
         var symbol = OpenLayers.Renderer.symbol[graphicName];
         if (!symbol) {
             throw new Error(graphicName + ' is not a valid symbol name');
