@@ -120,6 +120,113 @@
  <div ng-app="featured"> 
 
   <div class="container container-down10px">
+
+    <div  class="col-xs-4 panel-custom">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          {% verbatim %}
+          <h3 class="panel-title">Current Flood Forecast</h3>
+          <h5 class="panel-subtitle"><h5>
+        </div>
+        <div class="panel-body">
+          <section class="featured-maps">
+            <div class="row">
+              
+                <div>
+                  <div class="span3">
+                    <div class="map-thumb-snapshot thumbnail">
+                      <a href="./maps/700/view" class="map-link">
+                        <img id="floodSnapshot" src="http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_flood_forecasted_villages_basin,afg_admbnda_adm1,geonode:current_flood_forecasted_villages_basin&styles=,,current_flood_forecasted_villages_basin_a18d81bc&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng" />
+                        <img style="width: 50px;" class="snapshot-legend" src="http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_flood_forecasted_villages_basin&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                      </a>
+                      <div class="map-abstract">
+                        <p class="cust_date"><a href="./maps/700/view"><strong>Flood</strong><em class="timestamp"></em></a></p>
+                        <p class="cust_headline"><a href="./maps/700/view">River and flash flood forecast</a></p>        
+                        <p class="cust_tag"><a href="./maps/700/view">Click to explore for the forecast on river floods and flash floods. River flood forecasts are valid for 4 days and updated every 6 hours, whereas the flash floods are valid for 6 hours and updated hourly. 
+The map and statistics are is updated every 6 hours.</a></p>
+                      </div>  
+                      
+             
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+            {% endverbatim %}
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div  class="col-xs-4 panel-custom">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          {% verbatim %}
+          <h3 class="panel-title">Current Avalanche</h3>
+          <h5 class="panel-subtitle"><h5>
+        </div>
+        <div class="panel-body">
+          <section class="featured-maps">
+            <div class="row">
+              
+                <div>
+                  <div class="span3">
+                    <div class="map-thumb-snapshot thumbnail">
+                      <a href="./maps/707/view" class="map-link">
+                        <img id="avaSnapshot" src="http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=,&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng" />
+                        <img style="width: 50px;" class="snapshot-legend" src="http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_avalanche_forecast_villages&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                      </a>
+                      <div class="map-abstract">
+                        <p class="cust_date"><a href="./maps/707/view"><strong>Avalanches</strong><em class="timestamp"></em></a></p>
+                        <p class="cust_headline"><a href="./maps/707/view">Avalanches forecast</a></p>        
+                        <p class="cust_tag"><a href="./maps/707/view">Click to explore for the number of people potentially affected by avalanches based on the current snow cover and snow water equivalent (at small basin scale)</a></p>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+            {% endverbatim %}
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div  class="col-xs-4 panel-custom">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          {% verbatim %}
+          <h3 class="panel-title">Current Snow Cover</h3>
+          <h5 class="panel-subtitle"><h5>
+        </div>
+        <div class="panel-body">
+          <section class="featured-maps">
+            <div class="row">
+              
+                <div>
+                  <div class="span3">
+                    <div class="map-thumb-snapshot thumbnail">
+                      <a href="./maps/704/view" class="map-link">
+                        <img id="scSnapshot" src="http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_snow_depth,afg_admbnda_adm1&styles=,&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng" />
+                        <img style="width: 125px;" class="snapshot-legend" src="http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_snow_depth&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                      </a>
+                      <div class="map-abstract">
+                        <p class="cust_date"><a href="./maps/704/view"><strong>Snow Cover</strong><em class="timestamp"></em></a></p>
+                        <p class="cust_headline"><a href="./maps/704/view">Current Snow Cover and Depth</a></p>        
+                        <p class="cust_tag"><a href="./maps/704/view">Click to explore for the current snow cover and depth</a></p>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+            {% endverbatim %}
+          </section>
+        </div>
+      </div>
+    </div>
+
+
     <div class="col-xs-5 panel-custom">
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -192,7 +299,12 @@
       </div>
     </div>
 
-    <div ng-if="featured.meta.total_count > 0" class="col-xs-5 panel-custom">
+
+
+
+    
+
+    <!-- <div ng-if="featured.meta.total_count > 0" class="col-xs-12 panel-custom">
       <div class="panel panel-primary">
         <div class="panel-heading">
           {% verbatim %}
@@ -220,12 +332,12 @@
                 </div>
               </div>
               
-            <!-- </div> -->
+            </div> 
             {% endverbatim %}
           </section>
         </div>
       </div>
-    </div>
+    </div> -->
     
   </div>
   
@@ -297,6 +409,12 @@
           $rootScope.latestflood = data;
         });
       });
+      var random = Math.floor((Math.random() * 1000) + 1);
+
+      $( "#floodSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_flood_forecasted_villages_basin,afg_admbnda_adm1,geonode:current_flood_forecasted_villages_basin&styles=,,current_flood_forecasted_villages_basin_a18d81bc&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+      $( "#avaSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=,&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+      $( "#scSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_snow_depth,afg_admbnda_adm1&styles=,&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+
     })(); 
   </script>
 
