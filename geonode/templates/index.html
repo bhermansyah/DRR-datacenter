@@ -411,9 +411,9 @@ The map and statistics are is updated every 6 hours.</a></p>
       });
       var random = Math.floor((Math.random() * 1000) + 1);
 
-      $( "#floodSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:afg_elev_dem_30m_aster_hillshade,geonode:current_flood_forecasted_villages_basin,afg_admbnda_adm1,geonode:current_flood_forecasted_villages_basin&styles=,,,current_flood_forecasted_villages_basin_a18d81bc&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
-      $( "#avaSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:afg_elev_dem_30m_aster_hillshade,geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
-      $( "#scSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:afg_elev_dem_30m_aster_hillshade,geonode:current_snow_depth,afg_admbnda_adm1&styles=&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+      $( "#floodSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_flood_forecasted_villages_basin,afg_admbnda_adm1,geonode:current_flood_forecasted_villages_basin&styles=,snapshot_admin1,current_flood_forecasted_villages_basin_a18d81bc&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+      $( "#avaSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+      $( "#scSnapshot" ).attr("src", 'http://asdc.immap.org/geoserver/geonode/wms?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_snow_depth,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
 
     })(); 
   </script>
