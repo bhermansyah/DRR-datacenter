@@ -397,6 +397,7 @@ MIDDLEWARE_CLASSES = (
     # 'geonode.middleware.PrintProxyMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'geodb.middleware.multiDomainAccessMiddleware',
 )
 
 
@@ -972,4 +973,4 @@ if 'geonode.geoserver' in INSTALLED_APPS:
 POSTGIS_VERSION = (2, 1, 2)
 DATABASE_ROUTERS = ['geodb.router.geodbRouter']
 CORS_ORIGIN_ALLOW_ALL = True
-# SESSION_COOKIE_DOMAIN=".asdc.immap.org"
+SESSION_COOKIE_DOMAIN=".asdc.immap.org"
