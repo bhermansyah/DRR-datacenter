@@ -1082,10 +1082,24 @@ def getSnowVillage(request):
     snowCal = AfgSnowaAverageExtent.objects.all().filter(dist_code=context_dict['dist_code'])
     snowCal = snowCal.filter(wkb_geometry__contains=context_dict['position'])
     
-    currSnow = AfgShedaLvl4.objects.all().filter(wkb_geometry__contains=context_dict['position']).select_related("basins").filter(basins__datadate=year+'-'+month+'-'+day,basins__forecasttype='snowwaterreal').values('basins__riskstate') 
+
+    cursor = connections['geodb'].cursor()      
+    cursor.execute("\
+        select b.ogc_fid, b.value, c.riskstate, a.wkb_geometry \
+        from current_sc_basins a \
+        inner join afg_sheda_lvl4 b on a.basin=b.value \
+        left outer join forcastedvalue c on b.ogc_fid=c.basin_id and c.forecasttype = 'snowwaterreal' and c.datadate = NOW()::date \
+        where st_intersects(ST_GeomFromText('"+context_dict['position'].wkt+"', 4326), a.wkb_geometry)\
+    ")
+    currSnow = cursor.fetchall()   
+    cursor.close()
+
+    # currSnow = AfgShedaLvl4.objects.all().filter(wkb_geometry__contains=context_dict['position']).select_related("basins").filter(basins__datadate=year+'-'+month+'-'+day,basins__forecasttype='snowwaterreal').values('basins__riskstate') 
     tempDepth = None
     for i in currSnow:
-        tempDepth = i['basins__riskstate']
+        tempDepth = i[2]
+        if tempDepth == None :
+            tempDepth = 1
     
     if tempDepth > 0 and tempDepth <=10:
         context_dict['current_snow_depth'] = 'Snow cover, no info on depth'

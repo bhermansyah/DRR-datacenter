@@ -1545,6 +1545,10 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
         var popup;
         var popupKey = evt.xy.x + "." + evt.xy.y;
         featureinfo = featureinfo || {};
+        var settlementPoint = new OpenLayers.LonLat(evt.features[0].attributes.pplp_point_x,evt.features[0].attributes.pplp_point_y);
+        var settlements = settlementPoint.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+        // console.log(settlements);
+
         if (!(popupKey in this.popupCache)) {
             popup = this.addOutput({
                 xtype: "gx_popup",
@@ -1552,7 +1556,8 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                 layout: "accordion",
                 fill: false,
                 autoScroll: true,
-                location: evt.xy,
+                // location: evt.xy,
+                location: settlements,
                 map: this.target.mapPanel,
                 width: 600,
                 height: 500,
@@ -1582,7 +1587,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
             var feature;
             for (var i=0,ii=features.length; i<ii; ++i) {
                 feature = features[i];
-                console.log(features);
+                // console.log(features);
 
                 config.push(Ext.apply({
                     title: feature.data.name_en ? feature.data.name_en : title,
