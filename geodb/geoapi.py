@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -180,37 +180,78 @@ def getRiskExecuteExternal(filterLock, flag, code):
             response['vineyards_area']=round(temp.get('Vineyards', 0)/1000000,1)
             response['forest_area']=round(temp.get('Forest and shrubs', 0)/1000000,1)
 
-            # # Number of Settelement on avalanche risk
-            # if flag=='drawArea':
-            #     countsBase = targetAvalanche.extra(
-            #         select={
-            #             'numbersettlementsatava': 'count(distinct vuid)'}, 
-            #         where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*sum_area_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatava')
-            # elif flag=='entireAfg':
-            #     countsBase = targetAvalanche.extra(
-            #         select={
-            #             'numbersettlementsatava': 'count(distinct vuid)'}).values('numbersettlementsatava')
-            # elif flag=='currentProvince':
-            #     if len(str(code)) > 2:
-            #         ff0001 =  "dist_code  = '"+str(code)+"'"
-            #     else :
-            #         ff0001 =  "prov_code  = '"+str(code)+"'"
-            #     countsBase = targetAvalanche.extra(
-            #         select={
-            #             'numbersettlementsatava': 'count(distinct vuid)'}, 
-            #         where = {ff0001}).values('numbersettlementsatava')
-            # elif flag=='currentBasin':
-            #     countsBase = targetAvalanche.extra(
-            #         select={
-            #             'numbersettlementsatava': 'count(distinct vuid)'},  
-            #         where = {"vuid = '"+str(code)+"'"}).values('numbersettlementsatava')
-            # else:
-            #     countsBase = targetAvalanche.extra(
-            #         select={
-            #             'numbersettlementsatava': 'count(distinct vuid)'}, 
-            #         where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatava')
 
-            # response['numbersettlementsatava'] = round(countsBase[0]['numbersettlementsatava'],0)
+            # Avalanche Forecasted
+            if flag=='entireAfg':
+                cursor = connections['geodb'].cursor()
+                cursor.execute("select forcastedvalue.riskstate, \
+                    sum(afg_avsa.avalanche_pop) \
+                    FROM afg_avsa \
+                    INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
+                    INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
+                    INNER JOIN forcastedvalue ON ( afg_sheda_lvl4.ogc_fid = forcastedvalue.basin_id ) \
+                    WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
+                    AND forcastedvalue.datadate = '%s-%s-%s' \
+                    AND forcastedvalue.forecasttype = 'snowwater' ) \
+                    GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY))  
+                row = cursor.fetchall()
+                cursor.close()
+            elif flag=='currentProvince':
+                cursor = connections['geodb'].cursor()
+                if len(str(code)) > 2:
+                    ff0001 =  "dist_code  = '"+str(code)+"'"
+                else :
+                    ff0001 =  "prov_code  = '"+str(code)+"'"
+                cursor.execute("select forcastedvalue.riskstate, \
+                    sum(afg_avsa.avalanche_pop) \
+                    FROM afg_avsa \
+                    INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
+                    INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
+                    INNER JOIN forcastedvalue ON ( afg_sheda_lvl4.ogc_fid = forcastedvalue.basin_id ) \
+                    WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
+                    AND forcastedvalue.datadate = '%s-%s-%s' \
+                    AND forcastedvalue.forecasttype = 'snowwater' ) \
+                    and afg_avsa.%s \
+                    GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,ff0001)) 
+                row = cursor.fetchall()
+                cursor.close()
+            elif flag=='drawArea':
+                cursor = connections['geodb'].cursor()
+                cursor.execute("select forcastedvalue.riskstate, \
+                    sum(case \
+                        when ST_CoveredBy(afg_avsa.wkb_geometry , %s) then afg_avsa.avalanche_pop \
+                        else st_area(st_intersection(afg_avsa.wkb_geometry, %s)) / st_area(afg_avsa.wkb_geometry)* avalanche_pop end \
+                    ) \
+                    FROM afg_avsa \
+                    INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
+                    INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
+                    INNER JOIN forcastedvalue ON ( afg_sheda_lvl4.ogc_fid = forcastedvalue.basin_id ) \
+                    WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
+                    AND forcastedvalue.datadate = '%s-%s-%s' \
+                    AND forcastedvalue.forecasttype = 'snowwater' ) \
+                    GROUP BY forcastedvalue.riskstate" %(filterLock,filterLock,YEAR,MONTH,DAY)) 
+                row = cursor.fetchall()
+                cursor.close()
+            else:
+                cursor = connections['geodb'].cursor()
+                cursor.execute("select forcastedvalue.riskstate, \
+                    sum(afg_avsa.avalanche_pop) \
+                    FROM afg_avsa \
+                    INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
+                    INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
+                    INNER JOIN forcastedvalue ON ( afg_sheda_lvl4.ogc_fid = forcastedvalue.basin_id ) \
+                    WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
+                    AND forcastedvalue.datadate = '%s-%s-%s' \
+                    AND forcastedvalue.forecasttype = 'snowwater' ) \
+                    AND ST_Within(afg_avsa.wkb_geometry, %s) \
+                    GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,filterLock))  
+                row = cursor.fetchall()
+                cursor.close()    
+
+            response['ava_forecast_low_pop']=round(dict(row).get(1, 0),0) 
+            response['ava_forecast_med_pop']=round(dict(row).get(2, 0),0) 
+            response['ava_forecast_high_pop']=round(dict(row).get(3, 0),0) 
+            response['total_ava_forecast_pop']=response['ava_forecast_low_pop'] + response['ava_forecast_med_pop'] + response['ava_forecast_high_pop']
 
             # Number settlement at risk of flood
             if flag=='drawArea':
@@ -377,7 +418,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
                  Sum('water_body_area_risk'),Sum('barren_land_area_risk'),Sum('built_up_area_risk'),Sum('fruit_trees_area_risk'),Sum('irrigated_agricultural_land_area_risk'),Sum('permanent_snow_area_risk'),Sum('rainfed_agricultural_land_area_risk'),Sum('rangeland_area_risk'),Sum('sandcover_area_risk'),Sum('vineyards_area_risk'),Sum('forest_area_risk'), \
                  Sum('water_body_pop'),Sum('barren_land_pop'),Sum('built_up_pop'),Sum('fruit_trees_pop'),Sum('irrigated_agricultural_land_pop'),Sum('permanent_snow_pop'),Sum('rainfed_agricultural_land_pop'),Sum('rangeland_pop'),Sum('sandcover_pop'),Sum('vineyards_pop'),Sum('forest_pop'), \
                  Sum('water_body_area'),Sum('barren_land_area'),Sum('built_up_area'),Sum('fruit_trees_area'),Sum('irrigated_agricultural_land_area'),Sum('permanent_snow_area'),Sum('rainfed_agricultural_land_area'),Sum('rangeland_area'),Sum('sandcover_area'),Sum('vineyards_area'),Sum('forest_area'), \
-                 Sum('settlements_at_risk'), Sum('settlements'), Sum('Population'), Sum('Area') )
+                 Sum('settlements_at_risk'), Sum('settlements'), Sum('Population'), Sum('Area'), Sum('ava_forecast_low_pop'), Sum('ava_forecast_med_pop'), Sum('ava_forecast_high_pop'), Sum('total_ava_forecast_pop') )
             
             for p in px:
                 response[p[:-5]] = px[p]
@@ -389,14 +430,6 @@ def getRiskExecuteExternal(filterLock, flag, code):
         response['med_risk_mitigated_population']=round(temp.get('121 cm', 0), 0)
         response['low_risk_mitigated_population']=round(temp.get('029 cm', 0),0)
         response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
-
-        # Avalanche Forecasted
-        counts =  getRiskNumber(targetAvalanche.select_related("basinmembersava").exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='snowwater',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'avalanche_pop', 'sum_area_sqm', flag, code, 'afg_avsa')
-        temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
-        response['ava_forecast_low_pop']=round(temp.get(1, 0),0) 
-        response['ava_forecast_med_pop']=round(temp.get(2, 0),0) 
-        response['ava_forecast_high_pop']=round(temp.get(3, 0),0) 
-        response['total_ava_forecast_pop']=response['ava_forecast_low_pop'] + response['ava_forecast_med_pop'] + response['ava_forecast_high_pop']
 
         # River Flood Forecasted
         counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
