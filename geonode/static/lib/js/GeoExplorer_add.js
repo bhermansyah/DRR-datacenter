@@ -1547,7 +1547,6 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
         featureinfo = featureinfo || {};
         var settlementPoint = new OpenLayers.LonLat(evt.features[0].attributes.pplp_point_x,evt.features[0].attributes.pplp_point_y);
         var settlements = settlementPoint.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
-        // console.log(settlements);
 
         if (!(popupKey in this.popupCache)) {
             popup = this.addOutput({
@@ -1591,6 +1590,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
 
                 config.push(Ext.apply({
                     title: feature.data.name_en ? feature.data.name_en : title,
+                    dataCustom : feature.data,
                     items:[{
                         xtype: 'tabpanel',
                         enableTabScroll:true,
@@ -1623,7 +1623,20 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             style:"height:500px;",
                             html: '<iframe src="../../getOverviewMaps/floodinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'  
                         }]
-                    }]
+                    }],
+                    listeners: {
+                        'expand': function(e){
+                            var settlementP = new OpenLayers.LonLat(e.dataCustom.pplp_point_x,e.dataCustom.pplp_point_y);
+                            var settlement = settlementP.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
+                            popup.location = settlement;
+                            popup.doLayout();
+                            popup.show();
+                        },
+                        'collapsed': function(e){
+                            // popup.unanchorPopup();
+                        }
+                    }
+        
                 }));
             }
         } else if (text) {
