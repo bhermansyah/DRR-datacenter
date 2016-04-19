@@ -137,9 +137,11 @@
               <li id="nav_dashboard">
                 <a href="{% url "dashboard_detail" %}">{% trans "Dashboard" %}</a>
               </li>
+              {% if user.is_superuser %}
               <li id="nav_layers">
                 <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
               </li>
+              {% endif %}
               <li id="nav_maps">
                 <a href="{% url "maps_browse" %}">{% trans "Interactive Maps" %}</a>
               </li>
@@ -174,6 +176,8 @@
           </div><!--/.nav-collapse -->
         </div>
       </div>
+      <div class="container" style="border-bottom: 1px solid #eee;">
+      </div>  
     </nav>
     {% endblock header %}
 
@@ -207,12 +211,17 @@
     <footer class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-8">
+          <!-- <div class="col-md-8">
             {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
-            <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
+            <a href="http://www.immap.org">{% trans "Developed by iMMAP" %}</a> |
             <a href="{% url "about" %}">{% trans "About" %}</a>
+          </div> -->
+          <div class="col-md-12 footertext">
+            &copy; 2016 <a href="http://www.immap.org">{% trans "iMMAP" %}</a> | <a href="mailto:admin.geonode@immap.org">{% trans "Contact Us"%}</a> 
           </div>
-          
+          <div class="col-md-12 footertext">
+           {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
+          </div>  
         </div>
       </div>
     </footer>

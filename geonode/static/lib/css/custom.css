@@ -3,7 +3,7 @@ body
   background: #FFF;
   font-family: 'Open Sans','Arial',sans-serif;
   line-height: 1.42857143;
-  padding-bottom: 80px;
+  /*padding-bottom: 80px;*/
   -webkit-font-smoothing: antialiased;
     margin: 0;
     font-size: 14px;
@@ -1383,7 +1383,7 @@ ul.stats a {
 }
 
 .navbar-inverse {
-  border-color: #eee;
+  border-color: #fff;
 }
 
 #sort a {
@@ -2128,4 +2128,18 @@ section.featured-maps .map-thumb-snapshot div
 
 .thumbnail {
      margin-bottom: 0px; 
+}    
+.footertext{
+  text-align: center;
+  font-family: Arial;
+  color: grey;
+  font-size: smaller;
+}
+
+.footertext>a {
+    color: grey;
+}        
+
+footer {
+     border-top: 0px solid #999; 
 }    

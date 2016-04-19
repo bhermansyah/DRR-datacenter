@@ -90531,7 +90531,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
        vector_layer.events.register("sketchcomplete", filtercontrol, function(event) { 
             event.feature.attributes.featureid = event.feature.id;
             event.feature.attributes.type = 'Free Draw';
-            filtercontrol.deactivate();
+            // filtercontrol.deactivate();
         });
        this.mapPanel.map.addControl(filtercontrol);
        
@@ -91568,7 +91568,13 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             collapsed: true,
             width: 320,
             layout: 'accordion',
-            items:[statisticsPanel, finderToolsPanel]
+            items:[statisticsPanel, finderToolsPanel],
+            listeners: {
+                collapse: function (){
+                    filtercontrol.deactivate();
+                    Ext.getCmp('filterForm').getForm().reset();
+                }
+            }
         });
 
         var southPanel = new Ext.Panel({
