@@ -2170,3 +2170,8 @@ section.featured-maps .map-thumb-snapshot div
 footer {
      border-top: 0px solid #999; 
 }    
+
+.btn-xs, .btn-group-xs>.btn {
+  padding: 6px 12px;
+}
+    
