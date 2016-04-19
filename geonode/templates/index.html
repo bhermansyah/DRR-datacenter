@@ -73,7 +73,7 @@
           {% with facet_type='home' %}
           {% facets as facets %}
             <ul class="breadcrumb">
-              <li><a href="{% url "layer_browse" %}"><span class="count badge warning">
+              <li><a href="#"><span class="count badge warning">
                 {{ facets.layer|default:_("0") }} 
               </span>{% trans "Layers" %}&nbsp; 
               </a></li>

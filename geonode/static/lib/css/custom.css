@@ -2133,12 +2133,39 @@ section.featured-maps .map-thumb-snapshot div
   text-align: center;
   font-family: Arial;
   color: grey;
-  font-size: smaller;
+  font-size: small;
+}
+
+.footerDivider{
+  text-align: center;
+  font-family: Arial;
+  color: grey;
+  font-size: 21pt;
+  line-height: 12pt;
 }
 
 .footertext>a {
     color: grey;
-}        
+}
+
+.footertext>a:hover{
+    color: hsla(34,85%,65%,1);
+}   
+
+.footersymbol{
+  text-align: center;
+  font-family: Arial;
+  color: grey;
+  font-size: small;
+}    
+
+.footersymbol>a {
+    color: grey;
+} 
+
+.footersymbol>a:hover{
+    color: hsla(34,85%,65%,1);
+} 
 
 footer {
      border-top: 0px solid #999; 
