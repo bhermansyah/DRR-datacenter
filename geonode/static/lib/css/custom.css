@@ -2062,7 +2062,7 @@ section.featured-maps .map-thumb-snapshot {
     width: 361px;
     float: left;
     padding: 2px;
-    border: 1px solid #bbb;
+    border: 0px solid #bbb;
 }
 
 section.featured-maps .map-thumb-snapshot img,section.featured-maps .map-thumb-snapshot div
