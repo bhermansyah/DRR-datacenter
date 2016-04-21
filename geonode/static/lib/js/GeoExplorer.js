@@ -34864,7 +34864,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 return enc;
             },
             "Google": function(layer) {
-                console.log(layer);
+                // console.log(layer);
                 return {
                     type: 'tiledGoogle',
                     baseURL: 'http://maps.googleapis.com/maps/api/staticmap',
@@ -35078,6 +35078,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 var icons = [];
                 for(var i=1, len=legend.items.getCount(); i<len; ++i) {
                     var url = legend.items.get(i).url;
+                    console.log(url);
                     var itemTitle = legend.layerRecord.data.title;
                     if(legend.useScaleParameter === true &&
                        url.toLowerCase().indexOf(
@@ -38265,6 +38266,12 @@ GeoExt.WMSLegend = Ext.extend(GeoExt.LayerLegend, {
                 url = decodeURIComponent(url);
             }
         }
+
+        if (layerNames[idx]=='geonode:afg_rdsl'){
+            styleName = "afg_rdsl_legend_osm";
+            url = null;
+        }
+
         if(!url) {
             url = layer.getFullRequestString({
                 REQUEST: "GetLegendGraphic",
