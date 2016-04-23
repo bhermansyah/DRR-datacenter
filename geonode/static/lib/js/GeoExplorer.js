@@ -91170,7 +91170,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     lazyRender:true,
                                     tpl : new Ext.XTemplate(
                                         '<tpl for="."><div class="search-item">',
-                                            '<span>{title}</span><br />{date_custom} <br/>{sm_available}<br />',
+                                            '<span>{title}</span><br />{date_custom}',
                                         '</div></tpl>'
                                     ),
                                     mode: 'local',
