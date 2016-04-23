@@ -90449,9 +90449,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         var styleEQ = {
             strokeColor: '#FF0000',
-            strokeWidth: 5,
+            strokeWidth: 3,
             strokeOpacity: 1,
-            'pointRadius': 10,
+            'pointRadius': 7,
             graphicName: "circle",  
             fillColor: '#ee0000',
             fillOpacity: 0
