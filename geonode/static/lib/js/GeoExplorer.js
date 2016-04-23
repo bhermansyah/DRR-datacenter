@@ -90448,13 +90448,13 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         };
 
         var styleEQ = {
-            strokeColor: '#FF0000',
-            strokeWidth: 3,
+            strokeColor: '#0000FF',
+            strokeWidth: 1,
             strokeOpacity: 1,
-            'pointRadius': 7,
+            'pointRadius': 12,
             graphicName: "circle",  
             fillColor: '#ee0000',
-            fillOpacity: 0
+            fillOpacity: 0.4
         };
 
        var finder_style = {
