@@ -89401,8 +89401,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                     cls: "x-form-item",
                     items: [
                         titleCfg,
-                        legendCheckbox,
-                        riskTableCheckbox
+                        legendCheckbox//,
+                        // riskTableCheckbox
                     ]
                 } : titleCfg, {
                     xtype: "textarea",
@@ -90748,7 +90748,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         var lastyear = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 365).format('Y-m-d');
         // console.log(lastmonth);
         var dataEQEvents = new Ext.data.JsonStore({
-            url: "../../geoapi/geteqevents/?dateofevent__gte="+lastmonth,
+            url: "../../geoapi/geteqevents/?dateofevent__gte="+lastyear,
             root: 'objects',                   
             totalProperty: 'total_count',
             fields: [
@@ -90784,11 +90784,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             var re = new RegExp(find, 'g');
             tempArray = tempArray.replace(re,"'");
 
-            var wmsEQlayer = null;
-            if (tempMap.getLayersByName('Earthquake events').length > 0) {
-                wmsEQlayer = tempMap.getLayersByName('Earthquake events')[0]
-                wmsEQlayer.mergeNewParams({'CQL_FILTER': "event_code in "+tempArray});
-            }
+            // var wmsEQlayer = null;
+            // if (tempMap.getLayersByName('Earthquake events').length > 0) {
+            //     wmsEQlayer = tempMap.getLayersByName('Earthquake events')[0]
+            //     wmsEQlayer.mergeNewParams({'CQL_FILTER': "event_code in "+tempArray});
+            // }
 
             tempMap.raiseLayer(vector_layer,10000);
             tempMap.raiseLayer(vector_layerEQ,10000);
@@ -91110,7 +91110,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     style:"height:850px;",
                     overflowY: 'scroll',
                     tbar: new Ext.Container({
-                        height: 54,
+                        // height: 54,
                         layout: 'anchor',
                         xtype: 'container',
                         defaults: {
@@ -91118,44 +91118,44 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             height: 27
                         },
                         items: [
-                            new Ext.Toolbar({
-                                items:[{
-                                    xtype: 'combo',
-                                    fieldLabel: 'Events',
-                                    id:'periodEQ',
-                                    emptyText:'Select an EQ Period...', 
-                                    width : 275,
-                                    typeAhead: true,
-                                    triggerAction: 'all',
-                                    forceSelection: true,  
-                                    editable:false,  
-                                    lazyRender:true,
-                                    mode: 'local',
-                                    store: new Ext.data.ArrayStore({
-                                        fields: ['code', 'period'],
-                                        data : [['1', 'Show Last Week Events'],['2', 'Show Last Month Events'],['3', 'Show Last Year Events']] 
-                                    }),
-                                    valueField: 'code',
-                                    value : 2,
-                                    displayField: 'period',
-                                    listeners       : {
-                                        'select': function(combo, record, index){
-                                            // console.log(record);
-                                            var datefilter = null;
-                                            if (record.data.code == '1'){
-                                                datefilter = lastWeek;
-                                            } else if (record.data.code == '2'){
-                                                datefilter = lastmonth;
-                                            } else if(record.data.code == '3'){
-                                                datefilter = lastyear;
-                                            }
-                                            dataEQEvents.proxy.conn.url = "../../geoapi/geteqevents/?dateofevent__gte="+datefilter;
-                                            dataEQEvents.load();
-                                        }
-                                    }
+                            // new Ext.Toolbar({
+                            //     items:[{
+                            //         xtype: 'combo',
+                            //         fieldLabel: 'Events',
+                            //         id:'periodEQ',
+                            //         emptyText:'Select an EQ Period...', 
+                            //         width : 275,
+                            //         typeAhead: true,
+                            //         triggerAction: 'all',
+                            //         forceSelection: true,  
+                            //         editable:false,  
+                            //         lazyRender:true,
+                            //         mode: 'local',
+                            //         store: new Ext.data.ArrayStore({
+                            //             fields: ['code', 'period'],
+                            //             data : [['1', 'Show Last Week Events'],['2', 'Show Last Month Events'],['3', 'Show Last Year Events']] 
+                            //         }),
+                            //         valueField: 'code',
+                            //         value : 2,
+                            //         displayField: 'period',
+                            //         listeners       : {
+                            //             'select': function(combo, record, index){
+                            //                 // console.log(record);
+                            //                 var datefilter = null;
+                            //                 if (record.data.code == '1'){
+                            //                     datefilter = lastWeek;
+                            //                 } else if (record.data.code == '2'){
+                            //                     datefilter = lastmonth;
+                            //                 } else if(record.data.code == '3'){
+                            //                     datefilter = lastyear;
+                            //                 }
+                            //                 dataEQEvents.proxy.conn.url = "../../geoapi/geteqevents/?dateofevent__gte="+datefilter;
+                            //                 dataEQEvents.load();
+                            //             }
+                            //         }
 
-                                }]
-                            }),
+                            //     }]
+                            // }),
                             new Ext.Toolbar({
                                 items:[{
                                     xtype: 'combo',

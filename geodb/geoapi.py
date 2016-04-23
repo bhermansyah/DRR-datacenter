@@ -1392,12 +1392,8 @@ class EQEventsSerializer(Serializer):
         data = self.to_simple(data, options)
         data2 = self.to_simple({'objects':[]}, options)
         for i in data['objects']:
-            if i['evFlag'] == 1 or i['smFlag'] == 1:
-                if i['smFlag'] == 1:
-                    i['sm_available'] = 'ShakeMap are Available'
-                else :
-                    i['sm_available'] = 'ShakeMap are not Available'    
-                data2['objects'].append(i)
+            i['sm_available'] = 'ShakeMap are Available'
+            data2['objects'].append(i)
 
         return json.dumps(data2, cls=DjangoJSONEncoder, sort_keys=True)       
 
@@ -1412,26 +1408,26 @@ class getEQEvents(ModelResource):
         return bundle.obj.title + ' on ' +  bundle.obj.dateofevent.strftime("%d-%m-%Y %H:%M:%S")
     def dehydrate_date_custom(self, bundle):
         return bundle.obj.dateofevent.strftime("%d-%m-%Y %H:%M:%S")
-    def dehydrate_evFlag(self, bundle):    
-        pEV = earthquake_events.objects.extra(
-            tables={'afg_admbnda_adm1'},
-            where={"ST_Intersects(afg_admbnda_adm1.wkb_geometry,earthquake_events.wkb_geometry) and earthquake_events.event_code = '"+bundle.obj.event_code+"'"}
-        )
-        if pEV.count()>0:
-            return 1
-        else:
-            return 0  
-    def dehydrate_smFlag(self, bundle):    
-        pSM = earthquake_shakemap.objects.extra(
-            tables={'afg_admbnda_adm1'},
-            where={"ST_Intersects(afg_admbnda_adm1.wkb_geometry,earthquake_shakemap.wkb_geometry) and earthquake_shakemap.event_code = '"+bundle.obj.event_code+"'"}
-        )
-        if pSM.count()>0:
-            return 1
-        else:
-            return 0                  
+    # def dehydrate_evFlag(self, bundle):    
+    #     pEV = earthquake_events.objects.extra(
+    #         tables={'afg_admbnda_adm1'},
+    #         where={"ST_Intersects(afg_admbnda_adm1.wkb_geometry,earthquake_events.wkb_geometry) and earthquake_events.event_code = '"+bundle.obj.event_code+"'"}
+    #     )
+    #     if pEV.count()>0:
+    #         return 1
+    #     else:
+    #         return 0  
+    # def dehydrate_smFlag(self, bundle):    
+    #     pSM = earthquake_shakemap.objects.extra(
+    #         tables={'afg_admbnda_adm1'},
+    #         where={"ST_Intersects(afg_admbnda_adm1.wkb_geometry,earthquake_shakemap.wkb_geometry) and earthquake_shakemap.event_code = '"+bundle.obj.event_code+"'"}
+    #     )
+    #     if pSM.count()>0:
+    #         return 1
+    #     else:
+    #         return 0                  
     class Meta:
-        queryset = earthquake_events.objects.all().order_by('dateofevent')
+        queryset = earthquake_events.objects.all().exclude(shakemaptimestamp__isnull=True).order_by('dateofevent')
         # queryset = earthquake_events.objects.extra(
         #     tables={'earthquake_shakemap'},
         #     where={'earthquake_events.event_code=earthquake_shakemap.event_code'
