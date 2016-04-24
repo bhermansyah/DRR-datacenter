@@ -3,7 +3,7 @@ from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
 from datetime import datetime
-from geodb.views import getForecastedDisaster, updateSummaryTable, getSnowCover, getLatestEarthQuake, getLatestShakemap
+from geodb.views import getForecastedDisaster, updateSummaryTable, getSnowCover, getLatestEarthQuake, getLatestShakemap, databasevacumm
 
 logger = get_task_logger(__name__)
 
@@ -20,6 +20,8 @@ def updateDistrictsSummary():
 def updateLatestEarthQuake():
 	getLatestEarthQuake()
 
-@periodic_task(run_every=(crontab(hour='*')))
-def updateLatestShakemap():
-	getLatestShakemap(True)
+@periodic_task(run_every=(crontab(hour='1')))
+def runVacummDB():
+	databasevacumm()
+	
+

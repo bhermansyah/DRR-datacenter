@@ -1496,3 +1496,8 @@ def getDirectionLabel(angle):
         return 'SE'
     elif angle > 315 and angle<360:           
         return 'ES'                   
+
+def databasevacumm():
+    cursor = connections['geodb'].cursor()      
+    cursor.execute("VACUUM (VERBOSE, ANALYZE);")  
+    cursor.close()        
