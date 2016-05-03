@@ -826,7 +826,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
                 'ST_Intersects(wkb_geometry'+', '+filterLock+')'
             }).values('type_update','road_length') 
 
-            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+            countsHLTBase = AfgHltfac.objects.all().filter(activestatus='Y').values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
                     select={
                         'numberhospital' : 'count(*)'
                     },
@@ -842,7 +842,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
             
 
             # Health Facilities
-            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+            countsHLTBase = AfgHltfac.objects.all().filter(activestatus='Y').values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
                     select={
                         'numberhospital' : 'count(*)'
                     }).values('facility_types_description', 'numberhospital')
@@ -864,7 +864,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
                     ff0001
                  }).values('type_update','road_length') 
 
-            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+            countsHLTBase = AfgHltfac.objects.all().filter(activestatus='Y').values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
                 select={
                         'numberhospital' : 'count(*)'
                 },where = {
@@ -882,7 +882,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
                     'ST_Within(wkb_geometry'+', '+filterLock+')'
                 }).values('type_update','road_length') 
 
-            countsHLTBase = AfgHltfac.objects.all().values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
+            countsHLTBase = AfgHltfac.objects.all().filter(activestatus='Y').values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
                 select={
                         'numberhospital' : 'count(*)'
                 },where = {
