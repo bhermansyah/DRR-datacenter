@@ -94,6 +94,7 @@ def getLatestShakemap(includeShakeMap=False):
         shakemaptimestamp = content['shakemap_url'].split('/')[-3]
         recordExists = earthquake_events.objects.all().filter(event_code=content['properties']['code'])  
         if recordExists.count() > 0:
+            oldTimeStamp = recordExists[0].shakemaptimestamp
             c = earthquake_events(pk=recordExists[0].pk,event_code=content['properties']['code'])  
             c.wkb_geometry = point
             c.title = content['properties']['title']
@@ -114,7 +115,12 @@ def getLatestShakemap(includeShakeMap=False):
                     outfile.close()
             thefile.close()
 
-            if includeShakeMap and long(recordExists[0].shakemaptimestamp) < long(shakemaptimestamp):
+            # print str(oldTimeStamp) + ' - '+ str(shakemaptimestamp)
+
+            if oldTimeStamp is None:
+                oldTimeStamp = 0
+
+            if includeShakeMap and long(oldTimeStamp) < long(shakemaptimestamp):
                 mapping = {
                     'wkb_geometry' : 'POLYGON',
                     'grid_value':  'GRID_CODE',

@@ -23,5 +23,10 @@ def updateLatestEarthQuake():
 @periodic_task(run_every=(crontab(hour='1')))
 def runVacummDB():
 	databasevacumm()
+
+@periodic_task(run_every=(crontab(hour='*')))
+def updateLatestShakemap():
+	getLatestShakemap(True)
+	
 	
 
