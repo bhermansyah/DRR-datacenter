@@ -90784,11 +90784,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             var re = new RegExp(find, 'g');
             tempArray = tempArray.replace(re,"'");
 
-            // var wmsEQlayer = null;
-            // if (tempMap.getLayersByName('Earthquake events').length > 0) {
-            //     wmsEQlayer = tempMap.getLayersByName('Earthquake events')[0]
-            //     wmsEQlayer.mergeNewParams({'CQL_FILTER': "event_code in "+tempArray});
-            // }
+            var wmsEQlayer = null;
+            if (tempMap.getLayersByName('Earthquake events').length > 0) {
+                wmsEQlayer = tempMap.getLayersByName('Earthquake events')[0]
+                wmsEQlayer.mergeNewParams({'CQL_FILTER': "event_code in "+tempArray});
+            }
 
             tempMap.raiseLayer(vector_layer,10000);
             tempMap.raiseLayer(vector_layerEQ,10000);
