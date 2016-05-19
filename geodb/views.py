@@ -401,9 +401,9 @@ def getOverviewMaps(request):
     queryset.save()
 
     response = HttpResponse(mimetype="image/png") 
-    url = 'http://asdc.immap.org/proxy/?url=http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=geonode%3Aafg_admbnda_adm2%2Cgeonode%3Aafg_admbnda_adm1&STYLES=overview_adm2,overview_adm1&SRS=EPSG%3A4326&WIDTH=292&HEIGHT=221&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375'
+    url = 'http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=geonode%3Aafg_admbnda_adm2%2Cgeonode%3Aafg_admbnda_adm1&STYLES=overview_adm2,overview_adm1&SRS=EPSG%3A4326&WIDTH=292&HEIGHT=221&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375'
     # url2='http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&SRS=EPSG%3A4326&WIDTH=768&HEIGHT=485&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375&SLD_BODY='+selectedBox
-    url2='http://asdc.immap.org/proxy/?url=http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&SRS=EPSG%3A4326&WIDTH=292&HEIGHT=221&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375'
+    url2='http://asdc.immap.org/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&SRS=EPSG%3A4326&WIDTH=292&HEIGHT=221&BBOX=59.150390625%2C28.135986328125%2C76.025390625%2C38.792724609375'
     template = '<sld:StyledLayerDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd" xmlns:sld="http://www.opengis.net/sld" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" version="1.0.0">'
     template +='<sld:UserLayer>'
     template +=     '<sld:Name>Inline</sld:Name>'
@@ -441,16 +441,35 @@ def getOverviewMaps(request):
     template += '</sld:UserLayer>'
     template +='</sld:StyledLayerDescriptor>'
 
-    input_file = StringIO(urllib2.urlopen(url).read())
+    header = {
+        "Content-Type": "application/json",
+        "Authorization": "Basic " + base64.encodestring("boedy1996:kontol").replace('\n', '')
+    } 
+
+    request1 = urllib2.Request(url, None, header)   
+
+    input_file = StringIO(urllib2.urlopen(request1).read())
+    
+
     background = Image.open(input_file)
 
-    values = {'SLD_BODY' : template }
-    data = urllib.urlencode(values)     
-    input_file = StringIO(urllib2.urlopen(url2, data).read())
-    overlay = Image.open(input_file)
+    values = {'SLD_BODY' : template}
+    data = urllib.urlencode(values)
+    
+
+    request2 = urllib2.Request(url2, data)
+    request2.add_header('Authorization', "Basic " + base64.encodestring("boedy1996:kontol").replace('\n', ''))
+    response2 = urllib2.urlopen(request2)
+
+    input_file2 = StringIO(response2.read())
+    # input_file = StringIO(urllib2.urlopen(request2,data).read())
+    
+    overlay = Image.open(input_file2)
+    
     new_img = Image.blend(background, overlay, 0.5)  #background.paste(overlay, overlay.size, overlay)
     
     new_img.save(response, 'PNG', quality=300)
+    background.save(response, 'PNG', quality=300)
     
     return response
 
