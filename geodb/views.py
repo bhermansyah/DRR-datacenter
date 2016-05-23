@@ -1531,13 +1531,19 @@ def getWMS(request):
 
     # print request
     req = urllib2.Request('http://asdc.immap.org/geoserver/wms?'+request.META['QUERY_STRING'])
-    # print req
-    base64string = base64.encodestring('%s:%s' % ('boedy1996', 'kontol'))[:-1]
-    authheader =  "Basic %s" % base64string
-    req.add_header('Authorization', authheader)
-    req.add_header('Content-Type', 'image/png')
-    response = urllib2.urlopen(req).read() 
-    # print response
+    # print request.META['QUERY_STRING']
+    # print request.GET.get('request')
+    # print request.GET.get('bbox')
 
-    return HttpResponse(response, content_type='image/png' )
+    if request.GET.get('request') == 'GetLegendGraphic' or request.GET.get('bbox') == '60.4720890240001,29.3771715570001,74.889451148,38.4907374680001':
+        base64string = base64.encodestring('%s:%s' % ('boedy1996', 'kontol'))[:-1]
+        authheader =  "Basic %s" % base64string
+        req.add_header('Authorization', authheader)
+        req.add_header('Content-Type', 'image/png')
+        response = urllib2.urlopen(req).read() 
+        # print response
+
+        return HttpResponse(response, content_type='image/png' )
+    else:
+        return HttpResponse({}, content_type='image/png' )   
 
