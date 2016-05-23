@@ -1526,3 +1526,18 @@ def databasevacumm():
     cursor = connections['geodb'].cursor()      
     cursor.execute("VACUUM (VERBOSE, ANALYZE);")  
     cursor.close()        
+
+def getWMS(request):
+
+    # print request
+    req = urllib2.Request('http://asdc.immap.org/geoserver/wms?'+request.META['QUERY_STRING'])
+    # print req
+    base64string = base64.encodestring('%s:%s' % ('boedy1996', 'kontol'))[:-1]
+    authheader =  "Basic %s" % base64string
+    req.add_header('Authorization', authheader)
+    req.add_header('Content-Type', 'image/png')
+    response = urllib2.urlopen(req).read() 
+    # print response
+
+    return HttpResponse(response, content_type='image/png' )
+

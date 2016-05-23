@@ -8,4 +8,5 @@ urlpatterns = patterns(
     url(r'^snowinfo$', 'getSnowVillage', name='getSnowVillage'),
     url(r'^accessibilityinfo$', 'getAccesibilityInfoVillages', name='getAccesibilityInfoVillages'),
     url(r'^floodinfo$', 'getFloodInfoVillages', name='getFloodInfoVillages'),
+    url(r'^getWMS$', 'getWMS', name='getWMS'),
 )
