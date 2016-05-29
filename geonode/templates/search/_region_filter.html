@@ -17,7 +17,8 @@
               <span class="badge pull-right">{{ region.count }}</span>
             </a>
       </li> --> 
-      <li ng-repeat="region in regions" ng-if="region.count > 0 || region.children.length > 0">
+      <!-- <li ng-repeat="region in regions"  ng-if="region.count > 0 || region.children.length > 0"> -->
+      <li ng-repeat="region in regions">
             <a data-value="{{ region.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)" class="{{region.active}}">{{ region.name }} 
               <span class="badge pull-right">{{ region.count }}</span>
             </a>

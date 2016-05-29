@@ -92,17 +92,20 @@ class CountJSONSerializer(Serializer):
         cloned_data['objects'] = []
 
         if options['count_type']=='regions':
-            lev3 = [z for z in data['objects'] if z['level'] == 3 and z['code']=='AFG']
-            for lev3item in lev3: 
-                lev3item['children']=[]   
-                lev4 = [x for x in data['objects'] if x['level'] == 4]
-                for lev4item in lev4:
-                    lev4item['children']=[]
-                    lev4item['show']=False
-                    lev5 = [y for y in data['objects'] if y['level'] == 5 and y['code'][:2]==lev4item['code'] and y['count']>0]
-                    for lev5item in lev5:
-                        lev4item['children'].append(lev5item)
-                    lev3item['children'].append(lev4item)    
+            lev3 = [z for z in data['objects'] if z['level'] == 3 and (z['code']=='AFG' or z['code']=='AFG01'  or z['code']=='AFG02'  or z['code']=='AFG03'  or z['code']=='AFG04'  or z['code']=='AFG05' or z['code']=='AFG06')]
+            i = 0
+            for lev3item in lev3:
+                i = i+1 
+                lev3item['children']=[] 
+                if i == 7: 
+                    lev4 = [x for x in data['objects'] if x['level'] == 4]
+                    for lev4item in lev4:
+                        lev4item['children']=[]
+                        lev4item['show']=False
+                        lev5 = [y for y in data['objects'] if y['level'] == 5 and y['code'][:2]==lev4item['code'] and y['count']>0]
+                        for lev5item in lev5:
+                            lev4item['children'].append(lev5item)
+                        lev3item['children'].append(lev4item)    
                 cloned_data['objects'].append(lev3item)
 
             return json.dumps(cloned_data, cls=DjangoJSONEncoder, sort_keys=True)
