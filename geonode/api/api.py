@@ -113,9 +113,10 @@ class CountJSONSerializer(Serializer):
             group = []
             group.append({'count': 0, 'gn_description_en': 'Agriculture', 'description': 'Agriculture', 'gn_description': 'Agriculture', 'is_choice': True, 'description_en': 'Agriculture', 'identifier': 'agr', 'id': 0, u'resource_uri': '','children':[]}) 
             group.append({'count': 0, 'gn_description_en': 'Avalanches', 'description': 'Avalanches', 'gn_description': 'Avalanches', 'is_choice': True, 'description_en': 'Avalanches', 'identifier': 'av', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Boundaries', 'description': 'Boundaries', 'gn_description': 'Boundaries', 'is_choice': True, 'description_en': 'Boundaries', 'identifier': 'bnd', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': 'Administrative', 'description': 'Administrative', 'gn_description': 'Administrative', 'is_choice': True, 'description_en': 'Administrative', 'identifier': 'bnd', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Droughts', 'description': 'Droughts', 'gn_description': 'Droughts', 'is_choice': True, 'description_en': 'Droughts', 'identifier': 'dr', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Earthquake', 'description': 'Earthquake', 'gn_description': 'Earthquake', 'is_choice': True, 'description_en': 'Earthquake', 'identifier': 'eq', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': 'Education', 'description': 'Education', 'gn_description': 'Education', 'is_choice': True, 'description_en': 'Education', 'identifier': 'edu', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Emergency Response', 'description': 'Emergency Response', 'gn_description': 'Emergency Response', 'is_choice': True, 'description_en': 'Emergency Response', 'identifier': 'erm', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Floods', 'description': 'Floods', 'gn_description': 'Floods', 'is_choice': True, 'description_en': 'Floods', 'identifier': 'fl', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Physical Environment', 'description': 'Physical Environment', 'gn_description': 'Physical Environment', 'is_choice': True, 'description_en': 'Physical Environment', 'identifier': 'geo', 'id': 0, u'resource_uri': '','children':[]})
@@ -129,6 +130,7 @@ class CountJSONSerializer(Serializer):
             group.append({'count': 0, 'gn_description_en': 'Settlements', 'description': 'Settlements', 'gn_description': 'Settlements', 'is_choice': True, 'description_en': 'Settlements', 'identifier': 'ppl', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Security', 'description': 'Security', 'gn_description': 'Security', 'is_choice': True, 'description_en': 'Security', 'identifier': 'sec', 'id': 0, u'resource_uri': '','children':[]})
             group.append({'count': 0, 'gn_description_en': 'Socio-demographics', 'description': 'Socio-demographics', 'gn_description': 'Socio-demographics', 'is_choice': True, 'description_en': 'Socio-demographics', 'identifier': 'sos', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': 'Others', 'description': 'Others', 'gn_description': 'Others', 'is_choice': True, 'description_en': 'Others', 'identifier': 'ot', 'id': 0, u'resource_uri': '','children':[]})
             for group_state in group: 
                 filteredItems = [x for x in data['objects'] if x['identifier'].split('-', 1 )[0] == group_state['identifier']]
                 
