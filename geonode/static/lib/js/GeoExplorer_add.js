@@ -805,7 +805,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                             '<li>',
                                 '<div class="w3-card-4">',
                                     '<header class="w3-container w3-blue">', //647625 43689
-                                      '<h1>Area (KM2)</h1>',
+                                      '<h1>Area (km2)</h1>',
                                     '</header>',
 
                                     '<div class="w3-container">',
@@ -839,7 +839,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                             '<li>',
                                 '<div class="w3-card-4">',
                                     '<header class="w3-container w3-blue">',
-                                      '<h1>Road (KM)</h1>',
+                                      '<h1>Road (km)</h1>',
                                     '</header>',
 
                                     '<div class="w3-container">',
@@ -974,7 +974,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                             '<li>',
                                 '<div class="w3-card-4">',
                                     '<header class="w3-container w3-blue">', 
-                                      '<h1>Area (KM2)</h1>',
+                                      '<h1>Area (km2)</h1>',
                                     '</header>',
 
                                     '<div class="w3-container">',
@@ -1070,7 +1070,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                             '<li>',
                                 '<div class="w3-card-4">',
                                     '<header class="w3-container w3-blue">', 
-                                      '<h1>Area (KM2)</h1>',
+                                      '<h1>Area (km2)</h1>',
                                     '</header>',
 
                                     '<div class="w3-container">',
@@ -1145,7 +1145,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                             '<li>',
                                 '<div class="w3-card-4">',
                                     '<header class="w3-container w3-blue">', 
-                                      '<h1>Area (KM2)</h1>',
+                                      '<h1>Area (km2)</h1>',
                                     '</header>',
                                     '<div class="w3-container">',
                                         '<table style="width:100%"">',

@@ -2174,4 +2174,9 @@ footer {
 .btn-xs, .btn-group-xs>.btn {
   padding: 6px 12px;
 }
-    
+
+.panel-video{
+  padding: 2px;
+}
+
+
