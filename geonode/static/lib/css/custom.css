@@ -2179,4 +2179,56 @@ footer {
   padding: 2px;
 }
 
+.video-js {
+  float: left;
+  min-width: 350px;
+  width: 875px;
+  height: 500px;
+}
+.vjs-playlist {
+  width: 250px;
+  float: left;
+  height:500px;
+  margin-bottom: 0px;
+}
+
+.vjs-mouse.vjs-playlist cite {
+    height: 17px;
+    line-height: 17px;
+    font-size: small;
+}
+
+.vjs-mouse.vjs-playlist .vjs-playlist-description {
+    font-size: small;
+}
+
+@media only screen and (min-width: 1200px) {
+  .video-js {
+    float: left;
+    min-width: 350px;
+    width: 875px;
+    height: 500px;
+  }
+  .vjs-playlist {
+    width: 250px;
+    float: left;
+    height:500px;
+    margin-bottom: 0px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .video-js {
+    float: left;
+    min-width: 350px;
+    width: 500px;
+    height: 500px;
+  }
+  .vjs-playlist {
+    width: 250px;
+    float: left;
+    height:500px;
+    margin-bottom: 0px;
+  }
+}
 

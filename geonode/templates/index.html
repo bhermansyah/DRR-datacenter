@@ -352,11 +352,17 @@ The map and statistics are is updated every 6 hours.</a></p>
           <h3 class="panel-title">Documentation and Video</h3>
         </div>
         <div class="panel-body">
-
-                      <div  class="col-xs-3 panel-video">
+            <video id="myPlayerID"
+              data-account="3676484087001"
+              data-player="04ac0699-ca6b-449b-a2b6-0f14b4a7893b"
+              data-embed="default"
+              class="video-js" controls
+              data-setup='{"example_option":true}'></video>
+           
+            <ol class="vjs-playlist"></ol>
+                      <!-- <div  class="col-xs-3 panel-video">
                         <video id="my-video1" poster="http://asdc.immap.org/static/lib/video/statistic_tool.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"415:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 1- Statistics Tool.mp4" type='video/mp4'>
-                         <!--  <source src="MY_VIDEO.webm" type='video/webm'> -->
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -366,7 +372,6 @@ The map and statistics are is updated every 6 hours.</a></p>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/settlement_inspector.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 2- Settlement Inspector.mp4" type='video/mp4'>
-                         <!--  <source src="MY_VIDEO.webm" type='video/webm'> -->
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -376,7 +381,6 @@ The map and statistics are is updated every 6 hours.</a></p>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/finder_tool.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool.mp4" type='video/mp4'>
-                         <!--  <source src="MY_VIDEO.webm" type='video/webm'> -->
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -386,7 +390,6 @@ The map and statistics are is updated every 6 hours.</a></p>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/static_maps.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps.mp4" type='video/mp4'>
-                         <!--  <source src="MY_VIDEO.webm" type='video/webm'> -->
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -396,7 +399,6 @@ The map and statistics are is updated every 6 hours.</a></p>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/earthquake.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes.mp4" type='video/mp4'>
-                         <!--  <source src="MY_VIDEO.webm" type='video/webm'> -->
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -406,7 +408,6 @@ The map and statistics are is updated every 6 hours.</a></p>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/dashboard.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard.mp4" type='video/mp4'>
-                         <!--  <source src="MY_VIDEO.webm" type='video/webm'> -->
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -416,13 +417,12 @@ The map and statistics are is updated every 6 hours.</a></p>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/printing.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 7- Printing.mp4" type='video/mp4'>
-                         <!--  <source src="MY_VIDEO.webm" type='video/webm'> -->
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                           </p>
                         </video>
-                      </div>  
+                      </div>   -->
         </div>
       </div>  
     </div>
@@ -471,7 +471,128 @@ The map and statistics are is updated every 6 hours.</a></p>
 {% if DEBUG_STATIC %}
 <script src="{{ STATIC_URL }}lib/js/angular.js"></script>
 {% endif %}
-<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+<!-- <script src="http://vjs.zencdn.net/5.8.8/video.js"></script> -->
+<script src="{{ STATIC_URL }}lib/js/video-ntah.js"></script>
+<!-- <script src="//players.brightcove.net/3676484087001/04ac0699-ca6b-449b-a2b6-0f14b4a7893b_default/index.min.js"></script>
+ -->
+  <script type="text/javascript">
+    videojs('myPlayerID').ready(function () {
+      var myPlayer = this;
+      myPlayer.playlist([{
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 1- Statistics Tool.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 1: English Version",
+        "description": "Statistics Tool",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 2- Settlement Inspector.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 2: English Version",
+        "description": "Settlement Inspector",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 3: English Version",
+        "description": "Finder Tool",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/finder_tool.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/finder_tool.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 4: English Version",
+        "description": "Static Maps",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/static_maps.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/static_maps.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 5: English Version",
+        "description": "Earthquakes",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/earthquake.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/earthquake.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 6: English Version",
+        "description": "Dashboard",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/dashboard.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/dashboard.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 7- Printing.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 7: English Version",
+        "description": "Printing",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+      },{
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 1- Statistics Tool - Dari.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 1: Dari Version",
+        "description": "Statistics Tool",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 2- Settlement Inspector - Dari.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 2: Dari Version",
+        "description": "Settlement Inspector",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool - Dari.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 3: Dari Version",
+        "description": "Finder Tool",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/finder_tool.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/finder_tool.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps - Dari.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 4: Dari Version",
+        "description": "Static Maps",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/static_maps.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/static_maps.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes - Dari.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 5: Dari Version",
+        "description": "Earthquakes",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/earthquake.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/earthquake.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard - Dari.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 6: Dari Version",
+        "description": "Dashboard",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/dashboard.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/dashboard.jpg"
+      }, {
+        "sources": [{
+          "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 7- Printing - Dari.mp4", "type": "video/mp4"
+        }],
+        "name": "Segment 7: Dari Version",
+        "description": "Printing",
+        "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+        "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+      }]);
+    });
+  </script>
   <script type="text/javascript">
     FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}';
     LATESTDOCS_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='lastestdocument' %}?category__identifier__in=agr-01,agr-02,agr-03,av-01,av-02,bnd-01,bnd-02,bnd-03,bnd-04,bnd-int,dr-01,dr-02,edu-01,edu-02,eq-01,erm-01,erm-02,erm-03,erm-04,erm-05,erm-06,erm-07,erm-08,geo-01,geo-02,geo-03,geo-04,geo-05,geo-06,geo-07,geo-08,geo-09,geo-10,hlt-01,hlt-02,hlt-03,hlt-04,hydro-01,hydro-02,hydro-03,hydro-04,hz-01,hz-03,idp-01,idp-02,idp-03,idp-04,img-01,img-02,infr-01,infr-02,infr-03,infr-04,infr-05,infr-06,met-01,met-02,met-03,met-04,met-05,met-06,ot-01,ot-02,ppl-01,ppl-02,ppl-03,sec-01,sec-02,sos-01,sos-02,sos-03,sos-04&limit=6&offset=0&order_by=-date';
