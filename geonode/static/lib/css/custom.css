@@ -77,7 +77,7 @@ body
 }
 .navbar-brand-immap h1{
   color: #535353;
-  font: normal 500 22px/80px 'Gill Sans', 'Gill Sans MT';
+  font: normal 500 22px/80px 'Gill Sans', 'Gill Sans MT', 'Times New Roman';
   letter-spacing: 0.5px;
   text-align: left;
   /*text-shadow: 0px 1px 1px #4d4d4d;*/
@@ -2059,7 +2059,7 @@ section.featured-maps .map-thumb-snapshot {
    /* height: 231px;*/
     overflow: hidden;
     position: relative;
-    width: 361px;
+    /*width: 361px;*/
     float: left;
     padding: 2px;
     border: 0px solid #bbb;
@@ -2181,7 +2181,7 @@ footer {
 
 .video-js {
   float: left;
-  min-width: 350px;
+  min-width: 100px;
   width: 875px;
   height: 500px;
 }
@@ -2205,7 +2205,7 @@ footer {
 @media only screen and (min-width: 1200px) {
   .video-js {
     float: left;
-    min-width: 350px;
+    min-width: 100px;
     width: 875px;
     height: 500px;
   }
@@ -2217,11 +2217,17 @@ footer {
   }
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1020px) and (min-width: 992px){
+  .video-js {
+    width: 675px !important;
+  } 
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 1020px){
   .video-js {
     float: left;
-    min-width: 350px;
-    width: 500px;
+    min-width: 100px;
+    width: 675px;
     height: 500px;
   }
   .vjs-playlist {
@@ -2230,5 +2236,72 @@ footer {
     height:500px;
     margin-bottom: 0px;
   }
+
+  section.featured-maps .map-thumb {
+    height: 150px;
+    width: 175px;
+  }
+
+}
+
+@media only screen and (max-width: 1020px) {
+  .video-js {
+    float: left;
+    min-width: 100px;
+    width: 455px;
+    height: 500px;
+  }
+  .vjs-playlist {
+    width: 250px;
+    float: left;
+    height:500px;
+    margin-bottom: 0px;
+  } 
+  section.featured-maps .map-thumb {
+    height: 150px;
+    width: 175px;
+  } 
+}
+
+@media (min-width: 800px){
+  .navbar-collapse.collapse {
+      display: block!important;
+      height: auto!important;
+      padding-bottom: 0;
+      overflow: visible!important;
+  }
+}  
+
+@media (max-width: 1200px){
+  .navbar-collapse {
+      border-top: 0px !important;
+  }   
+}   
+
+@media (max-width: 1200px){
+  .navbar-nav>li {
+      float: left;
+  }
+  .navbar-header {
+      float: left;
+  }
+  .webTitle {
+    font-size: 0px !important;
+  }
+}  
+
+@media (max-width: 991px){
+  .navbar-brand-usaid{
+    background-size: 100px 29.5px;
+    width: 127px;
+  }
+  .navbar-brand-immap{
+    background-size: 35px 29.5px;
+    width: 55px;
+  }  
+  section.featured-maps .map-thumb {
+    height: 100px;
+    width: 125px;
+  } 
 }
 
