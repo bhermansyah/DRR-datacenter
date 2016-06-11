@@ -1304,3 +1304,27 @@ class AfgCaptHltfacTier2Immap(models.Model):
     class Meta:
         managed = False
         db_table = 'afg_capt_hltfac_tier2_immap'
+
+class AfgCaptHltfacTier3Immap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    frequency = models.IntegerField(blank=True, null=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_hltfac_tier3_immap'
+
+class AfgCaptHltfacTierallImmap(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    facilities_name = models.CharField(max_length=50, blank=True)
+    time = models.CharField(max_length=50, blank=True)
+    frequency = models.IntegerField(blank=True, null=True)
+    sum_area_population = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_hltfac_tierall_immap'        

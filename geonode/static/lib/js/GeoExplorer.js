@@ -35078,7 +35078,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 var icons = [];
                 for(var i=1, len=legend.items.getCount(); i<len; ++i) {
                     var url = legend.items.get(i).url;
-                    console.log(url);
+                    // console.log(url);
                     var itemTitle = legend.layerRecord.data.title;
                     if(legend.useScaleParameter === true &&
                        url.toLowerCase().indexOf(
