@@ -2305,3 +2305,6 @@ footer {
   } 
 }
 
+.yourlabs-autocomplete{
+  top: 35px !important;
+}
