@@ -71,10 +71,12 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
         if (Ext.getCmp('hfCB').checked){
             layers.push('geonode:afg_hltfac');
             filters.push("strToLowerCase(facility_name) like '%"+v+"%'"+addQH);
+            this.store.baseParams['propertyName'] = '';
         }
         if (Ext.getCmp('airportCB').checked){
             layers.push('geonode:afg_airdrmp');
             filters.push("strToLowerCase(namelong) like '%"+v+"%'"+addQH);
+            this.store.baseParams['propertyName'] = '';
         }
 
         var typeName = '';
@@ -92,10 +94,15 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
         // console.log(Ext.getCmp('districtSelectionLocator').getValue());
 
         if(Ext.getCmp('settlementCB').checked) {   
-            if(v.length < 1 && Ext.getCmp('districtSelectionLocator').getValue() == ''){
+            if(v.length < 1 && Ext.getCmp('provSelectionLocator').getValue() == ''){
                 this.onTrigger1Click();
                 return;
             }
+            if(v.length < 1 && Ext.getCmp('provSelectionLocator').getValue() != '' && Ext.getCmp('districtSelectionLocator').getValue() == ''){
+                this.onTrigger1Click();
+                return;
+            }
+
         } else {
             if(v.length < 1 &&  Ext.getCmp('provSelectionLocator').getValue() == ''){
                 this.onTrigger1Click();
