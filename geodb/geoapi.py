@@ -1492,7 +1492,8 @@ class getAccessibilities(ModelResource):
             if len(str(boundaryFilter['code'])) > 2:
                 ff0001 =  "dist_code  = '"+str(boundaryFilter['code'])+"'"
             else :
-                ff0001 =  "left(cast(dist_code as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"'"   
+                ff0001 =  "left(cast(dist_code as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"' and length(cast(dist_code as text))="+ str(len(str(boundaryFilter['code']))+2)
+            print ff0001      
             q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
                 where = {
                     ff0001       
