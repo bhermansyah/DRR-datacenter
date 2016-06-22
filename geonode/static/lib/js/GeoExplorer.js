@@ -3,6 +3,36 @@
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
+Ext.apply(Ext.form.VTypes, {
+    daterange : function(val, field) {
+        var date = field.parseDate(val);
+
+        if(!date){
+            return false;
+        }
+        if (field.startDateField) {
+            var start = Ext.getCmp(field.startDateField);
+            if (!start.maxValue || (date.getTime() != start.maxValue.getTime())) {
+                start.setMaxValue(date);
+                start.validate();
+            }
+        }
+        else if (field.endDateField) {
+            var end = Ext.getCmp(field.endDateField);
+            if (!end.minValue || (date.getTime() != end.minValue.getTime())) {
+                end.setMinValue(date);
+                end.validate();
+            }
+        }
+        /*
+         * Always return true since we're only using this vtype to set the
+         * min/max allowed values (these are tested for after the vtype test)
+         */
+        return true;
+    }
+});
+
+
 
 var OpenLayers = {
     /**
@@ -90131,6 +90161,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }, {
                 actions: ["finderTool"],  actionTarget: "paneltbar"    
             }, {
+                actions: ["SAMTool"],  actionTarget: "paneltbar"        
+            }, {
                 ptype: "gxp_villageinspector", format: 'grid',
                 toggleGroup: "interaction",
                 showButtonText: true,
@@ -90835,6 +90867,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     {
                         text: 'Reset',
                         iconCls: 'gxp-icon-reset',
+                        id:'stat_reset_button',
                         scope : this,
                         handler: function(){
                             vector_layer.removeAllFeatures();
@@ -90852,10 +90885,29 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     },{
                         text: 'Apply',
                         iconCls: "save",
+                        id:'stat_apply_button',
                         scope : this,
                         // disabled : Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'] == 'drawArea' || Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'] == 'currentProvince',
                         handler: function(){
                             // console.log(Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']);
+
+                            incidentTypeStore.load({
+                                'params': {
+                                    'query_type': 'main_type',
+                                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                                    'filterlock': getAdminFilterForIncident()
+                                }
+                            });
+                            incidentTargetStore.load({
+                                'params': {
+                                    'query_type': 'main_target',
+                                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                                    'filterlock': getAdminFilterForIncident()
+                                }
+                            });
+
                             var filter = [];
                             var adminCode = '';
                             // console.log(Ext.getCmp('districtSelection').value);
@@ -90864,14 +90916,14 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             if (Ext.getCmp('districtSelection').value != '') adminCode=Ext.getCmp('districtSelection').value;
 
                             if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']=='currentExtent'){
-                                var data = new OpenLayers.Feature.Vector(this.mapPanel.map.getExtent().toGeometry(), {
+                                var data = new OpenLayers.Feature.Vector(tempMap.getExtent().toGeometry(), {
                                     fid: 'extent01'
                                 });
                                 data.attributes = {
                                     featureid: 'extent01',
                                     type: 'extent'
                                 };
-                                this.mapPanel.map.getLayersByName('Filter Layer')[0].addFeatures(data);
+                                tempMap.getLayersByName('Filter Layer')[0].addFeatures(data);
                             } else if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']=='entireAfg'){
 
                             } else if (Ext.getCmp('filterForm').getForm().getValues()['selectedFilter']=='currentProvince'){
@@ -90880,14 +90932,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 
                             }
 
-                            vector_layer.features.forEach(function(record) {
-                                var temp = record.geometry.clone().transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));                                
-                                if (record.attributes.type == 'Free Draw' || record.attributes.type == 'extent'){
-                                    filter.push(temp.toString());
-                                } else {
-                                    filter.push(temp.components[0].toString());
-                                }  
-                            });
+                            var filter = getAdminFilterForIncident();
+
+                            // vector_layer.features.forEach(function(record) {
+                            //     var temp = record.geometry.clone().transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));                                
+                            //     if (record.attributes.type == 'Free Draw' || record.attributes.type == 'extent'){
+                            //         filter.push(temp.toString());
+                            //     } else {
+                            //         filter.push(temp.components[0].toString());
+                            //     }  
+                            // });
                             if (typeof adminCode == 'undefined'){
                                 adminCode = '';
                             }
@@ -90915,22 +90969,36 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         xtype: 'radio',
                         boxLabel: 'Current Extent',
                         name: 'selectedFilter',
-                        inputValue: 'currentExtent'
+                        id:'currentExtent',
+                        inputValue: 'currentExtent',
+                        listeners:{
+                            check: function(cb, value){
+                                Ext.getCmp('currentExtent_c').setValue(value);
+                            }
+                        }
                     },
                     {
                         xtype: 'radio',
                         boxLabel: 'Entire Afghanistan',
                         name: 'selectedFilter',
+                        id:'entireAfg',
                         inputValue: 'entireAfg',
-                        checked: true
+                        checked: true,
+                        listeners:{
+                            check: function(cb, value){
+                                Ext.getCmp('entireAfg_c').setValue(value);
+                            }
+                        }
                     },
                     {
                         xtype: 'radio',
                         boxLabel: 'Provinces and Districts',
                         name: 'selectedFilter',
+                        id:'currentProvince',
                         inputValue: 'currentProvince',
                         listeners: {
                             check: function(cb, value) {
+                                Ext.getCmp('currentProvince_c').setValue(value);
                                 if (value){
                                     // console.log(Ext.getCmp('provSelection'));
                                     Ext.getCmp('provSelection').disabled  = false;
@@ -90966,6 +91034,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         listeners       : {
                             'select': function(combo, record, index) {
                                 Ext.getCmp('districtSelection').reset();
+                                // Ext.getCmp('provSelection_c').onSelect(record, index);
+                                Ext.getCmp('provSelection_c').setValue(combo.getValue());
                                 dataSelected.load({
                                     params: {
                                         service: "WFS",
@@ -91015,6 +91085,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         displayField: 'dist_na_en',
                         listeners       : {
                             'select': function(combo, record, index) {
+                                // Ext.getCmp('districtSelection_c').onSelect(record, index);
+                                Ext.getCmp('districtSelection_c').setValue(combo.getValue());
                                 dataSelected.load({
                                     params: {
                                         service: "WFS",
@@ -91034,9 +91106,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         xtype: 'radio',
                         boxLabel: 'Draw Area',
                         name: 'selectedFilter',
+                        id:'drawArea',
                         inputValue: 'drawArea',
                         listeners: {
                             check: function(cb, value) {
+                                Ext.getCmp('drawArea_c').setValue(value);
                                 if (value){
                                     filtercontrol.activate();
                                 } else {
@@ -91561,6 +91635,581 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             ]
         });
 
+        var incidentTypeStore = new Ext.data.JsonStore({
+            root: 'objects',                   
+            totalProperty: 'total_count',
+            fields: [
+                {name:'visible', type: 'bolean'},
+                {name:'main_type', type: 'string'},
+                {name:'count', type: 'integer'},
+                {name:'injured', type: 'integer'},
+                {name:'affected', type: 'integer'},
+                {name:'violent', type: 'integer'},
+                {name:'dead', type: 'integer'}
+            ],
+            proxy: new Ext.data.HttpProxy({
+               url: "../../geoapi/sam_params/",
+               method: 'POST'
+            })
+        });
+
+        var incidentTargetStore = new Ext.data.JsonStore({
+            root: 'objects',                   
+            totalProperty: 'total_count',
+            fields: [
+                {name:'visible', type: 'bolean'},
+                {name:'main_target', type: 'string'},
+                {name:'count', type: 'integer'},
+                {name:'injured', type: 'integer'},
+                {name:'affected', type: 'integer'},
+                {name:'violent', type: 'integer'},
+                {name:'dead', type: 'integer'}
+            ],
+            proxy: new Ext.data.HttpProxy({
+               url: "../../geoapi/sam_params/",
+               method: 'POST'
+            })
+        });
+
+        var sec_cbx_Type_SelModel = new Ext.grid.CheckboxSelectionModel({
+            checkOnly: true,
+            singleSelect: false,
+            multipleSelect: true,
+            sortable: false,
+            dataIndex: 'visible',
+            width: 20,
+            listeners: {
+                selectionchange : function(selModel) {
+                    var allSelected = selModel.selections.length >= selModel.grid.getStore().getTotalCount();
+                    // console.log(allSelected);
+                    if (allSelected){
+                        reloadIncidentsLayer();
+                        reloadIncidentStatistics(selModel, sec_cbx_Target_SelModel, getAdminFilterForIncident());
+                    }
+
+                    if (selModel.selections.length==0) {
+                        reloadIncidentsLayer();
+                        setTimeout( reloadIncidentStatistics(selModel, sec_cbx_Target_SelModel, getAdminFilterForIncident()), 50);
+                    }    
+                },
+                click : function(selModel){
+                    // console.log(selModel.getSelections());
+                    reloadIncidentsLayer();
+                    reloadIncidentStatistics(selModel, sec_cbx_Target_SelModel, getAdminFilterForIncident());
+                },
+                scope: this
+            }
+        });
+
+        var sec_cbx_Target_SelModel = new Ext.grid.CheckboxSelectionModel({
+            checkOnly: true,
+            singleSelect: false,
+            multipleSelect: true,
+            sortable: false,
+            dataIndex: 'visible',
+            width: 20,
+            listeners: {
+                selectionchange : function(selModel) {
+                    var allSelected = selModel.selections.length >= selModel.grid.getStore().getTotalCount();
+                    // console.log(allSelected);
+                    if (allSelected){
+                        reloadIncidentsLayer();
+                        reloadIncidentStatistics(sec_cbx_Type_SelModel, selModel, getAdminFilterForIncident());
+                    }
+
+                    if (selModel.selections.length==0) {
+                        reloadIncidentsLayer();
+                        setTimeout( reloadIncidentStatistics(sec_cbx_Type_SelModel, selModel, getAdminFilterForIncident()), 50);
+                    }
+                },
+                click : function(selModel){
+                    // console.log(selModel.getSelections());
+                    reloadIncidentsLayer();
+                    reloadIncidentStatistics(sec_cbx_Type_SelModel, selModel, getAdminFilterForIncident());
+                },
+                scope: this
+            }
+        });
+
+        incidentTypeStore.on( 'load', function( store, records, options ) {
+            sec_cbx_Type_SelModel.selectAll(true); 
+            reloadIncidentsLayer();
+            
+        });
+
+        incidentTargetStore.on( 'load', function( store, records, options ) {
+            sec_cbx_Target_SelModel.selectAll(true); 
+            // reloadIncidentsLayer();
+            
+        });
+
+        var getAdminFilterForIncident = function(){
+            var filter = [];
+
+            // var data = new OpenLayers.Feature.Vector(this.mapPanel.map.getExtent().toGeometry(), {
+            //     fid: 'extent01'
+            // });
+            // data.attributes = {
+            //     featureid: 'extent01',
+            //     type: 'extent'
+            // };
+
+            // this.mapPanel.map.getLayersByName('Filter Layer')[0].addFeatures(data);
+
+            vector_layer.features.forEach(function(record) {
+                var temp = record.geometry.clone().transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));                                
+                if (record.attributes.type == 'Free Draw' || record.attributes.type == 'extent'){
+                    filter.push(temp.toString());
+                } else {
+                    filter.push(temp.components[0].toString());
+                }  
+            });
+
+            return filter;
+        }
+
+
+        var reloadIncidentsLayer = function(){
+            var wmsDynlayer1 = null;
+            var wmsDynlayer2 = null;
+            if (tempMap.getLayersByName('afg_incident_oasis').length > 0) {
+
+                params = "incident_date > '"+Ext.getCmp('startdt').getValue().format('m.d.Y')+"' AND incident_date < '"+Ext.getCmp('enddt').getValue().format('m.d.Y')+"'";
+                if (sec_cbx_Type_SelModel.getSelections().length>0){
+                    if (sec_cbx_Type_SelModel.selections.length < sec_cbx_Type_SelModel.grid.getStore().getTotalCount()){
+                        var tmpV ="";
+                        var pertama = true;
+                        sec_cbx_Type_SelModel.getSelections().forEach(function(v){
+                            if (pertama)
+                                tmpV += "'"+v.data.main_type+"'"
+                            else
+                                tmpV += ",'"+v.data.main_type+"'";
+                            pertama = false;
+                        });
+                        params = params + ' AND main_type IN ('+tmpV+')';
+                    }    
+                    
+                } else {
+                    params = params + ' AND main_type IN (\'none\')'
+                }
+
+                if (sec_cbx_Target_SelModel.getSelections().length>0){
+                    if (sec_cbx_Target_SelModel.selections.length < sec_cbx_Target_SelModel.grid.getStore().getTotalCount()){
+                        var tmpV ="";
+                        var pertama = true;
+                        sec_cbx_Target_SelModel.getSelections().forEach(function(v){
+                            if (pertama)
+                                tmpV += "'"+v.data.main_target+"'"
+                            else
+                                tmpV += ",'"+v.data.main_target+"'";
+                            pertama = false;
+                        });
+                        params = params + ' AND main_target IN ('+tmpV+')';
+                    }    
+                    
+                } else {
+                    params = params + ' AND main_target IN (\'none\')'
+                }
+                tempMap.getLayersByName('afg_incident_oasis').forEach(function(layer){
+                    layer.mergeNewParams({'CQL_FILTER': params});
+                });
+                
+            }
+            
+        };
+
+        var securityAnalysisModulePanel = new Ext.Panel({
+            title: 'Security Overview',
+            xtype: 'form',
+            id:'bd_SAM_panel',
+            border: false,
+            split: true,
+            collapsible: true,
+            collapseMode: "mini",
+            bodyPadding: 5,
+            collapsed: false,
+            hidden: true,
+            width: 320,
+            layout:'fit',
+            // autoScroll:true,
+            // overflowY: 'scroll',
+            defaults: {autoScroll: true},
+            items: [
+                new Ext.form.FormPanel({
+                    // title: "Basic Form",
+                    id: 'comboSecurityIncidentsForm',
+                    width: '100%',
+                    frame: true,
+                    region : 'center',
+                    border: false,
+                    layout:'form',
+                    layoutConfig: {columns: 1},
+                    height : 100,
+                    items: [{
+                        fieldLabel: 'Start Date',
+                        name: 'startdt',
+                        id: 'startdt',
+                        vtype: 'daterange',
+                        xtype: 'datefield',
+                        width: 130,
+                        endDateField: 'enddt', // id of the end date field
+                        value: new Date().add(Date.DAY, -365).format('m/d/y')
+                    },{
+                        fieldLabel: 'End Date',
+                        name: 'enddt',
+                        id: 'enddt',
+                        vtype: 'daterange',
+                        xtype: 'datefield',
+                        width: 130,
+                        startDateField: 'startdt', // id of the start date field
+                        value: new Date().format('m/d/y')
+                    },
+                    new Ext.Panel({
+                        title:'Boundary filters',
+                        height: 200,
+                        autoScroll: true,
+                        collapsible: true,
+                        collapsed: true,
+                        border: false,
+                        split: true,
+                        width: 300,
+                        collapseMode: "mini",
+                        bbar: new Ext.Toolbar({
+                            items:['->',
+                            {
+                                text: 'Reset',
+                                iconCls: 'gxp-icon-reset',
+                                scope : this,
+                                handler: function(){
+                                    Ext.getCmp('stat_reset_button').handler();
+                                }
+                            },{
+                                text: 'Apply',
+                                iconCls: "save",
+                                scope : this,
+                                handler: function(){
+                                    Ext.getCmp('stat_apply_button').handler();
+                                }
+                            }]
+                        }),
+                        items: [{
+                                xtype: 'radio',
+                                boxLabel: 'Current Extent',
+                                name: 'selectedFilter',
+                                id: 'currentExtent_c',
+                                inputValue: 'currentExtent',
+                                listeners: {
+                                    check:function(cb, value){
+                                        Ext.getCmp('currentExtent').setValue(value);
+                                    }
+                                }
+                            },
+                            {
+                                xtype: 'radio',
+                                boxLabel: 'Entire Afghanistan',
+                                name: 'selectedFilter',
+                                id: 'entireAfg_c',
+                                inputValue: 'entireAfg',
+                                checked: true,
+                                listeners: {
+                                    check:function(cb, value){
+                                        Ext.getCmp('entireAfg').setValue(value);
+                                    }
+                                }
+                            },
+                            {
+                                xtype: 'radio',
+                                boxLabel: 'Provinces and Districts',
+                                name: 'selectedFilter',
+                                id: 'currentProvince_c',
+                                inputValue: 'currentProvince',
+                                listeners: {
+                                    check: function(cb, value) {
+                                        Ext.getCmp('currentProvince').setValue(value);
+                                        if (value){
+                                            Ext.getCmp('provSelection_c').disabled  = false;
+                                            Ext.getCmp('districtSelection_c').disabled  = false;
+                                        } else { 
+                                            Ext.getCmp('provSelection_c').disabled  = true;
+                                            Ext.getCmp('provSelection_c').reset();
+                                            Ext.getCmp('districtSelection_c').disabled  = true;
+                                            Ext.getCmp('districtSelection_c').reset();
+                                        }    
+                                    }
+                                }
+
+                            },
+                            {
+                                xtype: 'combo',
+                                fieldLabel: 'Provinces',
+                                emptyText:'Select a province...', 
+                                id:'provSelection_c',
+                                disabled : true,
+                                typeAhead: true,
+                                triggerAction: 'all',
+                                forceSelection: true,  
+                                editable:false,  
+                                lazyRender:true,
+                                mode: 'local',
+                                store: data1,
+                                sm: new GeoExt.grid.FeatureSelectionModel(),
+                                valueField: 'prov_code',
+                                displayField: 'prov_na_en',
+                                scope: this,
+                                listeners       : {
+                                    'select': function(combo, record, index) {
+                                        Ext.getCmp('provSelection').onSelect(record, index);
+                                        Ext.getCmp('provSelection').setValue(combo.getValue());
+                                        Ext.getCmp('districtSelection_c').reset();
+                                    }
+
+
+                                }
+
+                            },
+                            {
+                                xtype: 'combo',
+                                fieldLabel: 'Districts',
+                                id:'districtSelection_c',
+                                emptyText:'Select a district...', 
+                                typeAhead: true,
+                                disabled : true,
+                                triggerAction: 'all',
+                                forceSelection: true,  
+                                editable:false,  
+                                lazyRender:true,
+                                mode: 'local',
+                                store: data2,
+                                sm: new GeoExt.grid.FeatureSelectionModel(),
+                                valueField: 'dist_code',
+                                displayField: 'dist_na_en',
+                                listeners       : {
+                                    'select': function(combo, record, index) {
+                                        Ext.getCmp('districtSelection').onSelect(record, index);
+                                        Ext.getCmp('districtSelection').setValue(combo.getValue());
+                                    }
+                                }
+
+                            },
+                            {
+                                xtype: 'radio',
+                                boxLabel: 'Draw Area',
+                                name: 'selectedFilter',
+                                id:'drawArea_c',
+                                inputValue: 'drawArea',
+                                listeners: {
+                                    check: function(cb, value) {
+                                        Ext.getCmp('drawArea').setValue(value);
+                                    }
+                                }
+                            }
+                        ]
+
+                    }),{
+                        xtype : 'menuseparator',
+                        width : '100%'
+                    },    
+                    new Ext.Panel({
+                        //title:'',
+                        // autoHeight: true,
+                        region:'center',
+                        autoScroll:true,
+                        width: 300,
+                        border: false,
+                        layout:'fit',
+                        items: [
+                            new Ext.grid.GridPanel({
+                                store: incidentTypeStore,
+                                width: 300,
+                                height: 175,
+                                id:'grid_incident_type', 
+                                layout:'fit',
+                                selModel: sec_cbx_Type_SelModel,
+                                deferRowRender: false,
+                                loadMask:true,
+                                viewConfig: {
+                                    getRowClass: function (record, rowIndex, rp, store) {
+                                        return 'gridcellHeight_custom1';
+                                    },
+                                    emptyText: 'No data'  ,
+                                    loadingText: "Loading..."
+                                },
+                                columns: [sec_cbx_Type_SelModel,{
+                                    header: "Tick the type of incident to apply:",
+                                    width: 275,
+                                    // autoHeight: true,
+                                    xtype:'templatecolumn',
+                                    tpl: new Ext.XTemplate(
+                                        // '<div style="float:left; padding:3px">',
+                                        //     '<div class="full-circle"><div class="height_fix"></div><div class="content">{count}</div></div>',
+                                        // '</div>',
+                                        '<div style="padding-left: 2px;">',
+                                            '<span class="finderheader">{main_type}</span><br/>',
+                                            '<span class="incidentsubheader">Incidents: {count}</span>',
+                                        '</div>'//,
+                                        // '<div style="float:right;padding-top: 1px; padding-right: 2px; color: rgba(158, 158, 158, 0.6);">',
+                                        //     '<span class="incidentsubheader">Affected: {affected}</span>',
+                                        //     '<br/><span class="incidentsubheader">Injured: {injured}</span>',
+                                        //     '<br/><span class="incidentsubheader">Violent: {violent}</span>',
+                                        //     '<br/><span class="incidentsubheader">Dead: {dead}</span>',
+                                        // '</div>'
+                                    ),
+                                    flex:1
+                                }]
+                            }),{
+                                xtype : 'menuseparator',
+                                width : '100%'
+                            },
+                            new Ext.grid.GridPanel({
+                                store: incidentTargetStore,
+                                width: 300,
+                                height: 175,
+                                id:'grid_incident_target', 
+                                layout:'fit',
+                                selModel: sec_cbx_Target_SelModel,
+                                deferRowRender: false,
+                                loadMask:true,
+                                viewConfig: {
+                                    getRowClass: function (record, rowIndex, rp, store) {
+                                        return 'gridcellHeight_custom1';
+                                    },
+                                    emptyText: 'No data'  ,
+                                    loadingText: "Loading..."
+                                },
+                                columns: [sec_cbx_Target_SelModel,{
+                                    header: "Tick the target of incident to apply:",
+                                    width: 275,
+                                    // autoHeight: true,
+                                    xtype:'templatecolumn',
+                                    tpl: new Ext.XTemplate(
+                                        // '<div style="float:left; padding:3px">',
+                                        //     '<div class="full-circle"><div class="height_fix"></div><div class="content">{count}</div></div>',
+                                        // '</div>',
+                                        '<div style="padding-left: 2px;">',
+                                            '<span class="finderheader">{main_target}</span><br/>',
+                                            '<span class="incidentsubheader">Incidents: {count}</span>',
+                                        '</div>'//,
+                                        // '<div style="float:right;padding-top: 1px; padding-right: 2px; color: rgba(158, 158, 158, 0.6);">',
+                                        //     '<span class="incidentsubheader">Affected: {affected}</span>',
+                                        //     '<br/><span class="incidentsubheader">Injured: {injured}</span>',
+                                        //     '<br/><span class="incidentsubheader">Violent: {violent}</span>',
+                                        //     '<br/><span class="incidentsubheader">Dead: {dead}</span>',
+                                        // '</div>'
+                                    ),
+                                    flex:1
+                                }]
+                            }),{
+                                xtype : 'menuseparator',
+                                width : '100%'
+                            },
+                            new Ext.TabPanel({
+                                activeTab: 0,
+                                border: false,
+                                enableTabScroll:true,
+                                width: '98%',
+                                id: 'statIncident',
+                                defaults: {autoScroll: true, layout:'fit'},  
+                                items: [{
+                                    title: 'Type',
+                                    id: 'typeView',
+                                    defaults: {autoScroll: true, layout:'fit'},  
+                                    height : 450,
+                                    style:"height:450px;",
+                                    overflowY: 'scroll',
+                                    html:'Apply filter to generate the statistics'
+                                },{
+                                    title: 'Target',
+                                    id: 'targetView',
+                                    defaults: {autoScroll: true, layout:'fit'},  
+                                    height : 450,
+                                    style:"height:450px;",
+                                    overflowY: 'scroll',
+                                    html:'Apply filter to generate the statistics'
+                                },{
+                                    title: 'Incidents',
+                                    id: 'incidentView',
+                                    defaults: {autoScroll: true, layout:'fit'},  
+                                    height : 450,
+                                    style:"height:450px;",
+                                    overflowY: 'scroll',
+                                    html:'Apply filter to generate the incidents'
+                                }]
+                            })]
+
+                    })
+
+
+                ]})
+            ]
+        });
+
+        
+
+        Ext.getCmp('bd_SAM_panel').on('expand', function(evt) {
+            var wmsDynlayer = tempMap.getLayersByName('afg_incident_oasis');
+            wmsDynlayer.forEach(function(layer){
+                layer.setVisibility(true);
+            });
+
+            incidentTypeStore.load({
+                'params': {
+                    'query_type': 'main_type',
+                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                    'filterlock': getAdminFilterForIncident()
+                }
+            });
+            incidentTargetStore.load({
+                'params': {
+                    'query_type': 'main_target',
+                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                    'filterlock': getAdminFilterForIncident()
+                }
+            });
+
+        });
+
+        Ext.getCmp('startdt').on('select', function(evt){
+            // reloadIncidentStatistics(sec_cbx_Type_SelModel, sec_cbx_Target_SelModel);
+            incidentTypeStore.load({
+                'params': {
+                    'query_type': 'main_type',
+                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                    'filterlock': getAdminFilterForIncident()
+                }
+            });
+            incidentTargetStore.load({
+                'params': {
+                    'query_type': 'main_target',
+                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                    'filterlock': getAdminFilterForIncident()
+                }
+            });
+        });
+
+        Ext.getCmp('enddt').on('select', function(evt){
+            // reloadIncidentStatistics(sec_cbx_Type_SelModel, sec_cbx_Target_SelModel);
+            incidentTypeStore.load({
+                'params': {
+                    'query_type': 'main_type',
+                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                    'filterlock': getAdminFilterForIncident()
+                }
+            });
+            incidentTargetStore.load({
+                'params': {
+                    'query_type': 'main_target',
+                    'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),
+                    'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),
+                    'filterlock': getAdminFilterForIncident()
+                }
+            });
+        });
+
         var eastPanel = new Ext.Panel({
             region: "east",
             id: "east",
@@ -91575,7 +92224,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             collapsed: true,
             width: 320,
             layout: 'accordion',
-            items:[statisticsPanel, finderToolsPanel],
+            items:[statisticsPanel, finderToolsPanel,securityAnalysisModulePanel],
             listeners: {
                 collapse: function (){
                     filtercontrol.deactivate();
@@ -91780,7 +92429,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_stats_panel').show();
                     Ext.getCmp('bd_stats_panel').expand();
                 } else {
-                    if (!Ext.getCmp('finderTool').pressed)
+                    if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_stats_panel').hide();
                 }
@@ -91800,9 +92449,29 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_findertool_panel').show();
                     Ext.getCmp('bd_findertool_panel').expand();
                 } else {
-                    if (!Ext.getCmp('statMenu').pressed)
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_findertool_panel').hide();
+                }
+            }       
+        });
+
+        new Ext.Button({
+            id: "SAMTool",
+            text: 'Security Analysis Module',
+            iconCls: 'icon-sam-tool',
+            enableToggle: true,    
+            toggleGroup: "interaction",  
+            pressed: false,
+            toggleHandler: function(){
+                if (this.pressed){
+                    Ext.getCmp('east').expand();
+                    Ext.getCmp('bd_SAM_panel').show();
+                    Ext.getCmp('bd_SAM_panel').expand();
+                } else {
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed)
+                        Ext.getCmp('east').collapse();
+                    Ext.getCmp('bd_SAM_panel').hide();
                 }
             }       
         });

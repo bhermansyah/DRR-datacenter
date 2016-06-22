@@ -1697,3 +1697,200 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
 
 Ext.preg(gxp.plugins.villageInspector.prototype.ptype, gxp.plugins.villageInspector);
 
+
+
+// security Statistics Results
+var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
+    // console.log(Ext.getCmp('statIncident'));
+    // console.log(Ext.getCmp('statIncident').items.getCount());
+    for (var i=0;i<Ext.getCmp('statIncident').items.getCount();i++){
+        Ext.getCmp('statIncident').items.items[i].show();
+    }
+    Ext.getCmp('statIncident').items.items[0].show();
+
+    var tpl = new Ext.Template('Please Wait ...');
+    tpl.overwrite(Ext.getCmp('typeView').body, {});
+    tpl.overwrite(Ext.getCmp('targetView').body, {});
+    tpl.overwrite(Ext.getCmp('incidentView').body, {});
+
+    var incidentType = [];
+    var incidentTarget = [];
+    if (sel_type.getSelections().length>0){
+        if (sel_type.selections.length < sel_type.grid.getStore().getTotalCount()){
+            sel_type.getSelections().forEach(function(v){
+                incidentType.push(v.data.main_type);
+            });
+        }
+    } else {
+        incidentType.push('none');
+    }
+
+    if (sel_target.getSelections().length>0){
+        if (sel_target.selections.length < sel_target.grid.getStore().getTotalCount()){
+            sel_target.getSelections().forEach(function(v){
+                incidentTarget.push(v.data.main_target);
+            });
+        }
+    } else {
+        incidentTarget.push('none');
+    }
+
+    // console.log(incidentType,incidentTarget);
+
+    Ext.Ajax.request({
+        url: '../../geoapi/sam_params/',
+        method: 'POST', 
+        params: {'query_type': ['main_type', 'type'], 'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),'incident_type':incidentType,'incident_target':incidentTarget, 'filterlock':filterlock },
+        // headers: {"Content-Type": "application/json"},
+        success: function(response) {
+            // myMaskEQ.hide();
+            var incidentStatTypeStore = Ext.decode(response.responseText);
+            var tplIncidentStat = new Ext.XTemplate(
+                '<div class="">',
+                    '<ul>',
+                        '<li>',
+                            '<div class="w3-card-4">',
+                                '<header class="w3-container1 w3-blue">',
+                                  '<h1 align="center">Type of Incidents</h1>',
+                                '</header>',
+                                '<div class="w3-container1">',
+                                    '<table style="width:100%"">',
+                                        '<tr><td align="center" style="padding: 5px;"></td><td style="padding: 5px;" align="center">Incidents</td><td style="padding: 5px;" align="right">Dead</td><td style="padding: 5px;" align="right">Injured</td><td style="padding: 5px;" align="right">Violent</td></tr>',
+                                        // '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
+                                        // '<tr><td align="center" style="padding: 5px;">Total</td><td style="padding: 5px;" align="center">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td></tr>',
+                                        '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
+                                        '<tpl for=".">',
+                                            '<tpl if="this.shouldShowHeader(main_type)">' +
+                                                // '<div class="group-header-incidents">{[this.showHeader(values.main_type)]}</div>' +
+                                                '<tr><td align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_type)]}</div></td><td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_type,"count")]}</td><td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"dead")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"injured")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"violent")]}</td></tr>'+
+                                            '</tpl>' +
+                                        //     '<div class="incident-item">{type}</div>',
+                                            '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="custom_breakword_100">{type}</div></td><td style="padding: 5px;" align="right">{count}</td><td style="padding: 5px;" align="center">{dead}</td><td style="padding: 5px;" align="right">{injured}</td><td style="padding: 5px;" align="right">{violent}</td></tr>',
+                                        '</tpl>',
+                                    '</table>',   
+                                '</div>',
+                            '</div>',
+                        '</li>',
+                    '</ul>',
+                '</div><br/><br/><br/><br/>',
+                {
+                    shouldShowHeader: function(key){
+                        return this.currentKey != key;
+                    },
+                    showHeader: function(key){
+                        this.currentKey = key;
+                        return key;
+                    },
+                    showNumberIncidentGroup: function(key, fieldvalue){
+                        var store = sel_type.grid.getStore();
+                        var index = store.findExact('main_type',key);
+                        return store.getAt(index).get(fieldvalue);
+                    } 
+                }
+            );
+
+            tplIncidentStat.overwrite(Ext.getCmp('typeView').body, incidentStatTypeStore.objects);
+            Ext.getCmp('typeView').body.highlight('#c3daf9', {block:true});
+        }
+    });    
+
+
+    Ext.Ajax.request({
+        url: '../../geoapi/sam_params/',
+        method: 'POST', 
+        params: {'query_type': ['main_target', 'target'], 'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),'incident_type':incidentType,'incident_target':incidentTarget, 'filterlock':filterlock },
+        // headers: {"Content-Type": "application/json"},
+        success: function(response) {
+            // myMaskEQ.hide();
+            var incidentStatTargetStore = Ext.decode(response.responseText);
+            var tplIncidentStat = new Ext.XTemplate(
+                '<div class="">',
+                    '<ul>',
+                        '<li>',
+                            '<div class="w3-card-4">',
+                                '<header class="w3-container1 w3-blue">',
+                                  '<h1 align="center">Target of Incidents</h1>',
+                                '</header>',
+                                '<div class="w3-container1">',
+                                    '<table style="width:100%"">',
+                                        '<tr><td align="center" style="padding: 5px;"></td><td style="padding: 5px;" align="center">Incidents</td><td style="padding: 5px;" align="right">Dead</td><td style="padding: 5px;" align="right">Injured</td><td style="padding: 5px;" align="right">Violent</td></tr>',
+                                        // '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
+                                        // '<tr><td align="center" style="padding: 5px;">Total</td><td style="padding: 5px;" align="center">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td></tr>',
+                                        '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
+                                        '<tpl for=".">',
+                                            '<tpl if="this.shouldShowHeader(main_target)">' +
+                                                // '<div class="group-header-incidents">{[this.showHeader(values.main_type)]}</div>' +
+                                                '<tr><td align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_target)]}</div></td><td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_target,"count")]}</td><td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"dead")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"injured")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"violent")]}</td></tr>'+
+                                            '</tpl>' +
+                                        //     '<div class="incident-item">{type}</div>',
+                                            '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="custom_breakword_100">{target}</div></td><td style="padding: 5px;" align="right">{count}</td><td style="padding: 5px;" align="center">{dead}</td><td style="padding: 5px;" align="right">{injured}</td><td style="padding: 5px;" align="right">{violent}</td></tr>',
+                                        '</tpl>',
+                                    '</table>',   
+                                '</div>',
+                            '</div>',
+                        '</li>',
+                    '</ul>',
+                '</div><br/><br/><br/><br/>',
+                {
+                    shouldShowHeader: function(key){
+                        return this.currentKey != key;
+                    },
+                    showHeader: function(key){
+                        this.currentKey = key;
+                        return key;
+                    },
+                    showNumberIncidentGroup: function(key, fieldvalue){
+                        var store = sel_target.grid.getStore();
+                        var index = store.findExact('main_target',key);
+                        return store.getAt(index).get(fieldvalue);
+                    } 
+                }
+            );
+
+            tplIncidentStat.overwrite(Ext.getCmp('targetView').body, incidentStatTargetStore.objects);
+            Ext.getCmp('targetView').body.highlight('#c3daf9', {block:true});
+        }
+    });
+
+
+    Ext.Ajax.request({
+        url: '../../geoapi/incident_raw/',
+        method: 'POST', 
+        params: {'query_type': ['main_type', 'type'], 'start_date': Ext.getCmp('startdt').getValue().format('Y-m-d'),'end_date': Ext.getCmp('enddt').getValue().format('Y-m-d'),'incident_type':incidentType,'incident_target':incidentTarget, 'filterlock':filterlock },
+        // Ext.encode({'spatialfilter':filter}),
+        // headers: {"Content-Type": "application/json"},
+        success: function(response) {
+            // myMaskEQ.hide();
+            var incidentStatTypeStore = Ext.decode(response.responseText);
+            var tplIncidentStat = new Ext.XTemplate(
+                '<div class="">',
+                    '<ul>',
+                        '<li>',
+                            '<div class="w3-card-4">',
+                                '<header class="w3-container1 w3-blue">',
+                                  '<h1 align="center">Incident list</h1>',
+                                '</header>',
+                                '<div class="w3-container1">',
+                                    '<table style="width:100%"">',
+                                        '<tr><td align="center" style="padding: 5px;">Date</td><td style="padding: 5px;" align="left">Description</td></tr>',
+                                        '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
+                                        '<tpl for=".">',
+                                            '<tr><td align="left" style="padding: 5px;padding-left: 10px;vertical-align:top;">{date}</td><td style="padding: 5px;" align="left" class="custom_breakword_200">{desc}</td></tr>',
+                                        '</tpl>',
+                                    '</table>',   
+                                '</div>',
+                            '</div>',
+                        '</li>',
+                    '</ul>',
+                '</div><br/><br/><br/><br/>'
+            );
+
+            tplIncidentStat.overwrite(Ext.getCmp('incidentView').body, incidentStatTypeStore.objects);
+            Ext.getCmp('incidentView').body.highlight('#c3daf9', {block:true});
+        }
+    });
+
+
+}
+
+

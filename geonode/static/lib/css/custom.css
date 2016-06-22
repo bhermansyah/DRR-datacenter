@@ -2308,3 +2308,55 @@ footer {
 .yourlabs-autocomplete{
   top: 35px !important;
 }
+
+.icon-sam-tool {
+    background-image: url(../img/cancel-off.png);
+}
+
+
+.gridcellHeight_custom1{
+  height: 35px;
+}
+
+.gridcellHeight_custom1>table>tbody>tr>td>div{
+  height: 35px !important;
+}
+
+.custom_breakword_200{
+    width: 200px;
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.incidentsubheader {
+    font-size: 10px;
+    font-style: italic;
+    color: hsla(0, 0%, 30%, 0.9);
+}
+
+.w3-container1 {
+    padding: 0.5em 2px;
+    font-size: 8pt;
+}
+
+.group-header-incidents{
+  /*padding-left: 2px;*/
+  /*font-size: 12pt;*/
+  font-weight: bolder;
+}
+
+.custom_breakword_100{
+    width: 100px;
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+input#provSelection_c{
+  width: 150px !important;
+}
+input#districtSelection_c{
+  width: 150px !important;
+}
+

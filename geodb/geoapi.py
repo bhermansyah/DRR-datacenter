@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap, AfgIncidentOasis
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -1492,8 +1492,7 @@ class getAccessibilities(ModelResource):
             if len(str(boundaryFilter['code'])) > 2:
                 ff0001 =  "dist_code  = '"+str(boundaryFilter['code'])+"'"
             else :
-                ff0001 =  "left(cast(dist_code as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"' and length(cast(dist_code as text))="+ str(len(str(boundaryFilter['code']))+2)
-            print ff0001      
+                ff0001 =  "left(cast(dist_code as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"' and length(cast(dist_code as text))="+ str(len(str(boundaryFilter['code']))+2)   
             q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
                 where = {
                     ff0001       
@@ -1588,6 +1587,129 @@ class getAccessibilities(ModelResource):
             timelabel = timelabel.replace('>','g')
             response[timelabel+'__near_hltall']=round(i['pop'])         
         
+        return response
+
+
+
+# lanjutan clone dari api.py
+class getSAMParameters(ModelResource):
+    """Flood api"""
+
+    class Meta:
+        authorization = DjangoAuthorization()
+        resource_name = 'sam_params'
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        always_return_data = True
+
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        response = self.getStats(request)
+        return self.create_response(request, response)   
+
+    def getStats(self, request):
+        # print str(request.POST['query_type']) #.strip('[]')
+        # print request.POST
+        query_filter_group = []
+        temp_group = dict(request.POST)['query_type']
+        filterLock = dict(request.POST)['filterlock']
+        # print filterLock
+
+
+
+        response = {}
+        response['objects'] = []
+
+        resource = AfgIncidentOasis.objects.all()
+
+        if filterLock[0]!='':
+            resource = resource.filter(wkb_geometry__intersects=filterLock[0])
+
+        if len(temp_group)==1:
+            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).values(temp_group[0]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0])
+        elif len(temp_group)==2:
+            stat_type_filter = dict(request.POST)['incident_type'];
+            stat_target_filter = dict(request.POST)['incident_target'];
+            
+            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date'])
+
+            if stat_type_filter[0]=='':
+                resource = resource
+            else:
+                resource = resource.filter(main_type__in=stat_type_filter)
+
+            if stat_target_filter[0]=='':   
+                resource = resource
+            else:
+                resource = resource.filter(main_target__in=stat_target_filter)
+            
+            resource = resource.values(temp_group[0],temp_group[1]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0],temp_group[1])
+
+        for i in resource:
+            i['visible']=True
+            response['objects'].append(i)
+        # response['objects'] = resource
+        response['total_count'] = resource.count()
+
+        return response
+
+# lanjutan clone dari api.py
+class getIncidentsRaw(ModelResource):
+    """Flood api"""
+
+    class Meta:
+        authorization = DjangoAuthorization()
+        resource_name = 'incident_raw'
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        always_return_data = True
+
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        response = self.getStats(request)
+        return self.create_response(request, response)   
+
+    def getStats(self, request):
+        query_filter_group = []
+        temp_group = dict(request.POST)['query_type']
+        filterLock = dict(request.POST)['filterlock']
+
+        response = {}
+        response['objects'] = []
+
+        resource = AfgIncidentOasis.objects.all()
+
+        if filterLock[0]!='':
+            resource = resource.filter(wkb_geometry__intersects=filterLock[0])
+
+        if len(temp_group)==1:
+            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).order_by('-incident_date')
+        elif len(temp_group)==2:
+            stat_type_filter = dict(request.POST)['incident_type'];
+            stat_target_filter = dict(request.POST)['incident_target'];
+            
+            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).order_by('-incident_date')
+
+            if stat_type_filter[0]=='':
+                resource = resource
+                # resource = AfgIncidentOasis.objects.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).values(temp_group[0],temp_group[1]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0],temp_group[1])
+            else:
+                resource = resource.filter(main_type__in=stat_type_filter)
+
+            if stat_target_filter[0]=='':   
+                resource = resource[:100]
+            else:
+                resource = resource.filter(main_target__in=stat_target_filter)[:100]
+            
+            
+        for i in resource:
+            response['objects'].append({
+                'date':i.incident_date,
+                'desc':i.description
+            })
+
+        response['total_count'] = resource.count()
+
         return response
 
     
