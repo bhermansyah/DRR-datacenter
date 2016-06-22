@@ -91956,6 +91956,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 valueField: 'prov_code',
                                 displayField: 'prov_na_en',
                                 scope: this,
+                                listWidth:175,
                                 listeners       : {
                                     'select': function(combo, record, index) {
                                         Ext.getCmp('provSelection').onSelect(record, index);
@@ -91978,6 +91979,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 forceSelection: true,  
                                 editable:false,  
                                 lazyRender:true,
+                                listWidth:175,
                                 mode: 'local',
                                 store: data2,
                                 sm: new GeoExt.grid.FeatureSelectionModel(),
