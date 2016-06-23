@@ -544,6 +544,20 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                             '<li>',
                                 '<div class="w3-card-4">',
                                     '<header class="w3-container w3-blue">',
+                                      '<h1 align="center">GSM / cell phone Coverage</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td style="padding: 5px;" align="left">Population on GSM Coverage</td><td style="padding: 5px;" align="right">{pop_on_gsm_coverage:toMega}</td></tr>',
+                                            '<tr><td style="padding: 5px;" align="left">Area on GSM Coverage (km2)</td><td style="padding: 5px;" align="right">{area_on_gsm_coverage:toMega}</td></tr>',
+                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                        '</table>',   
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
                                       '<h1 align="center">To nearest airport</h1>',
                                     '</header>',
                                     '<div class="w3-container">',
@@ -1756,17 +1770,16 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                 '<div class="w3-container1">',
                                     '<table style="width:100%"">',
                                         '<tr><td align="center" style="padding: 5px;"></td><td style="padding: 5px;" align="center">Incidents</td><td style="padding: 5px;" align="right">Dead</td><td style="padding: 5px;" align="right">Injured</td><td style="padding: 5px;" align="right">Violent</td></tr>',
-                                        // '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
-                                        // '<tr><td align="center" style="padding: 5px;">Total</td><td style="padding: 5px;" align="center">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td></tr>',
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
-                                        '<tpl for=".">',
+                                        
+                                        '<tpl for="objects">',
                                             '<tpl if="this.shouldShowHeader(main_type)">' +
-                                                // '<div class="group-header-incidents">{[this.showHeader(values.main_type)]}</div>' +
                                                 '<tr><td align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_type)]}</div></td><td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_type,"count")]}</td><td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"dead")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"injured")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"violent")]}</td></tr>'+
                                             '</tpl>' +
-                                        //     '<div class="incident-item">{type}</div>',
                                             '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="custom_breakword_100">{type}</div></td><td style="padding: 5px;" align="right">{count}</td><td style="padding: 5px;" align="center">{dead}</td><td style="padding: 5px;" align="right">{injured}</td><td style="padding: 5px;" align="right">{violent}</td></tr>',
                                         '</tpl>',
+                                        '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
+                                        '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="group-header-incidents">Total</div></td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_incident}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_dead}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_injured}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_violent}</td></tr>',
                                     '</table>',   
                                 '</div>',
                             '</div>',
@@ -1789,7 +1802,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                 }
             );
 
-            tplIncidentStat.overwrite(Ext.getCmp('typeView').body, incidentStatTypeStore.objects);
+            tplIncidentStat.overwrite(Ext.getCmp('typeView').body, incidentStatTypeStore);
             Ext.getCmp('typeView').body.highlight('#c3daf9', {block:true});
         }
     });    
@@ -1814,17 +1827,15 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                 '<div class="w3-container1">',
                                     '<table style="width:100%"">',
                                         '<tr><td align="center" style="padding: 5px;"></td><td style="padding: 5px;" align="center">Incidents</td><td style="padding: 5px;" align="right">Dead</td><td style="padding: 5px;" align="right">Injured</td><td style="padding: 5px;" align="right">Violent</td></tr>',
-                                        // '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
-                                        // '<tr><td align="center" style="padding: 5px;">Total</td><td style="padding: 5px;" align="center">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td><td style="padding: 5px;" align="right">#</td></tr>',
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
-                                        '<tpl for=".">',
+                                        '<tpl for="objects">',
                                             '<tpl if="this.shouldShowHeader(main_target)">' +
-                                                // '<div class="group-header-incidents">{[this.showHeader(values.main_type)]}</div>' +
                                                 '<tr><td align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_target)]}</div></td><td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_target,"count")]}</td><td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"dead")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"injured")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"violent")]}</td></tr>'+
                                             '</tpl>' +
-                                        //     '<div class="incident-item">{type}</div>',
                                             '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="custom_breakword_100">{target}</div></td><td style="padding: 5px;" align="right">{count}</td><td style="padding: 5px;" align="center">{dead}</td><td style="padding: 5px;" align="right">{injured}</td><td style="padding: 5px;" align="right">{violent}</td></tr>',
                                         '</tpl>',
+                                        '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
+                                        '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="group-header-incidents">Total</div></td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_incident}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_dead}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_injured}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_violent}</td></tr>',
                                     '</table>',   
                                 '</div>',
                             '</div>',
@@ -1847,7 +1858,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                 }
             );
 
-            tplIncidentStat.overwrite(Ext.getCmp('targetView').body, incidentStatTargetStore.objects);
+            tplIncidentStat.overwrite(Ext.getCmp('targetView').body, incidentStatTargetStore);
             Ext.getCmp('targetView').body.highlight('#c3daf9', {block:true});
         }
     });

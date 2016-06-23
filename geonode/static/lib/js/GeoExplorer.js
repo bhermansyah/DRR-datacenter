@@ -91865,7 +91865,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         value: new Date().format('m/d/y')
                     },
                     new Ext.Panel({
-                        title:'Boundary filters',
+                        title:'Area of interests',
                         height: 200,
                         autoScroll: true,
                         collapsible: true,
@@ -92021,6 +92021,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         layout:'fit',
                         items: [
                             new Ext.grid.GridPanel({
+                                collapsible: true,
+                                collapsed: true,
+                                border: false,
+                                title : 'Type of Incidents',
                                 store: incidentTypeStore,
                                 width: 300,
                                 height: 175,
@@ -92064,6 +92068,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             },
                             new Ext.grid.GridPanel({
                                 store: incidentTargetStore,
+                                collapsible: true,
+                                collapsed: true,
+                                border: false,
+                                title : 'Target of Incidents',
                                 width: 300,
                                 height: 175,
                                 id:'grid_incident_target', 
@@ -92110,29 +92118,33 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 enableTabScroll:true,
                                 width: '98%',
                                 id: 'statIncident',
+                                autoHeight: true,
                                 defaults: {autoScroll: true, layout:'fit'},  
                                 items: [{
                                     title: 'Type',
                                     id: 'typeView',
                                     defaults: {autoScroll: true, layout:'fit'},  
-                                    height : 450,
-                                    style:"height:450px;",
+                                    autoHeight: true,
+                                    // height : 450,
+                                    // style:"height:450px;",
                                     overflowY: 'scroll',
                                     html:'Apply filter to generate the statistics'
                                 },{
                                     title: 'Target',
                                     id: 'targetView',
                                     defaults: {autoScroll: true, layout:'fit'},  
-                                    height : 450,
-                                    style:"height:450px;",
+                                    autoHeight: true,
+                                    // height : 450,
+                                    // style:"height:450px;",
                                     overflowY: 'scroll',
                                     html:'Apply filter to generate the statistics'
                                 },{
                                     title: 'Incidents',
                                     id: 'incidentView',
                                     defaults: {autoScroll: true, layout:'fit'},  
-                                    height : 450,
-                                    style:"height:450px;",
+                                    autoHeight: true,
+                                    // height : 450,
+                                    // style:"height:450px;",
                                     overflowY: 'scroll',
                                     html:'Apply filter to generate the incidents'
                                 }]
@@ -92460,7 +92472,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         new Ext.Button({
             id: "SAMTool",
-            text: 'Security Analysis Module',
+            text: 'Security Overview',
             iconCls: 'icon-sam-tool',
             enableToggle: true,    
             toggleGroup: "interaction",  

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -1277,6 +1277,20 @@ def getAccesibilityInfoVillages(request):
     context_dict['t3_hf_direction_label']=getDirectionLabel(angle['angle'])
     context_dict['t3_hf_prov_parent'] = ptemp.prov_na_en
     context_dict['t3_hf_dist_parent'] = ptemp.dist_na_en
+
+    # GSM Coverages 
+    try:
+        ptemp = get_object_or_404(AfgCaptGmscvr, vuid=village)
+        if ptemp:
+            context_dict['gsm_covered'] = 'YES'
+        else:
+            context_dict['gsm_covered'] = 'NO'     
+    except:
+        ptemp = AfgCaptGmscvr.objects.all().filter(vuid=village)
+        if len(ptemp)>0:
+            context_dict['gsm_covered'] = 'YES'
+        else:
+            context_dict['gsm_covered'] = 'NO'  
 
     context_dict.pop('position')
     return render_to_response(template,

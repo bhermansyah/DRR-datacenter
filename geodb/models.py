@@ -1360,4 +1360,35 @@ class AfgIncidentOasis(models.Model):
     objects = models.GeoManager()
     class Meta:
         managed = False
-        db_table = 'afg_incident_oasis'            
+        db_table = 'afg_incident_oasis'  
+
+class AfgCapaGsmcvr(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.MultiPolygonField(blank=True, null=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    gsm_coverage = models.CharField(max_length=255, blank=True)
+    gsm_coverage_population = models.FloatField(blank=True, null=True)
+    gsm_coverage_area_sqm = models.FloatField(blank=True, null=True)
+    shape_length = models.FloatField(blank=True, null=True)
+    shape_area = models.FloatField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = False
+        db_table = 'afg_capa_gsmcvr'
+
+class AfgCaptGmscvr(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    frequency = models.IntegerField(blank=True, null=True)
+    gsm_coverage_area_sqm = models.FloatField(blank=True, null=True)
+    gsm_coverage_population = models.FloatField(blank=True, null=True)
+    gsm_coverage = models.CharField(max_length=255, blank=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_capt_gmscvr'
+
+

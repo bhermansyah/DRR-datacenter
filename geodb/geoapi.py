@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap, AfgIncidentOasis
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap, AfgIncidentOasis, AfgCapaGsmcvr
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -1488,6 +1488,8 @@ class getAccessibilities(ModelResource):
             q6 = AfgCaptHltfacTier2Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
             q7 = AfgCaptHltfacTier3Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
             q8 = AfgCaptHltfacTierallImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+            gsm = AfgCapaGsmcvr.objects.all().aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
+
         elif flag =='currentProvince':
             if len(str(boundaryFilter['code'])) > 2:
                 ff0001 =  "dist_code  = '"+str(boundaryFilter['code'])+"'"
@@ -1525,6 +1527,11 @@ class getAccessibilities(ModelResource):
                 where = {
                     ff0001       
                 })
+            if len(str(boundaryFilter['code'])) > 2:
+                gsm = AfgCapaGsmcvr.objects.filter(dist_code=boundaryFilter['code']).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
+            else :
+                gsm = AfgCapaGsmcvr.objects.filter(prov_code=boundaryFilter['code']).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))    
+
         elif flag =='drawArea':
             tt = AfgPplp.objects.filter(wkb_geometry__intersects=boundaryFilter['spatialfilter'][0]).values('vuid')
             q1 = AfgCaptAdm1ItsProvcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
@@ -1535,6 +1542,7 @@ class getAccessibilities(ModelResource):
             q6 = AfgCaptHltfacTier2Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
             q7 = AfgCaptHltfacTier3Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
             q8 = AfgCaptHltfacTierallImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
         else:
             tt = AfgPplp.objects.filter(wkb_geometry__intersects=boundaryFilter['spatialfilter'][0]).values('vuid')
             q1 = AfgCaptAdm1ItsProvcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
@@ -1545,6 +1553,7 @@ class getAccessibilities(ModelResource):
             q6 = AfgCaptHltfacTier2Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
             q7 = AfgCaptHltfacTier3Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
             q8 = AfgCaptHltfacTierallImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
+            gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
 
         for i in q1: 
             timelabel = i['time'].replace(' ','_')
@@ -1585,8 +1594,11 @@ class getAccessibilities(ModelResource):
             timelabel = i['time'].replace(' ','_')
             timelabel = timelabel.replace('<','l')
             timelabel = timelabel.replace('>','g')
-            response[timelabel+'__near_hltall']=round(i['pop'])         
-        
+            response[timelabel+'__near_hltall']=round(i['pop'])    
+
+        response['pop_on_gsm_coverage'] = round(gsm['pop'],0)
+        response['area_on_gsm_coverage'] = round(gsm['area']/1000000,0)
+         
         return response
 
 
@@ -1626,7 +1638,8 @@ class getSAMParameters(ModelResource):
             resource = resource.filter(wkb_geometry__intersects=filterLock[0])
 
         if len(temp_group)==1:
-            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).values(temp_group[0]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0])
+            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date'])           
+            resource = resource.values(temp_group[0]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0])       
         elif len(temp_group)==2:
             stat_type_filter = dict(request.POST)['incident_type'];
             stat_target_filter = dict(request.POST)['incident_target'];
@@ -1643,8 +1656,15 @@ class getSAMParameters(ModelResource):
             else:
                 resource = resource.filter(main_target__in=stat_target_filter)
             
+            resourceAgregate = resource
             resource = resource.values(temp_group[0],temp_group[1]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0],temp_group[1])
+            resourceAgregate = resourceAgregate.aggregate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead'))
 
+            response['total_incident'] = resourceAgregate['count']
+            response['total_injured'] = resourceAgregate['injured']
+            response['total_violent'] = resourceAgregate['violent']
+            response['total_dead'] = resourceAgregate['dead']
+            
         for i in resource:
             i['visible']=True
             response['objects'].append(i)
