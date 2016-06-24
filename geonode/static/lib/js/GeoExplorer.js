@@ -91865,7 +91865,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         value: new Date().format('m/d/y')
                     },
                     new Ext.Panel({
-                        title:'Area of interests',
+                        title:'1. Area of interests',
                         height: 200,
                         autoScroll: true,
                         collapsible: true,
@@ -92024,7 +92024,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 collapsible: true,
                                 collapsed: true,
                                 border: false,
-                                title : 'Type of Incidents',
+                                title : '2. Type of Incidents',
                                 store: incidentTypeStore,
                                 width: 300,
                                 height: 175,
@@ -92071,7 +92071,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 collapsible: true,
                                 collapsed: true,
                                 border: false,
-                                title : 'Target of Incidents',
+                                title : '3. Target of Incidents',
                                 width: 300,
                                 height: 175,
                                 id:'grid_incident_target', 
