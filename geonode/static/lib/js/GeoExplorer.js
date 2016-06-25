@@ -91770,9 +91770,17 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
 
         var reloadIncidentsLayer = function(){
-            var wmsDynlayer1 = null;
-            var wmsDynlayer2 = null;
-            if (tempMap.getLayersByName('afg_incident_oasis').length > 0) {
+            var wmsDynlayer = [];
+
+            tempMap.layers.forEach(function(layer){
+                if (layer.params){
+                    if (layer.params.LAYERS == 'geonode:afg_incident_oasis') {
+                        wmsDynlayer.push(layer);
+                    }
+                }    
+            });
+
+            if (wmsDynlayer.length > 0) {
 
                 params = "incident_date > '"+Ext.getCmp('startdt').getValue().format('m.d.Y')+"' AND incident_date < '"+Ext.getCmp('enddt').getValue().format('m.d.Y')+"'";
                 if (sec_cbx_Type_SelModel.getSelections().length>0){
@@ -91810,7 +91818,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 } else {
                     params = params + ' AND main_target IN (\'none\')'
                 }
-                tempMap.getLayersByName('afg_incident_oasis').forEach(function(layer){
+
+                wmsDynlayer.forEach(function(layer){
                     layer.mergeNewParams({'CQL_FILTER': params});
                 });
                 
@@ -92160,9 +92169,12 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         
 
         Ext.getCmp('bd_SAM_panel').on('expand', function(evt) {
-            var wmsDynlayer = tempMap.getLayersByName('afg_incident_oasis');
-            wmsDynlayer.forEach(function(layer){
-                layer.setVisibility(true);
+            tempMap.layers.forEach(function(layer){
+                if (layer.params){
+                    if (layer.params.LAYERS == 'geonode:afg_incident_oasis') {
+                        layer.setVisibility(true);
+                    }
+                }    
             });
 
             incidentTypeStore.load({
