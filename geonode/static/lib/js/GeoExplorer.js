@@ -90623,7 +90623,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }],
             proxy: new GeoExt.data.ProtocolProxy({
                 protocol: new OpenLayers.Protocol.HTTP({
-                    url: "http://asdc.immap.org/geoserver/wfs",
+                    // url: "http://asdc.immap.org/geoserver/wfs",
+                    url: "../../geoapi/get_villages/",
                     format: new OpenLayers.Format.GeoJSON(),
                     params: {
                         service: "WFS",

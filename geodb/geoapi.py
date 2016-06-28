@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap, AfgIncidentOasis, AfgCapaGsmcvr
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap, AfgIncidentOasis, AfgCapaGsmcvr, AfgAirdrmp
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -17,7 +17,9 @@ from itertools import *
 from matrix.models import matrix
 from tastypie.cache import SimpleCache
 from pytz import timezone, all_timezones
+from django.http import HttpResponse
 
+from djgeojson.serializers import Serializer as GeoJSONSerializer
 
 FILTER_TYPES = {
     'flood': AfgFldzonea100KRiskLandcoverPop
@@ -1596,8 +1598,8 @@ class getAccessibilities(ModelResource):
             timelabel = timelabel.replace('>','g')
             response[timelabel+'__near_hltall']=round(i['pop'])    
 
-        response['pop_on_gsm_coverage'] = round(gsm['pop'],0)
-        response['area_on_gsm_coverage'] = round(gsm['area']/1000000,0)
+        response['pop_on_gsm_coverage'] = round((gsm['pop'] or 0),0)
+        response['area_on_gsm_coverage'] = round((gsm['area'] or 0)/1000000,0)
          
         return response
 
@@ -1605,7 +1607,7 @@ class getAccessibilities(ModelResource):
 
 # lanjutan clone dari api.py
 class getSAMParameters(ModelResource):
-    """Flood api"""
+    """inicidents type and target api"""
 
     class Meta:
         authorization = DjangoAuthorization()
@@ -1664,7 +1666,7 @@ class getSAMParameters(ModelResource):
             response['total_injured'] = resourceAgregate['injured']
             response['total_violent'] = resourceAgregate['violent']
             response['total_dead'] = resourceAgregate['dead']
-            
+
         for i in resource:
             i['visible']=True
             response['objects'].append(i)
@@ -1675,7 +1677,7 @@ class getSAMParameters(ModelResource):
 
 # lanjutan clone dari api.py
 class getIncidentsRaw(ModelResource):
-    """Flood api"""
+    """Incidents raw api"""
 
     class Meta:
         authorization = DjangoAuthorization()
@@ -1731,5 +1733,59 @@ class getIncidentsRaw(ModelResource):
         response['total_count'] = resource.count()
 
         return response
+
+class getVillages(ModelResource):
+    """villages api"""
+
+    class Meta:
+        authorization = DjangoAuthorization()
+        resource_name = 'get_villages'
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get']
+        always_return_data = True
+
+    def get_list(self, request, **kwargs):
+        self.method_check(request, allowed=['get'])
+        response = self.getStats(request)
+        # return self.create_response(request, response)   
+        return HttpResponse(response, mimetype='application/json')
+
+    def getStats(self, request):
+        print request.GET
+        # resource = .transform(900913, field_name='wkb_geometry') string__icontains
+        if request.GET['type']=='settlements':
+            resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','dist_na_en','prov_na_en','wkb_geometry')
+        elif request.GET['type']=='healthfacility':    
+            resource = AfgHltfac.objects.all()
+        elif request.GET['type']=='airport':    
+            resource = AfgAirdrmp.objects.all()
+        else :    
+            resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','dist_na_en','prov_na_en','wkb_geometry')        
+
+        print request.GET['dist_code']
+        if request.GET['dist_code'] != '':
+            resource = resource.filter(dist_code=request.GET['dist_code'])     
+
+        if request.GET['prov_code'] != '':
+            if request.GET['type']=='settlements':
+                resource = resource.filter(prov_code_1=request.GET['prov_code'])
+            else:
+                resource = resource.filter(prov_code=request.GET['prov_code'])    
+
+        if request.GET['search'] != '':
+            if request.GET['type']=='settlements':
+                resource = resource.filter(name_en__icontains=request.GET['search'])
+            elif request.GET['type']=='healthfacility':  
+                resource = resource.filter(facility_name__icontains=request.GET['search'])    
+            elif request.GET['type']=='healthfacility':  
+                resource = resource.filter(namelong__icontains=request.GET['search'])    
+            else:
+                resource = resource.filter(name_en__icontains=request.GET['search'])    
+
+        response = GeoJSONSerializer().serialize(resource, use_natural_keys=True, with_modelname=False, geometry_field='wkb_geometry', srid=900913)
+
+        return response
+
+
 
     
