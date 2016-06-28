@@ -1782,7 +1782,7 @@ class getVillages(ModelResource):
             else:
                 resource = resource.filter(name_en__icontains=request.GET['search'])    
 
-        response = GeoJSONSerializer().serialize(resource, use_natural_keys=True, with_modelname=False, geometry_field='wkb_geometry', srid=900913)
+        response = GeoJSONSerializer().serialize(resource, use_natural_keys=True, with_modelname=False, geometry_field='wkb_geometry', srid=3857)
 
         return response
 
