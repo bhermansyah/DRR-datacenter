@@ -1796,8 +1796,10 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                     },
                     showNumberIncidentGroup: function(key, fieldvalue){
                         var store = sel_type.grid.getStore();
-                        var index = store.findExact('main_type',key);
-                        return store.getAt(index).get(fieldvalue);
+                        var index = store.findExact('main_type',key);   
+                        if (typeof(store.getAt(index)) != 'undefined') {
+                            return store.getAt(index).get(fieldvalue);
+                        }    
                     } 
                 }
             );
