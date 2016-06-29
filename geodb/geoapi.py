@@ -1254,7 +1254,7 @@ class EarthQuakeStatisticResource(ModelResource):
             if len(str(boundaryFilter['code'])) > 2:
                 ff0001 =  "district  = '"+str(boundaryFilter['code'])+"'"
             else :
-                ff0001 =  "left(cast(district as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"'"
+                ff0001 =  "left(cast(district as text), "+str(len(str(boundaryFilter['code'])))+") = '"+str(boundaryFilter['code'])+"' and length(cast(district as text))="+ str(len(str(boundaryFilter['code']))+2)   
             counts = list(villagesummaryEQ.objects.all().extra(
                 select={
                     'pop_shake_weak' : 'coalesce(SUM(pop_shake_weak),0)',
