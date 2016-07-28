@@ -1777,7 +1777,7 @@ class getVillages(ModelResource):
                 resource = resource.filter(name_en__icontains=request.GET['search'])
             elif request.GET['type']=='healthfacility':  
                 resource = resource.filter(facility_name__icontains=request.GET['search'])    
-            elif request.GET['type']=='healthfacility':  
+            elif request.GET['type']=='airport':  
                 resource = resource.filter(namelong__icontains=request.GET['search'])    
             else:
                 resource = resource.filter(name_en__icontains=request.GET['search'])    

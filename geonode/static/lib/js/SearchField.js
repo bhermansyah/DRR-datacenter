@@ -77,8 +77,9 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
             this.store.baseParams['type'] = 'airport';
         }
 
-        this.store.baseParams['dist_code'] = Ext.getCmp('districtSelectionLocator').value;
-        this.store.baseParams['prov_code'] = Ext.getCmp('provSelectionLocator').value;
+
+        this.store.baseParams['dist_code'] = Ext.getCmp('districtSelectionLocator').value || '';
+        this.store.baseParams['prov_code'] = Ext.getCmp('provSelectionLocator').value || '';
         this.store.baseParams['search'] = v;
 
         var typeName = '';
