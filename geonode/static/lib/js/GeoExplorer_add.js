@@ -1781,7 +1781,13 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                         
                                         '<tpl for="objects">',
                                             '<tpl if="this.shouldShowHeader(main_type)">' +
-                                                '<tr><td align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_type)]}</div></td><td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_type,"count")]}</td><td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"dead")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"injured")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"violent")]}</td></tr>'+
+                                                '<tr>'+
+                                                    '<td colspan="5" align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_type)]}</div></td>'+
+                                                    // '<td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_type,"count")]}</td>'+
+                                                    // '<td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"dead")]}</td>'+
+                                                    // '<td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"injured")]}</td>'+
+                                                    // '<td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_type,"violent")]}</td>'+
+                                                '</tr>'+
                                             '</tpl>' +
                                             '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="custom_breakword_100">{type}</div></td><td style="padding: 5px;" align="right">{count}</td><td style="padding: 5px;" align="center">{dead}</td><td style="padding: 5px;" align="right">{injured}</td><td style="padding: 5px;" align="right">{violent}</td></tr>',
                                         '</tpl>',
@@ -1839,7 +1845,13 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
                                         '<tpl for="objects">',
                                             '<tpl if="this.shouldShowHeader(main_target)">' +
-                                                '<tr><td align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_target)]}</div></td><td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_target,"count")]}</td><td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"dead")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"injured")]}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"violent")]}</td></tr>'+
+                                                '<tr>'+
+                                                    '<td colspan="5" align="left" style="padding: 5px;"><div class="group-header-incidents custom_breakword_100">{[this.showHeader(values.main_target)]}</div></td>'+
+                                                    // '<td class="group-header-incidents" style="padding: 5px;" align="right">{[this.showNumberIncidentGroup(values.main_target,"count")]}</td>'+
+                                                    // '<td style="padding: 5px;" align="center" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"dead")]}</td>'+
+                                                    // '<td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"injured")]}</td>'+
+                                                    // '<td style="padding: 5px;" align="right" class="group-header-incidents">{[this.showNumberIncidentGroup(values.main_target,"violent")]}</td>'+
+                                                '</tr>'+
                                             '</tpl>' +
                                             '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="custom_breakword_100">{target}</div></td><td style="padding: 5px;" align="right">{count}</td><td style="padding: 5px;" align="center">{dead}</td><td style="padding: 5px;" align="right">{injured}</td><td style="padding: 5px;" align="right">{violent}</td></tr>',
                                         '</tpl>',
