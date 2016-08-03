@@ -99,7 +99,7 @@ table#info tr.odd td {
 <div class="infoPanelTitle">Latest 20 earthquakes :</div>
 <table class='tblborder'>
 	<tr>
-		<th style="vertical-align: bottom;text-align: center;padding-bottom: 0px;border-bottom: 0px;width: 175px;max-width:175px"><div class="">Date</div></th>
+		<th style="vertical-align: bottom;text-align: center;padding-bottom: 0px;border-bottom: 0px;width: 175px;max-width:175px"><div class=""></div></th>
 		<th rowspan=2 bgcolor="#c4ceff"><div class="rotate">II-III Weak</div></th>
 		<th rowspan=2 bgcolor="#7cfddf"><div class="rotate">IV Light</div></th>
 		<th rowspan=2 bgcolor="#b1ff55"><div class="rotate">V Moderate</div></th>
@@ -110,7 +110,7 @@ table#info tr.odd td {
 		<th rowspan=2 bgcolor="#d20003"><div class="rotate">X+ Extreme</div></th>
 	</tr>
 	<tr>
-		<th style="vertical-align: top;text-align: center;padding-top: 0px;border-top: 0px;"><div class="">Mag.</div></th>
+		<th style="vertical-align: top;text-align: center;padding-top: 0px;border-top: 0px;"><div class="">Magnitude</div></th>
 	</tr>
 	{% for item in eq_history  %}
 		<tr>
@@ -125,7 +125,7 @@ table#info tr.odd td {
 			<td rowspan=2 bgcolor="#d20003" class="">{% if item.sic >= 10 %}X{% endif %}</td>
 		</tr>
 		<tr>
-			<td style="max-width: 100px;padding: 2px !important;text-align: center;">{{item.magnitude}}</td>
+			<td style="max-width: 100px;padding: 2px !important;text-align: center;">{{item.magnitude}} M</td>
 		</tr>
 	{% endfor %}
 </table>

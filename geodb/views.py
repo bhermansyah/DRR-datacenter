@@ -1376,7 +1376,7 @@ def getEarthquakeInfoVillages(request):
   
     px = earthquake_events.objects.all().filter(event_code__in=event_code).order_by('-dateofevent') 
     for i in px:
-        data.append({'date':i.dateofevent.strftime("%Y-%m-%d %H:%M:%S") ,'magnitude':i.magnitude,'sic':event_mag[i.event_code]})
+        data.append({'date':i.dateofevent.strftime("%Y-%m-%d %H:%M") ,'magnitude':i.magnitude,'sic':event_mag[i.event_code]})
 
     context_dict['eq_history']=data   
     # data1 = []
