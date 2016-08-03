@@ -2360,3 +2360,59 @@ input#districtSelection_c{
   width: 150px !important;
 }
 
+.infoPanelTitle {
+  margin-left: 25px;
+  margin-right: 25px;
+  font-weight: bold;
+  color: #0D63AD;
+}
+
+.rotate {
+    /*display:inline-block;*/
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    -webkit-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);  
+    white-space: nowrap;  
+    margin-top: 95px;
+}
+
+.tblborder{
+  margin: 1em auto;
+}
+
+.tblborder, .tblborder td, .tblborder th{
+    border-collapse:collapse;
+    border:1px solid #000;
+}
+
+.tblborder td, .tblborder th{
+    padding:20px 10px;
+    max-width: 10px;
+}
+
+.tblborder th{
+    /*height: 120px;*/
+    text-align: left;
+}
+
+.tblborder td {
+    max-height: 5px !important;
+    padding: 10px !important;
+}
+
+.tblcustborder{
+  margin: 1em;
+}
+
+.tblcustborder, .tblcustborder td, .tblcustborder th{
+    border-collapse:collapse;
+    border:1px solid #000;
+    padding: 2px;
+}
+
+.tblcustborder th{
+    border-collapse:collapse;
+    border:1px solid #000;
+    background-color: #ccc;
+}

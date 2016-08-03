@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -1317,6 +1317,82 @@ def getGeneralInfoVillages(request):
     context_dict.pop('position')
     return render_to_response(template,
                                   RequestContext(request, context_dict))
+
+def getEarthquakeInfoVillages(request):
+    template = './earthquakeInfo.html'
+    village = request.GET["v"]
+    
+    context_dict = getCommonVillageData(village)
+
+    # cursor = connections['geodb'].cursor()
+    # cursor.execute("\
+    #     select st_astext(a.wkb_geometry) as wkb_geometry, a.vuid, a.dist_code     \
+    #     from afg_ppla a, earthquake_shakemap b   \
+    #     where b.event_code = '"+event_code+"' and b.grid_value > 1 \
+    #     and ST_Intersects(a.wkb_geometry,b.wkb_geometry)    \
+    # ")
+    # row = cursor.fetchall()
+    # cursor.close()
+
+    context_dict['sic_1']=''
+    context_dict['sic_2']=''
+    context_dict['sic_3']=''
+    context_dict['sic_4']=''
+    context_dict['sic_5']=''
+    context_dict['sic_6']=''
+    context_dict['sic_7']=''
+    context_dict['sic_8']=''
+
+    px = AfgEqtUnkPplEqHzd.objects.all().filter(vuid=village)
+    for i in px:
+        if i.seismic_intensity_cat == 'II':
+           context_dict['sic_1']='X'
+        if i.seismic_intensity_cat == 'III':
+           context_dict['sic_1']='X'
+        if i.seismic_intensity_cat == 'IV':
+           context_dict['sic_2']='X'
+        if i.seismic_intensity_cat == 'V':
+           context_dict['sic_3']='X'
+        if i.seismic_intensity_cat == 'VI':
+           context_dict['sic_4']='X'
+        if i.seismic_intensity_cat == 'VII':
+           context_dict['sic_5']='X'   
+        if i.seismic_intensity_cat == 'VIII':
+           context_dict['sic_6']='X' 
+        if i.seismic_intensity_cat == 'IX':
+           context_dict['sic_7']='X'  
+        if i.seismic_intensity_cat == 'X+':
+           context_dict['sic_8']='X'                             
+
+    px = earthquake_shakemap.objects.all().filter(wkb_geometry__intersects=context_dict['position']).exclude(grid_value=1).values('event_code','grid_value')
+
+    event_code = []
+    event_mag = {}
+
+    data = []
+    for i in px:
+        event_code.append(i['event_code'])
+        event_mag[i['event_code']]=i['grid_value']
+  
+    px = earthquake_events.objects.all().filter(event_code__in=event_code).order_by('-dateofevent') 
+    for i in px:
+        data.append({'date':i.dateofevent.strftime("%Y-%m-%d %H:%M:%S") ,'magnitude':i.magnitude,'sic':event_mag[i.event_code]})
+
+    context_dict['eq_history']=data   
+    # data1 = []
+    # data2 = []
+    # data1.append(['agg_simplified_description','area_population'])
+    # data2.append(['agg_simplified_description','area_sqm'])
+    # for i in px:
+    #     data1.append([i['agg_simplified_description'],i['totalpop']])
+    #     data2.append([i['agg_simplified_description'],round(i['totalarea']/1000000,1)])
+
+    # context_dict['landcover_pop_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title': "# of Population", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+    # context_dict['landcover_area_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title': "# of Area (KM2)", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+    
+    context_dict.pop('position')
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))    
 
 def getFloodInfoVillages(request):
     template = './floodInfo.html'

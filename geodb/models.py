@@ -1391,4 +1391,15 @@ class AfgCaptGmscvr(models.Model):
         managed = False
         db_table = 'afg_capt_gmscvr'
 
-
+class AfgEqtUnkPplEqHzd(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    acc_val = models.FloatField(blank=True, null=True)
+    seismic_intensity_and_description = models.CharField(max_length=255, blank=True)
+    source_1 = models.CharField(max_length=255, blank=True)
+    data = models.CharField(max_length=255, blank=True)
+    seismic_intensity_cat = models.CharField(max_length=50, blank=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_eqt_unk_ppl_eq_hzd'
