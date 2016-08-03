@@ -1479,7 +1479,7 @@ def getFloodInfoVillages(request):
     dataFLRiskPop.append(['Low',context_dict['low_risk_population']])
     dataFLRiskPop.append(['Moderate',context_dict['med_risk_population']])
     dataFLRiskPop.append(['High',context_dict['high_risk_population']])
-    context_dict['floodrisk_pop_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskPop), html_id="pie_chart1", options={'title': "Flood Risk Population Exposure", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+    context_dict['floodrisk_pop_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskPop), html_id="pie_chart1", options={'slices': {0:{'color': 'blue'},1:{'color': 'orange'},2:{'color': 'red'}}, 'title': "Flood Risk Population Exposure", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
 
     dataFLRiskPop = []
     dataFLRiskPop.append(['Lancover Type','Population'])
@@ -1501,7 +1501,7 @@ def getFloodInfoVillages(request):
     dataFLRiskArea.append(['Low',context_dict['low_risk_area']])
     dataFLRiskArea.append(['Moderate',context_dict['med_risk_area']])
     dataFLRiskArea.append(['High',context_dict['high_risk_area']])
-    context_dict['floodrisk_area_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskArea), html_id="pie_chart3", options={'title': "Flood Risk Area Exposure", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
+    context_dict['floodrisk_area_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskArea), html_id="pie_chart3", options={'slices': {0:{'color': 'blue'},1:{'color': 'orange'},2:{'color': 'red'}},'title': "Flood Risk Area Exposure", 'width': 250,'height': 250, 'pieSliceText': 'percentage','legend': {'position': 'top', 'maxLines':3}})  
 
     dataFLRiskPop = []
     dataFLRiskPop.append(['Lancover Type','Area'])
