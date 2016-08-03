@@ -1121,7 +1121,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                         '<p><div class="lineCustom"> </div></p> <br/>',
                                         '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_population:toMega}({percent_high_ava_population}%)</div></p><br/>',
                                         '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_population:toMega}({percent_med_ava_population}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_population:toMega}({percent_low_ava_population}%)</div></p><br/>',       
+                                        // '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_population:toMega}({percent_low_ava_population}%)</div></p><br/>',       
                                     '</div>',
                                 '</div>',
                             '</li>',
@@ -1136,7 +1136,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                         '<p><div class="lineCustom"> </div></p> <br/>',
                                         '<p><div style="float:left;">High</div><div style="float:right;">{high_ava_area:toMega}({percent_high_ava_area}%)</div></p><br/>',
                                         '<p><div style="float:left;">Moderate</div><div style="float:right;">{med_ava_area:toMega}({percent_med_ava_area}%)</div></p><br/>',
-                                        '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_area:toMega}({percent_low_ava_area}%)</div></p><br/>',
+                                        // '<p><div style="float:left;">Low</div><div style="float:right;">{low_ava_area:toMega}({percent_low_ava_area}%)</div></p><br/>',
                                     '</div>',
                                 '</div>',
                             '</li>',
@@ -1283,6 +1283,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
 
                                     '<div class="w3-container">',
                                         '<p><div style="float:left;">Avalanche Forecast</div><div style="float:right;">{snowwater_lastupdated}</div></p><br/>',
+                                        '<p><div style="float:left;">Snow Coverage & Depth</div><div style="float:right;">{snowwater_lastupdated}</div></p><br/>',
                                     '</div>',
                                 '</div>',
                             '</li>',
@@ -1680,6 +1681,12 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             height : 500,
                             style:"height:500px;",
                             html: '<iframe src="../../getOverviewMaps/floodinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'  
+                        },{
+                            title: 'Earthquake',
+                            defaults: {autoScroll: true},  
+                            height : 500,
+                            style:"height:500px;",
+                            html: '<iframe src="../../getOverviewMaps/earthquakeinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'  
                         }]
                     }],
                     listeners: {
