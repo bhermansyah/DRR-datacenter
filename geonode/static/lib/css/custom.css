@@ -2416,3 +2416,9 @@ input#districtSelection_c{
     border:1px solid #000;
     background-color: #ccc;
 }
+
+.disc_text {
+    margin-left: 25px;
+    margin-right: 25px;
+    font-size: smaller;
+}
