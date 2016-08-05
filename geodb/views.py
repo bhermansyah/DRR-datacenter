@@ -1282,15 +1282,15 @@ def getAccesibilityInfoVillages(request):
     try:
         ptemp = get_object_or_404(AfgCaptGmscvr, vuid=village)
         if ptemp:
-            context_dict['gsm_covered'] = 'YES'
+            context_dict['gsm_covered'] = 'Yes'
         else:
-            context_dict['gsm_covered'] = 'NO'     
+            context_dict['gsm_covered'] = 'No coverage'     
     except:
         ptemp = AfgCaptGmscvr.objects.all().filter(vuid=village)
         if len(ptemp)>0:
-            context_dict['gsm_covered'] = 'YES'
+            context_dict['gsm_covered'] = 'Yes'
         else:
-            context_dict['gsm_covered'] = 'NO'  
+            context_dict['gsm_covered'] = 'No coverage'  
 
     context_dict.pop('position')
     return render_to_response(template,

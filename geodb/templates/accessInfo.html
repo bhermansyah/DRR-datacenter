@@ -70,7 +70,7 @@ table#info tr.odd td {
 	</tr>
 	<tr>
 		<td>GSM Coverage</td>
-		<td><strong>{{gsm_covered}}</strong></td>
+		<td><strong><span style='color:{% if gsm_covered == 'Yes' %}darkgreen{% else %}darkred{% endif %}'>{{gsm_covered}}</span></strong></td>
 	</tr>
 	<tr>
 		<td style='vertical-align: text-top;'>Closest Road</td>
