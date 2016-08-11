@@ -2422,3 +2422,11 @@ input#districtSelection_c{
     margin-right: 25px;
     font-size: smaller;
 }
+
+.cust_chart_class{
+  height: 62px;
+}
+
+.hltSubTitle{
+  font-size: smaller;
+}
