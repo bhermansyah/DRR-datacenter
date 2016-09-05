@@ -7,9 +7,25 @@
 {% block body_class %}dashboard{% endblock %}
 
 
-
 {% block body_outer %}
 
-<iframe name="iframe1" width="100%" height="800" src="http://reporthub.immap.org/#/immap/drr/baseline/afghanistan" frameborder="no" scrolling="yes"></iframe>
-
+<!-- <iframe name="iframe1" width="100%" height="800" src="http://reporthub.immap.org/#/immap/drr/baseline/afghanistan" frameborder="no" scrolling="yes"></iframe> -->
+	{% include "pages/links.html" %}
+    <div id="" class="container">
+    	{% if request.GET.page == 'baseline' %}
+    		{% include "pages/baseline.html" %}
+    	{% elif request.GET.page == 'floodforecast' %}
+    		{% include "pages/floodforecast.html" %}	
+    	{% elif request.GET.page == 'floodrisk' %}
+    		{% include "pages/floodrisk.html" %}
+    	{% elif request.GET.page == 'avalancherisk' %}
+    		{% include "pages/avalancherisk.html" %}
+    	{% elif request.GET.page == 'avalcheforecast' %}
+    		{% include "pages/avalcheforecast.html" %}	
+    	{% elif request.GET.page == 'accessibility' %}
+    		{% include "pages/accessibility.html" %}		
+    	{% endif %}	
+    </div>
+    
+    
 {% endblock body_outer %}

@@ -139,7 +139,7 @@
                 <a href="{% url "home" %}">{% trans "Home" %}</a>
               </li>
               <li id="nav_dashboard">
-                <a href="{% url "dashboard_detail" %}">{% trans "Dashboard" %}</a>
+                <a href="{% url "dashboard_detail" %}?page=baseline">{% trans "Dashboard" %}</a>
               </li>
               {% if user.is_superuser %}
               <li id="nav_layers">

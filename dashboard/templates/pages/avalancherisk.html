@@ -1,0 +1,142 @@
+{% load humanize %}
+
+<style type="text/css">
+li#nav_dashavalancherisk>a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 0.4em;
+    width: 100%;
+    border-bottom: 2px solid #755467;
+    margin-top: 15px;
+}
+</style>
+
+
+<div class="gridster">
+	<h1 class="dashing-title">Avalanche Risk - {{parent_label_dash}}</h1>
+  	<ul>
+		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
+			<span class='widget-title'>Total Population</span>
+		</li>
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<div>{{ total_pop_atrisk_chart.as_html }}</div>
+			<span class='widget-title'>Population at Risk</span>
+			<span class='pie-title1'>{{ total_pop_atrisk_percent }}%</span>
+			<span class='pie-title2'>{{ total_ava_population | intword | intcomma}}</span>
+		</li>
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<div>{{ total_area_atrisk_chart.as_html }}</div>
+			<span class='widget-title'>Area at Risk (km<sup>2</sup>)</span>
+			<span class='pie-title1'>{{ total_area_atrisk_percent }}%</span>
+			<span class='pie-title2'>{{ total_ava_area | intword | intcomma}}</span>
+		</li>
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<div>{{ high_pop_atrisk_chart.as_html }}</div>
+			<span class='widget-title'>Population at High Risk</span>
+			<span class='pie-title1'>{{ total_pop_high_atrisk_percent }}%</span>
+			<span class='pie-title2'>{{ high_ava_population | intword | intcomma}}</span>
+		</li>
+		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+			<div>{{ med_pop_atrisk_chart.as_html }}</div>
+			<span class='widget-title'>Population at Med. Risk</span>
+			<span class='pie-title1'>{{ total_pop_med_atrisk_percent }}%</span>
+			<span class='pie-title2'>{{ med_ava_population | intword | intcomma}}</span>
+		</li>
+		    
+		  
+		
+
+  	</ul>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td style="text-align:left;padding:3px;">Population</td>
+				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+			</tr>
+			<tr>
+				<th rowspan=2><span>Region</span></th>
+				<th colspan=2>Total</th>
+				<th colspan=2>High</th>
+				<th colspan=2>Moderate</th>
+				<!-- <th rowspan=2><span>Health Facilities</span></th>
+				<th rowspan=2><span>Length of Roads</span></th> -->
+			</tr>
+			<tr>
+				<th><span>Pop</span></th>
+				<th><span>Area</span></th>
+				<th><span>Pop</span></th>
+				<th><span>Area</span></th>
+				<th><span>Pop</span></th>
+				<th><span>Area</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td rowspan=2 class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{total_ava_population | intword | intcomma}}</td>
+				<td class="parent_value">{{total_ava_area | intword | intcomma}}</td>
+				<td class="parent_value">{{high_ava_population | intword | intcomma}}</td>
+				<td class="parent_value">{{high_ava_area | intword | intcomma}}</td>
+				<td class="parent_value">{{med_ava_population | intword | intcomma}}</td>
+				<td class="parent_value">{{med_ava_area | intword | intcomma}}</td>
+			</tr>
+			<tr>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ total_pop_atrisk_percent }}%,#ffffff {{ total_pop_atrisk_percent }}%);">{{ total_pop_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ total_area_atrisk_percent }}%,#ffffff {{ total_area_atrisk_percent }}%);">{{ total_area_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ total_pop_high_atrisk_percent }}%,#ffffff {{ total_pop_high_atrisk_percent }}%);">{{ total_pop_high_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ total_area_high_atrisk_percent }}%,#ffffff {{ total_area_high_atrisk_percent }}%);">{{ total_area_high_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ total_pop_med_atrisk_percent }}%,#ffffff {{ total_pop_med_atrisk_percent }}%);">{{ total_pop_med_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ total_area_med_atrisk_percent }}%,#ffffff {{ total_area_med_atrisk_percent }}%);">{{ total_area_med_atrisk_percent }}%</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=avalancherisk&code={{data.code}}';">
+				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.total_ava_population | intword | intcomma}}</td>
+				<td class="detail_value">{{data.total_ava_area | intword | intcomma}}</td>
+				<td class="detail_value">{{data.high_ava_population | intword | intcomma}}</td>
+				<td class="detail_value">{{data.high_ava_area | intword | intcomma}}</td>
+				<td class="detail_value">{{data.med_ava_population | intword | intcomma}}</td>
+				<td class="detail_value">{{data.med_ava_area | intword | intcomma}}</td>		
+			</tr>
+			<tr class='dataitem detail_base hide'>			
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_pop_atrisk_percent }}%,#ffffff {{ data.total_pop_atrisk_percent }}%);">{{ data.total_pop_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_area_atrisk_percent }}%,#ffffff {{ data.total_area_atrisk_percent }}%);">{{ data.total_area_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_pop_high_atrisk_percent }}%,#ffffff {{ data.total_pop_high_atrisk_percent }}%);">{{ data.total_pop_high_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_area_high_atrisk_percent }}%,#ffffff {{ data.total_area_high_atrisk_percent }}%);">{{ data.total_area_high_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_pop_med_atrisk_percent }}%,#ffffff {{ data.total_pop_med_atrisk_percent }}%);">{{ data.total_pop_med_atrisk_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_area_med_atrisk_percent }}%,#ffffff {{ data.total_area_med_atrisk_percent }}%);">{{ data.total_area_med_atrisk_percent }}%</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+
+<SCRIPT TYPE="text/javascript">
+function show_hide_base(){
+	if ($("div.showFlag_base").text() == "Show Detail") {
+		$("div.showFlag_base").text('Hide Detail');
+	} else {
+		$("div.showFlag_base").text('Show Detail');
+	}
+	$( ".detail_base" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";		    
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";	    
+		}
+	});
+}
+
+
+
+
+</SCRIPT>

@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+    </script>
     {% block head %}
       {% if DEBUG_STATIC %}
       <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css" rel="stylesheet" />
@@ -18,6 +22,12 @@
       {% endif %}
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
+      
+      <!-- gridster css -->
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/jquery.gridster.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/grister_styles.css">
+
+
       <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
       {% block extra_head %}
@@ -33,6 +43,7 @@
         }
       </style>
     <![endif]-->
+
   </head>
   
   <body class="{% block body_class %}{% endblock %}">
@@ -135,7 +146,7 @@
                 <a href="{% url "home" %}">{% trans "Home" %}</a>
               </li>
               <li id="nav_dashboard">
-                <a href="{% url "dashboard_detail" %}">{% trans "Dashboard" %}</a>
+                <a href="{% url "dashboard_detail" %}?page=baseline">{% trans "Dashboard" %}</a>
               </li>
               <li id="nav_layers">
                 <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
@@ -174,6 +185,7 @@
           </div><!--/.nav-collapse -->
         </div>
       </div>
+      <div class="container" style="border-bottom: 1px solid #eee;"></div>
     </nav>
     {% endblock header %}
 
@@ -204,14 +216,10 @@
   </div>
     
     {% block footer %}
-    <footer class="footer">
+   <!--  <footer class="footer">
       <div class="container">
         <div class="row" style="border-top: 1px solid #eee;">
-          <!-- <div class="col-md-8">
-            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
-            <a href="http://www.immap.org">{% trans "Developed by iMMAP" %}</a> |
-            <a href="{% url "about" %}">{% trans "About" %}</a>
-          </div> -->
+
           <div class="col-md-12 footertext">
             <a href="http://www.immap.org">{% trans "iMMAP" %}</a> &copy; 2016 
           </div>
@@ -238,7 +246,7 @@
            
         </div>
       </div>
-    </footer>
+    </footer> -->
     {% endblock footer %}
 
 
@@ -340,6 +348,10 @@
     {% endif %}
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
+
+    <script type="text/javascript" src="{{ STATIC_URL }}lib/js/jquery.gridster.js" charster="utf-8"></script>
+    <script src='http://tablesorter.com/__jquery.tablesorter.min.js'></script>
+
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     {% block extra_script %}{% endblock extra_script %}
@@ -375,7 +387,28 @@
             }
         };
     </script>
-    <script type="text/javascript" src="{% url "lang" %}"></script>
 
+    <script type="text/javascript">
+          var gridster;
+
+          $(function() {
+              gridtster = $(".gridster > ul").gridster({
+                  widget_margins: [10, 10],
+                  widget_base_dimensions: [140, 140],
+                  min_cols: 6
+              }).data('gridster');
+
+              gridtster.disable();
+          });
+      </script>
+
+      <script type="text/javascript">
+        $(function () {
+            // $('#keywords').tablesorter();
+        });
+      </script>
+      
+      <script type="text/javascript" src="{% url "lang" %}"></script>
+      
   </body>
 </html>

@@ -1,0 +1,129 @@
+{% load humanize %}
+
+<style type="text/css">
+li#nav_dashavalancheforecast>a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 0.4em;
+    width: 100%;
+    border-bottom: 2px solid #755467;
+    margin-top: 15px;
+}
+</style>
+
+
+<div class="gridster">
+	<h1 class="dashing-title">Avalanche Forecast - {{parent_label_dash}}</h1>
+  	<ul>
+  		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
+			<span class='widget-title'>Total Population</span>
+		</li>
+		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{total_ava_population | intword | intcomma}}</h1>
+			<span class='widget-title'>Total Population At risk</span>
+		</li>
+		<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+			<div>{{ total_pop_forecast_chart.as_html }}</div>
+			<span class='widget-title'>Population exposed on avalanche forecast</span>
+			<span class='pie-title1'>{{ total_pop_forecast_percent }}%</span>
+			<span class='pie-title2'>{{ total_ava_forecast_pop | intword | intcomma}}</span>
+		</li>
+		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
+			<div>{{ high_pop_forecast_chart.as_html }}</div>
+			<span class='widget-title'>Population exposed on high risk avalanche forecast</span>
+			<span class='pie-title1'>{{ high_pop_forecast_percent }}%</span>
+			<span class='pie-title2'>{{ ava_forecast_high_pop | intword | intcomma}}</span>
+		</li>
+		<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
+			<div>{{ med_pop_forecast_chart.as_html }}</div>
+			<span class='widget-title'>Population exposed on moderate risk avalanche forecast</span>
+			<span class='pie-title1'>{{ med_pop_forecast_percent }}%</span>
+			<span class='pie-title2'>{{ ava_forecast_med_pop | intword | intcomma}}</span>
+		</li>
+		<li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
+			<div>{{ low_pop_forecast_chart.as_html }}</div>
+			<span class='widget-title'>Population exposed on low risk avalanche forecast</span>
+			<span class='pie-title1'>{{ low_pop_forecast_percent }}%</span>
+			<span class='pie-title2'>{{ ava_forecast_med_low | intword | intcomma}}</span>
+		</li>
+		    
+  	</ul>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td style="text-align:left;padding:3px;">Population</td>
+				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+			</tr>
+			<tr>
+				<th><span>Region</span></th>
+				<th>Total</th>
+				<th>High</th>
+				<th>Moderate</th>
+				<th>Low</th>
+				<!-- <th rowspan=2><span>Health Facilities</span></th>
+				<th rowspan=2><span>Length of Roads</span></th> -->
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td rowspan=2 class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{total_ava_forecast_pop | intword | intcomma}}</td>
+				<td class="parent_value">{{ava_forecast_high_pop | intword | intcomma}}</td>
+				<td class="parent_value">{{ava_forecast_med_pop | intword | intcomma}}</td>
+				<td class="parent_value">{{ava_forecast_low_pop | intword | intcomma}}</td>
+			</tr>
+			<tr>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ total_pop_forecast_percent }}%,#ffffff {{ total_pop_forecast_percent }}%);">{{ total_pop_forecast_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ high_pop_forecast_percent }}%,#ffffff {{ high_pop_forecast_percent }}%);">{{ high_pop_forecast_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ med_pop_forecast_percent }}%,#ffffff {{ med_pop_forecast_percent }}%);">{{ med_pop_forecast_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ low_pop_forecast_percent }}%,#ffffff {{ low_pop_forecast_percent }}%);">{{ low_pop_forecast_percent }}%</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=avalcheforecast&code={{data.code}}';">
+				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.total_ava_forecast_pop | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ava_forecast_high_pop | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ava_forecast_med_pop | intword | intcomma}}</td>	
+				<td class="detail_value">{{data.ava_forecast_low_pop | intword | intcomma}}</td>	
+			</tr>
+			<tr class='dataitem detail_base hide'>			
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_pop_forecast_percent }}%,#ffffff {{ data.total_pop_forecast_percent }}%);">{{ data.total_pop_forecast_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.high_pop_forecast_percent }}%,#ffffff {{ data.high_pop_forecast_percent }}%);">{{ data.high_pop_forecast_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.med_pop_forecast_percent }}%,#ffffff {{ data.med_pop_forecast_percent }}%);">{{ data.med_pop_forecast_percent }}%</td>
+				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.low_pop_forecast_percent }}%,#ffffff {{ data.low_pop_forecast_percent }}%);">{{ data.low_pop_forecast_percent }}%</td>
+				
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+
+
+<SCRIPT TYPE="text/javascript">
+function show_hide_base(){
+	if ($("div.showFlag_base").text() == "Show Detail") {
+		$("div.showFlag_base").text('Hide Detail');
+	} else {
+		$("div.showFlag_base").text('Show Detail');
+	}
+	$( ".detail_base" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";		    
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";	    
+		}
+	});
+}
+
+
+
+
+</SCRIPT>

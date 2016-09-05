@@ -1,0 +1,237 @@
+body {
+    background-color: #EEEEEE;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: x-small;
+    color: #666666;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+h1 {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 400; 
+}
+
+h3 {
+  font-size: 25px;
+  font-weight: 600;
+  color: white; 
+}
+
+/* Gridster styles */
+.demo {
+    margin: 3em 0;
+    padding: 7.5em 0 5.5em;
+    background: #004756;
+}
+
+.demo:hover .gridster {
+    opacity: 1;
+}
+
+.gridster {
+    width: 940px;
+    margin: 0 auto;
+
+    opacity: .8;
+
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+}
+
+.gridster .gs_w {
+    background: #FFF;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+.widget-title {
+  position: absolute;
+  bottom: 3px;
+  right: 2px;
+  font: normal 500 12px "futura-pt", sans-serif;
+  text-align: right;
+}
+
+.widget-number {
+  padding-top: 30px;
+}
+
+.dashing-title{
+    font-size: 25px;
+    font-weight: 400;
+    text-align: left;
+    padding-left: 9px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+body.dashbaseline li#nav_dashbaseline a {
+  color: #333;
+  font-weight: bolder;
+}
+
+body.dashbaseline li#nav_dashbaseline a:hover {
+  color: #333 !important;
+  font-weight: bolder !important;
+}
+
+table { 
+color: #333;
+font-family: Helvetica, Arial, sans-serif;
+width: 100%; 
+border-collapse: 
+collapse; border-spacing: 0; 
+margin-bottom: 35px;
+}
+
+td, th { 
+border: 1px solid transparent; /* No more visible border */
+height: 30px; 
+transition: all 0.3s;  /* Simple transition for hover effect */
+}
+
+th {
+background: #DFDFDF;  /* Darken header a bit */
+font-weight: bold;
+text-align: center;
+border: 1px solid;
+border-color: rgba(51, 51, 51, 0.05);
+}
+
+td {
+/*background: #FAFAFA;*/
+text-align: center;
+border-bottom: 1px solid;
+border-top: 0;
+border-left: 0;
+border-right: 0;
+border-color: #eee;
+}
+
+/* Cells in even rows (2,4,6...) are one color */ 
+/*tr:nth-child(even) td { background: #F1F1F1; }   */
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */ 
+/*tr:nth-child(odd) td { background: #FEFEFE; }  */
+
+tr.dataitem {
+  cursor: pointer;
+}
+
+tr.dataitem:hover { 
+  /*background: #666; */
+  color: #000;
+  font-weight: bolder; 
+} /* Hover cell effect! */
+
+tr.hide{
+  display:none;
+}
+tr.show{
+  display:block;
+}
+
+.showFlag{
+  display: block !important;
+}
+
+.parent_list {
+    font-weight: bolder;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.parent_value {
+    font-weight: bolder;
+    text-align: right;
+}
+
+.detail_list {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.detail_value {
+    text-align: right;
+}
+
+.overviewTab {
+  margin: 5px;
+  width: 98%;
+}
+
+#pie_chart1{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart2{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart3{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart4{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart5{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart6{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart7{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart8{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart9{
+  width: 150px !important;
+  height:150px !important;
+}
+#pie_chart10{
+  width: 150px !important;
+  height:150px !important;
+}
+
+
+.pie-title1 {
+  position: absolute;
+  top: 50px;
+  width: 140px;
+  text-align: center;
+  font: normal 500 12px "futura-pt", sans-serif;
+}
+
+.pie-title2 {
+  position: absolute;
+  top: 63px;
+  width: 140px;
+  text-align: center;
+  font: normal 500 12px "futura-pt", sans-serif;
+}
+
+.rowChartIndicator {
+    height: 5px;
+    text-align: center;
+    font-size: xx-small;
+    font-weight: bold;
+    width: 85px;
+}

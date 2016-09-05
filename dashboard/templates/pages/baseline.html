@@ -1,0 +1,280 @@
+{% load humanize %}
+
+<style type="text/css">
+li#nav_dashbaseline>a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 0.4em;
+    width: 100%;
+    border-bottom: 2px solid #755467;
+    margin-top: 15px;
+}
+</style>
+
+
+<div class="gridster">
+	<h1 class="dashing-title">Baseline - {{parent_label_dash}}</h1>
+  	<ul>
+		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
+			<span class='widget-title'>Total Population</span>
+		</li>
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{Area | intword | intcomma}}</h1>
+			<span class='widget-title'>Total Area (km2)</span>
+		</li>
+		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{settlement | intword | intcomma}}</h1>
+			<span class='widget-title'>Number of Settlements</span>
+		</li>
+		<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{hltfac | intword | intcomma}}</h1>
+			<span class='widget-title'>Number of Health Facilities<span>
+		</li>          
+		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{roadnetwork | intword | intcomma}}</h1>
+			<span class='widget-title'>Total length of Road Network (km)<span>
+		</li>     
+		  
+		
+
+  	</ul>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td style="text-align:left;padding:3px;">Population</td>
+				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+			</tr>
+			<tr>
+				<th rowspan=2><span>Region</span></th>
+				<th rowspan=2><span>Settl.</span></th>
+				<th colspan=2>Total</th>
+				<th colspan=2>Built-Up</th>
+				<th colspan=2>Cultivated</th>
+				<th colspan=2>Barren/Rangeland</th>
+				<!-- <th rowspan=2><span>Health Facilities</span></th>
+				<th rowspan=2><span>Length of Roads</span></th> -->
+			</tr>
+			<tr>
+				<th><span>Pop</span></th>
+				<th><span>Area (km<sup>2</sup>)</span></th>
+				<th><span>Pop</span></th>
+				<th><span>Area (km<sup>2</sup>)</span></th>
+				<th><span>Pop</span></th>
+				<th><span>Area (km<sup>2</sup>)</span></th>
+				<th><span>Pop</span></th>
+				<th><span>Area (km<sup>2</sup>)</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{settlement | intword | intcomma}}</td>
+				<td class="parent_value">{{Population | intword | intcomma}}</td>
+				<td class="parent_value">{{Area | intword | intcomma}}</td>
+				<td class="parent_value">{{built_up_pop | intword | intcomma}}</td>
+				<td class="parent_value">{{built_up_area | intword | intcomma}}</td>
+				<td class="parent_value">{{cultivated_pop | intword | intcomma}}</td>
+				<td class="parent_value">{{cultivated_area | intword | intcomma}}</td>
+				<td class="parent_value">{{barren_pop | intword | intcomma}}</td>
+				<td class="parent_value">{{barren_area | intword | intcomma}}</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=baseline&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.settlements | intword | intcomma}}</td>
+				<td class="detail_value">{{data.Population | intword | intcomma}}</td>
+				<td class="detail_value">{{data.Area | intword | intcomma}}</td>
+				<td class="detail_value">{{data.built_up_pop | intword | intcomma}}</td>
+				<td class="detail_value">{{data.built_up_area | intword | intcomma}}</td>
+				<td class="detail_value">{{data.cultivated_pop | intword | intcomma}}</td>
+				<td class="detail_value">{{data.cultivated_area | intword | intcomma}}</td>
+				<td class="detail_value">{{data.barren_pop | intword | intcomma}}</td>
+				<td class="detail_value">{{data.barren_area | intword | intcomma}}</td>			
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td style="text-align:left;padding:3px;">Health Facilities</td>
+				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_health' onClick='show_hide_health()'>Show Detail</div></td>
+			</tr>
+			<tr>
+				<th rowspan=2><span>Region</span></th>
+				<th rowspan=2>Total</th>
+				<th colspan=3>Tier 1</th>
+				<th>Tier 2</th>
+				<th colspan=2>Tier 3</th>
+				<th rowspan=2>Others</th>
+				<!-- <th rowspan=2><span>Health Facilities</span></th>
+				<th rowspan=2><span>Length of Roads</span></th> -->
+			</tr>
+			<tr>
+				<th><span>H1</span></th>
+				<th><span>H2</span></th>
+				<th><span>H3</span></th>
+				<th><span>CHC</span></th>
+				<th><span>BHC</span></th>
+				<th><span>SHC</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{hltfac | intword | intcomma}}</td>
+				<td class="parent_value">{{hlt_h1 | intword | intcomma}}</td>
+				<td class="parent_value">{{hlt_h2 | intword | intcomma}}</td>
+				<td class="parent_value">{{hlt_h3 | intword | intcomma}}</td>
+				<td class="parent_value">{{hlt_chc | intword | intcomma}}</td>
+				<td class="parent_value">{{hlt_bhc | intword | intcomma}}</td>
+				<td class="parent_value">{{hlt_shc | intword | intcomma}}</td>
+				<td class="parent_value">{{hlt_others | intword | intcomma}}</td>
+			</tr>
+			{% for data in additional_child %}
+			<tr class='dataitem detail_health hide' onclick="window.document.location='?page=baseline&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.hlt_total | intword | intcomma}}</td>
+				<td class="detail_value">{{data.hlt_h1 | intword | intcomma}}</td>
+				<td class="detail_value">{{data.hlt_h2 | intword | intcomma}}</td>
+				<td class="detail_value">{{data.hlt_h3 | intword | intcomma}}</td>
+				<td class="detail_value">{{data.hlt_chc | intword | intcomma}}</td>
+				<td class="detail_value">{{data.hlt_bhc | intword | intcomma}}</td>
+				<td class="detail_value">{{data.hlt_shc | intword | intcomma}}</td>
+				<td class="detail_value">{{data.hlt_others | intword | intcomma}}</td>			
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td style="text-align:left;padding:3px;">Road Network</td>
+				<td colspan=10 style="text-align:right;padding:3px;"><div class='showFlag_road' onClick='show_hide_road()'>Show Detail</div></td>
+			</tr>
+			<tr>
+				<th rowspan=2><span>Region</span></th>
+				<th>Total</th>
+				<th>Highway</th>
+				<th>Primary</th>
+				<th>Secondary</th>
+				<th>Tertiary</th>
+				<th>Residential</th>
+				<th>Track</th>
+				<th>Path</th>
+				<th>River Crossing</th>
+				<th>Bridge</th>
+				<!-- <th rowspan=2><span>Health Facilities</span></th>
+				<th rowspan=2><span>Length of Roads</span></th> -->
+			</tr>
+			<tr>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+				<th>(km)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{roadnetwork | intword | intcomma}}</td>
+				<td class="parent_value">{{road_highway | intword | intcomma}}</td>
+				<td class="parent_value">{{road_primary | intword | intcomma}}</td>
+				<td class="parent_value">{{road_secondary | intword | intcomma}}</td>
+				<td class="parent_value">{{road_tertiary | intword | intcomma}}</td>
+				<td class="parent_value">{{road_residential | intword | intcomma}}</td>
+				<td class="parent_value">{{road_track | intword | intcomma}}</td>
+				<td class="parent_value">{{road_path | intword | intcomma}}</td>
+				<td class="parent_value">{{road_river_crossing | intword | intcomma}}</td>
+				<td class="parent_value">{{road_bridge | intword | intcomma}}</td>
+				<!-- <td><img class="cust_chart_class" src="{{parent_chart}}"></td>
+				<td><img class="cust_chart_class" src="https://chart.googleapis.com/chart?chs=250x100&cht=bhs&chd=t:20,1000,50,0,520,75&chm=N,000000,-1,,12&chxl=0:|May|Jun|Jul|Aug|Sep|Oct&chbh=a,4,5&chco=00FF00|0000FF|FF0000|00FF00|0000FF|FF0000&chds=a"></td> -->
+			</tr>
+			{% for data in additional_child %}
+			<tr class='dataitem detail_road hide' onclick="window.document.location='?page=baseline&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.road_total | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_highway | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_primary | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_secondary | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_tertiary | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_residential | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_track | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_path | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_river_crossing | intword | intcomma}}</td>
+				<td class="detail_value">{{data.road_bridge | intword | intcomma}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
+<SCRIPT TYPE="text/javascript">
+function show_hide_base(){
+	if ($("div.showFlag_base").text() == "Show Detail") {
+		$("div.showFlag_base").text('Hide Detail');
+	} else {
+		$("div.showFlag_base").text('Show Detail');
+	}
+	$( ".detail_base" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";		    
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";	    
+		}
+	});
+}
+
+function show_hide_health(){
+	if ($("div.showFlag_health").text() == "Show Detail") {
+		$("div.showFlag_health").text('Hide Detail');
+	} else {
+		$("div.showFlag_health").text('Show Detail');
+	}
+	$( ".detail_health" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";		    
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";	    
+		}
+	});
+}
+
+function show_hide_road(){
+	if ($("div.showFlag_road").text() == "Show Detail") {
+		$("div.showFlag_road").text('Hide Detail');
+	} else {
+		$("div.showFlag_road").text('Show Detail');
+	}
+	$( ".detail_road" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";		    
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";	    
+		}
+	});
+}
+
+
+</SCRIPT>
