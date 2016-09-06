@@ -55,11 +55,11 @@ li#nav_dashfloodrisk>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td style="text-align:left;padding:3px;">Population</td>
-				<td colspan=10 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">Population living in flood risk areas</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>AOI</span></th>
+				<th rowspan=2><span>Region</span></th>
 				<th rowspan=2><span>Settl.</span></th>
 				<th colspan=2>Total</th>
 				<th colspan=2>Built-Up</th>
@@ -84,11 +84,11 @@ li#nav_dashfloodrisk>a::after {
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
 				<td class="parent_value">{{settlement_at_floodrisk | intword | intcomma}}</td>
 				<td class="parent_value">{{total_risk_population | intword | intcomma}}</td>
-				<td class="parent_value">{{total_risk_area | intword | intcomma}}</td>
+				<td class="parent_value" style="border-right: 1px solid #eee;">{{total_risk_area | intword | intcomma}}</td>
 				<td class="parent_value">{{built_up_pop_risk | intword | intcomma}}</td>
-				<td class="parent_value">{{built_up_area_risk | intword | intcomma}}</td>
+				<td class="parent_value" style="border-right: 1px solid #eee;">{{built_up_area_risk | intword | intcomma}}</td>
 				<td class="parent_value">{{cultivated_pop_risk | intword | intcomma}}</td>
-				<td class="parent_value">{{cultivated_area_risk | intword | intcomma}}</td>
+				<td class="parent_value" style="border-right: 1px solid #eee;">{{cultivated_area_risk | intword | intcomma}}</td>
 				<td class="parent_value">{{barren_pop_risk | intword | intcomma}}</td>
 				<td class="parent_value">{{barren_area_risk | intword | intcomma}}</td>
 			</tr>
@@ -108,11 +108,11 @@ li#nav_dashfloodrisk>a::after {
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value">{{data.settlements_at_risk | intword | intcomma}}</td>
 				<td class="detail_value">{{data.total_risk_population | intword | intcomma}}</td>
-				<td class="detail_value">{{data.total_risk_area | intword | intcomma}}</td>
+				<td class="detail_value" style="border-right: 1px solid #eee;">{{data.total_risk_area | intword | intcomma}}</td>
 				<td class="detail_value">{{data.built_up_pop_risk | intword | intcomma}}</td>
-				<td class="detail_value">{{data.built_up_area_risk | intword | intcomma}}</td>
+				<td class="detail_value" style="border-right: 1px solid #eee;">{{data.built_up_area_risk | intword | intcomma}}</td>
 				<td class="detail_value">{{data.cultivated_pop_risk | intword | intcomma}}</td>
-				<td class="detail_value">{{data.cultivated_area_risk | intword | intcomma}}</td>
+				<td class="detail_value" style="border-right: 1px solid #eee;">{{data.cultivated_area_risk | intword | intcomma}}</td>
 				<td class="detail_value">{{data.barren_pop_risk | intword | intcomma}}</td>
 				<td class="detail_value">{{data.barren_area_risk | intword | intcomma}}</td>			
 			</tr>
@@ -128,6 +128,9 @@ li#nav_dashfloodrisk>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.barren_area_risk_percent }}%,#ffffff {{ data.barren_area_risk_percent }}%);">{{ data.barren_area_risk_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>

@@ -23,29 +23,29 @@ li#nav_dashavalancheforecast>a::after {
 		</li>
 		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{total_ava_population | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Population At risk</span>
+			<span class='widget-title'>Avalanche risk total population</span>
 		</li>
 		<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Population exposed on avalanche forecast</span>
+			<span class='widget-title'>Forecast avalanche risk population</span>
 			<span class='pie-title1'>{{ total_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ total_ava_forecast_pop | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
 			<div>{{ high_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Population exposed on high risk avalanche forecast</span>
+			<span class='widget-title'>Forecast high avalanche risk population</span>
 			<span class='pie-title1'>{{ high_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ ava_forecast_high_pop | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
 			<div>{{ med_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Population exposed on moderate risk avalanche forecast</span>
+			<span class='widget-title'>Forecast moderate avalanche risk population</span>
 			<span class='pie-title1'>{{ med_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ ava_forecast_med_pop | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
 			<div>{{ low_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Population exposed on low risk avalanche forecast</span>
+			<span class='widget-title'>Forecast low avalanche risk population</span>
 			<span class='pie-title1'>{{ low_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ ava_forecast_med_low | intword | intcomma}}</span>
 		</li>
@@ -57,8 +57,8 @@ li#nav_dashavalancheforecast>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td style="text-align:left;padding:3px;">Population</td>
-				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">Population in forecasted avalanche risk areas</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th><span>Region</span></th>
@@ -100,6 +100,9 @@ li#nav_dashavalancheforecast>a::after {
 				
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=5></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>

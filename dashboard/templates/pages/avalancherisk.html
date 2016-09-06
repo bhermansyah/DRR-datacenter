@@ -23,25 +23,25 @@ li#nav_dashavalancherisk>a::after {
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Population at Risk</span>
+			<span class='widget-title'>Avalanche risk total population</span>
 			<span class='pie-title1'>{{ total_pop_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ total_ava_population | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<div>{{ total_area_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Area at Risk (km<sup>2</sup>)</span>
+			<span class='widget-title'>Avalanche risk area (km<sup>2</sup>)</span>
 			<span class='pie-title1'>{{ total_area_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ total_ava_area | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<div>{{ high_pop_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Population at High Risk</span>
+			<span class='widget-title'>High avalanche risk population</span>
 			<span class='pie-title1'>{{ total_pop_high_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ high_ava_population | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 			<div>{{ med_pop_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Population at Med. Risk</span>
+			<span class='widget-title'>Moderate avalanche risk population</span>
 			<span class='pie-title1'>{{ total_pop_med_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ med_ava_population | intword | intcomma}}</span>
 		</li>
@@ -56,8 +56,8 @@ li#nav_dashavalancherisk>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td style="text-align:left;padding:3px;">Population</td>
-				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">Population in avalanche risk areas</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -113,6 +113,9 @@ li#nav_dashavalancherisk>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_area_med_atrisk_percent }}%,#ffffff {{ data.total_area_med_atrisk_percent }}%);">{{ data.total_area_med_atrisk_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=7></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>

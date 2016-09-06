@@ -19,60 +19,60 @@ li#nav_dashfloodforecast>a::after {
 		<table class="overviewTab">
 			<thead>
 				<tr>
-					<th colspan=18 colspan=3 style="background-color:#FFFFFF;">Flash Flood Likelyhood</th>
+					<th colspan=18 colspan=3>Flash Flood Likelihood</th>
 				</tr>
 				<tr>
-					<th rowspan=2 colspan=3 style="background-color:#FFFFFF;">Likelyhood</th>
-					<th colspan=3 style="background-color:#E2070E;">Extreme</th>
-					<th colspan=3 style="background-color:#F96D09;">Very High</th>
-					<th colspan=3 style="background-color:#FCED15;">High</th>
-					<th colspan=3 style="background-color:#0FC87B;">Medium</th>
-					<th colspan=3 style="background-color:#92E7FD;">Low</th>
+					<th rowspan=2 colspan=3>Likelihood</th>
+					<th colspan=3 class="fl_forecast_extreme">Extreme</th>
+					<th colspan=3 class="fl_forecast_vhigh">Very High</th>
+					<th colspan=3 class="fl_forecast_high">High</th>
+					<th colspan=3 class="fl_forecast_med">Moderate</th>
+					<th colspan=3 class="fl_forecast_low">Low</th>
 				</tr>	
 			
 				<tr>
-					<td colspan=3 style="background-color:#E2070E;">{{ flashflood_forecast_extreme_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#F96D09;">{{ flashflood_forecast_veryhigh_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#FCED15;">{{ flashflood_forecast_high_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#0FC87B;">{{ flashflood_forecast_med_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#92E7FD;">{{ flashflood_forecast_low_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_extreme">{{ flashflood_forecast_extreme_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_vhigh">{{ flashflood_forecast_veryhigh_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_high">{{ flashflood_forecast_high_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_med">{{ flashflood_forecast_med_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_low">{{ flashflood_forecast_low_pop | intword | intcomma }}</td>
 				</tr>
 			</thead>	
 			<tbody>	
 				<tr>
-					<th rowspan=2 colspan=3 style="background-color:#FFFFFF;">Flood Risk</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
+					<th rowspan=2 colspan=3>Flood Risk</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
 				</tr>
 				<tr>
-					<td style="background-color:#1565c0;">{{ flashflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ flashflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ flashflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ flashflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ flashflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ flashflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ flashflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ flashflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ flashflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ flashflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ flashflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ flashflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ flashflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ flashflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ flashflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ flashflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ flashflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ flashflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ flashflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ flashflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ flashflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ flashflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ flashflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ flashflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ flashflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ flashflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ flashflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ flashflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ flashflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ flashflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
 				</tr>
 				
 			</tbody>	
@@ -81,61 +81,61 @@ li#nav_dashfloodforecast>a::after {
 		<table class="overviewTab">
 			<thead>
 				<tr>
-					<th colspan=18 colspan=3 style="background-color:#FFFFFF;">River Flood Likelyhood</th>
+					<th colspan=18 colspan=3>River Flood Likelihood</th>
 				</tr>
 				<tr>
-					<th rowspan=2 colspan=3 style="background-color:#FFFFFF;">Likelyhood</th>
-					<th colspan=3 style="background-color:#E2070E;">Extreme</th>
-					<th colspan=3 style="background-color:#F96D09;">Very High</th>
-					<th colspan=3 style="background-color:#FCED15;">High</th>
-					<th colspan=3 style="background-color:#0FC87B;">Medium</th>
-					<th colspan=3 style="background-color:#92E7FD;">Low</th>
+					<th rowspan=2 colspan=3>Likelihood</th>
+					<th colspan=3 class="fl_forecast_extreme">Extreme</th>
+					<th colspan=3 class="fl_forecast_vhigh">Very High</th>
+					<th colspan=3 class="fl_forecast_high">High</th>
+					<th colspan=3 class="fl_forecast_med">Moderate</th>
+					<th colspan=3 class="fl_forecast_low">Low</th>
 				</tr>	
 			
 				
 				<tr>
-					<td colspan=3 style="background-color:#E2070E;">{{ riverflood_forecast_extreme_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#F96D09;">{{ riverflood_forecast_veryhigh_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#FCED15;">{{ riverflood_forecast_high_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#0FC87B;">{{ riverflood_forecast_med_pop | intword | intcomma }}</td>
-					<td colspan=3 style="background-color:#92E7FD;">{{ riverflood_forecast_low_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_extreme">{{ riverflood_forecast_extreme_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_vhigh">{{ riverflood_forecast_veryhigh_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_high">{{ riverflood_forecast_high_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_med">{{ riverflood_forecast_med_pop | intword | intcomma }}</td>
+					<td colspan=3 class="fl_forecast_low">{{ riverflood_forecast_low_pop | intword | intcomma }}</td>
 				</tr>
 			</thead>	
 			<tbody>	
 				<tr>
-					<th rowspan=2 colspan=3 style="background-color:#FFFFFF;">Flood Risk</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
-					<th style="background-color:#1565c0;">High</th>
-					<th style="background-color:#64b5f6;">Med</th>
-					<th style="background-color:#bbdefb;">Low</th>
+					<th rowspan=2 colspan=3>Flood Risk</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
+					<th class="fl_risk_h">High</th>
+					<th class="fl_risk_m">Med</th>
+					<th class="fl_risk_l">Low</th>
 				</tr>
 				<tr>
-					<td style="background-color:#1565c0;">{{ riverflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ riverflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ riverflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ riverflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ riverflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ riverflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ riverflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ riverflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ riverflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ riverflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ riverflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ riverflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
-					<td style="background-color:#1565c0;">{{ riverflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
-					<td style="background-color:#64b5f6;">{{ riverflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
-					<td style="background-color:#bbdefb;">{{ riverflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ riverflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ riverflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ riverflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ riverflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ riverflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ riverflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ riverflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ riverflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ riverflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ riverflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ riverflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ riverflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
+					<td class="fl_risk_h">{{ riverflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
+					<td class="fl_risk_m">{{ riverflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
+					<td class="fl_risk_l">{{ riverflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
 				</tr>
 				
 			</tbody>	
@@ -151,52 +151,56 @@ li#nav_dashfloodforecast>a::after {
 				<td colspan=11 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2 style="background-color:#FFFFFF;"><span>AOI</span></th>
-				<th colspan=5 style="background-color:#FFFFFF;">Flash FLood</th>
-				<th colspan=5 style="background-color:#FFFFFF;">River FLood</th>
+				<th rowspan=2><span>Region</span></th>
+				<th colspan=5>Flash Flood</th>
+				<td style="width:3px;"></td>
+				<th colspan=5>River Flood</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th style="background-color:#E2070E;"><span>Extreme</span></th>
-				<th style="background-color:#F96D09;"><span>Very High</span></th>
-				<th style="background-color:#FCED15;"><span>High</span></th>
-				<th style="background-color:#0FC87B;"><span>Med</span></th>
-				<th style="background-color:#92E7FD;"><span>Low</span></th>
-				<th style="background-color:#E2070E;"><span>Extreme</span></th>
-				<th style="background-color:#F96D09;"><span>Very High</span></th>
-				<th style="background-color:#FCED15;"><span>High</span></th>
-				<th style="background-color:#0FC87B;"><span>Med</span></th>
-				<th style="background-color:#92E7FD;"><span>Low</span></th>
+				<th class="fl_forecast_extreme" style="width:70px;"><span>Extreme</span></th>
+				<th class="fl_forecast_vhigh" style="width:70px;"><span>Very High</span></th>
+				<th class="fl_forecast_high" style="width:70px;"><span>High</span></th>
+				<th class="fl_forecast_med" style="width:70px;"><span>Med</span></th>
+				<th class="fl_forecast_low" style="width:70px;"><span>Low</span></th>
+				<td></td>
+				<th class="fl_forecast_extreme" style="width:70px;"><span>Extreme</span></th>
+				<th class="fl_forecast_vhigh" style="width:70px;"><span>Very High</span></th>
+				<th class="fl_forecast_high" style="width:70px;"><span>High</span></th>
+				<th class="fl_forecast_med" style="width:70px;"><span>Med</span></th>
+				<th class="fl_forecast_low" style="width:70px;"><span>Low</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
-				<td class="parent_list">{{parent_label}}</td>
-				<td class="parent_value" style="background-color:#E2070E;">{{flashflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#F96D09;">{{flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#FCED15;">{{flashflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#0FC87B;">{{flashflood_forecast_med_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#92E7FD;">{{flashflood_forecast_low_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#E2070E;">{{riverflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#F96D09;">{{riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#FCED15;">{{riverflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#0FC87B;">{{riverflood_forecast_med_pop | intword | intcomma}}</td>
-				<td class="parent_value" style="background-color:#92E7FD;">{{riverflood_forecast_low_pop | intword | intcomma}}</td>
+				<th class="parent_list">{{parent_label}}</th>
+				<td class="parent_value fl_forecast_extreme">{{flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_vhigh">{{flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_high">{{flashflood_forecast_high_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_med">{{flashflood_forecast_med_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_low">{{flashflood_forecast_low_pop | intword | intcomma}}</td>
+				<td></td>
+				<td class="parent_value fl_forecast_extreme">{{riverflood_forecast_extreme_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_vhigh">{{riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_high">{{riverflood_forecast_high_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_med">{{riverflood_forecast_med_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_low">{{riverflood_forecast_low_pop | intword | intcomma}}</td>
 			</tr>
 			{% for data in lc_child %}
 			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-				<td class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value" style="background-color:#E2070E;">{{data.flashflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#F96D09;">{{data.flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#FCED15;">{{data.flashflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#0FC87B;">{{data.flashflood_forecast_med_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#92E7FD;">{{data.flashflood_forecast_low_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#E2070E;">{{data.riverflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#F96D09;">{{data.riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#FCED15;">{{data.riverflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="detail_value" style="background-color:#0FC87B;">{{data.riverflood_forecast_med_pop | intword | intcomma}}</td>	
-				<td class="parent_value" style="background-color:#92E7FD;">{{data.riverflood_forecast_low_pop | intword | intcomma}}</td>		
+				<th class="detail_list">{{data.na_en}}</th>
+				<td class="detail_value fl_forecast_extreme">{{data.flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+				<td class="detail_value fl_forecast_vhigh">{{data.flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+				<td class="detail_value fl_forecast_high">{{data.flashflood_forecast_high_pop | intword | intcomma}}</td>
+				<td class="detail_value fl_forecast_med">{{data.flashflood_forecast_med_pop | intword | intcomma}}</td>
+				<td class="detail_value fl_forecast_low">{{data.flashflood_forecast_low_pop | intword | intcomma}}</td>
+				<td></td>
+				<td class="detail_value fl_forecast_extreme">{{data.riverflood_forecast_extreme_pop | intword | intcomma}}</td>
+				<td class="detail_value fl_forecast_vhigh">{{data.riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+				<td class="detail_value fl_forecast_high">{{data.riverflood_forecast_high_pop | intword | intcomma}}</td>
+				<td class="detail_value fl_forecast_med">{{data.riverflood_forecast_med_pop | intword | intcomma}}</td>	
+				<td class="parent_value fl_forecast_low">{{data.riverflood_forecast_low_pop | intword | intcomma}}</td>		
 			</tr>
 			{% endfor %}
 		</tbody>

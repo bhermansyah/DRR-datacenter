@@ -23,7 +23,7 @@ li#nav_dashbaseline>a::after {
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Area | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Area (km2)</span>
+			<span class='widget-title'>Total Area (km<sup>2</sup>)</span>
 		</li>
 		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{settlement | intword | intcomma}}</h1>
@@ -47,8 +47,8 @@ li#nav_dashbaseline>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td style="text-align:left;padding:3px;">Population</td>
-				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">Population and area overview</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -98,6 +98,9 @@ li#nav_dashbaseline>a::after {
 				<td class="detail_value">{{data.barren_area | intword | intcomma}}</td>			
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -106,8 +109,8 @@ li#nav_dashbaseline>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td style="text-align:left;padding:3px;">Health Facilities</td>
-				<td colspan=9 style="text-align:right;padding:3px;"><div class='showFlag_health' onClick='show_hide_health()'>Show Detail</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Number of Health facilities</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_health' onClick='show_hide_health()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -153,6 +156,9 @@ li#nav_dashbaseline>a::after {
 				<td class="detail_value">{{data.hlt_others | intword | intcomma}}</td>			
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=9></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -161,8 +167,8 @@ li#nav_dashbaseline>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td style="text-align:left;padding:3px;">Road Network</td>
-				<td colspan=10 style="text-align:right;padding:3px;"><div class='showFlag_road' onClick='show_hide_road()'>Show Detail</div></td>
+				<td colspan=9 style="text-align:left;padding:3px;font-weight:bolder;">Road network overview and length</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_road' onClick='show_hide_road()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -223,6 +229,9 @@ li#nav_dashbaseline>a::after {
 				<td class="detail_value">{{data.road_bridge | intword | intcomma}}</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=11></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>

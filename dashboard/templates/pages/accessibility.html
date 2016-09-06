@@ -23,24 +23,24 @@ li#nav_dashaccessibility>a::after {
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Area | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Area</span>
+			<span class='widget-title'>Total Area (km<sup>2</sup>)</span>
 		</li>
 		<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_coverage_chart.as_html }}</div>
-			<span class='widget-title'>Population with GSM Coverage</span>
+			<span class='widget-title'>GSM Coverage – Population</span>
 			<span class='pie-title1'>{{ pop_coverage_percent }}%</span>
 			<span class='pie-title2'>{{ pop_on_gsm_coverage | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
 			<div>{{ total_area_coverage_chart.as_html }}</div>
-			<span class='widget-title'>Area with GSM Coverage</span>
+			<span class='widget-title'>GSM Coverage – Area</span>
 			<span class='pie-title1'>{{ area_coverage_percent }}%</span>
 			<span class='pie-title2'>{{ area_on_gsm_coverage | intword | intcomma}}</span>
 		</li>
 
 		<li data-row="2" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ nearest_airport_chart.as_html }}</div>
-			<span class='widget-title'>Nearest Airport</span>
+			<span class='widget-title'>Travel Time to Nearest Airport (pop in %)</span>
 		</li>
 		<li data-row="2" data-col="2" data-sizex="2" data-sizey="2">
 			<div>{{ tier1_chart.as_html }}</div>
@@ -48,11 +48,11 @@ li#nav_dashaccessibility>a::after {
 		</li>
 		<li data-row="2" data-col="3" data-sizex="2" data-sizey="2">
 			<div>{{ tier2_chart.as_html }}</div>
-			<span class='widget-title'>Nearest Health Facilities Tier 2</span>
+			<span class='widget-title'>Travel Time to Nearest Health Facilities Tier 2 (pop in %)</span>
 		</li>
 		<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ tier3_chart.as_html }}</div>
-			<span class='widget-title'>Nearest Health Facilities Tier 3</span>
+			<span class='widget-title'>Travel Time to Nearest Health Facilities Tier 3 (pop in %)</span>
 		</li>
 <!-- 		<li data-row="3" data-col="2" data-sizex="2" data-sizey="2">
 			<div>{{ tierall_chart.as_html }}</div>
@@ -60,15 +60,15 @@ li#nav_dashaccessibility>a::after {
 		</li> -->
 		<li data-row="3" data-col="3" data-sizex="2" data-sizey="2">
 			<div>{{ itsx_prov_chart.as_html }}</div>
-			<span class='widget-title'>Its Province Capital</span>
+			<span class='widget-title'>Travel Time to Its Province Capital (pop in %)</span>
 		</li>
 		<li data-row="4" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ near_prov_chart.as_html }}</div>
-			<span class='widget-title'>Nearest Province Capital</span>
+			<span class='widget-title'>Travel Time to Nearest Province Capital (pop in %)</span>
 		</li>
 		<li data-row="4" data-col="2" data-sizex="2" data-sizey="2">
 			<div>{{ near_dist_chart.as_html }}</div>
-			<span class='widget-title'>Nearest District Capital</span>
+			<span class='widget-title'>Travel Time to Nearest District Capital (pop in %)</span>
 		</li>
 		    
 		  		
@@ -79,39 +79,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Nearest Airport</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Airport</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_airport' onClick='show_hide_airport()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__near_airp | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l2_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l3_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l4_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l5_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l6_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l7_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_l8">{{l8_h__near_airp | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__near_airp | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__near_airp_percent }}%,#ffffff {{ l1_h__near_airp_percent }}%);">{{ l1_h__near_airp_percent }}%</td>
@@ -127,15 +127,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_airport hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__near_airp | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__near_airp | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__near_airp | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__near_airp | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_airport hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_airp_percent }}%,#ffffff {{ data.l1_h__near_airp_percent }}%);">{{ data.l1_h__near_airp_percent }}%</td>
@@ -149,6 +149,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__near_airp_percent }}%,#ffffff {{ data.g8_h__near_airp_percent }}%);">{{ data.g8_h__near_airp_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -157,39 +160,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Nearest Health Facilities Tier 1</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 1</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier1' onClick='show_hide_tier1()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l2_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l3_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l4_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l5_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l6_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l7_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_l8">{{l8_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__near_hlt1 | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__near_hlt1_percent }}%,#ffffff {{ l1_h__near_hlt1_percent }}%);">{{ l1_h__near_hlt1_percent }}%</td>
@@ -205,15 +208,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_tier1 hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__near_hlt1 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__near_hlt1 | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__near_hlt1 | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__near_hlt1 | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_tier1 hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hlt1_percent }}%,#ffffff {{ data.l1_h__near_hlt1_percent }}%);">{{ data.l1_h__near_hlt1_percent }}%</td>
@@ -227,6 +230,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__near_hlt1_percent }}%,#ffffff {{ data.g8_h__near_hlt1_percent }}%);">{{ data.g8_h__near_hlt1_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -235,39 +241,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Nearest Health Facilities Tier 2</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 2</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier2' onClick='show_hide_tier2()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l2_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l3_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l4_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l5_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l6_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l7_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_l8">{{l8_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__near_hlt2 | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__near_hlt2_percent }}%,#ffffff {{ l1_h__near_hlt2_percent }}%);">{{ l1_h__near_hlt2_percent }}%</td>
@@ -283,15 +289,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_tier2 hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__near_hlt2 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__near_hlt2 | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__near_hlt2 | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__near_hlt2 | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_tier2 hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hlt2_percent }}%,#ffffff {{ data.l1_h__near_hlt2_percent }}%);">{{ data.l1_h__near_hlt2_percent }}%</td>
@@ -305,6 +311,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__near_hlt2_percent }}%,#ffffff {{ data.g8_h__near_hlt2_percent }}%);">{{ data.g8_h__near_hlt2_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -313,39 +322,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Nearest Health Facilities Tier 3</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 3</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier3' onClick='show_hide_tier3()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l2_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l3_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l4_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l5_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l6_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l7_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_l8">{{l8_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__near_hlt3 | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__near_hlt3_percent }}%,#ffffff {{ l1_h__near_hlt3_percent }}%);">{{ l1_h__near_hlt3_percent }}%</td>
@@ -361,15 +370,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_tier3 hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__near_hlt3 | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__near_hlt3 | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__near_hlt3 | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__near_hlt3 | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_tier3 hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hlt3_percent }}%,#ffffff {{ data.l1_h__near_hlt3_percent }}%);">{{ data.l1_h__near_hlt3_percent }}%</td>
@@ -383,6 +392,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__near_hlt3_percent }}%,#ffffff {{ data.g8_h__near_hlt3_percent }}%);">{{ data.g8_h__near_hlt3_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -391,39 +403,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Nearest Health Facilities Tier All</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier All</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tierall' onClick='show_hide_tierall()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__near_hltall | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l2_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l3_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l4_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l5_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l6_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l7_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_l8">{{l8_h__near_hltall | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__near_hltall | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__near_hltall_percent }}%,#ffffff {{ l1_h__near_hltall_percent }}%);">{{ l1_h__near_hltall_percent }}%</td>
@@ -439,15 +451,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_tierall hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__near_hltall | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__near_hltall | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__near_hltall | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__near_hltall | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_tierall hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hltall_percent }}%,#ffffff {{ data.l1_h__near_hltall_percent }}%);">{{ data.l1_h__near_hltall_percent }}%</td>
@@ -461,6 +473,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__near_hltall_percent }}%,#ffffff {{ data.g8_h__near_hltall_percent }}%);">{{ data.g8_h__near_hltall_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -469,39 +484,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Its Province Capital</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Its Province Capital</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_itsprov' onClick='show_hide_itsprov()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__itsx_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l2_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l3_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l4_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l5_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l6_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l7_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l8_h__itsx_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__itsx_prov | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__itsx_prov_percent }}%,#ffffff {{ l1_h__itsx_prov_percent }}%);">{{ l1_h__itsx_prov_percent }}%</td>
@@ -517,15 +532,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_itsprov hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__itsx_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__itsx_prov | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__itsx_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__itsx_prov | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_itsprov hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__itsx_prov_percent }}%,#ffffff {{ data.l1_h__itsx_prov_percent }}%);">{{ data.l1_h__itsx_prov_percent }}%</td>
@@ -539,6 +554,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__itsx_prov_percent }}%,#ffffff {{ data.g8_h__itsx_prov_percent }}%);">{{ data.g8_h__itsx_prov_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -547,39 +565,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Nearest Province Capital</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Province Capital</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_nearprov' onClick='show_hide_nearprov()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__near_prov | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l2_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l3_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l4_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l5_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l6_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l7_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_l8">{{l8_h__near_prov | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__near_prov | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__near_prov_percent }}%,#ffffff {{ l1_h__near_prov_percent }}%);">{{ l1_h__near_prov_percent }}%</td>
@@ -595,15 +613,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_nearprov hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__near_prov | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__near_prov | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__near_prov | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__near_prov | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_nearprov hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_prov_percent }}%,#ffffff {{ data.l1_h__near_prov_percent }}%);">{{ data.l1_h__near_prov_percent }}%</td>
@@ -617,6 +635,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__near_prov_percent }}%,#ffffff {{ data.g8_h__near_prov_percent }}%);">{{ data.g8_h__near_prov_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
@@ -625,39 +646,39 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;">Nearest District Capital</td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest District Capital</td>
 				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_neardist' onClick='show_hide_neardist()'>Show Detail</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population</th>
+				<th colspan=9>Population travel time</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>&lt; 1 H</span></th>
-				<th><span>&lt; 2 H</span></th>
-				<th><span>&lt; 3 H</span></th>
-				<th><span>&lt; 4 H</span></th>
-				<th><span>&lt; 5 H</span></th>
-				<th><span>&lt; 6 H</span></th>
-				<th><span>&lt; 7 H</span></th>
-				<th><span>&lt; 8 H</span></th>
-				<th><span>&gt; 8 H</span></th>
+				<th class="acc_l1"><span>&lt; 1 h</span></th>
+				<th class="acc_l2"><span>&lt; 2 h</span></th>
+				<th class="acc_l3"><span>&lt; 3 h</span></th>
+				<th class="acc_l4"><span>&lt; 4 h</span></th>
+				<th class="acc_l5"><span>&lt; 5 h</span></th>
+				<th class="acc_l6"><span>&lt; 6 h</span></th>
+				<th class="acc_l7"><span>&lt; 7 h</span></th>
+				<th class="acc_l8"><span>&lt; 8 h</span></th>
+				<th class="acc_g8"><span>&gt; 8 h</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class='dataitem'>
 				<td rowspan=2 class="parent_list">{{parent_label}}</td>
-				<td class="parent_value">{{l1_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{l2_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{l3_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{l4_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{l5_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{l6_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{l7_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{l8_h__near_dist | intword | intcomma}}</td>
-				<td class="parent_value">{{g8_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l1">{{l1_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l2">{{l2_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l3">{{l3_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l4">{{l4_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l5">{{l5_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l6">{{l6_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l7">{{l7_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_l8">{{l8_h__near_dist | intword | intcomma}}</td>
+				<td class="parent_value acc_g8">{{g8_h__near_dist | intword | intcomma}}</td>
 			</tr>
 			<tr>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ l1_h__near_dist_percent }}%,#ffffff {{ l1_h__near_dist_percent }}%);">{{ l1_h__near_dist_percent }}%</td>
@@ -673,15 +694,15 @@ li#nav_dashaccessibility>a::after {
 			{% for data in lc_child %}
 			<tr class='dataitem detail_neardist hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
-				<td class="detail_value">{{data.l1_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l2_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l3_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l4_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l5_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l6_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l7_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.l8_h__near_dist | intword | intcomma}}</td>
-				<td class="detail_value">{{data.g8_h__near_dist | intword | intcomma}}</td>		
+				<td class="detail_value acc_l1">{{data.l1_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_l2">{{data.l2_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_l3">{{data.l3_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_l4">{{data.l4_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_l5">{{data.l5_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_l6">{{data.l6_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_l7">{{data.l7_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_l8">{{data.l8_h__near_dist | intword | intcomma}}</td>
+				<td class="detail_value acc_g8">{{data.g8_h__near_dist | intword | intcomma}}</td>		
 			</tr>
 			<tr class='dataitem detail_neardist hide'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_dist_percent }}%,#ffffff {{ data.l1_h__near_dist_percent }}%);">{{ data.l1_h__near_dist_percent }}%</td>
@@ -695,6 +716,9 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.g8_h__near_dist_percent }}%,#ffffff {{ data.g8_h__near_dist_percent }}%);">{{ data.g8_h__near_dist_percent }}%</td>
 			</tr>
 			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>	
+			</tr>
 		</tbody>
 	</table>
 </div>
