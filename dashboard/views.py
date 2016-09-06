@@ -6,6 +6,7 @@ from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvala
 # Create your views here.
 def dashboard_detail(request):
 	# print request.GET['page']
+	response = {}
 	code = None
 	flag = 'entireAfg'
 	if 'code' in request.GET:
@@ -24,6 +25,9 @@ def dashboard_detail(request):
 		response = getAvalancheForecast(None, flag, code)	
 	elif request.GET['page'] == 'accessibility':
 		response = getAccessibility(None, flag, code)		
+
+	if 'code' in request.GET:
+		response['add_link'] = '&code='+str(code)
 
 	return render_to_response(
             "dashboard_base.html",
