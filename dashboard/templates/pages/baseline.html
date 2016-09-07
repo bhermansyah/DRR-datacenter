@@ -38,7 +38,21 @@ li#nav_dashbaseline>a::after {
 			<span class='widget-title'>Total length of Road Network (km)<span>
 		</li>     
 		  
-		
+		<li data-row="2" data-col="1" data-sizex="3" data-sizey="2">
+			<div>{{ landcover_chart.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="2" data-col="2" data-sizex="3" data-sizey="2">
+			<div>{{ hlt_chart.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="3" data-col="1" data-sizex="3" data-sizey="2">
+			<div>{{ rdn_chart.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="3" data-col="2" data-sizex="3" data-sizey="2">
+			<span class='widget-title'></span>
+		</li>
 
   	</ul>
 </div>

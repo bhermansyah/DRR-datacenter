@@ -80,7 +80,7 @@ def getCommonUse(request,flag, code):
             response['parent_label'] = lblTMP[0].dist_na_en
     else:
         response['parent_label_dash'].append({'name':'Custom Selection','query':''})
-        
+
     return response 
 
 def GetAccesibilityData(filterLock, flag, code):
@@ -958,6 +958,97 @@ def getBaseline(request, filterLock, flag, code):
 
     data = getProvinceAdditionalSummary(filterLock, flag, code)
     response['additional_child']=data
+
+    dataLC = []
+    dataLC.append(['lancover type','population', { 'role': 'annotation' },'area (km2)', { 'role': 'annotation' }])
+    dataLC.append(['Built-up',round(response['built_up_pop']/response['Population']*100,0), response['built_up_pop'], round(response['built_up_area']/response['Area']*100,0), response['built_up_area'] ])
+    dataLC.append(['Cultivated',round(response['cultivated_pop']/response['Population']*100,0), response['cultivated_pop'], round(response['cultivated_area']/response['Area']*100,0), response['cultivated_area'] ])
+    dataLC.append(['Barren/Rangeland',round(response['barren_pop']/response['Population']*100,0), response['barren_pop'], round(response['barren_area']/response['Area']*100,0), response['barren_area'] ])
+    response['landcover_chart'] = gchart.BarChart(
+        SimpleDataSource(data=dataLC), 
+        html_id="pie_chart1", 
+        options={
+            'title': 'Landcover Population and area overview', 
+            # 'subtitle': 'figure as percent from total population and area',
+            'width': 450,
+            'height': 300, 
+            # 'legend': { 'position': 'none' },
+            # 'chart': { 'title': 'Landcover Population and area overview', 'subtitle': 'figure as percent from total population and area' },
+            'bars': 'horizontal',
+            'axes': {
+                'x': {
+                  '0': { 'side': 'top', 'label': 'Percentage'} 
+                },
+            
+            },
+            'bar': { 'groupWidth': '90%' },
+            'chartArea': {'width': '50%'},
+            'titleX':'percentages from total population and area',
+    })
+
+    dataHLT = []
+    dataHLT.append(['health facility type','percent of health facility', { 'role': 'annotation' }])
+    dataHLT.append(['H1',round(response['hlt_h1']/response['hltfac']*100,0), response['hlt_h1'] ])
+    dataHLT.append(['H2',round(response['hlt_h2']/response['hltfac']*100,0), response['hlt_h2'] ])
+    dataHLT.append(['H3',round(response['hlt_h3']/response['hltfac']*100,0), response['hlt_h3'] ])
+    dataHLT.append(['CHC',round(response['hlt_chc']/response['hltfac']*100,0), response['hlt_chc'] ])
+    dataHLT.append(['BHC',round(response['hlt_bhc']/response['hltfac']*100,0), response['hlt_bhc'] ])
+    dataHLT.append(['SHC',round(response['hlt_shc']/response['hltfac']*100,0), response['hlt_shc'] ])
+    dataHLT.append(['Others',round(response['hlt_others']/response['hltfac']*100,0), response['hlt_others'] ])
+    response['hlt_chart'] = gchart.BarChart(
+        SimpleDataSource(data=dataHLT), 
+        html_id="pie_chart2", 
+        options={
+            'title': 'Health facilities overview', 
+            # 'subtitle': 'figure as percent from total population and area',
+            'width': 450,
+            'height': 300, 
+            'legend': { 'position': 'none' },
+            # 'chart': { 'title': 'Landcover Population and area overview', 'subtitle': 'figure as percent from total population and area' },
+            'bars': 'horizontal',
+            'axes': {
+                'x': {
+                  '0': { 'side': 'top', 'label': 'Percentage'} 
+                },
+            
+            },
+            'bar': { 'groupWidth': '90%' },
+            'chartArea': {'width': '50%'},
+            'titleX':'percentages from total health facilities',
+    })
+
+    dataRDN = []
+    dataRDN.append(['road network type','percent of road network', { 'role': 'annotation' }])
+    dataRDN.append(['Highway',round(response['road_highway']/response['roadnetwork']*100,0), response['road_highway'] ])
+    dataRDN.append(['Primary',round(response['road_primary']/response['roadnetwork']*100,0), response['road_primary'] ])
+    dataRDN.append(['Secondary',round(response['road_secondary']/response['roadnetwork']*100,0), response['road_secondary'] ])
+    dataRDN.append(['Tertiary',round(response['road_tertiary']/response['roadnetwork']*100,0), response['road_tertiary'] ])
+    dataRDN.append(['Residential',round(response['road_residential']/response['roadnetwork']*100,0), response['road_residential'] ])
+    dataRDN.append(['Track',round(response['road_track']/response['roadnetwork']*100,0), response['road_track'] ])
+    dataRDN.append(['Path',round(response['road_path']/response['roadnetwork']*100,0), response['road_path'] ])
+    dataRDN.append(['River crossing',round(response['road_river_crossing']/response['roadnetwork']*100,0), response['road_river_crossing'] ])
+    dataRDN.append(['Bridge',round(response['road_bridge']/response['roadnetwork']*100,0), response['road_bridge'] ])
+    response['rdn_chart'] = gchart.BarChart(
+        SimpleDataSource(data=dataRDN),
+        options={
+            'title': 'Road network overview', 
+            # 'subtitle': 'figure as percent from total population and area',
+            'width': 450,
+            'height': 300, 
+            'legend': { 'position': 'none' },
+            # 'chart': { 'title': 'Landcover Population and area overview', 'subtitle': 'figure as percent from total population and area' },
+            'bars': 'horizontal',
+            'axes': {
+                'x': {
+                  '0': { 'side': 'top', 'label': 'Percentage'} 
+                },
+            
+            },
+            'bar': { 'groupWidth': '90%' },
+            'chartArea': {'width': '50%'},
+            'titleX':'percentages from total health facilities',
+    })
+
     # print response
     return response
 
