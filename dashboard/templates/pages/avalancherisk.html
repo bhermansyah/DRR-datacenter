@@ -15,7 +15,7 @@ li#nav_dashavalancherisk>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">Avalanche Risk - {{parent_label_dash}}</h1>
+	<h1 class="dashing-title">Avalanche Risk {% for label in parent_label_dash %} - <a class="label_link" href="?page=avalancherisk{{ label.query }}">{{ label.name }}</a> {% endfor %}</h1>
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
 			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>

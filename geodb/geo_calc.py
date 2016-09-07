@@ -44,23 +44,43 @@ def query_to_dicts(cursor, query_string, *query_args):
         yield row_dict
     return
 
-def getCommonUse(flag, code):
+def getCommonUse(request,flag, code):
     response = {}
     response['parent_label']='Custom Selection'
-    response['parent_label_dash']='Custom Selection'
+    # response['parent_label_dash']='Custom Selection'
 
+    # if flag == 'entireAfg':
+    #     response['parent_label']='Afghanistan'
+    #     response['parent_label_dash']='Afghanistan'
+    # elif flag == 'currentProvince':
+    #     if code<=34:
+    #         lblTMP = AfgAdmbndaAdm1.objects.filter(prov_code=code)
+    #         response['parent_label_dash'] = 'Afghanistan - '+lblTMP[0].prov_na_en   
+    #         response['parent_label'] = lblTMP[0].prov_na_en 
+    #     else:
+    #         lblTMP = AfgAdmbndaAdm2.objects.filter(dist_code=code)
+    #         response['parent_label_dash'] = 'Afghanistan - '+ lblTMP[0].prov_na_en + ' - ' +lblTMP[0].dist_na_en
+    #         response['parent_label'] = lblTMP[0].dist_na_en
+
+    response['parent_label_dash']=[]
     if flag == 'entireAfg':
         response['parent_label']='Afghanistan'
-        response['parent_label_dash']='Afghanistan'
+        response['parent_label_dash'].append({'name':'Afghanistan','query':''})
     elif flag == 'currentProvince':
         if code<=34:
             lblTMP = AfgAdmbndaAdm1.objects.filter(prov_code=code)
-            response['parent_label_dash'] = 'Afghanistan - '+lblTMP[0].prov_na_en   
+            response['parent_label_dash'].append({'name':'Afghanistan','query':''})
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code)}) 
             response['parent_label'] = lblTMP[0].prov_na_en 
         else:
             lblTMP = AfgAdmbndaAdm2.objects.filter(dist_code=code)
-            response['parent_label_dash'] = 'Afghanistan - '+ lblTMP[0].prov_na_en + ' - ' +lblTMP[0].dist_na_en
+            response['parent_label_dash'].append({'name':'Afghanistan','query':''})
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code)}) 
+            response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code)}) 
             response['parent_label'] = lblTMP[0].dist_na_en
+    else:
+        response['parent_label_dash'].append({'name':'Custom Selection','query':''})
+        
     return response 
 
 def GetAccesibilityData(filterLock, flag, code):
@@ -187,9 +207,9 @@ def GetAccesibilityData(filterLock, flag, code):
      
     return response
 
-def getAccessibility(filterLock, flag, code): 
+def getAccessibility(request, filterLock, flag, code): 
     targetBase = AfgLndcrva.objects.all()
-    response = getCommonUse(flag, code)  
+    response = getCommonUse(request, flag, code)  
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     
@@ -507,8 +527,8 @@ def getListAccesibility(filterLock, flag, code):
         response.append(data)
     return response     
 
-def getFloodForecast(filterLock, flag, code): 
-    response = getCommonUse(flag, code)  
+def getFloodForecast(request, filterLock, flag, code): 
+    response = getCommonUse(request, flag, code)  
     flood_parent = getFloodForecastMatrix(filterLock, flag, code)
     for i in flood_parent:
         response[i]=flood_parent[i]
@@ -518,9 +538,9 @@ def getFloodForecast(filterLock, flag, code):
 
     return response    
 
-def getAvalancheForecast(filterLock, flag, code): 
+def getAvalancheForecast(request, filterLock, flag, code): 
     targetBase = AfgLndcrva.objects.all()
-    response = getCommonUse(flag, code)
+    response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     rawAvalancheRisk = getRawAvalancheRisk(filterLock, flag, code)
     for i in rawAvalancheRisk:
@@ -652,9 +672,9 @@ def getRawAvalancheForecast(filterLock, flag, code):
 
     return response
 
-def getAvalancheRisk(filterLock, flag, code): 
+def getAvalancheRisk(request, filterLock, flag, code): 
     targetBase = AfgLndcrva.objects.all()
-    response = getCommonUse(flag, code)  
+    response = getCommonUse(request, flag, code)  
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
@@ -710,9 +730,9 @@ def getAvalancheRisk(filterLock, flag, code):
 
     return response      
 
-def getFloodRisk(filterLock, flag, code):
+def getFloodRisk(request, filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all() 
-    response = getCommonUse(flag, code)  
+    response = getCommonUse(request, flag, code)  
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
@@ -897,8 +917,8 @@ def getRawBaseLine(filterLock, flag, code):
 
     return response
 
-def getBaseline(filterLock, flag, code):
-    response = getCommonUse(flag, code)    
+def getBaseline(request, filterLock, flag, code):
+    response = getCommonUse(request, flag, code)    
     targetBase = AfgLndcrva.objects.all()
     
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)

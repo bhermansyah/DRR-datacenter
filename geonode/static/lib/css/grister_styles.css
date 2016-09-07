@@ -302,3 +302,11 @@ tr.show{
 .fl_risk_l {
   background-color: rgba(187,222,251,0.5);
 }
+
+.label_link {
+  color: #000;
+}
+
+.label_link:hover {
+  color: #800021;
+}
