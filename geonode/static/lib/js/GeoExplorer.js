@@ -92489,6 +92489,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             iconCls: 'icon-sam-tool',
             enableToggle: true,    
             toggleGroup: "interaction",  
+            disabled: true,
             pressed: false,
             toggleHandler: function(){
                 if (this.pressed){
