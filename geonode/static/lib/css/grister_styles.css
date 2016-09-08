@@ -310,3 +310,9 @@ tr.show{
 .label_link:hover {
   color: #800021;
 }
+
+#select_evt{
+  z-index: 999;
+  margin-bottom: 12px;
+  text-align: center;
+}

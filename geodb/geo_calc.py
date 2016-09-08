@@ -21,7 +21,7 @@ from django.http import HttpResponse
 
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 
-from geodb.geoapi import getRiskNumber, getAccessibilities
+from geodb.geoapi import getRiskNumber, getAccessibilities, getEarthQuakeExecuteExternal
 
 from graphos.sources.model import ModelDataSource
 from graphos.renderers import flot, gchart
@@ -82,6 +82,309 @@ def getCommonUse(request,flag, code):
         response['parent_label_dash'].append({'name':'Custom Selection','query':''})
 
     return response 
+
+def getEarthquake(request, filterLock, flag, code):
+
+    eq_event = ''
+    if 'eq_event' in request.GET:
+        eq_event = request.GET['eq_event']
+
+    response = getCommonUse(request, flag, code) 
+    targetBase = AfgLndcrva.objects.all()
+    
+    response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+    response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+    response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+
+    url = 'http://asdc.immap.org/geoapi/geteqevents/?dateofevent__gte=2015-09-08&_dc=1473243793279'
+    req = urllib2.Request(url)
+    req.add_unredirected_header('User-Agent', 'Custom User-Agent')
+    fh = urllib2.urlopen(req)
+    data = fh.read()
+    fh.close()
+    jdict = json.loads(data)
+
+    response['eq_list'] = []
+    pertama = True
+
+    response['EQ_title'] = ''
+
+    for x in reversed(jdict['objects']):
+        if eq_event != '':
+            if x['event_code'] == eq_event:
+                x['selected']=True
+                response['EQ_title'] = x['detail_title']
+            else:
+                x['selected']=False
+        else:
+            if pertama:
+                x['selected']=True
+                pertama = False
+                eq_event = x['event_code']
+                response['EQ_title'] = x['detail_title']
+            else:
+                x['selected']=False                
+
+        response['eq_list'].append(x)
+
+    rawEarthquake = getEQData(filterLock, flag, code, eq_event)
+
+    for i in rawEarthquake:
+        response[i]=rawEarthquake[i]
+
+    dataEQ = []
+    dataEQ.append(['intensity','population'])
+    dataEQ.append(['II-III : Weak',response['pop_shake_weak'] if 'pop_shake_weak' in response else 0])
+    dataEQ.append(['IV : Light',response['pop_shake_light'] if 'pop_shake_light' in response else 0])
+    dataEQ.append(['V : Moderate',response['pop_shake_moderate'] if 'pop_shake_moderate' in response else 0])
+    dataEQ.append(['VI : Strong',response['pop_shake_strong'] if 'pop_shake_strong' in response else 0])
+    dataEQ.append(['VII : Very-strong',response['pop_shake_verystrong'] if 'pop_shake_verystrong' in response else 0])
+    dataEQ.append(['VIII : Severe',response['pop_shake_severe'] if 'pop_shake_severe' in response else 0])
+    dataEQ.append(['IX : Violent',response['pop_shake_violent'] if 'pop_shake_violent' in response else 0])
+    dataEQ.append(['X+ : Extreme',response['pop_shake_extreme'] if 'pop_shake_extreme' in response else 0])
+    response['EQ_chart'] = gchart.PieChart(SimpleDataSource(data=dataEQ), html_id="pie_chart1", options={'title': response['EQ_title'], 'width': 450,'height': 300, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'right', 'maxLines':4}, 'slices':{0:{'color':'#c4ceff'},1:{'color':'#7cfddf'},2:{'color':'#b1ff55'},3:{'color':'#fcf109'},4:{'color':'#ffb700'},5:{'color':'#fd6500'},6:{'color':'#ff1f00'},7:{'color':'#d20003'}} }) 
+    
+    response['total_eq_pop'] = response['pop_shake_weak']+response['pop_shake_light']+response['pop_shake_moderate']+response['pop_shake_strong']+response['pop_shake_verystrong']+response['pop_shake_severe']+response['pop_shake_violent']+response['pop_shake_extreme']
+    response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
+
+    return response
+
+def getEQData(filterLock, flag, code, event_code):
+    p = earthquake_shakemap.objects.all().filter(event_code=event_code)
+    if p.count() == 0:
+        return {'message':'Mercalli Intensity Scale are not Available'}
+
+    if flag=='drawArea':
+        cursor = connections['geodb'].cursor()
+        cursor.execute("\
+            select coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_weak \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_weak \
+                end \
+            )),0) as pop_shake_weak,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_light \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_light \
+                end \
+            )),0) as pop_shake_light,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_moderate \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_moderate \
+                end \
+            )),0) as pop_shake_moderate,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_strong \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_strong \
+                end \
+            )),0) as pop_shake_strong,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_verystrong \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_verystrong \
+                end \
+            )),0) as pop_shake_verystrong,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_severe \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_severe \
+                end \
+            )),0) as pop_shake_severe,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_violent \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_violent \
+                end \
+            )),0) as pop_shake_violent,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.pop_shake_extreme \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.pop_shake_extreme \
+                end \
+            )),0) as pop_shake_extreme,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_weak \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_weak \
+                end \
+            )),0) as settlement_shake_weak,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_light \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_light \
+                end \
+            )),0) as settlement_shake_light,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_moderate \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_moderate \
+                end \
+            )),0) as settlement_shake_moderate,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_strong \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_strong \
+                end \
+            )),0) as settlement_shake_strong,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_verystrong \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_verystrong \
+                end \
+            )),0) as settlement_shake_verystrong,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_severe \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_severe \
+                end \
+            )),0) as settlement_shake_severe,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_violent \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_violent \
+                end \
+            )),0) as settlement_shake_violent,     \
+            coalesce(round(sum(   \
+                case    \
+                    when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_extreme \
+                    else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_extreme \
+                end \
+            )),0) as settlement_shake_extreme     \
+            from afg_ppla a, villagesummary_eq b   \
+            where  a.vuid = b.village and b.event_code = '"+event_code+"'  \
+            and ST_Intersects(a.wkb_geometry,"+filterLock+")    \
+        ")
+        col_names = [desc[0] for desc in cursor.description]
+       
+        row = cursor.fetchone()
+        row_dict = dict(izip(col_names, row))
+
+        cursor.close()
+        counts={}
+        counts[0] = row_dict
+
+    elif flag=='entireAfg':    
+        counts = list(villagesummaryEQ.objects.all().extra(
+            select={
+                'pop_shake_weak' : 'coalesce(SUM(pop_shake_weak),0)',
+                'pop_shake_light' : 'coalesce(SUM(pop_shake_light),0)',
+                'pop_shake_moderate' : 'coalesce(SUM(pop_shake_moderate),0)',
+                'pop_shake_strong' : 'coalesce(SUM(pop_shake_strong),0)',
+                'pop_shake_verystrong' : 'coalesce(SUM(pop_shake_verystrong),0)',
+                'pop_shake_severe' : 'coalesce(SUM(pop_shake_severe),0)',
+                'pop_shake_violent' : 'coalesce(SUM(pop_shake_violent),0)',
+                'pop_shake_extreme' : 'coalesce(SUM(pop_shake_extreme),0)',
+
+                'settlement_shake_weak' : 'coalesce(SUM(settlement_shake_weak),0)',
+                'settlement_shake_light' : 'coalesce(SUM(settlement_shake_light),0)',
+                'settlement_shake_moderate' : 'coalesce(SUM(settlement_shake_moderate),0)',
+                'settlement_shake_strong' : 'coalesce(SUM(settlement_shake_strong),0)',
+                'settlement_shake_verystrong' : 'coalesce(SUM(settlement_shake_verystrong),0)',
+                'settlement_shake_severe' : 'coalesce(SUM(settlement_shake_severe),0)',
+                'settlement_shake_violent' : 'coalesce(SUM(settlement_shake_violent),0)',
+                'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
+            },
+            where = {
+                "event_code = '"+event_code+"'"
+            }).values(
+                'pop_shake_weak',
+                'pop_shake_light',
+                'pop_shake_moderate',
+                'pop_shake_strong',
+                'pop_shake_verystrong',
+                'pop_shake_severe',
+                'pop_shake_violent',
+                'pop_shake_extreme',
+                'settlement_shake_weak',
+                'settlement_shake_light',
+                'settlement_shake_moderate',
+                'settlement_shake_strong',
+                'settlement_shake_verystrong',
+                'settlement_shake_severe',
+                'settlement_shake_violent',
+                'settlement_shake_extreme'
+            ))   
+    elif flag =='currentProvince':
+        if len(str(code)) > 2:
+            ff0001 =  "district  = '"+str(code)+"'"
+        else :
+            ff0001 =  "left(cast(district as text), "+str(len(str(code)))+") = '"+str(code)+"' and length(cast(district as text))="+ str(len(str(code))+2)   
+        counts = list(villagesummaryEQ.objects.all().extra(
+            select={
+                'pop_shake_weak' : 'coalesce(SUM(pop_shake_weak),0)',
+                'pop_shake_light' : 'coalesce(SUM(pop_shake_light),0)',
+                'pop_shake_moderate' : 'coalesce(SUM(pop_shake_moderate),0)',
+                'pop_shake_strong' : 'coalesce(SUM(pop_shake_strong),0)',
+                'pop_shake_verystrong' : 'coalesce(SUM(pop_shake_verystrong),0)',
+                'pop_shake_severe' : 'coalesce(SUM(pop_shake_severe),0)',
+                'pop_shake_violent' : 'coalesce(SUM(pop_shake_violent),0)',
+                'pop_shake_extreme' : 'coalesce(SUM(pop_shake_extreme),0)',
+
+                'settlement_shake_weak' : 'coalesce(SUM(settlement_shake_weak),0)',
+                'settlement_shake_light' : 'coalesce(SUM(settlement_shake_light),0)',
+                'settlement_shake_moderate' : 'coalesce(SUM(settlement_shake_moderate),0)',
+                'settlement_shake_strong' : 'coalesce(SUM(settlement_shake_strong),0)',
+                'settlement_shake_verystrong' : 'coalesce(SUM(settlement_shake_verystrong),0)',
+                'settlement_shake_severe' : 'coalesce(SUM(settlement_shake_severe),0)',
+                'settlement_shake_violent' : 'coalesce(SUM(settlement_shake_violent),0)',
+                'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
+            },
+            where = {
+                "event_code = '"+event_code+"' and "+ff0001       
+            }).values(
+                'pop_shake_weak',
+                'pop_shake_light',
+                'pop_shake_moderate',
+                'pop_shake_strong',
+                'pop_shake_verystrong',
+                'pop_shake_severe',
+                'pop_shake_violent',
+                'pop_shake_extreme',
+                'settlement_shake_weak',
+                'settlement_shake_light',
+                'settlement_shake_moderate',
+                'settlement_shake_strong',
+                'settlement_shake_verystrong',
+                'settlement_shake_severe',
+                'settlement_shake_violent',
+                'settlement_shake_extreme'
+            ))  
+    else:
+        cursor = connections['geodb'].cursor()
+        cursor.execute("\
+            select coalesce(round(sum(b.pop_shake_weak)),0) as pop_shake_weak,     \
+            coalesce(round(sum(b.pop_shake_light)),0) as pop_shake_light,     \
+            coalesce(round(sum(b.pop_shake_moderate)),0) as pop_shake_moderate,     \
+            coalesce(round(sum(b.pop_shake_strong)),0) as pop_shake_strong,     \
+            coalesce(round(sum(b.pop_shake_verystrong)),0) as pop_shake_verystrong,     \
+            coalesce(round(sum(b.pop_shake_severe)),0) as pop_shake_severe,     \
+            coalesce(round(sum(b.pop_shake_violent)),0) as pop_shake_violent,     \
+            coalesce(round(sum(b.pop_shake_extreme)),0) as pop_shake_extreme,     \
+            coalesce(round(sum(b.settlement_shake_weak)),0) as settlement_shake_weak,     \
+            coalesce(round(sum(b.settlement_shake_light)),0) as settlement_shake_light,     \
+            coalesce(round(sum(b.settlement_shake_moderate)),0) as settlement_shake_moderate,     \
+            coalesce(round(sum(b.settlement_shake_strong)),0) as settlement_shake_strong,     \
+            coalesce(round(sum(b.settlement_shake_verystrong)),0) as settlement_shake_verystrong,     \
+            coalesce(round(sum(b.settlement_shake_severe)),0) as settlement_shake_severe,     \
+            coalesce(round(sum(b.settlement_shake_violent)),0) as settlement_shake_violent,     \
+            coalesce(round(sum(b.settlement_shake_extreme)),0) as settlement_shake_extreme     \
+            from afg_ppla a, villagesummary_eq b   \
+            where  a.vuid = b.village and b.event_code = '"+event_code+"'  \
+            and ST_Within(a.wkb_geometry,"+filterLock+")    \
+        ")
+        col_names = [desc[0] for desc in cursor.description]
+       
+        row = cursor.fetchone()
+        row_dict = dict(izip(col_names, row))
+
+        cursor.close()
+        counts={}
+        counts[0] = row_dict
+
+    return counts[0]
 
 def GetAccesibilityData(filterLock, flag, code):
     response = {}
