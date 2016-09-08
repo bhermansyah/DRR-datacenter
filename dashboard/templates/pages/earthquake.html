@@ -15,7 +15,7 @@ li#nav_dashearthquake>a::after {
 
 
 <div class="dashing-title">
-	<select id="select_evt" class="right">
+	<select id="select_evt" class="right" onchange="location = '?page=earthquake&eq_event='+this.value+'{{add_link}}';">
 		{% for list in eq_list %}
 		  <option {% if list.selected %} selected {% endif %} value="{{ list.event_code }}">{{ list.detail_title }}</option>	
 		{% endfor %}
