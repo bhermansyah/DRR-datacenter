@@ -91873,6 +91873,14 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         width: 130,
                         startDateField: 'startdt', // id of the start date field
                         value: new Date().format('m/d/y')
+                    },{
+                        xtype: 'label',
+                        id: 'lastincidentdate',                    
+                        text: 'last incident: '
+                    },{
+                        xtype: 'label',
+                        id: 'lastincidentsync',                    
+                        text: 'last sync: '
                     },
                     new Ext.Panel({
                         title:'1. Area of interests',
@@ -92489,7 +92497,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             iconCls: 'icon-sam-tool',
             enableToggle: true,    
             toggleGroup: "interaction",  
-            disabled: true,
+            disabled: false,
             pressed: false,
             toggleHandler: function(){
                 if (this.pressed){

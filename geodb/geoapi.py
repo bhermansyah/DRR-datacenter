@@ -1673,6 +1673,15 @@ class getSAMParameters(ModelResource):
         # response['objects'] = resource
         response['total_count'] = resource.count()
 
+        cursor = connections['geodb'].cursor()
+        cursor.execute("select last_incidentdate, last_sync from ref_security")  
+        row = cursor.fetchall()
+        
+        response['last_incidentdate'] = row[0][0].strftime("%Y-%m-%d")
+        response['last_incidentsync'] = row[0][1].strftime("%Y-%m-%d")
+
+        cursor.close()
+
         return response
 
 # lanjutan clone dari api.py

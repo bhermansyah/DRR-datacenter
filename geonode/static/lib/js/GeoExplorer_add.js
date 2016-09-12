@@ -1766,6 +1766,9 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
         success: function(response) {
             // myMaskEQ.hide();
             var incidentStatTypeStore = Ext.decode(response.responseText);
+
+            Ext.getCmp('lastincidentdate').setText('last incident: '+incidentStatTypeStore.last_incidentdate);
+            Ext.getCmp('lastincidentsync').setText('last sync: '+incidentStatTypeStore.last_incidentsync);
             var tplIncidentStat = new Ext.XTemplate(
                 '<div class="">',
                     '<ul>',
