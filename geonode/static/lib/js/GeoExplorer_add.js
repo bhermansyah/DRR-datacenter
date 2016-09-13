@@ -1766,11 +1766,29 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
         success: function(response) {
             // myMaskEQ.hide();
             var incidentStatTypeStore = Ext.decode(response.responseText);
+            
 
-            Ext.getCmp('lastincidentdate').setText('last incident: '+incidentStatTypeStore.last_incidentdate);
-            Ext.getCmp('lastincidentsync').setText('last sync: '+incidentStatTypeStore.last_incidentsync);
+            if (Ext.getCmp('secTooltip') !== undefined) {
+                Ext.getCmp('secTooltip').destroy();
+            }    
+
+            new Ext.ToolTip({
+                id: 'secTooltip',
+                target: 'securityTip',
+                html: 'last updated '+incidentStatTypeStore.last_incidentdate_ago+' ago',
+                title: 'Updated Status',
+                autoHide: false,
+                closable: true,
+                draggable:true,
+                anchor: 'left',
+                bodyStyle : 'color:'+incidentStatTypeStore.color_code+';text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;font-weight:bolder;'
+            }).show();
+
+            
+            
+
             var tplIncidentStat = new Ext.XTemplate(
-                '<div class="">',
+                '<div class="securityPanel">',
                     '<ul>',
                         '<li>',
                             '<div class="w3-card-4">',
@@ -1778,7 +1796,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                   '<h1 align="center">Type of Incidents</h1>',
                                 '</header>',
                                 '<div class="w3-container1">',
-                                    '<table style="width:100%"">',
+                                    '<table style="width:100%">',
                                         '<tr><td align="center" style="padding: 5px;"></td><td style="padding: 5px;" align="center">Incidents</td><td style="padding: 5px;" align="right">Dead</td><td style="padding: 5px;" align="right">Injured</td><td style="padding: 5px;" align="right">Violent</td></tr>',
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
                                         
@@ -1797,6 +1815,18 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
                                         '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="group-header-incidents">Total</div></td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_incident}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_dead}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_injured}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_violent}</td></tr>',
                                     '</table>',   
+                                '</div>',
+                            '</div>',
+                        '</li>',
+                        '<li>',
+                            '<div class="w3-card-4">',
+                                '<header class="w3-container w3-blue">',
+                                  '<h1>Last Updated</h1>',
+                                '</header>',
+
+                                '<div class="w3-container">',
+                                    '<p><div style="float:left;">Last incidents</div><div style="float:right;">{last_incidentdate}</div></p><br/>',
+                                    '<p><div style="float:left;">Last syncronized</div><div style="float:right;">{last_incidentsync}</div></p><br/>',
                                 '</div>',
                             '</div>',
                         '</li>',
@@ -1835,7 +1865,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
             // myMaskEQ.hide();
             var incidentStatTargetStore = Ext.decode(response.responseText);
             var tplIncidentStat = new Ext.XTemplate(
-                '<div class="">',
+                '<div class="securityPanel">',
                     '<ul>',
                         '<li>',
                             '<div class="w3-card-4">',
@@ -1843,7 +1873,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                   '<h1 align="center">Target of Incidents</h1>',
                                 '</header>',
                                 '<div class="w3-container1">',
-                                    '<table style="width:100%"">',
+                                    '<table style="width:100%;">',
                                         '<tr><td align="center" style="padding: 5px;"></td><td style="padding: 5px;" align="center">Incidents</td><td style="padding: 5px;" align="right">Dead</td><td style="padding: 5px;" align="right">Injured</td><td style="padding: 5px;" align="right">Violent</td></tr>',
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
                                         '<tpl for="objects">',
@@ -1861,6 +1891,18 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
                                         '<tr><td align="left" style="padding: 5px;padding-left: 10px;"><div class="group-header-incidents">Total</div></td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_incident}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_dead}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_injured}</td><td style="padding: 5px;" align="right" class="group-header-incidents">{total_violent}</td></tr>',
                                     '</table>',   
+                                '</div>',
+                            '</div>',
+                        '</li>',
+                        '<li>',
+                            '<div class="w3-card-4">',
+                                '<header class="w3-container w3-blue">',
+                                  '<h1>Last Updated</h1>',
+                                '</header>',
+
+                                '<div class="w3-container">',
+                                    '<p><div style="float:left;">Last incidents</div><div style="float:right;">{last_incidentdate}</div></p><br/>',
+                                    '<p><div style="float:left;">Last syncronized</div><div style="float:right;">{last_incidentsync}</div></p><br/>',
                                 '</div>',
                             '</div>',
                         '</li>',
@@ -1897,8 +1939,10 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
         success: function(response) {
             // myMaskEQ.hide();
             var incidentStatTypeStore = Ext.decode(response.responseText);
+            var incidentDate = incidentStatTypeStore.last_incidentdate;
+            var syncDate = incidentStatTypeStore.last_incidentsync;
             var tplIncidentStat = new Ext.XTemplate(
-                '<div class="">',
+                '<div class="securityPanel">',
                     '<ul>',
                         '<li>',
                             '<div class="w3-card-4">',
@@ -1906,13 +1950,25 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                                   '<h1 align="center">Incident list</h1>',
                                 '</header>',
                                 '<div class="w3-container1">',
-                                    '<table style="width:100%"">',
+                                    '<table style="width:100%;">',
                                         '<tr><td align="center" style="padding: 5px;">Date</td><td style="padding: 5px;" align="left">Description</td></tr>',
                                         '<tr><td colspan="5"><div class="lineCustom4Table"></div></td></tr>',
                                         '<tpl for=".">',
                                             '<tr><td align="left" style="padding: 5px;padding-left: 10px;vertical-align:top;">{date}</td><td style="padding: 5px;" align="left" class="custom_breakword_200">{desc}</td></tr>',
                                         '</tpl>',
                                     '</table>',   
+                                '</div>',
+                            '</div>',
+                        '</li>',
+                        '<li>',
+                            '<div class="w3-card-4">',
+                                '<header class="w3-container w3-blue">',
+                                  '<h1>Last Updated</h1>',
+                                '</header>',
+
+                                '<div class="w3-container">',
+                                    '<p><div style="float:left;">Last incidents</div><div style="float:right;">'+incidentDate+'</div></p><br/>',
+                                    '<p><div style="float:left;">Last syncronized</div><div style="float:right;">'+syncDate+'</div></p><br/>',
                                 '</div>',
                             '</div>',
                         '</li>',

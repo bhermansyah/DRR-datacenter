@@ -2430,3 +2430,31 @@ input#districtSelection_c{
 .hltSubTitle{
   font-size: smaller;
 }
+
+.securityPanel ul {
+    /*display:table-row;*/
+   /* column-count:2;*/
+    /*width: 22em;*/
+}
+.securityPanel ul li
+{
+    /*display: table-cell;*/
+    /*height: 100px;*/
+    list-style-type: none;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    /*float: left;*/
+}
+.securityPanel ul li a {
+    /*display:table-cell;*/
+    vertical-align: middle;
+    /*height:100px;*/
+    border: solid 1px black;
+}
+.securityPanel ul li.button a {
+    /*height:50px;*/
+    border: solid 1px black;
+}
+
+
+

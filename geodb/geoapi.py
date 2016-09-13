@@ -1680,6 +1680,23 @@ class getSAMParameters(ModelResource):
         response['last_incidentdate'] = row[0][0].strftime("%Y-%m-%d")
         response['last_incidentsync'] = row[0][1].strftime("%Y-%m-%d")
 
+        date_N_days_ago = datetime.date.today() - row[0][0]
+        response['last_incidentdate_ago'] = str(date_N_days_ago).split(',')[0]
+
+        response['color_code'] = 'black'
+
+        if  date_N_days_ago <= datetime.timedelta(days=2):
+            response['color_code'] = 'green'
+        elif date_N_days_ago > datetime.timedelta(days=2) and date_N_days_ago <= datetime.timedelta(days=4):
+            response['color_code'] = 'yellow'   
+        elif date_N_days_ago > datetime.timedelta(days=4) and date_N_days_ago <= datetime.timedelta(days=5):
+            response['color_code'] = 'orange'
+        elif date_N_days_ago > datetime.timedelta(days=5):
+            response['color_code'] = 'red' 
+
+        date_N_days_ago = datetime.date.today() - row[0][1]
+        response['last_incidentsync_ago'] = str(date_N_days_ago).split(',')[0]       
+
         cursor.close()
 
         return response
@@ -1740,6 +1757,15 @@ class getIncidentsRaw(ModelResource):
             })
 
         response['total_count'] = resource.count()
+
+        cursor = connections['geodb'].cursor()
+        cursor.execute("select last_incidentdate, last_sync from ref_security")  
+        row = cursor.fetchall()
+        
+        response['last_incidentdate'] = row[0][0].strftime("%Y-%m-%d")
+        response['last_incidentsync'] = row[0][1].strftime("%Y-%m-%d")
+
+        cursor.close()
 
         return response
 

@@ -91856,6 +91856,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     layoutConfig: {columns: 1},
                     height : 100,
                     items: [{
+                        html: "<div id='securityTip'>&nbsp;</div>",
+                        xtype: "panel"
+                    },{
                         fieldLabel: 'Start Date',
                         name: 'startdt',
                         id: 'startdt',
@@ -91873,14 +91876,6 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         width: 130,
                         startDateField: 'startdt', // id of the start date field
                         value: new Date().format('m/d/y')
-                    },{
-                        xtype: 'label',
-                        id: 'lastincidentdate',                    
-                        text: 'last incident: '
-                    },{
-                        xtype: 'label',
-                        id: 'lastincidentsync',                    
-                        text: 'last sync: '
                     },
                     new Ext.Panel({
                         title:'1. Area of interests',
