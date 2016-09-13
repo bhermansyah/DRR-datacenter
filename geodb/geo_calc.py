@@ -108,6 +108,7 @@ def getEarthquake(request, filterLock, flag, code):
     pertama = True
 
     response['EQ_title'] = ''
+    response['eq_link'] = ''
 
     for x in reversed(jdict['objects']):
         if eq_event != '':
@@ -116,12 +117,14 @@ def getEarthquake(request, filterLock, flag, code):
                 response['EQ_title'] = x['detail_title']
             else:
                 x['selected']=False
+            response['eq_link'] = '&eq_event='+eq_event
         else:
             if pertama:
                 x['selected']=True
                 pertama = False
                 eq_event = x['event_code']
                 response['EQ_title'] = x['detail_title']
+                response['eq_link'] = '&eq_event='+eq_event
             else:
                 x['selected']=False                
 
@@ -129,6 +132,7 @@ def getEarthquake(request, filterLock, flag, code):
 
     rawEarthquake = getEQData(filterLock, flag, code, eq_event)
 
+    
     for i in rawEarthquake:
         response[i]=rawEarthquake[i]
 
@@ -147,12 +151,49 @@ def getEarthquake(request, filterLock, flag, code):
     response['total_eq_pop'] = response['pop_shake_weak']+response['pop_shake_light']+response['pop_shake_moderate']+response['pop_shake_strong']+response['pop_shake_verystrong']+response['pop_shake_severe']+response['pop_shake_violent']+response['pop_shake_extreme']
     response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
 
+    data = getListEQ(filterLock, flag, code, eq_event)
+    response['lc_child']=data
+
     return response
+
+def getListEQ(filterLock, flag, code, eq_event):
+    response = []
+    data = getProvinceSummary(filterLock, flag, code)
+    for i in data:      
+        data ={}
+        data['code'] = i['code']
+        data['na_en'] = i['na_en']
+        data['Population'] = i['Population']
+        data['Area'] = i['Area']
+
+        rawEarthquake = getEQData(filterLock, 'currentProvince', i['code'], eq_event)
+        for x in rawEarthquake:
+            data[x]=rawEarthquake[x]
+        
+        response.append(data)
+    return response             
 
 def getEQData(filterLock, flag, code, event_code):
     p = earthquake_shakemap.objects.all().filter(event_code=event_code)
     if p.count() == 0:
-        return {'message':'Mercalli Intensity Scale are not Available'}
+        return {
+            'pop_shake_weak':0,
+            'pop_shake_light':0,
+            'pop_shake_moderate':0,
+            'pop_shake_strong':0,
+            'pop_shake_verystrong':0,
+            'pop_shake_severe':0,
+            'pop_shake_violent':0,
+            'pop_shake_extreme':0,
+            'settlement_shake_weak':0,
+            'settlement_shake_light':0,
+            'settlement_shake_moderate':0,
+            'settlement_shake_strong':0,
+            'settlement_shake_verystrong':0,
+            'settlement_shake_severe':0,
+            'settlement_shake_violent':0,
+            'settlement_shake_extreme':0
+        }
 
     if flag=='drawArea':
         cursor = connections['geodb'].cursor()
@@ -738,7 +779,7 @@ def getListAccesibility(filterLock, flag, code):
         data['Population'] = i['Population']
         data['Area'] = i['Area']
 
-        rawAccesibility = GetAccesibilityData(None, 'currentProvince', i['code'])
+        rawAccesibility = GetAccesibilityData(filterLock, 'currentProvince', i['code'])
         for x in rawAccesibility:
             data[x]=rawAccesibility[x]
 

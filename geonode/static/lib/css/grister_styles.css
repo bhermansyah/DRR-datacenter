@@ -316,3 +316,28 @@ tr.show{
   margin-bottom: 12px;
   text-align: center;
 }
+
+.eq_weak {
+  background-color: rgba(196,206,255,0.5);
+}
+.eq_light {
+  background-color: rgba(124,253,223,0.5);
+}
+.eq_moderate {
+  background-color: rgba(177, 255, 85, 0.5);
+}
+.eq_strong {
+  background-color: rgba(252,241,9,0.5);
+}
+.eq_verystrong {
+  background-color: rgba(255, 183, 0, 0.5);
+}
+.eq_severe {
+  background-color: rgba(253, 101, 0, 0.5);
+}
+.eq_violent {
+  background-color: rgba(255, 31, 0, 0.5);
+}
+.eq_extreme {
+  background-color: rgba(210, 0, 3, 0.5);
+}

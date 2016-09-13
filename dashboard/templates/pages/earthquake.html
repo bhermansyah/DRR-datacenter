@@ -14,7 +14,7 @@ li#nav_dashearthquake>a::after {
 </style>
 
 
-<div class="dashing-title">
+<div style="width: 960px;margin: 0 auto;margin-bottom:35px;">
 	<select id="select_evt" class="right" onchange="location = '?page=earthquake&eq_event='+this.value+'{{add_link}}';">
 		{% for list in eq_list %}
 		  <option {% if list.selected %} selected {% endif %} value="{{ list.event_code }}">{{ list.detail_title }}</option>	
@@ -23,7 +23,7 @@ li#nav_dashearthquake>a::after {
 </div>	
 
 <div class="gridster">
-	<h1 class="dashing-title">Earthquake {% for label in parent_label_dash %} - <a class="label_link" href="?page=avalancherisk{{ label.query }}">{{ label.name }}</a> {% endfor %}</h1>
+	<h1 class="dashing-title">Earthquake {% for label in parent_label_dash %} - <a class="label_link" href="?page=earthquake{{ label.query }}{{ eq_link }}">{{ label.name }}</a> {% endfor %}</h1>
 	
 
   	<ul>
@@ -55,7 +55,94 @@ li#nav_dashearthquake>a::after {
 </div>
 
 
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td colspan=15 style="text-align:left;padding:3px;font-weight:bolder;">Earthquake affected Population and settlement overview</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+			</tr>
+			<tr>
+				<th rowspan=3><span>Region</span></th>
+				<th colspan=16>Mercally Intensity Scale</th>
+			</tr>
+			<tr>
+				<th colspan=2 class="eq_weak">II-III: Weak</th>
+				<th colspan=2 class="eq_light">IV: Light</th>
+				<th colspan=2 class="eq_moderate">V: Moderate</th>
+				<th colspan=2 class="eq_strong">VI: Strong</th>
+				<th colspan=2 class="eq_verystrong">VII: Very-strong</th>
+				<th colspan=2 class="eq_severe">VIII: Severe</th>
+				<th colspan=2 class="eq_violent">IX: Violent</th>
+				<th colspan=2 class="eq_extreme">X+: Extreme</th>
+			</tr>
+			<tr>
+				<th class="eq_weak"><span>Pop</span></th>
+				<th class="eq_weak"><span>Settl.</span></th>
+				<th class="eq_light"><span>Pop</span></th>
+				<th class="eq_light"><span>Settl.</span></th>
+				<th class="eq_moderate"><span>Pop</span></th>
+				<th class="eq_moderate"><span>Settl.</span></th>
+				<th class="eq_strong"><span>Pop</span></th>
+				<th class="eq_strong"><span>Settl.</span></th>
+				<th class="eq_verystrong"><span>Pop</span></th>
+				<th class="eq_verystrong"><span>Settl.</span></th>
+				<th class="eq_severe"><span>Pop</span></th>
+				<th class="eq_severe"><span>Settl.</span></th>
+				<th class="eq_violent"><span>Pop</span></th>
+				<th class="eq_violent"><span>Settl.</span></th>
+				<th class="eq_extreme"><span>Pop</span></th>
+				<th class="eq_extreme"><span>Settl.</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value eq_weak">{{pop_shake_weak | intword | intcomma}}</td>
+				<td class="parent_value eq_weak">{{settlement_shake_weak | intword | intcomma}}</td>
+				<td class="parent_value eq_light">{{pop_shake_light | intword | intcomma}}</td>
+				<td class="parent_value eq_light">{{settlement_shake_light | intword | intcomma}}</td>
+				<td class="parent_value eq_moderate">{{pop_shake_moderate | intword | intcomma}}</td>
+				<td class="parent_value eq_moderate">{{settlement_shake_moderate | intword | intcomma}}</td>
+				<td class="parent_value eq_strong">{{pop_shake_strong | intword | intcomma}}</td>
+				<td class="parent_value eq_strong">{{settlement_shake_strong | intword | intcomma}}</td>
+				<td class="parent_value eq_verystrong">{{pop_shake_verystrong | intword | intcomma}}</td>
+				<td class="parent_value eq_verystrong">{{settlement_shake_verystrong | intword | intcomma}}</td>
+				<td class="parent_value eq_severe">{{pop_shake_severe | intword | intcomma}}</td>
+				<td class="parent_value eq_severe">{{settlement_shake_severe | intword | intcomma}}</td>
+				<td class="parent_value eq_violent">{{pop_shake_violent | intword | intcomma}}</td>
+				<td class="parent_value eq_violent">{{settlement_shake_violent | intword | intcomma}}</td>
+				<td class="parent_value eq_extreme">{{pop_shake_extreme | intword | intcomma}}</td>
+				<td class="parent_value eq_extreme">{{settlement_shake_extreme | intword | intcomma}}</td>
 
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=earthquake&code={{data.code}}{{ eq_link }}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value eq_weak">{{data.pop_shake_weak | intword | intcomma}}</td>
+				<td class="detail_value eq_weak">{{data.settlement_shake_weak | intword | intcomma}}</td>
+				<td class="detail_value eq_light">{{data.pop_shake_light | intword | intcomma}}</td>
+				<td class="detail_value eq_light">{{data.settlement_shake_light | intword | intcomma}}</td>
+				<td class="detail_value eq_moderate">{{data.pop_shake_moderate | intword | intcomma}}</td>
+				<td class="detail_value eq_moderate">{{data.settlement_shake_moderate | intword | intcomma}}</td>
+				<td class="detail_value eq_strong">{{data.pop_shake_strong | intword | intcomma}}</td>
+				<td class="detail_value eq_strong">{{data.settlement_shake_strong | intword | intcomma}}</td>
+				<td class="detail_value eq_verystrong">{{data.pop_shake_verystrong | intword | intcomma}}</td>
+				<td class="detail_value eq_verystrong">{{data.settlement_shake_verystrong | intword | intcomma}}</td>
+				<td class="detail_value eq_severe">{{data.pop_shake_severe | intword | intcomma}}</td>
+				<td class="detail_value eq_severe">{{data.settlement_shake_severe | intword | intcomma}}</td>
+				<td class="detail_value eq_violent">{{data.pop_shake_violent | intword | intcomma}}</td>
+				<td class="detail_value eq_violent">{{data.settlement_shake_violent | intword | intcomma}}</td>
+				<td class="detail_value eq_extreme">{{data.pop_shake_extreme | intword | intcomma}}</td>
+				<td class="detail_value eq_extreme">{{data.settlement_shake_extreme | intword | intcomma}}</td>	
+			</tr>
+			{% endfor %}
+			<tr>
+				<td class="separator" colspan=17></td>	
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 
 <SCRIPT TYPE="text/javascript">
