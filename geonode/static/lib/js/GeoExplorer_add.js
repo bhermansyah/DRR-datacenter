@@ -1826,7 +1826,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
 
                                 '<div class="w3-container">',
                                     '<p><div style="float:left;">Last incidents</div><div style="float:right;">{last_incidentdate}</div></p><br/>',
-                                    '<p><div style="float:left;">Last syncronized</div><div style="float:right;">{last_incidentsync}</div></p><br/>',
+                                    '<p><div style="float:left;">Last synchronized</div><div style="float:right;">{last_incidentsync}</div></p><br/>',
                                 '</div>',
                             '</div>',
                         '</li>',
@@ -1902,7 +1902,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
 
                                 '<div class="w3-container">',
                                     '<p><div style="float:left;">Last incidents</div><div style="float:right;">{last_incidentdate}</div></p><br/>',
-                                    '<p><div style="float:left;">Last syncronized</div><div style="float:right;">{last_incidentsync}</div></p><br/>',
+                                    '<p><div style="float:left;">Last synchronized</div><div style="float:right;">{last_incidentsync}</div></p><br/>',
                                 '</div>',
                             '</div>',
                         '</li>',
@@ -1968,7 +1968,7 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
 
                                 '<div class="w3-container">',
                                     '<p><div style="float:left;">Last incidents</div><div style="float:right;">'+incidentDate+'</div></p><br/>',
-                                    '<p><div style="float:left;">Last syncronized</div><div style="float:right;">'+syncDate+'</div></p><br/>',
+                                    '<p><div style="float:left;">Last synchronized</div><div style="float:right;">'+syncDate+'</div></p><br/>',
                                 '</div>',
                             '</div>',
                         '</li>',
