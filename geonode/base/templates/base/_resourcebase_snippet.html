@@ -12,7 +12,7 @@
 
         </div> 
         <div style=""> 
-          <h3><a href="{{ item.detail_url }}">{{ item.title }}</a></h3>
+          <h3><a href="/maps/{{item.id}}/view">{{ item.title }}</a></h3>
           <p ng-if="item.detail_url.indexOf('/documents/') > -1 && item.subtitle">{{ item.subtitle }}</p>
           <p ng-if="item.detail_url.indexOf('/documents/') > -1">Published {{ item.date | date:'d MMMM yyyy'}}</p>
           <p ng-if="item.detail_url.indexOf('/layers/') > -1">Layer from <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }} </a> published {{ item.date | timeAgo }}</p>
@@ -65,6 +65,14 @@
                 <div>
                   <br/>
                   <i class="fa fa-map-marker"></i> View Map
+                </div>
+              </a>  
+            </li>
+            <li ng-if="item.detail_url.indexOf('/maps/') > -1">
+              <a href="{{ item.detail_url }}">
+                <div>
+                  <br/>
+                  <i class="fa fa-map-marker"></i> View Detail
                 </div>
               </a>  
             </li>
