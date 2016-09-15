@@ -91829,7 +91829,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         };
 
         var securityAnalysisModulePanel = new Ext.Panel({
-            title: 'Security Overview',
+            title: 'Humanitarian Access',
             xtype: 'form',
             id:'bd_SAM_panel',
             border: false,
@@ -92488,7 +92488,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         new Ext.Button({
             id: "SAMTool",
-            text: 'Security Overview',
+            text: 'Humanitarian Access',
             iconCls: 'icon-sam-tool',
             enableToggle: true,    
             toggleGroup: "interaction",  
