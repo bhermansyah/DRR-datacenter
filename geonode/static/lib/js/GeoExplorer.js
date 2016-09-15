@@ -91138,7 +91138,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     overflowY: 'scroll',
                     html:'Apply filter to generate the statistics'
                 },{
-                    title: 'Accessibility',
+                    title: 'Road Accessibility',
                     id: 'accessibilitiesView',
                     defaults: {autoScroll: true},  
                     height : 850,

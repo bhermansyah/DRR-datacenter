@@ -1664,7 +1664,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             style:"height:500px;",
                             html: '<iframe src="../../getOverviewMaps/generalinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'                        
                         },{
-                            title: 'Accessibilities',
+                            title: 'Road Accessibility',
                             defaults: {autoScroll: true},  
                             height : 500,
                             style:"height:500px;",
