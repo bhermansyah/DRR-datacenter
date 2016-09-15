@@ -1772,18 +1772,19 @@ var reloadIncidentStatistics = function(sel_type, sel_target, filterlock){
                 Ext.getCmp('secTooltip').destroy();
             }    
 
-            new Ext.ToolTip({
-                id: 'secTooltip',
-                target: 'securityTip',
-                html: 'last updated '+incidentStatTypeStore.last_incidentdate_ago+' ago',
-                title: 'Updated Status',
-                autoHide: false,
-                closable: true,
-                draggable:true,
-                anchor: 'left',
-                bodyStyle : 'color:'+incidentStatTypeStore.color_code+';text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;font-weight:bolder;'
-            }).show();
-
+            if (!Ext.getCmp('bd_SAM_panel').hidden){
+                new Ext.ToolTip({
+                    id: 'secTooltip',
+                    target: 'securityTip',
+                    html: 'last updated '+incidentStatTypeStore.last_incidentdate_ago+' ago',
+                    title: 'Updated Status',
+                    autoHide: false,
+                    closable: true,
+                    draggable:true,
+                    anchor: 'left',
+                    bodyStyle : 'color:'+incidentStatTypeStore.color_code+';text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;font-weight:bolder;'
+                }).show();
+            }
             
             
 
