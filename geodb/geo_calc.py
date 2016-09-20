@@ -65,23 +65,240 @@ def getCommonUse(request,flag, code):
     response['parent_label_dash']=[]
     if flag == 'entireAfg':
         response['parent_label']='Afghanistan'
-        response['parent_label_dash'].append({'name':'Afghanistan','query':''})
+        response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
     elif flag == 'currentProvince':
         if code<=34:
             lblTMP = AfgAdmbndaAdm1.objects.filter(prov_code=code)
-            response['parent_label_dash'].append({'name':'Afghanistan','query':''})
-            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code)}) 
+            response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code),'code':str(code)}) 
             response['parent_label'] = lblTMP[0].prov_na_en 
         else:
             lblTMP = AfgAdmbndaAdm2.objects.filter(dist_code=code)
-            response['parent_label_dash'].append({'name':'Afghanistan','query':''})
-            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code)}) 
-            response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code)}) 
+            response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code),'code':str(lblTMP[0].prov_code)}) 
+            response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code),'code':str(code)}) 
             response['parent_label'] = lblTMP[0].dist_na_en
     else:
-        response['parent_label_dash'].append({'name':'Custom Selection','query':''})
+        response['parent_label_dash'].append({'name':'Custom Selection','query':'','code':0})
 
     return response 
+
+def getSecurity(request, filterLock, flag, code):
+    response = getCommonUse(request, flag, code) 
+    
+    enddate = datetime.date.today()
+    startdate = datetime.date.today() - datetime.timedelta(days=365)
+    daterange = startdate.strftime("%Y-%m-%d")+','+enddate.strftime("%Y-%m-%d")
+
+    
+
+    if 'daterange' in request.GET:
+        daterange = request.GET['daterange'] 
+
+
+
+    rawCasualties = getIncidentCasualties(request, daterange, filterLock, flag, code)
+    for i in rawCasualties:
+        response[i]=rawCasualties[i]
+
+    # dataHLT = []
+    # dataHLT.append(['', '# of',  { 'role': 'annotation' }])
+    # dataHLT.append(['Death',rawCasualties['total_dead'], rawCasualties['total_dead'] ])
+    # dataHLT.append(['Violent',rawCasualties['total_violent'], rawCasualties['total_violent'] ])
+    # dataHLT.append(['Injured',rawCasualties['total_injured'], rawCasualties['total_injured'] ])
+    # dataHLT.append(['# Incidents',rawCasualties['total_incident'], rawCasualties['total_incident'] ])
+    # response['casualties_chart'] = gchart.BarChart(
+    #     SimpleDataSource(data=dataHLT), 
+    #     html_id="pie_chart1", 
+    #     options={
+    #         'title': 'Security Incident Overview', 
+    #         'width': 300,
+    #         'height': 300, 
+    #         'legend': { 'position': 'none' },
+
+    #         'bars': 'horizontal',
+    #         'axes': {
+    #             'x': {
+    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+    #             },
+            
+    #         },
+    #         'bar': { 'groupWidth': '90%' },
+    #         'chartArea': {'width': '50%'},
+    #         'titleX':'# of Casualties and Incident',
+    # })
+
+    response['main_type_child'] = getSAMParams(request, daterange, filterLock, flag, code, 'main_type', False)
+    main_type_raw_data = getSAMParams(request, daterange, filterLock, flag, code, 'main_type', True)
+
+    data_main_type = []
+    data_main_type.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
+    for type_item in main_type_raw_data:
+        data_main_type.append([type_item['main_type'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
+
+    response['main_type_chart'] = gchart.BarChart(
+        SimpleDataSource(data=data_main_type), 
+        html_id="pie_chart2", 
+        options={
+            'title': 'Incident type overview and casualties', 
+            'width': 450,
+            'height': 450, 
+            'isStacked':'true',
+            'bars': 'horizontal',
+            'axes': {
+                'x': {
+                  '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+                },
+            
+            },
+            'annotations': {
+                'textStyle': {
+                    'fontSize':7
+                }    
+            },  
+            'bar': { 'groupWidth': '90%' },
+            'chartArea': {'width': '60%', 'height': '90%'},
+            'titleX':'# of incident and casualties',
+    })
+
+    response['main_target_child'] = getSAMParams(request, daterange, filterLock, flag, code, 'main_target', False)
+    main_target_raw_data = getSAMParams(request, daterange, filterLock, flag, code, 'main_target', True)
+    data_main_target = []
+    data_main_target.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
+    for type_item in main_target_raw_data:
+         data_main_target.append([type_item['main_target'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
+
+    response['main_target_chart'] = gchart.BarChart(
+        SimpleDataSource(data=data_main_target), 
+        html_id="pie_chart3", 
+        options={
+            'title': 'Incident target overview and casualties', 
+            'width': 450,
+            'height': 450, 
+            # 'legend': { 'position': 'none' },
+            'isStacked':'true',
+            'bars': 'horizontal',
+            'axes': {
+                'x': {
+                  '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+                },
+            
+            },
+            'annotations': {
+                'textStyle': {
+                    'fontSize':7
+                }    
+            },  
+            'bar': { 'groupWidth': '90%' },
+            'chartArea': {'width': '60%', 'height': '90%'},
+            'titleX':'# of incident and casualties',
+    })
+
+    response['incident_type'] = []
+    response['incident_target'] = []
+
+    for i in response['main_type_child']:
+        response['incident_type'].append(i['main_type'])
+
+    for i in response['main_target_child']:
+        response['incident_target'].append(i['main_target'])    
+
+    if 'incident_type' in request.GET:
+        response['incident_type'] = request.GET['incident_type'].split(',') 
+        print response['incident_type']
+
+    if 'incident_target' in request.GET:
+        response['incident_target'] = request.GET['incident_target'].split(',')  
+        print response['incident_target']   
+
+    data = getListIncidentCasualties(request, daterange, filterLock, flag, code)
+    response['lc_child']=data   
+
+    return response
+
+def getListIncidentCasualties(request, daterange, filterLock, flag, code):
+    response = []
+    data = getProvinceSummary(filterLock, flag, code)
+    for i in data:      
+        data ={}
+        data['code'] = i['code']
+        data['na_en'] = i['na_en']
+        data['Population'] = i['Population']
+        data['Area'] = i['Area']
+
+        rawCasualties = getIncidentCasualties(request, daterange, filterLock, 'currentProvince', i['code'])
+        for x in rawCasualties:
+            data[x]=rawCasualties[x]
+        
+        response.append(data)
+    return response       
+
+def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilter):
+    response = {}
+    resource = AfgIncidentOasis.objects.all()
+    date = daterange.split(',')
+
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':    
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
+
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
+
+    if includeFilter and 'incident_type' in request.GET:
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+
+    if includeFilter and 'incident_target' in request.GET:
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))        
+
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])           
+    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group) 
+
+    return resource
+
+
+def getIncidentCasualties(request, daterange, filterLock, flag, code):
+    response = {}
+    resource = AfgIncidentOasis.objects.all()
+    date = daterange.split(',')
+
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':    
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
+
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
+
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])  
+
+    if 'incident_type' in request.GET:
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+
+    if 'incident_target' in request.GET:
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))    
+
+    resource = resource.aggregate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead'))
+
+    response['total_incident'] = resource['count'] if resource['count'] != None else 0
+    response['total_injured'] = resource['injured'] if resource['injured'] != None else 0
+    response['total_violent'] = resource['violent'] if resource['violent'] != None else 0 +resource['affected'] if resource['affected'] != None else 0
+    response['total_dead'] = resource['dead'] if resource['dead'] != None else 0
+
+    return response    
 
 def getEarthquake(request, filterLock, flag, code):
 
@@ -132,7 +349,7 @@ def getEarthquake(request, filterLock, flag, code):
 
     rawEarthquake = getEQData(filterLock, flag, code, eq_event)
 
-    
+
     for i in rawEarthquake:
         response[i]=rawEarthquake[i]
 

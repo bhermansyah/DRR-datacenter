@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader
-from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake
+from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity
 
 # Create your views here.
 def dashboard_detail(request):
@@ -33,7 +33,9 @@ def dashboard_detail(request):
 	elif request.GET['page'] == 'accessibility':
 		response = getAccessibility(request, None, flag, code)	
 	elif request.GET['page'] == 'earthquake':
-		response = getEarthquake(request, None, flag, code)		
+		response = getEarthquake(request, None, flag, code)	
+	elif request.GET['page'] == 'security':
+		response = getSecurity(request, None, flag, code)			
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)

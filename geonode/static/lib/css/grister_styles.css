@@ -341,3 +341,57 @@ tr.show{
 .eq_extreme {
   background-color: rgba(210, 0, 3, 0.5);
 }
+
+
+.calendar th, .daterangepicker .calendar td {
+    background: white;
+}    
+
+.toggle_custom {
+  padding: 10px;
+}
+
+label.btn, label.btn {
+  font-size: 10px !important;
+}
+
+.toggle.btn {
+    max-width: 280px;
+    height: 21px !important;
+    min-height: 21px !important;
+    width: 280px !important;
+    margin-top: 3px;
+}
+
+.toggle-handle {
+  max-height: 16px;
+    padding-bottom: 23px !important;
+}
+
+
+.ms-container {
+    width: 447px !important;
+}    
+
+.ms-container .ms-list {
+  height: 235px !important;
+}
+
+.custom-header {
+    text-align: center;
+    padding: 3px;
+    background: #08c;
+    color: #fff;
+}
+
+.ms-container .ms-selectable li.ms-elem-selectable, .ms-container .ms-selection li.ms-elem-selection {
+  font-size: 9px !important;
+}
+
+.ms-selectable {
+    background: #f5f5f5 !important;
+}
+
+.nav>li>a {
+    padding: 10px 10px;
+}

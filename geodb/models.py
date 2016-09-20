@@ -1357,6 +1357,8 @@ class AfgIncidentOasis(models.Model):
     accumulative_affected = models.IntegerField(blank=True, null=True)
     main_type = models.CharField(max_length=255, blank=True)
     main_target = models.CharField(max_length=255, blank=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    dist_code = models.IntegerField(blank=True, null=True)
     objects = models.GeoManager()
     class Meta:
         managed = False

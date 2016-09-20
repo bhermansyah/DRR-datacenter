@@ -28,6 +28,7 @@
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/grister_styles.css">
 
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/nice-select.css">
+      <link href="{{ STATIC_URL }}lib/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
 
       <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
@@ -353,6 +354,11 @@
     <script type="text/javascript" src="{{ STATIC_URL }}lib/js/jquery.gridster.js" charster="utf-8"></script>
     <script src='http://tablesorter.com/__jquery.tablesorter.min.js'></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.nice-select.js"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.multi-select.js"></script>
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
 
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
@@ -411,7 +417,15 @@
             // $('#keywords').tablesorter();
 
         });
+
+        $(function() {
+            
+            
+        });
+
       </script>
+
+
       
       <script type="text/javascript" src="{% url "lang" %}"></script>
       
