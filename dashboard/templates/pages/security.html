@@ -14,7 +14,7 @@ li#nav_dashsecurity>a::after {
 </style>	
 
 <div class="gridster">
-	<h1 class="dashing-title">Humanitarian Access {% for label in parent_label_dash %} - <a class="label_link" href="/" onclick='jump_url({{ label.code }});'>{{ label.name }}</a> {% endfor %}
+	<h1 class="dashing-title">Humanitarian Access {% for label in parent_label_dash %} - <a class="label_link" href="#" onclick='jump_url({{ label.code }});'>{{ label.name }}</a> {% endfor %}
 		{% include "qlink_span.html" %}	
 	</h1> 
 
