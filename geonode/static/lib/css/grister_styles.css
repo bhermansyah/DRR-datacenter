@@ -395,3 +395,19 @@ label.btn, label.btn {
 .nav>li>a {
     padding: 10px 10px;
 }
+
+.qlinks{
+  color: #08c;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: small;
+  font-weight: normal;
+}
+
+.qlinks:after{
+  font-family: Consolas, Courier New, Arial, sans-serif;
+  content: '↓';
+  margin-left: 6px;
+  color: #08c;
+}

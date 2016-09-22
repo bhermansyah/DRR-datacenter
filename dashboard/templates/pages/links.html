@@ -30,5 +30,148 @@
         </ul>
   
       </div>
+
+      
 	</div>
 </div>	
+
+<div class="container" style="width: 940px;margin: 0 auto;">
+      <div class="pull-right" style="width:30%;">
+          <var id="result-container" class="result-container"></var>
+       
+          <form id="form-country_v2" name="form-country_v2">
+              <div class="typeahead__container">
+                  <div class="typeahead__field">
+           
+                      <span class="typeahead__query">
+                          <input class="js-typeahead-country_v2" name="country_v2[query]" type="search" placeholder="Search Region" autocomplete="off">
+                      </span>
+                      <span class="typeahead__button">
+                          <button type="">
+                              <i class="typeahead__search-icon"></i>
+                          </button>
+                      </span>
+           
+                  </div>
+              </div>
+          </form> 
+      </div>
+</div>      
+
+{% include "qlink_list.html" %}
+
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+  $.typeahead({
+      input: '.js-typeahead-country_v2',
+      minLength: 1,
+      maxItem: 20,
+      order: "asc",
+      mustSelectItem : true,
+      // href: "https://en.wikipedia.org/?title={{display}}",
+      // template: "{{name}} <small style='color:#999;'>{{group}}</small>",
+      template :function (query, item) {
+        var url = $(location).attr("href");
+        if (getParameterByName("code") == null){
+          url += '&code='+item.code;
+        } else {
+          url = updateUrlParameter(url, 'code', item.code);
+        }
+
+        if (item.code == 0){
+          url = removeParam('code', url)
+        }
+
+        item.href = url;
+        if (item.group =='district'){
+          return '<span class="row">' +
+              '<span>'+item.name+' <small style="color:#999;">'+item.group+' in '+item.parent+' province</small></span>' +
+          "</span>";
+        } else {
+          return '<span class="row">' +
+              '<span>'+item.name+' <small style="color:#999;">'+item.group+'</small></span>' +
+          "</span>";
+        }  
+      },
+      source: {
+          country: {
+              display: "name",
+              href: "https://www.github.com/",
+              data: [{
+                "name":"Afghanistan",
+                "code":0
+              }]
+          },
+          province: {
+              display: "name",
+              href: "https://www.github.com/",
+              ajax: {
+                  type: "GET",
+                  url: "/dashboard/getprovinces",
+                  path: "data.provinces"
+              }
+          },
+          district: {
+              display: "name",
+              href: "https://www.github.com/",
+              ajax: {
+                  type: "GET",
+                  url: "/dashboard/getprovinces",
+                  path: "data.districts"
+              }
+          }
+      },
+      callback: {
+          onNavigateAfter: function (node, lis, a, item, query, event) {
+              if (~[38,40].indexOf(event.keyCode)) {
+                  var resultList = node.closest("form").find("ul.typeahead__list"),
+                      activeLi = lis.filter("li.active"),
+                      offsetTop = activeLi[0] && activeLi[0].offsetTop - (resultList.height() / 2) || 0;
+   
+                  resultList.scrollTop(offsetTop);
+              }
+   
+          },
+          onClickAfter: function (node, a, item, event) {
+   
+              event.preventDefault();
+   
+              // var r = confirm("You will be redirected to:\n" + item.href + "\n\nContinue?");
+              // if (r == true) {
+                  // window.open(item.href);
+                  window.document.location = item.href;
+              // }
+   
+              $('#result-container').text('');
+   
+          },
+          onResult: function (node, query, result, resultCount) {
+              if (query === "") return;
+   
+              var text = "";
+              if (result.length > 0 && result.length < resultCount) {
+                  text = "Showing <strong>" + result.length + "</strong> of <strong>" + resultCount + '</strong> elements matching "' + query + '"';
+              } else if (result.length > 0) {
+                  text = 'Showing <strong>' + result.length + '</strong> elements matching "' + query + '"';
+              } else {
+                  text = 'No results matching "' + query + '"';
+              }
+              $('#result-container').html(text);
+   
+          }//,
+          // onMouseEnter: function (node, a, item, event) {
+   
+          //     if (item.group === "country") {
+          //         $(a).append('<span class="flag-chart flag-' + item.display.replace(' ', '-').toLowerCase() + '"></span>')
+          //     }
+   
+          // },
+          // onMouseLeave: function (node, a, item, event) {
+   
+          //     $(a).find('.flag-chart').remove();
+   
+          // }
+      }
+  });
+});  
+</script>

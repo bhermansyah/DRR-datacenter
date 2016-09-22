@@ -15,7 +15,9 @@ li#nav_dashfloodforecast>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">Flood Forecast {% for label in parent_label_dash %} - <a class="label_link" href="?page=floodforecast{{ label.query }}">{{ label.name }}</a> {% endfor %}</h1>
+	<h1 class="dashing-title">Flood Forecast {% for label in parent_label_dash %} - <a class="label_link" href="?page=floodforecast{{ label.query }}">{{ label.name }}</a> {% endfor %}
+		{% include "qlink_span.html" %}	
+	</h1>
 		<table class="overviewTab">
 			<thead>
 				<tr>

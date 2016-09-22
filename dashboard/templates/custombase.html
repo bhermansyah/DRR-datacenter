@@ -29,6 +29,11 @@
 
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/nice-select.css">
       <link href="{{ STATIC_URL }}lib/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
+      
+      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+      <link href="{{ STATIC_URL }}lib/css/jquery.typeahead.css" media="screen" rel="stylesheet" type="text/css">
+      <link href="{{ STATIC_URL }}lib/css/jquery.dropdown.css" media="screen" rel="stylesheet" type="text/css">
 
       <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
@@ -358,8 +363,10 @@
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
-
+    
+    <script src="{{ STATIC_URL }}lib/js/jquery.typeahead.js"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.dropdown.js"></script>
+    
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     {% block extra_script %}{% endblock extra_script %}
@@ -418,10 +425,55 @@
 
         });
 
-        $(function() {
-            
-            
-        });
+        function jump_url(code){
+          var url = window.location.href;
+
+          if (getParameterByName("code") == null){
+            url += '&code='+code;
+          } else {
+            url = updateUrlParameter(url, 'code', code)
+          }
+
+          if (code == 0){
+            url = removeParam('code', url)
+          }
+
+          window.document.location = url;
+
+        }
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function updateUrlParameter(url, param, value){
+            var regex = new RegExp('([?|&]'+param+'=)[^\&]+');
+            return url.replace( regex , '$1' + value);
+        }
+
+        function removeParam(key, sourceURL) {
+            var rtn = sourceURL.split("?")[0],
+                param,
+                params_arr = [],
+                queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+            if (queryString !== "") {
+                params_arr = queryString.split("&");
+                for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+                    param = params_arr[i].split("=")[0];
+                    if (param === key) {
+                        params_arr.splice(i, 1);
+                    }
+                }
+                rtn = rtn + "?" + params_arr.join("&");
+            }
+            return rtn;
+        }
 
       </script>
 

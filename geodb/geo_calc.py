@@ -47,6 +47,8 @@ def query_to_dicts(cursor, query_string, *query_args):
 def getCommonUse(request,flag, code):
     response = {}
     response['parent_label']='Custom Selection'
+    response['qlinks']='Select provinces'
+    response['adm_child'] = []
     # response['parent_label_dash']='Custom Selection'
 
     # if flag == 'entireAfg':
@@ -66,20 +68,30 @@ def getCommonUse(request,flag, code):
     if flag == 'entireAfg':
         response['parent_label']='Afghanistan'
         response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
+        response['qlinks']='Select provinces'
+        resource = AfgAdmbndaAdm1.objects.all().values('prov_code','prov_na_en').order_by('prov_na_en')
+        for i in resource:
+            response['adm_child'].append({'code':i['prov_code'],'name':i['prov_na_en']})
     elif flag == 'currentProvince':
         if code<=34:
             lblTMP = AfgAdmbndaAdm1.objects.filter(prov_code=code)
             response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
             response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code),'code':str(code)}) 
             response['parent_label'] = lblTMP[0].prov_na_en 
+            response['qlinks']='Select districts'
+            resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en').filter(prov_code=code).order_by('dist_na_en')
+            for i in resource:
+                response['adm_child'].append({'code':i['dist_code'],'name':i['dist_na_en']})
         else:
             lblTMP = AfgAdmbndaAdm2.objects.filter(dist_code=code)
             response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
             response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code),'code':str(lblTMP[0].prov_code)}) 
             response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code),'code':str(code)}) 
             response['parent_label'] = lblTMP[0].dist_na_en
+            response['qlinks']=''
     else:
         response['parent_label_dash'].append({'name':'Custom Selection','query':'','code':0})
+        response['qlinks']=''
 
     return response 
 

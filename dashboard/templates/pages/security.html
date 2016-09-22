@@ -11,13 +11,13 @@ li#nav_dashsecurity>a::after {
     border-bottom: 2px solid #755467;
     margin-top: 15px;
 }
-</style>
-
-
-	
+</style>	
 
 <div class="gridster">
-	<h1 class="dashing-title">Humanitarian Access {% for label in parent_label_dash %} - <a class="label_link" href="#" onclick='jump_url({{ label.code }});'>{{ label.name }}</a> {% endfor %}</h1>
+	<h1 class="dashing-title">Humanitarian Access {% for label in parent_label_dash %} - <a class="label_link" href="/" onclick='jump_url({{ label.code }});'>{{ label.name }}</a> {% endfor %}
+		{% include "qlink_span.html" %}	
+	</h1> 
+
 </div>
 
 <div class="gridster" style="margin-bottom: 39px;">
@@ -94,7 +94,7 @@ li#nav_dashsecurity>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">Population and area overview</td>
+				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">Number of incidents and casualties</td>
 				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
 			</tr>
 			<tr>
@@ -137,23 +137,6 @@ li#nav_dashsecurity>a::after {
 
 <SCRIPT TYPE="text/javascript">
 
-function jump_url(code){
-	var url = window.location.href;
-
-	if (getParameterByName("code") == null){
-		url += '&code='+code;
-	} else {
-		url = updateUrlParameter(url, 'code', code)
-	}
-
-	if (code == 0){
-		url = removeParam('code', url)
-	}
-
-	window.document.location = url;
-
-}
-
 function show_hide_base(){
 	if ($("div.showFlag_base").text() == "Show Detail") {
 		$("div.showFlag_base").text('Hide Detail');
@@ -169,40 +152,6 @@ function show_hide_base(){
 		}
 	});
 }
-
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-function updateUrlParameter(url, param, value){
-    var regex = new RegExp('([?|&]'+param+'=)[^\&]+');
-    return url.replace( regex , '$1' + value);
-}
-
-function removeParam(key, sourceURL) {
-    var rtn = sourceURL.split("?")[0],
-        param,
-        params_arr = [],
-        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
-    if (queryString !== "") {
-        params_arr = queryString.split("&");
-        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-            param = params_arr[i].split("=")[0];
-            if (param === key) {
-                params_arr.splice(i, 1);
-            }
-        }
-        rtn = rtn + "?" + params_arr.join("&");
-    }
-    return rtn;
-}
-
 	
 document.addEventListener('DOMContentLoaded', function() {
 	var daterange = getParameterByName("daterange");

@@ -1,0 +1,7 @@
+<div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip">
+    <ul class="jq-dropdown-menu">
+        {% for item in adm_child %}
+        <li><a href"/" onclick="jump_url({{ item.code }})">{{ item.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

@@ -14,7 +14,7 @@ li#nav_dashearthquake>a::after {
 </style>
 
 
-<div style="width: 960px;margin: 0 auto;margin-bottom:35px;">
+<div style="width: 960px;margin: 0 auto;margin-bottom:35px; margin-top: 10px;">
 	<select id="select_evt" class="right" onchange="location = '?page=earthquake&eq_event='+this.value+'{{add_link}}';">
 		{% for list in eq_list %}
 		  <option {% if list.selected %} selected {% endif %} value="{{ list.event_code }}">{{ list.detail_title }}</option>	
@@ -23,7 +23,9 @@ li#nav_dashearthquake>a::after {
 </div>	
 
 <div class="gridster">
-	<h1 class="dashing-title">Earthquake {% for label in parent_label_dash %} - <a class="label_link" href="?page=earthquake{{ label.query }}{{ eq_link }}">{{ label.name }}</a> {% endfor %}</h1>
+	<h1 class="dashing-title">Earthquake {% for label in parent_label_dash %} - <a class="label_link" href="?page=earthquake{{ label.query }}{{ eq_link }}">{{ label.name }}</a> {% endfor %}
+		{% include "qlink_span.html" %}	
+	</h1>
 	
 
   	<ul>
