@@ -228,7 +228,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			target_selected_param += target_array
 		}
 
-		console.log(type_selected_param,target_selected_param);
 		var url = $(location).attr("href");
 		
 		if (type_selected_param != ''){
@@ -238,6 +237,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				url = updateUrlParameter(url, 'incident_type', type_selected_param);
 			}
 			
+		} else {
+			url = removeParam('incident_type', url);
 		}
 
 		if (target_selected_param != ''){
@@ -247,6 +248,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				url = updateUrlParameter(url, 'incident_target', target_selected_param)
 			}
 			
+		} else {
+			url = removeParam('incident_target', url);
 		}
 
 		window.document.location = url;
