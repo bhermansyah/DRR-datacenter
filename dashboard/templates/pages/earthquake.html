@@ -23,7 +23,8 @@ li#nav_dashearthquake>a::after {
 </div>	
 
 <div class="gridster">
-	<h1 class="dashing-title">Earthquake {% for label in parent_label_dash %} - <a class="label_link" href="?page=earthquake{{ label.query }}{{ eq_link }}">{{ label.name }}</a> {% endfor %}
+	<h1 class="dashing-title">Earthquake 
+		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1>
 	

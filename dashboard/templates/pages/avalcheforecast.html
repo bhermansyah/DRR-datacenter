@@ -15,7 +15,8 @@ li#nav_dashavalancheforecast>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">Avalanche Forecast {% for label in parent_label_dash %} - <a class="label_link" href="?page=avalcheforecast{{ label.query }}">{{ label.name }}</a> {% endfor %}
+	<h1 class="dashing-title">Avalanche Forecast 
+		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1>
   	<ul>

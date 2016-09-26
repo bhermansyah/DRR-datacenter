@@ -49,6 +49,8 @@ def getCommonUse(request,flag, code):
     response['parent_label']='Custom Selection'
     response['qlinks']='Select provinces'
     response['adm_child'] = []
+    response['adm_prov'] = []
+    response['adm_dist'] = []
     # response['parent_label_dash']='Custom Selection'
 
     # if flag == 'entireAfg':
@@ -64,31 +66,40 @@ def getCommonUse(request,flag, code):
     #         response['parent_label_dash'] = 'Afghanistan - '+ lblTMP[0].prov_na_en + ' - ' +lblTMP[0].dist_na_en
     #         response['parent_label'] = lblTMP[0].dist_na_en
 
+    main_resource = AfgAdmbndaAdm1.objects.all().values('prov_code','prov_na_en').order_by('prov_na_en')
+
     response['parent_label_dash']=[]
     if flag == 'entireAfg':
         response['parent_label']='Afghanistan'
         response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
-        response['qlinks']='Select provinces'
-        resource = AfgAdmbndaAdm1.objects.all().values('prov_code','prov_na_en').order_by('prov_na_en')
+        response['qlinks']='Select province'
+        resource = main_resource
         for i in resource:
             response['adm_child'].append({'code':i['prov_code'],'name':i['prov_na_en']})
     elif flag == 'currentProvince':
         if code<=34:
             lblTMP = AfgAdmbndaAdm1.objects.filter(prov_code=code)
             response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
-            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code),'code':str(code)}) 
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code),'code':code}) 
             response['parent_label'] = lblTMP[0].prov_na_en 
-            response['qlinks']='Select districts'
+            response['qlinks']='Select district'
             resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en').filter(prov_code=code).order_by('dist_na_en')
             for i in resource:
                 response['adm_child'].append({'code':i['dist_code'],'name':i['dist_na_en']})
+            for i in main_resource: 
+                response['adm_prov'].append({'code':i['prov_code'],'name':i['prov_na_en']})   
         else:
             lblTMP = AfgAdmbndaAdm2.objects.filter(dist_code=code)
             response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
-            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code),'code':str(lblTMP[0].prov_code)}) 
-            response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code),'code':str(code)}) 
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code),'code':lblTMP[0].prov_code}) 
+            response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code),'code':code}) 
             response['parent_label'] = lblTMP[0].dist_na_en
             response['qlinks']=''
+            for i in main_resource: 
+                response['adm_prov'].append({'code':i['prov_code'],'name':i['prov_na_en']})
+            resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en').filter(prov_code=lblTMP[0].prov_code).order_by('dist_na_en') 
+            for i in resource: 
+                response['adm_dist'].append({'code':i['dist_code'],'name':i['dist_na_en']})   
     else:
         response['parent_label_dash'].append({'name':'Custom Selection','query':'','code':0})
         response['qlinks']=''
@@ -1558,6 +1569,8 @@ def getBaseline(request, filterLock, flag, code):
             'chartArea': {'width': '50%'},
             'titleX':'percentages from total population and area',
     })
+    if response['hltfac']==0:
+        response['hltfac'] = 0.000001
 
     dataHLT = []
     dataHLT.append(['health facility type','percent of health facility', { 'role': 'annotation' }])

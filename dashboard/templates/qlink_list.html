@@ -5,3 +5,19 @@
         {% endfor %}
     </ul>
 </div>
+
+<div id="jq-dropdown-prov" class="jq-dropdown jq-dropdown-tip">
+    <ul class="jq-dropdown-menu">
+        {% for item in adm_prov %}
+        <li><a href"/" onclick="jump_url({{ item.code }})">{{ item.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div id="jq-dropdown-dist" class="jq-dropdown jq-dropdown-tip">
+    <ul class="jq-dropdown-menu">
+        {% for item in adm_dist %}
+        <li><a href"/" onclick="jump_url({{ item.code }})">{{ item.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
