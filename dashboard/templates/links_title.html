@@ -1,20 +1,16 @@
-{% for label in parent_label_dash %}
-	<span class="dash-links">-</span>
-	<!-- <a class="label_link {% if label.code > 0 %} qlinks {% else %} dash-links {% endif %}" href="#" onclick='jump_url({{ label.code }});'>
-		{{ label.name }}
-	</a> -->
-	<span class="label_link {% if label.code > 0 %}qlinks{% else %}dash-links{% endif %}"
-		{% if label.code == 0 %}
-			onclick='jump_url({{ label.code }});'
+{% for label in parent_label_dash %}<span class="dash-links">|</span>
+<span class="label_link {% if label.code > 0 %}qlinks{% else %}dash-links{% endif %}"
+	{% if label.code == 0 %}
+		onclick='jump_url({{ label.code }});'
+	{% endif %}
+	{% if label.code > 0 %}
+		{% if label.code <= 34 %}
+			data-jq-dropdown='#jq-dropdown-prov'
 		{% endif %}
-		{% if label.code > 0 %}
-			{% if label.code <= 34 %}
-				data-jq-dropdown='#jq-dropdown-prov'
-			{% endif %}
-			{% if label.code > 34 %}
-				data-jq-dropdown='#jq-dropdown-dist'
-			{% endif %}
-		{% endif %}>
-		{{ label.name }}
-	</span>
+		{% if label.code > 34 %}
+			data-jq-dropdown='#jq-dropdown-dist'
+		{% endif %}
+	{% endif %}>
+	{{ label.name }}
+</span>
 {% endfor %}

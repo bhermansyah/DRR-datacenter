@@ -67,12 +67,18 @@ h3 {
 }
 
 .dashing-title{
-    font-size: 25px;
+    /*font-size: 25px;*/
     font-weight: bolder;
     text-align: left;
     padding-left: 9px;
     padding-top: 10px;
     padding-bottom: 10px;
+    /*color: #08c;*/
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 11pt;
+/*    font-weight: normal;*/
+/*    cursor: pointer;*/
 }
 
 body.dashbaseline li#nav_dashbaseline a {
@@ -397,20 +403,20 @@ label.btn, label.btn {
 }
 
 .qlinks{
-  color: #08c;
+  /*color: #08c;*/
   cursor: pointer;
-  padding: 4px;
+  /*padding: 4px;*/
   border-radius: 4px;
-  font-size: small;
-  font-weight: normal;
+  font-size: 11pt;
+  font-weight: bolder;
 }
 
 .dash-links{
-  color: #08c;
-  padding: 4px;
+  /*color: #08c;*/
+  /*padding: 4px;*/
   border-radius: 4px;
-  font-size: small;
-  font-weight: normal;
+  font-size: 11pt;
+  font-weight: bolder;
   cursor: pointer;
 }
 
@@ -418,7 +424,7 @@ label.btn, label.btn {
   font-family: Consolas, Courier New, Arial, sans-serif;
   content: '↓';
   margin-left: 6px;
-  color: #08c;
+  /*color: #08c;*/
 }
 
 .typeahead__download-pdf {

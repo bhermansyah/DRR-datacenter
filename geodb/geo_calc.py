@@ -235,7 +235,17 @@ def getSecurity(request, filterLock, flag, code):
         print response['incident_target']   
 
     data = getListIncidentCasualties(request, daterange, filterLock, flag, code)
-    response['lc_child']=data   
+    response['lc_child']=data 
+
+    response['incident_type_group']=[]
+    for i in main_type_raw_data:
+        response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':getSAMIncident(request, daterange, filterLock, flag, code, 'type', i['main_type'])})
+    
+    response['incident_target_group']=[]
+    for i in main_target_raw_data:
+        response['incident_target_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_target':i['main_target'],'child':getSAMIncident(request, daterange, filterLock, flag, code, 'target', i['main_target'])})
+        
+    response['incident_list_100'] = getListIncidents(request, daterange, filterLock, flag, code)
 
     return response
 
@@ -254,7 +264,71 @@ def getListIncidentCasualties(request, daterange, filterLock, flag, code):
             data[x]=rawCasualties[x]
         
         response.append(data)
-    return response       
+    return response      
+
+def getListIncidents(request, daterange, filterLock, flag, code):
+    response = {}
+
+    resource = AfgIncidentOasis.objects.all()
+    date = daterange.split(',')
+
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':    
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
+
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
+
+    if 'incident_type' in request.GET:
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+
+    if 'incident_target' in request.GET:
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))  
+
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1]).order_by('-incident_date')
+
+    resource = resource.values('incident_date','description')[:100]
+    return resource   
+
+def getSAMIncident(request, daterange, filterLock, flag, code, group, filter):
+    response = {}
+    if group == 'type':
+        resource = AfgIncidentOasis.objects.all().filter(main_type=filter)
+    elif group == 'target':
+        resource = AfgIncidentOasis.objects.all().filter(main_target=filter)   
+    date = daterange.split(',')
+
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':    
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
+
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
+
+    if 'incident_type' in request.GET:
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+
+    if 'incident_target' in request.GET:
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))        
+
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])           
+    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group) 
+
+    return resource     
 
 def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilter):
     response = {}
