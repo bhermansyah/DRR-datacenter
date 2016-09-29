@@ -137,97 +137,103 @@ li#nav_dashsecurity>a::after {
 
 <div class="gridster">
 	<div class="col-md-4" style="padding-left:0px !important;">
-		<table style="font-size: small !important;">
-			<thead>
-				<tr>
-					<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">Incident Type</th>
-				</tr>
-				<tr>
-					<th></th>
-					<th>Incidents</th>
-					<th>Dead</th>
-					<th>Injured</th>
-					<th>Violent</th>
-				</tr>	
-			</thead>
-			<tbody>
-				{% for data in incident_type_group %}
-					<tr style="background: #eee;">
-						<td style="text-align:left;">{{ data.main_type }}</td>
-						<td style="text-align:right;">{{ data.count }}</td>
-						<td style="text-align:right;">{{ data.dead }}</td>
-						<td style="text-align:right;">{{ data.injured }}</td>
-						<td style="text-align:right;">{{ data.violent }}</td>
+		<div class="table_scroll">
+			<table style="font-size: small !important;margin-top:0 !important;">
+				<thead>
+					<tr>
+						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">Incident Type</th>
 					</tr>
-					{% for item in data.child %}
-						<tr>
-							<td style="text-align:left;word-wrap: break-word;max-width:100px;">{{ item.type }}</td>
-							<td style="text-align:right;">{{ item.count }}</td>
-							<td style="text-align:right;">{{ item.dead }}</td>
-							<td style="text-align:right;">{{ item.injured }}</td>
-							<td style="text-align:right;">{{ item.violent }}</td>
+					<tr>
+						<th></th>
+						<th>Incidents</th>
+						<th>Dead</th>
+						<th>Injured</th>
+						<th>Violent</th>
+					</tr>	
+				</thead>
+				<tbody>
+					{% for data in incident_type_group %}
+						<tr style="background: #eee;">
+							<td style="text-align:left;">{{ data.main_type }}</td>
+							<td style="text-align:right;">{{ data.count }}</td>
+							<td style="text-align:right;">{{ data.dead }}</td>
+							<td style="text-align:right;">{{ data.injured }}</td>
+							<td style="text-align:right;">{{ data.violent }}</td>
 						</tr>
+						{% for item in data.child %}
+							<tr>
+								<td style="text-align:left;word-wrap: break-word;max-width:100px;">{{ item.type }}</td>
+								<td style="text-align:right;">{{ item.count }}</td>
+								<td style="text-align:right;">{{ item.dead }}</td>
+								<td style="text-align:right;">{{ item.injured }}</td>
+								<td style="text-align:right;">{{ item.violent }}</td>
+							</tr>
+						{% endfor %}
 					{% endfor %}
-				{% endfor %}
-			</tbody>	
-		</table>
+				</tbody>	
+			</table>
+		</div>
 	</div>	
 	<div class="col-md-4">
-		<table style="font-size: small !important;">
-			<thead>
-				<tr>
-					<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">Incident Target</th>
-				</tr>
-				<tr>
-					<th></th>
-					<th>Incidents</th>
-					<th>Dead</th>
-					<th>Injured</th>
-					<th>Violent</th>
-				</tr>	
-			</thead>
-			<tbody>
-				{% for data in incident_target_group %}
-					<tr style="background: #eee;">
-						<td style="text-align:left;">{{ data.main_target }}</td>
-						<td style="text-align:right;">{{ data.count }}</td>
-						<td style="text-align:right;">{{ data.dead }}</td>
-						<td style="text-align:right;">{{ data.injured }}</td>
-						<td style="text-align:right;">{{ data.violent }}</td>
+		<div class="table_scroll">
+			<table style="font-size: small !important;margin-top:0 !important;">
+				<thead>
+					<tr>
+						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">Incident Target</th>
 					</tr>
-					{% for item in data.child %}
-						<tr>
-							<td style="text-align:left;word-wrap: break-word;max-width:100px;">{{ item.target }}</td>
-							<td style="text-align:right;">{{ item.count }}</td>
-							<td style="text-align:right;">{{ item.dead }}</td>
-							<td style="text-align:right;">{{ item.injured }}</td>
-							<td style="text-align:right;">{{ item.violent }}</td>
+					<tr>
+						<th></th>
+						<th>Incidents</th>
+						<th>Dead</th>
+						<th>Injured</th>
+						<th>Violent</th>
+					</tr>	
+				</thead>
+				<tbody>
+					{% for data in incident_target_group %}
+						<tr style="background: #eee;">
+							<td style="text-align:left;">{{ data.main_target }}</td>
+							<td style="text-align:right;">{{ data.count }}</td>
+							<td style="text-align:right;">{{ data.dead }}</td>
+							<td style="text-align:right;">{{ data.injured }}</td>
+							<td style="text-align:right;">{{ data.violent }}</td>
 						</tr>
+						{% for item in data.child %}
+							<tr>
+								<td style="text-align:left;word-wrap: break-word;max-width:100px;">{{ item.target }}</td>
+								<td style="text-align:right;">{{ item.count }}</td>
+								<td style="text-align:right;">{{ item.dead }}</td>
+								<td style="text-align:right;">{{ item.injured }}</td>
+								<td style="text-align:right;">{{ item.violent }}</td>
+							</tr>
+						{% endfor %}
 					{% endfor %}
-				{% endfor %}
-			</tbody>		
-		</table>
+				</tbody>		
+			</table>
+		</div>	
 	</div>
 	<div class="col-md-4" style="padding-right:0px !important;">
-		<table style="font-size: small !important;">
-			<thead>
-				<tr>
-					<th colspan=2 style="text-align:left;padding:3px;font-weight:bolder;">Top 100 Incidents</th>
-				</tr>
-				<tr>
-					<th>Date</th>
-					<th>Description</th>
-				</tr>	
-			</thead>	
-			<tbody>
-			{% for item in incident_list_100 %}
-				<tr>
-					<td style="text-align:left;width: 100px;">{{ item.incident_date }}</td>
-					<td style="text-align:left;">{{ item.description }}</td>
-				</tr>
-			{% endfor %}	
-			</tbody>
-		</table>
+		<div class="table_scroll">
+			<table style="font-size: small !important;margin-top:0 !important;">
+				<thead>
+					<tr>
+						<th colspan=2 style="text-align:left;padding:3px;font-weight:bolder;">Latest Incidents</th>
+					</tr>
+					<tr>
+						<th>Date</th>
+						<th>Description</th>
+					</tr>	
+				</thead>	
+				<tbody>
+				{% for item in incident_list_100 %}
+					<tr>
+						<td style="text-align:left;width: 100px;">{{ item.incident_date }}</td>
+						<td style="text-align:left;">{{ item.description }}</td>
+					</tr>
+				{% endfor %}	
+				</tbody>
+			</table>
+		</div>	
 	</div>
 </div>	
 
