@@ -1402,7 +1402,22 @@ def getFloodRisk(request, filterLock, flag, code):
         response[i]=rawBaseline[i]
 
     for i in rawFloodRisk:
-        response[i]=rawFloodRisk[i]    
+        response[i]=rawFloodRisk[i]  
+
+    if response['Population']==0:
+        response['Population'] = 0.000001  
+    if response['built_up_pop']==0:
+        response['built_up_pop'] = 0.000001    
+    if response['built_up_area']==0:
+        response['built_up_area'] = 0.000001      
+    if response['cultivated_pop']==0:
+        response['cultivated_pop'] = 0.000001       
+    if response['cultivated_area']==0:
+        response['cultivated_area'] = 0.000001    
+    if response['barren_pop']==0:
+        response['barren_pop'] = 0.000001    
+    if response['barren_area']==0:
+        response['barren_area'] = 0.000001               
 
     response['settlement_at_floodrisk'] = getSettlementAtFloodRisk(filterLock, flag, code)
     response['settlement_at_floodrisk_percent'] = int(round((response['settlement_at_floodrisk']/response['settlement'])*100,0))
@@ -1450,6 +1465,21 @@ def getFloodRisk(request, filterLock, flag, code):
     data = getProvinceSummary(filterLock, flag, code)
 
     for i in data:
+        if i['Population']==0:
+            i['Population'] = 0.000001  
+        if i['built_up_pop']==0:
+            i['built_up_pop'] = 0.000001    
+        if i['built_up_area']==0:
+            i['built_up_area'] = 0.000001      
+        if i['cultivated_pop']==0:
+            i['cultivated_pop'] = 0.000001       
+        if i['cultivated_area']==0:
+            i['cultivated_area'] = 0.000001    
+        if i['barren_pop']==0:
+            i['barren_pop'] = 0.000001    
+        if i['barren_area']==0:
+            i['barren_area'] = 0.000001  
+
         i['settlement_at_floodrisk_percent'] = int(round(i['settlements_at_risk']/i['settlements']*100,0))
         i['total_pop_atrisk_percent'] = int(round(i['total_risk_population']/i['Population']*100,0))
         i['total_area_atrisk_percent'] = int(round(i['total_risk_area']/i['Area']*100,0))
