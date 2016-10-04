@@ -4,6 +4,9 @@ from django.template import RequestContext, loader
 from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity
 from geodb.models import AfgAdmbndaAdm1, AfgAdmbndaAdm2
 from django.shortcuts import HttpResponse
+from matrix.models import matrix
+from urlparse import urlparse
+from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
 import json
 
 # Create your views here.
@@ -22,6 +25,11 @@ def dashboard_detail(request):
 	if 'code' in request.GET:
 		code = int(request.GET['code'])
 		flag = 'currentProvince'
+
+	mapCode = '700'
+	map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+	queryset = matrix(user=request.user,resourceid=map_obj,action='Dashboard '+request.GET['page'])
+	queryset.save()	
 
 	if request.GET['page'] == 'baseline':
 		response = getBaseline(request, None, flag, code)

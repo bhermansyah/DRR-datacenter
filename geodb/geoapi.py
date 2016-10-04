@@ -40,13 +40,13 @@ class FloodRiskStatisticResource(ModelResource):
     def getRisk(self, request):
         # saving the user tracking records
 
-        # o = urlparse(request.META.get('HTTP_REFERER')).path
-        # o=o.split('/')
-        # mapCode = o[2]
-        # map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+        o = urlparse(request.META.get('HTTP_REFERER')).path
+        o=o.split('/')
+        mapCode = o[2]
+        map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
 
-        # queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
-        # queryset.save()
+        queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')
+        queryset.save()
 
         boundaryFilter = json.loads(request.body)
 
