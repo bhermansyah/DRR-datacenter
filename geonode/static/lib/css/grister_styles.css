@@ -440,3 +440,22 @@ label.btn, label.btn {
  overflow: auto;
  margin-top: 25px;
 }
+
+.checkbox-inline {
+  width: 200px !important;
+}
+
+.checkbox-inline+.checkbox-inline {
+  margin-left : 0px !important;
+}
+
+.custom-header {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-bottom: 10px;
+    height: 36px;
+}
+
+.checkbox label {
+  font-size: smaller;
+}

@@ -51,22 +51,55 @@ li#nav_dashsecurity>a::after {
 <div class="gridster">
   	<ul>
   		<li data-row="1" data-col="1" data-sizex="3" data-sizey="2" style="padding:5px;">
-  			<select multiple="multiple" id="incidentType-select" name="my-select[]">
+  			<!-- <select multiple="multiple" id="incidentType-select" name="my-select[]">
 		      {% for item in main_type_child %}
 		      	<option value='{{ item.main_type }}' {% if item.main_type in incident_type %}selected{% endif %}>{{ item.main_type }} ({{item.count}} incidents)</option>
 		      {% endfor %}
-		    </select>
+		    </select> -->
+		    <div class="custom-header">
+		    	<div style="float:left;font-size: medium;padding: 5px;">select incident type</div> 
+		    	<div style="float:right;">
+		    		<button type="button" class="btn btn-primary btn-sm type_all">Select All</button>
+		    		<button type="button" class="btn btn-primary btn-sm type_none">Select None</button>
+		    		<button type="button" class="btn btn-primary btn-sm apply">Apply</button>
+		    	</div>
+		    </div>
+	    	{% for item in main_type_child %}
+	                <div class="checkbox checkbox-success checkbox-inline">
+	                    <input id="type{{ forloop.counter0 }}" name="main_type_select[]" class="styled" type="checkbox" value="{{ item.main_type }}"  {% if item.main_type in incident_type %}checked=true{% endif %}>
+	                    <label for="type{{ forloop.counter0 }}">
+	                        {{ item.main_type }} ({{item.count}} incidents)
+	                    </label>
+	                </div>
+            {% endfor %}    
+            
 		</li>
   		<!-- <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ casualties_chart.as_html }}</div>
 			<span class='widget-title'></span>
 		</li> -->
 		<li data-row="1" data-col="1" data-sizex="3" data-sizey="2" style="padding:5px;">
-			<select multiple="multiple" id="incidentTarget-select" name="my-select[]">
+			<!-- <select multiple="multiple" id="incidentTarget-select" name="my-select[]">
 		      {% for item in main_target_child %}
 		      	<option value='{{ item.main_target }}' {% if item.main_target in incident_target %}selected{% endif %}>{{ item.main_target }} ({{item.count}} incidents)</option>
 		      {% endfor %}
-		    </select>
+		    </select> -->
+		    <div class="custom-header">
+		    	<div style="float:left;font-size: medium;padding: 5px;">select incident target</div> 
+		    	<div style="float:right;">
+		    		<button type="button" class="btn btn-primary btn-sm target_all">Select All</button>
+		    		<button type="button" class="btn btn-primary btn-sm target_none">Select None</button>
+		    		<button type="button" class="btn btn-primary btn-sm apply">Apply</button>
+		    	</div>
+		    </div>
+	    	{% for item in main_target_child %}
+	                <div class="checkbox checkbox-success checkbox-inline">
+	                    <input id="target{{ forloop.counter0 }}" name="main_target_select[]" class="styled" type="checkbox" value="{{ item.main_target }}"  {% if item.main_target in incident_target %}checked=true{% endif %}>
+	                    <label for="target{{ forloop.counter0 }}">
+	                        {{ item.main_target }} ({{item.count}} incidents)
+	                    </label>
+	                </div>
+            {% endfor %}  
 		</li>
 
   	</ul>
@@ -238,6 +271,8 @@ li#nav_dashsecurity>a::after {
 </div>	
 
 
+
+
 <SCRIPT TYPE="text/javascript">
 
 function show_hide_base(){
@@ -316,19 +351,43 @@ document.addEventListener('DOMContentLoaded', function() {
 		var type_selected_param = '';
 		var target_selected_param = '';
 
-		var type_unselected = $('#ms-incidentType-select').find('.ms-elem-selectable:not(.ms-selected)');
-		var type_selected = $('#ms-incidentType-select').find('.ms-elem-selectable.ms-selected');
+		// var type_unselected = $('#ms-incidentType-select').find('.ms-elem-selectable:not(.ms-selected)');
+		// var type_selected = $('#ms-incidentType-select').find('.ms-elem-selectable.ms-selected');
 
-		var target_unselected = $('#ms-incidentTarget-select').find('.ms-elem-selectable:not(.ms-selected)');
-		var target_selected = $('#ms-incidentTarget-select').find('.ms-elem-selectable.ms-selected');
+		var type_unselected = $("input[name='main_type_select[]']:checkbox:not(:checked)");
+		var type_selected = $("input[name='main_type_select[]']:checkbox:checked");
+
+		// var target_unselected = $('#ms-incidentTarget-select').find('.ms-elem-selectable:not(.ms-selected)');
+		// var target_selected = $('#ms-incidentTarget-select').find('.ms-elem-selectable.ms-selected');
+
+		var target_unselected = $("input[name='main_target_select[]']:checkbox:not(:checked)");
+		var target_selected = $("input[name='main_target_select[]']:checkbox:checked");
 
 		if (type_unselected.length > 0) {
-			var type_array = $('#incidentType-select').val();
+			// var type_array = type_selected.val();
+			var type_array = [];
+			type_selected.each( function () {
+			   type_array.push($(this).val());
+			});
 			type_selected_param += type_array;
 		}
+
+
 		if (target_unselected.length > 0) {
-			var target_array = $('#incidentTarget-select').val();
+			// var target_array = $('#incidentTarget-select').val();
+			var target_array = [];
+			target_selected.each( function () {
+			   target_array.push($(this).val());
+			});
 			target_selected_param += target_array
+		}
+
+		if (type_selected.length == 0) {
+			type_selected_param = 'noselection';
+		}
+
+		if (target_selected.length == 0) {
+			target_selected_param = 'noselection';
 		}
 
 		var url = $(location).attr("href");
@@ -357,6 +416,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		window.document.location = url;
 
+	});
+
+	$('button.type_all').on('click', function(event) {
+		$("input[name='main_type_select[]']:checkbox").prop('checked', true);
+	});
+
+	$('button.type_none').on('click', function(event) {
+		$("input[name='main_type_select[]']:checkbox").prop('checked', false);
+	});
+
+	$('button.target_all').on('click', function(event) {
+		$("input[name='main_target_select[]']:checkbox").prop('checked', true);
+	});
+
+	$('button.target_none').on('click', function(event) {
+		$("input[name='main_target_select[]']:checkbox").prop('checked', false);
 	});
 });
 
