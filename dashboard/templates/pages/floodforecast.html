@@ -151,7 +151,7 @@ li#nav_dashfloodforecast>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td style="text-align:left;padding:3px;"></td>
-				<td colspan=11 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=11 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -191,7 +191,7 @@ li#nav_dashfloodforecast>a::after {
 				<td class="parent_value fl_forecast_low">{{riverflood_forecast_low_pop | intword | intcomma}}</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
 				<th class="detail_list">{{data.na_en}}</th>
 				<td class="detail_value fl_forecast_extreme">{{data.flashflood_forecast_extreme_pop | intword | intcomma}}</td>
 				<td class="detail_value fl_forecast_vhigh">{{data.flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
@@ -216,8 +216,10 @@ li#nav_dashfloodforecast>a::after {
 function show_hide_base(){
 	if ($("div.showFlag_base").text() == "Show Detail") {
 		$("div.showFlag_base").text('Hide Detail');
+		_checked.push('detail_base');
 	} else {
 		$("div.showFlag_base").text('Show Detail');
+		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {

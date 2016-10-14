@@ -63,7 +63,7 @@ li#nav_dashearthquake>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=15 style="text-align:left;padding:3px;font-weight:bolder;">Earthquake affected Population and settlement overview</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=3><span>Region</span></th>
@@ -120,7 +120,7 @@ li#nav_dashearthquake>a::after {
 
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=earthquake&code={{data.code}}{{ eq_link }}';">
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=earthquake&code={{data.code}}{{ eq_link }}';">
 				<td class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value eq_weak">{{data.pop_shake_weak | intword | intcomma}}</td>
 				<td class="detail_value eq_weak">{{data.settlement_shake_weak | intword | intcomma}}</td>
@@ -152,8 +152,10 @@ li#nav_dashearthquake>a::after {
 function show_hide_base(){
 	if ($("div.showFlag_base").text() == "Show Detail") {
 		$("div.showFlag_base").text('Hide Detail');
+		_checked.push('detail_base');
 	} else {
 		$("div.showFlag_base").text('Show Detail');
+		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {

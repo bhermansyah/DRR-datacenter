@@ -1,0 +1,24 @@
+.col-cust-4 {
+    width: 33.33333%;
+    float: left;
+}
+
+.table_scroll {
+     overflow: initial; 
+}
+
+tr {
+    page-break-inside: avoid;
+}
+
+.print-hide {
+  display: none;
+}
+
+.qlinks:after {
+    content: '';
+}
+
+.checkbox label {
+    font-size: x-small;
+}

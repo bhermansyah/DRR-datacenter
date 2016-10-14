@@ -740,7 +740,7 @@ LOCKDOWN_GEONODE = True
 
 # Add additional paths (as regular expressions) that don't require
 # authentication.
-AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps','/account/signup','/geoapi')
+AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps','/account/signup','/geoapi', '/dashboard/print')
 
 if LOCKDOWN_GEONODE:
     MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \

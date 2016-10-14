@@ -7,11 +7,14 @@ from django.shortcuts import HttpResponse
 from matrix.models import matrix
 from urlparse import urlparse
 from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
-import json
+import json, os
 
-# Create your views here.
-def dashboard_detail(request):
-	# print request.GET['page']
+# from wkhtmltopdf.views import PDFTemplateResponse
+import pdfkit
+from geonode.people.models import Profile
+
+
+def common(request):
 	response = {}
 	code = None
 	flag = 'entireAfg'
@@ -26,10 +29,18 @@ def dashboard_detail(request):
 		code = int(request.GET['code'])
 		flag = 'currentProvince'
 
-	mapCode = '700'
-	map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
-	queryset = matrix(user=request.user,resourceid=map_obj,action='Dashboard '+request.GET['page'])
-	queryset.save()	
+	if 'pdf' in request.GET:
+		mapCode = '700'
+		map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+		px = get_object_or_404(Profile, id=request.GET['user'])
+		# print px
+		queryset = matrix(user=px,resourceid=map_obj,action='Dashboard PDF '+request.GET['page'])
+		queryset.save()
+	else:	
+		mapCode = '700'
+		map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
+		queryset = matrix(user=request.user,resourceid=map_obj,action='Dashboard '+request.GET['page'])
+		queryset.save()	
 
 	if request.GET['page'] == 'baseline':
 		response = getBaseline(request, None, flag, code)
@@ -51,9 +62,40 @@ def dashboard_detail(request):
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)
 
+	response['checked'] = []
+	if '_checked' in request.GET:
+		response['checked'] = request.GET['_checked'].split(",")
+
+	return response	
+
+# Create your views here.
+def dashboard_detail(request):
+	# print request.GET['page']
+	
+	if 'pdf' in request.GET:
+		options = {
+		    'quiet': '',
+		    'page-size': 'A4',
+		    'margin-left': 10,
+		    'margin-right': 10,
+		    # 'no-print-media-type':'-'
+		}
+		a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
+		# print 'http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)
+		pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
+		resp = HttpResponse(pdf,content_type='application/pdf')
+		resp['Content-Disposition'] = 'attachment; filename="ourcodeworld.pdf"'
+		return resp
+	else:
+		response = common(request)
+		return render_to_response(
+	            "dashboard_base.html",
+	            RequestContext(request, response))	
+
+def dashboard_print(request):
 	return render_to_response(
-            "dashboard_base.html",
-            RequestContext(request, response))
+	            "dashboard_base.html",
+	            RequestContext(request, common(request)))			
 
 def get_provinces(request):
 	resource = AfgAdmbndaAdm1.objects.all().values('prov_code','prov_na_en').order_by('prov_na_en')

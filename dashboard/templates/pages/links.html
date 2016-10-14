@@ -35,7 +35,7 @@
 	</div>
 </div>	
 
-<div class="container" style="width: 940px;margin: 0 auto;">
+<div class="container print-hide" style="width: 940px;margin: 0 auto;">
       <div class="pull-right" style="width:30%;">
           <var id="result-container" class="result-container"></var>
        
@@ -51,11 +51,11 @@
                               <i class="typeahead__search-icon"></i>
                           </button>
                       </span>
-                     <!--  <span class="typeahead__button">
-                          <button type="">
+                      <span class="typeahead__button">
+                          <button type="" class="typeahead__download">
                               <i class="typeahead__download-pdf"></i>
                           </button>
-                      </span> -->
+                      </span>
            
                   </div>
               </div>
@@ -66,6 +66,20 @@
 {% include "qlink_list.html" %}
 
 <script type="text/javascript">
+
+var _checked = [];
+
+function removeA(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax= arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   $.typeahead({
       input: '.js-typeahead-country_v2',
@@ -178,5 +192,11 @@ document.addEventListener('DOMContentLoaded', function() {
           // }
       }
   });
+
+  $('button.typeahead__download').on('click', function(event) {
+    var url = $(location).attr("href");
+    window.document.location = url+'&pdf=true&_checked='+_checked;
+  });
+
 });  
 </script>

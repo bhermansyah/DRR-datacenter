@@ -59,7 +59,7 @@ li#nav_dashfloodrisk>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">Population living in flood risk areas</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -107,7 +107,7 @@ li#nav_dashfloodrisk>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ barren_area_risk_percent }}%,#ffffff {{ barren_area_risk_percent }}%);">{{ barren_area_risk_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=floodrisk&code={{data.code}}';">
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=floodrisk&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value">{{data.settlements_at_risk | intword | intcomma}}</td>
 				<td class="detail_value">{{data.total_risk_population | intword | intcomma}}</td>
@@ -119,7 +119,7 @@ li#nav_dashfloodrisk>a::after {
 				<td class="detail_value">{{data.barren_pop_risk | intword | intcomma}}</td>
 				<td class="detail_value">{{data.barren_area_risk | intword | intcomma}}</td>			
 			</tr>
-			<tr class='dataitem detail_base hide'>
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}'>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.settlement_at_floodrisk_percent }}%,#ffffff {{ data.settlement_at_floodrisk_percent }}%);">{{ data.settlement_at_floodrisk_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_pop_atrisk_percent }}%,#ffffff {{ data.total_pop_atrisk_percent }}%);">{{ data.total_pop_atrisk_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_area_atrisk_percent }}%,#ffffff {{ data.total_area_atrisk_percent }}%);">{{ data.total_area_atrisk_percent }}%</td>
@@ -144,8 +144,10 @@ li#nav_dashfloodrisk>a::after {
 function show_hide_base(){
 	if ($("div.showFlag_base").text() == "Show Detail") {
 		$("div.showFlag_base").text('Hide Detail');
+		_checked.push('detail_base');
 	} else {
 		$("div.showFlag_base").text('Show Detail');
+		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {

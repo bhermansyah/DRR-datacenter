@@ -83,7 +83,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Airport</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_airport' onClick='show_hide_airport()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_airport' onClick='show_hide_airport()'>{% if "detail_airport" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -128,7 +128,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__near_airp_percent }}%,#ffffff {{ g8_h__near_airp_percent }}%);">{{ g8_h__near_airp_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_airport hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_airport {% if "detail_airport" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__near_airp | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__near_airp | intword | intcomma}}</td>
@@ -140,7 +140,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__near_airp | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__near_airp | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_airport hide'>			
+			<tr class='dataitem detail_airport {% if "detail_airport" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_airp_percent }}%,#ffffff {{ data.l1_h__near_airp_percent }}%);">{{ data.l1_h__near_airp_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__near_airp_percent }}%,#ffffff {{ data.l2_h__near_airp_percent }}%);">{{ data.l2_h__near_airp_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__near_airp_percent }}%,#ffffff {{ data.l3_h__near_airp_percent }}%);">{{ data.l3_h__near_airp_percent }}%</td>
@@ -164,7 +164,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 1</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier1' onClick='show_hide_tier1()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier1' onClick='show_hide_tier1()'>{% if "detail_tier1" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -209,7 +209,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__near_hlt1_percent }}%,#ffffff {{ g8_h__near_hlt1_percent }}%);">{{ g8_h__near_hlt1_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_tier1 hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_tier1 {% if "detail_tier1" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__near_hlt1 | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__near_hlt1 | intword | intcomma}}</td>
@@ -221,7 +221,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__near_hlt1 | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__near_hlt1 | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_tier1 hide'>			
+			<tr class='dataitem detail_tier1 {% if "detail_tier1" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hlt1_percent }}%,#ffffff {{ data.l1_h__near_hlt1_percent }}%);">{{ data.l1_h__near_hlt1_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__near_hlt1_percent }}%,#ffffff {{ data.l2_h__near_hlt1_percent }}%);">{{ data.l2_h__near_hlt1_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__near_hlt1_percent }}%,#ffffff {{ data.l3_h__near_hlt1_percent }}%);">{{ data.l3_h__near_hlt1_percent }}%</td>
@@ -245,7 +245,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 2</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier2' onClick='show_hide_tier2()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier2' onClick='show_hide_tier2()'>{% if "detail_tier2" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -290,7 +290,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__near_hlt2_percent }}%,#ffffff {{ g8_h__near_hlt2_percent }}%);">{{ g8_h__near_hlt2_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_tier2 hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_tier2 {% if "detail_tier2" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__near_hlt2 | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__near_hlt2 | intword | intcomma}}</td>
@@ -302,7 +302,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__near_hlt2 | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__near_hlt2 | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_tier2 hide'>			
+			<tr class='dataitem detail_tier2 {% if "detail_tier2" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hlt2_percent }}%,#ffffff {{ data.l1_h__near_hlt2_percent }}%);">{{ data.l1_h__near_hlt2_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__near_hlt2_percent }}%,#ffffff {{ data.l2_h__near_hlt2_percent }}%);">{{ data.l2_h__near_hlt2_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__near_hlt2_percent }}%,#ffffff {{ data.l3_h__near_hlt2_percent }}%);">{{ data.l3_h__near_hlt2_percent }}%</td>
@@ -326,7 +326,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 3</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier3' onClick='show_hide_tier3()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier3' onClick='show_hide_tier3()'>{% if "detail_tier3" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -371,7 +371,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__near_hlt3_percent }}%,#ffffff {{ g8_h__near_hlt3_percent }}%);">{{ g8_h__near_hlt3_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_tier3 hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_tier3 {% if "detail_tier3" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__near_hlt3 | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__near_hlt3 | intword | intcomma}}</td>
@@ -383,7 +383,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__near_hlt3 | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__near_hlt3 | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_tier3 hide'>			
+			<tr class='dataitem detail_tier3 {% if "detail_tier3" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hlt3_percent }}%,#ffffff {{ data.l1_h__near_hlt3_percent }}%);">{{ data.l1_h__near_hlt3_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__near_hlt3_percent }}%,#ffffff {{ data.l2_h__near_hlt3_percent }}%);">{{ data.l2_h__near_hlt3_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__near_hlt3_percent }}%,#ffffff {{ data.l3_h__near_hlt3_percent }}%);">{{ data.l3_h__near_hlt3_percent }}%</td>
@@ -407,7 +407,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier All</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tierall' onClick='show_hide_tierall()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tierall' onClick='show_hide_tierall()'>{% if "detail_tierall" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -452,7 +452,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__near_hltall_percent }}%,#ffffff {{ g8_h__near_hltall_percent }}%);">{{ g8_h__near_hltall_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_tierall hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_tierall {% if "detail_tierall" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__near_hltall | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__near_hltall | intword | intcomma}}</td>
@@ -464,7 +464,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__near_hltall | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__near_hltall | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_tierall hide'>			
+			<tr class='dataitem detail_tierall {% if "detail_tierall" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_hltall_percent }}%,#ffffff {{ data.l1_h__near_hltall_percent }}%);">{{ data.l1_h__near_hltall_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__near_hltall_percent }}%,#ffffff {{ data.l2_h__near_hltall_percent }}%);">{{ data.l2_h__near_hltall_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__near_hltall_percent }}%,#ffffff {{ data.l3_h__near_hltall_percent }}%);">{{ data.l3_h__near_hltall_percent }}%</td>
@@ -488,7 +488,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Its Province Capital</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_itsprov' onClick='show_hide_itsprov()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_itsprov' onClick='show_hide_itsprov()'>{% if "detail_itsprov" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -533,7 +533,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__itsx_prov_percent }}%,#ffffff {{ g8_h__itsx_prov_percent }}%);">{{ g8_h__itsx_prov_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_itsprov hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_itsprov {% if "detail_itsprov" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__itsx_prov | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__itsx_prov | intword | intcomma}}</td>
@@ -545,7 +545,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__itsx_prov | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__itsx_prov | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_itsprov hide'>			
+			<tr class='dataitem detail_itsprov {% if "detail_itsprov" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__itsx_prov_percent }}%,#ffffff {{ data.l1_h__itsx_prov_percent }}%);">{{ data.l1_h__itsx_prov_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__itsx_prov_percent }}%,#ffffff {{ data.l2_h__itsx_prov_percent }}%);">{{ data.l2_h__itsx_prov_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__itsx_prov_percent }}%,#ffffff {{ data.l3_h__itsx_prov_percent }}%);">{{ data.l3_h__itsx_prov_percent }}%</td>
@@ -569,7 +569,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Province Capital</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_nearprov' onClick='show_hide_nearprov()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_nearprov' onClick='show_hide_nearprov()'>{% if "detail_nearprov" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -614,7 +614,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__near_prov_percent }}%,#ffffff {{ g8_h__near_prov_percent }}%);">{{ g8_h__near_prov_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_nearprov hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_nearprov {% if "detail_nearprov" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__near_prov | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__near_prov | intword | intcomma}}</td>
@@ -626,7 +626,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__near_prov | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__near_prov | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_nearprov hide'>			
+			<tr class='dataitem detail_nearprov {% if "detail_nearprov" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_prov_percent }}%,#ffffff {{ data.l1_h__near_prov_percent }}%);">{{ data.l1_h__near_prov_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__near_prov_percent }}%,#ffffff {{ data.l2_h__near_prov_percent }}%);">{{ data.l2_h__near_prov_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__near_prov_percent }}%,#ffffff {{ data.l3_h__near_prov_percent }}%);">{{ data.l3_h__near_prov_percent }}%</td>
@@ -650,7 +650,7 @@ li#nav_dashaccessibility>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest District Capital</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_neardist' onClick='show_hide_neardist()'>Show Detail</div></td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_neardist' onClick='show_hide_neardist()'>{% if "detail_neardist" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -695,7 +695,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ g8_h__near_dist_percent }}%,#ffffff {{ g8_h__near_dist_percent }}%);">{{ g8_h__near_dist_percent }}%</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_neardist hide' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
+			<tr class='dataitem detail_neardist {% if "detail_neardist" not in checked %} hide {% endif %}' onclick="window.document.location='?page=accessibility&code={{data.code}}';">
 				<td rowspan=2  class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value acc_l1">{{data.l1_h__near_dist | intword | intcomma}}</td>
 				<td class="detail_value acc_l2">{{data.l2_h__near_dist | intword | intcomma}}</td>
@@ -707,7 +707,7 @@ li#nav_dashaccessibility>a::after {
 				<td class="detail_value acc_l8">{{data.l8_h__near_dist | intword | intcomma}}</td>
 				<td class="detail_value acc_g8">{{data.g8_h__near_dist | intword | intcomma}}</td>		
 			</tr>
-			<tr class='dataitem detail_neardist hide'>			
+			<tr class='dataitem detail_neardist {% if "detail_neardist" not in checked %} hide {% endif %}'>			
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l1_h__near_dist_percent }}%,#ffffff {{ data.l1_h__near_dist_percent }}%);">{{ data.l1_h__near_dist_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l2_h__near_dist_percent }}%,#ffffff {{ data.l2_h__near_dist_percent }}%);">{{ data.l2_h__near_dist_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.l3_h__near_dist_percent }}%,#ffffff {{ data.l3_h__near_dist_percent }}%);">{{ data.l3_h__near_dist_percent }}%</td>
@@ -730,8 +730,10 @@ li#nav_dashaccessibility>a::after {
 function show_hide_airport(){
 	if ($("div.showFlag_airport").text() == "Show Detail") {
 		$("div.showFlag_airport").text('Hide Detail');
+		_checked.push('detail_airport');
 	} else {
 		$("div.showFlag_airport").text('Show Detail');
+		removeA(_checked, 'detail_airport');
 	}
 	$( ".detail_airport" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -746,8 +748,10 @@ function show_hide_airport(){
 function show_hide_tier1(){
 	if ($("div.showFlag_tier1").text() == "Show Detail") {
 		$("div.showFlag_tier1").text('Hide Detail');
+		_checked.push('detail_tier1');
 	} else {
 		$("div.showFlag_tier1").text('Show Detail');
+		removeA(_checked, 'detail_tier1');
 	}
 	$( ".detail_tier1" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -762,8 +766,10 @@ function show_hide_tier1(){
 function show_hide_tier2(){
 	if ($("div.showFlag_tier2").text() == "Show Detail") {
 		$("div.showFlag_tier2").text('Hide Detail');
+		_checked.push('detail_tier2');
 	} else {
 		$("div.showFlag_tier2").text('Show Detail');
+		removeA(_checked, 'detail_tier2');
 	}
 	$( ".detail_tier2" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -778,8 +784,10 @@ function show_hide_tier2(){
 function show_hide_tier3(){
 	if ($("div.showFlag_tier3").text() == "Show Detail") {
 		$("div.showFlag_tier3").text('Hide Detail');
+		_checked.push('detail_tier3');
 	} else {
 		$("div.showFlag_tier3").text('Show Detail');
+		removeA(_checked, 'detail_tier3');
 	}
 	$( ".detail_tier3" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -794,8 +802,10 @@ function show_hide_tier3(){
 function show_hide_tierall(){
 	if ($("div.showFlag_tierall").text() == "Show Detail") {
 		$("div.showFlag_tierall").text('Hide Detail');
+		_checked.push('detail_tierall');
 	} else {
 		$("div.showFlag_tierall").text('Show Detail');
+		removeA(_checked, 'detail_tierall');
 	}
 	$( ".detail_tierall" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -810,8 +820,10 @@ function show_hide_tierall(){
 function show_hide_itsprov(){
 	if ($("div.showFlag_itsprov").text() == "Show Detail") {
 		$("div.showFlag_itsprov").text('Hide Detail');
+		_checked.push('detail_itsprov');
 	} else {
 		$("div.showFlag_itsprov").text('Show Detail');
+		removeA(_checked, 'detail_itsprov');
 	}
 	$( ".detail_itsprov" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -826,8 +838,10 @@ function show_hide_itsprov(){
 function show_hide_nearprov(){
 	if ($("div.showFlag_nearprov").text() == "Show Detail") {
 		$("div.showFlag_nearprov").text('Hide Detail');
+		_checked.push('detail_nearprov');
 	} else {
 		$("div.showFlag_nearprov").text('Show Detail');
+		removeA(_checked, 'detail_nearprov');
 	}
 	$( ".detail_nearprov" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -842,8 +856,10 @@ function show_hide_nearprov(){
 function show_hide_neardist(){
 	if ($("div.showFlag_neardist").text() == "Show Detail") {
 		$("div.showFlag_neardist").text('Hide Detail');
+		_checked.push('detail_neardist');
 	} else {
 		$("div.showFlag_neardist").text('Show Detail');
+		removeA(_checked, 'detail_neardist');
 	}
 	$( ".detail_neardist" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {

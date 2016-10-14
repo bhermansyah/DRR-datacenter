@@ -65,7 +65,7 @@ li#nav_dashbaseline>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">Population and area overview</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -102,7 +102,7 @@ li#nav_dashbaseline>a::after {
 				<td class="parent_value">{{barren_area | intword | intcomma}}</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_base hide' onclick="window.document.location='?page=baseline&code={{data.code}}';">
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=baseline&code={{data.code}}';">
 				<td class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value">{{data.settlements | intword | intcomma}}</td>
 				<td class="detail_value">{{data.Population | intword | intcomma}}</td>
@@ -127,7 +127,7 @@ li#nav_dashbaseline>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Number of Health facilities</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_health' onClick='show_hide_health()'>Show Detail</div></td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_health' onClick='show_hide_health()'>{% if "detail_health" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -161,7 +161,7 @@ li#nav_dashbaseline>a::after {
 				<td class="parent_value">{{hlt_others | intword | intcomma}}</td>
 			</tr>
 			{% for data in additional_child %}
-			<tr class='dataitem detail_health hide' onclick="window.document.location='?page=baseline&code={{data.code}}';">
+			<tr class='dataitem detail_health {% if "detail_health" not in checked %} hide {% endif %}' onclick="window.document.location='?page=baseline&code={{data.code}}';">
 				<td class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value">{{data.hlt_total | intword | intcomma}}</td>
 				<td class="detail_value">{{data.hlt_h1 | intword | intcomma}}</td>
@@ -185,7 +185,7 @@ li#nav_dashbaseline>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=9 style="text-align:left;padding:3px;font-weight:bolder;">Road network overview and length</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_road' onClick='show_hide_road()'>Show Detail</div></td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_road' onClick='show_hide_road()'>{% if "detail_road" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -232,7 +232,7 @@ li#nav_dashbaseline>a::after {
 				<td><img class="cust_chart_class" src="https://chart.googleapis.com/chart?chs=250x100&cht=bhs&chd=t:20,1000,50,0,520,75&chm=N,000000,-1,,12&chxl=0:|May|Jun|Jul|Aug|Sep|Oct&chbh=a,4,5&chco=00FF00|0000FF|FF0000|00FF00|0000FF|FF0000&chds=a"></td> -->
 			</tr>
 			{% for data in additional_child %}
-			<tr class='dataitem detail_road hide' onclick="window.document.location='?page=baseline&code={{data.code}}';">
+			<tr class='dataitem detail_road {% if "detail_road" not in checked %} hide {% endif %}' onclick="window.document.location='?page=baseline&code={{data.code}}';">
 				<td class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value">{{data.road_total | intword | intcomma}}</td>
 				<td class="detail_value">{{data.road_highway | intword | intcomma}}</td>
@@ -257,14 +257,16 @@ li#nav_dashbaseline>a::after {
 function show_hide_base(){
 	if ($("div.showFlag_base").text() == "Show Detail") {
 		$("div.showFlag_base").text('Hide Detail');
+		_checked.push('detail_base');
 	} else {
 		$("div.showFlag_base").text('Show Detail');
+		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
-		if ( $( this ).parent().is( ".hide" ) ) {
+		if ( $( this ).parent().is( ".hide" ) ) {	
 		    return "show";		    
 		} else {
-			// $("div.showFlag").text("<p>Show Detail</p>");
+			// $("div.showFlag").text("<p>Show Detail</p>");		
 		    return "hide";	    
 		}
 	});
@@ -273,8 +275,10 @@ function show_hide_base(){
 function show_hide_health(){
 	if ($("div.showFlag_health").text() == "Show Detail") {
 		$("div.showFlag_health").text('Hide Detail');
+		_checked.push('detail_health');
 	} else {
 		$("div.showFlag_health").text('Show Detail');
+		removeA(_checked, 'detail_health');
 	}
 	$( ".detail_health" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
@@ -289,8 +293,10 @@ function show_hide_health(){
 function show_hide_road(){
 	if ($("div.showFlag_road").text() == "Show Detail") {
 		$("div.showFlag_road").text('Hide Detail');
+		_checked.push('detail_road');
 	} else {
 		$("div.showFlag_road").text('Show Detail');
+		removeA(_checked, 'detail_road');
 	}
 	$( ".detail_road" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {

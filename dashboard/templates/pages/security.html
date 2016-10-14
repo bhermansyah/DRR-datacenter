@@ -23,7 +23,7 @@ li#nav_dashsecurity>a::after {
 
 <div class="gridster" style="margin-bottom: 39px;">
 	<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;"> 
-	    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp; Incident between:
+	    <i class="fa fa-calendar"></i>&nbsp; Incident between:
 	    <span></span> <b class="caret"></b>
 	</div>
 </div>
@@ -57,7 +57,7 @@ li#nav_dashsecurity>a::after {
 		      {% endfor %}
 		    </select> -->
 		    <div class="custom-header">
-		    	<div style="float:left;font-size: medium;padding: 5px;">select incident type</div> 
+		    	<div style="float:left;font-size: small;padding: 5px;">select incident type</div> 
 		    	<div style="float:right;">
 		    		<button type="button" class="btn btn-primary btn-sm type_all">Select All</button>
 		    		<button type="button" class="btn btn-primary btn-sm type_none">Select None</button>
@@ -65,7 +65,7 @@ li#nav_dashsecurity>a::after {
 		    	</div>
 		    </div>
 	    	{% for item in main_type_child %}
-	                <div class="checkbox checkbox-success checkbox-inline">
+	                <div class="checkbox checkbox-inline">
 	                    <input id="type{{ forloop.counter0 }}" name="main_type_select[]" class="styled" type="checkbox" value="{{ item.main_type }}"  {% if item.main_type in incident_type %}checked=true{% endif %}>
 	                    <label for="type{{ forloop.counter0 }}">
 	                        {{ item.main_type }} ({{item.count}} incidents)
@@ -85,7 +85,7 @@ li#nav_dashsecurity>a::after {
 		      {% endfor %}
 		    </select> -->
 		    <div class="custom-header">
-		    	<div style="float:left;font-size: medium;padding: 5px;">select incident target</div> 
+		    	<div style="float:left;font-size: small;padding: 5px;">select incident target</div> 
 		    	<div style="float:right;">
 		    		<button type="button" class="btn btn-primary btn-sm target_all">Select All</button>
 		    		<button type="button" class="btn btn-primary btn-sm target_none">Select None</button>
@@ -93,7 +93,7 @@ li#nav_dashsecurity>a::after {
 		    	</div>
 		    </div>
 	    	{% for item in main_target_child %}
-	                <div class="checkbox checkbox-success checkbox-inline">
+	                <div class="checkbox checkbox-inline">
 	                    <input id="target{{ forloop.counter0 }}" name="main_target_select[]" class="styled" type="checkbox" value="{{ item.main_target }}"  {% if item.main_target in incident_target %}checked=true{% endif %}>
 	                    <label for="target{{ forloop.counter0 }}">
 	                        {{ item.main_target }} ({{item.count}} incidents)
@@ -129,7 +129,7 @@ li#nav_dashsecurity>a::after {
 		<thead>
 			<tr class='dataitem'>
 				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">Number of incidents and casualties</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>Show Detail</div></td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>Region</span></th>
@@ -153,7 +153,7 @@ li#nav_dashsecurity>a::after {
 				<td class="parent_value">{{total_violent | intword | intcomma}}</td>
 			</tr>
 			{% for data in lc_child %}
-			<tr class='dataitem detail_base hide' onclick="jump_url({{data.code}});">
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="jump_url({{data.code}});">
 				<td class="detail_list">{{data.na_en}}</td>
 				<td class="detail_value">{{data.total_incident | intword | intcomma}}</td>
 				<td class="detail_value">{{data.total_dead | intword | intcomma}}</td>
@@ -169,7 +169,7 @@ li#nav_dashsecurity>a::after {
 </div>
 
 <div class="gridster">
-	<div class="col-md-4" style="padding-left:0px !important;">
+	<div class="col-md-4 col-cust-4" style="padding-left:0px !important;">
 		<div class="table_scroll">
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
@@ -207,7 +207,7 @@ li#nav_dashsecurity>a::after {
 			</table>
 		</div>
 	</div>	
-	<div class="col-md-4">
+	<div class="col-md-4 col-cust-4">
 		<div class="table_scroll">
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
@@ -245,7 +245,7 @@ li#nav_dashsecurity>a::after {
 			</table>
 		</div>	
 	</div>
-	<div class="col-md-4" style="padding-right:0px !important;">
+	<div class="col-md-4 col-cust-4" style="padding-right:0px !important;">
 		<div class="table_scroll">
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
@@ -278,8 +278,10 @@ li#nav_dashsecurity>a::after {
 function show_hide_base(){
 	if ($("div.showFlag_base").text() == "Show Detail") {
 		$("div.showFlag_base").text('Hide Detail');
+		_checked.push('detail_base');
 	} else {
 		$("div.showFlag_base").text('Show Detail');
+		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
