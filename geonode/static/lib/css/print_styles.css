@@ -22,3 +22,15 @@ tr {
 .checkbox label {
     font-size: x-small;
 }
+
+.nav,.navbar {
+  display: none;
+}
+
+#wrap {
+    padding-top: 0px;
+}
+
+body {
+     padding-top: 10px; 
+}     

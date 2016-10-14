@@ -76,11 +76,15 @@ def dashboard_detail(request):
 		options = {
 		    'quiet': '',
 		    'page-size': 'A4',
-		    'margin-left': 10,
-		    'margin-right': 10,
-		    # 'no-print-media-type':'-'
+		    # 'margin-left': 10,
+		    # 'margin-right': 10,
+		    # 'viewport-size':'800x600',
+		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html',
+		    # 'lowquality':'-'
+		    # 'disable-smart-shrinking':'-',
 		}
 		a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
+		print  request.META.get('HTTP_HOST')
 		# print 'http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)
 		pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
 		resp = HttpResponse(pdf,content_type='application/pdf')
