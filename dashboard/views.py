@@ -78,6 +78,8 @@ def dashboard_detail(request):
 		    'page-size': 'A4',
 		    # 'margin-left': 10,
 		    # 'margin-right': 10,
+		    'margin-bottom':10,
+		    'margin-top':25,
 		    # 'viewport-size':'800x600',
 		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html',
 		    # 'lowquality':'-'
