@@ -1,4 +1,4 @@
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap, AfgIncidentOasis, AfgCapaGsmcvr, AfgAirdrmp
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, FloodRiskExposure, AfgLndcrva, LandcoverDescription, AfgAvsa, AfgAdmbndaAdm1, AfgPplp, earthquake_shakemap, earthquake_events, villagesummaryEQ, AfgRdsl, AfgHltfac, forecastedLastUpdate, provincesummary, AfgCaptAdm1ItsProvcImmap, AfgCaptAdm1NearestProvcImmap, AfgCaptAdm2NearestDistrictcImmap, AfgCaptAirdrmImmap, AfgCaptHltfacTier1Immap, AfgCaptHltfacTier2Immap, tempCurrentSC, AfgCaptHltfacTier3Immap, AfgCaptHltfacTierallImmap, AfgIncidentOasis, AfgCapaGsmcvr, AfgAirdrmp, OasisSettlements
 import json
 import time, datetime
 from tastypie.resources import ModelResource, Resource
@@ -1786,7 +1786,7 @@ class getVillages(ModelResource):
         return HttpResponse(response, mimetype='application/json')
 
     def getStats(self, request):
-        print request.GET
+        # print request.GET
         # resource = .transform(900913, field_name='wkb_geometry') string__icontains
         if request.GET['type']=='settlements':
             resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','dist_na_en','prov_na_en','wkb_geometry')
@@ -1795,9 +1795,9 @@ class getVillages(ModelResource):
         elif request.GET['type']=='airport':    
             resource = AfgAirdrmp.objects.all()
         else :    
-            resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','dist_na_en','prov_na_en','wkb_geometry')        
+            resource = OasisSettlements.objects.all().values('vil_uid','name_en','type_settlement','dist_na_en','prov_na_en','wkb_geometry')        
 
-        print request.GET['dist_code']
+        # print request.GET['dist_code']
         if request.GET['dist_code'] != '':
             resource = resource.filter(dist_code=request.GET['dist_code'])     
 

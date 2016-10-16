@@ -1405,3 +1405,26 @@ class AfgEqtUnkPplEqHzd(models.Model):
     class Meta:
         managed = False
         db_table = 'afg_eqt_unk_ppl_eq_hzd'
+
+
+class OasisSettlements(models.Model):
+    gid = models.IntegerField(primary_key=True)
+    type_settlement = models.CharField(max_length=20, blank=True)
+    source = models.CharField(max_length=50, blank=True)
+    x = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    y = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    prov_na_en = models.CharField(max_length=50, blank=True)
+    dist_na_en = models.CharField(max_length=50, blank=True)
+    un_reg = models.CharField(max_length=50, blank=True)
+    isaf_rc = models.CharField(max_length=50, blank=True)
+    name_en = models.CharField(max_length=200, blank=True)
+    vil_uid = models.IntegerField(blank=True, null=True)
+    anso_reg = models.CharField(max_length=50, blank=True)
+    wkb_geometry = models.PointField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = False
+        db_table = 'oasis_settlements'
+        

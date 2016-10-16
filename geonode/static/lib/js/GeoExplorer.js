@@ -91362,7 +91362,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 defaultType: 'toolbar',
                 items : [{
                     items: [
-                        'Tick to apply: ', ' ',
+                        '', '',
                         {
                             xtype      : 'checkbox',
                             id: 'settlementCB',
@@ -91375,6 +91375,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                         if (checked){
                                             Ext.getCmp('hfCB').setValue(false);
                                             Ext.getCmp('airportCB').setValue(false);
+                                            Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
                                         }
                                     }
@@ -91392,6 +91393,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                         if (checked){
                                             Ext.getCmp('settlementCB').setValue(false);
                                             Ext.getCmp('airportCB').setValue(false);
+                                            Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
                                         }
                                     }
@@ -91410,6 +91412,25 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                         if (checked){
                                             Ext.getCmp('settlementCB').setValue(false);
                                             Ext.getCmp('hfCB').setValue(false);
+                                            Ext.getCmp('oasisCB').setValue(false);
+                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                        }
+                                    }
+                                }
+                            }
+                        },{
+                            xtype      : 'checkbox',
+                            id: 'oasisCB',
+                            fieldLabel : "",
+                            boxLabel   : 'Settlements Oasis',
+                            inputValue : 's_oasis',
+                            listeners:{
+                                'check' : {
+                                     fn : function(checkbox, checked){
+                                        if (checked){
+                                            Ext.getCmp('settlementCB').setValue(false);
+                                            Ext.getCmp('hfCB').setValue(false);
+                                            Ext.getCmp('airportCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
                                         }
                                     }

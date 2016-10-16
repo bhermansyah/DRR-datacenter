@@ -76,6 +76,12 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
             this.store.baseParams['propertyName'] = '';
             this.store.baseParams['type'] = 'airport';
         }
+         if (Ext.getCmp('oasisCB').checked){
+            layers.push('geonode:afg_pplp');
+            filters.push("strToLowerCase(name_en) like '%"+v+"%'"+addQS);
+            this.store.baseParams['propertyName'] = 'vil_uid,name_en,type_settlement,dist_na_en,prov_na_en,wkb_geometry';
+            this.store.baseParams['type'] = 's_oasis';
+        }
 
 
         this.store.baseParams['dist_code'] = Ext.getCmp('districtSelectionLocator').value || '';
