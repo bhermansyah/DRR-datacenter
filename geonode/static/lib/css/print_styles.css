@@ -1,10 +1,11 @@
 .col-cust-4 {
-    width: 33.33333%;
+    width: 50%;
     float: left;
 }
 
 .table_scroll {
      overflow: initial; 
+     height: auto;
 }
 
 tr {
@@ -33,4 +34,11 @@ tr {
 
 body {
      padding-top: 10px; 
-}     
+} 
+
+.page-break{
+    page-break-after:always;
+    clear:both;
+    display:block;
+    overflow: visible !important;
+}    

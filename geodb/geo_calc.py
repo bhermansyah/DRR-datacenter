@@ -28,6 +28,8 @@ from graphos.renderers import flot, gchart
 from graphos.sources.simple import SimpleDataSource
 from django.test import RequestFactory
 import urllib2, urllib
+import pygal       
+from geodb.radarchart import RadarChart
 
 def query_to_dicts(cursor, query_string, *query_args):
     """Run a simple query and produce a generator
@@ -155,68 +157,153 @@ def getSecurity(request, filterLock, flag, code):
     main_type_raw_data = getSAMParams(request, daterange, filterLock, flag, code, 'main_type', True)
 
     data_main_type = []
-    data_main_type.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
-    for type_item in main_type_raw_data:
-        data_main_type.append([type_item['main_type'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
-
-    response['main_type_chart'] = gchart.BarChart(
-        SimpleDataSource(data=data_main_type), 
-        html_id="pie_chart2", 
-        options={
-            'title': 'Incident type overview and casualties', 
-            'width': 450,
-            'height': 450, 
-            'isStacked':'true',
-            'bars': 'horizontal',
-            'axes': {
-                'x': {
-                  '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
-                },
+    # data_main_type.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
+    # for type_item in main_type_raw_data:
+    #     data_main_type.append([type_item['main_type'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
+    # response['main_type_chart'] = gchart.BarChart(
+    #     SimpleDataSource(data=data_main_type), 
+    #     html_id="pie_chart2", 
+    #     options={
+    #         'title': 'Incident type overview and casualties', 
+    #         'width': 450,
+    #         'height': 450, 
+    #         'isStacked':'true',
+    #         'bars': 'horizontal',
+    #         'axes': {
+    #             'x': {
+    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+    #             },
             
-            },
-            'annotations': {
-                'textStyle': {
-                    'fontSize':7
-                }    
-            },  
-            'bar': { 'groupWidth': '90%' },
-            'chartArea': {'width': '60%', 'height': '90%'},
-            'titleX':'# of incident and casualties',
-    })
+    #         },
+    #         'annotations': {
+    #             'textStyle': {
+    #                 'fontSize':7
+    #             }    
+    #         },  
+    #         'bar': { 'groupWidth': '90%' },
+    #         'chartArea': {'width': '60%', 'height': '90%'},
+    #         'titleX':'# of incident and casualties',
+    # })
+
+    data_main_type.append(['TYPE', 'incident', 'dead', 'violent', 'injured' ])
+    for type_item in main_type_raw_data:
+        data_main_type.append([type_item['main_type'],type_item['count'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['injured'] ])
+    response['main_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
+            html_id="pie_chart2", 
+            options={
+                'title': 'Number of Incident by Incident Type',
+                'col-included' : [
+                    {'col-no':1,'name':'Incidents','fill':True}
+                ]
+            }     
+        ).get_image()
+
+    response['dead_casualties_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
+            html_id="pie_chart4", 
+            options={
+                'title': 'Number of dead casualties by Incident Type',
+                'col-included' : [
+                    {'col-no':2,'name':'Dead','fill':True}
+                ]
+            }     
+        ).get_image()
+
+    response['injured_casualties_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
+            html_id="pie_chart4", 
+            options={
+                'title': 'Number of injured casualties by Incident Type',
+                'col-included' : [
+                    {'col-no':4,'name':'Injured','fill':True}
+                ]
+            }     
+        ).get_image()
+
+    response['violent_casualties_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
+            html_id="pie_chart4", 
+            options={
+                'title': 'Number of affected person by Incident Type',
+                'col-included' : [
+                    {'col-no':3,'name':'Injured','fill':True}
+                ]
+            }     
+        ).get_image()
 
     response['main_target_child'] = getSAMParams(request, daterange, filterLock, flag, code, 'main_target', False)
     main_target_raw_data = getSAMParams(request, daterange, filterLock, flag, code, 'main_target', True)
     data_main_target = []
-    data_main_target.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
-    for type_item in main_target_raw_data:
-         data_main_target.append([type_item['main_target'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
+    # data_main_target.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
+    # for type_item in main_target_raw_data:
+    #      data_main_target.append([type_item['main_target'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
 
-    response['main_target_chart'] = gchart.BarChart(
-        SimpleDataSource(data=data_main_target), 
-        html_id="pie_chart3", 
-        options={
-            'title': 'Incident target overview and casualties', 
-            'width': 450,
-            'height': 450, 
-            # 'legend': { 'position': 'none' },
-            'isStacked':'true',
-            'bars': 'horizontal',
-            'axes': {
-                'x': {
-                  '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
-                },
+    # response['main_target_chart'] = gchart.BarChart(
+    #     SimpleDataSource(data=data_main_target), 
+    #     html_id="pie_chart3", 
+    #     options={
+    #         'title': 'Incident target overview and casualties', 
+    #         'width': 450,
+    #         'height': 450, 
+    #         # 'legend': { 'position': 'none' },
+    #         'isStacked':'true',
+    #         'bars': 'horizontal',
+    #         'axes': {
+    #             'x': {
+    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+    #             },
             
-            },
-            'annotations': {
-                'textStyle': {
-                    'fontSize':7
-                }    
-            },  
-            'bar': { 'groupWidth': '90%' },
-            'chartArea': {'width': '60%', 'height': '90%'},
-            'titleX':'# of incident and casualties',
-    })
+    #         },
+    #         'annotations': {
+    #             'textStyle': {
+    #                 'fontSize':7
+    #             }    
+    #         },  
+    #         'bar': { 'groupWidth': '90%' },
+    #         'chartArea': {'width': '60%', 'height': '90%'},
+    #         'titleX':'# of incident and casualties',
+    # })
+    data_main_target.append(['Target', 'incident', 'dead', 'violent', 'injured' ])
+    for type_item in main_target_raw_data:
+         data_main_target.append([type_item['main_target'],type_item['count'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['injured'] ])
+    response['main_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
+            html_id="pie_chart3", 
+            options={
+                'title': 'Number of Incident by Incident Target',
+                'col-included' : [
+                    {'col-no':1,'name':'Incidents','fill':True}
+                ]
+            }     
+        ).get_image()
 
+    response['dead_casualties_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
+            html_id="pie_chart4", 
+            options={
+                'title': 'Number of dead casualties by Incident Target',
+                'col-included' : [
+                    {'col-no':2,'name':'Dead','fill':True}
+                ]
+            }     
+        ).get_image()
+
+    response['injured_casualties_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
+            html_id="pie_chart4", 
+            options={
+                'title': 'Number of injured casualties by Incident Target',
+                'col-included' : [
+                    {'col-no':4,'name':'Injured','fill':True}
+                ]
+            }     
+        ).get_image()
+
+    response['violent_casualties_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
+            html_id="pie_chart4", 
+            options={
+                'title': 'Number of affected person by Incident Target',
+                'col-included' : [
+                    {'col-no':3,'name':'Injured','fill':True}
+                ]
+            }     
+        ).get_image()
+
+    
     response['incident_type'] = []
     response['incident_target'] = []
 

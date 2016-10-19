@@ -108,17 +108,55 @@ li#nav_dashsecurity>a::after {
 <div class="gridster">
   	<ul>
   		<li data-row="1" data-col="1" data-sizex="3" data-sizey="3">
-			<div>{{ main_type_chart.as_html }}</div>
+			<div><img style="width:450px;height:450px;" src="{{ main_type_chart }}" /></div>
 			<span class='widget-title'></span>
 		</li>
-  		<!-- <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
-			<div>{{ casualties_chart.as_html }}</div>
+		<li data-row="1" data-col="2" data-sizex="3" data-sizey="3">
+			<div><img style="width:450px;height:450px;" src="{{ main_target_chart }}" /></div>
 			<span class='widget-title'></span>
-		</li> -->
+		</li>
+  	</ul>
+</div>		
+
+<div class="page-break"></div>
+
+
+<div class="gridster">
+  	<ul>
+  		<li data-row="1" data-col="1" data-sizex="3" data-sizey="3">
+			<div><img style="width:450px;height:450px;" src="{{ dead_casualties_type_chart }}" /></div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="1" data-col="2" data-sizex="3" data-sizey="3">
+			<div><img style="width:450px;height:450px;" src="{{ dead_casualties_target_chart }}" /></div>
+			<span class='widget-title'></span>
+		</li>
+
+		<li data-row="2" data-col="1" data-sizex="3" data-sizey="3">
+			<div><img style="width:450px;height:450px;" src="{{ injured_casualties_type_chart }}" /></div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="2" data-col="2" data-sizex="3" data-sizey="3">
+			<div><img style="width:450px;height:450px;" src="{{ injured_casualties_target_chart }}" /></div>
+			<span class='widget-title'></span>
+		</li>
+  	</ul>
+</div>		
+
+<div class="page-break"></div>
+
+<div class="gridster">
+  	<ul>
+
 		<li data-row="1" data-col="1" data-sizex="3" data-sizey="3">
-			<div>{{ main_target_chart.as_html }}</div>
+			<div><img style="width:450px;height:450px;" src="{{ violent_casualties_type_chart }}" /></div>
 			<span class='widget-title'></span>
 		</li>
+		<li data-row="1" data-col="2" data-sizex="3" data-sizey="3">
+			<div><img style="width:450px;height:450px;" src="{{ violent_casualties_target_chart }}" /></div>
+			<span class='widget-title'></span>
+		</li>
+
 
   	</ul>
 </div>
@@ -169,7 +207,7 @@ li#nav_dashsecurity>a::after {
 </div>
 
 <div class="gridster">
-	<div class="col-md-4 col-cust-4" style="padding-left:0px !important;">
+	<div class="col-md-6 col-cust-4" style="padding-left:0px !important;">
 		<div class="table_scroll">
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
@@ -207,7 +245,7 @@ li#nav_dashsecurity>a::after {
 			</table>
 		</div>
 	</div>	
-	<div class="col-md-4 col-cust-4">
+	<div class="col-md-6 col-cust-4"  style="padding-right:0px !important;">
 		<div class="table_scroll">
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
@@ -245,7 +283,7 @@ li#nav_dashsecurity>a::after {
 			</table>
 		</div>	
 	</div>
-	<div class="col-md-4 col-cust-4" style="padding-right:0px !important;">
+	<div class="col-md-12" style="padding-right:0px !important;padding-left:0px !important;">
 		<div class="table_scroll">
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>

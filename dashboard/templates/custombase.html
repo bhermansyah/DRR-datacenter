@@ -12,33 +12,33 @@
     </script>
     {% block head %}
       {% if DEBUG_STATIC %}
-      <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}lib/css/select2.css" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/jquery-ui.css" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css" rel="stylesheet" media="all"/>
+      <link href="{{ STATIC_URL }}lib/css/select2.css" rel="stylesheet" media="all"/>
+      <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css" rel="stylesheet" media="all"/>
+      <link href="{{ STATIC_URL }}lib/css/jquery-ui.css" rel="stylesheet" media="all"/>
+      <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css" rel="stylesheet" media="all"/>
       {% else %}
-      <link href="{{ STATIC_URL }}lib/css/assets.min.css" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css/assets.min.css" rel="stylesheet" media="all"/>
       {% endif %}
-      <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" media="all" />
+      <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" media="all" />
       
       <!-- gridster css -->
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/jquery.gridster.css">
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/grister_styles.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/jquery.gridster.css" media="all">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/grister_styles.css" media="all">
 
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/nice-select.css">
-      <link href="{{ STATIC_URL }}lib/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/nice-select.css" media="all">
+      <link href="{{ STATIC_URL }}lib/css/multi-select.css" media="all" rel="stylesheet" type="text/css">
       
-      <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/daterangepicker.css" media="all" />
 
-      <link href="{{ STATIC_URL }}lib/css/jquery.typeahead.css" media="screen" rel="stylesheet" type="text/css">
-      <link href="{{ STATIC_URL }}lib/css/jquery.dropdown.css" media="screen" rel="stylesheet" type="text/css">
+      <link href="{{ STATIC_URL }}lib/css/jquery.typeahead.css" media="all" rel="stylesheet" type="text/css">
+      <link href="{{ STATIC_URL }}lib/css/jquery.dropdown.css" media="all" rel="stylesheet" type="text/css">
       
-      <link href="{{ STATIC_URL }}lib/css/awesome-bootstrap-checkbox.css" media="screen" rel="stylesheet" type="text/css">
-      <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}lib/css/awesome-bootstrap-checkbox.css" media="all" rel="stylesheet" type="text/css">
+      <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" media="all" />
       {% if 'print' in request.build_absolute_uri %}
-        <link href="{{ STATIC_URL }}lib/css/print_styles.css" rel="stylesheet" />
+        <link href="{{ STATIC_URL }}lib/css/print_styles.css" rel="stylesheet" media="all" />
       {% endif %}
 
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
@@ -362,12 +362,12 @@
     <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
 
     <script type="text/javascript" src="{{ STATIC_URL }}lib/js/jquery.gridster.js" charster="utf-8"></script>
-    <script src='http://tablesorter.com/__jquery.tablesorter.min.js'></script>
+    <!--<script src='http://tablesorter.com/__jquery.tablesorter.min.js'></script>-->
     <script src="{{ STATIC_URL }}lib/js/jquery.nice-select.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.multi-select.js"></script>
 
-    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}lib/js/moment.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}lib/js/daterangepicker.js"></script>
     
     <script src="{{ STATIC_URL }}lib/js/jquery.typeahead.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.dropdown.js"></script>

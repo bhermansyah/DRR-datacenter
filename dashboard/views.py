@@ -84,6 +84,9 @@ def dashboard_detail(request):
 		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html',
 		    # 'lowquality':'-'
 		    # 'disable-smart-shrinking':'-',
+		    # 'print-media-type':'-',
+		    # 'no-background':'-',
+		    # 'disable-javascript':'-',
 		}
 		a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
 		print  request.META.get('HTTP_HOST')
