@@ -195,7 +195,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   $('button.typeahead__download').on('click', function(event) {
     var url = $(location).attr("href");
+    $(".se-pre-con").fadeIn("slow");
     window.document.location = url+'&pdf=true&_checked='+_checked;
+    $(".se-pre-con").fadeOut("slow");
   });
 
 });  
