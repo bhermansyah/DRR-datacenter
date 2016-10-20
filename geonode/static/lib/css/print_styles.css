@@ -42,3 +42,7 @@ body {
     display:block;
     overflow: visible !important;
 }    
+
+.se-pre-con{
+  display: none;
+}
