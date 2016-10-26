@@ -1,4 +1,5 @@
 {% load i18n avatar_tags %}
+{% load leaflet_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,6 +37,10 @@
       <link href="{{ STATIC_URL }}lib/css/jquery.dropdown.css" media="all" rel="stylesheet" type="text/css">
       
       <link href="{{ STATIC_URL }}lib/css/awesome-bootstrap-checkbox.css" media="all" rel="stylesheet" type="text/css">
+
+      {% leaflet_js %}
+      {% leaflet_css %}
+
       <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" media="all" />
       {% if 'print' in request.build_absolute_uri %}
         <link href="{{ STATIC_URL }}lib/css/print_styles.css" rel="stylesheet" media="all" />
@@ -174,11 +179,25 @@
               </li>
              {% block extra_tab %}
              {% endblock %}
-              <li id="nav_people">
+             <!--  <li id="nav_people">
                 <a href="{% url "profile_browse" %}">{% trans "People" %}</a>
               </li>
               <li id="nav_groups">
                 <a href="{% url "group_list" %}">{% trans "Groups" %}</a>
+              </li> -->
+              <li id="nav_about" class="dropdown">
+                <!-- <a href="{% url "about" %}">{% trans "Documentation" %}</a> -->
+               
+                  <a href="#" data-toggle="dropdown" data-target="#">{% trans "Documentation" %}</a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><a href="{% url "about" %}">{% trans "About" %}</a></li>
+                    <li><a href="{% url "disclaimer" %}">{% trans "Disclaimer" %}</a></li>
+                    <li><a href="#">{% trans "Documentation" %}</a></li>
+                    <li><a href="{% url "partners" %}">{% trans "Partners" %}</a></li>
+                    <li><a href="{% url "video" %}">{% trans "Videos" %}</a></li>
+                    <li><a href="#">{% trans "Training" %}</a></li>
+                  </ul>  
+  
               </li>
               {% endblock %}
             </ul>
@@ -491,6 +510,9 @@
           $(".se-pre-con").fadeOut("slow");
         });
       </script>
+
+      
+
       <script type="text/javascript" src="{% url "lang" %}"></script>
       
   </body>

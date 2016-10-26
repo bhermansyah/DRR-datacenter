@@ -1,0 +1,403 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Partners and data providers" %} — {{ block.super }} {% endblock %}
+{% block body_class %}about{% endblock %}
+{% block body_outer %}
+<div class="caption">
+    <h4></h4>
+
+  <!-- <p class="lead">{% trans "About Afghanistan Spatial Data Center." %}</p> -->
+  <p class="lead">Data Providers and Partners</p>
+  <p>This list provides an insight in the main partners who have provided or are providing essential data. 
+  For each of the organisations the main contributions for the ASDC are listed.</p>
+  <p class="lead">Scientific</p>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/wmo.png" alt="">
+        <div class="caption">
+            <p class="lead">World Meteorological Organization (WMO) and Hydrologic Research Center</p>
+            <p>Flash Flood Guidiance System (FFGS) from Hydrologic Research Center</p>
+            <p>WMO data is used for the flash flood forecasts, as well as providing snow water equivalent data used to calculate snow depth</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/noa.png" alt="">
+        <div class="caption">
+            <p class="lead">National Oceanic and Atmospheric Administration (NOAA) - National Snow and Ice Data Center (NSIDC)</p>
+            <p>NSIDC data is used to calculate the daily snow coverage and avalanche risk. It was also used to calculate the historic snow average per month.</p>
+            <p>Global Flood Monitoring System (GFMS) is supported by NOAA and is an essential component of the flood forecasting system</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/usgs.png" alt="">
+        <div class="caption">
+            <p class="lead">United States Geological Survey (USGS)</p>
+            <p>USGS Earthquake monitoring program, provides the historical earthquake data, latest epicentre data and shakemaps.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/oak.png" alt="">
+        <div class="caption">
+            <p class="lead">Oak Ridge National Laboratory</p>
+            <p>Provided the Landscan data, which was merged with various other datasets, to estimate population numbers at village level.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/maryland.png" alt="">
+        <div class="caption">
+            <p class="lead">University Of Maryland</p>
+            <p>Global Flood Monitoring System (GFMS) is maintained by the university of Maryland. The data is essential for one component of the river flood forecasting in Afghanistan. NOAA and NASA are other partners which  help create this data</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/nasa.png" alt="">
+        <div class="caption">
+            <p class="lead">National Aeronautics and Space Administration (NASA)</p>
+            <p>Global Flood Monitoring System (GFMS) is maintained by the university of Maryland. The data is essential for one component of the river flood forecasting in Afghanistan. NOAA and NASA are other partners which  help create this data.</p>
+            <p>NASA also provided SRTM and ASTER data.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/usaid.png" alt="">
+        <div class="caption">
+            <p class="lead">United States Agency for International Development (USAID)</p>
+            <p>The USAID MISTI project provided the Village Settlement database, one of the core datasets.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/japan.png" alt="">
+        <div class="caption">
+            <p class="lead">Japan: Ministry of Economy, Trade and Industry (METI)</p>
+            <p>METI/J-System (Japan) and NASA provided the ASTER DEM data. This data is used to create hillshading, model avalanche areas, calculate slope and subsequently road travel time. </p>
+            <p>The Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER). The data is used to create detailed maps of land surface temperature, reflectance, and elevation. </p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/jrc.png" alt="">
+        <div class="caption">
+            <p class="lead">Joint Research Commission (JRC) - Global Flood Awareness System (GloFAS)</p>
+            <p>The Global Flood Awareness System (GloFAS) data will be integrated at a later stage, yet it is already beign used to assess the accuracy of the River Flood Forecast.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/nato.png" alt="">
+        <div class="caption">
+            <p class="lead">NATO Communications and Information Agency (NCI Agency)</p>
+            <p>Afghanistan Flood Hazard Map was provided by NATO NCI Agency (previously NC3A), it is a crucial data set without which static flood risk and flash/river flood forecasting would not be possible</p>
+            <p>Further data data provided are basin layer.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/wfp.png" alt="">
+        <div class="caption">
+            <p class="lead">World Food Program (WFP)</p>
+            <p>Provided one of the initial airport datasets.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/fao.png" alt="">
+        <div class="caption">
+            <p class="lead">Food and Agriculture Organization of the United Nations (FAO)</p>
+            <p>Land cover dataset created by John Latham of FAO, were not only crucial in determining the general land cover, but also played an essential role in estimating the population. Furthermore, FAO data is used to assess the areas at risk of natural disasters.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/who.png" alt="">
+        <div class="caption">
+            <p class="lead">World Health Organisation (WHO)</p>
+            <p>WHO and MoPH provided the initial health facility data, which was reviewed and adjusted. This data is essential to assess accessibility.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/ocha.png" alt="">
+        <div class="caption">
+            <p class="lead">Office for the Coordination of Humanitarian Affairs (OCHA)</p>
+            <p>Play an essential role in coordinating, relaying information and data. Both placing these online on the various OCHA maintained portals and helping organisations reach out to iMMAP.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/iom.png" alt="">
+        <div class="caption">
+            <p class="lead">International Organization for Migration (IOM)</p>
+            <p>Has provided historical Rapid Assessment Form (RAF) information, which is used to calibrate the forecasting model.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/moia.png" alt="">
+        <div class="caption">
+            <p class="lead">Ministry of Interior Affairs (MoIA)</p>
+            <p>Security Incident are presently mainly extracted from MoIA reports. This data is essential to assess humanitarian access. In the past there were a variety of other sources.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/moph.png" alt="">
+        <div class="caption">
+            <p class="lead">Ministry of Public Health (MoPH)</p>
+            <p>WHO and MoPH provided the initial health facility data, which was reviewed and adjusted. This data is essential to assess accessibility.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/mrrd.png" alt="">
+        <div class="caption">
+            <p class="lead">Ministry of Rural Rehabilitation and Development (MRRD)</p>
+            <p>MRRD plays an essential role in infrastructural data provision, especially segments of the rural road network.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/agcho.png" alt="">
+        <div class="caption">
+            <p class="lead">Afghan Geodesy and Cartography Head Office (AGCHO)</p>
+            <p>Provision of Administrative boundaries. AGCHO and the Independent Directorate for Local Governance (IDLG) are recognised as the sole authoritative source for legal and technical issues related to the delimitation of administrative boundaries, composition, and division of the administrative units of Afghanistan.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/cso.png" alt="">
+        <div class="caption">
+            <p class="lead">Central Statistics Organization (CSO)</p>
+            <p>Central Statistics Organization, Afghanistan (CSO) as NSO of any other country, is the driving force behind rebuilding an effective, robust and reliable. Its population estimates were essential in determining village allocated size.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/andma.png" alt="">
+        <div class="caption">
+            <p class="lead">Ministry of Disaster Management and Humanitarian Affairs of Afghanistan / Afghanistan National Disaster Management Authority (ANDMA)</p>
+            <p>Plays an essential role in coordinating and relaying information. </p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/dacaar.png" alt="">
+        <div class="caption">
+            <p class="lead">Danish Committee for Aid to Afghan Refugees (DACAAR)</p>
+            <p>Has collected the most extensive water well data in Afghanistan.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="thumbnail">
+        <img src="{{ STATIC_URL }}lib/foto/osm.png" alt="">
+        <div class="caption">
+            <p class="lead">OpenStreetMap (OSM)</p>
+            <p>OSM provided the road network coverage in highly populated cities of Afghanistan.</p>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- <table border="0" cellspacing="0" cellpadding="0" width="489">
+    <tr>
+      <td width="489" colspan="2" valign="top"><br />
+        <strong>World Meteorological Organization (WMO) and Hydrologic   Research Center</strong></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Flash Flood Guidiance System (FFGS) from Hydrologic   Research Center</p>
+        <p>WMO data is   used for the flash flood forecasts, as well as providing snow water   equivalent data used to calculate snow depth</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>National Oceanic and Atmospheric Administration (NOAA) - </strong><br />
+        <strong>National Snow and Ice Data Center (NSIDC)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>NSIDC data is   used to calculate the daily snow coverage and avalanche risk. It was also   used to calculate the historic snow average per month.</p>
+        <p>Global Flood Monitoring   System (GFMS) is supported by NOAA and is an essential component of the flood   forecasting system </p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>United States Geological Survey (USGS)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>USGS   Earthquake monitoring program, provides the historical earthquake data,   latest epicentre data and shakemaps. </p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Oak Ridge National Laboratory</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Provided the   Landscan data, which was merged with various other datasets, to estimate   population numbers at village level.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>University Of Maryland</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Global   Flood Monitoring System (GFMS) is maintained by the university of Maryland.   The data is essential for one component of the river flood forecasting in   Afghanistan. NOAA and NASA are other partners which  help create this data</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><em><strong>National   Aeronautics and Space Administration</strong></em><strong>&nbsp;</strong><strong>(<em>NASA</em>)&nbsp;</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Global   Flood Monitoring System (GFMS) is maintained by the university of Maryland.   The data is essential for one component of the river flood forecasting in   Afghanistan. NOAA and NASA are other partners which  help create this data.<br />
+        NASA   also provided SRTM and ASTER data.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>United States Agency for International Development (USAID)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>The USAID   MISTI project provided the Village Settlement database, one of the core   datasets. </p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Japan: Ministry of Economy, Trade and Industry (METI)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center">   </p></td>
+      <td width="278" valign="top"><p>METI/J-System   (Japan) and NASA provided the ASTER DEM data. This data is used to create   hillshading, model avalanche areas, calculate slope and subsequently road   travel time. <br />
+        The Advanced   Spaceborne Thermal Emission and Reflection Radiometer (ASTER). The data is   used to create detailed maps of land surface temperature, reflectance, and   elevation. </p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><em><strong>Joint Research Commission (JRC) - </strong></em><strong>Global Flood Awareness System (<em>GloFAS)</em></strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center">   </p></td>
+      <td width="278" valign="top"><p>The Global   Flood Awareness System (<em><strong>GloFAS) data will be integrated at a   later stage, yet it is already beign used to assess the accuracy of the River   Flood Forecast.</strong></em></p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><em><strong>NATO</strong></em><strong>&nbsp;</strong><strong>Communications and Information   Agency (NCI Agency)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Afghanistan   Flood Hazard Map was provided by NATO NCI Agency (previously NC3A), it is a   crucial data set without which static flood risk and flash/river flood   forecasting would not be possible<br />
+        Further data   data provided are basin layer.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>World Food Program (WFP)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Provided one   of the initial airport datasets.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Food and Agriculture Organization of the United Nations   (FAO)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Land cover   dataset created by John Latham of FAO, were not only crucial in determining   the general land cover, but also played an essential role in estimating the   population. Furthermore, FAO data is used to assess the areas at risk of   natural disasters.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>World Health Organisation (WHO)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>WHO and MoPH   provided the initial health facility data, which was reviewed and adjusted.   This data is essential to assess accessibility.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Office   for the Coordination of Humanitarian Affairs (OCHA)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Play an   essential role in coordinating, relaying information and data. Both placing   these online on the various OCHA maintained portals and helping organisations   reach out to iMMAP:</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>International   Organization for Migration (IOM)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Has provided   historical Rapid Assessment Form (RAF) information, which is used to   calibrate the forecasting model</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><em><strong>Ministry</strong></em><strong>&nbsp;</strong><strong>of&nbsp;<em>Interior</em>&nbsp;Affairs (MoIA)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Security   Incident are presently mainly extracted from MoIA reports. This data is   essential to assess humanitarian access. In the past there were a variety of   other sources.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Ministry of Public Health (MoPH)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>WHO and MoPH   provided the initial health facility data, which was reviewed and adjusted.   This data is essential to assess accessibility.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Ministry of Rural Rehabilitation and Development (MRRD)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>MRRD plays an   essential role in infrastructural data provision, especially segments of the   rural road network.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Afghan Geodesy and Cartography Head Office (AGCHO)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Provision of   Administrative boundaries. AGCHO and the Independent Directorate for Local   Governance (IDLG) are recognised as the sole authoritative source for legal   and technical issues related to the delimitation of administrative   boundaries, composition, and division of the administrative units of   Afghanistan.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><em><strong>Central Statistics Organization (CSO)</strong></em><em><strong> </strong></em></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p><em><strong>Central Statistics Organization</strong></em>,&nbsp;<em><strong>Afghanistan</strong></em>&nbsp;(<em><strong>CSO</strong></em>) as NSO   of any other country, is the driving force behind rebuilding an effective,   robust and reliable. Its population estimates were essential in determining   village allocated size. </p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><em><strong>Ministry of Disaster Management</strong></em><strong>&nbsp;</strong><strong>and&nbsp;<em>Humanitarian Affairs</em>&nbsp;of&nbsp;<em>Afghanistan</em>&nbsp;</strong><br />
+        <em><strong>Afghanistan National Disaster Management   Authority</strong></em><strong>&nbsp;</strong><strong>(<em>ANDMA</em>)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Plays an   essential role in coordinating and relaying information. </p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>Danish   Committee for Aid to Afghan Refugees&nbsp;(DACAAR)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>Has collected   the most extensive water well data in Afghanistan.</p></td>
+    </tr>
+    <tr>
+      <td width="489" colspan="2" valign="top"><p><strong>OpenStreetMap (OSM)</strong></p></td>
+    </tr>
+    <tr>
+      <td width="211" valign="top"><p align="center"> </p></td>
+      <td width="278" valign="top"><p>OSM provided   the road network coverage in highly populated cities of Afghanistan.</p></td>
+    </tr>
+  </table> -->
+ {% endblock %}

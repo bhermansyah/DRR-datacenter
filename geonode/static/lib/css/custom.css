@@ -2456,5 +2456,45 @@ input#districtSelection_c{
     border: solid 1px black;
 }
 
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:hover, .navbar-inverse .navbar-nav>.open>a:focus {
+    background-color: #FFF;
+    color: #000;
+}
+
+body.about li#nav_about>a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 0.4em;
+  width: 100%;
+  border-bottom: 2px solid #755467;
+  margin-top: 5px;
+}
+
+.caption h4 {
+  font-weight: normal;
+  font-size: 18pt;
+}
+
+.caption p {
+  text-align: justify;
+  margin: 0 0 3px;
+  font-size: 9pt;
+}
+
+.caption p.lead {
+  font-size: 14px;
+  text-decoration: underline;
+  margin-bottom: 8px;
+}
+
+.caption blockquote {
+  font-size: 14px;
+}
 
 
+.caption div.thumbnail {
+    margin-bottom: 15px;
+    height: 375px;
+}

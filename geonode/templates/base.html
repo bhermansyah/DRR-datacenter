@@ -154,11 +154,25 @@
               </li>
              {% block extra_tab %}
              {% endblock %}
-              <li id="nav_people">
+             <!--  <li id="nav_people">
                 <a href="{% url "profile_browse" %}">{% trans "People" %}</a>
               </li>
               <li id="nav_groups">
                 <a href="{% url "group_list" %}">{% trans "Groups" %}</a>
+              </li> -->
+              <li id="nav_about" class="dropdown">
+                <!-- <a href="{% url "about" %}">{% trans "Documentation" %}</a> -->
+               
+                  <a href="#" data-toggle="dropdown" data-target="#">{% trans "Documentation" %}</a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><a href="{% url "about" %}">{% trans "About" %}</a></li>
+                    <li><a href="{% url "disclaimer" %}">{% trans "Disclaimer" %}</a></li>
+                    <li><a href="#">{% trans "Documentation" %}</a></li>
+                    <li><a href="{% url "partners" %}">{% trans "Partners" %}</a></li>
+                    <li><a href="{% url "video" %}">{% trans "Videos" %}</a></li>
+                    <li><a href="#">{% trans "Training" %}</a></li>
+                  </ul>  
+  
               </li>
               {% endblock %}
             </ul>
