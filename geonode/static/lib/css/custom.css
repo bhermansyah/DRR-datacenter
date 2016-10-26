@@ -2477,6 +2477,10 @@ body.about li#nav_about>a::after {
   font-size: 18pt;
 }
 
+.caption ul li {
+  font-size: 9pt;
+}
+
 .caption p {
   text-align: justify;
   margin: 0 0 3px;
