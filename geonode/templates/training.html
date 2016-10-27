@@ -1,0 +1,35 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "About ASDC" %} — {{ block.super }} {% endblock %}
+{% block body_class %}about{% endblock %}
+{% block body_outer %}
+<div class="page-header">
+  <h2></h2>
+</div>
+
+<p class="lead">Dedicated Training Program</p>
+<p>A dedicated training program is available. Make an appointment at the iMMAP offices in Kabul for basic or in-depth training. Training sessions can exist in the form of a half day introductory session, up to 3-day in-depth training sessions.</p>
+<p>Training is given in English by Noor Zangana, a dedicated professional trainer on the ASDC. She is supported by two local national staff. Alternatively, 20-30 minutes telephone walkthrough training sessions are also possible.</p>
+
+<img src="{{ STATIC_URL }}lib/foto/training1.png" alt="">
+<img src="{{ STATIC_URL }}lib/foto/training5.png" alt="">
+<br/><br/>
+<p class="lead">Video Training</p>
+<p>To facility better communication a Youtube channel has been made to host basic instruction videos on the functionalities of the Afghanistan Spatial Data Center (asdc.immap.org).  The instruction videos can be found on YouTube and on the ASDC. (available in Dari and English). There are already 11 training videos, totalling 1 ½ hours of material.</p>
+<p><a href="https://www.youtube.com/channel/UCkd_swrFk9vN81s9SQ3fKgg">Click here go to youtube page</a></p>
+<img src="{{ STATIC_URL }}lib/foto/training2.png" alt="">
+<br/><br/>
+
+<p class="lead">ASDC Professional User Certification program</p>
+<p>iMMAP has initiated the ASDC Professional User Certification program, which further expands the ASDC training program with hands-on exercises. The certification highlights user proficiency with the functionalities of the ASDC and the capability to independently advance this knowledge.</p>
+<p>The certification takes place online and consist of 80 interactive questions (75% passing mark), tied to various scenarios. For proficient users it will take approximately 1-2 hours to complete, whereas for novice yet trained users it can take more than 3 hours. Having seen the ASDC Training videos is a perquisite to be able to complete.</p>
+<p>In the future, the certification will be a perquisite to access the Humanitarian Access tool/data</p>
+
+<p><a href="https://www.classmarker.com/online-test/start/?quiz=mft579f02fe604fb"> Click here go to Certification Portal</a></p>
+<img src="{{ STATIC_URL }}lib/foto/training3.png" alt="">
+<img src="{{ STATIC_URL }}lib/foto/training4.png" alt="">
+<br/><br/>
+<br/><br/>
+
+{% endblock %}
