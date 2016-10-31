@@ -90551,7 +90551,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
        var hiddenLayer = new OpenLayers.Layer.WMS("afg_ppla",
             "http://asdc.immap.org/geoserver/wms", 
-            {'layers': 'geonode:afg_ppla', transparent: true, format: 'image/jpeg'},
+            {'layers': 'geonode:afg_pplp', transparent: false, format: 'image/jpeg', 'styles':'point'},
             {isBaseLayer: false, displayInLayerSwitcher: false, opacity: 0}
         );
 

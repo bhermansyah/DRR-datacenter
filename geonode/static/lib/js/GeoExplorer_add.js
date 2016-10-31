@@ -1604,7 +1604,8 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
         var popup;
         var popupKey = evt.xy.x + "." + evt.xy.y;
         featureinfo = featureinfo || {};
-        var settlementPoint = new OpenLayers.LonLat(evt.features[0].attributes.pplp_point_x,evt.features[0].attributes.pplp_point_y);
+        // console.log(evt);
+        var settlementPoint = new OpenLayers.LonLat(evt.features[0].geometry.x,evt.features[0].geometry.y);
         var settlements = settlementPoint.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
 
         if (!(popupKey in this.popupCache)) {
@@ -1691,7 +1692,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                     }],
                     listeners: {
                         'expand': function(e){
-                            var settlementP = new OpenLayers.LonLat(e.dataCustom.pplp_point_x,e.dataCustom.pplp_point_y);
+                            var settlementP = new OpenLayers.LonLat(e.dataCustom.lon_x,e.dataCustom.lat_y);
                             var settlement = settlementP.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
                             popup.location = settlement;
                             popup.doLayout();
