@@ -1551,6 +1551,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                         vendorParams[param] = layer.params[param];
                     }
                 }
+                vendorParams['STYLES']='polygon';
                 var infoFormat = this.format == "html" ? "text/html" : "application/vnd.ogc.gml";
 
                 var control = new OpenLayers.Control.WMSGetFeatureInfo(Ext.applyIf({
