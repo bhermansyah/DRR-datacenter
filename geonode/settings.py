@@ -740,7 +740,7 @@ LOCKDOWN_GEONODE = True
 
 # Add additional paths (as regular expressions) that don't require
 # authentication.
-AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps','/account/signup','/geoapi', '/dashboard/print')
+AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps','/account/signup','/geoapi', '/dashboard/print', '/about', '/disclaimer', '/partners', '/video', '/training')
 
 if LOCKDOWN_GEONODE:
     MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \
@@ -816,18 +816,18 @@ LEAFLET_CONFIG = {
         # http://leaflet-extras.github.io/leaflet-providers/preview/
 
         # Stamen toner lite.
-        ('Watercolor',
-         'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png',
-         'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
-         <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
-         <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
-         <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
-        ('Toner Lite',
-         'http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png',
-         'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
-         <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
-         <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
-         <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
+        # ('Watercolor',
+        #  'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png',
+        #  'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
+        #  <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
+        #  <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
+        #  <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
+        # ('Toner Lite',
+        #  'http://{s}.tile.stamen.com/toner-lite/{z}/{x}/{y}.png',
+        #  'Map tiles by <a href="http://stamen.com">Stamen Design</a>, \
+        #  <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; \
+        #  <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, \
+        #  <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'),
     ],
     'PLUGINS': {
         'esri-leaflet': {
@@ -839,7 +839,18 @@ LEAFLET_CONFIG = {
             'js': 'lib/js/Leaflet.fullscreen.min.js',
             'auto-include': True,
         },
-    }
+        'leaflet-markercluster': {
+            'css': 'lib/css/MarkerCluster.css',
+            'js': 'lib/js/leaflet.markercluster-src.js',
+            'auto-include': True,
+        },
+        # 'marker-cluster-group': {
+        #     'js': 'lib/js/MarkerClusterGroup.js',
+        #     'auto-include': True,
+        # },
+    },
+    'SRID': 3857,
+    'RESET_VIEW': False,
 }
 
 # option to enable/disable resource unpublishing for administrators
