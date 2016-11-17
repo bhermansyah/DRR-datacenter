@@ -631,19 +631,19 @@ MAP_BASELAYERS = [{
     "source": {"ptype": "gxp_osmsource"},
     "type": "OpenLayers.Layer.OSM",
     "name": "mapnik",
-    "visibility": False,
+    "visibility": True,
     "fixed": True,
     "group": "background"
-}, {
-    "source": {"ptype": "gxp_mapquestsource"},
-    "name": "osm",
-    "group": "background",
-    "visibility": True
-}, {
-    "source": {"ptype": "gxp_mapquestsource"},
-    "name": "naip",
-    "group": "background",
-    "visibility": False
+# }, {
+#     "source": {"ptype": "gxp_mapquestsource"},
+#     "name": "osm",
+#     "group": "background",
+#     "visibility": True
+# }, {
+#     "source": {"ptype": "gxp_mapquestsource"},
+#     "name": "naip",
+#     "group": "background",
+#     "visibility": False
 # }, {
 #     "source": {"ptype": "gxp_bingsource"},
 #     "name": "AerialWithLabels",
