@@ -22,10 +22,10 @@
           <!-- <img src="{{ STATIC_URL }}lib/foto/drought.jpg" alt="Flood Cover, Credit for Google Crisis"> -->
           <div class="container">
             <div class="carousel-caption">
-              <h1>Static Maps</h1>
+              <h1>{% trans "Static Maps" %}</h1>
               <p>{% trans "Browse the static maps, adjust the filter to easily find the static maps" %}</p>
-              <p><a class="btn btn-xs btn-warning" href="{% url "document_browse" %}" role="button">Browse Static maps</a></p>
-              <p class="image-credit">Photo credit to Bob McKerrow : Teshkan Valley, Badakhshan</p>
+              <p><a class="btn btn-xs btn-warning" href="{% url "document_browse" %}" role="button">{% trans "Browse Static maps" %}</a></p>
+              <p class="image-credit">{% trans "Photo credit to Bob McKerrow : Teshkan Valley, Badakhshan" %}</p>
             </div>
           </div>
         </div>
@@ -33,7 +33,7 @@
           <!-- <img src="{{ STATIC_URL }}lib/foto/cyclone1.jpg" alt="Cyclone, Credit for NOAA"> -->
           <div class="container">
             <div class="carousel-caption">
-              <h1>Interactive Maps</h1>
+              <h1>{% trans "Interactive Maps" %}</h1>
               <p>{% trans "Explore map on the interactive mode, style and export to pdf functionality enabled" %}</p>
               <p><a class="btn btn-xs btn-warning" href="{% url "maps_browse" %}" role="button">{% trans "Browse Interactive Maps" %}<</a></p>
               <p class="image-credit">{% trans "Photo credit to Bob McKerrow : Teshkan Valley, Badakhshan" %}</p>
@@ -44,21 +44,21 @@
           <!-- <img src="{{ STATIC_URL }}lib/foto/drought.jpg" alt="Drought, Credit for telegraph.co.uk"> -->
           <div class="container">
             <div class="carousel-caption">
-              <h1>Analysis tools</h1>
-              <p>Populate analysis figure and export map pdf using geoexplorer</p>
-              <p><a class="btn btn-xs btn-warning" href="{% url "maps_browse" %}656/view" role="button">Open DRR Interactive Map</a></p>
-              <p class="image-credit">Photo credit to Bob McKerrow : Teshkan Valley, Badakhshan</p>
+              <h1>{% trans "Analysis tools" %}</h1>
+              <p>{% trans "Populate analysis figure and export map pdf using geoexplorer" %}</p>
+              <p><a class="btn btn-xs btn-warning" href="{% url "maps_browse" %}656/view" role="button">{% trans "Open DRR Interactive Map" %}</a></p>
+              <p class="image-credit">{% trans "Photo credit to Bob McKerrow : Teshkan Valley, Badakhshan" %}</p>
             </div>
           </div>
         </div>
       </div>
       <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+        <span class="sr-only">{% trans "Previous" %}</span>
       </a>
       <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+        <span class="sr-only">{% trans "Next" %}</span>
       </a>
     </div>
   {% endblock %}
@@ -93,22 +93,22 @@
             </ul>
             <!-- <div class="span2"><p><a href="{% url "layer_browse" %}"><span class="count">
                 {{ facets.layer|default:_("0") }} 
-              </span>Layers 
+              </span>{% trans "Layers" %} 
               </a></p>
             </div>
             <div class="span2"><p><a href="{% url "maps_browse" %}"><span class="count">
                 {{ facets.map|default:_("0") }} 
-              </span>Interactive Maps 
+              </span>{% trans "Interactive Maps" %} 
               </a></p>
             </div>
             <div class="span2"><p><a href="{% url "document_browse" %}"><span class="count">
                 {{ facets.document|default:_("0") }} 
-              </span>Static Maps 
+              </span>{% trans "Static Maps" %} 
               </a></p>
             </div>
             <div class="span2"><p><a href="{% url "profile_browse" %}"><span class="count">
                 {{ facets.user|default:_("0") }} 
-              </span>Users 
+              </span>{% trans "Users" %} 
               </a></p>
             </div> -->
           {% endwith %}  
@@ -125,7 +125,7 @@
       <div class="panel panel-primary">
         <div class="panel-heading">
 
-          <h3 class="panel-title">Current Flood Forecast</h3>
+          <h3 class="panel-title">{% trans "Current Flood Forecast" %}</h3>
           <h5 class="panel-subtitle"><h5>
         </div>
         <div class="panel-body">
@@ -140,10 +140,10 @@
                         <img style="width: 50px;" class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_flood_forecasted_villages_basin&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
                       </a>
                       <div class="map-abstract">
-                        <p class="cust_date"><a href="./maps/700/view"><strong>Flood</strong><em class="timestamp"></em></a></p>
-                        <p class="cust_headline"><a href="./maps/700/view">River and flash flood forecast</a></p>        
-                        <p class="cust_tag"><a href="./maps/700/view">Click to explore for the forecast on river floods and flash floods. River flood forecasts are valid for 4 days and updated every 6 hours, whereas the flash floods are valid for 6 hours and updated hourly. 
-The map and statistics are is updated every 6 hours.</a></p>
+                        <p class="cust_date"><a href="./maps/700/view"><strong>{% trans "Flood" %}</strong><em class="timestamp"></em></a></p>
+                        <p class="cust_headline"><a href="./maps/700/view">{% trans "River and flash flood forecast" %}</a></p>        
+                        <p class="cust_tag"><a href="./maps/700/view">{% trans "Click to explore for the forecast on river floods and flash floods. River flood forecasts are valid for 4 days and updated every 6 hours, whereas the flash floods are valid for 6 hours and updated hourly. 
+The map and statistics are is updated every 6 hours." %}</a></p>
                       </div>  
                       
              
@@ -162,7 +162,7 @@ The map and statistics are is updated every 6 hours.</a></p>
       <div class="panel panel-primary">
         <div class="panel-heading">
 
-          <h3 class="panel-title">Current Avalanche</h3>
+          <h3 class="panel-title">{% trans "Current Avalanche" %}</h3>
           <h5 class="panel-subtitle"><h5>
         </div>
         <div class="panel-body">
@@ -177,9 +177,9 @@ The map and statistics are is updated every 6 hours.</a></p>
                         <img style="width: 50px;" class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_avalanche_forecast_villages&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
                       </a>
                       <div class="map-abstract">
-                        <p class="cust_date"><a href="./maps/707/view"><strong>Avalanches</strong><em class="timestamp"></em></a></p>
-                        <p class="cust_headline"><a href="./maps/707/view">Avalanches forecast</a></p>        
-                        <p class="cust_tag"><a href="./maps/707/view">Click to explore for the number of people potentially affected by avalanches based on the current snow cover and snow water equivalent (at small basin scale)</a></p>
+                        <p class="cust_date"><a href="./maps/707/view"><strong>{% trans "Avalanches" %}</strong><em class="timestamp"></em></a></p>
+                        <p class="cust_headline"><a href="./maps/707/view">{% trans "Avalanches forecast" %}</a></p>        
+                        <p class="cust_tag"><a href="./maps/707/view">{% trans "Click to explore for the number of people potentially affected by avalanches based on the current snow cover and snow water equivalent (at small basin scale)" %}</a></p>
                       </div>
                     </div>
                 </div>
@@ -196,7 +196,7 @@ The map and statistics are is updated every 6 hours.</a></p>
       <div class="panel panel-primary">
         <div class="panel-heading">
 
-          <h3 class="panel-title">Current Snow Cover</h3>
+          <h3 class="panel-title">{% trans "Current Snow Cover" %}</h3>
           <h5 class="panel-subtitle"><h5>
         </div>
         <div class="panel-body">
@@ -211,9 +211,9 @@ The map and statistics are is updated every 6 hours.</a></p>
                         <img style="width: 125px;" class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_snow_depth&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
                       </a>
                       <div class="map-abstract">
-                        <p class="cust_date"><a href="./maps/704/view"><strong>Snow Cover</strong><em class="timestamp"></em></a></p>
-                        <p class="cust_headline"><a href="./maps/704/view">Current Snow Cover and Depth</a></p>        
-                        <p class="cust_tag"><a href="./maps/704/view">Click to explore for the current snow cover and depth</a></p>
+                        <p class="cust_date"><a href="./maps/704/view"><strong>{% trans "Snow Cover" %}</strong><em class="timestamp"></em></a></p>
+                        <p class="cust_headline"><a href="./maps/704/view">{% trans "Current Snow Cover and Depth" %}</a></p>        
+                        <p class="cust_tag"><a href="./maps/704/view">{% trans "Click to explore for the current snow cover and depth" %}</a></p>
                       </div>
                     </div>
                 </div>
@@ -230,15 +230,15 @@ The map and statistics are is updated every 6 hours.</a></p>
     <div class="col-xs-5 panel-custom">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          {% verbatim %}
-          <h3 class="panel-title">Latest Static Maps</h3>
-          <h5 class="panel-subtitle">{% endverbatim %}<a href="{% url "document_browse" %}">{% verbatim %}See all, total {{ latestdocs.meta.total_count }} maps</a><h5>
+          <h3 class="panel-title">{% trans "Latest Static Maps" %}</h3>
+          <h5 class="panel-subtitle"><a href="{% url "document_browse" %}">{% trans "See all, total" %} {% verbatim %}{{ latestdocs.meta.total_count }}{% endverbatim %} {% trans "maps" %}</a><h5>
         </div>
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
               
       <!--         <div ng-app="featured"> -->
+		{% verbatim %}
                 <div ng-repeat="item in latestdocs.objects">
                   <div class="span3">
                     <div class="map-thumb thumbnail">
@@ -246,7 +246,7 @@ The map and statistics are is updated every 6 hours.</a></p>
                         <img src="{{ item.thumbnail_url }}" />
                       </a>
                       <div class="map-abstract">
-                        <p class="cust_date"><a href="{{ item.detail_url }}">{% endverbatim %}{% trans "from" %}{% verbatim %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p> 
+                        <p class="cust_date"><a href="{{ item.detail_url }}">{% trans "from" %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p> 
                         <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>         
                         <p class="cust_tag"><a href="{{ item.detail_url }}">{{ item.abstract }}</a></p>
                       </div>  
@@ -255,8 +255,8 @@ The map and statistics are is updated every 6 hours.</a></p>
                     </div>
                 </div>
               </div>
+	{% endverbatim %}
             <!-- </div> -->
-            {% endverbatim %}
           </section>
         </div>
       </div>
@@ -267,14 +267,13 @@ The map and statistics are is updated every 6 hours.</a></p>
     <div class="col-xs-7 panel-custom">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          {% verbatim %}
-          <h3 class="panel-title">Latest Flood Maps</h3>
-          <h5 class="panel-subtitle">{% endverbatim %}<a href="{% url "document_browse" %}?category__identifier__in=fl-01&category__identifier__in=fl-02&order_by=-date">{% verbatim %}See all, total {{ latestflood.meta.total_count }} maps</a><h5>
+          <h3 class="panel-title">{% trans "Latest Flood Maps" %}</h3>
+          <h5 class="panel-subtitle"><a href="{% url "document_browse" %}?category__identifier__in=fl-01&category__identifier__in=fl-02&order_by=-date">{% trans "See all, total" %} {% verbatim %}{{ latestflood.meta.total_count }}{% endverbatim %} {% trans "maps" %}</a><h5>
         </div>
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
-              
+		{% verbatim %}              
                 <div ng-repeat="item in latestflood.objects">
                   <div class="span3">
                     <div class="map-thumb thumbnail">
@@ -282,7 +281,7 @@ The map and statistics are is updated every 6 hours.</a></p>
                         <img src="{{ item.thumbnail_url }}" />
                       </a>
                       <div class="map-abstract">
-                        <p class="cust_date"><a href="{{ item.detail_url }}">{% endverbatim %}{% trans "from" %}{% verbatim %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p>
+                        <p class="cust_date"><a href="{{ item.detail_url }}">{% trans "from" %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p>
                         <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>        
                         <p class="cust_tag"><a href="{{ item.detail_url }}">{{ item.abstract }}</a></p>
                       </div>  
@@ -291,9 +290,8 @@ The map and statistics are is updated every 6 hours.</a></p>
                     </div>
                 </div>
               </div>
-              
+		{% endverbatim %}              
             <!-- </div> -->
-            {% endverbatim %}
           </section>
         </div>
       </div>
@@ -308,8 +306,8 @@ The map and statistics are is updated every 6 hours.</a></p>
       <div class="panel panel-primary">
         <div class="panel-heading">
           {% verbatim %}
-          <h3 class="panel-title">Featured Maps</h3>
-          <h5 class="panel-subtitle">Total {{ featured.meta.total_count }} Maps<h5>
+          <h3 class="panel-title">{% trans "Featured Maps" %}</h3>
+          <h5 class="panel-subtitle">Total {{ featured.meta.total_count }}{% trans " Maps" %}<h5>
         </div>
         <div class="panel-body">
           <section class="featured-maps">
@@ -349,7 +347,7 @@ The map and statistics are is updated every 6 hours.</a></p>
     <div class="col-xs-12 panel-custom">
       <div class="panel panel-primary">
         <div class="panel-heading" style="height: 30px;">
-          <h3 class="panel-title">Documentation and Video</h3>
+          <h3 class="panel-title">{% trans "Documentation and Video" %}</h3>
         </div>
         <div class="panel-body">
             <video id="myPlayerID"
@@ -482,88 +480,88 @@ The map and statistics are is updated every 6 hours.</a></p>
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 1- Statistics Tool.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 1: English Version",
-        "description": "Statistics Tool",
+        "name": "{% trans "Segment 1: English Version" %}",
+        "description": "{% trans "Statistics Tool" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 2- Settlement Inspector.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 2: English Version",
-        "description": "Settlement Inspector",
+        "name": "{% trans "Segment 2: English Version" %}",
+        "description": "{% trans "Settlement Inspector" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 3: English Version",
-        "description": "Finder Tool",
+        "name": "{% trans "Segment 3: English Version" %}",
+        "description": "{% trans "Finder Tool" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/finder_tool.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/finder_tool.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 4: English Version",
-        "description": "Static Maps",
+        "name": "{% trans "Segment 4: English Version" %}",
+        "description": "{% trans "Static Maps" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/static_maps.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/static_maps.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 5: English Version",
-        "description": "Earthquakes",
+        "name": "{% trans "Segment 5: English Version" %}",
+        "description": "{% trans "Earthquakes" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/earthquake.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/earthquake.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 6: English Version",
-        "description": "Dashboard",
+        "name": "{% trans "Segment 6: English Version" %}",
+        "description": "{% trans "Dashboard" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/dashboard.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/dashboard.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 7- Printing.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 7: English Version",
-        "description": "Printing",
+        "name": "{% trans "Segment 7: English Version" %}",
+        "description": "{% trans "Printing" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 8- Security Overview.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 8: English Version",
-        "description": "Security Overview",
+        "name": "{% trans "Segment 8: English Version" %}",
+        "description": "{% trans "Security Overview" %}",
         // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
         // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 9- GSM Coverage.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 9: English Version",
-        "description": "GSM Coverage",
+        "name": "{% trans "Segment 9: English Version" %}",
+        "description": "{% trans "GSM Coverage" %}",
         // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
         // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 10- Earthquake Hazard Risk.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 10: English Version",
-        "description": "Earthquake Hazard Risk",
+        "name": "{% trans "Segment 10: English Version" %}",
+        "description": "{% trans "Earthquake Hazard Risk" %}",
         // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
         // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 11- General Information - Certification.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 11: English Version",
-        "description": "General Information - Certification",
+        "name": "{% trans "Segment 11: English Version" %}",
+        "description": "{% trans "General Information - Certification" %}",
         // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
         // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
       }
@@ -573,56 +571,56 @@ The map and statistics are is updated every 6 hours.</a></p>
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 1- Statistics Tool - Dari.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 1: Dari Version",
-        "description": "Statistics Tool",
+        "name": "{% trans "Segment 1: Dari Version" %}",
+        "description": "{% trans "Statistics Tool" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 2- Settlement Inspector - Dari.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 2: Dari Version",
-        "description": "Settlement Inspector",
+        "name": "{% trans "Segment 2: Dari Version" %}",
+        "description": "{% trans "Settlement Inspector" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool - Dari.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 3: Dari Version",
-        "description": "Finder Tool",
+        "name": "{% trans "Segment 3: Dari Version" %}",
+        "description": "{% trans "Finder Tool" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/finder_tool.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/finder_tool.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps - Dari.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 4: Dari Version",
-        "description": "Static Maps",
+        "name": "{% trans "Segment 4: Dari Version" %}",
+        "description": "{% trans "Static Maps" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/static_maps.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/static_maps.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes - Dari.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 5: Dari Version",
-        "description": "Earthquakes",
+        "name": "{% trans "Segment 5: Dari Version" %}",
+        "description": "{% trans "Earthquakes" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/earthquake.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/earthquake.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard - Dari.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 6: Dari Version",
-        "description": "Dashboard",
+        "name": "{% trans "Segment 6: Dari Version" %}",
+        "description": "{% trans "Dashboard" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/dashboard.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/dashboard.jpg"
       }, {
         "sources": [{
           "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 7- Printing - Dari.mp4", "type": "video/mp4"
         }],
-        "name": "Segment 7: Dari Version",
-        "description": "Printing",
+        "name": "{% trans "Segment 7: Dari Version" %}",
+        "description": "{% trans "Printing" %}",
         "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
         "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
       }]);
