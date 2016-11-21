@@ -1,5 +1,5 @@
 {% load humanize %}
-
+{% load leaflet_tags %}
 <style type="text/css">
 li#nav_dashbaseline>a::after {
     content: '';
@@ -53,9 +53,10 @@ li#nav_dashbaseline>a::after {
 			<div>{{ rdn_chart.as_html }}</div>
 			<span class='widget-title'></span>
 		</li>
-		<li data-row="3" data-col="2" data-sizex="3" data-sizey="2">
+		<!-- <li data-row="3" data-col="2" data-sizex="3" data-sizey="2">
+			<div>{% leaflet_map "yourmap" callback="window.map_init_basic" %}</div>
 			<span class='widget-title'></span>
-		</li>
+		</li> -->
 
   	</ul>
 </div>
@@ -310,3 +311,75 @@ function show_hide_road(){
 
 
 </SCRIPT>
+<script type="text/javascript">
+  // function map_init_basic (map, options) {
+  //     map.options.crs = L.CRS.EPSG4326;
+  //     // L.esri.basemapLayer("Topographic").addTo(detail.map);
+  //     var tiles = L.tileLayer.wms("../getOverviewMaps/getWMS", {
+		//     'tileSize': 256,
+		//     'layers': 'geonode:afg_lndcrva_simplified,geonode:afg_admbnda_adm1',
+		//     'styles': 'afg_lndcrva,afg_admbnda_adm1_small',
+		//     'transparent': true, 
+		// }).addTo(map);
+  //     L.control.fullscreen({
+  //       position: 'topleft', // change the position of the button can be topleft, topright, bottomright or bottomleft, defaut topleft
+  //       title: 'Show me the fullscreen !', // change the title of the button, default Full Screen
+  //       titleCancel: 'Exit fullscreen mode', // change the title of the button when fullscreen is on, default Exit Full Screen
+  //       content: null ,// change the content of the button, can be HTML, default null
+  //       forceSeparateButton: true, // force seperate button to detach from zoom buttons, default false
+  //       forcePseudoFullscreen: true, // force use of pseudo full screen even if full screen API is available, default false
+  //       fullscreenElement: false // Dom element to render in full screen, false by default, fallback to map._container
+  //     }).addTo(map);
+	
+		// var markers = L.markerClusterGroup({
+		// 	maxClusterRadius: 25,
+		// 	iconCreateFunction: function (cluster) {
+		// 		var markers = cluster.getAllChildMarkers();
+		// 		var n = 0;
+		// 		for (var i = 0; i < markers.length; i++) {
+		// 			n += markers[i].number;
+		// 		}
+		// 		return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(25, 25) });
+		// 	},
+		// 	//Disable all of the defaults:
+		// 	spiderfyOnMaxZoom: false, showCoverageOnHover: false, zoomToBoundsOnClick: false
+		// });
+
+  //     var data = {{ additional_child |safe | escape }};
+  //     for (var i = 0; i < data.length; i++) {
+  //     	// console.log(data[i]);
+  //     	var m = L.marker(L.latLng(data[i].y, data[i].x), { title: 1, icon: L.divIcon({ html: i, className: 'mycluster', iconSize: L.point(25, 25) })});
+		// m.number = i;
+		// markers.addLayer(m);
+  //     }
+
+  //     map.fitBounds(markers.getBounds());
+
+  //     map.addLayer(markers);
+
+  //     var shownLayer, polygon;
+
+		// function removePolygon() {
+		// 	if (shownLayer) {
+		// 		shownLayer.setOpacity(1);
+		// 		shownLayer = null;
+		// 	}
+		// 	if (polygon) {
+		// 		map.removeLayer(polygon);
+		// 		polygon = null;
+		// 	}
+		// };
+
+		// markers.on('clustermouseover', function (a) {
+		// 	removePolygon();
+
+		// 	a.layer.setOpacity(0.2);
+		// 	shownLayer = a.layer;
+		// 	polygon = L.polygon(a.layer.getConvexHull());
+		// 	map.addLayer(polygon);
+		// });
+		// markers.on('clustermouseout', removePolygon);
+		// map.on('zoomend', removePolygon);
+
+  // }
+</script>

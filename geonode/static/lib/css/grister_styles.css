@@ -486,3 +486,17 @@ if it's not present, don't show loader */
   text-align: center;
   font-size: 26pt;
 }
+
+.mycluster {
+    width: 25px;
+    height: 25px;
+    border: 1px solid;
+    border-width: thin;
+    border-color: #f5f5f5;
+    background-color: rgba(66, 139, 202, 0.25);
+    text-align: center;
+    font-size: 9px;
+    vertical-align: center;
+    border-radius: 9px;
+}
+

@@ -69,13 +69,14 @@ def getCommonUse(request,flag, code):
     #         response['parent_label'] = lblTMP[0].dist_na_en
 
     main_resource = AfgAdmbndaAdm1.objects.all().values('prov_code','prov_na_en').order_by('prov_na_en')
-
+    clusterPoints = AfgAdmbndaAdm1.objects.all()
     response['parent_label_dash']=[]
     if flag == 'entireAfg':
         response['parent_label']='Afghanistan'
         response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
         response['qlinks']='Select province'
         resource = main_resource
+        clusterPoints = AfgAdmbndaAdm1.objects.all()
         for i in resource:
             response['adm_child'].append({'code':i['prov_code'],'name':i['prov_na_en']})
     elif flag == 'currentProvince':
@@ -86,6 +87,7 @@ def getCommonUse(request,flag, code):
             response['parent_label'] = lblTMP[0].prov_na_en 
             response['qlinks']='Select district'
             resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en').filter(prov_code=code).order_by('dist_na_en')
+            clusterPoints = AfgAdmbndaAdm2.objects.all()
             for i in resource:
                 response['adm_child'].append({'code':i['dist_code'],'name':i['dist_na_en']})
             for i in main_resource: 
@@ -106,6 +108,9 @@ def getCommonUse(request,flag, code):
         response['parent_label_dash'].append({'name':'Custom Selection','query':'','code':0})
         response['qlinks']=''
 
+    response['poi_points'] = []
+    for i in clusterPoints:
+        response['poi_points'].append({'code':i.prov_code,'x':i.wkb_geometry.point_on_surface.x,'y':i.wkb_geometry.point_on_surface.y})
     return response 
 
 def getSecurity(request, filterLock, flag, code):
@@ -1826,7 +1831,15 @@ def getBaseline(request, filterLock, flag, code):
             'titleX':'percentages from total health facilities',
     })
 
-    # print response
+    # print response['poi_points']
+    # print response['additional_child']
+    for i in response['additional_child']:
+        test = [item for item in response['poi_points'] if item['code'] == i['code']][0]
+        i['x'] = test['x']
+        i['y'] = test['y']
+
+    response['additional_child'] = json.dumps(response['additional_child'])
+    # print response['additional_child']
     return response
 
 def getParentRoadNetworkRecap(filterLock, flag, code):

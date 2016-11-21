@@ -1635,5 +1635,10 @@ def getWMS(request):
 
         return HttpResponse(response, content_type='image/png' )
     else:
-        return HttpResponse({}, content_type='image/png' )   
+        base64string = base64.encodestring('%s:%s' % ('boedy1996', 'kontol'))[:-1]
+        authheader =  "Basic %s" % base64string
+        req.add_header('Authorization', authheader)
+        req.add_header('Content-Type', 'image/png')
+        response = urllib2.urlopen(req).read() 
+        return HttpResponse(response, content_type='image/png' )  
 

@@ -90167,7 +90167,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 toggleGroup: "interaction",
                 showButtonText: true,
                 actionTarget: "paneltbar"
-            }, {
+            // }, {
+            //     actions: ["secEntry"],  actionTarget: "paneltbar"    
+            }, {    
                 ptype: "gxp_statfeaturemanager",
                 id: "statfeaturemanager",
                 maxFeatures: 20,
@@ -92191,6 +92193,25 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             ]
         });
 
+        var securityModuleEntriesPanel = new Ext.Panel({
+            title: 'Manage Security data',
+            xtype: 'form',
+            id:'bd_sec_entries_panel',
+            border: false,
+            split: true,
+            collapsible: true,
+            collapseMode: "mini",
+            bodyPadding: 5,
+            collapsed: false,
+            hidden: true,
+            width: 320,
+            layout:'fit',
+            // autoScroll:true,
+            // overflowY: 'scroll',
+            defaults: {autoScroll: true},
+            items: []
+        });    
+
         
 
         Ext.getCmp('bd_SAM_panel').on('expand', function(evt) {
@@ -92275,7 +92296,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             collapsed: true,
             width: 320,
             layout: 'accordion',
-            items:[statisticsPanel, finderToolsPanel,securityAnalysisModulePanel],
+            items:[statisticsPanel, finderToolsPanel,securityAnalysisModulePanel,securityModuleEntriesPanel],
             listeners: {
                 collapse: function (){
                     filtercontrol.deactivate();
@@ -92480,7 +92501,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_stats_panel').show();
                     Ext.getCmp('bd_stats_panel').expand();
                 } else {
-                    if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
+                    if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_stats_panel').hide();
                 }
@@ -92500,7 +92521,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_findertool_panel').show();
                     Ext.getCmp('bd_findertool_panel').expand();
                 } else {
-                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed)
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_findertool_panel').hide();
                 }
@@ -92521,12 +92542,33 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_SAM_panel').show();
                     Ext.getCmp('bd_SAM_panel').expand();
                 } else {
-                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed)
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('secEntry').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_SAM_panel').hide();
                 }
             }       
         });
+
+        // new Ext.Button({
+        //     id: "secEntry",
+        //     text: 'Security Entries',
+        //     iconCls: 'icon-sam-tool',
+        //     enableToggle: true,    
+        //     toggleGroup: "interaction",  
+        //     disabled: false,
+        //     pressed: false,
+        //     toggleHandler: function(){
+        //         if (this.pressed){
+        //             Ext.getCmp('east').expand();
+        //             Ext.getCmp('bd_sec_entries_panel').show();
+        //             Ext.getCmp('bd_sec_entries_panel').expand();
+        //         } else {
+        //             if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
+        //                 Ext.getCmp('east').collapse();
+        //             Ext.getCmp('bd_sec_entries_panel').hide();
+        //         }
+        //     }       
+        // });
 
 
        // console.log(this);

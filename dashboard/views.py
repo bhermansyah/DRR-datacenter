@@ -85,8 +85,10 @@ def dashboard_detail(request):
 		    # 'lowquality':'-'
 		    # 'disable-smart-shrinking':'-',
 		    # 'print-media-type':'-',
-		    # 'no-background':'-',
-		    # 'disable-javascript':'-',
+		    # 'no-stop-slow-scripts':'-',
+		    # 'enable-javascript':'-',
+		    # 'javascript-delay': 30000,
+		    # 'window-status': 'ready',
 		}
 		a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
 		print  request.META.get('HTTP_HOST')
