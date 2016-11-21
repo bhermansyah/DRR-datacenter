@@ -92575,22 +92575,22 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         //     }       
         // });
         
-        new Ext.Button({
-            id: "showANDMA",
-            text: 'Show ANDMA Offices',
-            iconCls: 'icon-sam-tool',
-            enableToggle: true,    
-            toggleGroup: "plus",  
-            disabled: false,
-            pressed: false,
-            toggleHandler: function(){
-                if (this.pressed){
+        // new Ext.Button({
+        //     id: "showANDMA",
+        //     text: 'Show ANDMA Offices',
+        //     iconCls: 'icon-sam-tool',
+        //     enableToggle: true,    
+        //     toggleGroup: "plus",  
+        //     disabled: false,
+        //     pressed: false,
+        //     toggleHandler: function(){
+        //         if (this.pressed){
 
-                } else {
+        //         } else {
 
-                }
-            }       
-        });
+        //         }
+        //     }       
+        // });
 
        // console.log(this);
        // boedy1996@gmail.com
