@@ -90157,6 +90157,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 toggleGroup: "interaction",
                 actionTarget: "paneltbar"
             }, {
+                actions: ["showANDMA"],  actionTarget: "paneltbar"        
+            }, {
                 actions: ["statMenu"],  actionTarget: "paneltbar"
             }, {
                 actions: ["finderTool"],  actionTarget: "paneltbar"    
@@ -92501,7 +92503,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_stats_panel').show();
                     Ext.getCmp('bd_stats_panel').expand();
                 } else {
-                    if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
+                    if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed //&& !Ext.getCmp('secEntry').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_stats_panel').hide();
                 }
@@ -92521,7 +92523,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_findertool_panel').show();
                     Ext.getCmp('bd_findertool_panel').expand();
                 } else {
-                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed //&& !Ext.getCmp('secEntry').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_findertool_panel').hide();
                 }
@@ -92542,7 +92544,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_SAM_panel').show();
                     Ext.getCmp('bd_SAM_panel').expand();
                 } else {
-                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('secEntry').pressed)
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed //&& !Ext.getCmp('secEntry').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_SAM_panel').hide();
                 }
@@ -92569,7 +92571,23 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         //         }
         //     }       
         // });
+        
+        new Ext.Button({
+            id: "showANDMA",
+            text: 'Show ANDMA Offices',
+            iconCls: 'icon-sam-tool',
+            enableToggle: true,    
+            toggleGroup: "plus",  
+            disabled: false,
+            pressed: false,
+            toggleHandler: function(){
+                if (this.pressed){
 
+                } else {
+
+                }
+            }       
+        });
 
        // console.log(this);
        // boedy1996@gmail.com
