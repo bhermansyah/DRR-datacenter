@@ -90156,8 +90156,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 showButtonText: true,
                 toggleGroup: "interaction",
                 actionTarget: "paneltbar"
-            }, {
-                actions: ["showANDMA"],  actionTarget: "paneltbar"        
+            // }, {
+            //     actions: ["showANDMA"],  actionTarget: "paneltbar"        
             }, {
                 actions: ["statMenu"],  actionTarget: "paneltbar"
             }, {
