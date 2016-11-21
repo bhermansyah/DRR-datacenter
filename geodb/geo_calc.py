@@ -1833,12 +1833,12 @@ def getBaseline(request, filterLock, flag, code):
 
     # print response['poi_points']
     # print response['additional_child']
-    for i in response['additional_child']:
-        test = [item for item in response['poi_points'] if item['code'] == i['code']][0]
-        i['x'] = test['x']
-        i['y'] = test['y']
+    # for i in response['additional_child']:
+    #     test = [item for item in response['poi_points'] if item['code'] == i['code']][0]
+    #     i['x'] = test['x']
+    #     i['y'] = test['y']
 
-    response['additional_child'] = json.dumps(response['additional_child'])
+    # response['additional_child'] = json.dumps(response['additional_child'])
     # print response['additional_child']
     return response
 
