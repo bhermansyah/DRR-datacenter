@@ -90156,8 +90156,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 showButtonText: true,
                 toggleGroup: "interaction",
                 actionTarget: "paneltbar"
-            // }, {
-            //     actions: ["showANDMA"],  actionTarget: "paneltbar"        
+            }, {
+                actions: ["showANDMA"],  actionTarget: "paneltbar"        
             }, {
                 actions: ["statMenu"],  actionTarget: "paneltbar"
             }, {
@@ -90493,6 +90493,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fillOpacity: 0.4
         };
 
+        var styleANDMA = {
+            strokeColor: '#0000FF',
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            'pointRadius': 7,
+            graphicName: "star",  
+            fillColor: '#ee0000',
+            fillOpacity: 0.4
+        };
+
        var finder_style = {
             fillColor: "#ffcc66",
             strokeColor: "#ff9933",
@@ -90559,11 +90569,70 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             {isBaseLayer: false, displayInLayerSwitcher: false, opacity: 0}
         );
 
+       var vector_layerANDMA = new OpenLayers.Layer.Vector("ANDMA Offices",{
+            'displayInLayerSwitcher':false,
+            renderers: ['Canvas', 'VML'],
+            strategies: [new OpenLayers.Strategy.Fixed()],
+            styleMap: new OpenLayers.StyleMap({
+                "default": styleANDMA
+            }),
+            protocol: new OpenLayers.Protocol.HTTP({
+                url: "http://asdc.immap.org/geoserver/wfs",
+                format: new OpenLayers.Format.GeoJSON(),
+                params: {
+                    service: "WFS",
+                    version: "1.1.0",
+                    request: "GetFeature",
+                    typeName: "geonode:andma_office",
+                    srsName: "EPSG:900913",
+                    outputFormat: "json"    
+                }
+            })
+       });
+
+       var andma_selectCtrl = new OpenLayers.Control.SelectFeature(vector_layerANDMA);
+
+       function andma_createPopup(feature) {
+
+            var note_text = feature.data.note.split("|");
+            popup = new GeoExt.Popup({
+                title: feature.data.name_en,
+                location: feature,
+                width:250,
+                html: '<strong>Contact Person: '+note_text[0]+'<br/>'+'Phone Number: '+note_text[1]+'</strong>',
+                maximizable: true,
+                collapsible: true
+            });
+            // unselect feature when the popup
+            // is closed
+            popup.on({
+                close: function() {
+                    if(OpenLayers.Util.indexOf(vector_layerANDMA.selectedFeatures,
+                                               this.feature) > -1) {
+                        andma_selectCtrl.unselect(this.feature);
+                    }
+                }
+            });
+            popup.show();
+        }
+
+        // create popup on "featureselected"
+        vector_layerANDMA.events.on({
+            featureselected: function(e) {
+                andma_createPopup(e.feature);
+            }
+        });
+        vector_layerANDMA.setVisibility(false);
+
        this.mapPanel.map.addLayer(vector_layer);
        this.mapPanel.map.addLayer(finder_layer);
        this.mapPanel.map.addLayer(mask_layer);
        this.mapPanel.map.addLayer(vector_layerEQ);
        this.mapPanel.map.addLayer(hiddenLayer);
+       this.mapPanel.map.addLayer(vector_layerANDMA);
+       this.mapPanel.map.addControl(andma_selectCtrl);
+       andma_selectCtrl.activate();
+
        var filtercontrol = new OpenLayers.Control.DrawFeature(vector_layer, OpenLayers.Handler.Polygon,{
             eventListeners: {
                 "featureadded": function(evt){
@@ -92574,23 +92643,24 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         //         }
         //     }       
         // });
-        
-        // new Ext.Button({
-        //     id: "showANDMA",
-        //     text: 'Show ANDMA Offices',
-        //     iconCls: 'icon-sam-tool',
-        //     enableToggle: true,    
-        //     toggleGroup: "plus",  
-        //     disabled: false,
-        //     pressed: false,
-        //     toggleHandler: function(){
-        //         if (this.pressed){
-
-        //         } else {
-
-        //         }
-        //     }       
-        // });
+        var tempMap = this.mapPanel.map;
+        new Ext.Button({
+            id: "showANDMA",
+            text: 'ANDMA Offices',
+            iconCls: 'icon-sam-tool',
+            enableToggle: true,    
+            toggleGroup: "plus",  
+            disabled: false,
+            pressed: false,
+            toggleHandler: function(){
+                if (this.pressed){
+                    tempMap.getLayersByName('ANDMA Offices')[0].setVisibility(true);
+                    tempMap.raiseLayer(tempMap.getLayersByName('ANDMA Offices')[0],10000);
+                } else {
+                    tempMap.getLayersByName('ANDMA Offices')[0].setVisibility(false);
+                }
+            }       
+        });
 
        // console.log(this);
        // boedy1996@gmail.com
