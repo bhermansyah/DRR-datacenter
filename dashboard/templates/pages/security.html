@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load humanize %}
 
 <style type="text/css">
@@ -14,7 +15,7 @@ li#nav_dashsecurity>a::after {
 </style>	
 
 <div class="gridster">
-	<h1 class="dashing-title">Humanitarian Access 
+	<h1 class="dashing-title">{% trans "Humanitarian Access" %} 
 		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1> 
@@ -23,7 +24,7 @@ li#nav_dashsecurity>a::after {
 
 <div class="gridster" style="margin-bottom: 39px;">
 	<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;"> 
-	    <i class="fa fa-calendar"></i>&nbsp; Incident between:
+	    <i class="fa fa-calendar"></i>&nbsp; {% trans "Incident between" %}:
 	    <span></span> <b class="caret"></b>
 	</div>
 </div>
@@ -57,11 +58,11 @@ li#nav_dashsecurity>a::after {
 		      {% endfor %}
 		    </select> -->
 		    <div class="custom-header">
-		    	<div style="float:left;font-size: small;padding: 5px;">select incident type</div> 
+		    	<div style="float:left;font-size: small;padding: 5px;">{% trans "select incident type" %}</div> 
 		    	<div style="float:right;">
-		    		<button type="button" class="btn btn-primary btn-sm type_all">Select All</button>
-		    		<button type="button" class="btn btn-primary btn-sm type_none">Select None</button>
-		    		<button type="button" class="btn btn-primary btn-sm apply">Apply</button>
+		    		<button type="button" class="btn btn-primary btn-sm type_all">{% trans "Select All" %}</button>
+		    		<button type="button" class="btn btn-primary btn-sm type_none">{% trans "Select None" %}</button>
+		    		<button type="button" class="btn btn-primary btn-sm apply">{% trans "Apply" %}</button>
 		    	</div>
 		    </div>
 	    	{% for item in main_type_child %}
@@ -85,11 +86,11 @@ li#nav_dashsecurity>a::after {
 		      {% endfor %}
 		    </select> -->
 		    <div class="custom-header">
-		    	<div style="float:left;font-size: small;padding: 5px;">select incident target</div> 
+		    	<div style="float:left;font-size: small;padding: 5px;">{% trans "select incident target" %}</div> 
 		    	<div style="float:right;">
-		    		<button type="button" class="btn btn-primary btn-sm target_all">Select All</button>
-		    		<button type="button" class="btn btn-primary btn-sm target_none">Select None</button>
-		    		<button type="button" class="btn btn-primary btn-sm apply">Apply</button>
+		    		<button type="button" class="btn btn-primary btn-sm target_all">{% trans "Select All" %}</button>
+		    		<button type="button" class="btn btn-primary btn-sm target_none">{% trans "Select None" %}</button>
+		    		<button type="button" class="btn btn-primary btn-sm apply">{% trans "Apply" %}</button>
 		    	</div>
 		    </div>
 	    	{% for item in main_target_child %}
@@ -166,20 +167,20 @@ li#nav_dashsecurity>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">Number of incidents and casualties</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Number of incidents and casualties" %}</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th rowspan=2><span># Incidents</span></th>
-				<th colspan=3>Casualties</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th rowspan=2><span>{% trans "# Incidents" %}</span></th>
+				<th colspan=3>{% trans "Casualties" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>Dead</span></th>
-				<th><span>Injured</span></th>
-				<th><span>Violent</span></th>
+				<th><span>{% trans "Dead" %}</span></th>
+				<th><span>{% trans "Injured" %}</span></th>
+				<th><span>{% trans "Violent" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -212,14 +213,14 @@ li#nav_dashsecurity>a::after {
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
 					<tr>
-						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">Incident Type</th>
+						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Incident Type" %}</th>
 					</tr>
 					<tr>
 						<th></th>
-						<th>Incidents</th>
-						<th>Dead</th>
-						<th>Injured</th>
-						<th>Violent</th>
+						<th>{% trans "Incidents" %}</th>
+						<th>{% trans "Dead" %}</th>
+						<th>{% trans "Injured" %}</th>
+						<th>{% trans "Violent" %}</th>
 					</tr>	
 				</thead>
 				<tbody>
@@ -250,14 +251,14 @@ li#nav_dashsecurity>a::after {
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
 					<tr>
-						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">Incident Target</th>
+						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Incident Target" %}</th>
 					</tr>
 					<tr>
 						<th></th>
-						<th>Incidents</th>
-						<th>Dead</th>
-						<th>Injured</th>
-						<th>Violent</th>
+						<th>{% trans "Incidents" %}</th>
+						<th>{% trans "Dead" %}</th>
+						<th>{% trans "Injured" %}</th>
+						<th>{% trans "Violent" %}</th>
 					</tr>	
 				</thead>
 				<tbody>
@@ -288,11 +289,11 @@ li#nav_dashsecurity>a::after {
 			<table style="font-size: small !important;margin-top:0 !important;">
 				<thead>
 					<tr>
-						<th colspan=2 style="text-align:left;padding:3px;font-weight:bolder;">Latest Incidents</th>
+						<th colspan=2 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Latest Incidents" %}</th>
 					</tr>
 					<tr>
-						<th>Date</th>
-						<th>Description</th>
+						<th>{% trans "Date" %}</th>
+						<th>{% trans "Description" %}</th>
 					</tr>	
 				</thead>	
 				<tbody>
@@ -314,11 +315,11 @@ li#nav_dashsecurity>a::after {
 <SCRIPT TYPE="text/javascript">
 
 function show_hide_base(){
-	if ($("div.showFlag_base").text() == "Show Detail") {
-		$("div.showFlag_base").text('Hide Detail');
+	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_base');
 	} else {
-		$("div.showFlag_base").text('Show Detail');
+		$("div.showFlag_base").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
@@ -377,13 +378,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     $('#incidentType-select').multiSelect({
-      selectableHeader: "<div class='custom-header'>Unselected Incident Type <button type='button' class='apply btn btn-primary btn-sm'>Apply</button></div>",
-      selectionHeader: "<div class='custom-header'>Selected Incident Type <button type='button' class='apply btn btn-primary btn-sm'>Apply</button></div>"
+      selectableHeader: "<div class='custom-header'>{% trans "Unselected Incident Type" %} <button type='button' class='apply btn btn-primary btn-sm'>Apply</button></div>",
+      selectionHeader: "<div class='custom-header'>{% trans "Selected Incident Type" %} <button type='button' class='apply btn btn-primary btn-sm'>Apply</button></div>"
     });
 
     $('#incidentTarget-select').multiSelect({
-      selectableHeader: "<div class='custom-header'>Unselected Incident Target <button type='button' class='btn btn-primary btn-sm apply'>Apply</button></div>",
-      selectionHeader: "<div class='custom-header'>Selected Incident Target <button type='button' class='btn btn-primary btn-sm apply'>Apply</button></div>"
+      selectableHeader: "<div class='custom-header'>{% trans "Unselected Incident Target" %} <button type='button' class='btn btn-primary btn-sm apply'>Apply</button></div>",
+      selectionHeader: "<div class='custom-header'>{% trans "Selected Incident Target" %} <button type='button' class='btn btn-primary btn-sm apply'>Apply</button></div>"
     });
 
 

@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load humanize %}
 
 <style type="text/css">
@@ -23,7 +24,7 @@ li#nav_dashearthquake>a::after {
 </div>	
 
 <div class="gridster">
-	<h1 class="dashing-title">Earthquake 
+	<h1 class="dashing-title">{% trans "Earthquake" %} 
 		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1>
@@ -32,25 +33,25 @@ li#nav_dashearthquake>a::after {
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
 			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Population</span>
+			<span class='widget-title'>{% trans "Total Population" %}</span>
 		</li>
 		<li data-row="2" data-col="1" data-sizex="2" data-sizey="1">
 			<h1 class='widget-number'>{{total_eq_pop | intword | intcomma}}</h1>
-			<span class='widget-title'>Total earthquake affected Population</span>
+			<span class='widget-title'>{% trans "Total earthquake affected Population" %}</span>
 		</li>
 		
 		<li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{settlement | intword | intcomma}}</h1>
-			<span class='widget-title'>Number of Settlements</span>
+			<span class='widget-title'>{% trans "Number of Settlements" %}</span>
 		</li>
 		    
 		<li data-row="1" data-col="3" data-sizex="3" data-sizey="2">
 			<div>{{ EQ_chart.as_html }}</div>
-			<span class='widget-title'>Earthquake Mercalli Intensity Scale population overview</span>
+			<span class='widget-title'>{% trans "Earthquake Mercalli Intensity Scale population overview" %}</span>
 		</li> 
 		<li data-row="2" data-col="6" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{total_eq_settlements | intword | intcomma}}</h1>
-			<span class='widget-title'>Number of affected settlements</span>
+			<span class='widget-title'>{% trans "Number of affected settlements" %}</span>
 		</li> 
 		
 
@@ -62,40 +63,40 @@ li#nav_dashearthquake>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=15 style="text-align:left;padding:3px;font-weight:bolder;">Earthquake affected Population and settlement overview</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=15 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Earthquake affected Population and settlement overview" %}</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=3><span>Region</span></th>
-				<th colspan=16>Mercalli Intensity Scale</th>
+				<th rowspan=3><span>{% trans "Region" %}</span></th>
+				<th colspan=16>{% trans "Mercalli Intensity Scale" %}</th>
 			</tr>
 			<tr>
-				<th colspan=2 class="eq_weak">II-III: Weak</th>
-				<th colspan=2 class="eq_light">IV: Light</th>
-				<th colspan=2 class="eq_moderate">V: Moderate</th>
-				<th colspan=2 class="eq_strong">VI: Strong</th>
-				<th colspan=2 class="eq_verystrong">VII: Very-strong</th>
-				<th colspan=2 class="eq_severe">VIII: Severe</th>
-				<th colspan=2 class="eq_violent">IX: Violent</th>
-				<th colspan=2 class="eq_extreme">X+: Extreme</th>
+				<th colspan=2 class="eq_weak">{% trans "II-III: Weak" %}</th>
+				<th colspan=2 class="eq_light">{% trans "IV: Light" %}</th>
+				<th colspan=2 class="eq_moderate">{% trans "V: Moderate" %}</th>
+				<th colspan=2 class="eq_strong">{% trans "VI: Strong" %}</th>
+				<th colspan=2 class="eq_verystrong">{% trans "VII: Very-strong" %}</th>
+				<th colspan=2 class="eq_severe">{% trans "VIII: Severe" %}</th>
+				<th colspan=2 class="eq_violent">{% trans "IX: Violent" %}</th>
+				<th colspan=2 class="eq_extreme">{% trans "X+: Extreme" %}</th>
 			</tr>
 			<tr>
-				<th class="eq_weak"><span>Pop</span></th>
-				<th class="eq_weak"><span>Settl.</span></th>
-				<th class="eq_light"><span>Pop</span></th>
-				<th class="eq_light"><span>Settl.</span></th>
-				<th class="eq_moderate"><span>Pop</span></th>
-				<th class="eq_moderate"><span>Settl.</span></th>
-				<th class="eq_strong"><span>Pop</span></th>
-				<th class="eq_strong"><span>Settl.</span></th>
-				<th class="eq_verystrong"><span>Pop</span></th>
-				<th class="eq_verystrong"><span>Settl.</span></th>
-				<th class="eq_severe"><span>Pop</span></th>
-				<th class="eq_severe"><span>Settl.</span></th>
-				<th class="eq_violent"><span>Pop</span></th>
-				<th class="eq_violent"><span>Settl.</span></th>
-				<th class="eq_extreme"><span>Pop</span></th>
-				<th class="eq_extreme"><span>Settl.</span></th>
+				<th class="eq_weak"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_weak"><span>{% trans "Settl." %}</span></th>
+				<th class="eq_light"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_light"><span>{% trans "Settl." %}</span></th>
+				<th class="eq_moderate"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_moderate"><span>{% trans "Settl." %}</span></th>
+				<th class="eq_strong"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_strong"><span>{% trans "Settl." %}</span></th>
+				<th class="eq_verystrong"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_verystrong"><span>{% trans "Settl." %}</span></th>
+				<th class="eq_severe"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_severe"><span>{% trans "Settl." %}</span></th>
+				<th class="eq_violent"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_violent"><span>{% trans "Settl." %}</span></th>
+				<th class="eq_extreme"><span>{% trans "Pop" %}</span></th>
+				<th class="eq_extreme"><span>{% trans "Settl." %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -150,11 +151,11 @@ li#nav_dashearthquake>a::after {
 
 <SCRIPT TYPE="text/javascript">
 function show_hide_base(){
-	if ($("div.showFlag_base").text() == "Show Detail") {
-		$("div.showFlag_base").text('Hide Detail');
+	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_base');
 	} else {
-		$("div.showFlag_base").text('Show Detail');
+		$("div.showFlag_base").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){

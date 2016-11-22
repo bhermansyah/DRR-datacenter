@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load humanize %}
 
 <style type="text/css">
@@ -15,47 +16,47 @@ li#nav_dashaccessibility>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">Accessibility 
+	<h1 class="dashing-title">{% trans "Accessibility" %} 
 		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1>
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Population</span>
+			<span class='widget-title'>{% trans "Total Population" %}</span>
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Area | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Area (km<sup>2</sup>)</span>
+			<span class='widget-title'>{% trans "Total Area" %} (km<sup>2</sup>)</span>
 		</li>
 		<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_coverage_chart.as_html }}</div>
-			<span class='widget-title'>GSM Coverage – Population</span>
+			<span class='widget-title'>{% trans "GSM Coverage – Population" %}</span>
 			<span class='pie-title1'>{{ pop_coverage_percent }}%</span>
 			<span class='pie-title2'>{{ pop_on_gsm_coverage | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
 			<div>{{ total_area_coverage_chart.as_html }}</div>
-			<span class='widget-title'>GSM Coverage – Area</span>
+			<span class='widget-title'>{% trans "GSM Coverage – Area" %}</span>
 			<span class='pie-title1'>{{ area_coverage_percent }}%</span>
 			<span class='pie-title2'>{{ area_on_gsm_coverage | intword | intcomma}}</span>
 		</li>
 
 		<li data-row="2" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ nearest_airport_chart.as_html }}</div>
-			<span class='widget-title'>Travel Time to Nearest Airport (pop in %)</span>
+			<span class='widget-title'>{% trans "Travel Time to Nearest Airport (pop in %)" %}</span>
 		</li>
 		<li data-row="2" data-col="2" data-sizex="2" data-sizey="2">
 			<div>{{ tier1_chart.as_html }}</div>
-			<span class='widget-title'>Nearest Health Facilities Tier 1</span>
+			<span class='widget-title'>{% trans "Nearest Health Facilities Tier 1" %}</span>
 		</li>
 		<li data-row="2" data-col="3" data-sizex="2" data-sizey="2">
 			<div>{{ tier2_chart.as_html }}</div>
-			<span class='widget-title'>Travel Time to Nearest Health Facilities Tier 2 (pop in %)</span>
+			<span class='widget-title'>{% trans "Travel Time to Nearest Health Facilities Tier 2 (pop in %)" %}</span>
 		</li>
 		<li data-row="3" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ tier3_chart.as_html }}</div>
-			<span class='widget-title'>Travel Time to Nearest Health Facilities Tier 3 (pop in %)</span>
+			<span class='widget-title'>{% trans "Travel Time to Nearest Health Facilities Tier 3 (pop in %)" %}</span>
 		</li>
 <!-- 		<li data-row="3" data-col="2" data-sizex="2" data-sizey="2">
 			<div>{{ tierall_chart.as_html }}</div>
@@ -63,15 +64,15 @@ li#nav_dashaccessibility>a::after {
 		</li> -->
 		<li data-row="3" data-col="3" data-sizex="2" data-sizey="2">
 			<div>{{ itsx_prov_chart.as_html }}</div>
-			<span class='widget-title'>Travel Time to Its Province Capital (pop in %)</span>
+			<span class='widget-title'>{% trans "Travel Time to Its Province Capital (pop in %)" %}</span>
 		</li>
 		<li data-row="4" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ near_prov_chart.as_html }}</div>
-			<span class='widget-title'>Travel Time to Nearest Province Capital (pop in %)</span>
+			<span class='widget-title'>{% trans "Travel Time to Nearest Province Capital (pop in %)" %}</span>
 		</li>
 		<li data-row="4" data-col="2" data-sizex="2" data-sizey="2">
 			<div>{{ near_dist_chart.as_html }}</div>
-			<span class='widget-title'>Travel Time to Nearest District Capital (pop in %)</span>
+			<span class='widget-title'>{% trans "Travel Time to Nearest District Capital (pop in %)" %}</span>
 		</li>
 		    
 		  		
@@ -82,25 +83,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Airport</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_airport' onClick='show_hide_airport()'>{% if "detail_airport" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Nearest Airport" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_airport' onClick='show_hide_airport()'>{% if "detail_airport" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -163,25 +164,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 1</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier1' onClick='show_hide_tier1()'>{% if "detail_tier1" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Nearest Health Facilities Tier 1" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier1' onClick='show_hide_tier1()'>{% if "detail_tier1" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -244,25 +245,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 2</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier2' onClick='show_hide_tier2()'>{% if "detail_tier2" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Nearest Health Facilities Tier 2" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier2' onClick='show_hide_tier2()'>{% if "detail_tier2" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -325,25 +326,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier 3</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier3' onClick='show_hide_tier3()'>{% if "detail_tier3" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Nearest Health Facilities Tier 3" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tier3' onClick='show_hide_tier3()'>{% if "detail_tier3" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -406,25 +407,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Health Facilities Tier All</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tierall' onClick='show_hide_tierall()'>{% if "detail_tierall" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Nearest Health Facilities Tier All" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_tierall' onClick='show_hide_tierall()'>{% if "detail_tierall" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -487,25 +488,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Its Province Capital</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_itsprov' onClick='show_hide_itsprov()'>{% if "detail_itsprov" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Its Province Capital" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_itsprov' onClick='show_hide_itsprov()'>{% if "detail_itsprov" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -568,25 +569,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest Province Capital</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_nearprov' onClick='show_hide_nearprov()'>{% if "detail_nearprov" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Nearest Province Capital" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_nearprov' onClick='show_hide_nearprov()'>{% if "detail_nearprov" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -649,25 +650,25 @@ li#nav_dashaccessibility>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Travel Time to Nearest District Capital</td>
-				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_neardist' onClick='show_hide_neardist()'>{% if "detail_neardist" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Travel Time to Nearest District Capital" %}</td>
+				<td colspan=3 style="text-align:right;padding:3px;"><div class='showFlag_neardist' onClick='show_hide_neardist()'>{% if "detail_neardist" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th colspan=9>Population travel time</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th colspan=9>{% trans "Population travel time" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th class="acc_l1"><span>&lt; 1 h</span></th>
-				<th class="acc_l2"><span>&lt; 2 h</span></th>
-				<th class="acc_l3"><span>&lt; 3 h</span></th>
-				<th class="acc_l4"><span>&lt; 4 h</span></th>
-				<th class="acc_l5"><span>&lt; 5 h</span></th>
-				<th class="acc_l6"><span>&lt; 6 h</span></th>
-				<th class="acc_l7"><span>&lt; 7 h</span></th>
-				<th class="acc_l8"><span>&lt; 8 h</span></th>
-				<th class="acc_g8"><span>&gt; 8 h</span></th>
+				<th class="acc_l1"><span>&lt; {% trans "1 h" %}</span></th>
+				<th class="acc_l2"><span>&lt; {% trans "2 h" %}</span></th>
+				<th class="acc_l3"><span>&lt; {% trans "3 h" %}</span></th>
+				<th class="acc_l4"><span>&lt; {% trans "4 h" %}</span></th>
+				<th class="acc_l5"><span>&lt; {% trans "5 h" %}</span></th>
+				<th class="acc_l6"><span>&lt; {% trans "6 h" %}</span></th>
+				<th class="acc_l7"><span>&lt; {% trans "7 h" %}</span></th>
+				<th class="acc_l8"><span>&lt; {% trans "8 h" %}</span></th>
+				<th class="acc_g8"><span>&gt; {% trans "8 h" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -728,11 +729,11 @@ li#nav_dashaccessibility>a::after {
 
 <SCRIPT TYPE="text/javascript">
 function show_hide_airport(){
-	if ($("div.showFlag_airport").text() == "Show Detail") {
-		$("div.showFlag_airport").text('Hide Detail');
+	if ($("div.showFlag_airport").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_airport").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_airport');
 	} else {
-		$("div.showFlag_airport").text('Show Detail');
+		$("div.showFlag_airport").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_airport');
 	}
 	$( ".detail_airport" ).toggleClass(function(){
@@ -746,11 +747,11 @@ function show_hide_airport(){
 }
 
 function show_hide_tier1(){
-	if ($("div.showFlag_tier1").text() == "Show Detail") {
-		$("div.showFlag_tier1").text('Hide Detail');
+	if ($("div.showFlag_tier1").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_tier1").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_tier1');
 	} else {
-		$("div.showFlag_tier1").text('Show Detail');
+		$("div.showFlag_tier1").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_tier1');
 	}
 	$( ".detail_tier1" ).toggleClass(function(){
@@ -764,11 +765,11 @@ function show_hide_tier1(){
 }
 
 function show_hide_tier2(){
-	if ($("div.showFlag_tier2").text() == "Show Detail") {
-		$("div.showFlag_tier2").text('Hide Detail');
+	if ($("div.showFlag_tier2").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_tier2").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_tier2');
 	} else {
-		$("div.showFlag_tier2").text('Show Detail');
+		$("div.showFlag_tier2").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_tier2');
 	}
 	$( ".detail_tier2" ).toggleClass(function(){
@@ -782,11 +783,11 @@ function show_hide_tier2(){
 }
 
 function show_hide_tier3(){
-	if ($("div.showFlag_tier3").text() == "Show Detail") {
-		$("div.showFlag_tier3").text('Hide Detail');
+	if ($("div.showFlag_tier3").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_tier3").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_tier3');
 	} else {
-		$("div.showFlag_tier3").text('Show Detail');
+		$("div.showFlag_tier3").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_tier3');
 	}
 	$( ".detail_tier3" ).toggleClass(function(){
@@ -800,11 +801,11 @@ function show_hide_tier3(){
 }
 
 function show_hide_tierall(){
-	if ($("div.showFlag_tierall").text() == "Show Detail") {
-		$("div.showFlag_tierall").text('Hide Detail');
+	if ($("div.showFlag_tierall").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_tierall").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_tierall');
 	} else {
-		$("div.showFlag_tierall").text('Show Detail');
+		$("div.showFlag_tierall").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_tierall');
 	}
 	$( ".detail_tierall" ).toggleClass(function(){
@@ -818,11 +819,11 @@ function show_hide_tierall(){
 }
 
 function show_hide_itsprov(){
-	if ($("div.showFlag_itsprov").text() == "Show Detail") {
-		$("div.showFlag_itsprov").text('Hide Detail');
+	if ($("div.showFlag_itsprov").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_itsprov").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_itsprov');
 	} else {
-		$("div.showFlag_itsprov").text('Show Detail');
+		$("div.showFlag_itsprov").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_itsprov');
 	}
 	$( ".detail_itsprov" ).toggleClass(function(){
@@ -836,11 +837,11 @@ function show_hide_itsprov(){
 }
 
 function show_hide_nearprov(){
-	if ($("div.showFlag_nearprov").text() == "Show Detail") {
-		$("div.showFlag_nearprov").text('Hide Detail');
+	if ($("div.showFlag_nearprov").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_nearprov").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_nearprov');
 	} else {
-		$("div.showFlag_nearprov").text('Show Detail');
+		$("div.showFlag_nearprov").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_nearprov');
 	}
 	$( ".detail_nearprov" ).toggleClass(function(){
@@ -854,11 +855,11 @@ function show_hide_nearprov(){
 }
 
 function show_hide_neardist(){
-	if ($("div.showFlag_neardist").text() == "Show Detail") {
-		$("div.showFlag_neardist").text('Hide Detail');
+	if ($("div.showFlag_neardist").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_neardist").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_neardist');
 	} else {
-		$("div.showFlag_neardist").text('Show Detail');
+		$("div.showFlag_neardist").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_neardist');
 	}
 	$( ".detail_neardist" ).toggleClass(function(){

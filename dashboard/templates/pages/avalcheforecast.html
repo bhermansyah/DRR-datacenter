@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load humanize %}
 
 <style type="text/css">
@@ -15,40 +16,40 @@ li#nav_dashavalancheforecast>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">Avalanche Forecast 
+	<h1 class="dashing-title">{% trans "Avalanche Forecast" %} 
 		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1>
   	<ul>
   		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Population</span>
+			<span class='widget-title'>{% trans "Total Population" %}</span>
 		</li>
 		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{total_ava_population | intword | intcomma}}</h1>
-			<span class='widget-title'>Avalanche risk total population</span>
+			<span class='widget-title'>{% trans "Avalanche risk total population" %}</span>
 		</li>
 		<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Forecast avalanche risk population</span>
+			<span class='widget-title'>{% trans "Forecast avalanche risk population" %}</span>
 			<span class='pie-title1'>{{ total_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ total_ava_forecast_pop | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
 			<div>{{ high_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Forecast high avalanche risk population</span>
+			<span class='widget-title'>{% trans "Forecast high avalanche risk population" %}</span>
 			<span class='pie-title1'>{{ high_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ ava_forecast_high_pop | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
 			<div>{{ med_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Forecast moderate avalanche risk population</span>
+			<span class='widget-title'>{% trans "Forecast moderate avalanche risk population" %}</span>
 			<span class='pie-title1'>{{ med_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ ava_forecast_med_pop | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
 			<div>{{ low_pop_forecast_chart.as_html }}</div>
-			<span class='widget-title'>Forecast low avalanche risk population</span>
+			<span class='widget-title'>{% trans "Forecast low avalanche risk population" %}</span>
 			<span class='pie-title1'>{{ low_pop_forecast_percent }}%</span>
 			<span class='pie-title2'>{{ ava_forecast_med_low | intword | intcomma}}</span>
 		</li>
@@ -60,15 +61,15 @@ li#nav_dashavalancheforecast>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">Population in forecasted avalanche risk areas</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Population in forecasted avalanche risk areas" %}</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th><span>Region</span></th>
-				<th>Total</th>
-				<th>High</th>
-				<th>Moderate</th>
-				<th>Low</th>
+				<th><span>{% trans "Region" %}</span></th>
+				<th>{% trans "Total" %}</th>
+				<th>{% trans "High" %}</th>
+				<th>{% trans "Moderate" %}</th>
+				<th>{% trans "Low" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
@@ -114,11 +115,11 @@ li#nav_dashavalancheforecast>a::after {
 
 <SCRIPT TYPE="text/javascript">
 function show_hide_base(){
-	if ($("div.showFlag_base").text() == "Show Detail") {
-		$("div.showFlag_base").text('Hide Detail');
+	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_base');
 	} else {
-		$("div.showFlag_base").text('Show Detail');
+		$("div.showFlag_base").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){

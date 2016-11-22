@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load humanize %}
 {% load leaflet_tags %}
 <style type="text/css">
@@ -14,31 +15,31 @@ li#nav_dashbaseline>a::after {
 </style>
 
 
-<div class="gridster">
-	<h1 class="dashing-title">Baseline 
+<div class="gridster">.
+	<h1 class="dashing-title">{% trans "Baseline" %} 
 		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1>
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
 			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Population</span>
+			<span class='widget-title'>{% trans "Total Population" %}</span>
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Area | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Area (km<sup>2</sup>)</span>
+			<span class='widget-title'>{% trans "Total Area" %} ({% trans "km" %}<sup>2</sup>)</span>
 		</li>
 		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{settlement | intword | intcomma}}</h1>
-			<span class='widget-title'>Number of Settlements</span>
+			<span class='widget-title'>{% trans "Number of Settlements" %}</span>
 		</li>
 		<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{hltfac | intword | intcomma}}</h1>
-			<span class='widget-title'>Number of Health Facilities<span>
+			<span class='widget-title'>{% trans "Number of Health Facilities" %}<span>
 		</li>          
 		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{roadnetwork | intword | intcomma}}</h1>
-			<span class='widget-title'>Total length of Road Network (km)<span>
+			<span class='widget-title'>{% trans "Total length of Road Network (km)" %}<span>
 		</li>     
 		  
 		<li data-row="2" data-col="1" data-sizex="3" data-sizey="2">
@@ -65,28 +66,28 @@ li#nav_dashbaseline>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">Population and area overview</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Population and area overview" %}</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th rowspan=2><span>Settl.</span></th>
-				<th colspan=2>Total</th>
-				<th colspan=2>Built-Up</th>
-				<th colspan=2>Cultivated</th>
-				<th colspan=2>Barren/Rangeland</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th rowspan=2><span>{% trans "Settl." %}</span></th>
+				<th colspan=2>{% trans "Total" %}</th>
+				<th colspan=2>{% trans "Built-Up" %}</th>
+				<th colspan=2>{% trans "Cultivated" %}</th>
+				<th colspan=2>{% trans "Barren/Rangeland" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>Pop</span></th>
-				<th><span>Area (km<sup>2</sup>)</span></th>
-				<th><span>Pop</span></th>
-				<th><span>Area (km<sup>2</sup>)</span></th>
-				<th><span>Pop</span></th>
-				<th><span>Area (km<sup>2</sup>)</span></th>
-				<th><span>Pop</span></th>
-				<th><span>Area (km<sup>2</sup>)</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -127,26 +128,26 @@ li#nav_dashbaseline>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">Number of Health facilities</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_health' onClick='show_hide_health()'>{% if "detail_health" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=7 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Number of Health facilities" %}</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_health' onClick='show_hide_health()'>{% if "detail_health" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th rowspan=2>Total</th>
-				<th colspan=3>Tier 1</th>
-				<th>Tier 2</th>
-				<th colspan=2>Tier 3</th>
-				<th rowspan=2>Others</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th rowspan=2>{% trans "Total" %}</th>
+				<th colspan=3>{% trans "Tier 1" %}</th>
+				<th>{% trans "Tier 2" %}</th>
+				<th colspan=2>{% trans "Tier 3" %}</th>
+				<th rowspan=2>{% trans "Others" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>H1</span></th>
-				<th><span>H2</span></th>
-				<th><span>H3</span></th>
-				<th><span>CHC</span></th>
-				<th><span>BHC</span></th>
-				<th><span>SHC</span></th>
+				<th><span>{% trans "H1" %}</span></th>
+				<th><span>{% trans "H2" %}</span></th>
+				<th><span>{% trans "H3" %}</span></th>
+				<th><span>{% trans "CHC" %}</span></th>
+				<th><span>{% trans "BHC" %}</span></th>
+				<th><span>{% trans "SHC" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -185,35 +186,35 @@ li#nav_dashbaseline>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=9 style="text-align:left;padding:3px;font-weight:bolder;">Road network overview and length</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_road' onClick='show_hide_road()'>{% if "detail_road" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=9 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Road network overview and length" %}</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_road' onClick='show_hide_road()'>{% if "detail_road" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th>Total</th>
-				<th>Highway</th>
-				<th>Primary</th>
-				<th>Secondary</th>
-				<th>Tertiary</th>
-				<th>Residential</th>
-				<th>Track</th>
-				<th>Path</th>
-				<th>River Crossing</th>
-				<th>Bridge</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th>{% trans "Total" %}</th>
+				<th>{% trans "Highway" %}</th>
+				<th>{% trans "Primary" %}</th>
+				<th>{% trans "Secondary" %}</th>
+				<th>{% trans "Tertiary" %}</th>
+				<th>{% trans "Residential" %}</th>
+				<th>{% trans "Track" %}</th>
+				<th>{% trans "Path" %}</th>
+				<th>{% trans "River Crossing" %}</th>
+				<th>{% trans "Bridge" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
-				<th>(km)</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
+				<th>({% trans "km" %})</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -256,11 +257,11 @@ li#nav_dashbaseline>a::after {
 
 <SCRIPT TYPE="text/javascript">
 function show_hide_base(){
-	if ($("div.showFlag_base").text() == "Show Detail") {
-		$("div.showFlag_base").text('Hide Detail');
+	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_base');
 	} else {
-		$("div.showFlag_base").text('Show Detail');
+		$("div.showFlag_base").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
@@ -274,11 +275,11 @@ function show_hide_base(){
 }
 
 function show_hide_health(){
-	if ($("div.showFlag_health").text() == "Show Detail") {
-		$("div.showFlag_health").text('Hide Detail');
+	if ($("div.showFlag_health").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_health").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_health');
 	} else {
-		$("div.showFlag_health").text('Show Detail');
+		$("div.showFlag_health").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_health');
 	}
 	$( ".detail_health" ).toggleClass(function(){
@@ -292,11 +293,11 @@ function show_hide_health(){
 }
 
 function show_hide_road(){
-	if ($("div.showFlag_road").text() == "Show Detail") {
-		$("div.showFlag_road").text('Hide Detail');
+	if ($("div.showFlag_road").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_road").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_road');
 	} else {
-		$("div.showFlag_road").text('Show Detail');
+		$("div.showFlag_road").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_road');
 	}
 	$( ".detail_road" ).toggleClass(function(){

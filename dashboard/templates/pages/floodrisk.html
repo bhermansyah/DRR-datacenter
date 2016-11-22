@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load humanize %}
 
 <style type="text/css">
@@ -15,36 +16,36 @@ li#nav_dashfloodrisk>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">Flood Risk 
+	<h1 class="dashing-title">{% trans "Flood Risk" %}   
 		{% include "links_title.html" %}
 		{% include "qlink_span.html" %}	
 	</h1>
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
 			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
-			<span class='widget-title'>Total Population</span>
+			<span class='widget-title'>{% trans "Total Population" %}</span>
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Population At Risk</span>
+			<span class='widget-title'>{% trans "Population At Risk" %}</span>
 			<span class='pie-title1'>{{ total_pop_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ total_risk_population | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 			<div>{{ high_pop_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Population at High Risk</span>
+			<span class='widget-title'>{% trans "Population at High Risk" %}</span>
 			<span class='pie-title1'>{{ total_pop_high_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ high_risk_population | intword | intcomma}}</span>
 		</li>
 		<li data-row="1" data-col="3" data-sizex="1" data-sizey="1">
 			<div>{{ med_pop_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Population at Med. Risk</span>
+			<span class='widget-title'>{% trans "Population at Med. Risk" %}</span>
 			<span class='pie-title1'>{{ total_pop_med_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ med_risk_population | intword | intcomma}}</span>
 		</li>          
 		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
 			<div>{{ low_pop_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>Population at Low Risk</span>
+			<span class='widget-title'>{% trans "Population at Low Risk" %}</span>
 			<span class='pie-title1'>{{ total_pop_low_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ low_risk_population | intword | intcomma}}</span>
 		</li>     
@@ -58,28 +59,28 @@ li#nav_dashfloodrisk>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">Population living in flood risk areas</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}Hide Detail{% else %}Show Detail{% endif %}</div></td>
+				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Population living in flood risk areas" %}</td>
+				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
-				<th rowspan=2><span>Region</span></th>
-				<th rowspan=2><span>Settl.</span></th>
-				<th colspan=2>Total</th>
-				<th colspan=2>Built-Up</th>
-				<th colspan=2>Cultivated</th>
-				<th colspan=2>Barren/Rangeland</th>
+				<th rowspan=2><span>{% trans "Region" %}</span></th>
+				<th rowspan=2><span>{% trans "Settl." %}</span></th>
+				<th colspan=2>{% trans "Total" %}</th>
+				<th colspan=2>{% trans "Built-Up" %}</th>
+				<th colspan=2>{% trans "Cultivated" %}</th>
+				<th colspan=2>{% trans "Barren/Rangeland" %}</th>
 				<!-- <th rowspan=2><span>Health Facilities</span></th>
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>Pop</span></th>
-				<th><span>Area</span></th>
-				<th><span>Pop</span></th>
-				<th><span>Area</span></th>
-				<th><span>Pop</span></th>
-				<th><span>Area</span></th>
-				<th><span>Pop</span></th>
-				<th><span>Area</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %}</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %}</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %}</span></th>
+				<th><span>{% trans "Pop" %}</span></th>
+				<th><span>{% trans "Area" %}</span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -142,11 +143,11 @@ li#nav_dashfloodrisk>a::after {
 
 <SCRIPT TYPE="text/javascript">
 function show_hide_base(){
-	if ($("div.showFlag_base").text() == "Show Detail") {
-		$("div.showFlag_base").text('Hide Detail');
+	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_base');
 	} else {
-		$("div.showFlag_base").text('Show Detail');
+		$("div.showFlag_base").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
