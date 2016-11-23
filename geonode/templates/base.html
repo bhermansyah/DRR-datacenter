@@ -141,11 +141,9 @@
               <li id="nav_dashboard">
                 <a href="{% url "dashboard_detail" %}?page=baseline">{% trans "Dashboard" %}</a>
               </li>
-              {% if user.is_superuser %}
               <li id="nav_layers">
                 <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
               </li>
-              {% endif %}
               <li id="nav_maps">
                 <a href="{% url "maps_browse" %}">{% trans "Interactive Maps" %}</a>
               </li>
