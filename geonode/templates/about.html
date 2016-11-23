@@ -16,20 +16,20 @@
                 <div class="caption">
                     <h4 class="">{% trans "About ASDC" %}</h4>
                     <p>
-					The Afghanistan Spatial Data Center (ASDC) is developed by iMMAP in Afghanistan. It is part of the iMMAP Disaster Risk Reduction Program, which is funded by the United States Agency for International Development (USAID)/Office of U.S. Foreign Disaster Assistance (OFDA).
+					{% trans "The Afghanistan Spatial Data Center (ASDC) is developed by iMMAP in Afghanistan. It is part of the iMMAP Disaster Risk Reduction Program, which is funded by the United States Agency for International Development (USAID)/Office of U.S. Foreign Disaster Assistance (OFDA)." %}
 					</p>
 					<p>
-					The Disaster Risk Reduction (DRR) program is a scientific program that supports the humanitarian community with critical information to aid decision makers in emergency response or program development. The Afghanistan Spatial Data Center (ASDC) is the dissemination platform for DRR data and other baseline information. At present the ASDC is the most advanced geoportal on Afghanistan containing comprehensive and accurate data. The iMMAP DRR program is funded by USAID and it is ready for daily usage. 
+					{% trans "The Disaster Risk Reduction (DRR) program is a scientific program that supports the humanitarian community with critical information to aid decision makers in emergency response or program development. The Afghanistan Spatial Data Center (ASDC) is the dissemination platform for DRR data and other baseline information. At present the ASDC is the most advanced geoportal on Afghanistan containing comprehensive and accurate data. The iMMAP DRR program is funded by USAID and it is ready for daily usage." %}
 					</p>
 					<p>
-					The information provided on ASDC are especially useful in regards to forecasting, emergency response, M&E and planning purposes.  
+					{% trans "The information provided on ASDC are especially useful in regards to forecasting, emergency response, M&E and planning purposes." %}
 					</p>
 					<div class="col-md-3">
 						<a href="{{ STATIC_URL }}lib/foto/ASDC Flyer - Small 24-07-2016.pdf">
 						    <div class="thumbnail">
 						        <img src="{{ STATIC_URL }}lib/foto/about1.png" alt="">
 						        <div class="caption">
-						            <p class="lead">ASDC Flyer - 4 pages</p>
+						            <p class="lead">{% trans "ASDC Flyer - 4 pages" %}</p>
 						        </div>
 						    </div>
 						</a>
@@ -39,7 +39,7 @@
 						    <div class="thumbnail">
 						        <img src="{{ STATIC_URL }}lib/foto/about2.png" alt="">
 						        <div class="caption">
-						            <p class="lead">ASDC Flyer - 1 page</p>
+						            <p class="lead">{% trans "ASDC Flyer - 1 page" %}</p>
 						        </div>
 						    </div>
 						</a>
@@ -49,7 +49,7 @@
 						    <div class="thumbnail">
 						        <img src="{{ STATIC_URL }}lib/foto/about3.png" alt="">
 						        <div class="caption">
-						            <p class="lead">iMMAP in Afghanistan - Snapshot</p>
+						            <p class="lead">{% trans "iMMAP in Afghanistan - Snapshot" %}</p>
 						        </div>
 						    </div>
 						</a>
@@ -64,33 +64,33 @@
                 <!-- <img src="{{ STATIC_URL }}lib/foto/asdc.png" alt=""> -->
                 <div class="caption">
                     <h4 class="">{% trans "Main available information" %}</h4>
-                    <p class="lead">Population estimates at village level</p>
+                    <p class="lead">{% trans "Population estimates at village level" %}</p>
 					<ul>
-						<li>Flood risk areas and population/landcover type at risk</li>
-						<li>Avalanche risk areas and population at risk </li>
-						<li>Humanitarian Access for entire Afghanistan, mapped daily</li>
+						<li>{% trans "Flood risk areas and population/landcover type at risk" %}</li>
+						<li>{% trans "Avalanche risk areas and population at risk" %} </li>
+						<li>{% trans "Humanitarian Access for entire Afghanistan, mapped daily" %}</li>
 							<ul>
-								<li>More than 135.000 incidents on record (since 2008)</li>
-								<li>Can be filtered by date/incident type/area and target type.</li>
+								<li>{% trans "More than 135.000 incidents on record (since 2008)" %}</li>
+								<li>{% trans "Can be filtered by date/incident type/area and target type." %}</li>
 							</ul>
-						<li>GSM coverage</li>
-						<li>Accessibility. Travel time and distance between points of interest:</li>
+						<li>{% trans "GSM coverage" %}</li>
+						<li>{% trans "Accessibility. Travel time and distance between points of interest:" %}</li>
 							<ul>
-								<li>e.g. How many million persons can reach the hospital within one-hour travel time (at nationwide/province/district/sub area)</li>
-								<li>e.g. For each village which is the nearest hospital, airport or administrative centre how far is it and how long does it take to travel there</li>
+								<li>{% trans "e.g. How many million persons can reach the hospital within one-hour travel time (at nationwide/province/district/sub area)" %}</li>
+								<li>{% trans "e.g. For each village which is the nearest hospital, airport or administrative centre how far is it and how long does it take to travel there" %}</li>
 							</ul>
 					</ul>
 
 					<p class="lead">{% trans "Forecasting (including estimates on population at risk for each of the following):" %}</p>
 					<ul>
-						<li>Every hour the Flash Flood Risk is estimated valid for the next 6 hours</li>
-						<li>Every 6 hours the river flood risk is estimated for the next 4 days</li>
-						<li>Every day the snow cover and snow depth is estimated</li>
-						<li>Once a day the avalanche risk based on snow cover and depth is assessed</li>
-						<li>Earthquake data is being monitored every 5 minutes</li>
-						<li>+5M Earthquakes estimates on population shake intensity (approx. 1 1/2 hours after event)</li>
+						<li>{% trans "Every hour the Flash Flood Risk is estimated valid for the next 6 hours" %}</li>
+						<li>{% trans "Every 6 hours the river flood risk is estimated for the next 4 days" %}</li>
+						<li>{% trans "Every day the snow cover and snow depth is estimated" %}</li>
+						<li>{% trans "Once a day the avalanche risk based on snow cover and depth is assessed" %}</li>
+						<li>{% trans "Earthquake data is being monitored every 5 minutes" %}</li>
+						<li>{% trans "+5M Earthquakes estimates on population shake intensity (approx. 1 1/2 hours after event)" %}</li>
 					</ul>
-                    
+
                 </div>
         </div>
     </div>
@@ -100,14 +100,14 @@
                 <!-- <img src="{{ STATIC_URL }}lib/foto/asdc.png" alt=""> -->
                 <div class="caption">
                     <h4 class="">{% trans "DRR Core Team" %}</h4>
-                    <p class="lead">Program Manager and Science Officer</p>
-					<p>Dr. Emlyn Hagen has led the development of the ASDC conceptually and scientifically. At one hand creating the various unique data sets utilised by the project, as well as developing the scientific methodology for the forecasting and statistics.</p>
+                    <p class="lead">{% trans "Program Manager and Science Officer" %}</p>
+					<p>{% trans "Dr. Emlyn Hagen has led the development of the ASDC conceptually and scientifically. At one hand creating the various unique data sets utilised by the project, as well as developing the scientific methodology for the forecasting and statistics." %}</p>
 
 					<p class="lead">{% trans "GeoNode Developer" %}</p>
-					<p>Mr. Budi Hermansyah has created the ASDC GeoNode portal. Which is an advanced and further development of the GeoNode supported by the World Bank. These advancements include the creation of all statistics and user interfaces, statistics, POI’s models, as well as automated data retrieval and analysis for forecasting purposes. Furthermore, an advanced dashboard has been created by Mr Budi Hermansyah.</p>
+					<p>{% trans "Mr. Budi Hermansyah has created the ASDC GeoNode portal. Which is an advanced and further development of the GeoNode supported by the World Bank. These advancements include the creation of all statistics and user interfaces, statistics, POI’s models, as well as automated data retrieval and analysis for forecasting purposes. Furthermore, an advanced dashboard has been created by Mr Budi Hermansyah." %}</p>
 
 					<p class="lead">Information Management Officer - Training and Outreach</p>
-					<p>Noor Zangana has led the dedicated training program of users on the ASDC since July 2016. She is supported by two local nationals in this effort. The training program is further supported by videos as well as a certification process. </p>
+					<p>{% trans "Noor Zangana has led the dedicated training program of users on the ASDC since July 2016. She is supported by two local nationals in this effort. The training program is further supported by videos as well as a certification process." %} </p>
                 </div>
             </div>
         </div>
