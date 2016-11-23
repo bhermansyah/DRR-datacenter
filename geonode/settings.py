@@ -83,7 +83,7 @@ LANGUAGES = (
     # ('id', 'Bahasa Indonesia'),
     # ('zh-cn', '中文'),
     # ('ja', '日本語'),
-    ('fa', 'Persian'),
+    # ('fa', 'Persian'),
     # ('ar', 'Arabic'),
     # ('bn', 'Bengali'),
     # ('ne', 'Nepali'),
@@ -103,9 +103,23 @@ LANGUAGES = (
     # ('si', 'Sinhala'),
     # ('ta', 'Tamil'),
     # ('tl', 'Tagalog'),
+    ('prs', 'Dari'),
+    ('ps', 'Pashto'),
 )
 
 EXTRA_LANG_INFO = {
+    'ps': {
+        'bidi': False,
+        'code': 'ps',
+        'name': 'Pashto',
+        'name_local': 'Pashto',
+        },
+    'prs': {
+        'bidi': False,
+        'code': 'ps',
+        'name': 'Dari',
+        'name_local': 'Dari',
+        },    
     'am': {
         'bidi': False,
         'code': 'am',
