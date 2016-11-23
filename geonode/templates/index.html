@@ -35,7 +35,7 @@
             <div class="carousel-caption">
               <h1>{% trans "Interactive Maps" %}</h1>
               <p>{% trans "Explore map on the interactive mode, style and export to pdf functionality enabled" %}</p>
-              <p><a class="btn btn-xs btn-warning" href="{% url "maps_browse" %}" role="button">{% trans "Browse Interactive Maps" %}<</a></p>
+              <p><a class="btn btn-xs btn-warning" href="{% url "maps_browse" %}" role="button">{% trans "Browse Interactive Maps" %}</a></p>
               <p class="image-credit">{% trans "Photo credit to Bob McKerrow : Teshkan Valley, Badakhshan" %}</p>
             </div>
           </div>
@@ -74,50 +74,50 @@
           {% facets as facets %}
             <ul class="breadcrumb">
               <li><a href="#"><span class="count badge warning">
-                {{ facets.layer|default:_("0") }} 
-              </span>{% trans "Layers" %}&nbsp; 
+                {{ facets.layer|default:_("0") }}
+              </span>{% trans "Layers" %}&nbsp;
               </a></li>
               <li><a href="{% url "maps_browse" %}"><span class="count badge">
-                {{ facets.map|default:_("0") }} 
+                {{ facets.map|default:_("0") }}
               </span>{% trans "Interactive Maps" %} &nbsp;
               </a></li>
               <li><a href="{% url "document_browse" %}"><span class="count badge">
-                {{ facets.document|default:_("0") }} 
+                {{ facets.document|default:_("0") }}
               </span>{% trans "Static Maps" %} &nbsp;
               </a></li>
               <li><a href="{% url "profile_browse" %}"><span class="count badge">
-                {{ facets.user|default:_("0") }} 
+                {{ facets.user|default:_("0") }}
               </span>{% trans "User" %} &nbsp;
               </a></li>
               <li><a href="#"></a></li>
             </ul>
             <!-- <div class="span2"><p><a href="{% url "layer_browse" %}"><span class="count">
-                {{ facets.layer|default:_("0") }} 
-              </span>{% trans "Layers" %} 
+                {{ facets.layer|default:_("0") }}
+              </span>{% trans "Layers" %}
               </a></p>
             </div>
             <div class="span2"><p><a href="{% url "maps_browse" %}"><span class="count">
-                {{ facets.map|default:_("0") }} 
-              </span>{% trans "Interactive Maps" %} 
+                {{ facets.map|default:_("0") }}
+              </span>{% trans "Interactive Maps" %}
               </a></p>
             </div>
             <div class="span2"><p><a href="{% url "document_browse" %}"><span class="count">
-                {{ facets.document|default:_("0") }} 
-              </span>{% trans "Static Maps" %} 
+                {{ facets.document|default:_("0") }}
+              </span>{% trans "Static Maps" %}
               </a></p>
             </div>
             <div class="span2"><p><a href="{% url "profile_browse" %}"><span class="count">
-                {{ facets.user|default:_("0") }} 
-              </span>{% trans "Users" %} 
+                {{ facets.user|default:_("0") }}
+              </span>{% trans "Users" %}
               </a></p>
             </div> -->
-          {% endwith %}  
-          <!-- </div>  --> 
-        <!-- </div>  --> 
-      <!-- </div> -->  
-    </div>  
-  </section>  
- <div ng-app="featured"> 
+          {% endwith %}
+          <!-- </div>  -->
+        <!-- </div>  -->
+      <!-- </div> -->
+    </div>
+  </section>
+ <div ng-app="featured">
 
   <div class="container container-down10px">
 
@@ -131,7 +131,7 @@
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
-              
+
                 <div>
                   <div class="span3">
                     <div  class="map-thumb-snapshot thumbnail">
@@ -141,16 +141,16 @@
                       </a>
                       <div class="map-abstract">
                         <p class="cust_date"><a href="./maps/700/view"><strong>{% trans "Flood" %}</strong><em class="timestamp"></em></a></p>
-                        <p class="cust_headline"><a href="./maps/700/view">{% trans "River and flash flood forecast" %}</a></p>        
-                        <p class="cust_tag"><a href="./maps/700/view">{% trans "Click to explore for the forecast on river floods and flash floods. River flood forecasts are valid for 4 days and updated every 6 hours, whereas the flash floods are valid for 6 hours and updated hourly. 
-The map and statistics are is updated every 6 hours." %}</a></p>
-                      </div>  
-                      
-             
+                        <p class="cust_headline"><a href="./maps/700/view">{% trans "River and flash flood forecast" %}</a></p>
+                        <p class="cust_tag"><a href="./maps/700/view">{% trans "Click to explore for the forecast on river floods and flash floods. River flood forecasts are valid for 4 days and updated every 6 hours, whereas the flash floods are valid for 6 hours and updated hourly." %}
+{% trans "The map and statistics are is updated every 6 hours." %}</a></p>
+                      </div>
+
+
                     </div>
                 </div>
               </div>
-              
+
             </div>
 
           </section>
@@ -168,7 +168,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
-              
+
                 <div>
                   <div class="span3">
                     <div class="map-thumb-snapshot thumbnail">
@@ -178,13 +178,13 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                       </a>
                       <div class="map-abstract">
                         <p class="cust_date"><a href="./maps/707/view"><strong>{% trans "Avalanches" %}</strong><em class="timestamp"></em></a></p>
-                        <p class="cust_headline"><a href="./maps/707/view">{% trans "Avalanches forecast" %}</a></p>        
+                        <p class="cust_headline"><a href="./maps/707/view">{% trans "Avalanches forecast" %}</a></p>
                         <p class="cust_tag"><a href="./maps/707/view">{% trans "Click to explore for the number of people potentially affected by avalanches based on the current snow cover and snow water equivalent (at small basin scale)" %}</a></p>
                       </div>
                     </div>
                 </div>
               </div>
-              
+
             </div>
 
           </section>
@@ -202,7 +202,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
-              
+
                 <div>
                   <div class="span3">
                     <div class="map-thumb-snapshot thumbnail">
@@ -212,13 +212,13 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                       </a>
                       <div class="map-abstract">
                         <p class="cust_date"><a href="./maps/704/view"><strong>{% trans "Snow Cover" %}</strong><em class="timestamp"></em></a></p>
-                        <p class="cust_headline"><a href="./maps/704/view">{% trans "Current Snow Cover and Depth" %}</a></p>        
+                        <p class="cust_headline"><a href="./maps/704/view">{% trans "Current Snow Cover and Depth" %}</a></p>
                         <p class="cust_tag"><a href="./maps/704/view">{% trans "Click to explore for the current snow cover and depth" %}</a></p>
                       </div>
                     </div>
                 </div>
               </div>
-              
+
             </div>
 
           </section>
@@ -236,7 +236,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
-              
+
       <!--         <div ng-app="featured"> -->
 		{% verbatim %}
                 <div ng-repeat="item in latestdocs.objects">
@@ -246,10 +246,10 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                         <img src="{{ item.thumbnail_url }}" />
                       </a>
                       <div class="map-abstract">
-                        <p class="cust_date"><a href="{{ item.detail_url }}">{% trans "from" %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p> 
-                        <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>         
+                        <p class="cust_date"><a href="{{ item.detail_url }}">{% endverbatim %}{% trans "from" %}{% verbatim %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p>
+                        <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>
                         <p class="cust_tag"><a href="{{ item.detail_url }}">{{ item.abstract }}</a></p>
-                      </div>  
+                      </div>
                       <div class="map-title"><a href="{{ item.detail_url }}" class="map-link">{{ item.title }}</a></div>
                       <div class="views pull-right"><i class="icon-eye-open"></i>{{ item.popular_count }}</div>
                     </div>
@@ -262,7 +262,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
       </div>
     </div>
 
-    
+
 
     <div class="col-xs-7 panel-custom">
       <div class="panel panel-primary">
@@ -273,7 +273,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
-		{% verbatim %}              
+		{% verbatim %}
                 <div ng-repeat="item in latestflood.objects">
                   <div class="span3">
                     <div class="map-thumb thumbnail">
@@ -281,16 +281,16 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                         <img src="{{ item.thumbnail_url }}" />
                       </a>
                       <div class="map-abstract">
-                        <p class="cust_date"><a href="{{ item.detail_url }}">{% trans "from" %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p>
-                        <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>        
+                        <p class="cust_date"><a href="{{ item.detail_url }}">{% endverbatim %}{% trans "from" %}{% verbatim %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p>
+                        <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>
                         <p class="cust_tag"><a href="{{ item.detail_url }}">{{ item.abstract }}</a></p>
-                      </div>  
+                      </div>
                       <div class="map-title"><a href="{{ item.detail_url }}" class="map-link">{{ item.title }}</a></div>
                       <div class="views pull-right"><i class="icon-eye-open"></i>{{ item.popular_count }}</div>
                     </div>
                 </div>
               </div>
-		{% endverbatim %}              
+		{% endverbatim %}
             <!-- </div> -->
           </section>
         </div>
@@ -300,7 +300,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
 
 
 
-    
+
 
     <!-- <div ng-if="featured.meta.total_count > 0" class="col-xs-12 panel-custom">
       <div class="panel panel-primary">
@@ -312,7 +312,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
         <div class="panel-body">
           <section class="featured-maps">
             <div class="row">
-              
+
                 <div ng-repeat="item in featured.objects">
                   <div class="span3">
                     <div class="map-thumb thumbnail">
@@ -321,26 +321,26 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                       </a>
                       <div class="map-abstract">
                         <p class="cust_date"><a href="{{ item.detail_url }}">{% endverbatim %}{% trans "from" %}{% verbatim %} <strong>{{ item.owner__username }}</strong>, <em class="timestamp">{{ item.date|date:"d MMM y" }}</em></a></p>
-                        <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>        
+                        <p class="cust_headline"><a href="{{ item.detail_url }}">{{ item.title }}</a></p>
                         <p class="cust_tag"><a href="{{ item.detail_url }}">{{ item.abstract }}</a></p>
-                      </div>  
+                      </div>
                       <div class="map-title"><a href="{{ item.detail_url }}" class="map-link">{{ item.title }}</a></div>
                       <div class="views pull-right"><i class="icon-eye-open"></i>{{ item.popular_count }}</div>
                     </div>
                 </div>
               </div>
-              
-            </div> 
+
+            </div>
             {% endverbatim %}
           </section>
         </div>
       </div>
     </div> -->
-    
-  </div>
-  
 
-  
+  </div>
+
+
+
 
   <div class="container">
 
@@ -356,7 +356,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
               data-embed="default"
               class="video-js" controls
               data-setup='{"example_option":true}'></video>
-           
+
             <ol class="vjs-playlist"></ol>
                       <!-- <div  class="col-xs-3 panel-video">
                         <video id="my-video1" poster="http://asdc.immap.org/static/lib/video/statistic_tool.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"415:250", "playbackRates": [1, 1.5, 2] }'>
@@ -375,7 +375,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                           </p>
                         </video>
-                      </div>  
+                      </div>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/finder_tool.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool.mp4" type='video/mp4'>
@@ -384,7 +384,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                           </p>
                         </video>
-                      </div>  
+                      </div>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/static_maps.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps.mp4" type='video/mp4'>
@@ -393,7 +393,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                           </p>
                         </video>
-                      </div>  
+                      </div>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/earthquake.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes.mp4" type='video/mp4'>
@@ -402,7 +402,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                           </p>
                         </video>
-                      </div>  
+                      </div>
                       <div  class="col-xs-3 panel-video">
                         <video id="my-video2" poster="http://asdc.immap.org/static/lib/video/dashboard.jpg" class="video-js vjs-default-skin" width="400" height="250" controls preload="none" data-setup='{ "aspectRatio":"400:250", "playbackRates": [1, 1.5, 2] }'>
                           <source src="http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard.mp4" type='video/mp4'>
@@ -422,10 +422,10 @@ The map and statistics are is updated every 6 hours." %}</a></p>
                         </video>
                       </div>   -->
         </div>
-      </div>  
+      </div>
     </div>
-  </div>  
-  
+  </div>
+
 
   <!-- <div class="container">
     <div class="row home-facets">
@@ -434,11 +434,11 @@ The map and statistics are is updated every 6 hours." %}</a></p>
       <div class="col-md-4">
         <p><a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-5x rotate-45"></i></a></p>
         <h2><a href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></h2>
-        <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p> 
+        <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p>
         {% if user.is_authenticated %}
         <p class="text-center"><a class="btn btn-default" href="{% url "layer_upload" %}" role="button">{% trans "Add layers" %} &raquo;</a></p>
         {% else %}
-        <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>        
+        <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>
         {% endif %}
       </div>
       <div class="col-md-4">
@@ -459,10 +459,10 @@ The map and statistics are is updated every 6 hours." %}</a></p>
       </div>
     {% endwith %}
     </div>
-  </div> --> 
-  
+  </div> -->
+
   {% endblock %}
-  
+
 {% endblock %}
 
 {% block extra_script %}
@@ -631,7 +631,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
     LATESTDOCS_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='lastestdocument' %}?category__identifier__in=agr-01,agr-02,agr-03,av-01,av-02,bnd-01,bnd-02,bnd-03,bnd-04,bnd-int,dr-01,dr-02,edu-01,edu-02,eq-01,erm-01,erm-02,erm-03,erm-04,erm-05,erm-06,erm-07,erm-08,geo-01,geo-02,geo-03,geo-04,geo-05,geo-06,geo-07,geo-08,geo-09,geo-10,hlt-01,hlt-02,hlt-03,hlt-04,hydro-01,hydro-02,hydro-03,hydro-04,hz-01,hz-03,idp-01,idp-02,idp-03,idp-04,img-01,img-02,infr-01,infr-02,infr-03,infr-04,infr-05,infr-06,met-01,met-02,met-03,met-04,met-05,met-06,ot-01,ot-02,ppl-01,ppl-02,ppl-03,sec-01,sec-02,sos-01,sos-02,sos-03,sos-04&limit=6&offset=0&order_by=-date';
     LATESTFLOOD_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents' %}?category__identifier__in=fl-01,fl-02,fl-03&limit=6&offset=0&order_by=-date';
     'use strict';
-    (function(){  
+    (function(){
       var module = angular.module('featured', []);
       module.run(function($http, $rootScope){
         $http.get(FEATURED_URL).success(function(data){
@@ -650,7 +650,7 @@ The map and statistics are is updated every 6 hours." %}</a></p>
       $( "#avaSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
       $( "#scSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_snow_depth,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
 
-    })(); 
+    })();
   </script>
 
 {% endblock extra_script %}
