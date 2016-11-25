@@ -1,50 +1,52 @@
- <div class="container">
+{% load i18n %}
+
+<div class="container">
 	<div class="gridster">
 		<div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">          
+        <ul class="nav navbar-nav">
           <li id="nav_dashbaseline">
-            <a href="/dashboard/?page=baseline{{add_link}}">Baseline</a>
+            <a href="/dashboard/?page=baseline{{add_link}}">{% trans 'Baseline' %}</a>
           </li>
           <li id="nav_dashaccessibility">
-            <a href="/dashboard/?page=accessibility{{add_link}}">Accessibility</a>
+            <a href="/dashboard/?page=accessibility{{add_link}}">{% trans 'Accessibility' %}</a>
           </li>
           <li id="nav_dashfloodforecast">
-            <a href="/dashboard/?page=floodforecast{{add_link}}">Flood Forecast</a>
+            <a href="/dashboard/?page=floodforecast{{add_link}}">{% trans 'Flood Forecast' %}</a>
           </li>
           <li id="nav_dashfloodrisk">
-            <a href="/dashboard/?page=floodrisk{{add_link}}">Flood Risk</a>
+            <a href="/dashboard/?page=floodrisk{{add_link}}">{% trans 'Flood Risk' %}</a>
           </li>
           <li id="nav_dashavalancheforecast">
-            <a href="/dashboard/?page=avalcheforecast{{add_link}}">Avalanche Forecast</a>
-          </li> 
+            <a href="/dashboard/?page=avalcheforecast{{add_link}}">{% trans 'Avalanche Forecast' %}</a>
+          </li>
           <li id="nav_dashavalancherisk">
-            <a href="/dashboard/?page=avalancherisk{{add_link}}">Avalanche Risk</a>
+            <a href="/dashboard/?page=avalancherisk{{add_link}}">{% trans 'Avalanche Risk' %}</a>
           </li>
           <li id="nav_dashearthquake">
-            <a href="/dashboard/?page=earthquake{{add_link}}">Earthquake</a>
+            <a href="/dashboard/?page=earthquake{{add_link}}">{% trans 'Earthquake' %}</a>
           </li>
           <li id="nav_dashsecurity">
-            <a href="/dashboard/?page=security{{add_link}}">Humanitarian Access</a>
+            <a href="/dashboard/?page=security{{add_link}}">{% trans 'Humanitarian Access' %}</a>
           </li>
-          
+
         </ul>
-  
+
       </div>
 
-      
+
 	</div>
-</div>	
+</div>
 
 <div class="container print-hide" style="width: 940px;margin: 0 auto;">
       <div class="pull-right" style="width:30%;">
           <var id="result-container" class="result-container"></var>
-       
+
           <form id="form-country_v2" name="form-country_v2">
               <div class="typeahead__container">
                   <div class="typeahead__field">
-           
+
                       <span class="typeahead__query">
-                          <input class="js-typeahead-country_v2" name="country_v2[query]" type="search" placeholder="Search Region" autocomplete="off">
+                          <input class="js-typeahead-country_v2" name="country_v2[query]" type="search" placeholder="{% trans 'Search Region' %}" autocomplete="off">
                       </span>
                       <span class="typeahead__button">
                           <button type="">
@@ -56,12 +58,12 @@
                               <i class="typeahead__download-pdf"></i>
                           </button>
                       </span>
-           
+
                   </div>
               </div>
-          </form> 
+          </form>
       </div>
-</div>      
+</div>
 
 {% include "qlink_list.html" %}
 
@@ -110,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
           return '<span class="row">' +
               '<span>'+item.name+' <small style="color:#999;">'+item.group+'</small></span>' +
           "</span>";
-        }  
+        }
       },
       source: {
           country: {
@@ -146,27 +148,27 @@ document.addEventListener('DOMContentLoaded', function() {
                   var resultList = node.closest("form").find("ul.typeahead__list"),
                       activeLi = lis.filter("li.active"),
                       offsetTop = activeLi[0] && activeLi[0].offsetTop - (resultList.height() / 2) || 0;
-   
+
                   resultList.scrollTop(offsetTop);
               }
-   
+
           },
           onClickAfter: function (node, a, item, event) {
-   
+
               event.preventDefault();
-   
+
               // var r = confirm("You will be redirected to:\n" + item.href + "\n\nContinue?");
               // if (r == true) {
                   // window.open(item.href);
                   window.document.location = item.href;
               // }
-   
+
               $('#result-container').text('');
-   
+
           },
           onResult: function (node, query, result, resultCount) {
               if (query === "") return;
-   
+
               var text = "";
               if (result.length > 0 && result.length < resultCount) {
                   text = "Showing <strong>" + result.length + "</strong> of <strong>" + resultCount + '</strong> elements matching "' + query + '"';
@@ -176,19 +178,19 @@ document.addEventListener('DOMContentLoaded', function() {
                   text = 'No results matching "' + query + '"';
               }
               $('#result-container').html(text);
-   
+
           }//,
           // onMouseEnter: function (node, a, item, event) {
-   
+
           //     if (item.group === "country") {
           //         $(a).append('<span class="flag-chart flag-' + item.display.replace(' ', '-').toLowerCase() + '"></span>')
           //     }
-   
+
           // },
           // onMouseLeave: function (node, a, item, event) {
-   
+
           //     $(a).find('.flag-chart').remove();
-   
+
           // }
       }
   });
@@ -200,5 +202,5 @@ document.addEventListener('DOMContentLoaded', function() {
     $(".se-pre-con").fadeOut("slow");
   });
 
-});  
+});
 </script>

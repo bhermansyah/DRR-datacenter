@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% verbatim %}
   <article ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
   	<div class="row items-list">
@@ -7,119 +9,122 @@
       <div class="col-xs-9 item-info">
         <div style="">
           {% endverbatim %}{% if request.user.is_authenticated %}
-          <button class="btn btn-default btn-xs pull-right" ng-click="feature_select($event)">Select</button>
-          {% endif %}{% verbatim %}
+          <button class="btn btn-default btn-xs pull-right" ng-click="feature_select($event)">{% trans "Select" %}</button>
+          {% endif %}
 
-        </div> 
-        <div style=""> 
+        </div>
+        <div style="">
+          {% verbatim %}
           <h3 ng-if="item.detail_url.indexOf('/maps/') > -1"><a href="/maps/{{item.id}}/view">{{ item.title }}</a></h3>
           <h3 ng-if="item.detail_url.indexOf('/documents/') > -1"><a href="{{ item.detail_url }}">{{ item.title }}</a></h3>
           <h3 ng-if="item.detail_url.indexOf('/layers/') > -1"><a href="{{ item.detail_url }}">{{ item.title }}</a></h3>
           <p ng-if="item.detail_url.indexOf('/documents/') > -1 && item.subtitle">{{ item.subtitle }}</p>
-          <p ng-if="item.detail_url.indexOf('/documents/') > -1">Published {{ item.date | date:'d MMMM yyyy'}}</p>
-          <p ng-if="item.detail_url.indexOf('/layers/') > -1">Layer from <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }} </a> published {{ item.date | timeAgo }}</p>
-          <p ng-if="item.detail_url.indexOf('/maps/') > -1">Map from <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }} </a> published {{ item.date | timeAgo }}</p>
+          {% endverbatim %}
+          <p ng-if="item.detail_url.indexOf('/documents/') > -1">{% trans "Published" %} {% verbatim %}{{ item.date | date:'d MMMM yyyy'}}{% endverbatim %}</p>
+          <p ng-if="item.detail_url.indexOf('/layers/') > -1">{% trans "Layer from" %} <a href="/people/profile/{% verbatim %}{{ item.owner__username }}">{{ item.owner__username }}{% endverbatim %} </a> {% trans "published" %} {% verbatim %}{{ item.date | timeAgo }}{% endverbatim %}</p>
+          <p ng-if="item.detail_url.indexOf('/maps/') > -1">{% trans "Map from" %} <a href="/people/profile/{% verbatim %}{{ item.owner__username }}">{{ item.owner__username }}{% endverbatim %} </a> {% trans "published" %} {% verbatim %}{{ item.date | timeAgo }}{% endverbatim %}</p>
 
           <!-- <p>{{ item.category__gn_description }} <span class="owner">by <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }}</a></span></p> -->
-          <p class="abstract">{{ item.abstract }}</p>
+          <p class="abstract">{% verbatim %}{{ item.abstract }}{% endverbatim %}</p>
 
+          {% verbatim %}
           <!-- <p class="actions">
             <a href="{{ item.detail_url }}#info"><i class="fa fa-calendar-o"></i>{{ item.date|date:'d MMM y' }}</a> |
             <a href="{{ item.detail_url }}"><i class="fa fa-eye"></i>{{ item.popular_count }}</a> |
             <a href="{{ item.detail_url }}#share"><i class="fa fa-share"></i>{{ item.share_count }}</a> |
-            <a href="{{ item.detail_url }}#rate"><i class="fa fa-star"></i>{{ item.rating }}</a> 
-            <a ng-if="item.detail_url.indexOf('/layers/') > -1" 
+            <a href="{{ item.detail_url }}#rate"><i class="fa fa-star"></i>{{ item.rating }}</a>
+            <a ng-if="item.detail_url.indexOf('/layers/') > -1"
               class="pull-right" href="{% endverbatim %}{% url "new_map" %}?layer={% verbatim %}{{ item.detail_url.substring(8) }}">
               <i class="fa fa-map-marker"></i>Create a Map</a>
-            <a ng-if="item.detail_url.indexOf('/maps/') > -1" 
+            <a ng-if="item.detail_url.indexOf('/maps/') > -1"
               class="pull-right" href="/maps/{{item.id}}/view">
               <i class="fa fa-map-marker"></i>View Map</a>
           </p> -->
+          {% endverbatim %}
           <ul class="nav stats">
             <li>
-              <a href="{{ item.detail_url }}"><strong>{{ item.popular_count }}</strong> Views</a>
+              <a href="{% verbatim %}{{ item.detail_url }}{% endverbatim %}"><strong>{% verbatim %}{{ item.popular_count }}{% endverbatim %}</strong> {% trans "Views" %}</a>
             </li>
             <li>
-              <a href="{{ item.detail_url }}#rate">
+              <a href="{% verbatim %}{{ item.detail_url }}{% endverbatim %}#rate">
                 <!-- <strong> -->
                   <div class="star-rating">
                       <!-- The '|| 0' would prevent an undefined or null value on the Rating property -->
-                      <div class="full-star" style="width: {{item.rating * 20 || 0}}%"></div>         
+                      <div class="full-star" style="width: {% verbatim %}{{item.rating * 20 || 0}}{% endverbatim %}%"></div>
                       <div class="empty-star"> </div>
-                      
+
                   </div>
-                  ({{item.rating}})
+                  {% verbatim %}({{item.rating}}){% endverbatim %}
                   <!-- <div class="overall_rating" style="float:left" data-score="{{ item.rating }}"></div> ({{item.rating}}) -->
                   <!-- TODO: Add display of who gave what rating based -->
                 <!-- </strong> -->
               </a>
-            </li> 
+            </li>
             <li ng-if="item.detail_url.indexOf('/layers/') > -1">
-              <a href="{% endverbatim %}{% url "new_map" %}?layer={% verbatim %}{{ item.detail_url.substring(8) }}">
+              <a href="{% url "new_map" %}?layer={% verbatim %}{{ item.detail_url.substring(8) }}{% endverbatim %}">
                 <div>
                   <br/>
-                  <i class="fa fa-map-marker"></i> Create a Map
+                  <i class="fa fa-map-marker"></i> {% trans "Create a Map" %}
                 </div>
-              </a>  
-            </li> 
-            <li ng-if="item.detail_url.indexOf('/maps/') > -1">
-              <a href="/maps/{{item.id}}/view">
-                <div>
-                  <br/>
-                  <i class="fa fa-map-marker"></i> View Map
-                </div>
-              </a>  
+              </a>
             </li>
             <li ng-if="item.detail_url.indexOf('/maps/') > -1">
-              <a href="{{ item.detail_url }}">
+              <a href="/maps/{% verbatim %}{{item.id}}{% endverbatim %}/view">
                 <div>
                   <br/>
-                  <i class="fa fa-map-marker"></i> View Detail
+                  <i class="fa fa-map-marker"></i> {% trans "View Map" %}
                 </div>
-              </a>  
+              </a>
+            </li>
+            <li ng-if="item.detail_url.indexOf('/maps/') > -1">
+              <a href="{% verbatim %}{{ item.detail_url }}{% endverbatim %}">
+                <div>
+                  <br/>
+                  <i class="fa fa-map-marker"></i> {% trans "View Detail" %}
+                </div>
+              </a>
             </li>
             <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.papersize">
               <a>
                 <div>
-                  <i class="papersizesymbol glyphicon glyphicon-file"><span class="papersizevalue">{{ item.papersize }}</span></i> 
+                  <i class="papersizesymbol glyphicon glyphicon-file"><span class="papersizevalue">{% verbatim %}{{ item.papersize }}{% endverbatim %}</span></i>
                 </div>
-              </a>  
+              </a>
             </li>
             <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.datasource">
               <a>
                 <div>
-                  <div>Data Sources</div>
-                  <div>{{ item.datasource }}</div>
+                  <div>{% trans "Data Sources" %}</div>
+                  <div>{% verbatim %}{{ item.datasource }}{% endverbatim %}</div>
                 </div>
-              </a>  
+              </a>
             </li>
             <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.version">
               <a>
                 <div>
-                  <div>Version</div>
-                  <div>{{ item.version }}</div>
+                  <div>{% trans "Version" %}</div>
+                  <div>{% verbatim %}{{ item.version }}{% endverbatim %}</div>
                 </div>
-              </a>  
+              </a>
             </li>
             <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.region_description">
               <a>
                 <div>
-                  <div>Region</div>
-                  <div>{{ item.region_description }}</div>
+                  <div>{% trans "Region" %}</div>
+                  <div>{% verbatim %}{{ item.region_description }}{% endverbatim %}</div>
                 </div>
-              </a>  
+              </a>
             </li>
             <li ng-if="item.detail_url.indexOf('/documents/') > -1 && item.keyword_description">
               <a>
                 <div>
-                  <div>Keywords</div>
-                  <div>{{ item.keyword_description }}</div>
+                  <div>{% trans "Keywords" %}</div>
+                  <div>{% verbatim %}{{ item.keyword_description }}{% endverbatim %}</div>
                 </div>
-              </a>  
+              </a>
             </li>
-          </ul>  
+          </ul>
         </div>
       </div>
     </div>
   </article>
-{% endverbatim %}
