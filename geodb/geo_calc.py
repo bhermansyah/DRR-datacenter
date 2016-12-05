@@ -28,8 +28,10 @@ from graphos.renderers import flot, gchart
 from graphos.sources.simple import SimpleDataSource
 from django.test import RequestFactory
 import urllib2, urllib
-import pygal       
+import pygal
 from geodb.radarchart import RadarChart
+
+from django.utils.translation import ugettext as _
 
 def query_to_dicts(cursor, query_string, *query_args):
     """Run a simple query and produce a generator
@@ -48,8 +50,8 @@ def query_to_dicts(cursor, query_string, *query_args):
 
 def getCommonUse(request,flag, code):
     response = {}
-    response['parent_label']='Custom Selection'
-    response['qlinks']='Select provinces'
+    response['parent_label']=_('Custom Selection')
+    response['qlinks']=_('Select provinces')
     response['adm_child'] = []
     response['adm_prov'] = []
     response['adm_dist'] = []
@@ -61,8 +63,8 @@ def getCommonUse(request,flag, code):
     # elif flag == 'currentProvince':
     #     if code<=34:
     #         lblTMP = AfgAdmbndaAdm1.objects.filter(prov_code=code)
-    #         response['parent_label_dash'] = 'Afghanistan - '+lblTMP[0].prov_na_en   
-    #         response['parent_label'] = lblTMP[0].prov_na_en 
+    #         response['parent_label_dash'] = 'Afghanistan - '+lblTMP[0].prov_na_en
+    #         response['parent_label'] = lblTMP[0].prov_na_en
     #     else:
     #         lblTMP = AfgAdmbndaAdm2.objects.filter(dist_code=code)
     #         response['parent_label_dash'] = 'Afghanistan - '+ lblTMP[0].prov_na_en + ' - ' +lblTMP[0].dist_na_en
@@ -72,9 +74,9 @@ def getCommonUse(request,flag, code):
     # clusterPoints = AfgAdmbndaAdm1.objects.all()
     response['parent_label_dash']=[]
     if flag == 'entireAfg':
-        response['parent_label']='Afghanistan'
-        response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
-        response['qlinks']='Select province'
+        response['parent_label']=_('Afghanistan')
+        response['parent_label_dash'].append({'name':_('Afghanistan'),'query':'','code':0})
+        response['qlinks']=_('Select province')
         resource = main_resource
         # clusterPoints = AfgAdmbndaAdm1.objects.all()
         for i in resource:
@@ -82,48 +84,48 @@ def getCommonUse(request,flag, code):
     elif flag == 'currentProvince':
         if code<=34:
             lblTMP = AfgAdmbndaAdm1.objects.filter(prov_code=code)
-            response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
-            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code),'code':code}) 
-            response['parent_label'] = lblTMP[0].prov_na_en 
-            response['qlinks']='Select district'
+            response['parent_label_dash'].append({'name':_('Afghanistan'),'query':'','code':0})
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(code),'code':code})
+            response['parent_label'] = lblTMP[0].prov_na_en
+            response['qlinks']=_('Select district')
             resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en').filter(prov_code=code).order_by('dist_na_en')
             # clusterPoints = AfgAdmbndaAdm2.objects.all()
             for i in resource:
                 response['adm_child'].append({'code':i['dist_code'],'name':i['dist_na_en']})
-            for i in main_resource: 
-                response['adm_prov'].append({'code':i['prov_code'],'name':i['prov_na_en']})   
+            for i in main_resource:
+                response['adm_prov'].append({'code':i['prov_code'],'name':i['prov_na_en']})
         else:
             lblTMP = AfgAdmbndaAdm2.objects.filter(dist_code=code)
-            response['parent_label_dash'].append({'name':'Afghanistan','query':'','code':0})
-            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code),'code':lblTMP[0].prov_code}) 
-            response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code),'code':code}) 
+            response['parent_label_dash'].append({'name':_('Afghanistan'),'query':'','code':0})
+            response['parent_label_dash'].append({'name':lblTMP[0].prov_na_en,'query':'&code='+str(lblTMP[0].prov_code),'code':lblTMP[0].prov_code})
+            response['parent_label_dash'].append({'name':lblTMP[0].dist_na_en,'query':'&code='+str(code),'code':code})
             response['parent_label'] = lblTMP[0].dist_na_en
             response['qlinks']=''
-            for i in main_resource: 
+            for i in main_resource:
                 response['adm_prov'].append({'code':i['prov_code'],'name':i['prov_na_en']})
-            resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en').filter(prov_code=lblTMP[0].prov_code).order_by('dist_na_en') 
-            for i in resource: 
-                response['adm_dist'].append({'code':i['dist_code'],'name':i['dist_na_en']})   
+            resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en').filter(prov_code=lblTMP[0].prov_code).order_by('dist_na_en')
+            for i in resource:
+                response['adm_dist'].append({'code':i['dist_code'],'name':i['dist_na_en']})
     else:
-        response['parent_label_dash'].append({'name':'Custom Selection','query':'','code':0})
+        response['parent_label_dash'].append({'name':_('Custom Selection'),'query':'','code':0})
         response['qlinks']=''
 
     # response['poi_points'] = []
     # for i in clusterPoints:
     #     response['poi_points'].append({'code':i.prov_code,'x':i.wkb_geometry.point_on_surface.x,'y':i.wkb_geometry.point_on_surface.y})
-    return response 
+    return response
 
 def getSecurity(request, filterLock, flag, code):
-    response = getCommonUse(request, flag, code) 
-    
+    response = getCommonUse(request, flag, code)
+
     enddate = datetime.date.today()
     startdate = datetime.date.today() - datetime.timedelta(days=365)
     daterange = startdate.strftime("%Y-%m-%d")+','+enddate.strftime("%Y-%m-%d")
 
-    
+
 
     if 'daterange' in request.GET:
-        daterange = request.GET['daterange'] 
+        daterange = request.GET['daterange']
 
 
 
@@ -138,20 +140,20 @@ def getSecurity(request, filterLock, flag, code):
     # dataHLT.append(['Injured',rawCasualties['total_injured'], rawCasualties['total_injured'] ])
     # dataHLT.append(['# Incidents',rawCasualties['total_incident'], rawCasualties['total_incident'] ])
     # response['casualties_chart'] = gchart.BarChart(
-    #     SimpleDataSource(data=dataHLT), 
-    #     html_id="pie_chart1", 
+    #     SimpleDataSource(data=dataHLT),
+    #     html_id="pie_chart1",
     #     options={
-    #         'title': 'Security Incident Overview', 
+    #         'title': 'Security Incident Overview',
     #         'width': 300,
-    #         'height': 300, 
+    #         'height': 300,
     #         'legend': { 'position': 'none' },
 
     #         'bars': 'horizontal',
     #         'axes': {
     #             'x': {
-    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'}
     #             },
-            
+
     #         },
     #         'bar': { 'groupWidth': '90%' },
     #         'chartArea': {'width': '50%'},
@@ -166,25 +168,25 @@ def getSecurity(request, filterLock, flag, code):
     # for type_item in main_type_raw_data:
     #     data_main_type.append([type_item['main_type'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
     # response['main_type_chart'] = gchart.BarChart(
-    #     SimpleDataSource(data=data_main_type), 
-    #     html_id="pie_chart2", 
+    #     SimpleDataSource(data=data_main_type),
+    #     html_id="pie_chart2",
     #     options={
-    #         'title': 'Incident type overview and casualties', 
+    #         'title': 'Incident type overview and casualties',
     #         'width': 450,
-    #         'height': 450, 
+    #         'height': 450,
     #         'isStacked':'true',
     #         'bars': 'horizontal',
     #         'axes': {
     #             'x': {
-    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'}
     #             },
-            
+
     #         },
     #         'annotations': {
     #             'textStyle': {
     #                 'fontSize':7
-    #             }    
-    #         },  
+    #             }
+    #         },
     #         'bar': { 'groupWidth': '90%' },
     #         'chartArea': {'width': '60%', 'height': '90%'},
     #         'titleX':'# of incident and casualties',
@@ -194,43 +196,43 @@ def getSecurity(request, filterLock, flag, code):
     for type_item in main_type_raw_data:
         data_main_type.append([type_item['main_type'],type_item['count'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['injured'] ])
     response['main_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
-            html_id="pie_chart2", 
+            html_id="pie_chart2",
             options={
-                'title': 'Number of Incident by Incident Type',
+                'title': _('Number of Incident by Incident Type'),
                 'col-included' : [
-                    {'col-no':1,'name':'Incidents','fill':True}
+                    {'col-no':1,'name':_('Incidents'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
     response['dead_casualties_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
-            html_id="pie_chart4", 
+            html_id="pie_chart4",
             options={
-                'title': 'Number of dead casualties by Incident Type',
+                'title': _('Number of dead casualties by Incident Type'),
                 'col-included' : [
-                    {'col-no':2,'name':'Dead','fill':True}
+                    {'col-no':2,'name':_('Dead'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
     response['injured_casualties_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
-            html_id="pie_chart4", 
+            html_id="pie_chart4",
             options={
-                'title': 'Number of injured casualties by Incident Type',
+                'title': _('Number of injured casualties by Incident Type'),
                 'col-included' : [
-                    {'col-no':4,'name':'Injured','fill':True}
+                    {'col-no':4,'name':_('Violent'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
     response['violent_casualties_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
-            html_id="pie_chart4", 
+            html_id="pie_chart4",
             options={
-                'title': 'Number of affected person by Incident Type',
+                'title': _('Number of affected person by Incident Type'),
                 'col-included' : [
-                    {'col-no':3,'name':'Injured','fill':True}
+                    {'col-no':3,'name':_('Injured'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
     response['main_target_child'] = getSAMParams(request, daterange, filterLock, flag, code, 'main_target', False)
@@ -241,26 +243,26 @@ def getSecurity(request, filterLock, flag, code):
     #      data_main_target.append([type_item['main_target'],type_item['count'],type_item['count'], type_item['dead'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['violent']+type_item['affected'], type_item['injured'], type_item['injured'] ])
 
     # response['main_target_chart'] = gchart.BarChart(
-    #     SimpleDataSource(data=data_main_target), 
-    #     html_id="pie_chart3", 
+    #     SimpleDataSource(data=data_main_target),
+    #     html_id="pie_chart3",
     #     options={
-    #         'title': 'Incident target overview and casualties', 
+    #         'title': 'Incident target overview and casualties',
     #         'width': 450,
-    #         'height': 450, 
+    #         'height': 450,
     #         # 'legend': { 'position': 'none' },
     #         'isStacked':'true',
     #         'bars': 'horizontal',
     #         'axes': {
     #             'x': {
-    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'} 
+    #               '0': { 'side': 'top', 'label': '# of Casualties and Incident'}
     #             },
-            
+
     #         },
     #         'annotations': {
     #             'textStyle': {
     #                 'fontSize':7
-    #             }    
-    #         },  
+    #             }
+    #         },
     #         'bar': { 'groupWidth': '90%' },
     #         'chartArea': {'width': '60%', 'height': '90%'},
     #         'titleX':'# of incident and casualties',
@@ -269,46 +271,46 @@ def getSecurity(request, filterLock, flag, code):
     for type_item in main_target_raw_data:
          data_main_target.append([type_item['main_target'],type_item['count'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['injured'] ])
     response['main_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
-            html_id="pie_chart3", 
+            html_id="pie_chart3",
             options={
-                'title': 'Number of Incident by Incident Target',
+                'title': _('Number of Incident by Incident Target'),
                 'col-included' : [
-                    {'col-no':1,'name':'Incidents','fill':True}
+                    {'col-no':1,'name':_('Incidents'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
     response['dead_casualties_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
-            html_id="pie_chart4", 
+            html_id="pie_chart4",
             options={
-                'title': 'Number of dead casualties by Incident Target',
+                'title': _('Number of dead casualties by Incident Target'),
                 'col-included' : [
-                    {'col-no':2,'name':'Dead','fill':True}
+                    {'col-no':2,'name':_('Dead'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
     response['injured_casualties_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
-            html_id="pie_chart4", 
+            html_id="pie_chart4",
             options={
-                'title': 'Number of injured casualties by Incident Target',
+                'title': _('Number of injured casualties by Incident Target'),
                 'col-included' : [
-                    {'col-no':4,'name':'Injured','fill':True}
+                    {'col-no':4,'name':_('Injured'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
     response['violent_casualties_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
-            html_id="pie_chart4", 
+            html_id="pie_chart4",
             options={
-                'title': 'Number of affected person by Incident Target',
+                'title': _('Number of affected person by Incident Target'),
                 'col-included' : [
-                    {'col-no':3,'name':'Injured','fill':True}
+                    {'col-no':3,'name':_('Injured'),'fill':True}
                 ]
-            }     
+            }
         ).get_image()
 
-    
+
     response['incident_type'] = []
     response['incident_target'] = []
 
@@ -316,27 +318,27 @@ def getSecurity(request, filterLock, flag, code):
         response['incident_type'].append(i['main_type'])
 
     for i in response['main_target_child']:
-        response['incident_target'].append(i['main_target'])    
+        response['incident_target'].append(i['main_target'])
 
     if 'incident_type' in request.GET:
-        response['incident_type'] = request.GET['incident_type'].split(',') 
+        response['incident_type'] = request.GET['incident_type'].split(',')
         print response['incident_type']
 
     if 'incident_target' in request.GET:
-        response['incident_target'] = request.GET['incident_target'].split(',')  
-        print response['incident_target']   
+        response['incident_target'] = request.GET['incident_target'].split(',')
+        print response['incident_target']
 
     data = getListIncidentCasualties(request, daterange, filterLock, flag, code)
-    response['lc_child']=data 
+    response['lc_child']=data
 
     response['incident_type_group']=[]
     for i in main_type_raw_data:
         response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':getSAMIncident(request, daterange, filterLock, flag, code, 'type', i['main_type'])})
-    
+
     response['incident_target_group']=[]
     for i in main_target_raw_data:
         response['incident_target_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_target':i['main_target'],'child':getSAMIncident(request, daterange, filterLock, flag, code, 'target', i['main_target'])})
-        
+
     response['incident_list_100'] = getListIncidents(request, daterange, filterLock, flag, code)
 
     return response
@@ -344,7 +346,7 @@ def getSecurity(request, filterLock, flag, code):
 def getListIncidentCasualties(request, daterange, filterLock, flag, code):
     response = []
     data = getProvinceSummary(filterLock, flag, code)
-    for i in data:      
+    for i in data:
         data ={}
         data['code'] = i['code']
         data['na_en'] = i['na_en']
@@ -354,9 +356,9 @@ def getListIncidentCasualties(request, daterange, filterLock, flag, code):
         rawCasualties = getIncidentCasualties(request, daterange, filterLock, 'currentProvince', i['code'])
         for x in rawCasualties:
             data[x]=rawCasualties[x]
-        
+
         response.append(data)
-    return response      
+    return response
 
 def getListIncidents(request, daterange, filterLock, flag, code):
     response = {}
@@ -366,7 +368,7 @@ def getListIncidents(request, daterange, filterLock, flag, code):
 
     if flag=='entireAfg':
         filterLock = ''
-    elif flag =='currentProvince':    
+    elif flag =='currentProvince':
         filterLock = ''
         if len(str(code)) > 2:
             resource = resource.filter(dist_code=code)
@@ -379,27 +381,27 @@ def getListIncidents(request, daterange, filterLock, flag, code):
         resource = resource.filter(wkb_geometry__intersects=filterLock)
 
     if 'incident_type' in request.GET:
-        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
     if 'incident_target' in request.GET:
-        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))  
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
     resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1]).order_by('-incident_date')
 
     resource = resource.values('incident_date','description')[:100]
-    return resource   
+    return resource
 
 def getSAMIncident(request, daterange, filterLock, flag, code, group, filter):
     response = {}
     if group == 'type':
         resource = AfgIncidentOasis.objects.all().filter(main_type=filter)
     elif group == 'target':
-        resource = AfgIncidentOasis.objects.all().filter(main_target=filter)   
+        resource = AfgIncidentOasis.objects.all().filter(main_target=filter)
     date = daterange.split(',')
 
     if flag=='entireAfg':
         filterLock = ''
-    elif flag =='currentProvince':    
+    elif flag =='currentProvince':
         filterLock = ''
         if len(str(code)) > 2:
             resource = resource.filter(dist_code=code)
@@ -412,15 +414,15 @@ def getSAMIncident(request, daterange, filterLock, flag, code, group, filter):
         resource = resource.filter(wkb_geometry__intersects=filterLock)
 
     if 'incident_type' in request.GET:
-        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
     if 'incident_target' in request.GET:
-        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))        
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])           
-    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group) 
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
+    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group)
 
-    return resource     
+    return resource
 
 def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilter):
     response = {}
@@ -429,7 +431,7 @@ def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilte
 
     if flag=='entireAfg':
         filterLock = ''
-    elif flag =='currentProvince':    
+    elif flag =='currentProvince':
         filterLock = ''
         if len(str(code)) > 2:
             resource = resource.filter(dist_code=code)
@@ -442,13 +444,13 @@ def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilte
         resource = resource.filter(wkb_geometry__intersects=filterLock)
 
     if includeFilter and 'incident_type' in request.GET:
-        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
     if includeFilter and 'incident_target' in request.GET:
-        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))        
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])           
-    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group) 
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
+    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group)
 
     return resource
 
@@ -460,7 +462,7 @@ def getIncidentCasualties(request, daterange, filterLock, flag, code):
 
     if flag=='entireAfg':
         filterLock = ''
-    elif flag =='currentProvince':    
+    elif flag =='currentProvince':
         filterLock = ''
         if len(str(code)) > 2:
             resource = resource.filter(dist_code=code)
@@ -472,13 +474,13 @@ def getIncidentCasualties(request, daterange, filterLock, flag, code):
     if filterLock!='':
         resource = resource.filter(wkb_geometry__intersects=filterLock)
 
-    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])  
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
 
     if 'incident_type' in request.GET:
-        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))  
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
     if 'incident_target' in request.GET:
-        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))    
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
     resource = resource.aggregate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead'))
 
@@ -487,7 +489,7 @@ def getIncidentCasualties(request, daterange, filterLock, flag, code):
     response['total_violent'] = resource['violent'] if resource['violent'] != None else 0 +resource['affected'] if resource['affected'] != None else 0
     response['total_dead'] = resource['dead'] if resource['dead'] != None else 0
 
-    return response    
+    return response
 
 def getEarthquake(request, filterLock, flag, code):
 
@@ -495,9 +497,9 @@ def getEarthquake(request, filterLock, flag, code):
     if 'eq_event' in request.GET:
         eq_event = request.GET['eq_event']
 
-    response = getCommonUse(request, flag, code) 
+    response = getCommonUse(request, flag, code)
     targetBase = AfgLndcrva.objects.all()
-    
+
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
@@ -532,7 +534,7 @@ def getEarthquake(request, filterLock, flag, code):
                 response['EQ_title'] = x['detail_title']
                 response['eq_link'] = '&eq_event='+eq_event
             else:
-                x['selected']=False                
+                x['selected']=False
 
         response['eq_list'].append(x)
 
@@ -552,8 +554,8 @@ def getEarthquake(request, filterLock, flag, code):
     dataEQ.append(['VIII : Severe',response['pop_shake_severe'] if 'pop_shake_severe' in response else 0])
     dataEQ.append(['IX : Violent',response['pop_shake_violent'] if 'pop_shake_violent' in response else 0])
     dataEQ.append(['X+ : Extreme',response['pop_shake_extreme'] if 'pop_shake_extreme' in response else 0])
-    response['EQ_chart'] = gchart.PieChart(SimpleDataSource(data=dataEQ), html_id="pie_chart1", options={'title': response['EQ_title'], 'width': 450,'height': 300, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'right', 'maxLines':4}, 'slices':{0:{'color':'#c4ceff'},1:{'color':'#7cfddf'},2:{'color':'#b1ff55'},3:{'color':'#fcf109'},4:{'color':'#ffb700'},5:{'color':'#fd6500'},6:{'color':'#ff1f00'},7:{'color':'#d20003'}} }) 
-    
+    response['EQ_chart'] = gchart.PieChart(SimpleDataSource(data=dataEQ), html_id="pie_chart1", options={'title': response['EQ_title'], 'width': 450,'height': 300, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'right', 'maxLines':4}, 'slices':{0:{'color':'#c4ceff'},1:{'color':'#7cfddf'},2:{'color':'#b1ff55'},3:{'color':'#fcf109'},4:{'color':'#ffb700'},5:{'color':'#fd6500'},6:{'color':'#ff1f00'},7:{'color':'#d20003'}} })
+
     response['total_eq_pop'] = response['pop_shake_weak']+response['pop_shake_light']+response['pop_shake_moderate']+response['pop_shake_strong']+response['pop_shake_verystrong']+response['pop_shake_severe']+response['pop_shake_violent']+response['pop_shake_extreme']
     response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
 
@@ -565,7 +567,7 @@ def getEarthquake(request, filterLock, flag, code):
 def getListEQ(filterLock, flag, code, eq_event):
     response = []
     data = getProvinceSummary(filterLock, flag, code)
-    for i in data:      
+    for i in data:
         data ={}
         data['code'] = i['code']
         data['na_en'] = i['na_en']
@@ -575,9 +577,9 @@ def getListEQ(filterLock, flag, code, eq_event):
         rawEarthquake = getEQData(filterLock, 'currentProvince', i['code'], eq_event)
         for x in rawEarthquake:
             data[x]=rawEarthquake[x]
-        
+
         response.append(data)
-    return response             
+    return response
 
 def getEQData(filterLock, flag, code, event_code):
     p = earthquake_shakemap.objects.all().filter(event_code=event_code)
@@ -705,7 +707,7 @@ def getEQData(filterLock, flag, code, event_code):
             and ST_Intersects(a.wkb_geometry,"+filterLock+")    \
         ")
         col_names = [desc[0] for desc in cursor.description]
-       
+
         row = cursor.fetchone()
         row_dict = dict(izip(col_names, row))
 
@@ -713,7 +715,7 @@ def getEQData(filterLock, flag, code, event_code):
         counts={}
         counts[0] = row_dict
 
-    elif flag=='entireAfg':    
+    elif flag=='entireAfg':
         counts = list(villagesummaryEQ.objects.all().extra(
             select={
                 'pop_shake_weak' : 'coalesce(SUM(pop_shake_weak),0)',
@@ -753,12 +755,12 @@ def getEQData(filterLock, flag, code, event_code):
                 'settlement_shake_severe',
                 'settlement_shake_violent',
                 'settlement_shake_extreme'
-            ))   
+            ))
     elif flag =='currentProvince':
         if len(str(code)) > 2:
             ff0001 =  "district  = '"+str(code)+"'"
         else :
-            ff0001 =  "left(cast(district as text), "+str(len(str(code)))+") = '"+str(code)+"' and length(cast(district as text))="+ str(len(str(code))+2)   
+            ff0001 =  "left(cast(district as text), "+str(len(str(code)))+") = '"+str(code)+"' and length(cast(district as text))="+ str(len(str(code))+2)
         counts = list(villagesummaryEQ.objects.all().extra(
             select={
                 'pop_shake_weak' : 'coalesce(SUM(pop_shake_weak),0)',
@@ -780,7 +782,7 @@ def getEQData(filterLock, flag, code, event_code):
                 'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
             },
             where = {
-                "event_code = '"+event_code+"' and "+ff0001       
+                "event_code = '"+event_code+"' and "+ff0001
             }).values(
                 'pop_shake_weak',
                 'pop_shake_light',
@@ -798,7 +800,7 @@ def getEQData(filterLock, flag, code, event_code):
                 'settlement_shake_severe',
                 'settlement_shake_violent',
                 'settlement_shake_extreme'
-            ))  
+            ))
     else:
         cursor = connections['geodb'].cursor()
         cursor.execute("\
@@ -823,7 +825,7 @@ def getEQData(filterLock, flag, code, event_code):
             and ST_Within(a.wkb_geometry,"+filterLock+")    \
         ")
         col_names = [desc[0] for desc in cursor.description]
-       
+
         row = cursor.fetchone()
         row_dict = dict(izip(col_names, row))
 
@@ -850,43 +852,43 @@ def GetAccesibilityData(filterLock, flag, code):
         if len(str(code)) > 2:
             ff0001 =  "dist_code  = '"+str(code)+"'"
         else :
-            ff0001 =  "left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"' and length(cast(dist_code as text))="+ str(len(str(code))+2)   
+            ff0001 =  "left(cast(dist_code as text), "+str(len(str(code)))+") = '"+str(code)+"' and length(cast(dist_code as text))="+ str(len(str(code))+2)
         q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         q2 = AfgCaptAdm1NearestProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         q3 = AfgCaptAdm2NearestDistrictcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         q4 = AfgCaptAirdrmImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         q5 = AfgCaptHltfacTier1Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         q6 = AfgCaptHltfacTier2Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         q7 = AfgCaptHltfacTier3Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         q8 = AfgCaptHltfacTierallImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population')).extra(
             where = {
-                ff0001       
+                ff0001
             })
         if len(str(code)) > 2:
             gsm = AfgCapaGsmcvr.objects.filter(dist_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
         else :
-            gsm = AfgCapaGsmcvr.objects.filter(prov_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))    
+            gsm = AfgCapaGsmcvr.objects.filter(prov_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
 
     elif flag =='drawArea':
         tt = AfgPplp.objects.filter(wkb_geometry__intersects=filterLock).values('vuid')
@@ -911,58 +913,58 @@ def GetAccesibilityData(filterLock, flag, code):
         q8 = AfgCaptHltfacTierallImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
         gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
 
-    for i in q1: 
+    for i in q1:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__itsx_prov']=round(i['pop'])       
+        response[timelabel+'__itsx_prov']=round(i['pop'])
     for i in q2:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_prov']=round(i['pop'])    
+        response[timelabel+'__near_prov']=round(i['pop'])
     for i in q3:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_dist']=round(i['pop'])      
+        response[timelabel+'__near_dist']=round(i['pop'])
     for i in q4:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_airp']=round(i['pop'])       
+        response[timelabel+'__near_airp']=round(i['pop'])
     for i in q5:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hlt1']=round(i['pop'])     
+        response[timelabel+'__near_hlt1']=round(i['pop'])
     for i in q6:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hlt2']=round(i['pop'])     
+        response[timelabel+'__near_hlt2']=round(i['pop'])
     for i in q7:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hlt3']=round(i['pop'])  
+        response[timelabel+'__near_hlt3']=round(i['pop'])
     for i in q8:
         timelabel = i['time'].replace(' ','_')
         timelabel = timelabel.replace('<','l')
         timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hltall']=round(i['pop'])    
+        response[timelabel+'__near_hltall']=round(i['pop'])
 
     response['pop_on_gsm_coverage'] = round((gsm['pop'] or 0),0)
     response['area_on_gsm_coverage'] = round((gsm['area'] or 0)/1000000,0)
-     
+
     return response
 
-def getAccessibility(request, filterLock, flag, code): 
+def getAccessibility(request, filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
-    response = getCommonUse(request, flag, code)  
+    response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
-    
+
     rawAccesibility = GetAccesibilityData(filterLock, flag, code)
 
     # print rawAccesibility
@@ -1055,130 +1057,130 @@ def getAccessibility(request, filterLock, flag, code):
 
     data1 = []
     data1.append(['agg_simplified_description','area_population'])
-    data1.append(['Population with GSM coverage',response['pop_on_gsm_coverage']])
-    data1.append(['Population without GSM coverage',response['Population']-response['pop_on_gsm_coverage']])
+    data1.append([_('Population with GSM coverage'),response['pop_on_gsm_coverage']])
+    data1.append([_('Population without GSM coverage'),response['Population']-response['pop_on_gsm_coverage']])
     response['total_pop_coverage_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270})
 
     data2 = []
     data2.append(['agg_simplified_description','area_population'])
-    data2.append(['Area with GSM coverage',response['area_on_gsm_coverage']])
-    data2.append(['Area without GSM coverage',response['Area']-response['area_on_gsm_coverage']])
+    data2.append([_('Area with GSM coverage'),response['area_on_gsm_coverage']])
+    data2.append([_('Area without GSM coverage'),response['Area']-response['area_on_gsm_coverage']])
     response['total_area_coverage_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270 })
 
     dataNearestAirp = []
     dataNearestAirp.append(['time','population'])
-    dataNearestAirp.append(['< 1 h',response['l1_h__near_airp'] if 'l1_h__near_airp' in response else 0])
-    dataNearestAirp.append(['< 2 h',response['l2_h__near_airp'] if 'l2_h__near_airp' in response else 0])
-    dataNearestAirp.append(['< 3 h',response['l3_h__near_airp'] if 'l3_h__near_airp' in response else 0])
-    dataNearestAirp.append(['< 4 h',response['l4_h__near_airp'] if 'l4_h__near_airp' in response else 0])
-    dataNearestAirp.append(['< 5 h',response['l5_h__near_airp'] if 'l5_h__near_airp' in response else 0])
-    dataNearestAirp.append(['< 6 h',response['l6_h__near_airp'] if 'l6_h__near_airp' in response else 0])
-    dataNearestAirp.append(['< 7 h',response['l7_h__near_airp'] if 'l7_h__near_airp' in response else 0])
-    dataNearestAirp.append(['< 8 h',response['l8_h__near_airp'] if 'l8_h__near_airp' in response else 0])
-    dataNearestAirp.append(['> 8 h',response['g8_h__near_airp'] if 'g8_h__near_airp' in response else 0])
-    response['nearest_airport_chart'] = gchart.PieChart(SimpleDataSource(data=dataNearestAirp), html_id="pie_chart3", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
-    # response['nearest_airport_chart'] = gchart.PieChart(SimpleDataSource(data=dataNearestAirp), html_id="pie_chart3", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': 'none', 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
+    dataNearestAirp.append([_('< 1 h'),response['l1_h__near_airp'] if 'l1_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('< 2 h'),response['l2_h__near_airp'] if 'l2_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('< 3 h'),response['l3_h__near_airp'] if 'l3_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('< 4 h'),response['l4_h__near_airp'] if 'l4_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('< 5 h'),response['l5_h__near_airp'] if 'l5_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('< 6 h'),response['l6_h__near_airp'] if 'l6_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('< 7 h'),response['l7_h__near_airp'] if 'l7_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('< 8 h'),response['l8_h__near_airp'] if 'l8_h__near_airp' in response else 0])
+    dataNearestAirp.append([_('> 8 h'),response['g8_h__near_airp'] if 'g8_h__near_airp' in response else 0])
+    response['nearest_airport_chart'] = gchart.PieChart(SimpleDataSource(data=dataNearestAirp), html_id="pie_chart3", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
+    # response['nearest_airport_chart'] = gchart.PieChart(SimpleDataSource(data=dataNearestAirp), html_id="pie_chart3", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': 'none', 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
 
     datatier1 = []
     datatier1.append(['time','population'])
-    datatier1.append(['< 1 h',response['l1_h__near_hlt1'] if 'l1_h__near_hlt1' in response else 0])
-    datatier1.append(['< 2 h',response['l2_h__near_hlt1'] if 'l2_h__near_hlt1' in response else 0])
-    datatier1.append(['< 3 h',response['l3_h__near_hlt1'] if 'l3_h__near_hlt1' in response else 0])
-    datatier1.append(['< 4 h',response['l4_h__near_hlt1'] if 'l4_h__near_hlt1' in response else 0])
-    datatier1.append(['< 5 h',response['l5_h__near_hlt1'] if 'l5_h__near_hlt1' in response else 0])
-    datatier1.append(['< 6 h',response['l6_h__near_hlt1'] if 'l6_h__near_hlt1' in response else 0])
-    datatier1.append(['< 7 h',response['l7_h__near_hlt1'] if 'l7_h__near_hlt1' in response else 0])
-    datatier1.append(['< 8 h',response['l8_h__near_hlt1'] if 'l8_h__near_hlt1' in response else 0])
-    datatier1.append(['> 8 h',response['g8_h__near_hlt1'] if 'g8_h__near_hlt1' in response else 0])
-    response['tier1_chart'] = gchart.PieChart(SimpleDataSource(data=datatier1), html_id="pie_chart4", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
-    
+    datatier1.append([_('< 1 h'),response['l1_h__near_hlt1'] if 'l1_h__near_hlt1' in response else 0])
+    datatier1.append([_('< 2 h'),response['l2_h__near_hlt1'] if 'l2_h__near_hlt1' in response else 0])
+    datatier1.append([_('< 3 h'),response['l3_h__near_hlt1'] if 'l3_h__near_hlt1' in response else 0])
+    datatier1.append([_('< 4 h'),response['l4_h__near_hlt1'] if 'l4_h__near_hlt1' in response else 0])
+    datatier1.append([_('< 5 h'),response['l5_h__near_hlt1'] if 'l5_h__near_hlt1' in response else 0])
+    datatier1.append([_('< 6 h'),response['l6_h__near_hlt1'] if 'l6_h__near_hlt1' in response else 0])
+    datatier1.append([_('< 7 h'),response['l7_h__near_hlt1'] if 'l7_h__near_hlt1' in response else 0])
+    datatier1.append([_('< 8 h'),response['l8_h__near_hlt1'] if 'l8_h__near_hlt1' in response else 0])
+    datatier1.append([_('> 8 h'),response['g8_h__near_hlt1'] if 'g8_h__near_hlt1' in response else 0])
+    response['tier1_chart'] = gchart.PieChart(SimpleDataSource(data=datatier1), html_id="pie_chart4", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
+
     datatier2 = []
     datatier2.append(['time','population'])
-    datatier2.append(['< 1 h',response['l1_h__near_hlt2'] if 'l1_h__near_hlt2' in response else 0])
-    datatier2.append(['< 2 h',response['l2_h__near_hlt2'] if 'l2_h__near_hlt2' in response else 0])
-    datatier2.append(['< 3 h',response['l3_h__near_hlt2'] if 'l3_h__near_hlt2' in response else 0])
-    datatier2.append(['< 4 h',response['l4_h__near_hlt2'] if 'l4_h__near_hlt2' in response else 0])
-    datatier2.append(['< 5 h',response['l5_h__near_hlt2'] if 'l5_h__near_hlt2' in response else 0])
-    datatier2.append(['< 6 h',response['l6_h__near_hlt2'] if 'l6_h__near_hlt2' in response else 0])
-    datatier2.append(['< 7 h',response['l7_h__near_hlt2'] if 'l7_h__near_hlt2' in response else 0])
-    datatier2.append(['< 8 h',response['l8_h__near_hlt2'] if 'l8_h__near_hlt2' in response else 0])
-    datatier2.append(['> 8 h',response['g8_h__near_hlt2'] if 'g8_h__near_hlt2' in response else 0])
-    response['tier2_chart'] = gchart.PieChart(SimpleDataSource(data=datatier2), html_id="pie_chart5", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
+    datatier2.append([_('< 1 h'),response['l1_h__near_hlt2'] if 'l1_h__near_hlt2' in response else 0])
+    datatier2.append([_('< 2 h'),response['l2_h__near_hlt2'] if 'l2_h__near_hlt2' in response else 0])
+    datatier2.append([_('< 3 h'),response['l3_h__near_hlt2'] if 'l3_h__near_hlt2' in response else 0])
+    datatier2.append([_('< 4 h'),response['l4_h__near_hlt2'] if 'l4_h__near_hlt2' in response else 0])
+    datatier2.append([_('< 5 h'),response['l5_h__near_hlt2'] if 'l5_h__near_hlt2' in response else 0])
+    datatier2.append([_('< 6 h'),response['l6_h__near_hlt2'] if 'l6_h__near_hlt2' in response else 0])
+    datatier2.append([_('< 7 h'),response['l7_h__near_hlt2'] if 'l7_h__near_hlt2' in response else 0])
+    datatier2.append([_('< 8 h'),response['l8_h__near_hlt2'] if 'l8_h__near_hlt2' in response else 0])
+    datatier2.append([_('> 8 h'),response['g8_h__near_hlt2'] if 'g8_h__near_hlt2' in response else 0])
+    response['tier2_chart'] = gchart.PieChart(SimpleDataSource(data=datatier2), html_id="pie_chart5", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
 
     datatier3 = []
     datatier3.append(['time','population'])
-    datatier3.append(['< 1 h',response['l1_h__near_hlt3'] if 'l1_h__near_hlt3' in response else 0])
-    datatier3.append(['< 2 h',response['l2_h__near_hlt3'] if 'l2_h__near_hlt3' in response else 0])
-    datatier3.append(['< 3 h',response['l3_h__near_hlt3'] if 'l3_h__near_hlt3' in response else 0])
-    datatier3.append(['< 4 h',response['l4_h__near_hlt3'] if 'l4_h__near_hlt3' in response else 0])
-    datatier3.append(['< 5 h',response['l5_h__near_hlt3'] if 'l5_h__near_hlt3' in response else 0])
-    datatier3.append(['< 6 h',response['l6_h__near_hlt3'] if 'l6_h__near_hlt3' in response else 0])
-    datatier3.append(['< 7 h',response['l7_h__near_hlt3'] if 'l7_h__near_hlt3' in response else 0])
-    datatier3.append(['< 8 h',response['l8_h__near_hlt3'] if 'l8_h__near_hlt3' in response else 0])
-    datatier3.append(['> 8 h',response['g8_h__near_hlt3'] if 'g8_h__near_hlt3' in response else 0])
-    response['tier3_chart'] = gchart.PieChart(SimpleDataSource(data=datatier3), html_id="pie_chart6", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
+    datatier3.append([_('< 1 h'),response['l1_h__near_hlt3'] if 'l1_h__near_hlt3' in response else 0])
+    datatier3.append([_('< 2 h'),response['l2_h__near_hlt3'] if 'l2_h__near_hlt3' in response else 0])
+    datatier3.append([_('< 3 h'),response['l3_h__near_hlt3'] if 'l3_h__near_hlt3' in response else 0])
+    datatier3.append([_('< 4 h'),response['l4_h__near_hlt3'] if 'l4_h__near_hlt3' in response else 0])
+    datatier3.append([_('< 5 h'),response['l5_h__near_hlt3'] if 'l5_h__near_hlt3' in response else 0])
+    datatier3.append([_('< 6 h'),response['l6_h__near_hlt3'] if 'l6_h__near_hlt3' in response else 0])
+    datatier3.append([_('< 7 h'),response['l7_h__near_hlt3'] if 'l7_h__near_hlt3' in response else 0])
+    datatier3.append([_('< 8 h'),response['l8_h__near_hlt3'] if 'l8_h__near_hlt3' in response else 0])
+    datatier3.append([_('> 8 h'),response['g8_h__near_hlt3'] if 'g8_h__near_hlt3' in response else 0])
+    response['tier3_chart'] = gchart.PieChart(SimpleDataSource(data=datatier3), html_id="pie_chart6", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
 
     datatierall = []
     datatierall.append(['time','population'])
-    datatierall.append(['< 1 h',response['l1_h__near_hltall'] if 'l1_h__near_hltall' in response else 0])
-    datatierall.append(['< 2',response['l2_h__near_hltall'] if 'l2_h__near_hltall' in response else 0])
-    datatierall.append(['< 3 h',response['l3_h__near_hltall'] if 'l3_h__near_hltall' in response else 0])
-    datatierall.append(['< 4 h',response['l4_h__near_hltall'] if 'l4_h__near_hltall' in response else 0])
-    datatierall.append(['< 5 h',response['l5_h__near_hltall'] if 'l5_h__near_hltall' in response else 0])
-    datatierall.append(['< 6 h',response['l6_h__near_hltall'] if 'l6_h__near_hltall' in response else 0])
-    datatierall.append(['< 7 h',response['l7_h__near_hltall'] if 'l7_h__near_hltall' in response else 0])
-    datatierall.append(['< 8 h',response['l8_h__near_hltall'] if 'l8_h__near_hltall' in response else 0])
-    datatierall.append(['> 8 h',response['g8_h__near_hltall'] if 'g8_h__near_hltall' in response else 0])
-    response['tierall_chart'] = gchart.PieChart(SimpleDataSource(data=datatierall), html_id="pie_chart7", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
+    datatierall.append([_('< 1 h'),response['l1_h__near_hltall'] if 'l1_h__near_hltall' in response else 0])
+    datatierall.append([_('< 2 h'),response['l2_h__near_hltall'] if 'l2_h__near_hltall' in response else 0])
+    datatierall.append([_('< 3 h'),response['l3_h__near_hltall'] if 'l3_h__near_hltall' in response else 0])
+    datatierall.append([_('< 4 h'),response['l4_h__near_hltall'] if 'l4_h__near_hltall' in response else 0])
+    datatierall.append([_('< 5 h'),response['l5_h__near_hltall'] if 'l5_h__near_hltall' in response else 0])
+    datatierall.append([_('< 6 h'),response['l6_h__near_hltall'] if 'l6_h__near_hltall' in response else 0])
+    datatierall.append([_('< 7 h'),response['l7_h__near_hltall'] if 'l7_h__near_hltall' in response else 0])
+    datatierall.append([_('< 8 h'),response['l8_h__near_hltall'] if 'l8_h__near_hltall' in response else 0])
+    datatierall.append([_('> 8 h'),response['g8_h__near_hltall'] if 'g8_h__near_hltall' in response else 0])
+    response['tierall_chart'] = gchart.PieChart(SimpleDataSource(data=datatierall), html_id="pie_chart7", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
 
     datatitsx_prov = []
     datatitsx_prov.append(['time','population'])
-    datatitsx_prov.append(['< 1 h',response['l1_h__itsx_prov'] if 'l1_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['< 2 h',response['l2_h__itsx_prov'] if 'l2_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['< 3 h',response['l3_h__itsx_prov'] if 'l3_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['< 4 h',response['l4_h__itsx_prov'] if 'l4_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['< 5 h',response['l5_h__itsx_prov'] if 'l5_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['< 6 h',response['l6_h__itsx_prov'] if 'l6_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['< 7 h',response['l7_h__itsx_prov'] if 'l7_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['< 8 h',response['l8_h__itsx_prov'] if 'l8_h__itsx_prov' in response else 0])
-    datatitsx_prov.append(['> 8 h',response['g8_h__itsx_prov'] if 'g8_h__itsx_prov' in response else 0])
-    response['itsx_prov_chart'] = gchart.PieChart(SimpleDataSource(data=datatitsx_prov), html_id="pie_chart8", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
+    datatitsx_prov.append([_('< 1 h'),response['l1_h__itsx_prov'] if 'l1_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('< 2 h'),response['l2_h__itsx_prov'] if 'l2_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('< 3 h'),response['l3_h__itsx_prov'] if 'l3_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('< 4 h'),response['l4_h__itsx_prov'] if 'l4_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('< 5 h'),response['l5_h__itsx_prov'] if 'l5_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('< 6 h'),response['l6_h__itsx_prov'] if 'l6_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('< 7 h'),response['l7_h__itsx_prov'] if 'l7_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('< 8 h'),response['l8_h__itsx_prov'] if 'l8_h__itsx_prov' in response else 0])
+    datatitsx_prov.append([_('> 8 h'),response['g8_h__itsx_prov'] if 'g8_h__itsx_prov' in response else 0])
+    response['itsx_prov_chart'] = gchart.PieChart(SimpleDataSource(data=datatitsx_prov), html_id="pie_chart8", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
 
     datatnear_prov = []
     datatnear_prov.append(['time','population'])
-    datatnear_prov.append(['< 1 h',response['l1_h__near_prov'] if 'l1_h__near_prov' in response else 0])
-    datatnear_prov.append(['< 2 h',response['l2_h__near_prov'] if 'l2_h__near_prov' in response else 0])
-    datatnear_prov.append(['< 3 h',response['l3_h__near_prov'] if 'l3_h__near_prov' in response else 0])
-    datatnear_prov.append(['< 4 h',response['l4_h__near_prov'] if 'l4_h__near_prov' in response else 0])
-    datatnear_prov.append(['< 5 h',response['l5_h__near_prov'] if 'l5_h__near_prov' in response else 0])
-    datatnear_prov.append(['< 6 h',response['l6_h__near_prov'] if 'l6_h__near_prov' in response else 0])
-    datatnear_prov.append(['< 7 h',response['l7_h__near_prov'] if 'l7_h__near_prov' in response else 0])
-    datatnear_prov.append(['< 8 h',response['l8_h__near_prov'] if 'l8_h__near_prov' in response else 0])
-    datatnear_prov.append(['> 8 h',response['g8_h__near_prov'] if 'g8_h__near_prov' in response else 0])
-    response['near_prov_chart'] = gchart.PieChart(SimpleDataSource(data=datatnear_prov), html_id="pie_chart9", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
+    datatnear_prov.append([_('< 1 h'),response['l1_h__near_prov'] if 'l1_h__near_prov' in response else 0])
+    datatnear_prov.append([_('< 2 h'),response['l2_h__near_prov'] if 'l2_h__near_prov' in response else 0])
+    datatnear_prov.append([_('< 3 h'),response['l3_h__near_prov'] if 'l3_h__near_prov' in response else 0])
+    datatnear_prov.append([_('< 4 h'),response['l4_h__near_prov'] if 'l4_h__near_prov' in response else 0])
+    datatnear_prov.append([_('< 5 h'),response['l5_h__near_prov'] if 'l5_h__near_prov' in response else 0])
+    datatnear_prov.append([_('< 6 h'),response['l6_h__near_prov'] if 'l6_h__near_prov' in response else 0])
+    datatnear_prov.append([_('< 7 h'),response['l7_h__near_prov'] if 'l7_h__near_prov' in response else 0])
+    datatnear_prov.append([_('< 8 h'),response['l8_h__near_prov'] if 'l8_h__near_prov' in response else 0])
+    datatnear_prov.append([_('> 8 h'),response['g8_h__near_prov'] if 'g8_h__near_prov' in response else 0])
+    response['near_prov_chart'] = gchart.PieChart(SimpleDataSource(data=datatnear_prov), html_id="pie_chart9", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
 
     datatnear_dist = []
     datatnear_dist.append(['time','population'])
-    datatnear_dist.append(['< 1 h',response['l1_h__near_dist'] if 'l1_h__near_dist' in response else 0])
-    datatnear_dist.append(['< 2 h',response['l2_h__near_dist'] if 'l2_h__near_dist' in response else 0])
-    datatnear_dist.append(['< 3 h',response['l3_h__near_dist'] if 'l3_h__near_dist' in response else 0])
-    datatnear_dist.append(['< 4 h',response['l4_h__near_dist'] if 'l4_h__near_dist' in response else 0])
-    datatnear_dist.append(['< 5 h',response['l5_h__near_dist'] if 'l5_h__near_dist' in response else 0])
-    datatnear_dist.append(['< 6 h',response['l6_h__near_dist'] if 'l6_h__near_dist' in response else 0])
-    datatnear_dist.append(['< 7 h',response['l7_h__near_dist'] if 'l7_h__near_dist' in response else 0])
-    datatnear_dist.append(['< 8 h',response['l8_h__near_dist'] if 'l8_h__near_dist' in response else 0])
-    datatnear_dist.append(['> 8 h',response['g8_h__near_dist'] if 'g8_h__near_dist' in response else 0])
-    response['near_dist_chart'] = gchart.PieChart(SimpleDataSource(data=datatnear_dist), html_id="pie_chart10", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} }) 
+    datatnear_dist.append([_('< 1 h'),response['l1_h__near_dist'] if 'l1_h__near_dist' in response else 0])
+    datatnear_dist.append([_('< 2 h'),response['l2_h__near_dist'] if 'l2_h__near_dist' in response else 0])
+    datatnear_dist.append([_('< 3 h'),response['l3_h__near_dist'] if 'l3_h__near_dist' in response else 0])
+    datatnear_dist.append([_('< 4 h'),response['l4_h__near_dist'] if 'l4_h__near_dist' in response else 0])
+    datatnear_dist.append([_('< 5 h'),response['l5_h__near_dist'] if 'l5_h__near_dist' in response else 0])
+    datatnear_dist.append([_('< 6 h'),response['l6_h__near_dist'] if 'l6_h__near_dist' in response else 0])
+    datatnear_dist.append([_('< 7 h'),response['l7_h__near_dist'] if 'l7_h__near_dist' in response else 0])
+    datatnear_dist.append([_('< 8 h'),response['l8_h__near_dist'] if 'l8_h__near_dist' in response else 0])
+    datatnear_dist.append([_('> 8 h'),response['g8_h__near_dist'] if 'g8_h__near_dist' in response else 0])
+    response['near_dist_chart'] = gchart.PieChart(SimpleDataSource(data=datatnear_dist), html_id="pie_chart10", options={'title': "", 'width': 290,'height': 290, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'top', 'maxLines':4}, 'slices':{0:{'color':'#e3f8ff'},1:{'color':'#defdf0'},2:{'color':'#caf6e4'},3:{'color':'#fcfdde'},4:{'color':'#fef7dc'},5:{'color':'#fce6be'},6:{'color':'#ffd6c5'},7:{'color':'#fdbbac'},8:{'color':'#ffa19a'}} })
 
 
     data = getListAccesibility(filterLock, flag, code)
     response['lc_child']=data
-    return response 
+    return response
 
 def getListAccesibility(filterLock, flag, code):
     response = []
     data = getProvinceSummary(filterLock, flag, code)
-    for i in data:      
+    for i in data:
         data ={}
         data['code'] = i['code']
         data['na_en'] = i['na_en']
@@ -1202,8 +1204,8 @@ def getListAccesibility(filterLock, flag, code):
         data['l6_h__near_airp_percent'] = int(round((data['l6_h__near_airp']/data['Population'])*100,0)) if 'l6_h__near_airp' in data else 0
         data['l7_h__near_airp_percent'] = int(round((data['l7_h__near_airp']/data['Population'])*100,0)) if 'l7_h__near_airp' in data else 0
         data['l8_h__near_airp_percent'] = int(round((data['l8_h__near_airp']/data['Population'])*100,0)) if 'l8_h__near_airp' in data else 0
-        data['g8_h__near_airp_percent'] = int(round((data['g8_h__near_airp']/data['Population'])*100,0)) if 'g8_h__near_airp' in data else 0   
-        
+        data['g8_h__near_airp_percent'] = int(round((data['g8_h__near_airp']/data['Population'])*100,0)) if 'g8_h__near_airp' in data else 0
+
         data['l1_h__near_hlt1_percent'] = int(round((data['l1_h__near_hlt1']/data['Population'])*100,0)) if 'l1_h__near_hlt1' in data else 0
         data['l2_h__near_hlt1_percent'] = int(round((data['l2_h__near_hlt1']/data['Population'])*100,0)) if 'l2_h__near_hlt1' in data else 0
         data['l3_h__near_hlt1_percent'] = int(round((data['l3_h__near_hlt1']/data['Population'])*100,0)) if 'l3_h__near_hlt1' in data else 0
@@ -1275,10 +1277,10 @@ def getListAccesibility(filterLock, flag, code):
         data['g8_h__near_dist_percent'] = int(round((data['g8_h__near_dist']/data['Population'])*100,0)) if 'g8_h__near_dist' in data else 0
 
         response.append(data)
-    return response     
+    return response
 
-def getFloodForecast(request, filterLock, flag, code): 
-    response = getCommonUse(request, flag, code)  
+def getFloodForecast(request, filterLock, flag, code):
+    response = getCommonUse(request, flag, code)
     flood_parent = getFloodForecastMatrix(filterLock, flag, code)
     for i in flood_parent:
         response[i]=flood_parent[i]
@@ -1286,9 +1288,9 @@ def getFloodForecast(request, filterLock, flag, code):
     data = getProvinceSummary(filterLock, flag, code)
     response['lc_child']=data
 
-    return response    
+    return response
 
-def getAvalancheForecast(request, filterLock, flag, code): 
+def getAvalancheForecast(request, filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
     response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
@@ -1360,7 +1362,7 @@ def getRawAvalancheForecast(filterLock, flag, code):
             WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
-            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY))  
+            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY))
         row = cursor.fetchall()
         cursor.close()
     elif flag=='currentProvince':
@@ -1379,7 +1381,7 @@ def getRawAvalancheForecast(filterLock, flag, code):
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
             and afg_avsa.%s \
-            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,ff0001)) 
+            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,ff0001))
         row = cursor.fetchall()
         cursor.close()
     elif flag=='drawArea':
@@ -1396,7 +1398,7 @@ def getRawAvalancheForecast(filterLock, flag, code):
             WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
-            GROUP BY forcastedvalue.riskstate" %(filterLock,filterLock,YEAR,MONTH,DAY)) 
+            GROUP BY forcastedvalue.riskstate" %(filterLock,filterLock,YEAR,MONTH,DAY))
         row = cursor.fetchall()
         cursor.close()
     else:
@@ -1411,20 +1413,20 @@ def getRawAvalancheForecast(filterLock, flag, code):
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
             AND ST_Within(afg_avsa.wkb_geometry, %s) \
-            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,filterLock))  
+            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,filterLock))
         row = cursor.fetchall()
-        cursor.close()    
+        cursor.close()
 
-    response['ava_forecast_low_pop']=round(dict(row).get(1, 0),0) 
-    response['ava_forecast_med_pop']=round(dict(row).get(2, 0),0) 
-    response['ava_forecast_high_pop']=round(dict(row).get(3, 0),0) 
+    response['ava_forecast_low_pop']=round(dict(row).get(1, 0),0)
+    response['ava_forecast_med_pop']=round(dict(row).get(2, 0),0)
+    response['ava_forecast_high_pop']=round(dict(row).get(3, 0),0)
     response['total_ava_forecast_pop']=response['ava_forecast_low_pop'] + response['ava_forecast_med_pop'] + response['ava_forecast_high_pop']
 
     return response
 
-def getAvalancheRisk(request, filterLock, flag, code): 
+def getAvalancheRisk(request, filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
-    response = getCommonUse(request, flag, code)  
+    response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
@@ -1446,25 +1448,25 @@ def getAvalancheRisk(request, filterLock, flag, code):
     data1.append(['agg_simplified_description','area_population'])
     data1.append(['',response['total_ava_population']])
     data1.append(['',response['Population']-response['total_ava_population']])
-    response['total_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, }) 
+    response['total_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
     data2 = []
     data2.append(['agg_simplified_description','area_population'])
     data2.append(['',response['total_ava_area']])
     data2.append(['',response['Area']-response['total_ava_area']])
-    response['total_area_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, }) 
+    response['total_area_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
     data3 = []
     data3.append(['agg_simplified_description','area_population'])
     data3.append(['',response['high_ava_population']])
     data3.append(['',response['Population']-response['high_ava_population']])
-    response['high_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, }) 
+    response['high_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
     data4 = []
     data4.append(['agg_simplified_description','area_population'])
     data4.append(['',response['med_ava_population']])
     data4.append(['',response['Population']-response['med_ava_population']])
-    response['med_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data4), html_id="pie_chart4", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, }) 
+    response['med_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data4), html_id="pie_chart4", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
     data = getProvinceSummary(filterLock, flag, code)
 
@@ -1478,11 +1480,11 @@ def getAvalancheRisk(request, filterLock, flag, code):
 
     response['lc_child']=data
 
-    return response      
+    return response
 
 def getFloodRisk(request, filterLock, flag, code):
-    targetBase = AfgLndcrva.objects.all() 
-    response = getCommonUse(request, flag, code)  
+    targetBase = AfgLndcrva.objects.all()
+    response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
@@ -1494,22 +1496,22 @@ def getFloodRisk(request, filterLock, flag, code):
         response[i]=rawBaseline[i]
 
     for i in rawFloodRisk:
-        response[i]=rawFloodRisk[i]  
+        response[i]=rawFloodRisk[i]
 
     if response['Population']==0:
-        response['Population'] = 0.000001  
+        response['Population'] = 0.000001
     if response['built_up_pop']==0:
-        response['built_up_pop'] = 0.000001    
+        response['built_up_pop'] = 0.000001
     if response['built_up_area']==0:
-        response['built_up_area'] = 0.000001      
+        response['built_up_area'] = 0.000001
     if response['cultivated_pop']==0:
-        response['cultivated_pop'] = 0.000001       
+        response['cultivated_pop'] = 0.000001
     if response['cultivated_area']==0:
-        response['cultivated_area'] = 0.000001    
+        response['cultivated_area'] = 0.000001
     if response['barren_pop']==0:
-        response['barren_pop'] = 0.000001    
+        response['barren_pop'] = 0.000001
     if response['barren_area']==0:
-        response['barren_area'] = 0.000001               
+        response['barren_area'] = 0.000001
 
     response['settlement_at_floodrisk'] = getSettlementAtFloodRisk(filterLock, flag, code)
     response['settlement_at_floodrisk_percent'] = int(round((response['settlement_at_floodrisk']/response['settlement'])*100,0))
@@ -1534,43 +1536,43 @@ def getFloodRisk(request, filterLock, flag, code):
     data1.append(['agg_simplified_description','area_population'])
     data1.append(['',response['total_risk_population']])
     data1.append(['',response['Population']-response['total_risk_population']])
-    response['total_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })  
+    response['total_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
     data2 = []
     data2.append(['agg_simplified_description','area_population'])
     data2.append(['',response['high_risk_population']])
     data2.append(['',response['Population']-response['high_risk_population']])
-    response['high_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })  
-    
+    response['high_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
+
     data3 = []
     data3.append(['agg_simplified_description','area_population'])
     data3.append(['',response['med_risk_population']])
     data3.append(['',response['Population']-response['med_risk_population']])
-    response['med_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, }) 
+    response['med_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
     data4 = []
     data4.append(['agg_simplified_description','area_population'])
     data4.append(['',response['low_risk_population']])
     data4.append(['',response['Population']-response['low_risk_population']])
-    response['low_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data4), html_id="pie_chart4", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, }) 
+    response['low_pop_atrisk_chart'] = gchart.PieChart(SimpleDataSource(data=data4), html_id="pie_chart4", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
     data = getProvinceSummary(filterLock, flag, code)
 
     for i in data:
         if i['Population']==0:
-            i['Population'] = 0.000001  
+            i['Population'] = 0.000001
         if i['built_up_pop']==0:
-            i['built_up_pop'] = 0.000001    
+            i['built_up_pop'] = 0.000001
         if i['built_up_area']==0:
-            i['built_up_area'] = 0.000001      
+            i['built_up_area'] = 0.000001
         if i['cultivated_pop']==0:
-            i['cultivated_pop'] = 0.000001       
+            i['cultivated_pop'] = 0.000001
         if i['cultivated_area']==0:
-            i['cultivated_area'] = 0.000001    
+            i['cultivated_area'] = 0.000001
         if i['barren_pop']==0:
-            i['barren_pop'] = 0.000001    
+            i['barren_pop'] = 0.000001
         if i['barren_area']==0:
-            i['barren_area'] = 0.000001  
+            i['barren_area'] = 0.000001
 
         i['settlement_at_floodrisk_percent'] = int(round(i['settlements_at_risk']/i['settlements']*100,0))
         i['total_pop_atrisk_percent'] = int(round(i['total_risk_population']/i['Population']*100,0))
@@ -1587,7 +1589,7 @@ def getFloodRisk(request, filterLock, flag, code):
     return response
 
 def getSettlementAtFloodRisk(filterLock, flag, code):
-    response = {}    
+    response = {}
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
     targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
 
@@ -1595,7 +1597,7 @@ def getSettlementAtFloodRisk(filterLock, flag, code):
     if flag=='drawArea':
         countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
             select={
-                'numbersettlementsatrisk': 'count(distinct vuid)'}, 
+                'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*fldarea_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
     elif flag=='entireAfg':
         countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
@@ -1608,17 +1610,17 @@ def getSettlementAtFloodRisk(filterLock, flag, code):
             ff0001 =  "prov_code  = '"+str(code)+"'"
         countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
             select={
-                'numbersettlementsatrisk': 'count(distinct vuid)'}, 
+                'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {ff0001}).values('numbersettlementsatrisk')
     elif flag=='currentBasin':
         countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
             select={
-                'numbersettlementsatrisk': 'count(distinct vuid)'}, 
-            where = {"vuid = '"+str(code)+"'"}).values('numbersettlementsatrisk')    
+                'numbersettlementsatrisk': 'count(distinct vuid)'},
+            where = {"vuid = '"+str(code)+"'"}).values('numbersettlementsatrisk')
     else:
         countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
             select={
-                'numbersettlementsatrisk': 'count(distinct vuid)'}, 
+                'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
 
     return round(countsBase[0]['numbersettlementsatrisk'],0)
@@ -1638,19 +1640,19 @@ def getRawAvalancheRisk(filterLock, flag, code):
     temp = dict([(c['avalanche_cat'], c['areaatrisk']) for c in counts])
     response['high_ava_area']=round(temp.get('High', 0)/1000000,1)
     response['med_ava_area']=round(temp.get('Moderate', 0)/1000000,1)
-    response['low_ava_area']=0    
-    response['total_ava_area']=round(response['high_ava_area']+response['med_ava_area']+response['low_ava_area'],2) 
+    response['low_ava_area']=0
+    response['total_ava_area']=round(response['high_ava_area']+response['med_ava_area']+response['low_ava_area'],2)
 
     return response
 
 def getRawFloodRisk(filterLock, flag, code):
-    response = {}    
+    response = {}
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
     targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
 
     # Flood Risk
     counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0), filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code, None)
-    
+
     # pop at risk level
     temp = dict([(c['deeperthan'], c['count']) for c in counts])
     response['high_risk_population']=round(temp.get('271 cm', 0),0)
@@ -1662,8 +1664,8 @@ def getRawFloodRisk(filterLock, flag, code):
     temp = dict([(c['deeperthan'], c['areaatrisk']) for c in counts])
     response['high_risk_area']=round(temp.get('271 cm', 0)/1000000,1)
     response['med_risk_area']=round(temp.get('121 cm', 0)/1000000,1)
-    response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)    
-    response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2) 
+    response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)
+    response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2)
 
     counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code, None)
 
@@ -1678,14 +1680,14 @@ def getRawFloodRisk(filterLock, flag, code):
     response['cultivated_area_risk'] = round(temp.get('Fruit trees', 0)/1000000,1)+round(temp.get('Irrigated agricultural land', 0)/1000000,1)+round(temp.get('Rainfed agricultural land', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
     response['barren_area_risk'] = round(temp.get('Barren land', 0)/1000000,1)+round(temp.get('Permanent snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand cover', 0)/1000000,1)+round(temp.get('Forest and shrubs', 0)/1000000,1)
 
-    return response             
+    return response
 
 def getRawBaseLine(filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
     response = {}
     parent_data = getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', flag, code, None)
     temp = dict([(c['agg_simplified_description'], c['count']) for c in parent_data])
-    
+
     response['built_up_pop'] = round(temp.get('Built-up', 0),0)
     response['cultivated_pop'] = round(temp.get('Fruit trees', 0),0)+round(temp.get('Irrigated agricultural land', 0),0)+round(temp.get('Rainfed agricultural land', 0),0)+round(temp.get('Vineyards', 0),0)
     response['barren_pop'] = round(temp.get('Water body and marshland', 0),0)+round(temp.get('Barren land', 0),0)+round(temp.get('Permanent snow', 0),0)+round(temp.get('Rangeland', 0),0)+round(temp.get('Sand cover', 0),0)+round(temp.get('Forest and shrubs', 0),0)
@@ -1698,40 +1700,40 @@ def getRawBaseLine(filterLock, flag, code):
     return response
 
 def getBaseline(request, filterLock, flag, code):
-    response = getCommonUse(request, flag, code)    
+    response = getCommonUse(request, flag, code)
     targetBase = AfgLndcrva.objects.all()
-    
+
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
     response['hltfac']=getTotalHealthFacilities(filterLock, flag, code, AfgHltfac)
     response['roadnetwork']=getTotalRoadNetwork(filterLock, flag, code, AfgRdsl)
-    
+
     rawBaseline = getRawBaseLine(filterLock, flag, code)
     for i in rawBaseline:
         response[i]=rawBaseline[i]
 
-    hltParentData = getParentHltFacRecap(filterLock, flag, code) 
+    hltParentData = getParentHltFacRecap(filterLock, flag, code)
     tempHLTBase = dict([(c['facility_types_description'], c['numberhospital']) for c in hltParentData])
     response['hlt_h1'] = round(tempHLTBase.get("Regional / National Hospital (H1)", 0))
     response['hlt_h2'] = round(tempHLTBase.get("Provincial Hospital (H2)", 0))
     response['hlt_h3'] = round(tempHLTBase.get("District Hospital (H3)", 0))
     response['hlt_chc'] = round(tempHLTBase.get("Comprehensive Health Center (CHC)", 0))
-    response['hlt_bhc'] = round(tempHLTBase.get("Basic Health Center (BHC)", 0))  
-    response['hlt_shc'] = round(tempHLTBase.get("Sub Health Center (SHC)", 0)) 
+    response['hlt_bhc'] = round(tempHLTBase.get("Basic Health Center (BHC)", 0))
+    response['hlt_shc'] = round(tempHLTBase.get("Sub Health Center (SHC)", 0))
     response['hlt_others'] = round(tempHLTBase.get("Rehabilitation Center (RH)", 0))+round(tempHLTBase.get("Special Hospital (SH)", 0))+round(tempHLTBase.get("Maternity Home (MH)", 0))+round(tempHLTBase.get("Drug Addicted Treatment Center", 0))+round(tempHLTBase.get("Private Clinic", 0))+round(tempHLTBase.get("Other", 0))+round(tempHLTBase.get("Malaria Center (MC)", 0))+round(tempHLTBase.get("Mobile Health Team (MHT)", 0))
 
     roadParentData = getParentRoadNetworkRecap(filterLock, flag, code)
     tempRoadBase = dict([(c['type_update'], c['road_length']) for c in roadParentData])
-    response['road_primary'] = round(tempRoadBase.get("primary", 0))   
-    response['road_secondary'] = round(tempRoadBase.get("secondary", 0))  
-    response['road_track'] = round(tempRoadBase.get("track", 0))  
+    response['road_primary'] = round(tempRoadBase.get("primary", 0))
+    response['road_secondary'] = round(tempRoadBase.get("secondary", 0))
+    response['road_track'] = round(tempRoadBase.get("track", 0))
     response['road_tertiary'] = round(tempRoadBase.get("tertiary", 0))
-    response['road_path'] = round(tempRoadBase.get("path", 0)) 
-    response['road_highway'] = round(tempRoadBase.get("highway", 0))  
-    response['road_residential'] = round(tempRoadBase.get("residential", 0)) 
-    response['road_river_crossing'] = round(tempRoadBase.get("river crossing", 0)) 
-    response['road_bridge'] = round(tempRoadBase.get("bridge", 0))   
+    response['road_path'] = round(tempRoadBase.get("path", 0))
+    response['road_highway'] = round(tempRoadBase.get("highway", 0))
+    response['road_residential'] = round(tempRoadBase.get("residential", 0))
+    response['road_river_crossing'] = round(tempRoadBase.get("river crossing", 0))
+    response['road_bridge'] = round(tempRoadBase.get("bridge", 0))
 
     data = getProvinceSummary(filterLock, flag, code)
     response['lc_child']=data
@@ -1740,95 +1742,95 @@ def getBaseline(request, filterLock, flag, code):
     response['additional_child']=data
 
     dataLC = []
-    dataLC.append(['lancover type','population', { 'role': 'annotation' },'area (km2)', { 'role': 'annotation' }])
-    dataLC.append(['Built-up',round(response['built_up_pop']/response['Population']*100,0), response['built_up_pop'], round(response['built_up_area']/response['Area']*100,0), response['built_up_area'] ])
-    dataLC.append(['Cultivated',round(response['cultivated_pop']/response['Population']*100,0), response['cultivated_pop'], round(response['cultivated_area']/response['Area']*100,0), response['cultivated_area'] ])
-    dataLC.append(['Barren/Rangeland',round(response['barren_pop']/response['Population']*100,0), response['barren_pop'], round(response['barren_area']/response['Area']*100,0), response['barren_area'] ])
+    dataLC.append([_('landcover type'),_('population'), { 'role': 'annotation' },_('area (km2)'), { 'role': 'annotation' }])
+    dataLC.append([_('Built-up'),round(response['built_up_pop']/response['Population']*100,0), response['built_up_pop'], round(response['built_up_area']/response['Area']*100,0), response['built_up_area'] ])
+    dataLC.append([_('Cultivated'),round(response['cultivated_pop']/response['Population']*100,0), response['cultivated_pop'], round(response['cultivated_area']/response['Area']*100,0), response['cultivated_area'] ])
+    dataLC.append([_('Barren/Rangeland'),round(response['barren_pop']/response['Population']*100,0), response['barren_pop'], round(response['barren_area']/response['Area']*100,0), response['barren_area'] ])
     response['landcover_chart'] = gchart.BarChart(
-        SimpleDataSource(data=dataLC), 
-        html_id="pie_chart1", 
+        SimpleDataSource(data=dataLC),
+        html_id="pie_chart1",
         options={
-            'title': 'Landcover Population and area overview', 
+            'title': _('Landcover Population and area overview'),
             # 'subtitle': 'figure as percent from total population and area',
             'width': 450,
-            'height': 300, 
+            'height': 300,
             # 'legend': { 'position': 'none' },
             # 'chart': { 'title': 'Landcover Population and area overview', 'subtitle': 'figure as percent from total population and area' },
             'bars': 'horizontal',
             'axes': {
                 'x': {
-                  '0': { 'side': 'top', 'label': 'Percentage'} 
+                  '0': { 'side': 'top', 'label': _('Percentage')}
                 },
-            
+
             },
             'bar': { 'groupWidth': '90%' },
             'chartArea': {'width': '50%'},
-            'titleX':'percentages from total population and area',
+            'titleX':_('percentages from total population and area'),
     })
     if response['hltfac']==0:
         response['hltfac'] = 0.000001
 
     dataHLT = []
-    dataHLT.append(['health facility type','percent of health facility', { 'role': 'annotation' }])
-    dataHLT.append(['H1',round(response['hlt_h1']/response['hltfac']*100,0), response['hlt_h1'] ])
-    dataHLT.append(['H2',round(response['hlt_h2']/response['hltfac']*100,0), response['hlt_h2'] ])
-    dataHLT.append(['H3',round(response['hlt_h3']/response['hltfac']*100,0), response['hlt_h3'] ])
-    dataHLT.append(['CHC',round(response['hlt_chc']/response['hltfac']*100,0), response['hlt_chc'] ])
-    dataHLT.append(['BHC',round(response['hlt_bhc']/response['hltfac']*100,0), response['hlt_bhc'] ])
-    dataHLT.append(['SHC',round(response['hlt_shc']/response['hltfac']*100,0), response['hlt_shc'] ])
-    dataHLT.append(['Others',round(response['hlt_others']/response['hltfac']*100,0), response['hlt_others'] ])
+    dataHLT.append([_('health facility type'),_('percent of health facility'), { 'role': 'annotation' }])
+    dataHLT.append([_('H1'),round(response['hlt_h1']/response['hltfac']*100,0), response['hlt_h1'] ])
+    dataHLT.append([_('H2'),round(response['hlt_h2']/response['hltfac']*100,0), response['hlt_h2'] ])
+    dataHLT.append([_('H3'),round(response['hlt_h3']/response['hltfac']*100,0), response['hlt_h3'] ])
+    dataHLT.append([_('CHC'),round(response['hlt_chc']/response['hltfac']*100,0), response['hlt_chc'] ])
+    dataHLT.append([_('BHC'),round(response['hlt_bhc']/response['hltfac']*100,0), response['hlt_bhc'] ])
+    dataHLT.append([_('SHC'),round(response['hlt_shc']/response['hltfac']*100,0), response['hlt_shc'] ])
+    dataHLT.append([_('Others'),round(response['hlt_others']/response['hltfac']*100,0), response['hlt_others'] ])
     response['hlt_chart'] = gchart.BarChart(
-        SimpleDataSource(data=dataHLT), 
-        html_id="pie_chart2", 
+        SimpleDataSource(data=dataHLT),
+        html_id="pie_chart2",
         options={
-            'title': 'Health facilities overview', 
+            'title': _('Health facilities overview'),
             # 'subtitle': 'figure as percent from total population and area',
             'width': 450,
-            'height': 300, 
+            'height': 300,
             'legend': { 'position': 'none' },
             # 'chart': { 'title': 'Landcover Population and area overview', 'subtitle': 'figure as percent from total population and area' },
             'bars': 'horizontal',
             'axes': {
                 'x': {
-                  '0': { 'side': 'top', 'label': 'Percentage'} 
+                  '0': { 'side': 'top', 'label': _('Percentage')}
                 },
-            
+
             },
             'bar': { 'groupWidth': '90%' },
             'chartArea': {'width': '50%'},
-            'titleX':'percentages from total health facilities',
+            'titleX':_('percentages from total health facilities'),
     })
 
     dataRDN = []
-    dataRDN.append(['road network type','percent of road network', { 'role': 'annotation' }])
-    dataRDN.append(['Highway',round(response['road_highway']/response['roadnetwork']*100,0), response['road_highway'] ])
-    dataRDN.append(['Primary',round(response['road_primary']/response['roadnetwork']*100,0), response['road_primary'] ])
-    dataRDN.append(['Secondary',round(response['road_secondary']/response['roadnetwork']*100,0), response['road_secondary'] ])
-    dataRDN.append(['Tertiary',round(response['road_tertiary']/response['roadnetwork']*100,0), response['road_tertiary'] ])
-    dataRDN.append(['Residential',round(response['road_residential']/response['roadnetwork']*100,0), response['road_residential'] ])
-    dataRDN.append(['Track',round(response['road_track']/response['roadnetwork']*100,0), response['road_track'] ])
-    dataRDN.append(['Path',round(response['road_path']/response['roadnetwork']*100,0), response['road_path'] ])
-    dataRDN.append(['River crossing',round(response['road_river_crossing']/response['roadnetwork']*100,0), response['road_river_crossing'] ])
-    dataRDN.append(['Bridge',round(response['road_bridge']/response['roadnetwork']*100,0), response['road_bridge'] ])
+    dataRDN.append([_('road network type'),_('percent of road network'), { 'role': 'annotation' }])
+    dataRDN.append([_('Highway'),round(response['road_highway']/response['roadnetwork']*100,0), response['road_highway'] ])
+    dataRDN.append([_('Primary'),round(response['road_primary']/response['roadnetwork']*100,0), response['road_primary'] ])
+    dataRDN.append([_('Secondary'),round(response['road_secondary']/response['roadnetwork']*100,0), response['road_secondary'] ])
+    dataRDN.append([_('Tertiary'),round(response['road_tertiary']/response['roadnetwork']*100,0), response['road_tertiary'] ])
+    dataRDN.append([_('Residential'),round(response['road_residential']/response['roadnetwork']*100,0), response['road_residential'] ])
+    dataRDN.append([_('Track'),round(response['road_track']/response['roadnetwork']*100,0), response['road_track'] ])
+    dataRDN.append([_('Path'),round(response['road_path']/response['roadnetwork']*100,0), response['road_path'] ])
+    dataRDN.append([_('River crossing'),round(response['road_river_crossing']/response['roadnetwork']*100,0), response['road_river_crossing'] ])
+    dataRDN.append([_('Bridge'),round(response['road_bridge']/response['roadnetwork']*100,0), response['road_bridge'] ])
     response['rdn_chart'] = gchart.BarChart(
         SimpleDataSource(data=dataRDN),
         options={
-            'title': 'Road network overview', 
+            'title': _('Road network overview'),
             # 'subtitle': 'figure as percent from total population and area',
             'width': 450,
-            'height': 300, 
+            'height': 300,
             'legend': { 'position': 'none' },
             # 'chart': { 'title': 'Landcover Population and area overview', 'subtitle': 'figure as percent from total population and area' },
             'bars': 'horizontal',
             'axes': {
                 'x': {
-                  '0': { 'side': 'top', 'label': 'Percentage'} 
+                  '0': { 'side': 'top', 'label': _('Percentage')}
                 },
-            
+
             },
             'bar': { 'groupWidth': '90%' },
             'chartArea': {'width': '50%'},
-            'titleX':'percentages from total health facilities',
+            'titleX':_('percentages from total health facilities'),
     })
 
     # print response['poi_points']
@@ -1854,14 +1856,14 @@ def getParentRoadNetworkRecap(filterLock, flag, code):
         },
         where = {
             'ST_Intersects(wkb_geometry'+', '+filterLock+')'
-        }).values('type_update','road_length') 
+        }).values('type_update','road_length')
 
-    elif flag=='entireAfg':    
+    elif flag=='entireAfg':
         countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
                 select={
                     'road_length' : 'SUM(road_length)/1000'
                 }).values('type_update', 'road_length')
-        
+
     elif flag=='currentProvince':
         if len(str(code)) > 2:
             ff0001 =  "dist_code  = '"+str(code)+"'"
@@ -1869,15 +1871,15 @@ def getParentRoadNetworkRecap(filterLock, flag, code):
             if len(str(code))==1:
                 ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"' and length(cast(dist_code as text))=3"
             else:
-                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"' and length(cast(dist_code as text))=4"    
-                
+                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"' and length(cast(dist_code as text))=4"
+
         countsRoadBase = AfgRdsl.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
             select={
                  'road_length' : 'SUM(road_length)/1000'
             },
             where = {
                 ff0001
-             }).values('type_update','road_length') 
+             }).values('type_update','road_length')
 
     elif flag=='currentBasin':
         print 'currentBasin'
@@ -1888,8 +1890,8 @@ def getParentRoadNetworkRecap(filterLock, flag, code):
             },
             where = {
                 'ST_Within(wkb_geometry'+', '+filterLock+')'
-            }).values('type_update','road_length') 
-    return countsRoadBase     
+            }).values('type_update','road_length')
+    return countsRoadBase
 
 def getParentHltFacRecap(filterLock, flag, code):
     targetBase = AfgHltfac.objects.all().filter(activestatus='Y')
@@ -1902,18 +1904,18 @@ def getParentHltFacRecap(filterLock, flag, code):
                     'ST_Intersects(wkb_geometry'+', '+filterLock+')'
                 }).values('facility_types_description','numberhospital')
 
-    elif flag=='entireAfg':    
+    elif flag=='entireAfg':
         countsHLTBase = targetBase.values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
                 select={
                     'numberhospital' : 'count(*)'
                 }).values('facility_types_description','numberhospital')
-        
+
     elif flag=='currentProvince':
         if len(str(code)) > 2:
             ff0001 =  "dist_code  = '"+str(code)+"'"
         else :
-            ff0001 = "prov_code  = '"+str(code)+"'"  
-                
+            ff0001 = "prov_code  = '"+str(code)+"'"
+
         countsHLTBase = targetBase.values('facility_types_description').annotate(counter=Count('ogc_fid')).extra(
             select={
                     'numberhospital' : 'count(*)'
@@ -1929,7 +1931,7 @@ def getParentHltFacRecap(filterLock, flag, code):
             },where = {
                 'ST_Within(wkb_geometry'+', '+filterLock+')'
             }).values('facility_types_description','numberhospital')
-    return countsHLTBase   
+    return countsHLTBase
 
 def getTotalPop(filterLock, flag, code, targetBase):
     # All population number
@@ -1966,8 +1968,8 @@ def getTotalPop(filterLock, flag, code, targetBase):
         countsBase = targetBase.extra(
             select={
                 'countbase' : 'SUM(area_population)'
-            }, 
-            where = {"vuid = '"+str(code)+"'"}).values('countbase')     
+            },
+            where = {"vuid = '"+str(code)+"'"}).values('countbase')
     else:
         countsBase = targetBase.extra(
             select={
@@ -1976,7 +1978,7 @@ def getTotalPop(filterLock, flag, code, targetBase):
             where = {
                 'ST_Within(wkb_geometry, '+filterLock+')'
             }).values('countbase')
-                
+
     return round(countsBase[0]['countbase'],0)
 
 def getTotalArea(filterLock, flag, code, targetBase):
@@ -2014,7 +2016,7 @@ def getTotalArea(filterLock, flag, code, targetBase):
             select={
                 'areabase' : 'SUM(area_sqm)'
             },
-            where = {"vuid = '"+str(code)+"'"}).values('areabase')      
+            where = {"vuid = '"+str(code)+"'"}).values('areabase')
 
     else:
         countsBase = targetBase.extra(
@@ -2025,13 +2027,13 @@ def getTotalArea(filterLock, flag, code, targetBase):
                 'ST_Within(wkb_geometry, '+filterLock+')'
             }).values('areabase')
 
-    return round(countsBase[0]['areabase']/1000000,0)      
+    return round(countsBase[0]['areabase']/1000000,0)
 
-def getTotalSettlement(filterLock, flag, code, targetBase):     
+def getTotalSettlement(filterLock, flag, code, targetBase):
     if flag=='drawArea':
         countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
             select={
-                'numbersettlements': 'count(distinct vuid)'}, 
+                'numbersettlements': 'count(distinct vuid)'},
             where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
     elif flag=='entireAfg':
         countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
@@ -2044,19 +2046,19 @@ def getTotalSettlement(filterLock, flag, code, targetBase):
             ff0001 =  "prov_code  = '"+str(code)+"'"
         countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
             select={
-                'numbersettlements': 'count(distinct vuid)'}, 
+                'numbersettlements': 'count(distinct vuid)'},
             where = {ff0001}).values('numbersettlements')
     elif flag=='currentBasin':
         countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
             select={
-                'numbersettlements': 'count(distinct vuid)'}, 
-            where = {"vuid = '"+str(code)+"'"}).values('numbersettlements')   
+                'numbersettlements': 'count(distinct vuid)'},
+            where = {"vuid = '"+str(code)+"'"}).values('numbersettlements')
     else:
         countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
             select={
-                'numbersettlements': 'count(distinct vuid)'}, 
+                'numbersettlements': 'count(distinct vuid)'},
             where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
-    
+
     return round(countsBase[0]['numbersettlements'],0)
 
 def getTotalHealthFacilities(filterLock, flag, code, targetBase):
@@ -2071,18 +2073,18 @@ def getTotalHealthFacilities(filterLock, flag, code, targetBase):
                     'ST_Intersects(wkb_geometry'+', '+filterLock+')'
                 }).values('numberhospital')
 
-    elif flag=='entireAfg':    
+    elif flag=='entireAfg':
         countsHLTBase = targetBase.extra(
                 select={
                     'numberhospital' : 'count(*)'
                 }).values('numberhospital')
-        
+
     elif flag=='currentProvince':
         if len(str(code)) > 2:
             ff0001 =  "dist_code  = '"+str(code)+"'"
         else :
-            ff0001 = "prov_code  = '"+str(code)+"'"     
-                
+            ff0001 = "prov_code  = '"+str(code)+"'"
+
         countsHLTBase = targetBase.extra(
             select={
                     'numberhospital' : 'count(*)'
@@ -2098,7 +2100,7 @@ def getTotalHealthFacilities(filterLock, flag, code, targetBase):
             },where = {
                 'ST_Within(wkb_geometry'+', '+filterLock+')'
             }).values('numberhospital')
-    return round(countsHLTBase[0]['numberhospital'],0)    
+    return round(countsHLTBase[0]['numberhospital'],0)
 
 def getTotalRoadNetwork(filterLock, flag, code, targetBase):
     # targetBase = targetBase.objects.all().filter(activestatus='Y').values('facility_types_description')
@@ -2115,12 +2117,12 @@ def getTotalRoadNetwork(filterLock, flag, code, targetBase):
             'ST_Intersects(wkb_geometry'+', '+filterLock+')'
         }).values('road_length')
 
-    elif flag=='entireAfg':    
+    elif flag=='entireAfg':
         countsRoadBase = targetBase.objects.all().extra(
                 select={
                     'road_length' : 'SUM(road_length)/1000'
                 }).values('road_length')
-        
+
     elif flag=='currentProvince':
         if len(str(code)) > 2:
             ff0001 =  "dist_code  = '"+str(code)+"'"
@@ -2128,8 +2130,8 @@ def getTotalRoadNetwork(filterLock, flag, code, targetBase):
             if len(str(code))==1:
                 ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'  and length(cast(dist_code as text))=3"
             else:
-                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'  and length(cast(dist_code as text))=4"    
-                
+                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'  and length(cast(dist_code as text))=4"
+
         countsRoadBase = targetBase.objects.all().extra(
             select={
                  'road_length' : 'SUM(road_length)/1000'
@@ -2147,11 +2149,11 @@ def getTotalRoadNetwork(filterLock, flag, code, targetBase):
             },
             where = {
                 'ST_Within(wkb_geometry'+', '+filterLock+')'
-            }).values('road_length') 
+            }).values('road_length')
     return round(countsRoadBase[0]['road_length'],0)
 
 def getProvinceSummary(filterLock, flag, code):
-    cursor = connections['geodb'].cursor() 
+    cursor = connections['geodb'].cursor()
 
     print flag, code
 
@@ -2185,22 +2187,22 @@ def getProvinceSummary(filterLock, flag, code):
             where b.prov_code="+str(code)+" \
             order by a.\"Population\" desc"
     else:
-        return []                
+        return []
 
     row = query_to_dicts(cursor, sql)
 
     response = []
-    
+
     for i in row:
         response.append(i)
 
-    cursor.close()    
+    cursor.close()
 
     return response
 
-def getProvinceAdditionalSummary(filterLock, flag, code):    
+def getProvinceAdditionalSummary(filterLock, flag, code):
     cursor = connections['geodb'].cursor()
-    
+
     if flag == 'entireAfg':
         sql = "select b.prov_code as code, b.prov_na_en as na_en, a.*, \
         a.hlt_special_hospital+a.hlt_rehabilitation_center+a.hlt_maternity_home+a.hlt_drug_addicted_treatment_center+a.hlt_private_clinic+a.hlt_malaria_center+a.hlt_mobile_health_team+a.hlt_other as hlt_others, \
@@ -2222,11 +2224,11 @@ def getProvinceAdditionalSummary(filterLock, flag, code):
     row = query_to_dicts(cursor, sql)
 
     response = []
-    
+
     for i in row:
         response.append(i)
 
-    cursor.close()    
+    cursor.close()
 
     return response
 
@@ -2238,7 +2240,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
     DAY = datetime.datetime.utcnow().strftime("%d")
 
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and marshland'))
 
     counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
     temp = dict([(c['deeperthan'], c['count']) for c in counts])
@@ -2250,28 +2252,28 @@ def getFloodForecastMatrix(filterLock, flag, code):
     # River Flood Forecasted
     counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
     temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
-    response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
-    response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
-    response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0) 
-    response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0) 
-    response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
-    response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+    response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
+    response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0)
+    response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0)
+    response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0)
+    response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
+    response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
     response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] + response['riverflood_forecast_low_pop'] + response['riverflood_forecast_med_pop'] + response['riverflood_forecast_high_pop'] + response['riverflood_forecast_veryhigh_pop'] + response['riverflood_forecast_extreme_pop']
 
     temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
-    response['riverflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0) 
-    response['riverflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0) 
-    response['riverflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0) 
-    response['riverflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0) 
-    response['riverflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0) 
-    response['riverflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0) 
+    response['riverflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0)
+    response['riverflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0)
+    response['riverflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0)
+    response['riverflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0)
+    response['riverflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0)
+    response['riverflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0)
     response['total_riverflood_forecast_area']=response['riverflood_forecast_verylow_area'] + response['riverflood_forecast_low_area'] + response['riverflood_forecast_med_area'] + response['riverflood_forecast_high_area'] + response['riverflood_forecast_veryhigh_area'] + response['riverflood_forecast_extreme_area']
 
 
     # flood risk and riverflood forecast matrix
     px = targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
-    
-    if flag=='entireAfg': 
+
+    if flag=='entireAfg':
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
                 'pop' : 'SUM(fldarea_population)'
@@ -2283,7 +2285,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
             if len(str(code))==1:
                 ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
             else:
-                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"   
+                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
                 'pop' : 'SUM(fldarea_population)'
@@ -2301,7 +2303,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
             },
             where = {
                 'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')  
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
     else:
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
@@ -2309,7 +2311,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
             },
             where = {
                 'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')      
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
@@ -2320,14 +2322,14 @@ def getFloodForecastMatrix(filterLock, flag, code):
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
     response['riverflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0), 0) 
+    response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0), 0)
     response['riverflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0),0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
     response['riverflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0),0)
     response['riverflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0),0) 
+    response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0),0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
@@ -2353,21 +2355,21 @@ def getFloodForecastMatrix(filterLock, flag, code):
     counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
     temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
 
-    response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
-    response['flashflood_forecast_low_pop']=round(temp.get(2, 0),0) 
-    response['flashflood_forecast_med_pop']=round(temp.get(3, 0),0) 
-    response['flashflood_forecast_high_pop']=round(temp.get(4, 0),0) 
-    response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
-    response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+    response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
+    response['flashflood_forecast_low_pop']=round(temp.get(2, 0),0)
+    response['flashflood_forecast_med_pop']=round(temp.get(3, 0),0)
+    response['flashflood_forecast_high_pop']=round(temp.get(4, 0),0)
+    response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
+    response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
     response['total_flashflood_forecast_pop']=response['flashflood_forecast_verylow_pop'] + response['flashflood_forecast_low_pop'] + response['flashflood_forecast_med_pop'] + response['flashflood_forecast_high_pop'] + response['flashflood_forecast_veryhigh_pop'] + response['flashflood_forecast_extreme_pop']
 
     temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
-    response['flashflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0) 
-    response['flashflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0) 
-    response['flashflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0) 
-    response['flashflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0) 
-    response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0) 
-    response['flashflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0) 
+    response['flashflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0)
+    response['flashflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0)
+    response['flashflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0)
+    response['flashflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0)
+    response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0)
+    response['flashflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0)
     response['total_flashflood_forecast_area']=response['flashflood_forecast_verylow_area'] + response['flashflood_forecast_low_area'] + response['flashflood_forecast_med_area'] + response['flashflood_forecast_high_area'] + response['flashflood_forecast_veryhigh_area'] + response['flashflood_forecast_extreme_area']
 
     response['total_flood_forecast_pop'] = response['total_riverflood_forecast_pop'] + response['total_flashflood_forecast_pop']
@@ -2378,8 +2380,8 @@ def getFloodForecastMatrix(filterLock, flag, code):
     # px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
     #     select={
     #         'pop' : 'SUM(fldarea_population)'
-    #     }).values('basinmember__basins__riskstate','deeperthan', 'pop') 
-    if flag=='entireAfg': 
+    #     }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+    if flag=='entireAfg':
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
                 'pop' : 'SUM(fldarea_population)'
@@ -2391,7 +2393,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
             if len(str(code))==1:
                 ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
             else:
-                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"   
+                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
                 'pop' : 'SUM(fldarea_population)'
@@ -2409,7 +2411,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
             },
             where = {
                 'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')  
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
     else:
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
@@ -2417,7 +2419,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
             },
             where = {
                 'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')     
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
@@ -2428,14 +2430,14 @@ def getFloodForecastMatrix(filterLock, flag, code):
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
     response['flashflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['flashflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0), 0) 
+    response['flashflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0), 0)
     response['flashflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0),0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
     response['flashflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0),0)
     response['flashflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0),0) 
+    response['flashflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0),0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
@@ -2453,7 +2455,6 @@ def getFloodForecastMatrix(filterLock, flag, code):
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
     response['flashflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0),0)
     response['flashflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0),0)   
+    response['flashflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0),0)
 
-    return response 
-
+    return response

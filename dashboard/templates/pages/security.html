@@ -12,18 +12,18 @@ li#nav_dashsecurity>a::after {
     border-bottom: 2px solid #755467;
     margin-top: 15px;
 }
-</style>	
+</style>
 
 <div class="gridster">
-	<h1 class="dashing-title">{% trans "Humanitarian Access" %} 
+	<h1 class="dashing-title">{% trans "Humanitarian Access" %}
 		{% include "links_title.html" %}
-		{% include "qlink_span.html" %}	
-	</h1> 
+		{% include "qlink_span.html" %}
+	</h1>
 
 </div>
 
 <div class="gridster" style="margin-bottom: 39px;">
-	<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;"> 
+	<div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
 	    <i class="fa fa-calendar"></i>&nbsp; {% trans "Incident between" %}:
 	    <span></span> <b class="caret"></b>
 	</div>
@@ -39,14 +39,14 @@ li#nav_dashsecurity>a::after {
 		  <option>Ketchup</option>
 		  <option>Relish</option>
 		</select>
-	</div>	
+	</div>
 	<div class="pull-right">
 		<select class="selectpicker" multiple data-actions-box="true">
 		  <option>Mustard</option>
 		  <option>Ketchup</option>
 		  <option>Relish</option>
 		</select>
-	</div>	
+	</div>
 </div> -->
 
 <div class="gridster">
@@ -58,7 +58,7 @@ li#nav_dashsecurity>a::after {
 		      {% endfor %}
 		    </select> -->
 		    <div class="custom-header">
-		    	<div style="float:left;font-size: small;padding: 5px;">{% trans "select incident type" %}</div> 
+		    	<div style="float:left;font-size: small;padding: 5px;">{% trans "select incident type" %}</div>
 		    	<div style="float:right;">
 		    		<button type="button" class="btn btn-primary btn-sm type_all">{% trans "Select All" %}</button>
 		    		<button type="button" class="btn btn-primary btn-sm type_none">{% trans "Select None" %}</button>
@@ -72,8 +72,8 @@ li#nav_dashsecurity>a::after {
 	                        {{ item.main_type }} ({{item.count}} incidents)
 	                    </label>
 	                </div>
-            {% endfor %}    
-            
+            {% endfor %}
+
 		</li>
   		<!-- <li data-row="1" data-col="1" data-sizex="2" data-sizey="2">
 			<div>{{ casualties_chart.as_html }}</div>
@@ -86,7 +86,7 @@ li#nav_dashsecurity>a::after {
 		      {% endfor %}
 		    </select> -->
 		    <div class="custom-header">
-		    	<div style="float:left;font-size: small;padding: 5px;">{% trans "select incident target" %}</div> 
+		    	<div style="float:left;font-size: small;padding: 5px;">{% trans "select incident target" %}</div>
 		    	<div style="float:right;">
 		    		<button type="button" class="btn btn-primary btn-sm target_all">{% trans "Select All" %}</button>
 		    		<button type="button" class="btn btn-primary btn-sm target_none">{% trans "Select None" %}</button>
@@ -100,7 +100,7 @@ li#nav_dashsecurity>a::after {
 	                        {{ item.main_target }} ({{item.count}} incidents)
 	                    </label>
 	                </div>
-            {% endfor %}  
+            {% endfor %}
 		</li>
 
   	</ul>
@@ -117,7 +117,7 @@ li#nav_dashsecurity>a::after {
 			<span class='widget-title'></span>
 		</li>
   	</ul>
-</div>		
+</div>
 
 <div class="page-break"></div>
 
@@ -142,7 +142,7 @@ li#nav_dashsecurity>a::after {
 			<span class='widget-title'></span>
 		</li>
   	</ul>
-</div>		
+</div>
 
 <div class="page-break"></div>
 
@@ -197,11 +197,11 @@ li#nav_dashsecurity>a::after {
 				<td class="detail_value">{{data.total_incident | intword | intcomma}}</td>
 				<td class="detail_value">{{data.total_dead | intword | intcomma}}</td>
 				<td class="detail_value">{{data.total_injured | intword | intcomma}}</td>
-				<td class="detail_value">{{data.total_violent | intword | intcomma}}</td>		
+				<td class="detail_value">{{data.total_violent | intword | intcomma}}</td>
 			</tr>
 			{% endfor %}
 			<tr>
-				<td class="separator" colspan=10></td>	
+				<td class="separator" colspan=10></td>
 			</tr>
 		</tbody>
 	</table>
@@ -221,7 +221,7 @@ li#nav_dashsecurity>a::after {
 						<th>{% trans "Dead" %}</th>
 						<th>{% trans "Injured" %}</th>
 						<th>{% trans "Violent" %}</th>
-					</tr>	
+					</tr>
 				</thead>
 				<tbody>
 					{% for data in incident_type_group %}
@@ -242,10 +242,10 @@ li#nav_dashsecurity>a::after {
 							</tr>
 						{% endfor %}
 					{% endfor %}
-				</tbody>	
+				</tbody>
 			</table>
 		</div>
-	</div>	
+	</div>
 	<div class="col-md-6 col-cust-4"  style="padding-right:0px !important;">
 		<div class="table_scroll">
 			<table style="font-size: small !important;margin-top:0 !important;">
@@ -259,7 +259,7 @@ li#nav_dashsecurity>a::after {
 						<th>{% trans "Dead" %}</th>
 						<th>{% trans "Injured" %}</th>
 						<th>{% trans "Violent" %}</th>
-					</tr>	
+					</tr>
 				</thead>
 				<tbody>
 					{% for data in incident_target_group %}
@@ -280,9 +280,9 @@ li#nav_dashsecurity>a::after {
 							</tr>
 						{% endfor %}
 					{% endfor %}
-				</tbody>		
+				</tbody>
 			</table>
-		</div>	
+		</div>
 	</div>
 	<div class="col-md-12" style="padding-right:0px !important;padding-left:0px !important;">
 		<div class="table_scroll">
@@ -294,20 +294,20 @@ li#nav_dashsecurity>a::after {
 					<tr>
 						<th>{% trans "Date" %}</th>
 						<th>{% trans "Description" %}</th>
-					</tr>	
-				</thead>	
+					</tr>
+				</thead>
 				<tbody>
 				{% for item in incident_list_100 %}
 					<tr>
 						<td style="text-align:left;width: 100px;">{{ item.incident_date }}</td>
 						<td style="text-align:left;">{{ item.description }}</td>
 					</tr>
-				{% endfor %}	
+				{% endfor %}
 				</tbody>
 			</table>
-		</div>	
+		</div>
 	</div>
-</div>	
+</div>
 
 
 
@@ -324,14 +324,14 @@ function show_hide_base(){
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
-		    return "show";		    
+		    return "show";
 		} else {
 			// $("div.showFlag").text("<p>Show Detail</p>");
-		    return "hide";	    
+		    return "hide";
 		}
 	});
 }
-	
+
 document.addEventListener('DOMContentLoaded', function() {
 	var daterange = getParameterByName("daterange");
     if (daterange == null){
@@ -341,9 +341,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var dateVar = daterange.split(',');
       var start = moment(new Date(dateVar[0].substr(0, 4), parseInt(dateVar[0].substr(5, 2))-1, dateVar[0].substr(8, 2)));
       var end = moment(new Date(dateVar[1].substr(0, 4), parseInt(dateVar[1].substr(5, 2))-1, dateVar[1].substr(8, 2)));;
-    }  
+    }
 
-    
+
 
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -353,13 +353,13 @@ document.addEventListener('DOMContentLoaded', function() {
         startDate: start,
         endDate: end,
         ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-           'Last Year': [moment().subtract(365, 'days'), moment()]
+           '{% trans 'Today' %}': [moment(), moment()],
+           '{% trans 'Yesterday' %}': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           '{% trans 'Last 7 Days' %}': [moment().subtract(6, 'days'), moment()],
+           '{% trans 'Last 30 Days' %}': [moment().subtract(29, 'days'), moment()],
+           '{% trans 'This Month' %}': [moment().startOf('month'), moment().endOf('month')],
+           '{% trans 'Last Month' %}': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+           '{% trans 'Last Year' %}': [moment().subtract(365, 'days'), moment()]
         }
     }, cb);
 
@@ -432,14 +432,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		var url = $(location).attr("href");
-		
+
 		if (type_selected_param != ''){
 			if (getParameterByName("incident_type") == null){
 				url += '&incident_type='+type_selected_param;
 			} else {
 				url = updateUrlParameter(url, 'incident_type', type_selected_param);
 			}
-			
+
 		} else {
 			url = removeParam('incident_type', url);
 		}
@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			} else {
 				url = updateUrlParameter(url, 'incident_target', target_selected_param)
 			}
-			
+
 		} else {
 			url = removeParam('incident_target', url);
 		}
