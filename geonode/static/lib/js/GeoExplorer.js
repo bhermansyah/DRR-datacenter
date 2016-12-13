@@ -91125,7 +91125,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         var today = new Date()
         var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7).format('Y-m-d');
         var lastmonth = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 30).format('Y-m-d');
-        var lastyear = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 365).format('Y-m-d');
+        var lastyear = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1500).format('Y-m-d');
         // console.log(lastmonth);
         var dataEQEvents = new Ext.data.JsonStore({
             url: "../../geoapi/geteqevents/?dateofevent__gte="+lastyear,
