@@ -178,12 +178,14 @@
         {% include "_permissions_form.html" %}
         {% endif %}
 
+        {% if user.is_superuser %}
         <li class="list-group-item">
           <h4>{% trans "Copy this map" %}</h4>
           <p>{% trans "Duplicate this map and modify it for your own purposes" %}</p>
           <a href="{% url "new_map" %}?copy={{ resource.id }}" class="btn btn-default btn-md btn-block">{% trans "Create a New Map" %}</a>
         </li>
-
+        {% endif %}
+        
         {% if resource.is_public and "change_resourcebase" in perms or resource.layer_group %}
         <li class="list-group-item">
           <h4>{% trans "Map WMS" %}</h4>

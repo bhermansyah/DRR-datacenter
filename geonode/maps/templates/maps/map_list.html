@@ -8,7 +8,9 @@
 {% block body %}
 <section class="social">
   <div class="container forceCenter panel-header-custom">
+    {% if user.is_superuser %}
       <a style="margin: 3px;" href="{% url "new_map" %}" class="btn btn-primary pull-right">{% trans "Create a New Map" %}</a>
+    {% endif %}  
       <div class="each-page-title">{% trans "Maps" %} <span ng-bind="total_counts" class="badge"></span></div>
       {% include "search/_sort_filters.html" %}
   </div>
