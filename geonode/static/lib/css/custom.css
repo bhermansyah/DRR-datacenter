@@ -2502,3 +2502,7 @@ body.about li#nav_about>a::after {
     margin-bottom: 15px;
     height: 375px;
 }
+
+.x-panel-body-noheader, .x-panel-mc .x-panel-body {
+    /*border-top-color: #FFF !important;*/
+}

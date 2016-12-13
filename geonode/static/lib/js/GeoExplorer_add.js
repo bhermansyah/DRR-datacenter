@@ -519,6 +519,15 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         // console.log(target);
         // this.loadFeatures();
     },
+    selectedAdminCode: function(){
+        return this.adminCode;
+    },
+    selectedFlag: function(){
+        return Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'];
+    },
+    selectedGeomFilter: function(){
+        return this.filter;
+    },
     activate: function() {},
     deactivate: function() {},
     getStore: function(){
@@ -1327,6 +1336,7 @@ Ext.preg(gxp.plugins.StatFeatureManager.prototype.ptype, gxp.plugins.StatFeature
 
 var _storeCalc = new gxp.plugins.StatFeatureManager();
 
+var selectedStatConfig = [];
 
 Ext.namespace("gxp.plugins");
 gxp.plugins.addFeatureFilter = Ext.extend(gxp.plugins.Tool, {

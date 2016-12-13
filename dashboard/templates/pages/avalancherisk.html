@@ -133,7 +133,7 @@ function show_hide_base(){
 		_checked.push('detail_base');
 	} else {
 		$("div.showFlag_base").text('{% trans "Show Detail" %}');
-		removeA(_checked, 'detail_health');
+		removeA(_checked, 'detail_base');
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
