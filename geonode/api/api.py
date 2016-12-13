@@ -28,6 +28,7 @@ from tastypie.resources import ModelResource
 from tastypie.constants import ALL
 from tastypie.utils import trailing_slash
 
+from django.utils.translation import ugettext as _
 
 FILTER_TYPES = {
     'layer': Layer,
@@ -54,22 +55,22 @@ class CountJSONSerializer(Serializer):
             resources = resources.filter(title__icontains=options['title_filter'])
 
         if options['category_filter']:
-            resources = resources.filter(category__identifier__in=options['category_filter'])      
+            resources = resources.filter(category__identifier__in=options['category_filter'])
 
         if options['keyword_filter']:
-            resources = resources.filter(keywords__slug__in=options['keyword_filter'])  
+            resources = resources.filter(keywords__slug__in=options['keyword_filter'])
 
         if options['region_filter']:
-            resources = resources.filter(regions__name__in=options['region_filter'])   
+            resources = resources.filter(regions__name__in=options['region_filter'])
 
         if options['date_gte_filter']:
-            resources = resources.filter(date__gte=options['date_gte_filter'])  
+            resources = resources.filter(date__gte=options['date_gte_filter'])
 
         if options['date_lte_filter']:
-            resources = resources.filter(date__lte=options['date_lte_filter'])    
+            resources = resources.filter(date__lte=options['date_lte_filter'])
 
         if options['date_range_filter']:
-            resources = resources.filter(date__range=options['date_range_filter'])              
+            resources = resources.filter(date__range=options['date_range_filter'])
 
         if options['type_filter']:
             resources = resources.instance_of(options['type_filter'])
@@ -84,20 +85,20 @@ class CountJSONSerializer(Serializer):
         counts = self.get_resources_counts(options)
         for item in data['objects']:
             item['count'] = counts.get(item['id'], 0)
-        
+
         # Add in the current time.
         data['requested_time'] = time.time()
 
-        cloned_data = copy.copy(data) 
+        cloned_data = copy.copy(data)
         cloned_data['objects'] = []
 
         if options['count_type']=='regions':
             lev3 = [z for z in data['objects'] if z['level'] == 3 and (z['code']=='AFG' or z['code']=='AFG01'  or z['code']=='AFG02'  or z['code']=='AFG03'  or z['code']=='AFG04'  or z['code']=='AFG05' or z['code']=='AFG06')]
             i = 0
             for lev3item in lev3:
-                i = i+1 
-                lev3item['children']=[] 
-                if i == 7: 
+                i = i+1
+                lev3item['children']=[]
+                if i == 7:
                     lev4 = [x for x in data['objects'] if x['level'] == 4]
                     for lev4item in lev4:
                         lev4item['children']=[]
@@ -105,41 +106,41 @@ class CountJSONSerializer(Serializer):
                         lev5 = [y for y in data['objects'] if y['level'] == 5 and y['code'][:2]==lev4item['code'] and y['count']>0]
                         for lev5item in lev5:
                             lev4item['children'].append(lev5item)
-                        lev3item['children'].append(lev4item)    
+                        lev3item['children'].append(lev4item)
                 cloned_data['objects'].append(lev3item)
 
             return json.dumps(cloned_data, cls=DjangoJSONEncoder, sort_keys=True)
         elif options['count_type']=='category':
             group = []
-            group.append({'count': 0, 'gn_description_en': 'Agriculture', 'description': 'Agriculture', 'gn_description': 'Agriculture', 'is_choice': True, 'description_en': 'Agriculture', 'identifier': 'agr', 'id': 0, u'resource_uri': '','children':[]}) 
-            group.append({'count': 0, 'gn_description_en': 'Avalanches', 'description': 'Avalanches', 'gn_description': 'Avalanches', 'is_choice': True, 'description_en': 'Avalanches', 'identifier': 'av', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Administrative', 'description': 'Administrative', 'gn_description': 'Administrative', 'is_choice': True, 'description_en': 'Administrative', 'identifier': 'bnd', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Droughts', 'description': 'Droughts', 'gn_description': 'Droughts', 'is_choice': True, 'description_en': 'Droughts', 'identifier': 'dr', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Earthquake', 'description': 'Earthquake', 'gn_description': 'Earthquake', 'is_choice': True, 'description_en': 'Earthquake', 'identifier': 'eq', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Education', 'description': 'Education', 'gn_description': 'Education', 'is_choice': True, 'description_en': 'Education', 'identifier': 'edu', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Emergency Response', 'description': 'Emergency Response', 'gn_description': 'Emergency Response', 'is_choice': True, 'description_en': 'Emergency Response', 'identifier': 'erm', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Floods', 'description': 'Floods', 'gn_description': 'Floods', 'is_choice': True, 'description_en': 'Floods', 'identifier': 'fl', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Physical Environment', 'description': 'Physical Environment', 'gn_description': 'Physical Environment', 'is_choice': True, 'description_en': 'Physical Environment', 'identifier': 'geo', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Health', 'description': 'Health', 'gn_description': 'Health', 'is_choice': True, 'description_en': 'Health', 'identifier': 'hlt', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Hydrology', 'description': 'Hydrology', 'gn_description': 'Hydrology', 'is_choice': True, 'description_en': 'Hydrology', 'identifier': 'hydro', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Hazard', 'description': 'Hazard', 'gn_description': 'Hazard', 'is_choice': True, 'description_en': 'Hazard', 'identifier': 'hz', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'IDP', 'description': 'IDP', 'gn_description': 'IDP', 'is_choice': True, 'description_en': 'IDP', 'identifier': 'idp', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Imagery', 'description': 'Imagery', 'gn_description': 'Imagery', 'is_choice': True, 'description_en': 'Imagery', 'identifier': 'img', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Infrastructure', 'description': 'Infrastructure', 'gn_description': 'Infrastructure', 'is_choice': True, 'description_en': 'Infrastructure', 'identifier': 'infr', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Meteorology', 'description': 'Meteorology', 'gn_description': 'Meteorology', 'is_choice': True, 'description_en': 'Meteorology', 'identifier': 'met', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Settlements', 'description': 'Settlements', 'gn_description': 'Settlements', 'is_choice': True, 'description_en': 'Settlements', 'identifier': 'ppl', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Security', 'description': 'Security', 'gn_description': 'Security', 'is_choice': True, 'description_en': 'Security', 'identifier': 'sec', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Socio-demographics', 'description': 'Socio-demographics', 'gn_description': 'Socio-demographics', 'is_choice': True, 'description_en': 'Socio-demographics', 'identifier': 'sos', 'id': 0, u'resource_uri': '','children':[]})
-            group.append({'count': 0, 'gn_description_en': 'Others', 'description': 'Others', 'gn_description': 'Others', 'is_choice': True, 'description_en': 'Others', 'identifier': 'ot', 'id': 0, u'resource_uri': '','children':[]})
-            for group_state in group: 
+            group.append({'count': 0, 'gn_description_en': _('Agriculture'), 'description': _('Agriculture'), 'gn_description': _('Agriculture'), 'is_choice': True, 'description_en': _('Agriculture'), 'identifier': 'agr', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Avalanches'), 'description': _('Avalanches'), 'gn_description': _('Avalanches'), 'is_choice': True, 'description_en': _('Avalanches'), 'identifier': 'av', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Administrative'), 'description': _('Administrative'), 'gn_description': _('Administrative'), 'is_choice': True, 'description_en': _('Administrative'), 'identifier': 'bnd', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Droughts'), 'description': _('Droughts'), 'gn_description': _('Droughts'), 'is_choice': True, 'description_en': _('Droughts'), 'identifier': 'dr', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Earthquake'), 'description': _('Earthquake'), 'gn_description': _('Earthquake'), 'is_choice': True, 'description_en': _('Earthquake'), 'identifier': 'eq', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Education'), 'description': _('Education'), 'gn_description': _('Education'), 'is_choice': True, 'description_en': _('Education'), 'identifier': 'edu', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Emergency Response'), 'description': _('Emergency Response'), 'gn_description': _('Emergency Response'), 'is_choice': True, 'description_en': _('Emergency Response'), 'identifier': 'erm', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Floods'), 'description': _('Floods'), 'gn_description': _('Floods'), 'is_choice': True, 'description_en': _('Floods'), 'identifier': 'fl', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Physical Environment'), 'description': _('Physical Environment'), 'gn_description': _('Physical Environment'), 'is_choice': True, 'description_en': _('Physical Environment'), 'identifier': 'geo', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Health'), 'description': _('Health'), 'gn_description': _('Health'), 'is_choice': True, 'description_en': _('Health'), 'identifier': 'hlt', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Hydrology'), 'description': _('Hydrology'), 'gn_description': _('Hydrology'), 'is_choice': True, 'description_en': _('Hydrology'), 'identifier': 'hydro', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Hazard'), 'description': _('Hazard'), 'gn_description': _('Hazard'), 'is_choice': True, 'description_en': _('Hazard'), 'identifier': 'hz', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('IDP'), 'description': _('IDP'), 'gn_description': _('IDP'), 'is_choice': True, 'description_en': _('IDP'), 'identifier': 'idp', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Imagery'), 'description': _('Imagery'), 'gn_description': _('Imagery'), 'is_choice': True, 'description_en': _('Imagery'), 'identifier': 'img', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Infrastructure'), 'description': _('Infrastructure'), 'gn_description': _('Infrastructure'), 'is_choice': True, 'description_en': _('Infrastructure'), 'identifier': 'infr', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Meteorology'), 'description': _('Meteorology'), 'gn_description': _('Meteorology'), 'is_choice': True, 'description_en': _('Meteorology'), 'identifier': 'met', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Settlements'), 'description': _('Settlements'), 'gn_description': _('Settlements'), 'is_choice': True, 'description_en': _('Settlements'), 'identifier': 'ppl', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Security'), 'description': _('Security'), 'gn_description': _('Security'), 'is_choice': True, 'description_en': _('Security'), 'identifier': 'sec', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Socio-demographics'), 'description': _('Socio-demographics'), 'gn_description': _('Socio-demographics'), 'is_choice': True, 'description_en': _('Socio-demographics'), 'identifier': 'sos', 'id': 0, u'resource_uri': '','children':[]})
+            group.append({'count': 0, 'gn_description_en': _('Others'), 'description': _('Others'), 'gn_description': _('Others'), 'is_choice': True, 'description_en': _('Others'), 'identifier': 'ot', 'id': 0, u'resource_uri': '','children':[]})
+            for group_state in group:
                 filteredItems = [x for x in data['objects'] if x['identifier'].split('-', 1 )[0] == group_state['identifier']]
-                
+
                 test = copy.copy(sorted(filteredItems, key=lambda filteredItem:filteredItem['gn_description'] ))
-                for filteredItem in test: 
+                for filteredItem in test:
                     group_state['children'].append(filteredItem)
-                    group_state['count'] = group_state['count'] + filteredItem['count'] 
-                    group_state['show']=False 
-            cloned_data['objects'] = group              
+                    group_state['count'] = group_state['count'] + filteredItem['count']
+                    group_state['show']=False
+            cloned_data['objects'] = group
             return json.dumps(cloned_data, cls=DjangoJSONEncoder, sort_keys=True)
         else:
             return json.dumps(data, cls=DjangoJSONEncoder, sort_keys=True)
@@ -171,17 +172,17 @@ class TypeFilteredResource(ModelResource):
         if 'title__icontains' in filters:
             self.title_filter = filters['title__icontains']
         if 'category__identifier__in' in filters:
-            self.category_filter = filters.getlist('category__identifier__in')     
+            self.category_filter = filters.getlist('category__identifier__in')
         if 'keywords__slug__in' in filters:
-            self.keyword_filter = filters.getlist('keywords__slug__in')    
+            self.keyword_filter = filters.getlist('keywords__slug__in')
         if 'regions__name__in' in filters:
-            self.region_filter = filters.getlist('regions__name__in')    
+            self.region_filter = filters.getlist('regions__name__in')
         if 'date__gte' in filters:
-            self.date_gte_filter = filters['date__gte'] 
+            self.date_gte_filter = filters['date__gte']
         if 'date__lte' in filters:
-            self.date_lte_filter = filters['date__lte'] 
+            self.date_lte_filter = filters['date__lte']
         if 'date__range' in filters:
-            self.date_range_filter = filters['date__range']               
+            self.date_range_filter = filters['date__range']
         return orm_filters
 
     def serialize(self, request, data, format, options={}):
