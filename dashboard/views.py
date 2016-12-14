@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader
 from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity
 from geodb.models import AfgAdmbndaAdm1, AfgAdmbndaAdm2
 from django.shortcuts import HttpResponse
 from matrix.models import matrix
+from dashboard.models import classmarker
 from urlparse import urlparse
 from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
 import json, os
@@ -147,3 +148,29 @@ def dashboard_multiple(request):
 	return resp
 	# return HttpResponse({}, mimetype='application/json')
 
+def classmarkerRedirect(request):
+	return redirect('https://www.classmarker.com/online-test/start/?quiz=mft579f02fe604fb&cm_user_id='+request.user.username+'&cm_fn='+request.user.first_name+'&cm_ln='+request.user.last_name+'&cm_e='+request.user.email)
+
+def classmarkerInsert(request):
+	# classmarker
+	# print request.GET
+	# data = get_object_or_404(classmarker, cm_user_id=request.GET['cm_user_id'])
+	data = classmarker.objects.filter(cm_user_id=request.GET['cm_user_id'])
+	cm_ts = request.GET['cm_ts']
+	cm_tsa = request.GET['cm_tsa']
+	cm_tp = request.GET['cm_tp']
+
+	if data.count()>0:
+		if data[0].cm_ts > float(cm_ts):
+			cm_ts = data[0].cm_ts
+		if data[0].cm_tsa > float(cm_tsa):
+			cm_tsa = data[0].cm_tsa	  
+		if data[0].cm_tp > float(cm_tp):
+			cm_tp = data[0].cm_tp
+
+		p = classmarker(pk=data[0].pk,cm_ts=cm_ts,cm_tsa=cm_tsa,cm_tp=cm_tp,cm_td=request.GET['cm_td'],cm_fn=request.GET['cm_fn'],cm_ln=request.GET['cm_ln'],cm_e=request.GET['cm_e'],cm_user_id=request.GET['cm_user_id'],cm_access_list_item=request.GET['cm_access_list_item'])
+	else:
+		p = classmarker(cm_ts=cm_ts,cm_tsa=cm_tsa,cm_tp=cm_tp,cm_td=request.GET['cm_td'],cm_fn=request.GET['cm_fn'],cm_ln=request.GET['cm_ln'],cm_e=request.GET['cm_e'],cm_user_id=request.GET['cm_user_id'],cm_access_list_item=request.GET['cm_access_list_item'])	
+
+	p.save()
+	return HttpResponse({}, mimetype='application/json')
