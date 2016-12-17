@@ -34,7 +34,7 @@ class Document(ResourceBase):
     object_id = models.PositiveIntegerField(blank=True, null=True)
     resource = generic.GenericForeignKey('content_type', 'object_id')
 
-    doc_file = models.FileField(max_length=255, upload_to='documents',
+    doc_file = models.FileField(max_length=500, upload_to='documents',
                                 null=True,
                                 blank=True,
                                 verbose_name=_('File'))
