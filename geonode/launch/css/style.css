@@ -1,0 +1,217 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+body {
+	background-image: url('../imgs/background.jpg');
+	background-size: 100%;
+}
+
+.card-title {
+	padding: 0px;
+	font-size:3rem !important;
+	font-weight: 100 !important;
+	font-color: #616161 !important;
+}
+
+.card .card-action {
+	padding: 10px;
+}
+
+.progress {
+	height: 6px;
+}
+
+nav ul a,
+nav .brand-logo {
+  color: #fff;
+  font-weight: 100;
+}
+
+p {
+  line-height: 2rem;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 100;
+}
+
+h2 {
+  font-size: 24px; 
+}
+
+.logo {
+  width: 210px;
+  cursor: pointer;
+}
+
+.promo {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2196f3+8,1976d2+99 */
+  height: 400px;
+  background: #2196f3; /* Old browsers */
+  background: -moz-linear-gradient(-45deg,  #2196f3 8%, #1976d2 99%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg,  #2196f3 8%,#1976d2 99%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg,  #2196f3 8%,#1976d2 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2196f3', endColorstr='#1976d2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.promo h1 {
+  margin: 0px;
+  padding-top: 80px;
+}
+
+.feature {
+  min-height: 400px;
+}
+
+.feature .row {
+  padding: 20px;
+  margin-bottom: 0px;
+}
+
+.feature .detail h1 {
+  font-size: 30px;
+}
+
+.feature .detail h2 {
+  font-size: 18px;
+}
+
+.feature .detail p {
+  font-weight: 300;
+}
+
+.feature .toolbox img {
+  position: relative;
+  top: -49px;
+  margin: -60px;
+  width: 180px;
+}
+
+.feature .count {
+  position:relative;
+  font-weight:100;
+  font-size:3rem;
+  line-height:3rem;
+} 
+
+.feature .name {
+  font-weight:300;
+  font-size:1.1rem;
+  line-height:1.1rem;
+}
+
+.feature .circle {
+  width: 150px;
+  height: 150px;
+  padding-top: 50px;
+  border-radius: 50% !important;
+  margin: 10px auto;
+}
+
+.icon-block h5 {
+  font-weight: 400 !important;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 400px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+footer.page-footer .btn-floating {
+  margin: 10px;
+}
+
+/*footer.page-footer h2 {
+  font-weight: 200 !important;
+}*/
+
+/* Social Icons */
+@font-face {
+  font-family: 'fontello';
+  src: url('../fonts/fontello/fontello.eot?12027646');
+  src: url('../fonts/fontello/fontello.eot?12027646#iefix') format('embedded-opentype'),
+       url('../fonts/fontello/fontello.woff2?12027646') format('woff2'),
+       url('../fonts/fontello/fontello.woff?12027646') format('woff'),
+       url('../fonts/fontello/fontello.ttf?12027646') format('truetype'),
+       url('../fonts/fontello/fontello.svg?12027646#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+ [class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+ 
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  /* opacity: .8; */
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+ 
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: .2em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-facebook:before { content: '\f09a'; } /* '' */
+.icon-twitter:before { content: '\f099'; } /* '' */
+.icon-linkedin:before { content: '\f0e1'; } /* '' */
+
