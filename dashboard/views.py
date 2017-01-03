@@ -13,12 +13,14 @@ import json, os
 # from wkhtmltopdf.views import PDFTemplateResponse
 import pdfkit
 from geonode.people.models import Profile
-
+from django.views.decorators.csrf import csrf_exempt
 
 def common(request):
 	response = {}
 	code = None
 	flag = 'entireAfg'
+	filterLock = None
+	rawFilterLock = None
 
 	if 'page' not in request.GET:
 		mutable = request.GET._mutable
@@ -29,6 +31,12 @@ def common(request):
 	if 'code' in request.GET:
 		code = int(request.GET['code'])
 		flag = 'currentProvince'
+
+	if 'flag' in request.GET:
+		filterLock = request.GET['filter']
+		rawFilterLock = filterLock
+		filterLock = 'ST_GeomFromText(\''+filterLock+'\',4326)'
+		flag = request.GET['flag']	
 
 	if 'pdf' in request.GET:
 		mapCode = '700'
@@ -44,21 +52,21 @@ def common(request):
 		queryset.save()	
 
 	if request.GET['page'] == 'baseline':
-		response = getBaseline(request, None, flag, code)
+		response = getBaseline(request, filterLock, flag, code)
 	elif request.GET['page'] == 'floodforecast':
-		response = getFloodForecast(request, None, flag, code)
+		response = getFloodForecast(request, filterLock, flag, code)
 	elif request.GET['page'] == 'floodrisk':
-		response = getFloodRisk(request, None, flag, code)	
+		response = getFloodRisk(request, filterLock, flag, code)	
 	elif request.GET['page'] == 'avalancherisk':
-		response = getAvalancheRisk(request, None, flag, code)
+		response = getAvalancheRisk(request, filterLock, flag, code)
 	elif request.GET['page'] == 'avalcheforecast':
-		response = getAvalancheForecast(request, None, flag, code)	
+		response = getAvalancheForecast(request, filterLock, flag, code)	
 	elif request.GET['page'] == 'accessibility':
-		response = getAccessibility(request, None, flag, code)	
+		response = getAccessibility(request, rawFilterLock, flag, code)	
 	elif request.GET['page'] == 'earthquake':
-		response = getEarthquake(request, None, flag, code)	
+		response = getEarthquake(request, filterLock, flag, code)	
 	elif request.GET['page'] == 'security':
-		response = getSecurity(request, None, flag, code)			
+		response = getSecurity(request, rawFilterLock, flag, code)			
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)
@@ -105,7 +113,6 @@ def dashboard_detail(request):
 	            RequestContext(request, response))	
 
 def dashboard_print(request):
-	print request
 	return render_to_response(
 	            "dashboard_base.html",
 	            RequestContext(request, common(request)))			
@@ -121,6 +128,7 @@ def get_provinces(request):
 		response['data']['districts'].append({'name':i['dist_na_en'],'code':i['dist_code'],'parent':i['prov_na_en']})	
 	return HttpResponse(json.dumps(response), mimetype='application/json')
 
+@csrf_exempt
 def dashboard_multiple(request):
 	options = {
 	    'quiet': '',
@@ -130,19 +138,30 @@ def dashboard_multiple(request):
 	    'margin-bottom':10,
 	    'margin-top':25,
 	    # 'viewport-size':'800x600',
-	    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html',
-	    # 'lowquality':'-'
+	    # 'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html',
+	    # 'lowquality':'-',
 	    # 'disable-smart-shrinking':'-',
 	    # 'print-media-type':'-',
 	    # 'no-stop-slow-scripts':'-',
 	    # 'enable-javascript':'-',
-	    # 'javascript-delay': 30000,
+	    'javascript-delay': 10000,
 	    # 'window-status': 'ready',
+	    'encoding': "UTF-8",
 	}
-	a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
-	print  a
+
+	urls = []
+	data = request.POST
+	a = request.META.get('HTTP_HOST') #+request.META.get('PATH_INFO')
+
+	# print data['urls']
+	for i in data['urls'].split(','):
+		if i is not None and i != '':
+			urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
+	
+	# print urls
+
 	# pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
-	pdf = pdfkit.from_url(['http://localhost:8000/dashboard/print?&pdf=true&page=baseline&code=2204&user=1&filter=POLYGON((68.61075973512614 34.474506648586676,68.61247634889578 34.47931798192948,68.6111030578797 34.48582699130722,68.60560989381717 34.489788748348964,68.61281967164936 34.49516511760717,68.62346267702085 34.49516511760717,68.62826919557534 34.48893981625383,68.6358222961611 34.48497801888657,68.63479232789949 34.47988400290633,68.63170242311465 34.474506648586676,68.6310157776066 34.46827980537897,68.61522293092705 34.46601538356964,68.61384963991097 34.4691289477194,68.61075973512614 34.474506648586676))'+'&user='+str(request.user.id),'http://localhost:8000/dashboard/print?&pdf=true&page=floodrisk&code=2204&user=1&filter=POLYGON((68.61075973512614 34.474506648586676,68.61247634889578 34.47931798192948,68.6111030578797 34.48582699130722,68.60560989381717 34.489788748348964,68.61281967164936 34.49516511760717,68.62346267702085 34.49516511760717,68.62826919557534 34.48893981625383,68.6358222961611 34.48497801888657,68.63479232789949 34.47988400290633,68.63170242311465 34.474506648586676,68.6310157776066 34.46827980537897,68.61522293092705 34.46601538356964,68.61384963991097 34.4691289477194,68.61075973512614 34.474506648586676))'+'&user='+str(request.user.id)], False, options=options)
+	pdf = pdfkit.from_url(urls, False, options=options)
 	resp = HttpResponse(pdf,content_type='application/pdf')
 	resp['Content-Disposition'] = 'attachment; filename="ourcodeworld.pdf"'
 	return resp

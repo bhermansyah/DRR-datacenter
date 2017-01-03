@@ -19,11 +19,12 @@ def print_map(request):
     permissions = {}
     params = json.loads(request.body)
     for layer in params['layers']:
-        if ogc_server_settings.LOCATION in layer['baseURL']:
-            for layer_name in layer['layers']:
-                layer_obj = Layer.objects.get(typename=layer_name)
-                permissions[layer_obj] = _perms_info_json(layer_obj)
-                layer_obj.set_default_permissions()
+        if 'baseURL' in layer:
+            if ogc_server_settings.LOCATION in layer['baseURL']:
+                for layer_name in layer['layers']:
+                    layer_obj = Layer.objects.get(typename=layer_name)
+                    permissions[layer_obj] = _perms_info_json(layer_obj)
+                    layer_obj.set_default_permissions()
     try:
         resp = proxy(request)
     except Exception:

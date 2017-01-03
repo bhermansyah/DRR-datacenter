@@ -116,6 +116,10 @@ def getCommonUse(request,flag, code):
     return response
 
 def getSecurity(request, filterLock, flag, code):
+    if 'flag' in request.GET:
+        rawFilterLock = filterLock
+        filterLock = 'ST_GeomFromText(\''+filterLock+'\',4326)'
+
     response = getCommonUse(request, flag, code)
 
     enddate = datetime.date.today()
@@ -129,7 +133,7 @@ def getSecurity(request, filterLock, flag, code):
 
 
 
-    rawCasualties = getIncidentCasualties(request, daterange, filterLock, flag, code)
+    rawCasualties = getIncidentCasualties(request, daterange, rawFilterLock, flag, code)
     for i in rawCasualties:
         response[i]=rawCasualties[i]
 
@@ -160,8 +164,8 @@ def getSecurity(request, filterLock, flag, code):
     #         'titleX':'# of Casualties and Incident',
     # })
 
-    response['main_type_child'] = getSAMParams(request, daterange, filterLock, flag, code, 'main_type', False)
-    main_type_raw_data = getSAMParams(request, daterange, filterLock, flag, code, 'main_type', True)
+    response['main_type_child'] = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_type', False)
+    main_type_raw_data = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_type', True)
 
     data_main_type = []
     # data_main_type.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
@@ -235,8 +239,8 @@ def getSecurity(request, filterLock, flag, code):
             }
         ).get_image()
 
-    response['main_target_child'] = getSAMParams(request, daterange, filterLock, flag, code, 'main_target', False)
-    main_target_raw_data = getSAMParams(request, daterange, filterLock, flag, code, 'main_target', True)
+    response['main_target_child'] = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_target', False)
+    main_target_raw_data = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_target', True)
     data_main_target = []
     # data_main_target.append(['', 'incident',{ 'role': 'annotation' }, 'dead',{ 'role': 'annotation' }, 'violent',{ 'role': 'annotation' }, 'injured',{ 'role': 'annotation' } ])
     # for type_item in main_target_raw_data:
@@ -328,18 +332,18 @@ def getSecurity(request, filterLock, flag, code):
         response['incident_target'] = request.GET['incident_target'].split(',')
         print response['incident_target']
 
-    data = getListIncidentCasualties(request, daterange, filterLock, flag, code)
+    data = getListIncidentCasualties(request, daterange, rawFilterLock, flag, code)
     response['lc_child']=data
 
     response['incident_type_group']=[]
     for i in main_type_raw_data:
-        response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':getSAMIncident(request, daterange, filterLock, flag, code, 'type', i['main_type'])})
+        response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':getSAMIncident(request, daterange, rawFilterLock, flag, code, 'type', i['main_type'])})
 
     response['incident_target_group']=[]
     for i in main_target_raw_data:
-        response['incident_target_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_target':i['main_target'],'child':getSAMIncident(request, daterange, filterLock, flag, code, 'target', i['main_target'])})
+        response['incident_target_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_target':i['main_target'],'child':getSAMIncident(request, daterange, rawFilterLock, flag, code, 'target', i['main_target'])})
 
-    response['incident_list_100'] = getListIncidents(request, daterange, filterLock, flag, code)
+    response['incident_list_100'] = getListIncidents(request, daterange, rawFilterLock, flag, code)
 
     return response
 
@@ -960,12 +964,16 @@ def GetAccesibilityData(filterLock, flag, code):
     return response
 
 def getAccessibility(request, filterLock, flag, code):
+    if 'flag' in request.GET:
+        rawFilterLock = filterLock
+        filterLock = 'ST_GeomFromText(\''+filterLock+'\',4326)'
+
     targetBase = AfgLndcrva.objects.all()
     response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
 
-    rawAccesibility = GetAccesibilityData(filterLock, flag, code)
+    rawAccesibility = GetAccesibilityData(rawFilterLock, flag, code)
 
     # print rawAccesibility
 
@@ -1708,6 +1716,8 @@ def getBaseline(request, filterLock, flag, code):
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
     response['hltfac']=getTotalHealthFacilities(filterLock, flag, code, AfgHltfac)
     response['roadnetwork']=getTotalRoadNetwork(filterLock, flag, code, AfgRdsl)
+    if response['roadnetwork']==0:
+        response['roadnetwork'] = 0.00000000001
 
     rawBaseline = getRawBaseLine(filterLock, flag, code)
     for i in rawBaseline:

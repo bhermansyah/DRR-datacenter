@@ -34591,6 +34591,217 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         this.fireEvent("dpichange", this, dpi);
     },
 
+    statConfig : [
+        {
+            "id":"1",
+            "nodeID":"1",
+            "pnodeID":"0",
+            "text":"Baseline",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=baseline&pdf=true",
+            "children":[
+                {
+                    "id":"11",
+                    "nodeID":"11",
+                    "pnodeID":"1",
+                    "text":"Expand Population and area overview",
+                    "leaf":true,
+                    "_checked":"detail_base"
+                },{
+                    "id":"12",
+                    "nodeID":"12",
+                    "pnodeID":"1",
+                    "text":"Expand Number of Health facilities",
+                    "leaf":true,
+                    "_checked":"detail_health"
+                },{
+                    "id":"13",
+                    "nodeID":"13",
+                    "pnodeID":"1",
+                    "text":"Expand Road network overview and length",
+                    "leaf":true,
+                    "_checked":"detail_road"
+                }
+            ]
+        },{
+            "id":"2",
+            "nodeID":"2",
+            "pnodeID":"0",
+            "text":"Accessibility",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=accessibility&pdf=true",
+            "children":[
+                {
+                    "id":"21",
+                    "nodeID":"21",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Nearest Airport",
+                    "leaf":true,
+                    "_checked":"detail_airport"
+                },{
+                    "id":"22",
+                    "nodeID":"22",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Nearest Health Facilities Tier 1",
+                    "leaf":true,
+                    "_checked":"detail_tier1"
+                },{
+                    "id":"23",
+                    "nodeID":"23",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Nearest Health Facilities Tier 2",
+                    "leaf":true,
+                    "_checked":"detail_tier2"
+                },{
+                    "id":"24",
+                    "nodeID":"24",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Nearest Health Facilities Tier 3",
+                    "leaf":true,
+                    "_checked":"detail_tier3"
+                },{
+                    "id":"25",
+                    "nodeID":"25",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Nearest Health Facilities Tier all",
+                    "leaf":true,
+                    "_checked":"detail_tierall"
+                },{
+                    "id":"26",
+                    "nodeID":"26",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Its Province Capital",
+                    "leaf":true,
+                    "_checked":"detail_itsprov"
+                },{
+                    "id":"27",
+                    "nodeID":"27",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Nearest Province Capital",
+                    "leaf":true,
+                    "_checked":"detail_nearprov"
+                },{
+                    "id":"28",
+                    "nodeID":"28",
+                    "pnodeID":"2",
+                    "text":"Expand Travel Time to Nearest District Capital",
+                    "leaf":true,
+                    "_checked":"detail_neardist"
+                }
+            ]
+        },{
+            "id":"3",
+            "nodeID":"3",
+            "pnodeID":"0",
+            "text":"Flood forecast",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=floodforecast&pdf=true",
+            "children":[
+                {
+                    "id":"31",
+                    "nodeID":"31",
+                    "pnodeID":"3",
+                    "text":"Expand Population living in flood forecast areas",
+                    "leaf":true,
+                    "_checked":"detail_base"
+                }
+            ]
+        },{
+            "id":"4",
+            "nodeID":"4",
+            "pnodeID":"0",
+            "text":"Flood risk",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=floodrisk&pdf=true",
+            "children":[
+                {
+                    "id":"41",
+                    "nodeID":"41",
+                    "pnodeID":"4",
+                    "text":"Expand Population living in flood risk areas",
+                    "leaf":true,
+                    "_checked":"detail_base"
+                }
+            ]
+        },{
+            "id":"5",
+            "nodeID":"5",
+            "pnodeID":"0",
+            "text":"Avalanche forecast",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=avalcheforecast&pdf=true",
+            "children":[
+                {
+                    "id":"51",
+                    "nodeID":"51",
+                    "pnodeID":"5",
+                    "text":"Expand Population in forecasted avalanche risk areas",
+                    "leaf":true,
+                    "_checked":"detail_base"
+                }
+            ]
+        },{
+            "id":"6",
+            "nodeID":"6",
+            "pnodeID":"0",
+            "text":"Avalanche risk",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=avalancherisk&pdf=true",
+            "children":[
+                {
+                    "id":"61",
+                    "nodeID":"61",
+                    "pnodeID":"6",
+                    "text":"Expand Population in avalanche risk areas",
+                    "leaf":true,
+                    "_checked":"detail_base"
+                }
+            ]
+        },{
+            "id":"7",
+            "nodeID":"7",
+            "pnodeID":"0",
+            "text":"Earthquake",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=earthquake&pdf=true",
+            "children":[
+                {
+                    "id":"71",
+                    "nodeID":"71",
+                    "pnodeID":"7",
+                    "text":"Expand Earthquake affected Population and settlement overview",
+                    "leaf":true,
+                    "_checked":"detail_base"
+                }
+            ]
+        },{
+            "id":"8",
+            "nodeID":"8",
+            "pnodeID":"0",
+            "text":"Humanitarian access",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=security&pdf=true",
+            "children":[
+                {
+                    "id":"81",
+                    "nodeID":"81",
+                    "pnodeID":"8",
+                    "text":"Expand Number of incidents and casualties",
+                    "leaf":true,
+                    "_checked":"detail_base"
+                }
+            ]
+        }
+    ],    
+
     /** api: method[print]
      *  :param map: ``GeoExt.MapPanel`` or ``OpenLayers.Map`` The map to print.
      *  :param pages: ``Array`` of :class:`GeoExt.data.PrintPage` or
@@ -34629,9 +34840,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         }
         pages = pages instanceof Array ? pages : [pages];
         options = options || {};
-        if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
-            return;
-        }
+        // if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
+        //     return;
+        // }
 
         var jsonData = Ext.apply({
             units: map.getUnits(),
@@ -34734,45 +34945,167 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
             this.download(url);
         } else {
-            // var dashboard_url = [];
-            // var dashboard_expanded = [];
-            // selectedStatConfig.forEach(function(item){
-            //     // console.log(item.id, item.attributes.url, item.attributes._checked);
-            //     if (item.attributes.url) {
-            //         dashboard_url[item.id] = item.attributes.url;
-            //     } else { 
-            //         if (dashboard_expanded[item.attributes.pnodeID]) 
-            //             dashboard_expanded[item.attributes.pnodeID]+=','+item.attributes._checked
-            //         else 
-            //             dashboard_expanded[item.attributes.pnodeID] = item.attributes._checked
-            //     }    
-            // });
-            // dashboard_url.forEach(function(item, key){
-            //     if (dashboard_expanded[key]){
-            //         dashboard_url[key]+='&'+dashboard_expanded[key];
-            //         if (_storeCalc.selectedAdminCode() || _storeCalc.selectedAdminCode()!=null)
-            //             dashboard_url[key]+='&'+_storeCalc.selectedAdminCode();
-            //     }    
-            // });
-            // console.log(_storeCalc.selectedAdminCode(), _storeCalc.selectedFlag(), _storeCalc.selectedGeomFilter());
-            // console.log(dashboard_url);
-            // this.download('../../dashboard'+selectedStatConfig[0].attributes.url)
-            Ext.Ajax.request({
-                url: this.capabilities.createURL,
-                timeout: this.timeout,
-                jsonData: jsonData,
-                headers: {"Content-Type": "application/json; charset=" + this.encoding},
-                success: function(response) {
-                    var url = Ext.decode(response.responseText).getURL;
-                    this.download(url);
+            var t3 = new Ext.ux.tree.CheckTreePanel({
+                title:'Export additional info',
+                id:'t3',
+                autoWidth : true,
+                height:250,
+                autoScroll:true,
+                rootVisible:false,
+                deepestOnly:true,
+                root:{
+                    nodeType:'async',
+                    id:'root',
+                    text:'root',
+                    children: this.statConfig,
+                    expanded:true,
+                    uiProvider:false
                 },
-                failure: function(response) {
-                    this.fireEvent("printexception", this, response);
-                },
-                params: this.initialConfig.baseParams,
-                scope: this
+                loader: new Ext.tree.TreeLoader(),
+                tools:[{
+                    id:'print',
+                    qtip:'Include addition info',
+                    scope: this,
+                    handler:function() {
+                        selectedStatConfig = t3.getChecked();
+
+                        var dashboard_url = [];
+                        var dashboard_expanded = [];
+                        selectedStatConfig.forEach(function(item){
+                            // console.log(item.id, item.attributes.url, item.attributes._checked);
+                            if (item.attributes.url) {
+                                dashboard_url[item.id] = item.attributes.url;
+                            } else { 
+                                if (dashboard_expanded[item.attributes.pnodeID]) 
+                                    dashboard_expanded[item.attributes.pnodeID]+=','+item.attributes._checked
+                                else 
+                                    dashboard_expanded[item.attributes.pnodeID] = item.attributes._checked
+                            }    
+                        });
+                        dashboard_url.forEach(function(item, key){
+                            if (dashboard_expanded[key]){
+                                dashboard_url[key]+='&_checked='+encodeURIComponent(dashboard_expanded[key]);
+                            }    
+                            
+                            if (_storeCalc.selectedFlag()=='entireAfg'){
+
+                            } else if (_storeCalc.selectedFlag()=='currentProvince'){
+                                if (_storeCalc.selectedAdminCode() || _storeCalc.selectedAdminCode()!=null)
+                                        dashboard_url[key]+='&code='+_storeCalc.selectedAdminCode();
+                            } else if (_storeCalc.selectedFlag()=='drawArea'){
+                                dashboard_url[key]+='&flag=drawArea&filter='+encodeURIComponent(_storeCalc.selectedGeomFilter()[0]);
+                            } else if (_storeCalc.selectedFlag()=='currentExtent'){
+                                dashboard_url[key]+='&flag=currentExtent&filter='+encodeURIComponent(_storeCalc.selectedGeomFilter()[0]);
+                            }        
+                        }); 
+
+                        if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
+                            return;
+                        }
+
+                        // if (dashboard_url.length > 0)
+                        //             this.downloadFile('../../dashboard/multiple',dashboard_url);
+
+                        Ext.Ajax.request({
+                            url: this.capabilities.createURL,
+                            timeout: this.timeout,
+                            jsonData: jsonData,
+                            headers: {"Content-Type": "application/json; charset=" + this.encoding},
+                            success: function(response) {
+                                var url = Ext.decode(response.responseText).getURL;
+                                this.download(url);
+                                if (dashboard_url.length > 0)
+                                    this.downloadFile('../../dashboard/multiple',dashboard_url);
+                            },
+                            failure: function(response) {
+                                this.fireEvent("printexception", this, response);
+                            },
+                            params: this.initialConfig.baseParams,
+                            scope: this
+                        });
+
+                        dashboardStatWindow.close();
+                        
+                    }
+                },{
+                    id:'close',
+                    scope: this,
+                    handler:function() {
+                        dashboardStatWindow.close();
+                    }
+                }]
             });
+
+            var dashboardStatWindow = new Ext.Window({
+                // title: this.previewText,
+                modal: true,
+                border: false,
+                closable: false,
+                autoHeight: true,
+                resizable: false,
+                width: 360,
+                items: [t3]
+            }).show();  
+
+            
+            // Ext.Ajax.request({
+            //     url: '../../dashboard/multiple',
+            //     method: 'POST',
+            //     timeout: 720000,
+            //     jsonData: {'urls':dashboard_url},
+            //     headers: {"Content-Type": "application/pdf"},
+            //     success: function(response) {
+            //         this.fireEvent("print", this, url);
+            //     },
+            //     failure: function(response) {
+            //         this.fireEvent("printexception", this, response);
+            //     },
+            //     scope: this
+            // });
+
+            // Ext.Ajax.request({
+            //     url: this.capabilities.createURL,
+            //     timeout: this.timeout,
+            //     jsonData: jsonData,
+            //     headers: {"Content-Type": "application/json; charset=" + this.encoding},
+            //     success: function(response) {
+            //         var url = Ext.decode(response.responseText).getURL;
+            //         this.download(url);
+            //     },
+            //     failure: function(response) {
+            //         this.fireEvent("printexception", this, response);
+            //     },
+            //     params: this.initialConfig.baseParams,
+            //     scope: this
+            // });
         }
+    },
+
+    downloadFile: function(url, params) {
+        var body = Ext.getBody();
+        var frame = body.createChild({
+            tag:'iframe',
+            cls:'x-hidden',
+            id:'hiddenform-iframe',
+            name:'iframe'
+        });
+
+        var form = body.createChild({
+            tag:'form',
+            cls:'x-hidden',
+            id:'hiddenform-form',
+            action: url,
+            target:'iframe',
+            method: 'POST'
+        });
+
+        var add_params = document.createElement('input');
+        Ext.fly(add_params).set({type: 'hidden',value: params,name: 'urls'});
+        form.appendChild(add_params);
+
+        form.dom.submit();
+        this.fireEvent("print", this, url);
+
     },
     
     /** private: method[download]
@@ -89279,217 +89612,6 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
      *  override
      */
     cls: "x-panel-body x-panel-body-noheader",
-
-    statConfig : [
-        {
-            "id":"1",
-            "nodeID":"1",
-            "pnodeID":"0",
-            "text":"Baseline",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=baseline&pdf=true",
-            "children":[
-                {
-                    "id":"11",
-                    "nodeID":"11",
-                    "pnodeID":"1",
-                    "text":"Expand Population and area overview",
-                    "leaf":true,
-                    "_checked":"detail_base"
-                },{
-                    "id":"12",
-                    "nodeID":"12",
-                    "pnodeID":"1",
-                    "text":"Expand Number of Health facilities",
-                    "leaf":true,
-                    "_checked":"detail_health"
-                },{
-                    "id":"13",
-                    "nodeID":"13",
-                    "pnodeID":"1",
-                    "text":"Expand Road network overview and length",
-                    "leaf":true,
-                    "_checked":"detail_road"
-                }
-            ]
-        },{
-            "id":"2",
-            "nodeID":"2",
-            "pnodeID":"0",
-            "text":"Accessibility",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=accessibility&pdf=true",
-            "children":[
-                {
-                    "id":"21",
-                    "nodeID":"21",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Nearest Airport",
-                    "leaf":true,
-                    "_checked":"detail_airport"
-                },{
-                    "id":"22",
-                    "nodeID":"22",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Nearest Health Facilities Tier 1",
-                    "leaf":true,
-                    "_checked":"detail_tier1"
-                },{
-                    "id":"23",
-                    "nodeID":"23",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Nearest Health Facilities Tier 2",
-                    "leaf":true,
-                    "_checked":"detail_tier2"
-                },{
-                    "id":"24",
-                    "nodeID":"24",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Nearest Health Facilities Tier 3",
-                    "leaf":true,
-                    "_checked":"detail_tier3"
-                },{
-                    "id":"25",
-                    "nodeID":"25",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Nearest Health Facilities Tier all",
-                    "leaf":true,
-                    "_checked":"detail_tierall"
-                },{
-                    "id":"26",
-                    "nodeID":"26",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Its Province Capital",
-                    "leaf":true,
-                    "_checked":"detail_itsprov"
-                },{
-                    "id":"27",
-                    "nodeID":"27",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Nearest Province Capital",
-                    "leaf":true,
-                    "_checked":"detail_nearprov"
-                },{
-                    "id":"28",
-                    "nodeID":"28",
-                    "pnodeID":"2",
-                    "text":"Expand Travel Time to Nearest District Capital",
-                    "leaf":true,
-                    "_checked":"detail_neardist"
-                }
-            ]
-        },{
-            "id":"3",
-            "nodeID":"3",
-            "pnodeID":"0",
-            "text":"Flood forecast",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=floodforecast&pdf=true",
-            "children":[
-                {
-                    "id":"31",
-                    "nodeID":"31",
-                    "pnodeID":"3",
-                    "text":"Expand Population living in flood forecast areas",
-                    "leaf":true,
-                    "_checked":"detail_base"
-                }
-            ]
-        },{
-            "id":"4",
-            "nodeID":"4",
-            "pnodeID":"0",
-            "text":"Flood risk",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=floodrisk&pdf=true",
-            "children":[
-                {
-                    "id":"41",
-                    "nodeID":"41",
-                    "pnodeID":"4",
-                    "text":"Expand Population living in flood risk areas",
-                    "leaf":true,
-                    "_checked":"detail_base"
-                }
-            ]
-        },{
-            "id":"5",
-            "nodeID":"5",
-            "pnodeID":"0",
-            "text":"Avalanche forecast",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=avalcheforecast&pdf=true",
-            "children":[
-                {
-                    "id":"51",
-                    "nodeID":"51",
-                    "pnodeID":"5",
-                    "text":"Expand Population in forecasted avalanche risk areas",
-                    "leaf":true,
-                    "_checked":"detail_base"
-                }
-            ]
-        },{
-            "id":"6",
-            "nodeID":"6",
-            "pnodeID":"0",
-            "text":"Avalanche risk",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=avalancherisk&pdf=true",
-            "children":[
-                {
-                    "id":"61",
-                    "nodeID":"61",
-                    "pnodeID":"6",
-                    "text":"Expand Population in avalanche risk areas",
-                    "leaf":true,
-                    "_checked":"detail_base"
-                }
-            ]
-        },{
-            "id":"7",
-            "nodeID":"7",
-            "pnodeID":"0",
-            "text":"Earthquake",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=earthquake&pdf=true",
-            "children":[
-                {
-                    "id":"71",
-                    "nodeID":"71",
-                    "pnodeID":"7",
-                    "text":"Expand Earthquake affected Population and settlement overview",
-                    "leaf":true,
-                    "_checked":"detail_base"
-                }
-            ]
-        },{
-            "id":"8",
-            "nodeID":"8",
-            "pnodeID":"0",
-            "text":"Humanitarian access",
-            "leaf":false,
-            "expanded" : false,
-            "url":"?page=security&pdf=true",
-            "children":[
-                {
-                    "id":"81",
-                    "nodeID":"81",
-                    "pnodeID":"8",
-                    "text":"Expand Number of incidents and casualties",
-                    "leaf":true,
-                    "_checked":"detail_base"
-                }
-            ]
-        }
-    ],
     
     /** private: method[initComponent]
      */
@@ -89605,41 +89727,6 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             items: items
         };
     },
-
-    /** private: method[createStatisticConfigForm]
-     *  :return: ``Ext.ux.tree.CheckTreePanel``
-     */
-    createStatisticConfigForm: function(){
-        var t3 = new Ext.ux.tree.CheckTreePanel({
-            title:'Statistics Configuration',
-            id:'t3',
-            autoWidth : true,
-            height:250,
-            autoScroll:true,
-            rootVisible:false,
-            deepestOnly:true,
-            root:{
-                nodeType:'async',
-                id:'root',
-                text:'root',
-                children: this.statConfig,
-                expanded:true,
-                uiProvider:false
-            },
-            loader: new Ext.tree.TreeLoader(),
-            tools:[{
-                id:'refresh',
-                qtip:'Reload Tree',
-                handler:function() {
-                    // t3.getRootNode().reload();
-                    // console.log(t3.getChecked());
-                    // console.log(this);
-                    selectedStatConfig = t3.getChecked();
-                }
-            }]
-        });
-        return t3;
-    },
     
     /** private: method[createForm]
      *  :return: ``Ext.form.FormPanel``
@@ -89673,21 +89760,21 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             });
         }
         
-        var riskTableCheckbox = new Ext.Button({
-            text    : this.includeRiskText,
-            handler: function() {
-                new Ext.Window({
-                    // title: this.previewText,
-                    modal: true,
-                    border: false,
-                    autoHeight: true,
-                    resizable: false,
-                    width: 360,
-                    items: [this.createStatisticConfigForm()]
-                }).show();  
-            },
-            scope: this
-        });
+        // var riskTableCheckbox = new Ext.Button({
+        //     text    : this.includeRiskText,
+        //     handler: function() {
+        //         new Ext.Window({
+        //             // title: this.previewText,
+        //             modal: true,
+        //             border: false,
+        //             autoHeight: true,
+        //             resizable: false,
+        //             width: 360,
+        //             items: [this.createStatisticConfigForm()]
+        //         }).show();  
+        //     },
+        //     scope: this
+        // });
         
         return new Ext.form.FormPanel({
             autoHeight: true,
