@@ -116,6 +116,7 @@ def getCommonUse(request,flag, code):
     return response
 
 def getSecurity(request, filterLock, flag, code):
+    rawFilterLock = None
     if 'flag' in request.GET:
         rawFilterLock = filterLock
         filterLock = 'ST_GeomFromText(\''+filterLock+'\',4326)'
@@ -964,6 +965,7 @@ def GetAccesibilityData(filterLock, flag, code):
     return response
 
 def getAccessibility(request, filterLock, flag, code):
+    rawFilterLock = None
     if 'flag' in request.GET:
         rawFilterLock = filterLock
         filterLock = 'ST_GeomFromText(\''+filterLock+'\',4326)'
