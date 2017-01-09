@@ -32870,6 +32870,7 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
                     var features = layer.features,
                         clonedFeatures = new Array(features.length),
                         vector = new OpenLayers.Layer.Vector(layer.name,{
+                             renderers: ['Canvas', 'VML'],
                              styleMap: new OpenLayers.StyleMap({
                                 "default": layer.styleMap.styles.default
                             })
@@ -34870,14 +34871,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         
         var calcStore = _storeCalc;
         calcData = calcStore.getStore();
-
+        calcData = {};
         if (calcData === null) {
             calcData = {};
         }
         var encodedPages = [];
         Ext.each(pages, function(page) {
-            calcData.center = [page.center.lon, page.center.lat];
-            calcData.scale = page.scale.get("value");
+            // calcData.center = [page.center.lon, page.center.lat];
+            // calcData.scale = page.scale.get("value");
+            calcData.bbox = page.getPrintExtent(map).toArray();
             calcData.rotation = page.rotation;
             encodedPages.push(Ext.apply(calcData, page.customParams));
         }, this);
@@ -87224,14 +87226,16 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                                 height: Math.min(420, Ext.get(document.body).getHeight()-150),
                                 limitScales: true,
                                 map: Ext.applyIf({
+                                    fractionalZoom:false,
                                     controls: [
-                                        new OpenLayers.Control.Navigation({
-                                            zoomWheelEnabled: false,
-                                            zoomBoxEnabled: false
-                                        }),
+                                        // new OpenLayers.Control.Navigation({
+                                        //     zoomWheelEnabled: false,
+                                        //     zoomBoxEnabled: true
+                                        // }),
                                         new OpenLayers.Control.PanPanel(),
                                         new OpenLayers.Control.ZoomPanel(),
-                                        new OpenLayers.Control.Attribution()
+                                        new OpenLayers.Control.CustomNavToolbar(),
+                                        // new OpenLayers.Control.Attribution()
                                     ],
                                     eventListeners: {
                                         preaddlayer: function(evt) {
@@ -89501,6 +89505,11 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     includeLegendText: "Include legend?",
 
     includeRiskText: "Open Statistics Configuration",
+
+    fractionalZoomText: "Allow Zoom Finer",
+
+    fractionalZoomDesc: "zooming to an arbitrary level (between the min and max resolutions) by shift-dragging a box to zoom to an arbitrary extent.",
+
     /** api: config[emptyCommentText] ``String`` i18n */
     emptyCommentText: "Enter comments here.",
     /** api: config[creatingPdfText] ``String`` i18n */
@@ -89759,6 +89768,30 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                 scope: this
             });
         }
+        var fractionalZoomDesc = this.fractionalZoomDesc;
+        var fractionalCheckbox = new Ext.form.Checkbox({
+            name: "fractionalzoom",
+            checked: false,
+            boxLabel: this.fractionalZoomText,
+            hideLabel: true,
+            ctCls: "gx-item-nowrap",
+            listeners: {
+                render: function(c) {
+                    Ext.QuickTips.register({
+                        target: c,
+                        text: fractionalZoomDesc
+                    });
+                }
+            },
+            handler: function(cb, checked) {
+                var temp_center =  this.printMapPanel.map.getCenter();
+                this.printMapPanel.map.fractionalZoom = checked;
+                this.printMapPanel.map.setCenter(temp_center, Math.round(this.printMapPanel.map.zoom) );
+            },
+            scope: this
+        });
+
+        
         
         // var riskTableCheckbox = new Ext.Button({
         //     text    : this.includeRiskText,
@@ -89790,6 +89823,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                     items: [
                         // titleCfg,
                         legendCheckbox,
+                        fractionalCheckbox,
                         // {
                         //     buttonAlign: 'right',
                         //     buttons: [riskTableCheckbox] 
