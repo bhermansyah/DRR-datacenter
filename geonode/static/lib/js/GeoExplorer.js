@@ -89506,7 +89506,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
     includeRiskText: "Open Statistics Configuration",
 
-    fractionalZoomText: "Allow Zoom Finer",
+    fractionalZoomText: "Allow zoom to fit",
 
     fractionalZoomDesc: "zooming to an arbitrary level (between the min and max resolutions) by shift-dragging a box to zoom to an arbitrary extent.",
 
