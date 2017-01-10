@@ -2017,7 +2017,7 @@ OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel,
                 zoomWheelEnabled: false,
                 zoomBoxEnabled: true
             }),
-            new OpenLayers.Control.ZoomBox({alwaysZoom:true})
+            new OpenLayers.Control.ZoomBox()
         ]);
         // To make the custom navtoolbar use the regular navtoolbar style
         this.displayClass = 'olControlNavToolbar'
