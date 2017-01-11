@@ -34967,78 +34967,78 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     uiProvider:false
                 },
                 loader: new Ext.tree.TreeLoader(),
-                tools:[{
-                    id:'print',
-                    qtip:'Include addition info',
-                    scope: this,
-                    handler:function() {
-                        selectedStatConfig = t3.getChecked();
-
-                        var dashboard_url = [];
-                        var dashboard_expanded = [];
-                        selectedStatConfig.forEach(function(item){
-                            // console.log(item.id, item.attributes.url, item.attributes._checked);
-                            if (item.attributes.url) {
-                                dashboard_url[item.id] = item.attributes.url;
-                            } else { 
-                                if (dashboard_expanded[item.attributes.pnodeID]) 
-                                    dashboard_expanded[item.attributes.pnodeID]+=','+item.attributes._checked
-                                else 
-                                    dashboard_expanded[item.attributes.pnodeID] = item.attributes._checked
-                            }    
-                        });
-                        dashboard_url.forEach(function(item, key){
-                            if (dashboard_expanded[key]){
-                                dashboard_url[key]+='&_checked='+encodeURIComponent(dashboard_expanded[key]);
-                            }    
-                            
-                            if (_storeCalc.selectedFlag()=='entireAfg'){
-
-                            } else if (_storeCalc.selectedFlag()=='currentProvince'){
-                                if (_storeCalc.selectedAdminCode() || _storeCalc.selectedAdminCode()!=null)
-                                        dashboard_url[key]+='&code='+_storeCalc.selectedAdminCode();
-                            } else if (_storeCalc.selectedFlag()=='drawArea'){
-                                dashboard_url[key]+='&flag=drawArea&filter='+encodeURIComponent(_storeCalc.selectedGeomFilter()[0]);
-                            } else if (_storeCalc.selectedFlag()=='currentExtent'){
-                                dashboard_url[key]+='&flag=currentExtent&filter='+encodeURIComponent(_storeCalc.selectedGeomFilter()[0]);
-                            }        
-                        }); 
-
-                        if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
-                            return;
+                bbar : ['->', {
+                        iconCls : 'gxp-icon-stop',
+                        text : 'Abort',
+                        handler:function() {
+                            dashboardStatWindow.close();
                         }
+                    }, {
+                        iconCls : 'gxp-icon-play',
+                        text : 'Continue',
+                        scope: this,
+                        handler:function() {
+                            selectedStatConfig = t3.getChecked();
 
-                        // if (dashboard_url.length > 0)
-                        //             this.downloadFile('../../dashboard/multiple',dashboard_url);
+                            var dashboard_url = [];
+                            var dashboard_expanded = [];
+                            selectedStatConfig.forEach(function(item){
+                                // console.log(item.id, item.attributes.url, item.attributes._checked);
+                                if (item.attributes.url) {
+                                    dashboard_url[item.id] = item.attributes.url;
+                                } else { 
+                                    if (dashboard_expanded[item.attributes.pnodeID]) 
+                                        dashboard_expanded[item.attributes.pnodeID]+=','+item.attributes._checked
+                                    else 
+                                        dashboard_expanded[item.attributes.pnodeID] = item.attributes._checked
+                                }    
+                            });
+                            dashboard_url.forEach(function(item, key){
+                                if (dashboard_expanded[key]){
+                                    dashboard_url[key]+='&_checked='+encodeURIComponent(dashboard_expanded[key]);
+                                }    
+                                
+                                if (_storeCalc.selectedFlag()=='entireAfg'){
 
-                        Ext.Ajax.request({
-                            url: this.capabilities.createURL,
-                            timeout: this.timeout,
-                            jsonData: jsonData,
-                            headers: {"Content-Type": "application/json; charset=" + this.encoding},
-                            success: function(response) {
-                                var url = Ext.decode(response.responseText).getURL;
-                                this.download(url);
-                                if (dashboard_url.length > 0)
-                                    this.downloadFile('../../dashboard/multiple',dashboard_url, statsFileName);
-                            },
-                            failure: function(response) {
-                                this.fireEvent("printexception", this, response);
-                            },
-                            params: this.initialConfig.baseParams,
-                            scope: this
-                        });
+                                } else if (_storeCalc.selectedFlag()=='currentProvince'){
+                                    if (_storeCalc.selectedAdminCode() || _storeCalc.selectedAdminCode()!=null)
+                                            dashboard_url[key]+='&code='+_storeCalc.selectedAdminCode();
+                                } else if (_storeCalc.selectedFlag()=='drawArea'){
+                                    dashboard_url[key]+='&flag=drawArea&filter='+encodeURIComponent(_storeCalc.selectedGeomFilter()[0]);
+                                } else if (_storeCalc.selectedFlag()=='currentExtent'){
+                                    dashboard_url[key]+='&flag=currentExtent&filter='+encodeURIComponent(_storeCalc.selectedGeomFilter()[0]);
+                                }        
+                            }); 
 
-                        dashboardStatWindow.close();
-                        
+                            if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
+                                return;
+                            }
+
+                            // if (dashboard_url.length > 0)
+                            //             this.downloadFile('../../dashboard/multiple',dashboard_url);
+
+                            Ext.Ajax.request({
+                                url: this.capabilities.createURL,
+                                timeout: this.timeout,
+                                jsonData: jsonData,
+                                headers: {"Content-Type": "application/json; charset=" + this.encoding},
+                                success: function(response) {
+                                    var url = Ext.decode(response.responseText).getURL;
+                                    this.download(url);
+                                    if (dashboard_url.length > 0)
+                                        this.downloadFile('../../dashboard/multiple',dashboard_url, statsFileName, this.customParams.mapTitle);
+                                },
+                                failure: function(response) {
+                                    this.fireEvent("printexception", this, response);
+                                },
+                                params: this.initialConfig.baseParams,
+                                scope: this
+                            });
+
+                            dashboardStatWindow.close();
+                        }
                     }
-                },{
-                    id:'close',
-                    scope: this,
-                    handler:function() {
-                        dashboardStatWindow.close();
-                    }
-                }]
+                ]
             });
 
             var dashboardStatWindow = new Ext.Window({
@@ -35086,7 +35086,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         }
     },
 
-    downloadFile: function(url, params, fileName) {
+    downloadFile: function(url, params, fileName, mapTitle) {
         var body = Ext.getBody();
         var frame = body.createChild({
             tag:'iframe',
@@ -35107,9 +35107,14 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         var add_params = document.createElement('input');
         Ext.fly(add_params).set({type: 'hidden',value: params,name: 'urls'});
         form.appendChild(add_params);
+        
         var add_params2 = document.createElement('input');
         Ext.fly(add_params2).set({type: 'hidden',value: fileName,name: 'fileName'});
         form.appendChild(add_params2);
+
+        var add_params3 = document.createElement('input');
+        Ext.fly(add_params3).set({type: 'hidden',value: mapTitle,name: 'mapTitle'});
+        form.appendChild(add_params3);
 
         form.dom.submit();
         this.fireEvent("print", this, url);
@@ -89512,9 +89517,9 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
     includeRiskText: "Open Statistics Configuration",
 
-    fractionalZoomText: "Allow zoom to fit",
+    fractionalZoomText: "Use precise zoom",
 
-    fractionalZoomDesc: "zooming to an arbitrary level (between the min and max resolutions) by shift-dragging a box to zoom to an arbitrary extent.",
+    fractionalZoomDesc: "Check this box, to zoom to the exact extent of the drawn box. Note this will take longer",
 
     /** api: config[emptyCommentText] ``String`` i18n */
     emptyCommentText: "Enter comments here.",

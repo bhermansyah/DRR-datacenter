@@ -90,7 +90,7 @@ def dashboard_detail(request):
 		    'margin-bottom':10,
 		    'margin-top':25,
 		    # 'viewport-size':'800x600',
-		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html',
+		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization,
 		    # 'lowquality':'-'
 		    # 'disable-smart-shrinking':'-',
 		    # 'print-media-type':'-',
@@ -100,7 +100,7 @@ def dashboard_detail(request):
 		    # 'window-status': 'ready',
 		}
 		a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
-		print  request.META.get('HTTP_HOST')
+		print  os.path.abspath(os.path.dirname(__file__))
 		# print 'http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)
 		pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
 		resp = HttpResponse(pdf,content_type='application/pdf')
@@ -130,6 +130,10 @@ def get_provinces(request):
 
 @csrf_exempt
 def dashboard_multiple(request):
+	urls = []
+	data = request.POST
+	a = request.META.get('HTTP_HOST') 
+
 	options = {
 	    'quiet': '',
 	    'page-size': 'A4',
@@ -138,8 +142,8 @@ def dashboard_multiple(request):
 	    'margin-bottom':10,
 	    'margin-top':25,
 	    # 'viewport-size':'800x600',
-	    # 'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html',
-	    # 'lowquality':'-',
+	    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization,
+		# 'lowquality':'-',
 	    # 'disable-smart-shrinking':'-',
 	    # 'print-media-type':'-',
 	    # 'no-stop-slow-scripts':'-',
@@ -148,10 +152,6 @@ def dashboard_multiple(request):
 	    # 'window-status': 'ready',
 	    'encoding': "UTF-8",
 	}
-
-	urls = []
-	data = request.POST
-	a = request.META.get('HTTP_HOST') #+request.META.get('PATH_INFO')
 
 	# print data['urls']
 	for i in data['urls'].split(','):
