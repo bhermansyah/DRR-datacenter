@@ -34844,7 +34844,10 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         // if(this.fireEvent("beforeprint", this, map, pages, options) === false) {
         //     return;
         // }
-
+        var currentdate = new Date();
+        var mapFileName   = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_MAP_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
+        var statsFileName = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_Statistics_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
+        this.customParams.outputFilename = mapFileName;
         var jsonData = Ext.apply({
             units: map.getUnits(),
             srs: map.baseLayer.projection.getCode(),
@@ -35017,7 +35020,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                                 var url = Ext.decode(response.responseText).getURL;
                                 this.download(url);
                                 if (dashboard_url.length > 0)
-                                    this.downloadFile('../../dashboard/multiple',dashboard_url);
+                                    this.downloadFile('../../dashboard/multiple',dashboard_url, statsFileName);
                             },
                             failure: function(response) {
                                 this.fireEvent("printexception", this, response);
@@ -35083,7 +35086,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         }
     },
 
-    downloadFile: function(url, params) {
+    downloadFile: function(url, params, fileName) {
         var body = Ext.getBody();
         var frame = body.createChild({
             tag:'iframe',
@@ -35104,6 +35107,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         var add_params = document.createElement('input');
         Ext.fly(add_params).set({type: 'hidden',value: params,name: 'urls'});
         form.appendChild(add_params);
+        var add_params2 = document.createElement('input');
+        Ext.fly(add_params2).set({type: 'hidden',value: fileName,name: 'fileName'});
+        form.appendChild(add_params2);
 
         form.dom.submit();
         this.fireEvent("print", this, url);
@@ -90552,13 +90558,13 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 toggleGroup: "interaction",
                 actionTarget: "paneltbar"
             }, {
-                actions: ["showANDMA"],  actionTarget: "paneltbar"        
+                actions: ["showANDMA"],  actionTarget: "paneltbar", id:"showANDMAModule"           
             }, {
                 actions: ["statMenu"],  actionTarget: "paneltbar"
             }, {
                 actions: ["finderTool"],  actionTarget: "paneltbar"    
             }, {
-                actions: ["SAMTool"],  actionTarget: "paneltbar"        
+                actions: ["SAMTool"],  actionTarget: "paneltbar", id:"SAMToolModule"        
             }, {
                 ptype: "gxp_villageinspector", format: 'grid',
                 toggleGroup: "interaction",

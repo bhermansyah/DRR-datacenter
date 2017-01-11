@@ -163,7 +163,7 @@ def dashboard_multiple(request):
 	# pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
 	pdf = pdfkit.from_url(urls, False, options=options)
 	resp = HttpResponse(pdf,content_type='application/pdf')
-	resp['Content-Disposition'] = 'attachment; filename="ourcodeworld.pdf"'
+	resp['Content-Disposition'] = 'attachment; filename="'+data['fileName']+'.pdf"'
 	return resp
 	# return HttpResponse({}, mimetype='application/json')
 
