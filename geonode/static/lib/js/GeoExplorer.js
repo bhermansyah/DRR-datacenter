@@ -34845,8 +34845,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         //     return;
         // }
         var currentdate = new Date();
-        var mapFileName   = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_MAP_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
-        var statsFileName = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_Statistics_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
+        var mapFileName   = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_map_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
+        var statsFileName = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_statistics_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
         this.customParams.outputFilename = mapFileName;
         var jsonData = Ext.apply({
             units: map.getUnits(),
