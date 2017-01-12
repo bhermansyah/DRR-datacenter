@@ -34880,8 +34880,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         }
         var encodedPages = [];
         Ext.each(pages, function(page) {
-            // calcData.center = [page.center.lon, page.center.lat];
-            // calcData.scale = page.scale.get("value");
+            calcData.center = [page.center.lon, page.center.lat];
+            calcData.scale = page.scale.get("value");
             calcData.bbox = page.getPrintExtent(map).toArray();
             calcData.rotation = page.rotation;
             encodedPages.push(Ext.apply(calcData, page.customParams));
@@ -34913,8 +34913,10 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     var encFn = this.encoders.legends[cmp.getXType()];
                     // MapFish Print doesn't currently support per-page
                     // legends, so we use the scale of the first page.
+                    console.log(jsonData.pages[0].scale);
                     encodedLegends = encodedLegends.concat(
-                        encFn.call(this, cmp, jsonData.pages[0].scale));
+                        encFn.call(this, cmp, jsonData.pages[0].scale)
+                    );
                 }
             }, this);
             if (!rendered) {
