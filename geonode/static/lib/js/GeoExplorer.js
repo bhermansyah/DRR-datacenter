@@ -34913,10 +34913,8 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     var encFn = this.encoders.legends[cmp.getXType()];
                     // MapFish Print doesn't currently support per-page
                     // legends, so we use the scale of the first page.
-                    console.log(jsonData.pages[0].scale);
                     encodedLegends = encodedLegends.concat(
-                        encFn.call(this, cmp, jsonData.pages[0].scale)
-                    );
+                        encFn.call(this, cmp, jsonData.pages[0].scale));
                 }
             }, this);
             if (!rendered) {
@@ -87089,8 +87087,9 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                                     if (node.component && !node.component.hidden) {
                                         var cmp = node.component;
                                         var encFn = this.encoders.legends[cmp.getXType()];
-                                        encodedLegends = encodedLegends.concat(
-                                            encFn.call(this, cmp, jsonData.pages[0].scale));
+                                        if (cmp.layerRecord.json.name != 'geonode:afg_elev_dem_30m_aster_hillshade')
+                                            encodedLegends = encodedLegends.concat(
+                                                encFn.call(this, cmp, jsonData.pages[0].scale));
                                     }
                                 }, provider);
                             }
