@@ -1,11 +1,13 @@
 {% load i18n avatar_tags %}
 {% load leaflet_tags %}
 <!DOCTYPE html>
-<html lang="en">
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl, ltr' }}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -23,19 +25,19 @@
       {% endif %}
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" media="all" />
       <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" media="all" />
-      
+
       <!-- gridster css -->
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/jquery.gridster.css" media="all">
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/grister_styles.css" media="all">
 
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/nice-select.css" media="all">
       <link href="{{ STATIC_URL }}lib/css/multi-select.css" media="all" rel="stylesheet" type="text/css">
-      
+
       <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/daterangepicker.css" media="all" />
 
       <link href="{{ STATIC_URL }}lib/css/jquery.typeahead.css" media="all" rel="stylesheet" type="text/css">
       <link href="{{ STATIC_URL }}lib/css/jquery.dropdown.css" media="all" rel="stylesheet" type="text/css">
-      
+
       <link href="{{ STATIC_URL }}lib/css/awesome-bootstrap-checkbox.css" media="all" rel="stylesheet" type="text/css">
 
       {% leaflet_js %}
@@ -61,8 +63,20 @@
       </style>
     <![endif]-->
 
+    <!-- css dependent on LANGUAGE_CODE -->
+    <style>
+      /*general text direction*/
+      title, a, span, p, input, select, h1, h2, h3, h4, h5,
+      .about ul, .dashboard th {
+        direction: {{ LANGUAGE_BIDI | yesno:'rtl, ltr' }};
+      }
+      html[dir=rtl] [class^=showFlag_] {
+        text-align: left;
+      }
+    </style>
+
   </head>
-  
+
   <body class="{% block body_class %}{% endblock %}">
 
     {% block header %}
@@ -70,7 +84,7 @@
       <span>Loading ...</span>
     </div>
     <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation">
-      
+
       <!-- custom header-->
       <!-- <div class="statBar">
 
@@ -81,10 +95,10 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand-immap" href="{% url "home" %}">iMMAP</a> 
+            <a class="navbar-brand-immap" href="{% url "home" %}">iMMAP</a>
           </div>
 
-          
+
 
       </div>  -->
       <!-- end of custom header -->
@@ -100,7 +114,7 @@
           <a class="navbar-brand-usaid" href="{% url "home" %}"></a>
           <a class="navbar-brand-immap" href="{% url "home" %}"><h1 class="webTitle" style="height:50px">{% trans "Afghanistan Spatial Data Center" %}</h1></a>
         </div>
-        
+
         <div style="float:right;  padding-top: 10px;">
           <div id="navbarTop" class="navbar-collapse collapse">
             {% if not user.is_authenticated and REGISTRATION_OPEN %}
@@ -109,7 +123,7 @@
                   <!-- <a href="{% url "account_signup" %}">{% trans "Register" %}</a> -->
                   <button id="register" type="button" class="btn btn-primary" onclick="location.href='{% url "account_signup" %}'">{% trans "Register" %}</button>
                 </li>
-              </ul>  
+              </ul>
             {% endif %}
             <ul class="nav navbar-right">
               {% if user.is_authenticated %}
@@ -122,7 +136,7 @@
               {% else %}
               <li>
                 <!-- <a href="#" data-toggle="modal" data-target="#SigninModal" role="button" >
-                  {% trans "Sign in" %} 
+                  {% trans "Sign in" %}
                 </a> -->
                 <button id="signin" type="button" data-toggle="modal" data-target="#SigninModal" class="btn btn-primary">{% trans "Sign in" %}</button>
               </li>
@@ -132,14 +146,14 @@
               <li>
 
                 {% include "_announcements.html" %}
-                  
-              </li>  
-            </ul> 
+
+              </li>
+            </ul>
             <!-- <ul class="nav navbar-right">
               <li>
                 <button type="button" class="btn btn-primary"> <i class="announcement_custom glyphicon glyphicon-comment"></i>1</button>
-              </li>  
-            </ul> -->  
+              </li>
+            </ul> -->
             <ul class="nav navbar-right">
               <li>
                 <label class="hidden">{% trans "Language" %}</label>
@@ -157,8 +171,8 @@
                 </form>
                 {% endif %}
               </li>
-            </ul>        
-          </div> 
+            </ul>
+          </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               {% block tabs %}
@@ -187,7 +201,7 @@
               </li> -->
               <li id="nav_about" class="dropdown">
                 <!-- <a href="{% url "about" %}">{% trans "Documentation" %}</a> -->
-               
+
                   <a href="#" data-toggle="dropdown" data-target="#">{% trans "Documentation" %}</a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <li><a href="{% url "about" %}">{% trans "About" %}</a></li>
@@ -196,8 +210,8 @@
                     <li><a href="{% url "partners" %}">{% trans "Partners" %}</a></li>
                     <li><a href="{% url "video" %}">{% trans "Videos" %}</a></li>
                     <li><a href="{% url "training" %}">{% trans "Training" %}</a></li>
-                  </ul>  
-  
+                  </ul>
+
               </li>
               {% endblock %}
             </ul>
@@ -215,7 +229,7 @@
                 </div>
               </div>
             </form> -->
-            
+
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -248,18 +262,18 @@
     </div>
     {% endblock middle %}
   </div>
-    
+
     {% block footer %}
    <!--  <footer class="footer">
       <div class="container">
         <div class="row" style="border-top: 1px solid #eee;">
 
           <div class="col-md-12 footertext">
-            <a href="http://www.immap.org">{% trans "iMMAP" %}</a> &copy; 2016 
+            <a href="http://www.immap.org">{% trans "iMMAP" %}</a> &copy; 2016
           </div>
           <div class="col-md-12 footertext">
            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
-          </div> 
+          </div>
           <div class="col-md-12 footersymbol">
             <a href="mailto:admin.geonode@immap.org">
               <i class="fa fa-2x fa-envelope"></i>
@@ -277,7 +291,7 @@
               <i class="fa fa-2x fa-linkedin"></i>
             </a>
           </div>
-           
+
         </div>
       </div>
     </footer> -->
@@ -362,7 +376,7 @@
     </div>
     {% endif %}
     <!-- End of Modal -->
-    
+
     {% if DEBUG_STATIC %}
     <script src="{{ STATIC_URL }}lib/js/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js"></script>
@@ -390,7 +404,7 @@
 
     <script type="text/javascript" src="{{ STATIC_URL }}lib/js/moment.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}lib/js/daterangepicker.js"></script>
-    
+
     <script src="{{ STATIC_URL }}lib/js/jquery.typeahead.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.dropdown.js"></script>
     <!--<script src="{{ STATIC_URL }}lib/js/jquery.fileDownload.js"></script>-->
@@ -511,9 +525,9 @@
         });
       </script>
 
-      
+
 
       <script type="text/javascript" src="{% url "lang" %}"></script>
-      
+
   </body>
 </html>

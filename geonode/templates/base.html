@@ -1,11 +1,17 @@
 {% load i18n avatar_tags %}
 <!DOCTYPE html>
-<html lang="en">
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl, ltr' }}">
+<!-- <html lang="{{ LANGUAGE_CODE }}"> -->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    {% block js_base_dependency %}
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+    {% endblock %}
     {% block head %}
       {% if DEBUG_STATIC %}
       <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css" rel="stylesheet" />
@@ -16,7 +22,6 @@
       {% else %}
       <link href="{{ STATIC_URL }}lib/css/assets.min.css" rel="stylesheet"/>
       {% endif %}
-      
       <!-- <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet"> -->
       <!-- If you'd like to support IE8 -->
       <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
@@ -37,13 +42,39 @@
         }
       </style>
     <![endif]-->
+
+  <!-- css dependent on LANGUAGE_CODE -->
+  <style>
+    /*general text direction*/
+    title, a, span, p, input, select, h1, h2, h3, h4, h5, article,
+    .layers ul.list-group, .maps ul.list-group, .documents ul.list-group,
+    .about ul, .dashboard th {
+      direction: {{ LANGUAGE_BIDI | yesno:'rtl, ltr' }};
+    }
+    /*detail adjusment, indifferent regardless rtl or ltr*/
+    .item-info h3.ng-scope,
+    .item-info p.ng-scope,
+    .item-info p.abstract,
+    .documents article.description dd,
+    /*.documents article#rate h4,*/
+    /*.documents article#share header,*/
+    .maps article.description dd,
+    /*.maps article#rate h3,*/
+    /*.maps article#share header,*/
+    .layers article.description dd
+    /*.layers article#rate h4,*/
+    /*.layers article#share header*/
+    {
+      text-align: left;
+    }
+  </style>
   </head>
-  
+
   <body class="{% block body_class %}{% endblock %}">
 
     {% block header %}
     <nav class="navbar navbar-inverse navbar-fixed-top"  role="navigation">
-      
+
       <!-- custom header-->
       <!-- <div class="statBar">
 
@@ -54,10 +85,10 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand-immap" href="{% url "home" %}">iMMAP</a> 
+            <a class="navbar-brand-immap" href="{% url "home" %}">iMMAP</a>
           </div>
 
-          
+
 
       </div>  -->
       <!-- end of custom header -->
@@ -73,7 +104,7 @@
           <a class="navbar-brand-usaid" href="{% url "home" %}"></a>
           <a class="navbar-brand-immap" href="{% url "home" %}"><h1 class="webTitle" style="height:50px">{% trans "Afghanistan Spatial Data Center" %}</h1></a>
         </div>
-        
+
         <div style="float:right;  padding-top: 10px;">
           <div id="navbarTop" class="navbar-collapse collapse">
             {% if not user.is_authenticated and REGISTRATION_OPEN %}
@@ -82,7 +113,7 @@
                   <!-- <a href="{% url "account_signup" %}">{% trans "Register" %}</a> -->
                   <button id="register" type="button" class="btn btn-primary" onclick="location.href='{% url "account_signup" %}'">{% trans "Register" %}</button>
                 </li>
-              </ul>  
+              </ul>
             {% endif %}
             <ul class="nav navbar-right">
               {% if user.is_authenticated %}
@@ -95,7 +126,7 @@
               {% else %}
               <li>
                 <!-- <a href="#" data-toggle="modal" data-target="#SigninModal" role="button" >
-                  {% trans "Sign in" %} 
+                  {% trans "Sign in" %}
                 </a> -->
                 <button id="signin" type="button" data-toggle="modal" data-target="#SigninModal" class="btn btn-primary">{% trans "Sign in" %}</button>
               </li>
@@ -105,14 +136,14 @@
               <li>
 
                 {% include "_announcements.html" %}
-                  
-              </li>  
-            </ul> 
+
+              </li>
+            </ul>
             <!-- <ul class="nav navbar-right">
               <li>
                 <button type="button" class="btn btn-primary"> <i class="announcement_custom glyphicon glyphicon-comment"></i>1</button>
-              </li>  
-            </ul> -->  
+              </li>
+            </ul> -->
             <ul class="nav navbar-right">
               <li>
                 <label class="hidden">{% trans "Language" %}</label>
@@ -130,8 +161,8 @@
                 </form>
                 {% endif %}
               </li>
-            </ul>        
-          </div> 
+            </ul>
+          </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               {% block tabs %}
@@ -160,7 +191,7 @@
               </li> -->
               <li id="nav_about" class="dropdown">
                 <!-- <a href="{% url "about" %}">{% trans "Documentation" %}</a> -->
-               
+
                   <a href="#" data-toggle="dropdown" data-target="#">{% trans "Documentation" %}</a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <li><a href="{% url "about" %}">{% trans "About" %}</a></li>
@@ -169,8 +200,8 @@
                     <li><a href="{% url "partners" %}">{% trans "Partners" %}</a></li>
                     <li><a href="{% url "video" %}">{% trans "Videos" %}</a></li>
                     <li><a href="{% url "training" %}">{% trans "Training" %}</a></li>
-                  </ul>  
-  
+                  </ul>
+
               </li>
               {% endblock %}
             </ul>
@@ -188,12 +219,12 @@
                 </div>
               </div>
             </form> -->
-            
+
           </div><!--/.nav-collapse -->
         </div>
       </div>
       <div class="container" style="border-bottom: 1px solid #eee;">
-      </div>  
+      </div>
     </nav>
     {% endblock header %}
 
@@ -222,7 +253,7 @@
     </div>
     {% endblock middle %}
   </div>
-    
+
     {% block footer %}
     <footer class="footer">
       <div class="container">
@@ -233,11 +264,11 @@
             <a href="{% url "about" %}">{% trans "About" %}</a>
           </div> -->
           <div class="col-md-12 footertext">
-            <a href="http://www.immap.org">{% trans "iMMAP" %}</a> &copy; 2016 
+            <a href="http://www.immap.org">{% trans "iMMAP" %}</a> &copy; 2016
           </div>
           <div class="col-md-12 footertext">
            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
-          </div> 
+          </div>
           <div class="col-md-12 footersymbol">
             <a href="mailto:admin.geonode@immap.org">
               <i class="fa fa-2x fa-envelope"></i>
@@ -255,7 +286,7 @@
               <i class="fa fa-2x fa-linkedin"></i>
             </a>
           </div>
-           
+
         </div>
       </div>
     </footer>
@@ -341,7 +372,7 @@
     </div>
     {% endif %}
     <!-- End of Modal -->
-    
+
     {% if DEBUG_STATIC %}
     <script src="{{ STATIC_URL }}lib/js/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js"></script>
@@ -362,7 +393,6 @@
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
     {% include 'autocomplete_light/static.html' %}
-    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     {% block extra_script %}{% endblock extra_script %}
     <script type="text/javascript">
         var autocomplete = $('#search_input').yourlabsAutocomplete({
@@ -395,8 +425,12 @@
               this.box.insertAfter(this.input).css({top: pos.top + pos.height, left: pos.left});
             }
         };
+
+        // LANGUAGE_CODE js global var
+        {% get_current_language as LANGUAGE_CODE %}
+        LANGUAGE_CODE = "{{ LANGUAGE_CODE }}";
+
     </script>
     <script type="text/javascript" src="{% url "lang" %}"></script>
-
   </body>
 </html>
