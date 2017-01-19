@@ -293,6 +293,8 @@ INSTALLED_APPS = (
 
     # added by boedy
     'south',
+    'bootstrap3',
+    'bootstrap3_datetime',
 
     # Theme
     "pinax_theme_bootstrap_account",
@@ -325,6 +327,7 @@ INSTALLED_APPS = (
     'dashboard',
     'mathfilters',
     'graphos',
+    'securitydb',
 
 ) + GEONODE_APPS
 

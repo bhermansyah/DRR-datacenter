@@ -32,6 +32,7 @@ from geodb.urls import geoapi
 
 import autocomplete_light
 import dashboard
+import securitydb
 
 # Setup Django Admin
 autocomplete_light.autodiscover()
@@ -106,7 +107,8 @@ urlpatterns = patterns('',
                        url(r'', include(api.urls)),
                        url(r'', include(geoapi.urls)),
                        (r'^getOverviewMaps/', include('geodb.custom_urls')),
-                       (r'^dashboard/', include('dashboard.urls'))
+                       (r'^dashboard/', include('dashboard.urls')),
+                       (r'^securitydb/', include('securitydb.urls'))
                        )
 
 if "geonode.contrib.dynamic" in settings.INSTALLED_APPS:

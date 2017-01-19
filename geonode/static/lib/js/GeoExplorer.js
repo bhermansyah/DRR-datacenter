@@ -90576,8 +90576,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 toggleGroup: "interaction",
                 showButtonText: true,
                 actionTarget: "paneltbar"
-            // }, {
-            //     actions: ["secEntry"],  actionTarget: "paneltbar"    
+            }, {
+                actions: ["secEntry"],  actionTarget: "paneltbar", id:"secEntryModule"    
             }, {    
                 ptype: "gxp_statfeaturemanager",
                 id: "statfeaturemanager",
@@ -90936,6 +90936,14 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fontSize: "12px"
         }; 
 
+        var secentry_style = {
+            externalGraphic: "../../static/lib/icons/red_pin.png",
+            'pointRadius': 12,
+            graphicXOffset: 1,
+            graphicYOffset: -20
+              
+        };
+
        var finder_layer = new OpenLayers.Layer.Vector("Finder Layer",{
             'displayInLayerSwitcher':false,
              renderers: ['Canvas', 'VML'],
@@ -90997,6 +91005,14 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             })
        });
 
+       var vector_layerSecurityEntry = new OpenLayers.Layer.Vector("sec_entry_vector",{
+            'displayInLayerSwitcher':false,
+             renderers: ['Canvas', 'VML'],
+             styleMap: new OpenLayers.StyleMap({
+                "default": secentry_style
+            })
+       });
+
        var andma_selectCtrl = new OpenLayers.Control.SelectFeature(vector_layerANDMA);
 
        function andma_createPopup(feature) {
@@ -91037,6 +91053,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
        this.mapPanel.map.addLayer(vector_layerEQ);
        this.mapPanel.map.addLayer(hiddenLayer);
        this.mapPanel.map.addLayer(vector_layerANDMA);
+       this.mapPanel.map.addLayer(vector_layerSecurityEntry);
        this.mapPanel.map.addControl(andma_selectCtrl);
        andma_selectCtrl.activate();
 
@@ -91306,6 +91323,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             tempMap.raiseLayer(vector_layer,10000);
             tempMap.raiseLayer(vector_layerEQ,10000);
             tempMap.raiseLayer(mask_layer,10000);
+            tempMap.raiseLayer(vector_layerSecurityEntry,10000);
         });
 
         var tempMap = this.mapPanel.map;
@@ -92671,6 +92689,24 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             ]
         });
 
+        var securityModuleEntriesContainer = new Ext.BoxComponent({
+            autoEl: {
+                tag: 'iframe',
+                frameborder: '0',
+                src: '/securitydb/'
+            },
+            listeners: {
+                afterrender: function () {
+
+                    this.getEl().on('load', function () {
+                        // tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+
+                    });
+
+                }
+            }
+        });
+
         var securityModuleEntriesPanel = new Ext.Panel({
             title: 'Manage Security data',
             xtype: 'form',
@@ -92687,7 +92723,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             // autoScroll:true,
             // overflowY: 'scroll',
             defaults: {autoScroll: true},
-            items: []
+            items: [securityModuleEntriesContainer]
         });    
 
         
@@ -92979,8 +93015,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_stats_panel').show();
                     Ext.getCmp('bd_stats_panel').expand();
                 } else {
-                    // if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
-                    if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
+                    if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
+                    // if (!Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_stats_panel').hide();
                 }
@@ -93000,8 +93036,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_findertool_panel').show();
                     Ext.getCmp('bd_findertool_panel').expand();
                 } else {
-                    // if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
-                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed)
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed && !Ext.getCmp('secEntry').pressed)
+                    // if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('SAMTool').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_findertool_panel').hide();
                 }
@@ -93022,34 +93058,35 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_SAM_panel').show();
                     Ext.getCmp('bd_SAM_panel').expand();
                 } else {
-                    // if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('secEntry').pressed)
-                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed)
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('secEntry').pressed)
+                    // if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_SAM_panel').hide();
                 }
             }       
         });
 
-        // new Ext.Button({
-        //     id: "secEntry",
-        //     text: 'Security Entries',
-        //     iconCls: 'icon-sam-tool',
-        //     enableToggle: true,    
-        //     toggleGroup: "interaction",  
-        //     disabled: false,
-        //     pressed: false,
-        //     toggleHandler: function(){
-        //         if (this.pressed){
-        //             Ext.getCmp('east').expand();
-        //             Ext.getCmp('bd_sec_entries_panel').show();
-        //             Ext.getCmp('bd_sec_entries_panel').expand();
-        //         } else {
-        //             if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
-        //                 Ext.getCmp('east').collapse();
-        //             Ext.getCmp('bd_sec_entries_panel').hide();
-        //         }
-        //     }       
-        // });
+        new Ext.Button({
+            id: "secEntry",
+            text: 'Security Entries',
+            iconCls: 'icon-sam-tool',
+            enableToggle: true,    
+            toggleGroup: "interaction",  
+            disabled: false,
+            pressed: false,
+            toggleHandler: function(){
+                if (this.pressed){
+                    Ext.getCmp('east').expand();
+                    Ext.getCmp('bd_sec_entries_panel').show();
+                    Ext.getCmp('bd_sec_entries_panel').expand();
+                } else {
+                    if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
+                        Ext.getCmp('east').collapse();
+                    Ext.getCmp('bd_sec_entries_panel').hide();
+                }
+            }       
+        });
+
         var tempMap = this.mapPanel.map;
         new Ext.Button({
             id: "showANDMA",

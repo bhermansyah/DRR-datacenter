@@ -1,0 +1,47 @@
+<form action="" method="post">
+    {% csrf_token %}
+	{% for field in form %}
+		<div class="fieldWrapper">
+			{{ field.errors }}
+			{{ field.label_tag }} {{ field }}
+			{% if field.help_text %}
+			<p class="help">{{ field.help_text|safe }}</p>
+			{% endif %}
+		</div>
+	{% endfor %}
+	{{ form.non_field_errors }}
+	<div class="fieldWrapper">
+		<label for="{{ form.subject.id_for_label }}">Email subject:</label>
+		{{ form.subject }}
+	</div>
+	<div class="fieldWrapper">
+		<label for="{{ form.message.id_for_label }}">Your message:</label>
+		{{ form.message }}
+	</div>
+	<div class="fieldWrapper">
+		<label for="{{ form.sender.id_for_label }}">Your email address:</label>
+		{{ form.sender }}
+	</div>
+	<div class="fieldWrapper">
+		{{ form.cc_myself.errors }}
+		<label for="{{ form.cc_myself.id_for_label }}">CC yourself?</label>
+		{{ form.cc_myself }}
+	</div>
+
+	{% if form.subject.errors %}
+		<ol>
+		{% for error in form.subject.errors %}
+			<li><strong>{{ error|escape }}</strong></li>
+		{% endfor %}
+		</ol>
+	{% endif %}
+	{% if form.message.errors %}
+		<ol>
+		{% for error in form.message.errors %}
+			<li><strong>{{ error|escape }}</strong></li>
+		{% endfor %}
+		</ol>
+	{% endif %}
+	
+	<input type="submit" value="Submit" />
+</form>

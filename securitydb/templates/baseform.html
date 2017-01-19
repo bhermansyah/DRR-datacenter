@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+	{% load bootstrap3 %}
+    {% bootstrap_css %}
+	{{ form.media }}
+<!--    
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>
+    {% bootstrap_javascript %}
+	{{ form.media }} -->
+    <title>{% block bootstrap3_title %}iMMAP Security System{% endblock %}</title>
+</head>
+<body>
+	<header>
+		<div class="page-header">
+			<h1>iMMAP: Security System Entry Form</h1>
+			<ol class="breadcrumb">
+				<a href="http://asdc.immap.org">Afghanistan Spatial Data Center</a>
+			</ol>
+		</div>
+	</header>
+    <body>
+        <div class="container">
+            <div class="row">
+				<div class="span12">
+					<main>
+						{% block content %}
+						{% endblock %}
+					</main>
+				</div>
+			</div>
+		</div>
+    </body>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#id_scre_provid').change(function() {
+			//alert($('#id_scre_provid option:selected').text());
+			$('#id_scre_placename').val($('#id_scre_provid option:selected').text());
+		})
+		$('#id_scre_distid').change(function() {
+			$('#id_scre_placename').val($('#id_scre_provid option:selected').text()+", "+$('#id_scre_distid option:selected').text());
+		})
+		$('#id_scre_unknown').change(function() {
+			if ($('#id_scre_violent').is(":checked"))
+			{
+				if ($('#id_scre_unknown').is(":checked"))
+				{
+					$('#id_scre_arrested').val('');
+					$('#id_scre_arrested').attr('readonly', true);
+					$('#id_scre_arrested').attr('color', 'grey');
+					$('#id_scre_injured').val('');
+					$('#id_scre_injured').attr('readonly', true);
+					$('#id_scre_injured').attr('color', 'grey');
+					$('#id_scre_dead').val('');
+					$('#id_scre_dead').attr('readonly', true);
+					$('#id_scre_dead').attr('color', 'grey');
+				} else
+				{
+					$('#id_scre_arrested').attr('readonly', false);
+					$('#id_scre_arrested').attr('color', 'white');
+					$('#id_scre_injured').attr('readonly', false);
+					$('#id_scre_injured').attr('color', 'white');
+					$('#id_scre_dead').attr('readonly', false);
+					$('#id_scre_dead').attr('color', 'white');
+				}
+			}
+		})
+		$('#id_scre_violent').change(function() {
+			if ($('#id_scre_violent').is(":checked"))
+			{
+				if ($('#id_scre_unknown').is(":checked"))
+				{
+					//alert('changing to checked');
+					$('#id_scre_arrested').val('');
+					$('#id_scre_arrested').attr('readonly', true);
+					$('#id_scre_arrested').attr('color', 'grey');
+					$('#id_scre_injured').val('');
+					$('#id_scre_injured').attr('readonly', true);
+					$('#id_scre_injured').attr('color', 'grey');
+					$('#id_scre_dead').val('');
+					$('#id_scre_dead').attr('readonly', true);
+					$('#id_scre_dead').attr('color', 'grey');
+				} else
+				{
+					//alert('changing to checked');
+					$('#id_scre_arrested').attr('readonly', false);
+					$('#id_scre_arrested').attr('color', 'white');
+					$('#id_scre_injured').attr('readonly', false);
+					$('#id_scre_injured').attr('color', 'white');
+					$('#id_scre_dead').attr('readonly', false);
+					$('#id_scre_dead').attr('color', 'white');
+				}
+			} else
+			{
+				//alert('changing to unchecked');
+				$('#id_scre_unknown').attr('checked', false);
+				$('#id_scre_arrested').val('');
+				$('#id_scre_arrested').attr('readonly', true);
+				$('#id_scre_arrested').attr('color', 'grey');
+				$('#id_scre_injured').val('');
+				$('#id_scre_injured').attr('readonly', true);
+				$('#id_scre_injured').attr('color', 'grey');
+				$('#id_scre_dead').val('');
+				$('#id_scre_dead').attr('readonly', true);
+				$('#id_scre_dead').attr('color', 'grey');
+			}
+		})
+	})
+	</script>	
+	<footer>
+	</footer>
+</body>
+</html>

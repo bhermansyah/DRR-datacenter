@@ -42,8 +42,17 @@ GeoExplorer.Viewer.prototype.loadConfig = function(config) {
 };
 
 
-GeoExplorer.Composer.prototype.loadConfig = function(config) {    
-    console.log(config);
+GeoExplorer.Composer.prototype.loadConfig = function(config) {        
+    var xxx = config.tools.filter(function(obj) {
+      if(obj.id == 'secEntryModule') {
+        return obj 
+      }
+    })[0];
+
+    {% if 'geodb.add_afgincidentoasis' not in user.get_all_permissions  %}
+        config.tools.remove(xxx);
+    {% endif %}    
+
     GeoExplorer.Composer.superclass.loadConfig.call(this, config);
 };
 

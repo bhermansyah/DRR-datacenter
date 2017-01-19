@@ -1,0 +1,31 @@
+{% extends 'baseform.html' %}
+{% load bootstrap3 %}
+
+{% block content %}
+<form action="" method="post" class="form">
+    {% csrf_token %}
+	{% bootstrap_form form %}
+	{% buttons %}
+		<button type="submit" class="btn btn-primary">
+			{% bootstrap_icon "star" %} Submit
+		</button>
+	{% endbuttons %}
+
+	<table>
+	{{ form.non_field_errors }}
+	{% for field in form %}
+		{% if field.errors %}
+		<tr>
+			<td>{{ field.label_tag }}</td>
+			<td>
+			{% for error in field.errors %}
+				<li><strong>{{ error|escape }}</strong></li>
+			{% endfor %}
+			</td>
+		</tr>
+		{% endif %}
+	{% endfor %}
+	</table>
+
+</form>
+{% endblock %}

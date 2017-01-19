@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">  
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>	
+
+	{% load bootstrap3 %}
+    {% bootstrap_css %}
+	{{ form.media }}
+
+	<script>
+		var mainMap = window.parent.GeoExt.MapPanel.guess();
+		var click = null;
+
+
+		function getInitialSecurityPosisition(){
+			if ($('#id_scre_latitude').val()!='' && $('#id_scre_longitude').val()!=''){
+				lat = parseFloat($('#id_scre_latitude').val());
+				lon = parseFloat($('#id_scre_longitude').val());
+				
+				var lonLat = new window.parent.OpenLayers.LonLat(lon, lat)
+	             .transform(
+	               new window.parent.OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+	               new window.parent.OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+	             );
+
+	             var feature = new window.parent.OpenLayers.Feature.Vector(new window.parent.OpenLayers.Geometry.Point(lonLat.lon, lonLat.lat));
+	             
+	             mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+
+	             mainMap.map.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
+
+	             mainMap.map.panTo(lonLat);
+				
+			}
+		} 
+
+		function getCoordinateActivate(){
+			window.parent.OpenLayers.Control.Click = window.parent.OpenLayers.Class(window.parent.OpenLayers.Control, {                
+                defaultHandlerOptions: {
+                    'single': true,
+                    'double': false,
+                    'pixelTolerance': 0,
+                    'stopSingle': false,
+                    'stopDouble': false
+                },
+
+                initialize: function(options) {
+                    this.handlerOptions = window.parent.OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                    );
+                    window.parent.OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                    ); 
+                    this.handler = new window.parent.OpenLayers.Handler.Click(
+                        this, {
+                            'click': this.trigger
+                        }, this.handlerOptions
+                    );
+                }, 
+
+                trigger: function(e) {
+                    //A click happened!
+                    var lonlat = mainMap.map.getLonLatFromViewPortPx(e.xy);
+
+                    var pin = new window.parent.OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
+                    var feature = new window.parent.OpenLayers.Feature.Vector(pin, {});
+                    mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+                    mainMap.map.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
+                    mainMap.map.raiseLayer(mainMap.map.getLayersByName('sec_entry_vector')[0],10000);
+                    // map.getLayersByName('sec_entry_vector')
+                    lonlat.transform(
+                      new window.parent.OpenLayers.Projection("EPSG:900913"), 
+                      new window.parent.OpenLayers.Projection("EPSG:4326")
+                    );
+                    // console.log(lonlat, feature);
+                    // alert("You clicked near " + lonlat.lat + " N, " +
+                    //                           + lonlat.lon + " E");
+
+                    $('#id_scre_latitude').val(lonlat.lat);
+                    $('#id_scre_longitude').val(lonlat.lon);
+
+                    getCoordinateDeactivate();
+                }
+
+            });
+
+			click = new window.parent.OpenLayers.Control.Click();
+
+			mainMap.map.addControl(click);
+			click.activate();
+		}
+
+		function getCoordinateDeactivate(){
+			
+			click.deactivate();
+			mainMap.map.removeControl(click);
+			click = null;
+		}
+
+
+		function initialize_page() {
+			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+			prov_id = $('#id_scre_provid').val();
+			dist_id = $('#id_scre_distid').val();
+			if(prov_id > 0) {
+				request_url = '/securitydb/' + prov_id + '/get_districts/';
+				$('#id_scre_distid').empty();
+				$.ajax({
+					url: request_url,
+					success: function(data){
+						for(var i = 0; i < Object.keys(data).length; i++){
+							if (Object.keys(data)[i]==dist_id){
+								$('#id_scre_distid').append('<option selected value="' + Object.keys(data)[i] + '">' + Object.values(data)[i] +'</option>');
+							} else {
+								$('#id_scre_distid').append('<option value="' + Object.keys(data)[i] + '">' + Object.values(data)[i] +'</option>');
+							}	
+						}
+						return false;
+					}
+				}) 
+				$('#id_scre_distid').prop('disabled', false);
+			} else {
+				$("#id_scre_distid").off();
+				$('#id_scre_distid').prop('disabled', true);
+			}
+		
+			if ($('#id_scre_violent').is(":checked"))
+			{
+				if ($('#id_scre_unknown').is(":checked"))
+				{
+					$('#id_scre_arrested').val('');
+					$('#id_scre_arrested').attr('readonly', true);
+					$('#id_scre_arrested').attr('color', 'grey');
+					$('#id_scre_injured').val('');
+					$('#id_scre_injured').attr('readonly', true);
+					$('#id_scre_injured').attr('color', 'grey');
+					$('#id_scre_dead').val('');
+					$('#id_scre_dead').attr('readonly', true);
+					$('#id_scre_dead').attr('color', 'grey');
+				} else
+				{
+					$('#id_scre_arrested').attr('readonly', false);
+					$('#id_scre_arrested').attr('color', 'white');
+					$('#id_scre_injured').attr('readonly', false);
+					$('#id_scre_injured').attr('color', 'white');
+					$('#id_scre_dead').attr('readonly', false);
+					$('#id_scre_dead').attr('color', 'white');
+				}
+			} else
+			{
+				$('#id_scre_arrested').val('');
+				$('#id_scre_arrested').attr('readonly', true);
+				$('#id_scre_arrested').attr('color', 'grey');
+				$('#id_scre_injured').val('');
+				$('#id_scre_injured').attr('readonly', true);
+				$('#id_scre_injured').attr('color', 'grey');
+				$('#id_scre_dead').val('');
+				$('#id_scre_dead').attr('readonly', true);
+				$('#id_scre_dead').attr('color', 'grey');
+			}
+
+			getInitialSecurityPosisition();
+			
+          
+		}
+	</script>
+	
+    <!-- <title>{% block bootstrap3_title %}iMMAP Security System{% endblock %}</title> -->
+	<style>
+		body {font-family: sans-serif; padding:20px}
+		#map {width: 800px; height: 300px}
+	</style>
+</head>
+<body onload='initialize_page()'>
+	<!-- <header>
+		<div class="page-header">
+			<h3>iMMAP: Security System Entry Form</h3>
+		</div>
+	</header> -->
+
+	<form action="" method="post" class="form">
+		{% csrf_token %}
+		{% if form %}
+			{% for field in form.visible_fields %}
+				{% bootstrap_field field %}
+			{% endfor %}
+			{% buttons %}
+				<button id="setCoord_btn" type="button" class="btn btn-primary pull-right">
+					{% bootstrap_icon "pushpin" %}
+				</button>
+			{% endbuttons %}
+			{% buttons %}
+				<button type="submit" class="btn btn-primary">
+					Submit
+				</button>
+				<button type="button" class="btn btn-primary" onclick="window.location.href = '/securitydb/';">
+					Cancel
+				</button>
+				<button type="button" class="btn btn-primary" onclick="window.location.href = '/securitydb/list';">
+					List
+				</button>
+			{% endbuttons %}
+		{% else %}
+			<p>Sorry no results for your query</p>
+		{% endif %}
+	</form>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+
+		$('#setCoord_btn').click(function() {
+			if (!click) getCoordinateActivate();
+		});
+		
+		$('#id_scre_provid').change(function() {
+			$('#id_scre_placename').val($('#id_scre_provid option:selected').text());
+			prov_id = $(this).val();
+			request_url = '/securitydb/' + prov_id + '/get_districts/';
+			$('#id_scre_distid').empty();
+			$.ajax({
+				url: request_url,
+				success: function(data){
+					//i = Object.keys(data).length;
+					//$('#id_scre_distid').append('<option value="' + i + '">' + i +'</option>');
+					
+					for(var i = 0; i < Object.keys(data).length; i++){
+						$('#id_scre_distid').append('<option value="' + Object.keys(data)[i] + '">' + Object.values(data)[i] +'</option>');
+					}
+				
+					//$.each(Object.keys(data), function(key, value){
+					//	$('#id_scre_distid').append('<option value="' + this.key + '">' + this.key +'</option>');
+					//});
+					return false;
+				}
+			}) 
+			$('#id_scre_distid').prop('disabled', false);
+		})
+		$('#id_scre_distid').change(function() {
+			$('#id_scre_placename').val($('#id_scre_provid option:selected').text()+", "+$('#id_scre_distid option:selected').text());
+		})
+		$('#id_scre_unknown').change(function() {
+			if ($('#id_scre_violent').is(":checked"))
+			{
+				if ($('#id_scre_unknown').is(":checked"))
+				{
+					$('#id_scre_arrested').val('');
+					$('#id_scre_arrested').attr('readonly', true);
+					$('#id_scre_arrested').attr('color', 'grey');
+					$('#id_scre_injured').val('');
+					$('#id_scre_injured').attr('readonly', true);
+					$('#id_scre_injured').attr('color', 'grey');
+					$('#id_scre_dead').val('');
+					$('#id_scre_dead').attr('readonly', true);
+					$('#id_scre_dead').attr('color', 'grey');
+				} else
+				{
+					$('#id_scre_arrested').attr('readonly', false);
+					$('#id_scre_arrested').attr('color', 'white');
+					$('#id_scre_injured').attr('readonly', false);
+					$('#id_scre_injured').attr('color', 'white');
+					$('#id_scre_dead').attr('readonly', false);
+					$('#id_scre_dead').attr('color', 'white');
+				}
+			}
+		})
+		$('#id_scre_violent').change(function() {
+			if ($('#id_scre_violent').is(":checked"))
+			{
+				if ($('#id_scre_unknown').is(":checked"))
+				{
+					//alert('changing to checked');
+					$('#id_scre_arrested').val('');
+					$('#id_scre_arrested').attr('readonly', true);
+					$('#id_scre_arrested').attr('color', 'grey');
+					$('#id_scre_injured').val('');
+					$('#id_scre_injured').attr('readonly', true);
+					$('#id_scre_injured').attr('color', 'grey');
+					$('#id_scre_dead').val('');
+					$('#id_scre_dead').attr('readonly', true);
+					$('#id_scre_dead').attr('color', 'grey');
+				} else
+				{
+					//alert('changing to checked');
+					$('#id_scre_arrested').attr('readonly', false);
+					$('#id_scre_arrested').attr('color', 'white');
+					$('#id_scre_injured').attr('readonly', false);
+					$('#id_scre_injured').attr('color', 'white');
+					$('#id_scre_dead').attr('readonly', false);
+					$('#id_scre_dead').attr('color', 'white');
+				}
+			} else
+			{
+				//alert('changing to unchecked');
+				$('#id_scre_unknown').attr('checked', false);
+				$('#id_scre_arrested').val('');
+				$('#id_scre_arrested').attr('readonly', true);
+				$('#id_scre_arrested').attr('color', 'grey');
+				$('#id_scre_injured').val('');
+				$('#id_scre_injured').attr('readonly', true);
+				$('#id_scre_injured').attr('color', 'grey');
+				$('#id_scre_dead').val('');
+				$('#id_scre_dead').attr('readonly', true);
+				$('#id_scre_dead').attr('color', 'grey');
+			}
+		})
+	})
+	</script>	
+</body>
