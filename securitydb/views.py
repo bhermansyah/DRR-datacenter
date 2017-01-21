@@ -32,15 +32,17 @@ def scresysls(request):
 	return render(request, 'searchform.html', {'search_result_list': search_result_list,})
 
 def scresysed(request, criteria_id=None):
-	print request.POST
 	if criteria_id:
 		instance = SecureFeature.objects.get(id=criteria_id)
 	else:
 		instance = SecureFeature()
-	
+
 	if request.POST:
-		print request.POST
-		form = SecureFeatureForm(data=request.POST, instance=instance, initial={'scre_distid': request.POST['scre_distid']})
+		mutable = request.POST._mutable
+		request.POST._mutable = True
+		request.POST['scre_username'] = request.user.username
+		request.POST._mutable = mutable
+		form = SecureFeatureForm(data=request.POST, instance=instance, initial={'scre_distid': request.POST['scre_distid'], 'scre_username':request.user.username })
 		if form.is_valid():
 
 			frm_incdtstr=request.POST.get('scre_incidentdatestr', '')

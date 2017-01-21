@@ -110,6 +110,7 @@
 			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
 			prov_id = $('#id_scre_provid').val();
 			dist_id = $('#id_scre_distid').val();
+			$('#id_scre_username').attr('readonly', true);
 			if(prov_id > 0) {
 				request_url = '/securitydb/' + prov_id + '/get_districts/';
 				$('#id_scre_distid').empty();
