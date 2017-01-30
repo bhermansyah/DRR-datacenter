@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-30 12:52+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: geo_calc.py:53 geo_calc.py:110
+msgid "Custom Selection"
+msgstr ""
+
+#: geo_calc.py:54
+msgid "Select provinces"
+msgstr ""
+
+#: geo_calc.py:77 geo_calc.py:78 geo_calc.py:87 geo_calc.py:99
+msgid "Afghanistan"
+msgstr ""
+
+#: geo_calc.py:79
+msgid "Select province"
+msgstr ""
+
+#: geo_calc.py:90
+msgid "Select district"
+msgstr ""
+
+#: geo_calc.py:206
+msgid "Number of Incident by Incident Type"
+msgstr ""
+
+#: geo_calc.py:208 geo_calc.py:283
+msgid "Incidents"
+msgstr ""
+
+#: geo_calc.py:216
+msgid "Number of dead casualties by Incident Type"
+msgstr ""
+
+#: geo_calc.py:218 geo_calc.py:293
+msgid "Dead"
+msgstr ""
+
+#: geo_calc.py:226
+msgid "Number of injured casualties by Incident Type"
+msgstr ""
+
+#: geo_calc.py:228
+msgid "Violent"
+msgstr ""
+
+#: geo_calc.py:236
+msgid "Number of affected person by Incident Type"
+msgstr ""
+
+#: geo_calc.py:238 geo_calc.py:303 geo_calc.py:313
+msgid "Injured"
+msgstr ""
+
+#: geo_calc.py:281
+msgid "Number of Incident by Incident Target"
+msgstr ""
+
+#: geo_calc.py:291
+msgid "Number of dead casualties by Incident Target"
+msgstr ""
+
+#: geo_calc.py:301
+msgid "Number of injured casualties by Incident Target"
+msgstr ""
+
+#: geo_calc.py:311
+msgid "Number of affected person by Incident Target"
+msgstr ""
+
+#: geo_calc.py:1070
+msgid "Population with GSM coverage"
+msgstr ""
+
+#: geo_calc.py:1071
+msgid "Population without GSM coverage"
+msgstr ""
+
+#: geo_calc.py:1076
+msgid "Area with GSM coverage"
+msgstr ""
+
+#: geo_calc.py:1077
+msgid "Area without GSM coverage"
+msgstr ""
+
+#: geo_calc.py:1082 geo_calc.py:1096 geo_calc.py:1109 geo_calc.py:1122
+#: geo_calc.py:1135 geo_calc.py:1148 geo_calc.py:1161 geo_calc.py:1174
+msgid "< 1 h"
+msgstr ""
+
+#: geo_calc.py:1083 geo_calc.py:1097 geo_calc.py:1110 geo_calc.py:1123
+#: geo_calc.py:1136 geo_calc.py:1149 geo_calc.py:1162 geo_calc.py:1175
+msgid "< 2 h"
+msgstr ""
+
+#: geo_calc.py:1084 geo_calc.py:1098 geo_calc.py:1111 geo_calc.py:1124
+#: geo_calc.py:1137 geo_calc.py:1150 geo_calc.py:1163 geo_calc.py:1176
+msgid "< 3 h"
+msgstr ""
+
+#: geo_calc.py:1085 geo_calc.py:1099 geo_calc.py:1112 geo_calc.py:1125
+#: geo_calc.py:1138 geo_calc.py:1151 geo_calc.py:1164 geo_calc.py:1177
+msgid "< 4 h"
+msgstr ""
+
+#: geo_calc.py:1086 geo_calc.py:1100 geo_calc.py:1113 geo_calc.py:1126
+#: geo_calc.py:1139 geo_calc.py:1152 geo_calc.py:1165 geo_calc.py:1178
+msgid "< 5 h"
+msgstr ""
+
+#: geo_calc.py:1087 geo_calc.py:1101 geo_calc.py:1114 geo_calc.py:1127
+#: geo_calc.py:1140 geo_calc.py:1153 geo_calc.py:1166 geo_calc.py:1179
+msgid "< 6 h"
+msgstr ""
+
+#: geo_calc.py:1088 geo_calc.py:1102 geo_calc.py:1115 geo_calc.py:1128
+#: geo_calc.py:1141 geo_calc.py:1154 geo_calc.py:1167 geo_calc.py:1180
+msgid "< 7 h"
+msgstr ""
+
+#: geo_calc.py:1089 geo_calc.py:1103 geo_calc.py:1116 geo_calc.py:1129
+#: geo_calc.py:1142 geo_calc.py:1155 geo_calc.py:1168 geo_calc.py:1181
+msgid "< 8 h"
+msgstr ""
+
+#: geo_calc.py:1090 geo_calc.py:1104 geo_calc.py:1117 geo_calc.py:1130
+#: geo_calc.py:1143 geo_calc.py:1156 geo_calc.py:1169 geo_calc.py:1182
+msgid "> 8 h"
+msgstr ""
+
+#: geo_calc.py:1757
+msgid "landcover type"
+msgstr ""
+
+#: geo_calc.py:1757
+msgid "population"
+msgstr ""
+
+#: geo_calc.py:1757
+msgid "area (km2)"
+msgstr ""
+
+#: geo_calc.py:1758
+msgid "Built-up"
+msgstr ""
+
+#: geo_calc.py:1759
+msgid "Cultivated"
+msgstr ""
+
+#: geo_calc.py:1760
+msgid "Barren/Rangeland"
+msgstr ""
+
+#: geo_calc.py:1765
+msgid "Landcover Population and area overview"
+msgstr ""
+
+#: geo_calc.py:1774 geo_calc.py:1807 geo_calc.py:1839
+msgid "Percentage"
+msgstr ""
+
+#: geo_calc.py:1780
+msgid "percentages from total population and area"
+msgstr ""
+
+#: geo_calc.py:1786
+msgid "health facility type"
+msgstr ""
+
+#: geo_calc.py:1786
+msgid "percent of health facility"
+msgstr ""
+
+#: geo_calc.py:1787
+msgid "H1"
+msgstr ""
+
+#: geo_calc.py:1788
+msgid "H2"
+msgstr ""
+
+#: geo_calc.py:1789
+msgid "H3"
+msgstr ""
+
+#: geo_calc.py:1790
+msgid "CHC"
+msgstr ""
+
+#: geo_calc.py:1791
+msgid "BHC"
+msgstr ""
+
+#: geo_calc.py:1792
+msgid "SHC"
+msgstr ""
+
+#: geo_calc.py:1793
+msgid "Others"
+msgstr ""
+
+#: geo_calc.py:1798
+msgid "Health facilities overview"
+msgstr ""
+
+#: geo_calc.py:1813 geo_calc.py:1845
+msgid "percentages from total health facilities"
+msgstr ""
+
+#: geo_calc.py:1817
+msgid "road network type"
+msgstr ""
+
+#: geo_calc.py:1817
+msgid "percent of road network"
+msgstr ""
+
+#: geo_calc.py:1818
+msgid "Highway"
+msgstr ""
+
+#: geo_calc.py:1819
+msgid "Primary"
+msgstr ""
+
+#: geo_calc.py:1820
+msgid "Secondary"
+msgstr ""
+
+#: geo_calc.py:1821
+msgid "Tertiary"
+msgstr ""
+
+#: geo_calc.py:1822
+msgid "Residential"
+msgstr ""
+
+#: geo_calc.py:1823
+msgid "Track"
+msgstr ""
+
+#: geo_calc.py:1824
+msgid "Path"
+msgstr ""
+
+#: geo_calc.py:1825
+msgid "River crossing"
+msgstr ""
+
+#: geo_calc.py:1826
+msgid "Bridge"
+msgstr ""
+
+#: geo_calc.py:1830
+msgid "Road network overview"
+msgstr ""
+
+#: geo_calc.py:2255
+msgid "Water body and marshland"
+msgstr ""

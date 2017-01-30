@@ -2570,8 +2570,8 @@ body.about li#nav_about>a::after {
 .documents .page-header > h2 {
   unicode-bidi: plaintext;
 }
-html.ext-strict.x-viewport #ext-comp-1040 {
-  /*fix geoext to ltr*/
+/*fix geoexplorer viewport page to ltr direction*/
+html.ext-strict.x-viewport body {
   direction: ltr;
 }
 /*rtl dependent*/
@@ -2622,6 +2622,10 @@ html[dir=rtl] .documents ul.social {
 html[dir=rtl] .layers #attributes th {
   direction: rtl;
   text-align: inherit;
+}
+/*use in combination in geoexplorer viewport page*/
+html[dir=rtl] html.ext-strict.x-viewport body > nav.navbar {
+  direction: rtl;
 }
 /*general tweak*/
 .ellipsis {

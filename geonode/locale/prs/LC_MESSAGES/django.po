@@ -1,5 +1,7 @@
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
+# #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
+# #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # This file was generated from django-prs.xlsx
 # Dodi <dodi@email.com>, 2016.
 #
@@ -15,12 +17,22 @@
 # intended for variable translation
 #
 #
+# #-#-#-#-#  manualentry.po  #-#-#-#-#
+# put manual entry here
+# intended for variable translation
+#
+#
+# #-#-#-#-#  manualentry.po  #-#-#-#-#
+# put manual entry here
+# intended for variable translation
+#
+#
 msgid ""
 msgstr ""
 "#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
 "Project-Id-Version: ASDC-GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-27 15:05+0700\n"
+"POT-Creation-Date: 2017-01-30 12:52+0700\n"
 "PO-Revision-Date: 2016-12-14 14:09+0700\n"
 "Last-Translator: Dodi <dodi@email.com>\n"
 "Language-Team: Dari <team@email.com>\n"
@@ -29,6 +41,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
+"#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
+"#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
 "Generated-By: xls-to-po 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
@@ -36,6 +50,10 @@ msgstr ""
 "Generated-By: xls-to-po 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
+"#-#-#-#-#  manualentry.po  #-#-#-#-#\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"#-#-#-#-#  manualentry.po  #-#-#-#-#\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "#-#-#-#-#  manualentry.po  #-#-#-#-#\n"
 "Language: prs\n"
 "MIME-Version: 1.0\n"
@@ -523,7 +541,7 @@ msgid "A request for downloading a resource was sent"
 msgstr "درخواست برای دریافت(دانلود) یک منبع ارسال شد"
 
 #: base/templates/base/_resourcebase_contact_snippet.html:3
-#: templates/500.html:151 templates/base.html:184 templates/base.html.py:251
+#: templates/500.html:151 templates/base.html:173 templates/base.html.py:240
 msgid "About"
 msgstr "در باره، در حدود"
 
@@ -665,7 +683,7 @@ msgid "Purpose"
 msgstr "اهداف"
 
 #: base/templates/base/resourcebase_info_panel.html:154 templates/500.html:154
-#: templates/base.html:136
+#: templates/base.html:125
 msgid "Language"
 msgstr "زبان"
 
@@ -1157,7 +1175,7 @@ msgstr "همه"
 #: people/templates/people/_profile_filters.html:5
 #: services/templates/services/service_detail.html:64
 #: social/templates/social/activity_list.html:21 templates/500.html:55
-#: templates/base.html:163 templates/index.html:78 templates/index.html.py:96
+#: templates/base.html:152 templates/index.html:78 templates/index.html.py:96
 msgid "Layers"
 msgstr "لایه ها"
 
@@ -1575,7 +1593,7 @@ msgstr "امتیاز دادن برای لایه"
 msgid "A rating was given to a layer"
 msgstr "یک امتیاز به یک لایه داده شد بود"
 
-#: layers/templates/layers/layer_change_poc.html:5 templates/base.html:157
+#: layers/templates/layers/layer_change_poc.html:5 templates/base.html:146
 msgid "Home"
 msgstr "خانه"
 
@@ -1732,7 +1750,7 @@ msgstr "جستجوی لایه ها"
 #: layers/templates/layers/layer_list.html:13
 #: layers/templates/upload/layer_upload.html:18
 #: layers/templates/upload/layer_upload_base.html:12 templates/500.html:216
-#: templates/base.html:325
+#: templates/base.html:314
 msgid "Upload Layers"
 msgstr "ارسال(آپلود) لایه ها"
 
@@ -2686,7 +2704,7 @@ msgstr "نام سازمان"
 msgid "name of the responsible organization"
 msgstr "نام سازمان مسئول"
 
-#: people/models.py:51 templates/500.html:218 templates/base.html:327
+#: people/models.py:51 templates/500.html:218 templates/base.html:316
 msgid "Profile"
 msgstr "مشخصات"
 
@@ -2871,34 +2889,34 @@ msgid "My Activities"
 msgstr "فعالیت های من"
 
 #: people/templates/people/profile_detail.html:97 templates/500.html:222
-#: templates/base.html:331
+#: templates/base.html:320
 msgid "Notifications"
 msgstr "اطلاعیه"
 
 #: people/templates/people/profile_detail.html:100 templates/500.html:225
-#: templates/base.html:334 templates/announcements/announcement_list.html:6
+#: templates/base.html:323 templates/announcements/announcement_list.html:6
 #: templates/announcements/announcement_list.html:13
 msgid "Announcements"
 msgstr "اعلانات"
 
 #: people/templates/people/profile_detail.html:105
 #: services/templates/services/service_list.html:9 templates/500.html:228
-#: templates/base.html:337
+#: templates/base.html:326
 msgid "Remote Services"
 msgstr "خدمات از راه دور"
 
 #: people/templates/people/profile_detail.html:106 templates/500.html:229
-#: templates/base.html:338
+#: templates/base.html:327
 msgid "Invite User"
 msgstr "دعوت  کاربر"
 
 #: people/templates/people/profile_detail.html:107 templates/500.html:231
-#: templates/base.html:340
+#: templates/base.html:329
 msgid "GeoServer"
 msgstr "GeoServer"
 
 #: people/templates/people/profile_detail.html:110 templates/500.html:234
-#: templates/base.html:343
+#: templates/base.html:332
 msgid "Admin"
 msgstr "مدیر سایت"
 
@@ -2928,7 +2946,7 @@ msgid "Update profile"
 msgstr "نوسازی (اپدیت) پروفایل"
 
 #: people/templates/people/profile_list.html:9 templates/500.html:66
-#: templates/base.html:174
+#: templates/base.html:163
 msgid "People"
 msgstr "مردم"
 
@@ -3217,18 +3235,18 @@ msgstr ""
 "  صفحه مورد نظر شما وجود ندارد. شاید شما در حال استفاده از یک نشانه تاریخ "
 "گذشته باشید؟  "
 
-#: templates/500.html:69 templates/base.html:177
+#: templates/500.html:69 templates/base.html:166
 msgid "Groups"
 msgstr "گروه ها"
 
-#: templates/500.html:89 templates/base.html:100 templates/base.html.py:101
-#: templates/base.html:309
+#: templates/500.html:89 templates/base.html:89 templates/base.html.py:90
+#: templates/base.html:298
 msgid "Register"
 msgstr "ثبت نام"
 
-#: templates/500.html:100 templates/500.html.py:200 templates/base.html:116
-#: templates/base.html.py:118 templates/base.html:290
-#: templates/base.html.py:308
+#: templates/500.html:100 templates/500.html.py:200 templates/base.html:105
+#: templates/base.html.py:107 templates/base.html:279
+#: templates/base.html.py:297
 msgid "Sign in"
 msgstr "وارد شدن"
 
@@ -3253,15 +3271,15 @@ msgstr ""
 "خطای واقعی و رفع آن و یا فایل یک موضوع در <a href=\"http://github.com/"
 "GeoNode/geonode/issues\"> GeoNode ردیاب مسئله </a> را            "
 
-#: templates/500.html:149 templates/base.html:249 templates/base.html.py:257
+#: templates/500.html:149 templates/base.html:238 templates/base.html.py:246
 msgid "Powered by"
 msgstr "طراحی شده توسط"
 
-#: templates/500.html:149 templates/base.html:249 templates/base.html.py:257
+#: templates/500.html:149 templates/base.html:238 templates/base.html.py:246
 msgid "GeoNode"
 msgstr "GeoNode"
 
-#: templates/500.html:149 templates/base.html:249
+#: templates/500.html:149 templates/base.html:238
 msgid "version"
 msgstr "نسخه"
 
@@ -3269,43 +3287,43 @@ msgstr "نسخه"
 msgid "Developers"
 msgstr "توسعه دهندگان"
 
-#: templates/500.html:188 templates/500.html.py:189 templates/base.html:296
-#: templates/base.html.py:297
+#: templates/500.html:188 templates/500.html.py:189 templates/base.html:285
+#: templates/base.html.py:286
 msgid "Username"
 msgstr "نام کاربری"
 
-#: templates/500.html:192 templates/base.html:300
+#: templates/500.html:192 templates/base.html:289
 msgid "Password"
 msgstr "رمز عبور"
 
-#: templates/500.html:196 templates/base.html:304
+#: templates/500.html:196 templates/base.html:293
 msgid "Remember Me"
 msgstr "مرا به خاطر بسپار"
 
-#: templates/500.html:212 templates/base.html:321
+#: templates/500.html:212 templates/base.html:310
 msgid "Menu"
 msgstr "فهرست"
 
-#: templates/500.html:219 templates/base.html:328
+#: templates/500.html:219 templates/base.html:317
 msgid "Recent Activity"
 msgstr "فعالیت اخیر"
 
-#: templates/500.html:220 templates/base.html:329
+#: templates/500.html:220 templates/base.html:318
 #: templates/user_messages/inbox.html:15
 msgid "Inbox"
 msgstr "دریافت ها"
 
-#: templates/500.html:239 templates/base.html:348
+#: templates/500.html:239 templates/base.html:337
 msgid "Help"
 msgstr "کمک"
 
-#: templates/500.html:245 templates/base.html:354
+#: templates/500.html:245 templates/base.html:343
 #: templates/account/logout.html:6 templates/account/logout.html.py:12
 #: templates/account/logout.html:17
 msgid "Log out"
 msgstr "خارج شدن"
 
-#: templates/500.html:280 templates/base.html:390
+#: templates/500.html:280 templates/base.html:379
 msgid "Type your search here ..."
 msgstr "جستجوی خود را اینجا بنویسید ..."
 
@@ -3602,55 +3620,55 @@ msgstr ""
 "جولای سال 2016 رهبری میکند . او توسط دو نفر از اتباع محلی در این وظیفه حمایت "
 "میشود. برنامه های آموزشی شامل ویدیو و همچنین صدور تصدیق نامه میباشد."
 
-#: templates/base.html:92 templates/index.html:6
+#: templates/base.html:81 templates/index.html:6
 msgid "Afghanistan Spatial Data Center"
 msgstr "مرکز ارقام مکانی افغانستان"
 
-#: templates/base.html:160 templates/index.html:524
+#: templates/base.html:149 templates/index.html:524
 #: templates/index.html.py:615 templates/video.html:79
 #: templates/video.html.py:170
 msgid "Dashboard"
 msgstr "مجموعه اطلاعات"
 
-#: templates/base.html:166 templates/index.html:36 templates/index.html.py:82
+#: templates/base.html:155 templates/index.html:36 templates/index.html.py:82
 #: templates/index.html:101
 msgid "Interactive Maps"
 msgstr "نقشه های تعاملی (فعال)"
 
-#: templates/base.html:169 templates/index.html:25 templates/index.html.py:86
+#: templates/base.html:158 templates/index.html:25 templates/index.html.py:86
 #: templates/index.html:106 templates/index.html.py:508
 #: templates/index.html:599 templates/video.html:63
 #: templates/video.html.py:154
 msgid "Static Maps"
 msgstr "نقشه های استاتیک (ساکن)"
 
-#: templates/base.html:180 templates/base.html.py:182 templates/base.html:186
+#: templates/base.html:169 templates/base.html.py:171 templates/base.html:175
 #: templates/documentation.html:4
 msgid "Documentation"
 msgstr "مستندات"
 
-#: templates/base.html:185 templates/disclaimer.html:4
+#: templates/base.html:174 templates/disclaimer.html:4
 #: templates/disclaimer.html.py:8 templates/video.html:4
 msgid "Disclaimer"
 msgstr "رفع مسئولیت"
 
-#: templates/base.html:187
+#: templates/base.html:176
 msgid "Partners"
 msgstr "همکاران(شریک ها)"
 
-#: templates/base.html:188
+#: templates/base.html:177
 msgid "Videos"
 msgstr "ویدیوها"
 
-#: templates/base.html:189
+#: templates/base.html:178
 msgid "Training"
 msgstr "آموزش"
 
-#: templates/base.html:250
+#: templates/base.html:239
 msgid "Developed by iMMAP"
 msgstr "توسعه یافته توسط iMMAP"
 
-#: templates/base.html:254
+#: templates/base.html:243
 msgid "iMMAP"
 msgstr "iMMAP"
 
@@ -4250,9 +4268,7 @@ msgstr "0"
 #: templates/index.html:90 templates/index.html.py:456
 #: templates/notification/account_approve/full.txt:1
 msgid "User"
-msgid_plural "Users"
-msgstr[0] "کاربر"
-msgstr[1] "کاربر"
+msgstr "کاربر"
 
 #: templates/index.html:111
 msgid "Users"
@@ -5550,11 +5566,11 @@ msgstr "صفحه"
 msgid "of"
 msgstr "از"
 
-#: templates/search/_search_content.html:6
+#: templates/search/_search_content.html:7
 msgid "Your selections"
 msgstr "انتخاب شما"
 
-#: templates/search/_search_content.html:7
+#: templates/search/_search_content.html:8
 msgid "Clear all filters"
 msgstr "پاک کردن تمام انتخابها"
 
@@ -5626,6 +5642,8 @@ msgstr "برگشت به دریافت ها"
 msgid "Send Reply"
 msgstr "ارسال پاسخ"
 
+# #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
+# #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # manual entry for variable translation

@@ -1,0 +1,22 @@
+# put manual entry here
+# intended for variable translation
+#
+msgid ""
+msgstr ""
+"Language: prs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Default Point"
+msgstr "پیش فرض"
+
+msgid "Document Type"
+msgstr "نوع سند"
+
+msgid "Publication"
+msgstr ""
+
+msgid "Default Polygon"
+msgstr ""
