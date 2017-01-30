@@ -2,8 +2,7 @@
 <!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
-<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl, ltr' }}">
-<!-- <html lang="{{ LANGUAGE_CODE }}"> -->
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,6 +27,9 @@
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
+      {% if LANGUAGE_BIDI %}
+      <link href="{{ STATIC_URL }}geonode/css/font-awesome-rtl.css" rel="stylesheet" />
+      {% endif %}
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
       {% block extra_head %}
       {% endblock %}
@@ -42,32 +44,6 @@
         }
       </style>
     <![endif]-->
-
-  <!-- css dependent on LANGUAGE_CODE -->
-  <style>
-    /*general text direction*/
-    title, a, span, p, input, select, h1, h2, h3, h4, h5, article,
-    .layers ul.list-group, .maps ul.list-group, .documents ul.list-group,
-    .about ul, .dashboard th {
-      direction: {{ LANGUAGE_BIDI | yesno:'rtl, ltr' }};
-    }
-    /*detail adjusment, indifferent regardless rtl or ltr*/
-    .item-info h3.ng-scope,
-    .item-info p.ng-scope,
-    .item-info p.abstract,
-    .documents article.description dd,
-    /*.documents article#rate h4,*/
-    /*.documents article#share header,*/
-    .maps article.description dd,
-    /*.maps article#rate h3,*/
-    /*.maps article#share header,*/
-    .layers article.description dd
-    /*.layers article#rate h4,*/
-    /*.layers article#share header*/
-    {
-      text-align: left;
-    }
-  </style>
   </head>
 
   <body class="{% block body_class %}{% endblock %}">

@@ -2,7 +2,7 @@
 
 {% load i18n %}
 {% block title %} {% trans "About ASDC" %} — {{ block.super }} {% endblock %}
-{% block body_class %}about{% endblock %}
+{% block body_class %}about training {{ block.super }}{% endblock %}
 {% block body_outer %}
 <div class="page-header">
   <h2></h2>
@@ -12,7 +12,7 @@
 	<p>{% trans "A dedicated training program is available. Make an appointment at the iMMAP offices in Kabul for basic or in-depth training. Training sessions can exist in the form of a half day introductory session, up to 3-day in-depth training sessions." %}</p>
 	<p>{% trans "Training is given in English by Noor Zangana, a dedicated professional trainer on the ASDC. She is supported by two local national staff. Alternatively, 20-30 minutes telephone walkthrough training sessions are also possible." %}</p>
 </div>
-<div class="col-md-2">
+<div class="col-md-4 desc-img">
 	<img src="{{ STATIC_URL }}lib/foto/training5.png" alt="">
 	<br/><br/><br/>
 </div>
@@ -28,7 +28,7 @@
 	<p><a href="../dashboard/classmarker" target="_blank"> {% trans "Click here go to Certification Portal" %}</a></p>
 <!-- 	<img src="{{ STATIC_URL }}lib/foto/training3.png" alt=""> -->
 </div>
-<div class="col-md-2">
+<div class="col-md-4 desc-img">
 	<img src="{{ STATIC_URL }}lib/foto/training4.png" alt="">
 	<br/><br/>
 

@@ -1,4 +1,5 @@
 {% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 
 {% verbatim %}
   <article ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
@@ -9,7 +10,7 @@
       <div class="col-xs-9 item-info">
         <div style="">
           {% endverbatim %}{% if request.user.is_authenticated %}
-          <button class="btn btn-default btn-xs pull-right" ng-click="feature_select($event)">{% trans "Select" %}</button>
+          <button class="btn btn-default btn-xs {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}" ng-click="feature_select($event)">{% trans "Select" %}</button>
           {% endif %}
 
         </div>

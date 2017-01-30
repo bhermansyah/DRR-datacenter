@@ -1,10 +1,11 @@
 {% load friendly_loader %}
 {% friendly_load avatar_tags %}
 {% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 
 <section class="last">
   {% with 40 as avatar_size %}
-    <div class="avatar span1 pull-left"><a href="{% url "profile_detail" profile.username %}">{% avatar profile avatar_size %}</a></div>
+    <div class="avatar span1 {{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}"><a href="{% url "profile_detail" profile.username %}">{% avatar profile avatar_size %}</a></div>
   {% endwith %}
   <div>
     <div>

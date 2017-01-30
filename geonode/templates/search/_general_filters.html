@@ -1,23 +1,24 @@
 {% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 <nav class="filter">
   <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>{% trans "Categories" %}</a></h4>
   <ul class="nav closed" id="categories">
     {% verbatim %}
       <li ng-repeat="category in categories" ng-if="category.count > 0">
         <a style="font-weight:bolder" data-value="{{ category.identifier }}" data-filter="category__identifier__in" >
-          <i ng-if="!category.show" class="glyphicon glyphicon-plus" ng-click="test($event)"></i> 
+          <i ng-if="!category.show" class="glyphicon glyphicon-plus" ng-click="test($event)"></i>
           <i ng-if="category.show" class="glyphicon glyphicon-minus" ng-click="test($event)"></i>
           {{ category.gn_description | limitTo: 25 }}{{ category.gn_description.length > 25 ? '...' : ''}}
-          <span class="badge pull-right">{{ category.count }}</span>
+          <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ category.count }}</span>
         </a>
         <ul class="nav" ng-show="category.show">
           <li ng-repeat="item in category.children" ng-if="item.count > 0">
-            <a  style="padding-left:40px"  data-value="{{ item.identifier }}" data-filter="category__identifier__in" 
+            <a  style="padding-left:40px"  data-value="{{ item.identifier }}" data-filter="category__identifier__in"
              ng-click="multiple_choice_listener($event)" class="{{item.active}}">{{ item.gn_description | limitTo: 25 }}{{ item.gn_description.length > 25 ? '...' : ''}}
-              <span class="badge pull-right">{{ item.count }}</span>
+              <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ item.count }}</span>
             </a>
-          </li>  
-        </ul>  
+          </li>
+        </ul>
       </li>
     {% endverbatim %}
   </ul>
@@ -27,8 +28,8 @@
   <ul class="nav closed" id="keywords">
     {% verbatim %}
       <li ng-repeat="keyword in keywords" ng-if="keyword.count > 0">
-        <a data-value="{{ keyword.slug }}" data-filter="keywords__slug__in" ng-click="multiple_choice_listener($event)" class="{{keyword.active}}">{{ keyword.name }} 
-          <span class="badge pull-right">{{ keyword.count }}</span>
+        <a data-value="{{ keyword.slug }}" data-filter="keywords__slug__in" ng-click="multiple_choice_listener($event)" class="{{keyword.active}}">{{ keyword.name }}
+          <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ keyword.count }}</span>
         </a>
       </li>
     {% endverbatim %}

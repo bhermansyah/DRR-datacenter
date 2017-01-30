@@ -109,13 +109,13 @@ LANGUAGES = (
 
 EXTRA_LANG_INFO = {
     'ps': {
-        'bidi': False,
+        'bidi': True,
         'code': 'ps',
         'name': 'Pashto',
         'name_local': 'Pashto',
         },
     'prs': {
-        'bidi': False,
+        'bidi': True,
         'code': 'ps',
         'name': 'Dari',
         'name_local': 'Dari',
@@ -145,6 +145,15 @@ EXTRA_LANG_INFO = {
         'name_local': 'sinhala',
         },
 }
+
+# Add custom languages not provided by Django
+import django.conf.locale
+from django.conf import global_settings
+LANG_INFO = dict(django.conf.locale.LANG_INFO.items() + EXTRA_LANG_INFO.items())
+django.conf.locale.LANG_INFO = LANG_INFO
+
+# Languages using BiDi (right-to-left) layout
+LANGUAGES_BIDI = global_settings.LANGUAGES_BIDI + ("prs","ps",)
 
 AUTH_USER_MODEL = 'people.Profile'
 

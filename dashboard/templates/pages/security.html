@@ -65,8 +65,9 @@ li#nav_dashsecurity>a::after {
 		    		<button type="button" class="btn btn-primary btn-sm apply">{% trans "Apply" %}</button>
 		    	</div>
 		    </div>
+        {% get_current_language_bidi as LANGUAGE_BIDI %}
 	    	{% for item in main_type_child %}
-	                <div class="checkbox checkbox-inline">
+	                <div class="checkbox {{ LANGUAGE_BIDI | yesno:'rtl, ltr' }} checkbox-inline">
 	                    <input id="type{{ forloop.counter0 }}" name="main_type_select[]" class="styled" type="checkbox" value="{{ item.main_type }}"  {% if item.main_type in incident_type %}checked=true{% endif %}>
 	                    <label for="type{{ forloop.counter0 }}">
 	                        {{ item.main_type }} ({{item.count}} incidents)
@@ -94,7 +95,7 @@ li#nav_dashsecurity>a::after {
 		    	</div>
 		    </div>
 	    	{% for item in main_target_child %}
-	                <div class="checkbox checkbox-inline">
+	                <div class="checkbox {{ LANGUAGE_BIDI | yesno:'rtl, ltr' }} checkbox-inline">
 	                    <input id="target{{ forloop.counter0 }}" name="main_target_select[]" class="styled" type="checkbox" value="{{ item.main_target }}"  {% if item.main_target in incident_target %}checked=true{% endif %}>
 	                    <label for="target{{ forloop.counter0 }}">
 	                        {{ item.main_target }} ({{item.count}} incidents)
@@ -167,8 +168,8 @@ li#nav_dashsecurity>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=3 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Number of incidents and casualties" %}</td>
-				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+				<td colspan=3 style="padding:3px;font-weight:bolder;">{% trans "Number of incidents and casualties" %}</td>
+				<td colspan=2 style="padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
 				<th rowspan=2><span>{% trans "Region" %}</span></th>
@@ -210,10 +211,10 @@ li#nav_dashsecurity>a::after {
 <div class="gridster">
 	<div class="col-md-6 col-cust-4" style="padding-left:0px !important;">
 		<div class="table_scroll">
-			<table style="font-size: small !important;margin-top:0 !important;">
+			<table id="incident-type" style="font-size: small !important;margin-top:0 !important;">
 				<thead>
 					<tr>
-						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Incident Type" %}</th>
+						<th colspan=5 style="padding:3px;font-weight:bolder;">{% trans "Incident Type" %}</th>
 					</tr>
 					<tr>
 						<th></th>
@@ -226,19 +227,19 @@ li#nav_dashsecurity>a::after {
 				<tbody>
 					{% for data in incident_type_group %}
 						<tr style="background: #eee;">
-							<td style="text-align:left;">{{ data.main_type }}</td>
-							<td style="text-align:right;">{{ data.count }}</td>
-							<td style="text-align:right;">{{ data.dead }}</td>
-							<td style="text-align:right;">{{ data.injured }}</td>
-							<td style="text-align:right;">{{ data.violent }}</td>
+							<td style="">{{ data.main_type }}</td>
+							<td style="">{{ data.count }}</td>
+							<td style="">{{ data.dead }}</td>
+							<td style="">{{ data.injured }}</td>
+							<td style="">{{ data.violent }}</td>
 						</tr>
 						{% for item in data.child %}
 							<tr>
-								<td style="text-align:left;word-wrap: break-word;max-width:100px;">{{ item.type }}</td>
-								<td style="text-align:right;">{{ item.count }}</td>
-								<td style="text-align:right;">{{ item.dead }}</td>
-								<td style="text-align:right;">{{ item.injured }}</td>
-								<td style="text-align:right;">{{ item.violent }}</td>
+								<td style="word-wrap: break-word;max-width:100px;">{{ item.type }}</td>
+								<td style="">{{ item.count }}</td>
+								<td style="">{{ item.dead }}</td>
+								<td style="">{{ item.injured }}</td>
+								<td style="">{{ item.violent }}</td>
 							</tr>
 						{% endfor %}
 					{% endfor %}
@@ -248,10 +249,10 @@ li#nav_dashsecurity>a::after {
 	</div>
 	<div class="col-md-6 col-cust-4"  style="padding-right:0px !important;">
 		<div class="table_scroll">
-			<table style="font-size: small !important;margin-top:0 !important;">
+			<table id="incident-target" style="font-size: small !important;margin-top:0 !important;">
 				<thead>
 					<tr>
-						<th colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Incident Target" %}</th>
+						<th colspan=5 style="padding:3px;font-weight:bolder;">{% trans "Incident Target" %}</th>
 					</tr>
 					<tr>
 						<th></th>
@@ -264,19 +265,19 @@ li#nav_dashsecurity>a::after {
 				<tbody>
 					{% for data in incident_target_group %}
 						<tr style="background: #eee;">
-							<td style="text-align:left;">{{ data.main_target }}</td>
-							<td style="text-align:right;">{{ data.count }}</td>
-							<td style="text-align:right;">{{ data.dead }}</td>
-							<td style="text-align:right;">{{ data.injured }}</td>
-							<td style="text-align:right;">{{ data.violent }}</td>
+							<td style="">{{ data.main_target }}</td>
+							<td style="">{{ data.count }}</td>
+							<td style="">{{ data.dead }}</td>
+							<td style="">{{ data.injured }}</td>
+							<td style="">{{ data.violent }}</td>
 						</tr>
 						{% for item in data.child %}
 							<tr>
-								<td style="text-align:left;word-wrap: break-word;max-width:100px;">{{ item.target }}</td>
-								<td style="text-align:right;">{{ item.count }}</td>
-								<td style="text-align:right;">{{ item.dead }}</td>
-								<td style="text-align:right;">{{ item.injured }}</td>
-								<td style="text-align:right;">{{ item.violent }}</td>
+								<td style="word-wrap: break-word;max-width:100px;">{{ item.target }}</td>
+								<td style="">{{ item.count }}</td>
+								<td style="">{{ item.dead }}</td>
+								<td style="">{{ item.injured }}</td>
+								<td style="">{{ item.violent }}</td>
 							</tr>
 						{% endfor %}
 					{% endfor %}
@@ -286,10 +287,10 @@ li#nav_dashsecurity>a::after {
 	</div>
 	<div class="col-md-12" style="padding-right:0px !important;padding-left:0px !important;">
 		<div class="table_scroll">
-			<table style="font-size: small !important;margin-top:0 !important;">
+			<table id="latest-incidents" style="font-size: small !important;margin-top:0 !important;">
 				<thead>
 					<tr>
-						<th colspan=2 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Latest Incidents" %}</th>
+						<th colspan=2 style="padding:3px;font-weight:bolder;">{% trans "Latest Incidents" %}</th>
 					</tr>
 					<tr>
 						<th>{% trans "Date" %}</th>
@@ -299,8 +300,8 @@ li#nav_dashsecurity>a::after {
 				<tbody>
 				{% for item in incident_list_100 %}
 					<tr>
-						<td style="text-align:left;width: 100px;">{{ item.incident_date }}</td>
-						<td style="text-align:left;">{{ item.description }}</td>
+						<td style="width: 100px;">{{ item.incident_date }}</td>
+						<td style="">{{ item.description }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>

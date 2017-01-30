@@ -38,7 +38,7 @@
       <link href="{{ STATIC_URL }}lib/css/jquery.typeahead.css" media="all" rel="stylesheet" type="text/css">
       <link href="{{ STATIC_URL }}lib/css/jquery.dropdown.css" media="all" rel="stylesheet" type="text/css">
 
-      <link href="{{ STATIC_URL }}lib/css/awesome-bootstrap-checkbox.css" media="all" rel="stylesheet" type="text/css">
+      <link href="{{ STATIC_URL }}lib/css/awesome-bootstrap-checkbox-bidi.css" media="all" rel="stylesheet" type="text/css">
 
       {% leaflet_js %}
       {% leaflet_css %}
@@ -62,18 +62,6 @@
         }
       </style>
     <![endif]-->
-
-    <!-- css dependent on LANGUAGE_CODE -->
-    <style>
-      /*general text direction*/
-      title, a, span, p, input, select, h1, h2, h3, h4, h5,
-      .about ul, .dashboard th {
-        direction: {{ LANGUAGE_BIDI | yesno:'rtl, ltr' }};
-      }
-      html[dir=rtl] [class^=showFlag_] {
-        text-align: left;
-      }
-    </style>
 
   </head>
 
