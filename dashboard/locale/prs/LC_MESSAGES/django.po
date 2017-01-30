@@ -1,0 +1,972 @@
+# #-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#
+# #-#-#-#-#  dashboard-prs.po  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-27 15:05+0700\n"
+"PO-Revision-Date: 2017-01-09 15:52+0430\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa_AF\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"#-#-#-#-#  dashboard-prs.po  #-#-#-#-#\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: templates/custombase.html:103
+msgid "Afghanistan Spatial Data Center"
+msgstr "مرکز ارقام مکانی افغانستان "
+
+#: templates/custombase.html:111 templates/custombase.html.py:112
+msgid "Register"
+msgstr "ثبت نام"
+
+#: templates/custombase.html:127 templates/custombase.html.py:129
+#: templates/custombase.html:296 templates/custombase.html.py:314
+msgid "Sign in"
+msgstr "ورود"
+
+#: templates/custombase.html:147
+msgid "Language"
+msgstr "زبان"
+
+#: templates/custombase.html:168
+msgid "Home"
+msgstr "صفحه اصلی"
+
+#: templates/custombase.html:171
+msgid "Dashboard"
+msgstr "مجموعه اطلاعات"
+
+#: templates/custombase.html:174
+msgid "Layers"
+msgstr "لایه ها"
+
+#: templates/custombase.html:177
+msgid "Interactive Maps"
+msgstr "نقشه های تعاملی (فعال)"
+
+#: templates/custombase.html:180
+msgid "Static Maps"
+msgstr "نقشه استاتیک (ساکن)"
+
+#: templates/custombase.html:185
+msgid "People"
+msgstr "مردم"
+
+#: templates/custombase.html:188
+msgid "Groups"
+msgstr "گروه ها"
+
+#: templates/custombase.html:191 templates/custombase.html.py:193
+#: templates/custombase.html:197
+msgid "Documentation"
+msgstr "مستندات"
+
+#: templates/custombase.html:195
+msgid "About"
+msgstr "درباره "
+
+#: templates/custombase.html:196
+msgid "Disclaimer"
+msgstr "رفع مسئولیت"
+
+#: templates/custombase.html:198
+msgid "Partners"
+msgstr "شریکان "
+
+#: templates/custombase.html:199
+msgid "Videos"
+msgstr "ویدیو "
+
+#: templates/custombase.html:200
+msgid "Training"
+msgstr "آموزش"
+
+#: templates/custombase.html:260
+msgid "iMMAP"
+msgstr "iMMAP"
+
+#: templates/custombase.html:263
+msgid "Powered by"
+msgstr "طراحی شده توسط"
+
+#: templates/custombase.html:263
+msgid "GeoNode"
+msgstr "GeoNode"
+
+#: templates/custombase.html:302 templates/custombase.html.py:303
+msgid "Username"
+msgstr "نام کاربر"
+
+#: templates/custombase.html:306
+msgid "Password"
+msgstr "رمز عبور"
+
+#: templates/custombase.html:310
+msgid "Remember Me"
+msgstr "بخاطر بسپار "
+
+#: templates/custombase.html:326
+msgid "Menu"
+msgstr "فهرست"
+
+#: templates/custombase.html:330
+msgid "Upload Layers"
+msgstr "آپلود لایه"
+
+#: templates/custombase.html:332
+msgid "Profile"
+msgstr "نمایه"
+
+#: templates/custombase.html:333
+msgid "Recent Activity"
+msgstr "فعالیت های اخیر"
+
+#: templates/custombase.html:334
+msgid "Inbox"
+msgstr "صندوق دریافت ها "
+
+#: templates/custombase.html:336
+msgid "Notifications"
+msgstr "اطلاعات "
+
+#: templates/custombase.html:339
+msgid "Announcements"
+msgstr "اعلانات"
+
+#: templates/custombase.html:342
+msgid "Remote Services"
+msgstr "خدمات از راه دور"
+
+#: templates/custombase.html:343
+msgid "Invite User"
+msgstr "دعوت کاربر"
+
+#: templates/custombase.html:345
+msgid "GeoServer"
+msgstr "GeoServer"
+
+#: templates/custombase.html:348
+msgid "Admin"
+msgstr "مدیر سایت"
+
+#: templates/custombase.html:353
+msgid "Help"
+msgstr "کمک"
+
+#: templates/custombase.html:359
+msgid "Log out"
+msgstr "خارج شدن"
+
+#: templates/custombase.html:409
+msgid "Type your search here ..."
+msgstr "جستجوی خود را اینجا بنویسید ..."
+
+#: templates/pages/accessibility.html:19 templates/pages/links.html:11
+msgid "Accessibility"
+msgstr "دسترسی"
+
+#: templates/pages/accessibility.html:26 templates/pages/avalancherisk.html:26
+#: templates/pages/avalcheforecast.html:26 templates/pages/baseline.html:26
+#: templates/pages/earthquake.html:36 templates/pages/floodrisk.html:26
+msgid "Total Population"
+msgstr "مجموع جمعیت"
+
+#: templates/pages/accessibility.html:30 templates/pages/baseline.html:30
+msgid "Total Area"
+msgstr "مساحت کلی"
+
+#: templates/pages/accessibility.html:30 templates/pages/avalancherisk.html:36
+#: templates/pages/baseline.html:30 templates/pages/baseline.html.py:84
+#: templates/pages/baseline.html:86 templates/pages/baseline.html.py:88
+#: templates/pages/baseline.html:90 templates/pages/baseline.html.py:208
+#: templates/pages/baseline.html:209 templates/pages/baseline.html.py:210
+#: templates/pages/baseline.html:211 templates/pages/baseline.html.py:212
+#: templates/pages/baseline.html:213 templates/pages/baseline.html.py:214
+#: templates/pages/baseline.html:215 templates/pages/baseline.html.py:216
+#: templates/pages/baseline.html:217
+msgid "km"
+msgstr "کیلومتر"
+
+#: templates/pages/accessibility.html:34
+msgid "GSM Coverage – Population"
+msgstr "نفوس - پوشش GSM "
+
+#: templates/pages/accessibility.html:40
+msgid "GSM Coverage – Area"
+msgstr "مساحت -پوشش GSM"
+
+#: templates/pages/accessibility.html:47
+msgid "Travel Time to Nearest Airport (pop in &#37;)"
+msgstr "زمان سفر به نزدیکترین میدان هوایی "
+
+#: templates/pages/accessibility.html:51
+msgid "Nearest Health Facilities Tier 1"
+msgstr "نزدیکترین خدمات صحی ردیف اول "
+
+#: templates/pages/accessibility.html:55
+msgid "Travel Time to Nearest Health Facilities Tier 2 (pop in &#37;)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم (نفوس به &#37;)"
+
+#: templates/pages/accessibility.html:59
+msgid "Travel Time to Nearest Health Facilities Tier 3 (pop in &#37;)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم (نفوس به &#37;)"
+
+#: templates/pages/accessibility.html:67
+msgid "Travel Time to Its Province Capital (pop in &#37;)"
+msgstr "زمان سفر به مرکز ولایتی (نفوس به &#37;)"
+
+#: templates/pages/accessibility.html:71
+msgid "Travel Time to Nearest Province Capital (pop in &#37;)"
+msgstr "زمان سفر به نزدیکترین مرکز ولایت (نفوس به &#37;)"
+
+#: templates/pages/accessibility.html:75
+msgid "Travel Time to Nearest District Capital (pop in &#37;)"
+msgstr "زمان سفر به نزدیکترین مرکز ولسوالی (نفوس به &#37;)"
+
+#: templates/pages/accessibility.html:86
+msgid "Travel Time to Nearest Airport"
+msgstr "زمان سفر به نزدیکترین میدان هوایی "
+
+#: templates/pages/accessibility.html:87
+#: templates/pages/accessibility.html:168
+#: templates/pages/accessibility.html:249
+#: templates/pages/accessibility.html:330
+#: templates/pages/accessibility.html:411
+#: templates/pages/accessibility.html:492
+#: templates/pages/accessibility.html:573
+#: templates/pages/accessibility.html:654
+#: templates/pages/accessibility.html:733
+#: templates/pages/accessibility.html:751
+#: templates/pages/accessibility.html:769
+#: templates/pages/accessibility.html:787
+#: templates/pages/accessibility.html:805
+#: templates/pages/accessibility.html:823
+#: templates/pages/accessibility.html:841
+#: templates/pages/accessibility.html:859
+#: templates/pages/avalancherisk.html:64
+#: templates/pages/avalancherisk.html:132
+#: templates/pages/avalcheforecast.html:65
+#: templates/pages/avalcheforecast.html:119 templates/pages/baseline.html:70
+#: templates/pages/baseline.html.py:132 templates/pages/baseline.html:190
+#: templates/pages/baseline.html.py:261 templates/pages/baseline.html:279
+#: templates/pages/baseline.html.py:297 templates/pages/earthquake.html:67
+#: templates/pages/earthquake.html:155 templates/pages/floodforecast.html:155
+#: templates/pages/floodforecast.html:219 templates/pages/floodrisk.html:63
+#: templates/pages/floodrisk.html.py:147 templates/pages/security.html:172
+#: templates/pages/security.html.py:320
+msgid "Hide Detail"
+msgstr "پنهان جزئیات"
+
+#: templates/pages/accessibility.html:87
+#: templates/pages/accessibility.html:168
+#: templates/pages/accessibility.html:249
+#: templates/pages/accessibility.html:330
+#: templates/pages/accessibility.html:411
+#: templates/pages/accessibility.html:492
+#: templates/pages/accessibility.html:573
+#: templates/pages/accessibility.html:654
+#: templates/pages/accessibility.html:732
+#: templates/pages/accessibility.html:736
+#: templates/pages/accessibility.html:750
+#: templates/pages/accessibility.html:754
+#: templates/pages/accessibility.html:768
+#: templates/pages/accessibility.html:772
+#: templates/pages/accessibility.html:786
+#: templates/pages/accessibility.html:790
+#: templates/pages/accessibility.html:804
+#: templates/pages/accessibility.html:808
+#: templates/pages/accessibility.html:822
+#: templates/pages/accessibility.html:826
+#: templates/pages/accessibility.html:840
+#: templates/pages/accessibility.html:844
+#: templates/pages/accessibility.html:858
+#: templates/pages/accessibility.html:862
+#: templates/pages/avalancherisk.html:64
+#: templates/pages/avalancherisk.html:131
+#: templates/pages/avalancherisk.html:135
+#: templates/pages/avalcheforecast.html:65
+#: templates/pages/avalcheforecast.html:118
+#: templates/pages/avalcheforecast.html:122 templates/pages/baseline.html:70
+#: templates/pages/baseline.html.py:132 templates/pages/baseline.html:190
+#: templates/pages/baseline.html.py:260 templates/pages/baseline.html:264
+#: templates/pages/baseline.html.py:278 templates/pages/baseline.html:282
+#: templates/pages/baseline.html.py:296 templates/pages/baseline.html:300
+#: templates/pages/earthquake.html:67 templates/pages/earthquake.html:154
+#: templates/pages/earthquake.html:158 templates/pages/floodforecast.html:155
+#: templates/pages/floodforecast.html:218
+#: templates/pages/floodforecast.html:222 templates/pages/floodrisk.html:63
+#: templates/pages/floodrisk.html.py:146 templates/pages/floodrisk.html:150
+#: templates/pages/security.html:172 templates/pages/security.html.py:319
+#: templates/pages/security.html:323
+msgid "Show Detail"
+msgstr "نمایش جزئیات"
+
+#: templates/pages/accessibility.html:90
+#: templates/pages/accessibility.html:171
+#: templates/pages/accessibility.html:252
+#: templates/pages/accessibility.html:333
+#: templates/pages/accessibility.html:414
+#: templates/pages/accessibility.html:495
+#: templates/pages/accessibility.html:576
+#: templates/pages/accessibility.html:657
+#: templates/pages/avalancherisk.html:67
+#: templates/pages/avalcheforecast.html:68 templates/pages/baseline.html:73
+#: templates/pages/baseline.html.py:135 templates/pages/baseline.html:193
+#: templates/pages/earthquake.html:70 templates/pages/floodforecast.html:158
+#: templates/pages/floodrisk.html:66 templates/pages/security.html:175
+msgid "Region"
+msgstr "منطقه"
+
+#: templates/pages/accessibility.html:91
+#: templates/pages/accessibility.html:172
+#: templates/pages/accessibility.html:253
+#: templates/pages/accessibility.html:334
+#: templates/pages/accessibility.html:415
+#: templates/pages/accessibility.html:496
+#: templates/pages/accessibility.html:577
+#: templates/pages/accessibility.html:658
+msgid "Population travel time"
+msgstr "زمان سفر نفوس "
+
+#: templates/pages/accessibility.html:96
+#: templates/pages/accessibility.html:177
+#: templates/pages/accessibility.html:258
+#: templates/pages/accessibility.html:339
+#: templates/pages/accessibility.html:420
+#: templates/pages/accessibility.html:501
+#: templates/pages/accessibility.html:582
+#: templates/pages/accessibility.html:663
+msgid "1 h"
+msgstr "1 ساعت "
+
+#: templates/pages/accessibility.html:97
+#: templates/pages/accessibility.html:178
+#: templates/pages/accessibility.html:259
+#: templates/pages/accessibility.html:340
+#: templates/pages/accessibility.html:421
+#: templates/pages/accessibility.html:502
+#: templates/pages/accessibility.html:583
+#: templates/pages/accessibility.html:664
+msgid "2 h"
+msgstr "2 ساعت"
+
+#: templates/pages/accessibility.html:98
+#: templates/pages/accessibility.html:179
+#: templates/pages/accessibility.html:260
+#: templates/pages/accessibility.html:341
+#: templates/pages/accessibility.html:422
+#: templates/pages/accessibility.html:503
+#: templates/pages/accessibility.html:584
+#: templates/pages/accessibility.html:665
+msgid "3 h"
+msgstr "3 ساعت"
+
+#: templates/pages/accessibility.html:99
+#: templates/pages/accessibility.html:180
+#: templates/pages/accessibility.html:261
+#: templates/pages/accessibility.html:342
+#: templates/pages/accessibility.html:423
+#: templates/pages/accessibility.html:504
+#: templates/pages/accessibility.html:585
+#: templates/pages/accessibility.html:666
+msgid "4 h"
+msgstr "4 ساعت"
+
+#: templates/pages/accessibility.html:100
+#: templates/pages/accessibility.html:181
+#: templates/pages/accessibility.html:262
+#: templates/pages/accessibility.html:343
+#: templates/pages/accessibility.html:424
+#: templates/pages/accessibility.html:505
+#: templates/pages/accessibility.html:586
+#: templates/pages/accessibility.html:667
+msgid "5 h"
+msgstr "5 ساعت"
+
+#: templates/pages/accessibility.html:101
+#: templates/pages/accessibility.html:182
+#: templates/pages/accessibility.html:263
+#: templates/pages/accessibility.html:344
+#: templates/pages/accessibility.html:425
+#: templates/pages/accessibility.html:506
+#: templates/pages/accessibility.html:587
+#: templates/pages/accessibility.html:668
+msgid "6 h"
+msgstr "6 ساعت"
+
+#: templates/pages/accessibility.html:102
+#: templates/pages/accessibility.html:183
+#: templates/pages/accessibility.html:264
+#: templates/pages/accessibility.html:345
+#: templates/pages/accessibility.html:426
+#: templates/pages/accessibility.html:507
+#: templates/pages/accessibility.html:588
+#: templates/pages/accessibility.html:669
+msgid "7 h"
+msgstr "7 ساعت"
+
+#: templates/pages/accessibility.html:103
+#: templates/pages/accessibility.html:104
+#: templates/pages/accessibility.html:184
+#: templates/pages/accessibility.html:185
+#: templates/pages/accessibility.html:265
+#: templates/pages/accessibility.html:266
+#: templates/pages/accessibility.html:346
+#: templates/pages/accessibility.html:347
+#: templates/pages/accessibility.html:427
+#: templates/pages/accessibility.html:428
+#: templates/pages/accessibility.html:508
+#: templates/pages/accessibility.html:509
+#: templates/pages/accessibility.html:589
+#: templates/pages/accessibility.html:590
+#: templates/pages/accessibility.html:670
+#: templates/pages/accessibility.html:671
+msgid "8 h"
+msgstr "8 ساعت"
+
+#: templates/pages/accessibility.html:167
+msgid "Travel Time to Nearest Health Facilities Tier 1"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف اول"
+
+#: templates/pages/accessibility.html:248
+msgid "Travel Time to Nearest Health Facilities Tier 2"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم"
+
+#: templates/pages/accessibility.html:329
+msgid "Travel Time to Nearest Health Facilities Tier 3"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم"
+
+#: templates/pages/accessibility.html:410
+msgid "Travel Time to Nearest Health Facilities Tier All"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی همه ردیف ها"
+
+#: templates/pages/accessibility.html:491
+msgid "Travel Time to Its Province Capital"
+msgstr "زمان سفر به مرکز ولایتی"
+
+#: templates/pages/accessibility.html:572
+msgid "Travel Time to Nearest Province Capital"
+msgstr "زمان سفر به نزدیکترین مرکز ولایت"
+
+#: templates/pages/accessibility.html:653
+msgid "Travel Time to Nearest District Capital"
+msgstr "زمان سفر به نزدیکترین مرکز ولسوالی"
+
+#: templates/pages/avalancherisk.html:19 templates/pages/links.html:23
+msgid "Avalanche Risk"
+msgstr "خطر برف کوچ"
+
+#: templates/pages/avalancherisk.html:30
+#: templates/pages/avalcheforecast.html:30
+msgid "Avalanche risk total population"
+msgstr "مجموع نفوس خطر برف کوچ "
+
+#: templates/pages/avalancherisk.html:36
+msgid "Avalanche risk area"
+msgstr "مساحت خطر برف کوچ "
+
+#: templates/pages/avalancherisk.html:42
+msgid "High avalanche risk population"
+msgstr "نفوس خطر برف کوچ زیاد"
+
+#: templates/pages/avalancherisk.html:48
+msgid "Moderate avalanche risk population"
+msgstr "نفوس خطر برف کوچ متوسط"
+
+#: templates/pages/avalancherisk.html:63
+msgid "Population in avalanche risk areas"
+msgstr " نفوس در ساحات خطر برف کوچ "
+
+#: templates/pages/avalancherisk.html:68
+#: templates/pages/avalcheforecast.html:69 templates/pages/baseline.html:75
+#: templates/pages/baseline.html.py:136 templates/pages/baseline.html:194
+#: templates/pages/floodrisk.html:68
+msgid "Total"
+msgstr "مجموع"
+
+#: templates/pages/avalancherisk.html:69
+#: templates/pages/avalcheforecast.html:70
+#: templates/pages/floodforecast.html:32 templates/pages/floodforecast.html:48
+#: templates/pages/floodforecast.html:51 templates/pages/floodforecast.html:54
+#: templates/pages/floodforecast.html:57 templates/pages/floodforecast.html:60
+#: templates/pages/floodforecast.html:94
+#: templates/pages/floodforecast.html:111
+#: templates/pages/floodforecast.html:114
+#: templates/pages/floodforecast.html:117
+#: templates/pages/floodforecast.html:120
+#: templates/pages/floodforecast.html:123
+#: templates/pages/floodforecast.html:168
+#: templates/pages/floodforecast.html:174
+msgid "High"
+msgstr "زیاد"
+
+#: templates/pages/avalancherisk.html:70
+#: templates/pages/avalcheforecast.html:71
+#: templates/pages/floodforecast.html:33 templates/pages/floodforecast.html:95
+msgid "Moderate"
+msgstr "متوسط"
+
+#: templates/pages/avalancherisk.html:75 templates/pages/avalancherisk.html:77
+#: templates/pages/avalancherisk.html:79 templates/pages/baseline.html:83
+#: templates/pages/baseline.html.py:85 templates/pages/baseline.html:87
+#: templates/pages/baseline.html.py:89 templates/pages/earthquake.html:84
+#: templates/pages/earthquake.html.py:86 templates/pages/earthquake.html:88
+#: templates/pages/earthquake.html.py:90 templates/pages/earthquake.html:92
+#: templates/pages/earthquake.html.py:94 templates/pages/earthquake.html:96
+#: templates/pages/earthquake.html.py:98 templates/pages/floodrisk.html:76
+#: templates/pages/floodrisk.html.py:78 templates/pages/floodrisk.html:80
+#: templates/pages/floodrisk.html.py:82
+msgid "Pop"
+msgstr "نفوس"
+
+#: templates/pages/avalancherisk.html:76 templates/pages/avalancherisk.html:78
+#: templates/pages/avalancherisk.html:80 templates/pages/baseline.html:84
+#: templates/pages/baseline.html.py:86 templates/pages/baseline.html:88
+#: templates/pages/baseline.html.py:90 templates/pages/floodrisk.html:77
+#: templates/pages/floodrisk.html.py:79 templates/pages/floodrisk.html:81
+#: templates/pages/floodrisk.html.py:83
+msgid "Area"
+msgstr "مساحت"
+
+#: templates/pages/avalcheforecast.html:19 templates/pages/links.html:20
+msgid "Avalanche Forecast"
+msgstr "پیشبینی برف کوچ"
+
+#: templates/pages/avalcheforecast.html:34
+msgid "Forecast avalanche risk population"
+msgstr "پیشبینی نفوس تحت خطر برف کوچ "
+
+#: templates/pages/avalcheforecast.html:40
+msgid "Forecast high avalanche risk population"
+msgstr "پیشبینی نفوس تحت خطر زیاد برف کوچ "
+
+#: templates/pages/avalcheforecast.html:46
+msgid "Forecast moderate avalanche risk population"
+msgstr "پیشبینی نفوس تحت خطر متوسط برف کوچ "
+
+#: templates/pages/avalcheforecast.html:52
+msgid "Forecast low avalanche risk population"
+msgstr "پیشبینی نفوس تحت خطر کم برف کوچ "
+
+#: templates/pages/avalcheforecast.html:64
+msgid "Population in forecasted avalanche risk areas"
+msgstr "نفوس پیشبینی شده در ساحات خطر برف کوچ "
+
+#: templates/pages/avalcheforecast.html:72
+#: templates/pages/floodforecast.html:34 templates/pages/floodforecast.html:50
+#: templates/pages/floodforecast.html:53 templates/pages/floodforecast.html:56
+#: templates/pages/floodforecast.html:59 templates/pages/floodforecast.html:62
+#: templates/pages/floodforecast.html:96
+#: templates/pages/floodforecast.html:113
+#: templates/pages/floodforecast.html:116
+#: templates/pages/floodforecast.html:119
+#: templates/pages/floodforecast.html:122
+#: templates/pages/floodforecast.html:125
+#: templates/pages/floodforecast.html:170
+#: templates/pages/floodforecast.html:176
+msgid "Low"
+msgstr "کم"
+
+#: templates/pages/baseline.html:19 templates/pages/links.html:8
+msgid "Baseline"
+msgstr "معلومات اولیه"
+
+#: templates/pages/baseline.html:34 templates/pages/earthquake.html:45
+msgid "Number of Settlements"
+msgstr "تعداد قریه جات "
+
+#: templates/pages/baseline.html:38
+msgid "Number of Health Facilities"
+msgstr "تعداد امکانات صحی "
+
+#: templates/pages/baseline.html:42
+msgid "Total length of Road Network (km)"
+msgstr "مجموع طول شبکه ارتباطی سرک ها (کیلومتر)"
+
+#: templates/pages/baseline.html:69
+msgid "Population and area overview"
+msgstr "نفوس و بررسی اجمالی منطقه"
+
+#: templates/pages/baseline.html:74 templates/pages/earthquake.html:85
+#: templates/pages/earthquake.html.py:87 templates/pages/earthquake.html:89
+#: templates/pages/earthquake.html.py:91 templates/pages/earthquake.html:93
+#: templates/pages/earthquake.html.py:95 templates/pages/earthquake.html:97
+#: templates/pages/earthquake.html.py:99 templates/pages/floodrisk.html:67
+msgid "Settl."
+msgstr "قریه "
+
+#: templates/pages/baseline.html:76 templates/pages/floodrisk.html:69
+msgid "Built-Up"
+msgstr "رهایشی"
+
+#: templates/pages/baseline.html:77 templates/pages/floodrisk.html:70
+msgid "Cultivated"
+msgstr "زراعتی "
+
+#: templates/pages/baseline.html:78 templates/pages/floodrisk.html:71
+msgid "Barren/Rangeland"
+msgstr "بی ثمر/علف زار "
+
+#: templates/pages/baseline.html:131
+msgid "Number of Health facilities"
+msgstr "تعداد امکانات صحی"
+
+#: templates/pages/baseline.html:137
+msgid "Tier 1"
+msgstr "ردیف اول"
+
+#: templates/pages/baseline.html:138
+msgid "Tier 2"
+msgstr "ردیف دوم "
+
+#: templates/pages/baseline.html:139
+msgid "Tier 3"
+msgstr "ردیف سوم "
+
+#: templates/pages/baseline.html:140
+msgid "Others"
+msgstr "دیگران"
+
+#: templates/pages/baseline.html:145
+msgid "H1"
+msgstr "H1"
+
+#: templates/pages/baseline.html:146
+msgid "H2"
+msgstr "H2"
+
+#: templates/pages/baseline.html:147
+msgid "H3"
+msgstr "H3"
+
+#: templates/pages/baseline.html:148
+msgid "CHC"
+msgstr "CHC"
+
+#: templates/pages/baseline.html:149
+msgid "BHC"
+msgstr "BHC"
+
+#: templates/pages/baseline.html:150
+msgid "SHC"
+msgstr "SHC"
+
+#: templates/pages/baseline.html:189
+msgid "Road network overview and length"
+msgstr "طول و بررسی شبکه ارتباطی سرک ها"
+
+#: templates/pages/baseline.html:195
+msgid "Highway"
+msgstr "شاهراه"
+
+#: templates/pages/baseline.html:196
+msgid "Primary"
+msgstr "اصلی"
+
+#: templates/pages/baseline.html:197
+msgid "Secondary"
+msgstr "فرعی "
+
+#: templates/pages/baseline.html:198
+msgid "Tertiary"
+msgstr "سومین"
+
+#: templates/pages/baseline.html:199
+msgid "Residential"
+msgstr "مسکونی"
+
+#: templates/pages/baseline.html:200
+msgid "Track"
+msgstr "جاده"
+
+#: templates/pages/baseline.html:201
+msgid "Path"
+msgstr "مسیر"
+
+#: templates/pages/baseline.html:202
+msgid "River Crossing"
+msgstr "عبور از دریا "
+
+#: templates/pages/baseline.html:203
+msgid "Bridge"
+msgstr "پل "
+
+#: templates/pages/earthquake.html:27 templates/pages/links.html:26
+msgid "Earthquake"
+msgstr "زلزله"
+
+#: templates/pages/earthquake.html:40
+msgid "Total earthquake affected Population"
+msgstr "مجموع نفوس آسیب دیده از زلزله"
+
+#: templates/pages/earthquake.html:50
+msgid "Earthquake Mercalli Intensity Scale population overview"
+msgstr "بررسی اجمالی نفوس درجه شدت میرکالی زلزله "
+
+#: templates/pages/earthquake.html:54
+msgid "Number of affected settlements"
+msgstr "تعداد قریه جات آسیب دیده"
+
+#: templates/pages/earthquake.html:66
+msgid "Earthquake affected Population and settlement overview"
+msgstr "نفوس آسیب دیده از زلزله و بررسی اجمالی قریه "
+
+#: templates/pages/earthquake.html:71
+msgid "Mercalli Intensity Scale"
+msgstr "درجه شدت میرکالی "
+
+#: templates/pages/earthquake.html:74
+msgid "II-III: Weak"
+msgstr "II-III: ضعیف"
+
+#: templates/pages/earthquake.html:75
+msgid "IV: Light"
+msgstr "IV: خفیف"
+
+#: templates/pages/earthquake.html:76
+msgid "V: Moderate"
+msgstr "V: متوسط "
+
+#: templates/pages/earthquake.html:77
+msgid "VI: Strong"
+msgstr "VI: قوی "
+
+#: templates/pages/earthquake.html:78
+msgid "VII: Very-strong"
+msgstr "VII: قویتر "
+
+#: templates/pages/earthquake.html:79
+msgid "VIII: Severe"
+msgstr "VIII: شدید"
+
+#: templates/pages/earthquake.html:80
+msgid "IX: Violent"
+msgstr "IX: تند "
+
+#: templates/pages/earthquake.html:81
+msgid "X+: Extreme"
+msgstr "X +: شدیدتر "
+
+#: templates/pages/floodforecast.html:19 templates/pages/links.html:14
+msgid "Flood Forecast"
+msgstr "پیشبینی سیلاب"
+
+#: templates/pages/floodforecast.html:26
+msgid "Flash Flood Likelihood"
+msgstr "احتمال سیلاب ناگهانی "
+
+#: templates/pages/floodforecast.html:29
+msgid "Likelihood"
+msgstr "احتمال"
+
+#: templates/pages/floodforecast.html:30 templates/pages/floodforecast.html:92
+#: templates/pages/floodforecast.html:166
+#: templates/pages/floodforecast.html:172
+msgid "Extreme"
+msgstr "شدیدتر "
+
+#: templates/pages/floodforecast.html:31 templates/pages/floodforecast.html:93
+#: templates/pages/floodforecast.html:167
+#: templates/pages/floodforecast.html:173
+msgid "Very High"
+msgstr "بسیار زیاد "
+
+#: templates/pages/floodforecast.html:47
+#: templates/pages/floodforecast.html:110 templates/pages/floodrisk.html:19
+#: templates/pages/links.html:17
+msgid "Flood Risk"
+msgstr "خطر سیلاب"
+
+#: templates/pages/floodforecast.html:49 templates/pages/floodforecast.html:52
+#: templates/pages/floodforecast.html:55 templates/pages/floodforecast.html:58
+#: templates/pages/floodforecast.html:61
+#: templates/pages/floodforecast.html:112
+#: templates/pages/floodforecast.html:115
+#: templates/pages/floodforecast.html:118
+#: templates/pages/floodforecast.html:121
+#: templates/pages/floodforecast.html:124
+#: templates/pages/floodforecast.html:169
+#: templates/pages/floodforecast.html:175
+msgid "Med"
+msgstr "متوسط "
+
+#: templates/pages/floodforecast.html:88
+msgid "River Flood Likelihood"
+msgstr "احتمال سیلاب دریایی "
+
+#: templates/pages/floodforecast.html:91
+msgid "Likelihood<"
+msgstr "احتمال <"
+
+#: templates/pages/floodforecast.html:159
+msgid "Flash Flood"
+msgstr "سیلاب ناگهانی"
+
+#: templates/pages/floodforecast.html:161
+msgid "River Flood"
+msgstr "سیلاب دریایی"
+
+#: templates/pages/floodrisk.html:30
+msgid "Population At Risk"
+msgstr "نفوس در معرض خطر"
+
+#: templates/pages/floodrisk.html:36
+msgid "Population at High Risk"
+msgstr "نفوس در معرض خطر بالا "
+
+#: templates/pages/floodrisk.html:42
+msgid "Population at Med. Risk"
+msgstr "نفوس در معرض خطر متوسط"
+
+#: templates/pages/floodrisk.html:48
+msgid "Population at Low Risk"
+msgstr "نفوس در معرض خطر پایین "
+
+#: templates/pages/floodrisk.html:62
+msgid "Population living in flood risk areas"
+msgstr "نفوس ساکن در مناطق خطر سیلاب "
+
+#: templates/pages/links.html:29 templates/pages/security.html:18
+msgid "Humanitarian Access"
+msgstr "دسترسی بشردوستانه"
+
+#: templates/pages/links.html:49
+msgid "Search Region"
+msgstr "جستجوی منطقه"
+
+#: templates/pages/security.html:27
+msgid "Incident between"
+msgstr "حادثه در بین "
+
+#: templates/pages/security.html:61
+msgid "select incident type"
+msgstr "انتخاب نوع حادثه"
+
+#: templates/pages/security.html:63 templates/pages/security.html.py:92
+msgid "Select All"
+msgstr "انتخاب همه"
+
+#: templates/pages/security.html:64 templates/pages/security.html.py:93
+msgid "Select None"
+msgstr "انتخاب هیچکدام"
+
+#: templates/pages/security.html:65 templates/pages/security.html.py:94
+msgid "Apply"
+msgstr "درخواست"
+
+#: templates/pages/security.html:90
+msgid "select incident target"
+msgstr "انتخاب هدف حادثه "
+
+#: templates/pages/security.html:171
+msgid "Number of incidents and casualties"
+msgstr "تعداد حادثه و تلفات "
+
+#: templates/pages/security.html:176
+msgid "# Incidents"
+msgstr "تعداد حادثه "
+
+#: templates/pages/security.html:177
+msgid "Casualties"
+msgstr "تلفات"
+
+#: templates/pages/security.html:182 templates/pages/security.html.py:222
+#: templates/pages/security.html:260
+msgid "Dead"
+msgstr "کشته شده"
+
+#: templates/pages/security.html:183 templates/pages/security.html.py:223
+#: templates/pages/security.html:261
+msgid "Injured"
+msgstr "زخمی شده "
+
+#: templates/pages/security.html:184 templates/pages/security.html.py:224
+#: templates/pages/security.html:262
+msgid "Violent"
+msgstr "شدیداً زخمی شده "
+
+#: templates/pages/security.html:217
+msgid "Incident Type"
+msgstr "نوع حادثه"
+
+#: templates/pages/security.html:221 templates/pages/security.html.py:259
+msgid "Incidents"
+msgstr "حوادث"
+
+#: templates/pages/security.html:255
+msgid "Incident Target"
+msgstr "هدف حادثه"
+
+#: templates/pages/security.html:293
+msgid "Latest Incidents"
+msgstr "آخرین حوادث"
+
+#: templates/pages/security.html:296
+msgid "Date"
+msgstr "تاریخ"
+
+#: templates/pages/security.html:297
+msgid "Description"
+msgstr "توضیحات"
+
+#: templates/pages/security.html:357
+msgid "Today"
+msgstr "آمروز"
+
+#: templates/pages/security.html:358
+msgid "Yesterday"
+msgstr "دیروز"
+
+#: templates/pages/security.html:359
+msgid "Last 7 Days"
+msgstr " 7 روز گذشته"
+
+#: templates/pages/security.html:360
+msgid "Last 30 Days"
+msgstr "30 روز گذشته"
+
+#: templates/pages/security.html:361
+msgid "This Month"
+msgstr "این ماه"
+
+#: templates/pages/security.html:362
+msgid "Last Month"
+msgstr "ماه گذشته "
+
+#: templates/pages/security.html:363
+msgid "Last Year"
+msgstr "سال گذشته "
+
+#: templates/pages/security.html:382
+msgid "Unselected Incident Type"
+msgstr "لغو انتخاب نوع حادثه "
+
+#: templates/pages/security.html:383
+msgid "Selected Incident Type"
+msgstr "انتخاب نوع حادثه "
+
+#: templates/pages/security.html:387
+msgid "Unselected Incident Target"
+msgstr "لغو انتخاب نوع هدف"
+
+#: templates/pages/security.html:388
+msgid "Selected Incident Target"
+msgstr "انتخاب نوع هدف"

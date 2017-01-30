@@ -694,14 +694,9 @@ msgstr "سند"
 msgid "Replace"
 msgstr ""
 
-#: documents/templates/documents/document_detail.html:128
-#: groups/templates/groups/group_members.html:33
-#: groups/templates/groups/group_members.html:59
-#: groups/templates/groups/group_members.html:86
-#: layers/templates/layers/layer_detail.html:220
-#: maps/templates/maps/map_detail.html:123
+#: static/geonode/js/upload/LayerInfo.js:524
 msgid "Remove"
-msgstr ""
+msgstr "ازبین بردن"
 
 #: documents/templates/documents/document_detail.html:135
 #: documents/templates/documents/document_detail.html:159
@@ -777,11 +772,9 @@ msgstr "سند"
 msgid "Documents"
 msgstr "سند"
 
-#: documents/templates/documents/document_metadata.html:17
-#: layers/templates/layers/layer_metadata.html:12
-#: maps/templates/maps/map_metadata.html:12
+#: static/geonode/js/upload/LayerInfo.js:232
 msgid "Edit Metadata"
-msgstr ""
+msgstr "تصحیح میتادیتا"
 
 #: documents/templates/documents/document_metadata.html:22
 msgid "Editing details for"
@@ -882,9 +875,9 @@ msgstr ""
 msgid "Excel"
 msgstr ""
 
-#: geoserver/ows.py:108
+#: static/geonode/js/upload/FileTypes.js:38
 msgid "GeoJSON"
-msgstr ""
+msgstr "GeoJSON"
 
 #: geoserver/ows.py:132
 msgid "JPEG"
@@ -1526,9 +1519,9 @@ msgstr "لایه"
 msgid "Edit data"
 msgstr "ویرایش"
 
-#: layers/templates/layers/layer_detail.html:261 services/views.py:1272
+#: templates/lang.js:43
 msgid "Legend"
-msgstr ""
+msgstr "علایم مشخصه"
 
 #: layers/templates/layers/layer_detail.html:271
 msgid "Maps using this layer"
@@ -1700,14 +1693,9 @@ msgstr "انتخاب"
 msgid "Are you sure you want to delete this upload?"
 msgstr ""
 
-#: layers/templates/layers/layer_replace.html:39
-#: layers/templates/upload/layer_upload.html:39
-#: maps/templates/maps/map_download.html:58 templates/_comments.html:66
-#: templates/_permissions_form.html:15
-#: templates/announcements/announcement_confirm_delete.html:21
-#: templates/announcements/announcement_form.html:23
+#: templates/lang.js:9 templates/lang.js.c:236
 msgid "Cancel"
-msgstr ""
+msgstr "لغو کردن"
 
 #: layers/templates/layers/layer_replace.html:41
 #: layers/templates/upload/layer_upload.html:40
@@ -1734,10 +1722,9 @@ msgstr ""
 msgid "Select the charset or leave default"
 msgstr ""
 
-#: layers/templates/layers/layer_style_manage.html:14
-#, fuzzy
+#: static/geonode/js/upload/LayerInfo.js:233
 msgid "Manage Styles"
-msgstr "سبک"
+msgstr "تنطیم استایل"
 
 #: layers/templates/layers/layer_style_manage.html:16
 #, python-format
@@ -1799,11 +1786,9 @@ msgid ""
 "    "
 msgstr ""
 
-#: layers/templates/upload/layer_upload_crs.html:32
-#: layers/templates/upload/layer_upload_csv.html:49
-#: layers/templates/upload/layer_upload_time.html:102 templates/index.html:61
+#: templates/lang.js:168 templates/lang.js.c:189
 msgid "Next"
-msgstr ""
+msgstr "بعدی"
 
 #: layers/templates/upload/layer_upload_crs.html:35
 msgid ""
@@ -2234,8 +2219,7 @@ msgstr ""
 msgid "Edit Map"
 msgstr "ویرایش"
 
-#: maps/templates/maps/map_detail.html:121 templates/index.html:446
-#, fuzzy
+#: templates/lang.js:98
 msgid "Map"
 msgstr "نقشه"
 
@@ -2244,10 +2228,9 @@ msgstr "نقشه"
 msgid "View Map"
 msgstr "چشم انداز"
 
-#: maps/templates/maps/map_detail.html:146
-#, fuzzy
+#: templates/lang.js:39
 msgid "Map Layers"
-msgstr "لایه"
+msgstr "لایه های نقشه"
 
 #: maps/templates/maps/map_detail.html:147
 msgid "This map uses the following layers:"
@@ -2885,10 +2868,9 @@ msgstr ""
 msgid "All/None"
 msgstr ""
 
-#: services/templates/services/layers_register.html:42
-#, fuzzy
+#: templates/lang.js:28 templates/lang.js.c:31
 msgid "Add Layers"
-msgstr "لایه"
+msgstr "اضافه کردن لایه"
 
 #: services/templates/services/service_detail.html:43
 #, fuzzy
@@ -2899,15 +2881,13 @@ msgstr "نام"
 msgid "URL:"
 msgstr ""
 
-#: services/templates/services/service_detail.html:45
-#, fuzzy
+#: templates/lang.js:136 templates/lang.js.c:202
 msgid "Abstract:"
-msgstr "خلاصه"
+msgstr "خلاصه:"
 
-#: services/templates/services/service_detail.html:46
-#, fuzzy
+#: templates/lang.js:141 templates/lang.js.c:209
 msgid "Keywords:"
-msgstr "کلید واژه ها"
+msgstr "کلمات کلیدی:"
 
 #: services/templates/services/service_detail.html:47
 #, fuzzy
@@ -2938,10 +2918,9 @@ msgstr ""
 msgid "Edit Service"
 msgstr ""
 
-#: services/templates/services/service_edit.html:21
-#: templates/announcements/announcement_form.html:27
+#: templates/lang.js:13
 msgid "Save"
-msgstr ""
+msgstr "ذخیره"
 
 #: services/templates/services/service_layers.html:3
 msgid "Service:"
@@ -3187,9 +3166,9 @@ msgstr "نظرات"
 msgid "Who can view it?"
 msgstr ""
 
-#: templates/_permissions.html:17 templates/_permissions.html.py:49
+#: static/geonode/js/extjs/GeoNode.js:966
 msgid "Anyone"
-msgstr ""
+msgstr "هر کس"
 
 #: templates/_permissions.html:22 templates/_permissions.html.py:54
 #: templates/_permissions.html:80 templates/_permissions.html.py:107
@@ -5109,10 +5088,9 @@ msgstr "مجوز مجموعه"
 msgid "Text"
 msgstr "متن"
 
-#: templates/search/search.html:6 templates/search/search.html.py:12
-#, fuzzy
+#: templates/lang.js:172 templates/lang.js.c:192
 msgid "Search"
-msgstr "مارچ"
+msgstr "جستجو"
 
 #: templates/user_messages/_message_snippet.html:8
 msgid "With"
@@ -5171,6 +5149,508 @@ msgstr ""
 #: templates/user_messages/thread_detail.html:26
 msgid "Send Reply"
 msgstr ""
+
+#: static/geonode/js/extjs/GeoNode.js:862
+msgid "Add user..."
+msgstr "اضافه کردن کاربر ..."
+
+#: static/geonode/js/extjs/GeoNode.js:955
+msgid "Who can view and download this data?"
+msgstr "کی این ارقام را مشاهده و دانلود می تواند ؟"
+
+#: static/geonode/js/extjs/GeoNode.js:971
+#: static/geonode/js/extjs/GeoNode.js:1017
+msgid "Any registered user"
+msgstr "هر کاربر ثبت نام شده"
+
+#: static/geonode/js/extjs/GeoNode.js:976
+msgid "Only users who can edit"
+msgstr "فقط کاربرانی که می توانید ویرایش"
+
+#: static/geonode/js/extjs/GeoNode.js:1006
+msgid "Who can edit this data?"
+msgstr "چه کسی می تواند این ارقام را تصحیح کند؟"
+
+#: static/geonode/js/extjs/GeoNode.js:1022
+msgid "Only the following users or groups:"
+msgstr "تنها کاربران و یا گروپ های ذیل :"
+
+#: static/geonode/js/extjs/GeoNode.js:1052
+msgid "Who can manage and edit this data?"
+msgstr "چه کسی می تواند این ارقام را تصحیح و مدیریت کند؟"
+
+#: static/geonode/js/search/search.js:428
+msgid "Enter your text here ..."
+msgstr "متن خود را اینجا وارد کنید ..."
+
+#: static/geonode/js/search/search.js:454
+msgid "Enter your region here ..."
+msgstr "منطقه خود را اینجا وارد کنید ..."
+
+#: static/geonode/js/upload/FileType.js:33
+#, c-format
+msgid "Missing a %s file, which is required"
+msgstr "عدم وجود یک فایل %s، که لازم است"
+
+#: static/geonode/js/upload/FileTypes.js:7
+msgid "ESRI Shapefile"
+msgstr "شیپ فایل ESRI "
+
+#: static/geonode/js/upload/FileTypes.js:13
+#: static/geonode/js/upload/FileTypes.js:19
+msgid "GeoTiff File"
+msgstr "فایل GeoTiff"
+
+#: static/geonode/js/upload/FileTypes.js:26
+msgid "Comma Separated File"
+msgstr "فایل جدا شده با کامه"
+
+#: static/geonode/js/upload/FileTypes.js:32
+msgid "Google Earth KML"
+msgstr "گوگل ارت KML"
+
+#: static/geonode/js/upload/FileTypes.js:44
+msgid "Zip Archives"
+msgstr "آرشیوهای زیپ"
+
+#: static/geonode/js/upload/LayerInfo.js:231
+msgid "Layer Info"
+msgstr "معلومات لایه"
+
+#: static/geonode/js/upload/LayerInfo.js:236
+msgid "The column %1 was renamed to %2 <br/>"
+msgstr "ستون %1 به %2 <br/> تغییر نام داده شد"
+
+#: static/geonode/js/upload/LayerInfo.js:242
+msgid "Your layer was successfully uploaded"
+msgstr "لایه شما با موفقیت آپلود شد"
+
+#: static/geonode/js/upload/LayerInfo.js:271
+msgid "Performing Final GeoServer Config Step"
+msgstr "اجرای آخرین مرحله تنظیمات GeoServer"
+
+#: static/geonode/js/upload/LayerInfo.js:286
+#: static/geonode/js/upload/LayerInfo.js:312
+msgid "You need to specify more information in order to complete your upload"
+msgstr "شما برای کامل کردن آپلود خود ضرورت به مشخص کردن معلومات بیشتر دارید"
+
+#: static/geonode/js/upload/LayerInfo.js:304
+msgid "You need to specify more information in order to complete your upload."
+msgstr "شما برای کامل کردن آپلود خود ضرورت به مشخص کردن معلومات بیشتر دارید."
+
+#: static/geonode/js/upload/LayerInfo.js:304
+msgid "You can continue configuring your layer."
+msgstr "شما می توانید تنظیم لایه خود را ادامه دهید."
+
+#: static/geonode/js/upload/LayerInfo.js:322
+#: static/geonode/js/upload/LayerInfo.js:407
+msgid "Unexpected Error"
+msgstr "خطای غیر منتظره"
+
+#: static/geonode/js/upload/LayerInfo.js:338
+msgid "Performing GeoServer Config Step"
+msgstr "اجرای آخرین مرحله تنظیمات GeoServer"
+
+#: static/geonode/js/upload/LayerInfo.js:414
+msgid "Layer files uploaded, configuring in GeoServer"
+msgstr "فایل های لایه آپلود شدند، تنظیم در GeoServer"
+
+#: static/geonode/js/upload/LayerInfo.js:429
+msgid "Select or create a Geogig repository."
+msgstr "انتخاب و یا ایجاد یک مخزن Geogig."
+
+#: static/geonode/js/upload/upload.js:125
+#, c-format
+msgid "The file %s is an unsupported file type, please select another file."
+msgstr "فایل%s یک نوع فایل پشتیبانی نشده است، لطفا فایل دیگر را انتخاب کنید."
+
+#: static/geonode/js/upload/upload.js:260
+msgid "You are uploading an incomplete set of files."
+msgstr "شما در حال آپلود یک مجموعه ناقص از فایل های هستید."
+
+#: templates/lang.js:10
+msgid "Save as Copy"
+msgstr "ذخیره به عنوان کاپی"
+
+#: templates/lang.js:11
+msgid "About this Map"
+msgstr "در مورد این نقشه"
+
+#: templates/lang.js:20
+msgid "Connection Error"
+msgstr "خطای اتصال"
+
+#: templates/lang.js:21
+msgid "The server returned an error"
+msgstr "سرور با یک خطا بازگشت"
+
+#: templates/lang.js:22
+msgid "Details..."
+msgstr "جرئیات..."
+
+#: templates/lang.js:29
+msgid "Area"
+msgstr "مساحت"
+
+#: templates/lang.js:32
+msgid "Done"
+msgstr "انجام شده"
+
+#: templates/lang.js:33
+msgid "Available Layers"
+msgstr "لایه های موجود"
+
+#: templates/lang.js:35 templates/lang.js.c:121
+msgid "Height"
+msgstr "ارتفاع"
+
+#: templates/lang.js:36
+msgid "Get Feature Info"
+msgstr "دریافت معلومات شکل"
+
+#: templates/lang.js:37 templates/lang.js.c:122
+msgid "Large"
+msgstr "بزرگ"
+
+#: templates/lang.js:38
+msgid "or add a new server."
+msgstr "و یا اضافه کردن یک سرور جدید."
+
+#: templates/lang.js:40
+msgid "View available data from:"
+msgstr "نمایش ارقام در موجود از:"
+
+#: templates/lang.js:44
+msgid "Length"
+msgstr "طول"
+
+#: templates/lang.js:45
+msgid "Loading Map..."
+msgstr "در حال نمایش نقشه ..."
+
+#: templates/lang.js:46 templates/lang.js.c:123
+msgid "Map Size"
+msgstr "اندازه نقشه"
+
+#: templates/lang.js:48 templates/lang.js.c:97 templates/lang.js.c:163
+msgid "Contact"
+msgstr "تماس"
+
+#: templates/lang.js:49 templates/lang.js.c:55
+msgid "Permalink"
+msgstr "Permalink"
+
+#: templates/lang.js:50 templates/lang.js.c:124
+msgid "Mini"
+msgstr "کوچک"
+
+#: templates/lang.js:51
+msgid "Pan Map"
+msgstr "پن نقشه"
+
+#: templates/lang.js:52
+msgid "Zoom to Next Extent"
+msgstr "بزرگ ساختن به اندازه بعدی"
+
+#: templates/lang.js:53
+msgid "Zoom to Previous Extent"
+msgstr "بزرگ ساختن به اندازه قبلی"
+
+#: templates/lang.js:54
+msgid "This map has not yet been saved."
+msgstr "این نقشه هنوز ذخیره نشده است."
+
+#: templates/lang.js:56 templates/lang.js.c:125
+msgid "Premium"
+msgstr "حق انجام عمل"
+
+#: templates/lang.js:57
+msgid "Print Map"
+msgstr "چاپ نقشه"
+
+#: templates/lang.js:58
+msgid "Print Preview"
+msgstr "پیش نمایش چاپ"
+
+#: templates/lang.js:59
+msgid "Properties"
+msgstr "مشخصات"
+
+#: templates/lang.js:60 templates/lang.js.c:126
+msgid "Publish Map"
+msgstr "انتشار نقشه"
+
+#: templates/lang.js:61 templates/lang.js.c:62
+msgid "Remove Layer"
+msgstr "ازبین بردن لایه"
+
+#: templates/lang.js:63
+msgid "Sorry, your map could not be saved."
+msgstr "ببخشید، نقشه شما ذخیره شده نمیتواند."
+
+#: templates/lang.js:64
+msgid "Error While Saving"
+msgstr "خطا هنگام ذخیره سازی"
+
+#: templates/lang.js:65
+msgid "Save Map"
+msgstr "ذخیره نقشه"
+
+#: templates/lang.js:66
+msgid "You must be logged in to save this map."
+msgstr "شما باید وارد سایت شوید برای ذخیره این نقشه."
+
+#: templates/lang.js:67 templates/lang.js.c:128
+msgid "Small"
+msgstr "کوچک"
+
+#: templates/lang.js:68
+msgid ""
+"Error contacting server.\n"
+" Please check the url and try again."
+msgstr ""
+"خطا در ارتباط با سرور.\n"
+"لطفا آدرس را چک کنید و دوباره امتحان کنید."
+
+#: templates/lang.js:69
+msgid "Layer Properties"
+msgstr "مشخصات لایه"
+
+#: templates/lang.js:70
+msgid "Change layer format and style"
+msgstr "تغییر فارمت و استایل لایه"
+
+#: templates/lang.js:71
+msgid "Edit Styles"
+msgstr "تصحیح استایل"
+
+#: templates/lang.js:72
+msgid "Edit layer styles"
+msgstr "تصحیح استایل لایه"
+
+#: templates/lang.js:73
+msgid "Switch to Google Earth 3D Viewer"
+msgstr "تبدیل به نمایش دهنده 3D گوگل ارت"
+
+#: templates/lang.js:74
+msgid ""
+"The map that you are trying to load does not exist.  Creating a new map "
+"instead."
+msgstr ""
+"نقشه که شما در حال تلاش برای نمایش آن هستید وجود ندارد. بجای آن یک نقشه جدید "
+"ایجاد کنید."
+
+#: templates/lang.js:75
+msgid "Unknown Map"
+msgstr "نقشه نامشخص"
+
+#: templates/lang.js:76 templates/lang.js.c:129
+msgid "Width"
+msgstr "عرض"
+
+#: templates/lang.js:77
+msgid "Zoom In"
+msgstr "بزرگنمایی"
+
+#: templates/lang.js:78
+msgid "Zoom Out"
+msgstr "کوچک نمایی"
+
+#: templates/lang.js:79
+msgid "Zoom level"
+msgstr "سطح بزرگنمایی"
+
+#: templates/lang.js:80
+msgid "Zoom Level"
+msgstr "سطح بزرگنمایی"
+
+#: templates/lang.js:81
+msgid "Zoom to Layer Extent"
+msgstr "بزرگ ساختن به اندازه لایه"
+
+#: templates/lang.js:82
+msgid "Zoom to Visible Extent"
+msgstr "بزرگ ساختن به اندازه قابل مشاهده"
+
+#: templates/lang.js:88
+msgid "Zoom Level {zoom}"
+msgstr "سطح بزرگنمایی{zoom}"
+
+#: templates/lang.js:94
+msgid "Create Map"
+msgstr "ايجاد نقشه"
+
+#: templates/lang.js:95
+msgid "Export Map"
+msgstr "صادر کردن نقشه"
+
+#: templates/lang.js:99 templates/lang.js.c:166
+msgid "View this Map"
+msgstr "نمایش این نقشه"
+
+#: templates/lang.js:101
+msgid "Open Map"
+msgstr "نقشه باز"
+
+#: templates/lang.js:108
+msgid "Queryable"
+msgstr "قابل تجزیه"
+
+#: templates/lang.js:115
+msgid "No background"
+msgstr "بیدون زمینه"
+
+#: templates/lang.js:127
+msgid ""
+"Your map is ready to be published to the web!  Simply copy the following "
+"HTML to embed the map in your website:"
+msgstr ""
+"نقشه شما برای انتشار در وبسایت آماده است! به سادگی HTML ذیل را برای جاسازی "
+"نقشه در وبسایت شما کاپی کنید."
+
+#: templates/lang.js:137 templates/lang.js.c:204
+msgid "No attribution information is provided for this layer."
+msgstr "هیچ سند اطلاعات برای این لایه ارائه نشده است."
+
+#: templates/lang.js:138 templates/lang.js.c:205
+msgid "Provided by:"
+msgstr "ارائه شده توسط:"
+
+#: templates/lang.js:139 templates/lang.js.c:206
+msgid "Download:"
+msgstr "دانلود:"
+
+#: templates/lang.js:140 templates/lang.js.c:208
+msgid "No keywords are listed for this layer."
+msgstr "هیچ کلمات کلیدی برای این لایه ذکر نشده است."
+
+#: templates/lang.js:142 templates/lang.js.c:210
+msgid "No metadata URLs are defined for this layer."
+msgstr "هیچ آدرس میتادیتا برای این لایه تعریف نشده است."
+
+#: templates/lang.js:143 templates/lang.js.c:211
+msgid "Metadata Links:"
+msgstr "آدرسهای میتادیتا:"
+
+#: templates/lang.js:149
+msgid "Paper size:"
+msgstr "اندازه ورق"
+
+#: templates/lang.js:150
+msgid "Resolution:"
+msgstr "وضاحت"
+
+#: templates/lang.js:151
+msgid "Print"
+msgstr "چاپ"
+
+#: templates/lang.js:152
+msgid "Enter map title here."
+msgstr "عنوان نقشه را اینجا وارد کنید."
+
+#: templates/lang.js:153
+msgid "Include legend?"
+msgstr "همرای علایم مشخصه؟"
+
+#: templates/lang.js:154
+msgid "Enter comments here."
+msgstr "نظریات را در اینجا وارد کنید."
+
+#: templates/lang.js:155
+msgid "Creating PDF..."
+msgstr "ایجاد کردن PDF..."
+
+#: templates/lang.js:164
+msgid "Last Modified"
+msgstr "آخرین اصلاح"
+
+#: templates/lang.js:167 templates/lang.js.c:188
+msgid "Prev"
+msgstr "قبلی"
+
+#: templates/lang.js:169 templates/lang.js.c:190
+msgid "of"
+msgstr "از"
+
+#: templates/lang.js:170 templates/lang.js.c:191
+msgid "Your search did not match any items."
+msgstr "جستجوی شما با هیچ موردی مطابقت ندارد."
+
+#: templates/lang.js:171
+msgid "Search Maps"
+msgstr "جستجوی نقشه"
+
+#: templates/lang.js:173 templates/lang.js.c:193
+msgid "Showing"
+msgstr "نمایش دادن"
+
+#: templates/lang.js:174
+msgid "Loading"
+msgstr "در حال نمایش"
+
+#: templates/lang.js:175 templates/lang.js.c:195
+msgid "permalink"
+msgstr "permalink"
+
+#: templates/lang.js:185
+msgid "Select:"
+msgstr "انتخاب:"
+
+#: templates/lang.js:187
+msgid "None"
+msgstr "هیچ"
+
+#: templates/lang.js:194
+msgid "Loading..."
+msgstr "در حال نمایش..."
+
+#: templates/lang.js:196
+msgid "You do not have permission to view this data"
+msgstr "شما اجازه نمایش این ارقام را ندارید"
+
+#: templates/lang.js:197
+msgid "This data is stored on a remote server"
+msgstr "این ارقام در سرور از راه دور ذخیره شد"
+
+#: templates/lang.js:203
+msgid "No abstract is provided for this layer."
+msgstr "هیچ خلاصه برای این لایه ارائه نشده است."
+
+#: templates/lang.js:207
+msgid "No download URLs are definied for this layer."
+msgstr "هیچ آدرس انترنتی برای دانلود این لایه تعریف نشده است."
+
+#: templates/lang.js:217
+msgid "Selected Layers"
+msgstr "لایه های انتخاب شده"
+
+#: templates/lang.js:218
+msgid "No Layers Selected"
+msgstr "هیچ لایه انتخاب نشده"
+
+#: templates/lang.js:220
+msgid "Clear Selected"
+msgstr "پاک کردن انتخاب شده"
+
+#: templates/lang.js:221
+msgid "Clear All"
+msgstr "پاک کردن تمام"
+
+#: templates/lang.js:227
+msgid "Operation Failed"
+msgstr "عملیه ناکام شد"
+
+#: templates/lang.js:228
+msgid "No layers are currently selected."
+msgstr "هیچ لایه انتخاب نشده"
+
+#: templates/lang.js:235
+msgid "Downloading..."
+msgstr "در حال دانلود..."
+
+#: templates/lang.js:237
+msgid "Please wait"
+msgstr "لطفا صبر کنید"
 
 #~ msgid "Total"
 #~ msgstr "کل"
