@@ -75,19 +75,19 @@
             <ul class="breadcrumb">
               <li><a href="{% url "layer_browse" %}"><span class="count badge warning">
                 {{ facets.layer|default:_("0") }}
-              </span>{% trans "Layers" %}&nbsp;
+              </span>{% trans "Layers" %}
               </a></li>
               <li><a href="{% url "maps_browse" %}"><span class="count badge">
                 {{ facets.map|default:_("0") }}
-              </span>{% trans "Interactive Maps" %} &nbsp;
+              </span>{% trans "Interactive Maps" %}
               </a></li>
               <li><a href="{% url "document_browse" %}"><span class="count badge">
                 {{ facets.document|default:_("0") }}
-              </span>{% trans "Static Maps" %} &nbsp;
+              </span>{% trans "Static Maps" %}
               </a></li>
               <li><a href="{% url "profile_browse" %}"><span class="count badge">
                 {{ facets.user|default:_("0") }}
-              </span>{% trans "User" %} &nbsp;
+              </span>{% trans "User" %}
               </a></li>
               <li><a href="#"></a></li>
             </ul>

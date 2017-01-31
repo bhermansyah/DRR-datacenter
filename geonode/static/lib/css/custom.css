@@ -2637,3 +2637,6 @@ html[dir=rtl] html.ext-strict.x-viewport body > nav.navbar {
   text-align: center;
   max-width: 100%;
 }
+.home ul.breadcrumb span.count.badge {
+  margin-left: 0.25em;
+}

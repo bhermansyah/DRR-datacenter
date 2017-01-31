@@ -1,23 +1,6 @@
-# put manual entry here
-# intended for variable translation
-# This file was generated from django-prs.xlsx
-# Dodi <dodi@email.com>, 2016.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: ASDC-GeoNode\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-27 14:46+0700\n"
-"PO-Revision-Date: 2016-12-14 14:09+0700\n"
-"Last-Translator: Dodi <dodi@email.com>\n"
-"Language-Team: Pashto <team@email.com>\n"
-"Language: ps\n"
-"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: xls-to-po 1.0\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
 
 msgid "Default Point"
 msgstr ""
