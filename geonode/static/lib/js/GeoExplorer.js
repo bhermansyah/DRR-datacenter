@@ -91362,7 +91362,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 frame: true,
                 layoutConfig: {columns: 1},
                 bbar: new Ext.Toolbar({
-                    items:['->',
+                    items:[
+                    {
+                        fieldLabel: gettext('Date'),
+                        name: 'dateOccurs',
+                        id: 'dateOccurs',
+                        xtype: 'datefield',
+                        width: 130,
+                        value: new Date().format('m/d/y')
+                    },
+                    '->',
                     {
                         text: gettext('Reset'),
                         iconCls: 'gxp-icon-reset',
@@ -91452,7 +91461,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
                             selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
 
-                            _storeCalc.setFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
+                            _storeCalc.setFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode, Ext.getCmp('dateOccurs').getValue().format('Y-m-d'));
 
                             _storeCalc.setAccessibilityStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
 
@@ -91460,6 +91469,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
                             _storeCalc.filter = filter;
                             _storeCalc.adminCode = adminCode;
+
+                            var date_array = Ext.getCmp('dateOccurs').getValue().format('Y-m-d').split("-");
+                            if (tempMap.getLayersByName('Historical Flood Forecast').length > 0) {
+                                tempMap.getLayersByName('Historical Flood Forecast')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+                            }
                         }
                     }]
                 }),

@@ -66,7 +66,24 @@ class FloodRiskStatisticResource(ModelResource):
         temp2 = temp2+']'
         
         filterLock = 'ST_Union('+temp2+')'
-        response = getRiskExecuteExternal(filterLock,boundaryFilter['flag'],boundaryFilter['code'])
+        yy = None
+        mm = None
+        dd = None
+
+        if 'date' in boundaryFilter:
+            tempDate = boundaryFilter['date'].split("-")
+            dateSent = datetime.datetime(int(tempDate[0]), int(tempDate[1]), int(tempDate[2]))
+
+            if (datetime.datetime.today() - dateSent).days == 0:
+                yy = None
+                mm = None
+                dd = None
+            else:    
+                yy = tempDate[0]
+                mm = tempDate[1]
+                dd = tempDate[2]
+
+        response = getRiskExecuteExternal(filterLock,boundaryFilter['flag'],boundaryFilter['code'], yy, mm, dd)
 
         return response
 
@@ -77,10 +94,18 @@ class FloodRiskStatisticResource(ModelResource):
         response = self.getRisk(request)
         return self.create_response(request, response)    
 
-def getRiskExecuteExternal(filterLock, flag, code):
-        YEAR = datetime.datetime.utcnow().strftime("%Y")
-        MONTH = datetime.datetime.utcnow().strftime("%m")
-        DAY = datetime.datetime.utcnow().strftime("%d")
+def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None):
+        date_params = False
+
+        if yy and mm and dd:
+            date_params = True
+            YEAR = yy
+            MONTH = mm
+            DAY = dd
+        else:    
+            YEAR = datetime.datetime.utcnow().strftime("%Y")
+            MONTH = datetime.datetime.utcnow().strftime("%m")
+            DAY = datetime.datetime.utcnow().strftime("%d")
         
         targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
         targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
@@ -88,7 +113,7 @@ def getRiskExecuteExternal(filterLock, flag, code):
         targetAvalanche = AfgAvsa.objects.all()
         response = {}
 
-        if flag != 'entireAfg':
+        if flag != 'entireAfg' or date_params:
             #Avalanche Risk
             counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', flag, code, None)
             # pop at risk level

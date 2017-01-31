@@ -814,7 +814,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             }
         });    
     },
-    setFeatureStore: function(filter, flag, code) {
+    setFeatureStore: function(filter, flag, code, date) {
         // console.log(Ext.getCmp('statContainer'));
         var myObj = {
             filterdata : filter
@@ -839,7 +839,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             url: '../../geoapi/floodrisk/',
             // timeout: this.timeout,
             method: 'POST', 
-            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code}),
+            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code, 'date':date}),
             headers: {"Content-Type": "application/json"},
             success: function(response) {
                 this.store = Ext.decode(response.responseText);
