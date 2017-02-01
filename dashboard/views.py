@@ -148,7 +148,7 @@ def dashboard_multiple(request):
 	    # 'print-media-type':'-',
 	    # 'no-stop-slow-scripts':'-',
 	    # 'enable-javascript':'-',
-	    'javascript-delay': 10000,
+	    'javascript-delay': 25000,
 	    # 'window-status': 'ready',
 	    'encoding': "UTF-8",
 	}
