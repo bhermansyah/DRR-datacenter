@@ -35018,6 +35018,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                             //             this.downloadFile('../../dashboard/multiple',dashboard_url);
 
                             Ext.Ajax.request({
+                                method: 'POST',
                                 url: this.capabilities.createURL,
                                 timeout: this.timeout,
                                 jsonData: jsonData,
