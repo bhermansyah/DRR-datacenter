@@ -35116,7 +35116,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         Ext.fly(add_params3).set({type: 'hidden',value: mapTitle,name: 'mapTitle'});
         form.appendChild(add_params3);
 
-        form.dom.submit();
+        form.dom.submit({timeout : 120000});
         this.fireEvent("print", this, url);
 
     },
@@ -91664,7 +91664,28 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     height : 850,
                     style:"height:850px;",
                     overflowY: 'scroll',
-                    html: gettext('Apply filter to generate the statistics')
+                    html: gettext('Apply filter to generate the statistics')//,
+                    // tbar: new Ext.Container({
+                    //     // height: 54,
+                    //     layout: 'anchor',
+                    //     xtype: 'container',
+                    //     defaults: {
+                    //         anchor: '100%',
+                    //         height: 27
+                    //     },
+                    //     items: [
+                    //         new Ext.Toolbar({
+                    //             items:[{
+                    //                 fieldLabel: gettext('Date'),
+                    //                 name: 'dateOccurs1',
+                    //                 id: 'dateOccurs1',
+                    //                 xtype: 'datefield',
+                    //                 width: 130,
+                    //                 value: new Date().format('m/d/y')
+                    //             }]
+                    //         })    
+                    //     ]
+                    // })    
                 },{
                     title: gettext('Flood Risk'),
                     id: 'floodriskView',
@@ -91680,7 +91701,33 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     height : 850,
                     style:"height:850px;",
                     overflowY: 'scroll',
-                    html: gettext('Apply filter to generate the statistics')
+                    html: gettext('Apply filter to generate the statistics')//,
+                    // tbar: new Ext.Container({
+                    //     // height: 54,
+                    //     layout: 'anchor',
+                    //     xtype: 'container',
+                    //     defaults: {
+                    //         anchor: '100%',
+                    //         height: 27
+                    //     },
+                    //     items: [
+                    //         new Ext.Toolbar({
+                    //             items:[{
+                    //                 fieldLabel: gettext('Date'),
+                    //                 name: 'dateOccurs2',
+                    //                 id: 'dateOccurs2',
+                    //                 xtype: 'datefield',
+                    //                 width: 130,
+                    //                 value: new Date().format('m/d/y'),
+                    //                 listeners: {
+                    //                     'change': function(field, newValue, oldValue) {
+                    //                         console.log(newValue);
+                    //                     }
+                    //                 }
+                    //             }]
+                    //         })    
+                    //     ]
+                    // })
                 },{
                     title: gettext('Avalanche Risk'),
                     id: 'avalancheView',
