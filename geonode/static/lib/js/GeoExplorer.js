@@ -35116,7 +35116,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         Ext.fly(add_params3).set({type: 'hidden',value: mapTitle,name: 'mapTitle'});
         form.appendChild(add_params3);
 
-        form.dom.submit({timeout : 120000});
+        form.dom.submit({timeout : this.timeout});
         this.fireEvent("print", this, url);
 
     },
