@@ -16,9 +16,9 @@ li#nav_dashavalancherisk>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">{% trans "Avalanche Risk" %} 
+	<h1 class="dashing-title">{% trans "Avalanche Risk" %}
 		{% include "links_title.html" %}
-		{% include "qlink_span.html" %}	
+		{% include "qlink_span.html" %}
 	</h1>
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
@@ -49,9 +49,9 @@ li#nav_dashavalancherisk>a::after {
 			<span class='pie-title1'>{{ total_pop_med_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ med_ava_population | intword | intcomma}}</span>
 		</li>
-		    
-		  
-		
+
+
+
 
   	</ul>
 </div>
@@ -60,7 +60,7 @@ li#nav_dashavalancherisk>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=5 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Population in avalanche risk areas" %}</td>
+				<td colspan=5 style="padding:3px;font-weight:bolder;">{% trans "Population in avalanche risk areas" %}</td>
 				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
@@ -106,9 +106,9 @@ li#nav_dashavalancherisk>a::after {
 				<td class="detail_value">{{data.high_ava_population | intword | intcomma}}</td>
 				<td class="detail_value">{{data.high_ava_area | intword | intcomma}}</td>
 				<td class="detail_value">{{data.med_ava_population | intword | intcomma}}</td>
-				<td class="detail_value">{{data.med_ava_area | intword | intcomma}}</td>		
+				<td class="detail_value">{{data.med_ava_area | intword | intcomma}}</td>
 			</tr>
-			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}'>			
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}'>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_pop_atrisk_percent }}%,#ffffff {{ data.total_pop_atrisk_percent }}%);">{{ data.total_pop_atrisk_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_area_atrisk_percent }}%,#ffffff {{ data.total_area_atrisk_percent }}%);">{{ data.total_area_atrisk_percent }}%</td>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.total_pop_high_atrisk_percent }}%,#ffffff {{ data.total_pop_high_atrisk_percent }}%);">{{ data.total_pop_high_atrisk_percent }}%</td>
@@ -118,7 +118,7 @@ li#nav_dashavalancherisk>a::after {
 			</tr>
 			{% endfor %}
 			<tr>
-				<td class="separator" colspan=7></td>	
+				<td class="separator" colspan=7></td>
 			</tr>
 		</tbody>
 	</table>
@@ -137,10 +137,10 @@ function show_hide_base(){
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
-		    return "show";		    
+		    return "show";
 		} else {
 			// $("div.showFlag").text("<p>Show Detail</p>");
-		    return "hide";	    
+		    return "hide";
 		}
 	});
 }

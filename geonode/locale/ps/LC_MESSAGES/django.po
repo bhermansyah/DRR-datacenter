@@ -10,6 +10,7 @@
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
+# #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # #-#-#-#-#  django.po  #-#-#-#-#
 # This file was generated from /home/dodi/tmp/asdc interface.xlsx
 # #-#-#-#-#  manualentry.po (ASDC-GeoNode)  #-#-#-#-#
@@ -97,12 +98,13 @@
 #
 #
 #
+#
 msgid ""
 msgstr ""
 "#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
 "Project-Id-Version: ASDC-GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 16:13+0700\n"
+"POT-Creation-Date: 2017-02-01 11:17+0700\n"
 "PO-Revision-Date: 2016-12-14 14:09+0700\n"
 "Last-Translator: Dodi <dodi@email.com>\n"
 "Language-Team: Pashto <team@email.com>\n"
@@ -110,6 +112,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
@@ -171,6 +174,7 @@ msgstr ""
 "Generated-By: xls-to-po 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Gtranslator 2.91.6\n"
+"#-#-#-#-#  manualentry.po  #-#-#-#-#\n"
 "#-#-#-#-#  manualentry.po  #-#-#-#-#\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 

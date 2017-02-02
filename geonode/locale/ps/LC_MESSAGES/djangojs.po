@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 16:13+0700\n"
+"POT-Creation-Date: 2017-02-01 11:17+0700\n"
 "PO-Revision-Date: 2016-11-23 16:42+0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -137,7 +137,7 @@ msgstr ""
 
 #: static/geonode/js/upload/LayerInfo.js:524
 #: static/lib/js/GeoExplorer.js:56499 static/lib/js/GeoExplorer.js.c:56517
-#: static/lib/js/GeoExplorer.js:95443 static/lib/js/GeoExplorer.js.c:95452
+#: static/lib/js/GeoExplorer.js:95457 static/lib/js/GeoExplorer.js.c:95466
 msgid "Remove"
 msgstr ""
 
@@ -152,8 +152,8 @@ msgstr ""
 
 #: static/lib/js/GeoExplorer.js:27725 static/lib/js/GeoExplorer.js.c:80802
 #: static/lib/js/GeoExplorer.js:80808 static/lib/js/GeoExplorer.js.c:90055
-#: static/lib/js/GeoExplorer.js:93647 static/lib/js/GeoExplorer.js.c:95160
-#: static/lib/js/GeoExplorer.js:95161 templates/lang.js:42
+#: static/lib/js/GeoExplorer.js:93661 static/lib/js/GeoExplorer.js.c:95174
+#: static/lib/js/GeoExplorer.js:95175 templates/lang.js:42
 msgid "Layers"
 msgstr "پیښوونکی"
 
@@ -163,7 +163,7 @@ msgid "Base Layer"
 msgstr "پیښوونکی"
 
 #: static/lib/js/GeoExplorer.js:30075 static/lib/js/GeoExplorer.js.c:80814
-#: static/lib/js/GeoExplorer.js:95162
+#: static/lib/js/GeoExplorer.js:95176
 msgid "Overlays"
 msgstr ""
 
@@ -188,157 +188,158 @@ msgstr "واټن"
 msgid "Ab"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:42085 static/lib/js/GeoExplorer.js.c:95094
-#: static/lib/js/GeoExplorer.js:95356
+#: static/lib/js/GeoExplorer.js:42085 static/lib/js/GeoExplorer.js.c:95108
+#: static/lib/js/GeoExplorer.js:95370
 msgid "Layer"
 msgstr "پیښوونکی"
 
 #: static/lib/js/GeoExplorer.js:42343 static/lib/js/GeoExplorer.js.c:44423
 #: static/lib/js/GeoExplorer.js:52248 static/lib/js/GeoExplorer.js.c:83432
 #: static/lib/js/GeoExplorer.js:85536 static/lib/js/GeoExplorer.js.c:90056
-#: static/lib/js/GeoExplorer.js:93648 static/lib/js/GeoExplorer.js.c:95106
-#: static/lib/js/GeoExplorer.js:95330 static/lib/js/GeoExplorer.js.c:95391
-#: static/lib/js/GeoExplorer.js:95404 static/lib/js/GeoExplorer.js.c:95467
-#: static/lib/js/GeoExplorer.js:95511 templates/lang.js:14
+#: static/lib/js/GeoExplorer.js:93662 static/lib/js/GeoExplorer.js.c:95120
+#: static/lib/js/GeoExplorer.js:95344 static/lib/js/GeoExplorer.js.c:95405
+#: static/lib/js/GeoExplorer.js:95418 static/lib/js/GeoExplorer.js.c:95481
+#: static/lib/js/GeoExplorer.js:95525 templates/lang.js:14
 #: templates/lang.js.c:100 templates/lang.js.c:109 templates/lang.js:162
 #: templates/lang.js.c:184 templates/lang.js.c:219
 msgid "Title"
 msgstr "عنوان"
 
 #
-#: static/lib/js/GeoExplorer.js:42344 static/lib/js/GeoExplorer.js.c:95468
+#: static/lib/js/GeoExplorer.js:42344 static/lib/js/GeoExplorer.js.c:95482
 msgid "Layer title"
 msgstr "عنوان"
 
 #: static/lib/js/GeoExplorer.js:42345 static/lib/js/GeoExplorer.js.c:44426
-#: static/lib/js/GeoExplorer.js:90062 static/lib/js/GeoExplorer.js.c:93655
-#: static/lib/js/GeoExplorer.js:95406 static/lib/js/GeoExplorer.js.c:95469
+#: static/lib/js/GeoExplorer.js:90062 static/lib/js/GeoExplorer.js.c:93669
+#: static/lib/js/GeoExplorer.js:95420 static/lib/js/GeoExplorer.js.c:95483
+#: static/lib/js/GeoExplorer_add.js:1966
 msgid "Description"
 msgstr "توضیع"
 
 #
-#: static/lib/js/GeoExplorer.js:42346 static/lib/js/GeoExplorer.js.c:95470
+#: static/lib/js/GeoExplorer.js:42346 static/lib/js/GeoExplorer.js.c:95484
 msgid "Layer description"
 msgstr "توضیع"
 
-#: static/lib/js/GeoExplorer.js:42347 static/lib/js/GeoExplorer.js.c:95471
+#: static/lib/js/GeoExplorer.js:42347 static/lib/js/GeoExplorer.js.c:95485
 #: templates/lang.js:41
 msgid "Data"
 msgstr "سوابق"
 
-#: static/lib/js/GeoExplorer.js:42348 static/lib/js/GeoExplorer.js.c:95472
+#: static/lib/js/GeoExplorer.js:42348 static/lib/js/GeoExplorer.js.c:95486
 msgid "Browse for data archive..."
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:42349 static/lib/js/GeoExplorer.js.c:95473
+#: static/lib/js/GeoExplorer.js:42349 static/lib/js/GeoExplorer.js.c:95487
 msgid "Upload"
 msgstr "نصب ول"
 
 #
-#: static/lib/js/GeoExplorer.js:42350 static/lib/js/GeoExplorer.js.c:95474
+#: static/lib/js/GeoExplorer.js:42350 static/lib/js/GeoExplorer.js.c:95488
 msgid "Upload failed"
 msgstr "نصب ول"
 
-#: static/lib/js/GeoExplorer.js:42351 static/lib/js/GeoExplorer.js.c:95475
+#: static/lib/js/GeoExplorer.js:42351 static/lib/js/GeoExplorer.js.c:95489
 msgid "Processing upload..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:42352 static/lib/js/GeoExplorer.js.c:95476
+#: static/lib/js/GeoExplorer.js:42352 static/lib/js/GeoExplorer.js.c:95490
 msgid "Uploading your data..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:42353 static/lib/js/GeoExplorer.js.c:95477
+#: static/lib/js/GeoExplorer.js:42353 static/lib/js/GeoExplorer.js.c:95491
 msgid "File extension must be one of: "
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:42354 static/lib/js/GeoExplorer.js.c:95478
+#: static/lib/js/GeoExplorer.js:42354 static/lib/js/GeoExplorer.js.c:95492
 msgid "Options"
 msgstr "انتخاب"
 
-#: static/lib/js/GeoExplorer.js:42355 static/lib/js/GeoExplorer.js.c:95479
+#: static/lib/js/GeoExplorer.js:42355 static/lib/js/GeoExplorer.js.c:95493
 msgid "Workspace"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:42356 static/lib/js/GeoExplorer.js.c:95480
+#: static/lib/js/GeoExplorer.js:42356 static/lib/js/GeoExplorer.js.c:95494
 msgid "Default workspace"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:42357 static/lib/js/GeoExplorer.js.c:95481
+#: static/lib/js/GeoExplorer.js:42357 static/lib/js/GeoExplorer.js.c:95495
 msgid "Store"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:42358 static/lib/js/GeoExplorer.js.c:95482
+#: static/lib/js/GeoExplorer.js:42358 static/lib/js/GeoExplorer.js.c:95496
 msgid "Choose a store"
 msgstr "انتخاب وکریی"
 
 #
-#: static/lib/js/GeoExplorer.js:42359 static/lib/js/GeoExplorer.js.c:95483
+#: static/lib/js/GeoExplorer.js:42359 static/lib/js/GeoExplorer.js.c:95497
 msgid "Create new store"
 msgstr "پیغام"
 
-#: static/lib/js/GeoExplorer.js:42360 static/lib/js/GeoExplorer.js.c:95484
+#: static/lib/js/GeoExplorer.js:42360 static/lib/js/GeoExplorer.js.c:95498
 msgid "CRS"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:42361 static/lib/js/GeoExplorer.js.c:95485
+#: static/lib/js/GeoExplorer.js:42361 static/lib/js/GeoExplorer.js.c:95499
 msgid "Coordinate Reference System ID"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:42362 static/lib/js/GeoExplorer.js.c:95486
+#: static/lib/js/GeoExplorer.js:42362 static/lib/js/GeoExplorer.js.c:95500
 msgid "CRS identifier should be an EPSG code (e.g. EPSG:4326)"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:43766 static/lib/js/GeoExplorer.js.c:95321
+#: static/lib/js/GeoExplorer.js:43766 static/lib/js/GeoExplorer.js.c:95335
 msgid "Match"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:43773 static/lib/js/GeoExplorer.js.c:95322
+#: static/lib/js/GeoExplorer.js:43773 static/lib/js/GeoExplorer.js.c:95336
 msgid "of the following:"
 msgstr "تعقیب ول"
 
 #
-#: static/lib/js/GeoExplorer.js:43800 static/lib/js/GeoExplorer.js.c:95323
+#: static/lib/js/GeoExplorer.js:43800 static/lib/js/GeoExplorer.js.c:95337
 msgid "add condition"
 msgstr "مقام"
 
 #
-#: static/lib/js/GeoExplorer.js:43801 static/lib/js/GeoExplorer.js.c:95324
+#: static/lib/js/GeoExplorer.js:43801 static/lib/js/GeoExplorer.js.c:95338
 msgid "add group"
 msgstr "ډلی"
 
 #
-#: static/lib/js/GeoExplorer.js:43802 static/lib/js/GeoExplorer.js.c:95325
+#: static/lib/js/GeoExplorer.js:43802 static/lib/js/GeoExplorer.js.c:95339
 msgid "remove condition"
 msgstr "تم ځای"
 
-#: static/lib/js/GeoExplorer.js:44422 static/lib/js/GeoExplorer.js.c:95403
+#: static/lib/js/GeoExplorer.js:44422 static/lib/js/GeoExplorer.js.c:95417
 msgid "About"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:44424 static/lib/js/GeoExplorer.js.c:95402
+#: static/lib/js/GeoExplorer.js:44424 static/lib/js/GeoExplorer.js.c:95416
 msgid "Attribution"
 msgstr "توضیع"
 
 #: static/lib/js/GeoExplorer.js:44425 static/lib/js/GeoExplorer.js.c:51842
-#: static/lib/js/GeoExplorer.js:52247 static/lib/js/GeoExplorer.js.c:95329
-#: static/lib/js/GeoExplorer.js:95368 static/lib/js/GeoExplorer.js.c:95390
-#: static/lib/js/GeoExplorer.js:95405 templates/lang.js:107
+#: static/lib/js/GeoExplorer.js:52247 static/lib/js/GeoExplorer.js.c:95343
+#: static/lib/js/GeoExplorer.js:95382 static/lib/js/GeoExplorer.js.c:95404
+#: static/lib/js/GeoExplorer.js:95419 templates/lang.js:107
 #: templates/lang.js.c:183
 msgid "Name"
 msgstr "نوم"
 
-#: static/lib/js/GeoExplorer.js:44427 static/lib/js/GeoExplorer.js.c:95407
+#: static/lib/js/GeoExplorer.js:44427 static/lib/js/GeoExplorer.js.c:95421
 msgid "Display"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:44428 static/lib/js/GeoExplorer.js.c:59035
-#: static/lib/js/GeoExplorer.js:59527 static/lib/js/GeoExplorer.js.c:95316
-#: static/lib/js/GeoExplorer.js:95385 static/lib/js/GeoExplorer.js.c:95408
+#: static/lib/js/GeoExplorer.js:59527 static/lib/js/GeoExplorer.js.c:95330
+#: static/lib/js/GeoExplorer.js:95399 static/lib/js/GeoExplorer.js.c:95422
 msgid "Opacity"
 msgstr ""
 
@@ -348,16 +349,16 @@ msgid "Tile format"
 msgstr "معلومات"
 
 #
-#: static/lib/js/GeoExplorer.js:44430 static/lib/js/GeoExplorer.js.c:95414
+#: static/lib/js/GeoExplorer.js:44430 static/lib/js/GeoExplorer.js.c:95428
 msgid "Info format"
 msgstr "معلومات"
 
 #
-#: static/lib/js/GeoExplorer.js:44431 static/lib/js/GeoExplorer.js.c:95415
+#: static/lib/js/GeoExplorer.js:44431 static/lib/js/GeoExplorer.js.c:95429
 msgid "Select a format"
 msgstr "معلومات"
 
-#: static/lib/js/GeoExplorer.js:44432 static/lib/js/GeoExplorer.js.c:95410
+#: static/lib/js/GeoExplorer.js:44432 static/lib/js/GeoExplorer.js.c:95424
 msgid "Transparent"
 msgstr ""
 
@@ -370,48 +371,48 @@ msgid "Use cached tiles"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:44435 static/lib/js/GeoExplorer.js.c:95413
+#: static/lib/js/GeoExplorer.js:44435 static/lib/js/GeoExplorer.js.c:95427
 msgid "Available Styles"
 msgstr "سلیقه"
 
-#: static/lib/js/GeoExplorer.js:44436 static/lib/js/GeoExplorer.js.c:95416
+#: static/lib/js/GeoExplorer.js:44436 static/lib/js/GeoExplorer.js.c:95430
 msgid "Display options"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44437 static/lib/js/GeoExplorer.js.c:95417
+#: static/lib/js/GeoExplorer.js:44437 static/lib/js/GeoExplorer.js.c:95431
 msgid "Limit with filters"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:44438 static/lib/js/GeoExplorer.js.c:51839
-#: static/lib/js/GeoExplorer.js:95365 static/lib/js/GeoExplorer.js.c:95418
+#: static/lib/js/GeoExplorer.js:95379 static/lib/js/GeoExplorer.js.c:95432
 msgid "Limit by scale"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44439 static/lib/js/GeoExplorer.js.c:95419
+#: static/lib/js/GeoExplorer.js:44439 static/lib/js/GeoExplorer.js.c:95433
 msgid "Min scale"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44440 static/lib/js/GeoExplorer.js.c:95420
+#: static/lib/js/GeoExplorer.js:44440 static/lib/js/GeoExplorer.js.c:95434
 msgid "Max scale"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44441 static/lib/js/GeoExplorer.js.c:95421
+#: static/lib/js/GeoExplorer.js:44441 static/lib/js/GeoExplorer.js.c:95435
 msgid "Switch back to filter builder"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44442 static/lib/js/GeoExplorer.js.c:95422
+#: static/lib/js/GeoExplorer.js:44442 static/lib/js/GeoExplorer.js.c:95436
 msgid "or "
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44443 static/lib/js/GeoExplorer.js.c:95423
+#: static/lib/js/GeoExplorer.js:44443 static/lib/js/GeoExplorer.js.c:95437
 msgid "use CQL filter instead"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44444 static/lib/js/GeoExplorer.js.c:95424
+#: static/lib/js/GeoExplorer.js:44444 static/lib/js/GeoExplorer.js.c:95438
 msgid "Single tile"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:44445 static/lib/js/GeoExplorer.js.c:95425
+#: static/lib/js/GeoExplorer.js:44445 static/lib/js/GeoExplorer.js.c:95439
 msgid "Use a single tile"
 msgstr ""
 
@@ -427,174 +428,174 @@ msgstr ""
 msgid "upper boundary"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:50746 static/lib/js/GeoExplorer.js.c:95502
+#: static/lib/js/GeoExplorer.js:50746 static/lib/js/GeoExplorer.js.c:95516
 msgid "Trouble saving: "
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51550 static/lib/js/GeoExplorer.js.c:95429
+#: static/lib/js/GeoExplorer.js:51550 static/lib/js/GeoExplorer.js.c:95443
 msgid ""
 "Your map is ready to be published to the web! Simply copy the following HTML "
 "to embed the map in your website:"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51552 static/lib/js/GeoExplorer.js.c:95430
+#: static/lib/js/GeoExplorer.js:51552 static/lib/js/GeoExplorer.js.c:95444
 #: templates/lang.js:35 templates/lang.js.c:121
 msgid "Height"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:51554 static/lib/js/GeoExplorer.js.c:59526
-#: static/lib/js/GeoExplorer.js:95384 static/lib/js/GeoExplorer.js.c:95431
+#: static/lib/js/GeoExplorer.js:95398 static/lib/js/GeoExplorer.js.c:95445
 #: templates/lang.js:76 templates/lang.js.c:129
 msgid "Width"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51556 static/lib/js/GeoExplorer.js.c:95432
+#: static/lib/js/GeoExplorer.js:51556 static/lib/js/GeoExplorer.js.c:95446
 #: templates/lang.js:46 templates/lang.js.c:123
 msgid "Map Size"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51558 static/lib/js/GeoExplorer.js.c:95433
+#: static/lib/js/GeoExplorer.js:51558 static/lib/js/GeoExplorer.js.c:95447
 #: templates/lang.js:50 templates/lang.js.c:124
 msgid "Mini"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51560 static/lib/js/GeoExplorer.js.c:95434
+#: static/lib/js/GeoExplorer.js:51560 static/lib/js/GeoExplorer.js.c:95448
 #: templates/lang.js:67 templates/lang.js.c:128
 msgid "Small"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51562 static/lib/js/GeoExplorer.js.c:95435
+#: static/lib/js/GeoExplorer.js:51562 static/lib/js/GeoExplorer.js.c:95449
 #: templates/lang.js:56 templates/lang.js.c:125
 msgid "Premium"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51564 static/lib/js/GeoExplorer.js.c:95436
+#: static/lib/js/GeoExplorer.js:51564 static/lib/js/GeoExplorer.js.c:95450
 #: templates/lang.js:37 templates/lang.js.c:122
 msgid "Large"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:51835 static/lib/js/GeoExplorer.js.c:95361
+#: static/lib/js/GeoExplorer.js:51835 static/lib/js/GeoExplorer.js.c:95375
 msgid "Label Features"
 msgstr "شنـــــــبه    (دهفتــــه ورځ)"
 
-#: static/lib/js/GeoExplorer.js:51836 static/lib/js/GeoExplorer.js.c:95362
+#: static/lib/js/GeoExplorer.js:51836 static/lib/js/GeoExplorer.js.c:95376
 msgid "Labels"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51837 static/lib/js/GeoExplorer.js.c:95363
+#: static/lib/js/GeoExplorer.js:51837 static/lib/js/GeoExplorer.js.c:95377
 msgid "Basic"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:51838 static/lib/js/GeoExplorer.js.c:84062
-#: static/lib/js/GeoExplorer.js:95364
+#: static/lib/js/GeoExplorer.js:95378
 msgid "Advanced"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:51840 static/lib/js/GeoExplorer.js.c:95366
+#: static/lib/js/GeoExplorer.js:51840 static/lib/js/GeoExplorer.js.c:95380
 msgid "Limit by condition"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:51841 static/lib/js/GeoExplorer.js.c:59840
-#: static/lib/js/GeoExplorer.js:95347 static/lib/js/GeoExplorer.js.c:95367
+#: static/lib/js/GeoExplorer.js:95361 static/lib/js/GeoExplorer.js.c:95381
 msgid "Symbol"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:52246 static/lib/js/GeoExplorer.js.c:95389
+#: static/lib/js/GeoExplorer.js:52246 static/lib/js/GeoExplorer.js.c:95403
 msgid "General"
 msgstr "تولید ول"
 
-#: static/lib/js/GeoExplorer.js:52249 static/lib/js/GeoExplorer.js.c:95392
+#: static/lib/js/GeoExplorer.js:52249 static/lib/js/GeoExplorer.js.c:95406
 #: templates/lang.js:12 templates/lang.js.c:96 templates/lang.js.c:165
 msgid "Abstract"
 msgstr "پیله"
 
 #: static/lib/js/GeoExplorer.js:56493 static/lib/js/GeoExplorer.js.c:56511
-#: static/lib/js/GeoExplorer.js:95440 static/lib/js/GeoExplorer.js.c:95449
+#: static/lib/js/GeoExplorer.js:95454 static/lib/js/GeoExplorer.js.c:95463
 msgid "Add"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56495 static/lib/js/GeoExplorer.js.c:95441
+#: static/lib/js/GeoExplorer.js:56495 static/lib/js/GeoExplorer.js.c:95455
 msgid "Add a new style"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:56497 static/lib/js/GeoExplorer.js.c:95442
+#: static/lib/js/GeoExplorer.js:56497 static/lib/js/GeoExplorer.js.c:95456
 msgid "Choose style"
 msgstr "انتخاب وکریی"
 
-#: static/lib/js/GeoExplorer.js:56501 static/lib/js/GeoExplorer.js.c:95444
+#: static/lib/js/GeoExplorer.js:56501 static/lib/js/GeoExplorer.js.c:95458
 msgid "Delete the selected style"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:56503 static/lib/js/GeoExplorer.js.c:56521
 #: static/lib/js/GeoExplorer.js:65587 static/lib/js/GeoExplorer.js.c:67795
-#: static/lib/js/GeoExplorer.js:95122 static/lib/js/GeoExplorer.js.c:95303
-#: static/lib/js/GeoExplorer.js:95445 static/lib/js/GeoExplorer.js.c:95454
+#: static/lib/js/GeoExplorer.js:95136 static/lib/js/GeoExplorer.js.c:95317
+#: static/lib/js/GeoExplorer.js:95459 static/lib/js/GeoExplorer.js.c:95468
 msgid "Edit"
 msgstr "جورول"
 
-#: static/lib/js/GeoExplorer.js:56505 static/lib/js/GeoExplorer.js.c:95446
+#: static/lib/js/GeoExplorer.js:56505 static/lib/js/GeoExplorer.js.c:95460
 msgid "Edit the selected style"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:56507 static/lib/js/GeoExplorer.js.c:56525
-#: static/lib/js/GeoExplorer.js:95447 static/lib/js/GeoExplorer.js.c:95456
+#: static/lib/js/GeoExplorer.js:95461 static/lib/js/GeoExplorer.js.c:95470
 msgid "Duplicate"
 msgstr "بیازیلی"
 
-#: static/lib/js/GeoExplorer.js:56509 static/lib/js/GeoExplorer.js.c:95448
+#: static/lib/js/GeoExplorer.js:56509 static/lib/js/GeoExplorer.js.c:95462
 msgid "Duplicate the selected style"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56513 static/lib/js/GeoExplorer.js.c:95450
+#: static/lib/js/GeoExplorer.js:56513 static/lib/js/GeoExplorer.js.c:95464
 msgid "Add a new rule"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56515 static/lib/js/GeoExplorer.js.c:95451
+#: static/lib/js/GeoExplorer.js:56515 static/lib/js/GeoExplorer.js.c:95465
 msgid "New Rule"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56519 static/lib/js/GeoExplorer.js.c:95453
+#: static/lib/js/GeoExplorer.js:56519 static/lib/js/GeoExplorer.js.c:95467
 msgid "Delete the selected rule"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56523 static/lib/js/GeoExplorer.js.c:95455
+#: static/lib/js/GeoExplorer.js:56523 static/lib/js/GeoExplorer.js.c:95469
 msgid "Edit the selected rule"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56527 static/lib/js/GeoExplorer.js.c:95457
+#: static/lib/js/GeoExplorer.js:56527 static/lib/js/GeoExplorer.js.c:95471
 msgid "Duplicate the selected rule"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:56529 static/lib/js/GeoExplorer.js.c:65591
 #: static/lib/js/GeoExplorer.js:77570 static/lib/js/GeoExplorer.js.c:81341
-#: static/lib/js/GeoExplorer.js:95247 static/lib/js/GeoExplorer.js.c:95307
-#: static/lib/js/GeoExplorer.js:95458 static/lib/js/GeoExplorer.js.c:95491
+#: static/lib/js/GeoExplorer.js:95261 static/lib/js/GeoExplorer.js.c:95321
+#: static/lib/js/GeoExplorer.js:95472 static/lib/js/GeoExplorer.js.c:95505
 #: templates/lang.js:9 templates/lang.js.c:236
 msgid "Cancel"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:56531 static/lib/js/GeoExplorer.js.c:65593
-#: static/lib/js/GeoExplorer.js:95309 static/lib/js/GeoExplorer.js.c:95459
+#: static/lib/js/GeoExplorer.js:95323 static/lib/js/GeoExplorer.js.c:95473
 #: templates/lang.js:13
 msgid "Save"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56533 static/lib/js/GeoExplorer.js.c:95460
+#: static/lib/js/GeoExplorer.js:56533 static/lib/js/GeoExplorer.js.c:95474
 msgid "User Style: {0}"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56535 static/lib/js/GeoExplorer.js.c:95461
+#: static/lib/js/GeoExplorer.js:56535 static/lib/js/GeoExplorer.js.c:95475
 msgid "Style Rule: {0}"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:56537 static/lib/js/GeoExplorer.js.c:95462
+#: static/lib/js/GeoExplorer.js:56537 static/lib/js/GeoExplorer.js.c:95476
 msgid "Styles"
 msgstr "سلیقه"
 
-#: static/lib/js/GeoExplorer.js:56539 static/lib/js/GeoExplorer.js.c:95463
+#: static/lib/js/GeoExplorer.js:56539 static/lib/js/GeoExplorer.js.c:95477
 msgid "Rules"
 msgstr ""
 
@@ -602,11 +603,11 @@ msgstr ""
 msgid "Error saving style"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:57787 static/lib/js/GeoExplorer.js.c:95374
+#: static/lib/js/GeoExplorer.js:57787 static/lib/js/GeoExplorer.js.c:95388
 msgid "Max scale limit"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:57788 static/lib/js/GeoExplorer.js.c:95373
+#: static/lib/js/GeoExplorer.js:57788 static/lib/js/GeoExplorer.js.c:95387
 msgid "Min scale limit"
 msgstr ""
 
@@ -614,16 +615,16 @@ msgstr ""
 msgid "1"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:58315 static/lib/js/GeoExplorer.js.c:95396
+#: static/lib/js/GeoExplorer.js:58315 static/lib/js/GeoExplorer.js.c:95410
 msgid "Label values"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:58316 static/lib/js/GeoExplorer.js.c:95397
+#: static/lib/js/GeoExplorer.js:58316 static/lib/js/GeoExplorer.js.c:95411
 msgid "Halo"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:58317 static/lib/js/GeoExplorer.js.c:59841
-#: static/lib/js/GeoExplorer.js:95348 static/lib/js/GeoExplorer.js.c:95398
+#: static/lib/js/GeoExplorer.js:95362 static/lib/js/GeoExplorer.js.c:95412
 msgid "Size"
 msgstr ""
 
@@ -723,99 +724,99 @@ msgstr ""
 msgid "Perpendicular offset"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59033 static/lib/js/GeoExplorer.js.c:95314
+#: static/lib/js/GeoExplorer.js:59033 static/lib/js/GeoExplorer.js.c:95328
 msgid "Fill"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:59034 static/lib/js/GeoExplorer.js.c:59525
 #: static/lib/js/GeoExplorer.js:88758 static/lib/js/GeoExplorer.js.c:88763
-#: static/lib/js/GeoExplorer.js:95315 static/lib/js/GeoExplorer.js.c:95383
+#: static/lib/js/GeoExplorer.js:95329 static/lib/js/GeoExplorer.js.c:95397
 msgid "Color"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59523 static/lib/js/GeoExplorer.js.c:95381
+#: static/lib/js/GeoExplorer.js:59523 static/lib/js/GeoExplorer.js.c:95395
 msgid "Stroke"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59524 static/lib/js/GeoExplorer.js.c:95382
+#: static/lib/js/GeoExplorer.js:59524 static/lib/js/GeoExplorer.js.c:95396
 msgid "Style"
 msgstr "سلیقه"
 
-#: static/lib/js/GeoExplorer.js:59831 static/lib/js/GeoExplorer.js.c:95338
+#: static/lib/js/GeoExplorer.js:59831 static/lib/js/GeoExplorer.js.c:95352
 msgid "circle"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59832 static/lib/js/GeoExplorer.js.c:95339
+#: static/lib/js/GeoExplorer.js:59832 static/lib/js/GeoExplorer.js.c:95353
 msgid "square"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59833 static/lib/js/GeoExplorer.js.c:95340
+#: static/lib/js/GeoExplorer.js:59833 static/lib/js/GeoExplorer.js.c:95354
 msgid "triangle"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59834 static/lib/js/GeoExplorer.js.c:95341
+#: static/lib/js/GeoExplorer.js:59834 static/lib/js/GeoExplorer.js.c:95355
 msgid "star"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59835 static/lib/js/GeoExplorer.js.c:95342
+#: static/lib/js/GeoExplorer.js:59835 static/lib/js/GeoExplorer.js.c:95356
 msgid "cross"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59836 static/lib/js/GeoExplorer.js.c:95343
+#: static/lib/js/GeoExplorer.js:59836 static/lib/js/GeoExplorer.js.c:95357
 msgid "x"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59837 static/lib/js/GeoExplorer.js.c:95344
+#: static/lib/js/GeoExplorer.js:59837 static/lib/js/GeoExplorer.js.c:95358
 msgid "external"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:59838 static/lib/js/GeoExplorer.js.c:81384
-#: static/lib/js/GeoExplorer.js:83515 static/lib/js/GeoExplorer.js.c:95345
+#: static/lib/js/GeoExplorer.js:83515 static/lib/js/GeoExplorer.js.c:95359
 msgid "URL"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:59839 static/lib/js/GeoExplorer.js.c:95346
+#: static/lib/js/GeoExplorer.js:59839 static/lib/js/GeoExplorer.js.c:95360
 msgid "opacity"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:59842 static/lib/js/GeoExplorer.js.c:95349
+#: static/lib/js/GeoExplorer.js:59842 static/lib/js/GeoExplorer.js.c:95363
 msgid "Rotation"
 msgstr "تم ځای"
 
-#: static/lib/js/GeoExplorer.js:60355 static/lib/js/GeoExplorer.js.c:93649
-#: static/lib/js/GeoExplorer.js:95498 templates/lang.js:79
+#: static/lib/js/GeoExplorer.js:60355 static/lib/js/GeoExplorer.js.c:93663
+#: static/lib/js/GeoExplorer.js:95512 templates/lang.js:79
 msgid "Zoom level"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:65583 static/lib/js/GeoExplorer.js.c:95299
+#: static/lib/js/GeoExplorer.js:65583 static/lib/js/GeoExplorer.js.c:95313
 msgid "Save Changes?"
 msgstr "تغییر ورکول"
 
 #
-#: static/lib/js/GeoExplorer.js:65585 static/lib/js/GeoExplorer.js.c:95301
+#: static/lib/js/GeoExplorer.js:65585 static/lib/js/GeoExplorer.js.c:95315
 msgid "Delete Feature?"
 msgstr "انتخاب"
 
-#: static/lib/js/GeoExplorer.js:65588 static/lib/js/GeoExplorer.js.c:95304
+#: static/lib/js/GeoExplorer.js:65588 static/lib/js/GeoExplorer.js.c:95318
 msgid "Make this feature editable"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:65589 static/lib/js/GeoExplorer.js.c:95305
+#: static/lib/js/GeoExplorer.js:65589 static/lib/js/GeoExplorer.js.c:95319
 msgid "Delete"
 msgstr "انتخاب"
 
-#: static/lib/js/GeoExplorer.js:65590 static/lib/js/GeoExplorer.js.c:95306
+#: static/lib/js/GeoExplorer.js:65590 static/lib/js/GeoExplorer.js.c:95320
 msgid "Delete this feature"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:65592 static/lib/js/GeoExplorer.js.c:95308
+#: static/lib/js/GeoExplorer.js:65592 static/lib/js/GeoExplorer.js.c:95322
 msgid "Stop editing, discard changes"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:65594 static/lib/js/GeoExplorer.js.c:95310
+#: static/lib/js/GeoExplorer.js:65594 static/lib/js/GeoExplorer.js.c:95324
 msgid "Save changes"
 msgstr ""
 
@@ -845,29 +846,29 @@ msgid "Event"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:67765 static/lib/js/GeoExplorer.js.c:95127
+#: static/lib/js/GeoExplorer.js:67765 static/lib/js/GeoExplorer.js.c:95141
 msgid "Commit message"
 msgstr "پیغام"
 
-#: static/lib/js/GeoExplorer.js:67766 static/lib/js/GeoExplorer.js.c:95128
+#: static/lib/js/GeoExplorer.js:67766 static/lib/js/GeoExplorer.js.c:95142
 msgid "Please enter a commit message for this edit:"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:67772 static/lib/js/GeoExplorer.js.c:95125
+#: static/lib/js/GeoExplorer.js:67772 static/lib/js/GeoExplorer.js.c:95139
 msgid "Create a new feature"
 msgstr "جوره ول"
 
-#: static/lib/js/GeoExplorer.js:67778 static/lib/js/GeoExplorer.js.c:95123
+#: static/lib/js/GeoExplorer.js:67778 static/lib/js/GeoExplorer.js.c:95137
 msgid "Create"
 msgstr "جوره ول"
 
-#: static/lib/js/GeoExplorer.js:67784 static/lib/js/GeoExplorer.js.c:95126
+#: static/lib/js/GeoExplorer.js:67784 static/lib/js/GeoExplorer.js.c:95140
 msgid "Edit existing feature"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:67790 static/lib/js/GeoExplorer.js.c:95124
+#: static/lib/js/GeoExplorer.js:67790 static/lib/js/GeoExplorer.js.c:95138
 msgid "Modify"
 msgstr "تغییر"
 
@@ -875,109 +876,109 @@ msgstr "تغییر"
 msgid "Edit features on selected WMS layer"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:69327 static/lib/js/GeoExplorer.js.c:95132
+#: static/lib/js/GeoExplorer.js:69327 static/lib/js/GeoExplorer.js.c:95146
 msgid "Display on map"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:69333 static/lib/js/GeoExplorer.js.c:95133
+#: static/lib/js/GeoExplorer.js:69333 static/lib/js/GeoExplorer.js.c:95147
 msgid "First page"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:69339 static/lib/js/GeoExplorer.js.c:95134
+#: static/lib/js/GeoExplorer.js:69339 static/lib/js/GeoExplorer.js.c:95148
 msgid "Previous page"
 msgstr "بیا کتل"
 
-#: static/lib/js/GeoExplorer.js:69345 static/lib/js/GeoExplorer.js.c:95135
+#: static/lib/js/GeoExplorer.js:69345 static/lib/js/GeoExplorer.js.c:95149
 msgid "Zoom to page extent"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:69351 static/lib/js/GeoExplorer.js.c:95136
+#: static/lib/js/GeoExplorer.js:69351 static/lib/js/GeoExplorer.js.c:95150
 msgid "Next page"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:69357 static/lib/js/GeoExplorer.js.c:95137
+#: static/lib/js/GeoExplorer.js:69357 static/lib/js/GeoExplorer.js.c:95151
 msgid "Last page"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:70627 static/lib/js/GeoExplorer.js.c:95115
+#: static/lib/js/GeoExplorer.js:70627 static/lib/js/GeoExplorer.js.c:95129
 msgid "Bing Layers"
 msgstr "پیښوونکی"
 
 #
-#: static/lib/js/GeoExplorer.js:70633 static/lib/js/GeoExplorer.js.c:95116
+#: static/lib/js/GeoExplorer.js:70633 static/lib/js/GeoExplorer.js.c:95130
 msgid "Bing Roads"
 msgstr "اصلی واټ"
 
-#: static/lib/js/GeoExplorer.js:70639 static/lib/js/GeoExplorer.js.c:95117
+#: static/lib/js/GeoExplorer.js:70639 static/lib/js/GeoExplorer.js.c:95131
 msgid "Bing Aerial"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:70645 static/lib/js/GeoExplorer.js.c:95118
+#: static/lib/js/GeoExplorer.js:70645 static/lib/js/GeoExplorer.js.c:95132
 msgid "Bing Aerial With Labels"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:72902 static/lib/js/GeoExplorer.js.c:95147
+#: static/lib/js/GeoExplorer.js:72902 static/lib/js/GeoExplorer.js.c:95161
 msgid "Google Layers"
 msgstr "پیښوونکی"
 
 #
-#: static/lib/js/GeoExplorer.js:73534 static/lib/js/GeoExplorer.js.c:95218
+#: static/lib/js/GeoExplorer.js:73534 static/lib/js/GeoExplorer.js.c:95232
 msgid "OpenStreetMap Layers"
 msgstr "د ښاری خلاصه نقشه"
 
 #
-#: static/lib/js/GeoExplorer.js:73934 static/lib/js/GeoExplorer.js.c:95180
+#: static/lib/js/GeoExplorer.js:73934 static/lib/js/GeoExplorer.js.c:95194
 msgid "MapBox Layers"
 msgstr "پیښوونکی"
 
-#: static/lib/js/GeoExplorer.js:73937 static/lib/js/GeoExplorer.js.c:95181
+#: static/lib/js/GeoExplorer.js:73937 static/lib/js/GeoExplorer.js.c:95195
 msgid "Blue Marble Topography & Bathymetry (January)"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73938 static/lib/js/GeoExplorer.js.c:95182
+#: static/lib/js/GeoExplorer.js:73938 static/lib/js/GeoExplorer.js.c:95196
 msgid "Blue Marble Topography & Bathymetry (July)"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73939 static/lib/js/GeoExplorer.js.c:95183
+#: static/lib/js/GeoExplorer.js:73939 static/lib/js/GeoExplorer.js.c:95197
 msgid "Blue Marble Topography (January)"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73940 static/lib/js/GeoExplorer.js.c:95184
+#: static/lib/js/GeoExplorer.js:73940 static/lib/js/GeoExplorer.js.c:95198
 msgid "Blue Marble Topography (July)"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73941 static/lib/js/GeoExplorer.js.c:95185
+#: static/lib/js/GeoExplorer.js:73941 static/lib/js/GeoExplorer.js.c:95199
 msgid "Control Room"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73942 static/lib/js/GeoExplorer.js.c:95186
+#: static/lib/js/GeoExplorer.js:73942 static/lib/js/GeoExplorer.js.c:95200
 msgid "Geography Class"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73943 static/lib/js/GeoExplorer.js.c:95187
+#: static/lib/js/GeoExplorer.js:73943 static/lib/js/GeoExplorer.js.c:95201
 msgid "Natural Earth Hypsometric"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73944 static/lib/js/GeoExplorer.js.c:95188
+#: static/lib/js/GeoExplorer.js:73944 static/lib/js/GeoExplorer.js.c:95202
 msgid "Natural Earth Hypsometric & Bathymetry"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73945 static/lib/js/GeoExplorer.js.c:95189
+#: static/lib/js/GeoExplorer.js:73945 static/lib/js/GeoExplorer.js.c:95203
 msgid "Natural Earth I"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73946 static/lib/js/GeoExplorer.js.c:95190
+#: static/lib/js/GeoExplorer.js:73946 static/lib/js/GeoExplorer.js.c:95204
 msgid "Natural Earth II"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73947 static/lib/js/GeoExplorer.js.c:95191
+#: static/lib/js/GeoExplorer.js:73947 static/lib/js/GeoExplorer.js.c:95205
 msgid "World Dark"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73948 static/lib/js/GeoExplorer.js.c:95192
+#: static/lib/js/GeoExplorer.js:73948 static/lib/js/GeoExplorer.js.c:95206
 msgid "World Light"
 msgstr ""
 
@@ -985,52 +986,52 @@ msgstr ""
 msgid "World Glass"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:73950 static/lib/js/GeoExplorer.js.c:95193
+#: static/lib/js/GeoExplorer.js:73950 static/lib/js/GeoExplorer.js.c:95207
 msgid "World Print"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:74145 static/lib/js/GeoExplorer.js.c:95233
+#: static/lib/js/GeoExplorer.js:74145 static/lib/js/GeoExplorer.js.c:95247
 msgid "MapQuest Layers"
 msgstr "پیښوونکی"
 
 #
-#: static/lib/js/GeoExplorer.js:74157 static/lib/js/GeoExplorer.js.c:95235
+#: static/lib/js/GeoExplorer.js:74157 static/lib/js/GeoExplorer.js.c:95249
 msgid "MapQuest OpenStreetMap"
 msgstr "د ښاری خلاصه نقشه"
 
 #
-#: static/lib/js/GeoExplorer.js:74169 static/lib/js/GeoExplorer.js.c:95237
+#: static/lib/js/GeoExplorer.js:74169 static/lib/js/GeoExplorer.js.c:95251
 msgid "MapQuest Imagery"
 msgstr "تصورات"
 
 #: static/lib/js/GeoExplorer.js:77564 static/lib/js/GeoExplorer.js.c:90423
-#: static/lib/js/GeoExplorer.js:93662 static/lib/js/GeoExplorer.js.c:95241
+#: static/lib/js/GeoExplorer.js:93676 static/lib/js/GeoExplorer.js.c:95255
 msgid "Query"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:77576 static/lib/js/GeoExplorer.js.c:95242
+#: static/lib/js/GeoExplorer.js:77576 static/lib/js/GeoExplorer.js.c:95256
 msgid "Query layer"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:77582 static/lib/js/GeoExplorer.js.c:95243
+#: static/lib/js/GeoExplorer.js:77582 static/lib/js/GeoExplorer.js.c:95257
 msgid "Query the selected layer"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:77588 static/lib/js/GeoExplorer.js.c:95244
+#: static/lib/js/GeoExplorer.js:77588 static/lib/js/GeoExplorer.js.c:95258
 msgid "Query by current map extent"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:77594 static/lib/js/GeoExplorer.js.c:95245
-#: static/lib/js/GeoExplorer.js:95355
+#: static/lib/js/GeoExplorer.js:77594 static/lib/js/GeoExplorer.js.c:95259
+#: static/lib/js/GeoExplorer.js:95369
 msgid "Query by attributes"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:77606 static/lib/js/GeoExplorer.js.c:95248
+#: static/lib/js/GeoExplorer.js:77606 static/lib/js/GeoExplorer.js.c:95262
 msgid "No Match"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:77612 static/lib/js/GeoExplorer.js.c:95249
+#: static/lib/js/GeoExplorer.js:77612 static/lib/js/GeoExplorer.js.c:95263
 msgid "Your query did not return any results."
 msgstr ""
 
@@ -1058,58 +1059,58 @@ msgstr ""
 msgid "Zoom Out"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:78930 static/lib/js/GeoExplorer.js.c:95273
+#: static/lib/js/GeoExplorer.js:78930 static/lib/js/GeoExplorer.js.c:95287
 msgid "Zoom by dragging a box"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:78936 static/lib/js/GeoExplorer.js.c:95271
-#: static/lib/js/GeoExplorer.js:95274
+#: static/lib/js/GeoExplorer.js:78936 static/lib/js/GeoExplorer.js.c:95285
+#: static/lib/js/GeoExplorer.js:95288
 msgid "Zoom in"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:78942 static/lib/js/GeoExplorer.js.c:95272
-#: static/lib/js/GeoExplorer.js:95275
+#: static/lib/js/GeoExplorer.js:78942 static/lib/js/GeoExplorer.js.c:95286
+#: static/lib/js/GeoExplorer.js:95289
 msgid "Zoom out"
 msgstr "ننه وتل"
 
 #: static/lib/js/GeoExplorer.js:79434 static/lib/js/GeoExplorer.js.c:79464
-#: static/lib/js/GeoExplorer.js:95197 static/lib/js/GeoExplorer.js.c:95202
+#: static/lib/js/GeoExplorer.js:95211 static/lib/js/GeoExplorer.js.c:95216
 #: templates/lang.js:47
 msgid "Measure"
 msgstr "د اندازه اخیستل"
 
-#: static/lib/js/GeoExplorer.js:79440 static/lib/js/GeoExplorer.js.c:95198
+#: static/lib/js/GeoExplorer.js:79440 static/lib/js/GeoExplorer.js.c:95212
 #: templates/lang.js:44
 msgid "Length"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:79446 static/lib/js/GeoExplorer.js.c:95199
+#: static/lib/js/GeoExplorer.js:79446 static/lib/js/GeoExplorer.js.c:95213
 #: templates/lang.js:29
 msgid "Area"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:79452 static/lib/js/GeoExplorer.js.c:95200
+#: static/lib/js/GeoExplorer.js:79452 static/lib/js/GeoExplorer.js.c:95214
 msgid "Measure length"
 msgstr "د اندازه اخیستل"
 
 #
-#: static/lib/js/GeoExplorer.js:79458 static/lib/js/GeoExplorer.js.c:95201
+#: static/lib/js/GeoExplorer.js:79458 static/lib/js/GeoExplorer.js.c:95215
 msgid "Measure area"
 msgstr "د اندازه اخیستل"
 
-#: static/lib/js/GeoExplorer.js:80443 static/lib/js/GeoExplorer.js.c:95265
+#: static/lib/js/GeoExplorer.js:80443 static/lib/js/GeoExplorer.js.c:95279
 #: templates/lang.js:36
 msgid "Get Feature Info"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:80449 static/lib/js/GeoExplorer.js.c:95266
+#: static/lib/js/GeoExplorer.js:80449 static/lib/js/GeoExplorer.js.c:95280
 msgid "Feature Info"
 msgstr "شنـــــــبه    (دهفتــــه ورځ)"
 
-#: static/lib/js/GeoExplorer.js:80454 static/lib/js/GeoExplorer.js.c:95264
+#: static/lib/js/GeoExplorer.js:80454 static/lib/js/GeoExplorer.js.c:95278
 msgid "Identify"
 msgstr "پیژاندنه"
 
@@ -1124,12 +1125,12 @@ msgid "Pan Map"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:80820 static/lib/js/GeoExplorer.js.c:95163
+#: static/lib/js/GeoExplorer.js:80820 static/lib/js/GeoExplorer.js.c:95177
 msgid "Base Layers"
 msgstr "پیښوونکی"
 
 #
-#: static/lib/js/GeoExplorer.js:81230 static/lib/js/GeoExplorer.js.c:95167
+#: static/lib/js/GeoExplorer.js:81230 static/lib/js/GeoExplorer.js.c:95181
 msgid "Base Maps"
 msgstr "نقشه"
 
@@ -1138,7 +1139,7 @@ msgid "Add New Server..."
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:81347 static/lib/js/GeoExplorer.js.c:95492
+#: static/lib/js/GeoExplorer.js:81347 static/lib/js/GeoExplorer.js.c:95506
 msgid "Add Server"
 msgstr "پیښوونکی"
 
@@ -1148,17 +1149,17 @@ msgid ""
 "geoserver/wms)"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:81359 static/lib/js/GeoExplorer.js.c:95494
+#: static/lib/js/GeoExplorer.js:81359 static/lib/js/GeoExplorer.js.c:95508
 msgid "Contacting Server..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:81404 static/lib/js/GeoExplorer.js.c:92656
+#: static/lib/js/GeoExplorer.js:81404 static/lib/js/GeoExplorer.js.c:92670
 msgid "Type"
 msgstr "نوع"
 
 #
 #: static/lib/js/GeoExplorer.js:81738 static/lib/js/GeoExplorer.js.c:85506
-#: static/lib/js/GeoExplorer.js:95102
+#: static/lib/js/GeoExplorer.js:95116
 msgid "Untitled"
 msgstr "عنوان"
 
@@ -1168,7 +1169,7 @@ msgid "Feed Source"
 msgstr "منابع"
 
 #: static/lib/js/GeoExplorer.js:83116 static/lib/js/GeoExplorer.js.c:83424
-#: static/lib/js/GeoExplorer.js:95507
+#: static/lib/js/GeoExplorer.js:95521
 msgid "Picasa Photos"
 msgstr ""
 
@@ -1177,11 +1178,11 @@ msgid "Youtube Videos"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:83422 static/lib/js/GeoExplorer.js.c:95506
+#: static/lib/js/GeoExplorer.js:83422 static/lib/js/GeoExplorer.js.c:95520
 msgid "Source"
 msgstr "منابع"
 
-#: static/lib/js/GeoExplorer.js:83426 static/lib/js/GeoExplorer.js.c:95508
+#: static/lib/js/GeoExplorer.js:83426 static/lib/js/GeoExplorer.js.c:95522
 msgid "YouTube Videos"
 msgstr ""
 
@@ -1190,27 +1191,27 @@ msgid "GeoRSS Feed"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:83430 static/lib/js/GeoExplorer.js.c:95510
+#: static/lib/js/GeoExplorer.js:83430 static/lib/js/GeoExplorer.js.c:95524
 msgid "Add to Map"
 msgstr "جورول"
 
 #
-#: static/lib/js/GeoExplorer.js:83434 static/lib/js/GeoExplorer.js.c:95512
+#: static/lib/js/GeoExplorer.js:83434 static/lib/js/GeoExplorer.js.c:95526
 msgid "Keyword"
 msgstr "دلوغاتونوکیلی"
 
 #: static/lib/js/GeoExplorer.js:83436 static/lib/js/GeoExplorer.js.c:85554
-#: static/lib/js/GeoExplorer.js:95108 static/lib/js/GeoExplorer.js.c:95513
+#: static/lib/js/GeoExplorer.js:95122 static/lib/js/GeoExplorer.js.c:95527
 #: templates/lang.js:32
 msgid "Done"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:83438 static/lib/js/GeoExplorer.js.c:95514
+#: static/lib/js/GeoExplorer.js:83438 static/lib/js/GeoExplorer.js.c:95528
 msgid "Add Feeds"
 msgstr "پیښوونکی"
 
-#: static/lib/js/GeoExplorer.js:83440 static/lib/js/GeoExplorer.js.c:95515
+#: static/lib/js/GeoExplorer.js:83440 static/lib/js/GeoExplorer.js.c:95529
 msgid "Max Items"
 msgstr ""
 
@@ -1276,8 +1277,8 @@ msgstr ""
 
 #
 #: static/lib/js/GeoExplorer.js:85465 static/lib/js/GeoExplorer.js.c:85483
-#: static/lib/js/GeoExplorer.js:85500 static/lib/js/GeoExplorer.js.c:95098
-#: static/lib/js/GeoExplorer.js:95099 static/lib/js/GeoExplorer.js.c:95101
+#: static/lib/js/GeoExplorer.js:85500 static/lib/js/GeoExplorer.js.c:95112
+#: static/lib/js/GeoExplorer.js:95113 static/lib/js/GeoExplorer.js.c:95115
 msgid "Add layers"
 msgstr "پیښوونکی"
 
@@ -1287,11 +1288,11 @@ msgid "Find layers"
 msgstr "پیښوونکی"
 
 #
-#: static/lib/js/GeoExplorer.js:85477 static/lib/js/GeoExplorer.js.c:95110
+#: static/lib/js/GeoExplorer.js:85477 static/lib/js/GeoExplorer.js.c:95124
 msgid "Add feeds"
 msgstr "پیښوونکی"
 
-#: static/lib/js/GeoExplorer.js:85494 static/lib/js/GeoExplorer.js.c:95100
+#: static/lib/js/GeoExplorer.js:85494 static/lib/js/GeoExplorer.js.c:95114
 msgid "Add a New Server"
 msgstr ""
 
@@ -1302,27 +1303,27 @@ msgid ""
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:85518 static/lib/js/GeoExplorer.js.c:95104
+#: static/lib/js/GeoExplorer.js:85518 static/lib/js/GeoExplorer.js.c:95118
 #: templates/lang.js:33
 msgid "Available Layers"
 msgstr "پیښوونکی"
 
-#: static/lib/js/GeoExplorer.js:85524 static/lib/js/GeoExplorer.js.c:95111
+#: static/lib/js/GeoExplorer.js:85524 static/lib/js/GeoExplorer.js.c:95125
 msgid "Search for layers"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:85530 static/lib/js/GeoExplorer.js.c:95105
-#: static/lib/js/GeoExplorer.js:95334
+#: static/lib/js/GeoExplorer.js:85530 static/lib/js/GeoExplorer.js.c:95119
+#: static/lib/js/GeoExplorer.js:95348
 msgid "<p><b>Abstract:</b> {abstract}</p>"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:85542 static/lib/js/GeoExplorer.js.c:95107
-#: static/lib/js/GeoExplorer.js:95332 templates/lang.js:40
+#: static/lib/js/GeoExplorer.js:85542 static/lib/js/GeoExplorer.js.c:95121
+#: static/lib/js/GeoExplorer.js:95346 templates/lang.js:40
 msgid "View available data from:"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:85588 static/lib/js/GeoExplorer.js.c:95109
+#: static/lib/js/GeoExplorer.js:85588 static/lib/js/GeoExplorer.js.c:95123
 msgid "Upload layers"
 msgstr "پیښوونکی"
 
@@ -1332,25 +1333,25 @@ msgstr ""
 
 #
 #: static/lib/js/GeoExplorer.js:86443 static/lib/js/GeoExplorer.js.c:86449
-#: static/lib/js/GeoExplorer.js:95253 static/lib/js/GeoExplorer.js.c:95254
+#: static/lib/js/GeoExplorer.js:95267 static/lib/js/GeoExplorer.js.c:95268
 msgid "Remove layer"
 msgstr "پیښوونکی"
 
 #
 #: static/lib/js/GeoExplorer.js:86530 static/lib/js/GeoExplorer.js.c:86536
-#: static/lib/js/GeoExplorer.js:95155 static/lib/js/GeoExplorer.js.c:95156
+#: static/lib/js/GeoExplorer.js:95169 static/lib/js/GeoExplorer.js.c:95170
 #: templates/lang.js:69
 msgid "Layer Properties"
 msgstr "جوره ول"
 
 #: static/lib/js/GeoExplorer.js:86662 static/lib/js/GeoExplorer.js.c:86668
-#: static/lib/js/GeoExplorer.js:95284 static/lib/js/GeoExplorer.js.c:95285
-#: static/lib/js/GeoExplorer.js:95289 static/lib/js/GeoExplorer.js.c:95290
+#: static/lib/js/GeoExplorer.js:95298 static/lib/js/GeoExplorer.js.c:95299
+#: static/lib/js/GeoExplorer.js:95303 static/lib/js/GeoExplorer.js.c:95304
 msgid "Zoom to layer extent"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:86750 static/lib/js/GeoExplorer.js.c:86756
-#: static/lib/js/GeoExplorer.js:95294 static/lib/js/GeoExplorer.js.c:95295
+#: static/lib/js/GeoExplorer.js:95308 static/lib/js/GeoExplorer.js.c:95309
 msgid "Zoom to selected features"
 msgstr ""
 
@@ -1370,20 +1371,20 @@ msgstr "جورول"
 
 #
 #: static/lib/js/GeoExplorer.js:87031 static/lib/js/GeoExplorer.js.c:89513
-#: static/lib/js/GeoExplorer.js:95224 templates/lang.js:151
+#: static/lib/js/GeoExplorer.js:95238 templates/lang.js:151
 msgid "Print"
 msgstr "چاپ"
 
-#: static/lib/js/GeoExplorer.js:87037 static/lib/js/GeoExplorer.js.c:95228
+#: static/lib/js/GeoExplorer.js:87037 static/lib/js/GeoExplorer.js.c:95242
 msgid "Not All Layers Can Be Printed"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:87043 static/lib/js/GeoExplorer.js.c:95229
+#: static/lib/js/GeoExplorer.js:87043 static/lib/js/GeoExplorer.js.c:95243
 msgid "None of your current map layers can be printed"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:87049 static/lib/js/GeoExplorer.js.c:95227
+#: static/lib/js/GeoExplorer.js:87049 static/lib/js/GeoExplorer.js.c:95241
 #: templates/lang.js:58
 msgid "Print Preview"
 msgstr "بیا کتل"
@@ -1414,11 +1415,11 @@ msgstr "سلیقه"
 msgid "Manage layer styles"
 msgstr "سلیقه"
 
-#: static/lib/js/GeoExplorer.js:88018 static/lib/js/GeoExplorer.js.c:95142
+#: static/lib/js/GeoExplorer.js:88018 static/lib/js/GeoExplorer.js.c:95156
 msgid "3D Viewer"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:88019 static/lib/js/GeoExplorer.js.c:95143
+#: static/lib/js/GeoExplorer.js:88019 static/lib/js/GeoExplorer.js.c:95157
 msgid "Switch to 3D Viewer"
 msgstr ""
 
@@ -1505,39 +1506,39 @@ msgstr ""
 msgid "Creating PDF..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90051 static/lib/js/GeoExplorer.js.c:93643
+#: static/lib/js/GeoExplorer.js:90051 static/lib/js/GeoExplorer.js.c:93657
 msgid "<div>Zoom Level: {zoom}</div><div>Scale: 1:{scale}</div>"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90052 static/lib/js/GeoExplorer.js.c:93644
+#: static/lib/js/GeoExplorer.js:90052 static/lib/js/GeoExplorer.js.c:93658
 msgid "Trouble reading saved configuration: <br />"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90053 static/lib/js/GeoExplorer.js.c:93645
+#: static/lib/js/GeoExplorer.js:90053 static/lib/js/GeoExplorer.js.c:93659
 msgid "Server Error."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90054 static/lib/js/GeoExplorer.js.c:93646
+#: static/lib/js/GeoExplorer.js:90054 static/lib/js/GeoExplorer.js.c:93660
 msgid "Communication Trouble: Status "
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90057 static/lib/js/GeoExplorer.js.c:93650
+#: static/lib/js/GeoExplorer.js:90057 static/lib/js/GeoExplorer.js.c:93664
 msgid "Bookmark URL"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:90058 static/lib/js/GeoExplorer.js.c:93651
+#: static/lib/js/GeoExplorer.js:90058 static/lib/js/GeoExplorer.js.c:93665
 #: templates/lang.js:49 templates/lang.js.c:55
 msgid "Permalink"
 msgstr "دهغه اجازه لرونکی"
 
 #
-#: static/lib/js/GeoExplorer.js:90059 static/lib/js/GeoExplorer.js.c:93652
+#: static/lib/js/GeoExplorer.js:90059 static/lib/js/GeoExplorer.js.c:93666
 msgid "GeoExplorer"
 msgstr "څیرل"
 
 #
-#: static/lib/js/GeoExplorer.js:90060 static/lib/js/GeoExplorer.js.c:93653
+#: static/lib/js/GeoExplorer.js:90060 static/lib/js/GeoExplorer.js.c:93667
 msgid "About GeoExplorer"
 msgstr "څیرل"
 
@@ -1546,7 +1547,7 @@ msgid "Map Info"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:90063 static/lib/js/GeoExplorer.js.c:93656
+#: static/lib/js/GeoExplorer.js:90063 static/lib/js/GeoExplorer.js.c:93670
 #: templates/lang.js:48 templates/lang.js.c:97 templates/lang.js.c:163
 msgid "Contact"
 msgstr "اريکه"
@@ -1557,13 +1558,13 @@ msgid "About this Map"
 msgstr "د استاتیک ورستنی نقشیی"
 
 #
-#: static/lib/js/GeoExplorer.js:90410 static/lib/js/GeoExplorer.js.c:93660
+#: static/lib/js/GeoExplorer.js:90410 static/lib/js/GeoExplorer.js.c:93674
 #: templates/lang.js:98
 msgid "Map"
 msgstr "نقشه"
 
 #
-#: static/lib/js/GeoExplorer.js:90411 static/lib/js/GeoExplorer.js.c:93664
+#: static/lib/js/GeoExplorer.js:90411 static/lib/js/GeoExplorer.js.c:93678
 msgid "Save map"
 msgstr "جوره ول"
 
@@ -1572,24 +1573,24 @@ msgstr "جوره ول"
 msgid "Export map"
 msgstr "څیرل"
 
-#: static/lib/js/GeoExplorer.js:90413 static/lib/js/GeoExplorer.js.c:93665
+#: static/lib/js/GeoExplorer.js:90413 static/lib/js/GeoExplorer.js.c:93679
 msgid "Choose tools to include in the toolbar:"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90414 static/lib/js/GeoExplorer.js.c:93666
+#: static/lib/js/GeoExplorer.js:90414 static/lib/js/GeoExplorer.js.c:93680
 msgid "Preview"
 msgstr "بیا کتل"
 
-#: static/lib/js/GeoExplorer.js:90415 static/lib/js/GeoExplorer.js.c:93667
+#: static/lib/js/GeoExplorer.js:90415 static/lib/js/GeoExplorer.js.c:93681
 msgid "Back"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90416 static/lib/js/GeoExplorer.js.c:93668
+#: static/lib/js/GeoExplorer.js:90416 static/lib/js/GeoExplorer.js.c:93682
 #: templates/lang.js:168 templates/lang.js.c:189
 msgid "Next"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90417 static/lib/js/GeoExplorer.js.c:93669
+#: static/lib/js/GeoExplorer.js:90417 static/lib/js/GeoExplorer.js.c:93683
 msgid "Login"
 msgstr ""
 
@@ -1597,28 +1598,28 @@ msgstr ""
 msgid "Logout, {user}"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90419 static/lib/js/GeoExplorer.js.c:93670
+#: static/lib/js/GeoExplorer.js:90419 static/lib/js/GeoExplorer.js.c:93684
 msgid "Invalid username or password."
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:90420 static/lib/js/GeoExplorer.js.c:93671
+#: static/lib/js/GeoExplorer.js:90420 static/lib/js/GeoExplorer.js.c:93685
 msgid "User"
 msgstr "کته اخیستونکی"
 
-#: static/lib/js/GeoExplorer.js:90421 static/lib/js/GeoExplorer.js.c:93672
+#: static/lib/js/GeoExplorer.js:90421 static/lib/js/GeoExplorer.js.c:93686
 msgid "Password"
 msgstr "پاسورد"
 
-#: static/lib/js/GeoExplorer.js:90422 static/lib/js/GeoExplorer.js.c:93661
+#: static/lib/js/GeoExplorer.js:90422 static/lib/js/GeoExplorer.js.c:93675
 msgid "Table"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90424 static/lib/js/GeoExplorer.js.c:93673
+#: static/lib/js/GeoExplorer.js:90424 static/lib/js/GeoExplorer.js.c:93687
 msgid "Warning"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:90425 static/lib/js/GeoExplorer.js.c:93674
+#: static/lib/js/GeoExplorer.js:90425 static/lib/js/GeoExplorer.js.c:93688
 msgid ""
 "Logging out will undo any unsaved changes, remove any layers you may have "
 "added, and reset the map composition. Do you want to save your composition "
@@ -1639,322 +1640,861 @@ msgid "Phone Number: "
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91332 static/lib/js/GeoExplorer.js.c:93007
+#: static/lib/js/GeoExplorer.js:91332 static/lib/js/GeoExplorer.js.c:93021
 msgid "Statistics"
 msgstr "داستاتیک نقشه"
 
 #
-#: static/lib/js/GeoExplorer.js:91367 static/lib/js/GeoExplorer.js.c:91841
-#: static/lib/js/GeoExplorer.js:92412
+#: static/lib/js/GeoExplorer.js:91367
+#
+msgid "Date"
+msgstr "تاریخ"
+
+#
+#: static/lib/js/GeoExplorer.js:91376 static/lib/js/GeoExplorer.js.c:91855
+#: static/lib/js/GeoExplorer.js:92426
 msgid "Reset"
 msgstr "په غوسه کیدل له"
 
-#: static/lib/js/GeoExplorer.js:91385 static/lib/js/GeoExplorer.js.c:92419
+#: static/lib/js/GeoExplorer.js:91394 static/lib/js/GeoExplorer.js.c:92433
 msgid "Apply"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91469 static/lib/js/GeoExplorer.js.c:92429
+#: static/lib/js/GeoExplorer.js:91483 static/lib/js/GeoExplorer.js.c:92443
 msgid "Current Extent"
 msgstr "اندازه"
 
-#: static/lib/js/GeoExplorer.js:91481 static/lib/js/GeoExplorer.js.c:92441
+#: static/lib/js/GeoExplorer.js:91495 static/lib/js/GeoExplorer.js.c:92455
 msgid "Entire Afghanistan"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91494 static/lib/js/GeoExplorer.js.c:92454
+#: static/lib/js/GeoExplorer.js:91508 static/lib/js/GeoExplorer.js.c:92468
 msgid "Provinces and Districts"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91518 static/lib/js/GeoExplorer.js.c:91955
-#: static/lib/js/GeoExplorer.js:92476
+#: static/lib/js/GeoExplorer.js:91532 static/lib/js/GeoExplorer.js.c:91969
+#: static/lib/js/GeoExplorer.js:92490
 msgid "Provinces"
 msgstr "ولایتی"
 
-#: static/lib/js/GeoExplorer.js:91519 static/lib/js/GeoExplorer.js.c:91957
-#: static/lib/js/GeoExplorer.js:92477
+#: static/lib/js/GeoExplorer.js:91533 static/lib/js/GeoExplorer.js.c:91971
+#: static/lib/js/GeoExplorer.js:92491
 msgid "Select a province..."
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91571 static/lib/js/GeoExplorer.js.c:92014
-#: static/lib/js/GeoExplorer.js:92505
+#: static/lib/js/GeoExplorer.js:91585 static/lib/js/GeoExplorer.js.c:92028
+#: static/lib/js/GeoExplorer.js:92519
 msgid "Districts"
 msgstr "توضیع"
 
-#: static/lib/js/GeoExplorer.js:91573 static/lib/js/GeoExplorer.js.c:92016
-#: static/lib/js/GeoExplorer.js:92507
+#: static/lib/js/GeoExplorer.js:91587 static/lib/js/GeoExplorer.js.c:92030
+#: static/lib/js/GeoExplorer.js:92521
 msgid "Select a district..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91606 static/lib/js/GeoExplorer.js.c:92530
+#: static/lib/js/GeoExplorer.js:91620 static/lib/js/GeoExplorer.js.c:92544
 msgid "Draw Area"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91631
+#: static/lib/js/GeoExplorer.js:91645
 msgid "Baseline"
 msgstr "مستقر"
 
-#: static/lib/js/GeoExplorer.js:91637 static/lib/js/GeoExplorer.js.c:91645
-#: static/lib/js/GeoExplorer.js:91653 static/lib/js/GeoExplorer.js.c:91661
-#: static/lib/js/GeoExplorer.js:91669 static/lib/js/GeoExplorer.js.c:91677
-#: static/lib/js/GeoExplorer.js:91784 static/lib/js/GeoExplorer.js.c:92663
-#: static/lib/js/GeoExplorer.js:92672
+#: static/lib/js/GeoExplorer.js:91651 static/lib/js/GeoExplorer.js.c:91659
+#: static/lib/js/GeoExplorer.js:91667 static/lib/js/GeoExplorer.js.c:91675
+#: static/lib/js/GeoExplorer.js:91683 static/lib/js/GeoExplorer.js.c:91691
+#: static/lib/js/GeoExplorer.js:91798 static/lib/js/GeoExplorer.js.c:92677
+#: static/lib/js/GeoExplorer.js:92686
 msgid "Apply filter to generate the statistics"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91639
+#: static/lib/js/GeoExplorer.js:91653 static/lib/js/GeoExplorer_add.js:1678
 msgid "Road Accessibility"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91647
+#: static/lib/js/GeoExplorer.js:91661
 msgid "Flood Forecasted"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91655
+#: static/lib/js/GeoExplorer.js:91669
 msgid "Flood Risk"
 msgstr "د سیلاب خطره"
 
-#: static/lib/js/GeoExplorer.js:91663
+#: static/lib/js/GeoExplorer.js:91677
 msgid "Avalanche Forecasted"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91671
+#: static/lib/js/GeoExplorer.js:91685
 msgid "Avalanche Risk"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91679
+#: static/lib/js/GeoExplorer.js:91693 static/lib/js/GeoExplorer_add.js:1696
 msgid "Earthquake"
 msgstr "زلزله"
 
-#: static/lib/js/GeoExplorer.js:91735
+#: static/lib/js/GeoExplorer.js:91749
 msgid "Events"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91737
+#: static/lib/js/GeoExplorer.js:91751
 msgid "Select an EQ Event..."
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91796 static/lib/js/GeoExplorer.js.c:92572
-#: static/lib/js/GeoExplorer.js:92618
+#: static/lib/js/GeoExplorer.js:91810 static/lib/js/GeoExplorer.js.c:92586
+#: static/lib/js/GeoExplorer.js:92632
 msgid "No data"
 msgstr "جورول"
 
-#: static/lib/js/GeoExplorer.js:91797 static/lib/js/GeoExplorer.js.c:92573
-#: static/lib/js/GeoExplorer.js:92619 templates/lang.js:194
+#: static/lib/js/GeoExplorer.js:91811 static/lib/js/GeoExplorer.js.c:92587
+#: static/lib/js/GeoExplorer.js:92633 templates/lang.js:194
 msgid "Loading..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91800
+#: static/lib/js/GeoExplorer.js:91814
 msgid "Search Results:"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91826
+#: static/lib/js/GeoExplorer.js:91840
 msgid "Finder"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91868 static/lib/js/GeoExplorer.js.c:92067
+#: static/lib/js/GeoExplorer.js:91882 static/lib/js/GeoExplorer.js.c:92081
+#: static/lib/js/GeoExplorer_add.js:794 static/lib/js/GeoExplorer_add.js:898
+#: static/lib/js/GeoExplorer_add.js:1071
 msgid "Settlements"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:91886
+#: static/lib/js/GeoExplorer.js:91900 static/lib/js/GeoExplorer_add.js:930
 msgid "Health Facilities"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:91904
+#: static/lib/js/GeoExplorer.js:91918
 msgid "Airports"
 msgstr "هوایی دګر"
 
-#: static/lib/js/GeoExplorer.js:91923
+#: static/lib/js/GeoExplorer.js:91937
 msgid "Settlements Oasis"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92069
+#: static/lib/js/GeoExplorer.js:92083
 msgid "Select a settlement..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92351 static/lib/js/GeoExplorer.js.c:93049
+#: static/lib/js/GeoExplorer.js:92365 static/lib/js/GeoExplorer.js.c:93063
 msgid "Humanitarian Access"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92381
+#: static/lib/js/GeoExplorer.js:92395
 msgid "Start Date"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:92390
+#: static/lib/js/GeoExplorer.js:92404
 msgid "End Date"
 msgstr "تاریخ"
 
-#: static/lib/js/GeoExplorer.js:92400
+#: static/lib/js/GeoExplorer.js:92414
 msgid "1. Area of interests"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92559
+#: static/lib/js/GeoExplorer.js:92573
 msgid "2. Type of Incidents"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92576
+#: static/lib/js/GeoExplorer.js:92590
 msgid "Tick the type of incident to apply:"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92586 static/lib/js/GeoExplorer.js.c:92632
+#: static/lib/js/GeoExplorer.js:92600 static/lib/js/GeoExplorer.js.c:92646
 msgid "Incidents:"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92606
+#: static/lib/js/GeoExplorer.js:92620
 msgid "3. Target of Incidents"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92622
+#: static/lib/js/GeoExplorer.js:92636
 msgid "Tick the target of incident to apply:"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92665
+#: static/lib/js/GeoExplorer.js:92679
 msgid "Target"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92674
+#: static/lib/js/GeoExplorer.js:92688 static/lib/js/GeoExplorer_add.js:1812
+#: static/lib/js/GeoExplorer_add.js:1889
 msgid "Incidents"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:92681
+#: static/lib/js/GeoExplorer.js:92695
 msgid "Apply filter to generate the incidents"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:92711
+#: static/lib/js/GeoExplorer.js:92725
 msgid "Manage Security data"
 msgstr "سلیقه"
 
-#: static/lib/js/GeoExplorer.js:93028
+#: static/lib/js/GeoExplorer.js:93042
 msgid "Finder Tool"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:93071
+#: static/lib/js/GeoExplorer.js:93085
 msgid "Security Entries"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:93093
+#: static/lib/js/GeoExplorer.js:93107
 msgid "ANDMA Offices"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:93210
+#: static/lib/js/GeoExplorer.js:93224
 msgid "kontol"
 msgstr "واټن"
 
 #
-#: static/lib/js/GeoExplorer.js:93408
+#: static/lib/js/GeoExplorer.js:93422
 msgid "Layer Switcher"
 msgstr "عنوان"
 
 #
-#: static/lib/js/GeoExplorer.js:93654
+#: static/lib/js/GeoExplorer.js:93668
 msgid "Map info"
 msgstr "ډیر"
 
 #
-#: static/lib/js/GeoExplorer.js:93657
+#: static/lib/js/GeoExplorer.js:93671
 msgid "About this map"
 msgstr "د استاتیک ورستنی نقشیی"
 
 #
-#: static/lib/js/GeoExplorer.js:93663
+#: static/lib/js/GeoExplorer.js:93677
 msgid "Publish map"
 msgstr "نشره ول"
 
-#: static/lib/js/GeoExplorer.js:95103
+#: static/lib/js/GeoExplorer.js:95117
 msgid ""
 "Error getting WMS capabilities ({msg}).\n"
 "Please check the url and try again."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95171 static/lib/js/GeoExplorer.js.c:95172
+#: static/lib/js/GeoExplorer.js:95185 static/lib/js/GeoExplorer.js.c:95186
 msgid "Show legend"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95176
+#: static/lib/js/GeoExplorer.js:95190
 msgid "Loading map..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95206 static/lib/js/GeoExplorer.js.c:95207
+#: static/lib/js/GeoExplorer.js:95220 static/lib/js/GeoExplorer.js.c:95221
 msgid "Pan map"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95211 static/lib/js/GeoExplorer.js.c:95213
+#: static/lib/js/GeoExplorer.js:95225 static/lib/js/GeoExplorer.js.c:95227
 msgid "Zoom to previous extent"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95212 static/lib/js/GeoExplorer.js.c:95214
+#: static/lib/js/GeoExplorer.js:95226 static/lib/js/GeoExplorer.js.c:95228
 msgid "Zoom to next extent"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:95225 static/lib/js/GeoExplorer.js.c:95226
+#: static/lib/js/GeoExplorer.js:95239 static/lib/js/GeoExplorer.js.c:95240
 msgid "Print map"
 msgstr "جوره ول"
 
 #
-#: static/lib/js/GeoExplorer.js:95258 static/lib/js/GeoExplorer.js.c:95259
+#: static/lib/js/GeoExplorer.js:95272 static/lib/js/GeoExplorer.js.c:95273
 msgid "Layer Styles"
 msgstr "سلیقه"
 
-#: static/lib/js/GeoExplorer.js:95270
+#: static/lib/js/GeoExplorer.js:95284
 msgid "Zoom box"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95279 static/lib/js/GeoExplorer.js.c:95280
+#: static/lib/js/GeoExplorer.js:95293 static/lib/js/GeoExplorer.js.c:95294
 msgid "Zoom to max extent"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95331 templates/lang.js:108
+#: static/lib/js/GeoExplorer.js:95345 templates/lang.js:108
 msgid "Queryable"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95333 templates/lang.js:38
+#: static/lib/js/GeoExplorer.js:95347 templates/lang.js:38
 msgid "or add a new server."
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:95353
+#: static/lib/js/GeoExplorer.js:95367
 msgid "Query by location"
 msgstr "نشره ول"
 
-#: static/lib/js/GeoExplorer.js:95354
+#: static/lib/js/GeoExplorer.js:95368
 msgid "Current extent"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:95409
+#: static/lib/js/GeoExplorer.js:95423
 msgid "Format"
 msgstr "معلومات"
 
-#: static/lib/js/GeoExplorer.js:95411
+#: static/lib/js/GeoExplorer.js:95425
 msgid "Cache"
 msgstr ""
 
 #
-#: static/lib/js/GeoExplorer.js:95412
+#: static/lib/js/GeoExplorer.js:95426
 msgid "Use cached version"
 msgstr "نسخه"
 
-#: static/lib/js/GeoExplorer.js:95490
+#: static/lib/js/GeoExplorer.js:95504
 msgid "Add new server..."
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95493
+#: static/lib/js/GeoExplorer.js:95507
 msgid ""
 "Enter a valid URL to a WMS endpoint (e.g. http://example.com/geoserver/wms)"
 msgstr ""
 
-#: static/lib/js/GeoExplorer.js:95509
+#: static/lib/js/GeoExplorer.js:95523
 msgid "Other GeoRSS Feed"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:541 static/lib/js/GeoExplorer_add.js:757
+#: static/lib/js/GeoExplorer_add.js:830
+msgid "Please Wait ..."
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:556
+msgid "GSM / cell phone Coverage"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:560
+msgid "Population with GSM Coverage"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:561
+msgid "Area with GSM Coverage (km2)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:570
+msgid "To nearest airport"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:574 static/lib/js/GeoExplorer_add.js:596
+#: static/lib/js/GeoExplorer_add.js:618 static/lib/js/GeoExplorer_add.js:640
+#: static/lib/js/GeoExplorer_add.js:662 static/lib/js/GeoExplorer_add.js:684
+#: static/lib/js/GeoExplorer_add.js:706 static/lib/js/GeoExplorer_add.js:728
+msgid "Time"
+msgstr ""
+
+#
+#: static/lib/js/GeoExplorer_add.js:574 static/lib/js/GeoExplorer_add.js:596
+#: static/lib/js/GeoExplorer_add.js:618 static/lib/js/GeoExplorer_add.js:640
+#: static/lib/js/GeoExplorer_add.js:662 static/lib/js/GeoExplorer_add.js:684
+#: static/lib/js/GeoExplorer_add.js:706 static/lib/js/GeoExplorer_add.js:728
+#: static/lib/js/GeoExplorer_add.js:794 static/lib/js/GeoExplorer_add.js:853
+#: static/lib/js/GeoExplorer_add.js:1018 static/lib/js/GeoExplorer_add.js:1126
+#: static/lib/js/GeoExplorer_add.js:1195 static/lib/js/GeoExplorer_add.js:1276
+#
+msgid "Population"
+msgstr "تم ځای"
+
+#: static/lib/js/GeoExplorer_add.js:576 static/lib/js/GeoExplorer_add.js:598
+#: static/lib/js/GeoExplorer_add.js:620 static/lib/js/GeoExplorer_add.js:642
+#: static/lib/js/GeoExplorer_add.js:664 static/lib/js/GeoExplorer_add.js:686
+#: static/lib/js/GeoExplorer_add.js:708 static/lib/js/GeoExplorer_add.js:730
+msgid "< 1 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:577 static/lib/js/GeoExplorer_add.js:599
+#: static/lib/js/GeoExplorer_add.js:621 static/lib/js/GeoExplorer_add.js:643
+#: static/lib/js/GeoExplorer_add.js:665 static/lib/js/GeoExplorer_add.js:687
+#: static/lib/js/GeoExplorer_add.js:709 static/lib/js/GeoExplorer_add.js:731
+msgid "< 2 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:578 static/lib/js/GeoExplorer_add.js:600
+#: static/lib/js/GeoExplorer_add.js:622 static/lib/js/GeoExplorer_add.js:644
+#: static/lib/js/GeoExplorer_add.js:666 static/lib/js/GeoExplorer_add.js:688
+#: static/lib/js/GeoExplorer_add.js:710 static/lib/js/GeoExplorer_add.js:732
+msgid "< 3 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:579 static/lib/js/GeoExplorer_add.js:601
+#: static/lib/js/GeoExplorer_add.js:623 static/lib/js/GeoExplorer_add.js:645
+#: static/lib/js/GeoExplorer_add.js:667 static/lib/js/GeoExplorer_add.js:689
+#: static/lib/js/GeoExplorer_add.js:711 static/lib/js/GeoExplorer_add.js:733
+msgid "< 4 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:580 static/lib/js/GeoExplorer_add.js:602
+#: static/lib/js/GeoExplorer_add.js:624 static/lib/js/GeoExplorer_add.js:646
+#: static/lib/js/GeoExplorer_add.js:668 static/lib/js/GeoExplorer_add.js:690
+#: static/lib/js/GeoExplorer_add.js:712 static/lib/js/GeoExplorer_add.js:734
+msgid "< 5 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:581 static/lib/js/GeoExplorer_add.js:603
+#: static/lib/js/GeoExplorer_add.js:625 static/lib/js/GeoExplorer_add.js:647
+#: static/lib/js/GeoExplorer_add.js:669 static/lib/js/GeoExplorer_add.js:691
+#: static/lib/js/GeoExplorer_add.js:713 static/lib/js/GeoExplorer_add.js:735
+msgid "< 6 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:582 static/lib/js/GeoExplorer_add.js:604
+#: static/lib/js/GeoExplorer_add.js:626 static/lib/js/GeoExplorer_add.js:648
+#: static/lib/js/GeoExplorer_add.js:670 static/lib/js/GeoExplorer_add.js:692
+#: static/lib/js/GeoExplorer_add.js:714 static/lib/js/GeoExplorer_add.js:736
+msgid "< 7 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:583 static/lib/js/GeoExplorer_add.js:605
+#: static/lib/js/GeoExplorer_add.js:627 static/lib/js/GeoExplorer_add.js:649
+#: static/lib/js/GeoExplorer_add.js:671 static/lib/js/GeoExplorer_add.js:693
+#: static/lib/js/GeoExplorer_add.js:715 static/lib/js/GeoExplorer_add.js:737
+msgid "< 8 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:584 static/lib/js/GeoExplorer_add.js:606
+#: static/lib/js/GeoExplorer_add.js:628 static/lib/js/GeoExplorer_add.js:650
+#: static/lib/js/GeoExplorer_add.js:672 static/lib/js/GeoExplorer_add.js:694
+#: static/lib/js/GeoExplorer_add.js:716 static/lib/js/GeoExplorer_add.js:738
+msgid "> 8 h"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:592
+msgid "To nearest health facilities tier 1"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:614
+msgid "To nearest health facilities tier 2"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:636
+msgid "To nearest health facilities tier 3"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:658
+msgid "To nearest health facilities tier all"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:680
+msgid "To its province capital"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:702
+msgid "To nearest province capital"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:724
+msgid "To nearest district capital"
+msgstr ""
+
+#
+#: static/lib/js/GeoExplorer_add.js:775
+#
+msgid "{message}"
+msgstr "پیغام"
+
+#: static/lib/js/GeoExplorer_add.js:794
+msgid "Mercali Intensity Scale"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:796
+msgid "X+"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:796 static/lib/js/GeoExplorer_add.js:1202
+#: static/lib/js/GeoExplorer_add.js:1222
+msgid "Extreme"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:797
+msgid "IX"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:797 static/lib/js/GeoExplorer_add.js:1812
+#: static/lib/js/GeoExplorer_add.js:1889
+msgid "Violent"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:798
+msgid "VIII"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:798
+msgid "Severe"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:799
+msgid "VII"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:799
+msgid "Very-Strong"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:800
+msgid "VI"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:800
+msgid "Strong"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:801
+msgid "V"
+msgstr ""
+
+#
+#: static/lib/js/GeoExplorer_add.js:801 static/lib/js/GeoExplorer_add.js:1024
+#: static/lib/js/GeoExplorer_add.js:1051 static/lib/js/GeoExplorer_add.js:1089
+#: static/lib/js/GeoExplorer_add.js:1132 static/lib/js/GeoExplorer_add.js:1147
+#: static/lib/js/GeoExplorer_add.js:1205 static/lib/js/GeoExplorer_add.js:1225
+#: static/lib/js/GeoExplorer_add.js:1282
+#
+msgid "Moderate"
+msgstr "اوبه لرونکی"
+
+#: static/lib/js/GeoExplorer_add.js:802
+msgid "IV"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:802
+msgid "Light"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:803
+msgid "II-III"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:803
+msgid "Weak"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:856 static/lib/js/GeoExplorer_add.js:879
+#: static/lib/js/GeoExplorer_add.js:902 static/lib/js/GeoExplorer_add.js:913
+#: static/lib/js/GeoExplorer_add.js:934 static/lib/js/GeoExplorer_add.js:1021
+#: static/lib/js/GeoExplorer_add.js:1048 static/lib/js/GeoExplorer_add.js:1075
+#: static/lib/js/GeoExplorer_add.js:1086 static/lib/js/GeoExplorer_add.js:1129
+#: static/lib/js/GeoExplorer_add.js:1144 static/lib/js/GeoExplorer_add.js:1279
+#: static/lib/js/GeoExplorer_add.js:1828 static/lib/js/GeoExplorer_add.js:1904
+msgid "Total"
+msgstr "تول"
+
+#: static/lib/js/GeoExplorer_add.js:858 static/lib/js/GeoExplorer_add.js:881
+#: static/lib/js/GeoExplorer_add.js:1027 static/lib/js/GeoExplorer_add.js:1054
+#
+msgid "Barren Land"
+msgstr "لا مضرو ځمکه"
+
+#: static/lib/js/GeoExplorer_add.js:859 static/lib/js/GeoExplorer_add.js:882
+#: static/lib/js/GeoExplorer_add.js:1028 static/lib/js/GeoExplorer_add.js:1055
+#
+msgid "Built-up"
+msgstr "جو‌‌‌‌‌ر شوی"
+
+#: static/lib/js/GeoExplorer_add.js:860 static/lib/js/GeoExplorer_add.js:883
+#: static/lib/js/GeoExplorer_add.js:1029 static/lib/js/GeoExplorer_add.js:1056
+msgid "Fruit trees"
+msgstr "میوه لرونکی ونی"
+
+#: static/lib/js/GeoExplorer_add.js:861 static/lib/js/GeoExplorer_add.js:884
+#: static/lib/js/GeoExplorer_add.js:1030 static/lib/js/GeoExplorer_add.js:1057
+msgid "Irrigated Agg land"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:862 static/lib/js/GeoExplorer_add.js:885
+#: static/lib/js/GeoExplorer_add.js:1031 static/lib/js/GeoExplorer_add.js:1058
+#
+msgid "Permanent Snow"
+msgstr "داءیمی"
+
+#: static/lib/js/GeoExplorer_add.js:863 static/lib/js/GeoExplorer_add.js:886
+#: static/lib/js/GeoExplorer_add.js:1032 static/lib/js/GeoExplorer_add.js:1059
+msgid "Rainfeld Agg land"
+msgstr ""
+
+#
+#: static/lib/js/GeoExplorer_add.js:864 static/lib/js/GeoExplorer_add.js:887
+#: static/lib/js/GeoExplorer_add.js:1033 static/lib/js/GeoExplorer_add.js:1060
+#
+msgid "Rangeland"
+msgstr "تغییر ورکول"
+
+#
+#: static/lib/js/GeoExplorer_add.js:865 static/lib/js/GeoExplorer_add.js:888
+#: static/lib/js/GeoExplorer_add.js:1034 static/lib/js/GeoExplorer_add.js:1061
+#
+msgid "Sand cover"
+msgstr "پوښ"
+
+#: static/lib/js/GeoExplorer_add.js:866 static/lib/js/GeoExplorer_add.js:889
+#: static/lib/js/GeoExplorer_add.js:1035 static/lib/js/GeoExplorer_add.js:1062
+msgid "Vineyards"
+msgstr "د انګور بڼ"
+
+#: static/lib/js/GeoExplorer_add.js:867 static/lib/js/GeoExplorer_add.js:890
+msgid "Water body and marshland"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:868 static/lib/js/GeoExplorer_add.js:891
+#: static/lib/js/GeoExplorer_add.js:1037 static/lib/js/GeoExplorer_add.js:1064
+msgid "Forest and shrubs"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:875 static/lib/js/GeoExplorer_add.js:1044
+#: static/lib/js/GeoExplorer_add.js:1140 static/lib/js/GeoExplorer_add.js:1215
+msgid "Area (km2)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:909
+#
+msgid "Road (km)"
+msgstr "واټ"
+
+#: static/lib/js/GeoExplorer_add.js:915
+#
+msgid "Highway"
+msgstr "ډیر"
+
+#: static/lib/js/GeoExplorer_add.js:916
+msgid "Primary"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:917
+#
+msgid "Secondary"
+msgstr "دوشنـــبه    (ګل شنبه ورځ)"
+
+#: static/lib/js/GeoExplorer_add.js:918
+msgid "Tertiary"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:919
+msgid "Residential"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:920
+msgid "Track"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:921
+msgid "Path"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:922
+msgid "River Crossing"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:923
+msgid "Bridge"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:937
+msgid "Regional / National Hospital (H1)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:940
+msgid "Provincial Hospital (H2)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:943
+msgid "District Hospital (H3)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:946
+msgid "Special Hospital (SH)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:949
+msgid "Rehabilitation Center (RH)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:952
+msgid "Maternity Home (MH)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:955
+msgid "Drug Addicted Treatment Center"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:958
+msgid "TB Control Center (TBC)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:961
+msgid "Mental Clinic / Hospital"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:964
+msgid "Comprehensive Health Center (CHC)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:967
+msgid "Basic Health Center (BHC)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:970
+msgid "Day Care Feeding"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:973
+msgid "MCH Clinic M1 or M2 (MCH)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:976
+msgid "Sub Health Center (SHC)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:979
+msgid "Eye Clinic / Hospital"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:982
+msgid "Physiotherapy Center"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:985
+msgid "Private Clinic"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:988
+msgid "Malaria Center (MC)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:991
+msgid "MoPH National"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:994
+msgid "EPI Fixed Center (EPI)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:997
+msgid "Supplementary Feeding Center (SFC)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1000
+msgid "Mobile Health Team (MHT)"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1003
+msgid "Others"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1023 static/lib/js/GeoExplorer_add.js:1050
+#: static/lib/js/GeoExplorer_add.js:1088 static/lib/js/GeoExplorer_add.js:1131
+#: static/lib/js/GeoExplorer_add.js:1146 static/lib/js/GeoExplorer_add.js:1204
+#: static/lib/js/GeoExplorer_add.js:1224 static/lib/js/GeoExplorer_add.js:1281
+msgid "High"
+msgstr "ډیر"
+
+#: static/lib/js/GeoExplorer_add.js:1025 static/lib/js/GeoExplorer_add.js:1052
+#: static/lib/js/GeoExplorer_add.js:1090 static/lib/js/GeoExplorer_add.js:1206
+#: static/lib/js/GeoExplorer_add.js:1226 static/lib/js/GeoExplorer_add.js:1283
+msgid "Low"
+msgstr "لیژ"
+
+#: static/lib/js/GeoExplorer_add.js:1083
+msgid "Mitigated Population"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1200 static/lib/js/GeoExplorer_add.js:1220
+#: static/lib/js/GeoExplorer_add.js:1239
+#
+msgid "Flash Flood"
+msgstr "سیلاب"
+
+#: static/lib/js/GeoExplorer_add.js:1200 static/lib/js/GeoExplorer_add.js:1220
+#: static/lib/js/GeoExplorer_add.js:1240
+#
+msgid "River Flood"
+msgstr "سیلاب"
+
+#: static/lib/js/GeoExplorer_add.js:1203 static/lib/js/GeoExplorer_add.js:1223
+#
+msgid "Very High"
+msgstr "ډیر"
+
+#
+#: static/lib/js/GeoExplorer_add.js:1235 static/lib/js/GeoExplorer_add.js:1290
+#: static/lib/js/GeoExplorer_add.js:1836 static/lib/js/GeoExplorer_add.js:1912
+#: static/lib/js/GeoExplorer_add.js:1978
+#
+msgid "Last Updated"
+msgstr "سند"
+
+#: static/lib/js/GeoExplorer_add.js:1294
+msgid "Avalanche Forecast"
+msgstr ""
+
+#
+#: static/lib/js/GeoExplorer_add.js:1295
+#
+msgid "Snow Coverage & Depth"
+msgstr "پوښ"
+
+#: static/lib/js/GeoExplorer_add.js:1355 static/lib/js/GeoExplorer_add.js:1361
+msgid "Add this feature to the filter list"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1465 static/lib/js/GeoExplorer_add.js:1471
+#: static/lib/js/GeoExplorer_add.js:1476
+msgid "Settlement Inspector"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1672
+msgid "General Information"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1684
+msgid "Snow Cover and forecasted"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1690
+msgid "Flood and Forecasted"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1791
+msgid "Updated Status"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1808
+msgid "Type of Incidents"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1812
+msgid "Dead"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1812 static/lib/js/GeoExplorer_add.js:1889
+msgid "Injured"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1840 static/lib/js/GeoExplorer_add.js:1916
+#: static/lib/js/GeoExplorer_add.js:1982
+msgid "Last incidents"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1885
+msgid "Target of Incidents"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1917 static/lib/js/GeoExplorer_add.js:1983
+msgid "Last synchronized"
+msgstr ""
+
+#: static/lib/js/GeoExplorer_add.js:1962
+msgid "Incident list"
 msgstr ""
 
 #: templates/lang.js:10
@@ -2314,10 +2854,6 @@ msgstr ""
 #~ msgstr "سند"
 
 #
-#~ msgid "Document Updated"
-#~ msgstr "سند"
-
-#
 #~ msgid "Document Deleted"
 #~ msgstr "سند"
 
@@ -2428,10 +2964,6 @@ msgstr ""
 
 #~ msgid "Home"
 #~ msgstr "کور"
-
-#
-#~ msgid "Range"
-#~ msgstr "تغییر ورکول"
 
 #
 #~ msgid "Median"
@@ -2679,13 +3211,6 @@ msgstr ""
 #~ msgid "Users"
 #~ msgstr "کته اخیستونکی"
 
-#~ msgid "Flood"
-#~ msgstr "سیلاب"
-
-#
-#~ msgid "Snow Cover"
-#~ msgstr "پوښ"
-
 #~ msgid "Latest Static Maps"
 #~ msgstr "د استاتیک ورستنی نقشیی"
 
@@ -2755,10 +3280,6 @@ msgstr ""
 #~ msgstr "اطلاعیه"
 
 #
-#~ msgid "rated"
-#~ msgstr "اوبه لرونکی"
-
-#
 #~ msgid "Followers"
 #~ msgstr "تعقیب ول"
 
@@ -2789,15 +3310,8 @@ msgstr ""
 #~ msgstr "پیغام"
 
 #
-#~ msgid "Messages"
-#~ msgstr "پیغام"
-
-#
 #~ msgid "Send message"
 #~ msgstr "پیغام"
-
-#~ msgid "Total"
-#~ msgstr "تول"
 
 #~ msgid "Password again"
 #~ msgstr "بیازیلی پاسورد"
@@ -2832,14 +3346,8 @@ msgstr ""
 #~ msgid "Request"
 #~ msgstr "درخواست"
 
-#~ msgid "Low"
-#~ msgstr "لیژ"
-
 #~ msgid "Risk"
 #~ msgstr "خطره"
-
-#~ msgid "High"
-#~ msgstr "ډیر"
 
 #~ msgid "Using"
 #~ msgstr "کټه اخستل"
@@ -2874,9 +3382,6 @@ msgstr ""
 #~ msgid "National Highway"
 #~ msgstr "تول ګته لوی لاره"
 
-#~ msgid "Road"
-#~ msgstr "واټ"
-
 #~ msgid "Rural"
 #~ msgstr "کلیی"
 
@@ -2898,15 +3403,6 @@ msgstr ""
 #~ msgid "Helipad"
 #~ msgstr "د چورلکو ډګر"
 
-#~ msgid "Barren land"
-#~ msgstr "لا مضرو ځمکه"
-
-#~ msgid "Built up"
-#~ msgstr "جو‌‌‌‌‌ر شوی"
-
-#~ msgid "Fruit trees"
-#~ msgstr "میوه لرونکی ونی"
-
 #~ msgid "Land"
 #~ msgstr "ځمکه"
 
@@ -2924,12 +3420,6 @@ msgstr ""
 
 #~ msgid "Quest"
 #~ msgstr "لتول"
-
-#~ msgid "Vineyards"
-#~ msgstr "د انګور بڼ"
-
-#~ msgid "Parmanent"
-#~ msgstr "داءیمی"
 
 #~ msgid "Leaflet"
 #~ msgstr "نشریه"
@@ -3011,9 +3501,6 @@ msgstr ""
 
 #~ msgid "Sunday"
 #~ msgstr "یکشنـــبه"
-
-#~ msgid "Monday"
-#~ msgstr "دوشنـــبه    (ګل شنبه ورځ)"
 
 #~ msgid "Tuesday"
 #~ msgstr "سه شنـبه"

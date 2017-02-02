@@ -1,28 +1,22 @@
-# #-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#
-# #-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#
-# #-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-30 16:13+0700\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2016-12-16 16:23+0700\n"
+"PO-Revision-Date: 2017-01-05 12:29+0430\n"
+"Language: fa_AF\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"#-#-#-#-#  dashboard-prs.po  #-#-#-#-#\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "X-Generator: Poedit 1.8.11\n"
-"#-#-#-#-#  dashboard-prs.po (PACKAGE VERSION)  #-#-#-#-#\n"
 
 #: geo_calc.py:53 geo_calc.py:110
 msgid "Custom Selection"
@@ -44,798 +38,243 @@ msgstr "انتخاب ولایت "
 msgid "Select district"
 msgstr "انتخاب ولسوالی "
 
-#: geo_calc.py:206
+#: geo_calc.py:201
 msgid "Number of Incident by Incident Type"
 msgstr "تعداد حادثه نظر به نوع حادثه "
 
-#: geo_calc.py:208 geo_calc.py:283
+#: geo_calc.py:203 geo_calc.py:278
 msgid "Incidents"
-msgstr "حوادث"
+msgstr "حوادث "
 
-#: geo_calc.py:216
+#: geo_calc.py:211
 msgid "Number of dead casualties by Incident Type"
 msgstr "تعداد تلفات کشته شده نظر به نوع حادثه "
 
-#: geo_calc.py:218 geo_calc.py:293
+#: geo_calc.py:213 geo_calc.py:288
 msgid "Dead"
-msgstr "کشته شده"
+msgstr "کشته شده "
 
-#: geo_calc.py:226
+#: geo_calc.py:221
 msgid "Number of injured casualties by Incident Type"
 msgstr "تعداد تلفات زخمی شده نظر به نوع حادثه "
 
-#: geo_calc.py:228
+#: geo_calc.py:223
 msgid "Violent"
-msgstr "شدیداً زخمی شده "
+msgstr "شدیداً زخمی"
 
-#: geo_calc.py:236
+#: geo_calc.py:231
 msgid "Number of affected person by Incident Type"
 msgstr "تعداد تلفات شدیداْ زخمی شده نظر به نوع حادثه "
 
-#: geo_calc.py:238 geo_calc.py:303 geo_calc.py:313
+#: geo_calc.py:233 geo_calc.py:298 geo_calc.py:308
 msgid "Injured"
-msgstr "زخمی شده "
+msgstr "زخمی  "
 
-#: geo_calc.py:281
+#: geo_calc.py:276
 msgid "Number of Incident by Incident Target"
 msgstr "تعداد حادثه نظر به نوع حادثه "
 
-#: geo_calc.py:291
+#: geo_calc.py:286
 msgid "Number of dead casualties by Incident Target"
 msgstr "تعداد تلفات کشته شده نظر به نوع حادثه "
 
-#: geo_calc.py:301
+#: geo_calc.py:296
 msgid "Number of injured casualties by Incident Target"
 msgstr "تعداد تلفات زخمی شده نظر به نوع حادثه "
 
-#: geo_calc.py:311
+#: geo_calc.py:306
 msgid "Number of affected person by Incident Target"
 msgstr "تعداد اشخاص آسیب دیده نظر به هدف حادثه "
 
-#: geo_calc.py:1070
+#: geo_calc.py:1060
 msgid "Population with GSM coverage"
 msgstr "نفوس تحت پوشش خدمات موبایل(GSM) "
 
-#: geo_calc.py:1071
+#: geo_calc.py:1061
 msgid "Population without GSM coverage"
 msgstr "نفوس بدون پوشش خدمات موبایل(GSM) "
 
-#: geo_calc.py:1076
+#: geo_calc.py:1066
 msgid "Area with GSM coverage"
 msgstr "مساحت تحت پوشش خدمات موبایل (GSM) "
 
-#: geo_calc.py:1077
+#: geo_calc.py:1067
 msgid "Area without GSM coverage"
 msgstr "مساحت بدون پوشش خدمات موبایل (GSM) "
 
-#: geo_calc.py:1082 geo_calc.py:1096 geo_calc.py:1109 geo_calc.py:1122
-#: geo_calc.py:1135 geo_calc.py:1148 geo_calc.py:1161 geo_calc.py:1174
+#: geo_calc.py:1072 geo_calc.py:1086 geo_calc.py:1099 geo_calc.py:1112
+#: geo_calc.py:1125 geo_calc.py:1138 geo_calc.py:1151 geo_calc.py:1164
 msgid "< 1 h"
 msgstr "< 1 h"
 
-#: geo_calc.py:1083 geo_calc.py:1097 geo_calc.py:1110 geo_calc.py:1123
-#: geo_calc.py:1136 geo_calc.py:1149 geo_calc.py:1162 geo_calc.py:1175
+#: geo_calc.py:1073 geo_calc.py:1087 geo_calc.py:1100 geo_calc.py:1113
+#: geo_calc.py:1126 geo_calc.py:1139 geo_calc.py:1152 geo_calc.py:1165
 msgid "< 2 h"
 msgstr "< 2 h"
 
-#: geo_calc.py:1084 geo_calc.py:1098 geo_calc.py:1111 geo_calc.py:1124
-#: geo_calc.py:1137 geo_calc.py:1150 geo_calc.py:1163 geo_calc.py:1176
+#: geo_calc.py:1074 geo_calc.py:1088 geo_calc.py:1101 geo_calc.py:1114
+#: geo_calc.py:1127 geo_calc.py:1140 geo_calc.py:1153 geo_calc.py:1166
 msgid "< 3 h"
 msgstr "< 3 h"
 
-#: geo_calc.py:1085 geo_calc.py:1099 geo_calc.py:1112 geo_calc.py:1125
-#: geo_calc.py:1138 geo_calc.py:1151 geo_calc.py:1164 geo_calc.py:1177
+#: geo_calc.py:1075 geo_calc.py:1089 geo_calc.py:1102 geo_calc.py:1115
+#: geo_calc.py:1128 geo_calc.py:1141 geo_calc.py:1154 geo_calc.py:1167
 msgid "< 4 h"
 msgstr "< 4 h"
 
-#: geo_calc.py:1086 geo_calc.py:1100 geo_calc.py:1113 geo_calc.py:1126
-#: geo_calc.py:1139 geo_calc.py:1152 geo_calc.py:1165 geo_calc.py:1178
+#: geo_calc.py:1076 geo_calc.py:1090 geo_calc.py:1103 geo_calc.py:1116
+#: geo_calc.py:1129 geo_calc.py:1142 geo_calc.py:1155 geo_calc.py:1168
 msgid "< 5 h"
 msgstr "< 5 h"
 
-#: geo_calc.py:1087 geo_calc.py:1101 geo_calc.py:1114 geo_calc.py:1127
-#: geo_calc.py:1140 geo_calc.py:1153 geo_calc.py:1166 geo_calc.py:1179
+#: geo_calc.py:1077 geo_calc.py:1091 geo_calc.py:1104 geo_calc.py:1117
+#: geo_calc.py:1130 geo_calc.py:1143 geo_calc.py:1156 geo_calc.py:1169
 msgid "< 6 h"
 msgstr "< 6 h"
 
-#: geo_calc.py:1088 geo_calc.py:1102 geo_calc.py:1115 geo_calc.py:1128
-#: geo_calc.py:1141 geo_calc.py:1154 geo_calc.py:1167 geo_calc.py:1180
+#: geo_calc.py:1078 geo_calc.py:1092 geo_calc.py:1105 geo_calc.py:1118
+#: geo_calc.py:1131 geo_calc.py:1144 geo_calc.py:1157 geo_calc.py:1170
 msgid "< 7 h"
 msgstr "< 7 h"
 
-#: geo_calc.py:1089 geo_calc.py:1103 geo_calc.py:1116 geo_calc.py:1129
-#: geo_calc.py:1142 geo_calc.py:1155 geo_calc.py:1168 geo_calc.py:1181
+#: geo_calc.py:1079 geo_calc.py:1093 geo_calc.py:1106 geo_calc.py:1119
+#: geo_calc.py:1132 geo_calc.py:1145 geo_calc.py:1158 geo_calc.py:1171
 msgid "< 8 h"
 msgstr "< 8 h"
 
-#: geo_calc.py:1090 geo_calc.py:1104 geo_calc.py:1117 geo_calc.py:1130
-#: geo_calc.py:1143 geo_calc.py:1156 geo_calc.py:1169 geo_calc.py:1182
+#: geo_calc.py:1080 geo_calc.py:1094 geo_calc.py:1107 geo_calc.py:1120
+#: geo_calc.py:1133 geo_calc.py:1146 geo_calc.py:1159 geo_calc.py:1172
 msgid "> 8 h"
 msgstr "> 8 h"
 
-#: geo_calc.py:1757
+#: geo_calc.py:1745
 msgid "landcover type"
 msgstr "نوع پوشش زمین"
 
-#: geo_calc.py:1757
+#: geo_calc.py:1745
 msgid "population"
 msgstr "نفوس "
 
-#: geo_calc.py:1757
+#: geo_calc.py:1745
 msgid "area (km2)"
 msgstr "مساحت (کیلومتر مربع)"
 
-#: geo_calc.py:1758
+#: geo_calc.py:1746
 msgid "Built-up"
 msgstr "رهایشی"
 
-#: geo_calc.py:1759
+#: geo_calc.py:1747
 msgid "Cultivated"
 msgstr "زراعتی "
 
-#: geo_calc.py:1760
+#: geo_calc.py:1748
 msgid "Barren/Rangeland"
 msgstr "بی ثمر/علف زار "
 
-#: geo_calc.py:1765
+#: geo_calc.py:1753
 msgid "Landcover Population and area overview"
 msgstr "نفوس پوشش زمین و بررسی اجمالی منطقه"
 
-#: geo_calc.py:1774 geo_calc.py:1807 geo_calc.py:1839
+#: geo_calc.py:1762 geo_calc.py:1795 geo_calc.py:1827
 msgid "Percentage"
 msgstr "فیصدی"
 
-#: geo_calc.py:1780
+#: geo_calc.py:1768
 msgid "percentages from total population and area"
 msgstr "فیصدی از مجموع نفوس و مساحت "
 
-#: geo_calc.py:1786
+#: geo_calc.py:1774
 msgid "health facility type"
 msgstr "نوع امکانات صحی "
 
-#: geo_calc.py:1786
+#: geo_calc.py:1774
 msgid "percent of health facility"
 msgstr "فیصدی امکانات صحی "
 
-#: geo_calc.py:1787
+#: geo_calc.py:1775
 msgid "H1"
 msgstr "H1"
 
-#: geo_calc.py:1788
+#: geo_calc.py:1776
 msgid "H2"
 msgstr "H2"
 
-#: geo_calc.py:1789
+#: geo_calc.py:1777
 msgid "H3"
 msgstr "H3"
 
-#: geo_calc.py:1790
+#: geo_calc.py:1778
 msgid "CHC"
 msgstr "CHC"
 
-#: geo_calc.py:1791
+#: geo_calc.py:1779
 msgid "BHC"
 msgstr "BHC"
 
-#: geo_calc.py:1792
+#: geo_calc.py:1780
 msgid "SHC"
 msgstr "SHC"
 
-#: geo_calc.py:1793
+#: geo_calc.py:1781
 msgid "Others"
 msgstr "دیگران"
 
-#: geo_calc.py:1798
+#: geo_calc.py:1786
 msgid "Health facilities overview"
 msgstr "بررسی اجمالی امکانات صحی "
 
-#: geo_calc.py:1813 geo_calc.py:1845
+#: geo_calc.py:1801 geo_calc.py:1833
 msgid "percentages from total health facilities"
 msgstr "فیصدی از مجموع امکانات صحی "
 
-#: geo_calc.py:1817
+#: geo_calc.py:1805
 msgid "road network type"
 msgstr "نوع شبکه ارتباطی سرک ها "
 
-#: geo_calc.py:1817
+#: geo_calc.py:1805
 msgid "percent of road network"
 msgstr "فیصدی شبکه ارتباطی سرک ها "
 
-#: geo_calc.py:1818
+#: geo_calc.py:1806
 msgid "Highway"
 msgstr "شاهراه"
 
-#: geo_calc.py:1819
+#: geo_calc.py:1807
 msgid "Primary"
 msgstr "اصلی"
 
-#: geo_calc.py:1820
+#: geo_calc.py:1808
 msgid "Secondary"
 msgstr "فرعی "
 
-#: geo_calc.py:1821
+#: geo_calc.py:1809
 msgid "Tertiary"
 msgstr "سومین"
 
-#: geo_calc.py:1822
+#: geo_calc.py:1810
 msgid "Residential"
 msgstr "مسکونی"
 
-#: geo_calc.py:1823
+#: geo_calc.py:1811
 msgid "Track"
 msgstr "جاده"
 
-#: geo_calc.py:1824
+#: geo_calc.py:1812
 msgid "Path"
 msgstr "مسیر"
 
-#: geo_calc.py:1825
+#: geo_calc.py:1813
 msgid "River crossing"
 msgstr "عبور از دریا "
 
-#: geo_calc.py:1826
+#: geo_calc.py:1814
 msgid "Bridge"
 msgstr "پل "
 
-#: geo_calc.py:1830
+#: geo_calc.py:1818
 msgid "Road network overview"
 msgstr " بررسی شبکه ارتباطی سرک ها"
 
-#: geo_calc.py:2255
+#: geo_calc.py:2243
 msgid "Water body and marshland"
 msgstr "آب ایستاده و باتلاق"
-
-#
-#~ msgid "Month"
-#~ msgstr "این ماه"
-
-#~ msgid "Low"
-#~ msgstr "کم"
-
-#~ msgid "High"
-#~ msgstr "زیاد"
-
-#
-#~ msgid "Very high"
-#~ msgstr "بسیار زیاد "
-
-#
-#~ msgid "# of Population"
-#~ msgstr "مجموع جمعیت"
-
-#~ msgid "Moderate"
-#~ msgstr "متوسط"
-
-#~ msgid "Very High"
-#~ msgstr "بسیار زیاد "
-
-#~ msgid "Extreme"
-#~ msgstr "شدیدتر "
-
-#
-#~ msgid "Population at flood risk"
-#~ msgstr "نفوس در معرض خطر پایین "
-
-#
-#~ msgid "Population"
-#~ msgstr "مجموع جمعیت"
-
-#
-#~ msgid "Number of population"
-#~ msgstr "مجموع جمعیت"
-
-#~ msgid "Flood Risk"
-#~ msgstr "خطر سیلاب"
-
-#
-#~ msgid "barren land"
-#~ msgstr "بی ثمر/علف زار "
-
-#
-#~ msgid "built up"
-#~ msgstr "رهایشی"
-
-#
-#~ msgid "rangeland"
-#~ msgstr "بی ثمر/علف زار "
-
-#
-#~ msgid "Lancover Type"
-#~ msgstr "نوع حادثه"
-
-#
-#~ msgid "baarren land"
-#~ msgstr "بی ثمر/علف زار "
-
-#
-#~ msgid "Settlement"
-#~ msgstr "تعداد قریه جات "
-
-#~ msgid "Language"
-#~ msgstr "زبان"
-
-#
-#~ msgid "GSM Coverage"
-#~ msgstr "مساحت -پوشش GSM"
-
-#
-#~ msgid "Travel time"
-#~ msgstr "زمان سفر نفوس "
-
-#
-#~ msgid "Closest Province Capital"
-#~ msgstr "زمان سفر به نزدیکترین مرکز ولایت"
-
-#
-#~ msgid "Its Province Capital"
-#~ msgstr "زمان سفر به مرکز ولایتی"
-
-#
-#~ msgid "Closest District Capital"
-#~ msgstr "زمان سفر به نزدیکترین مرکز ولسوالی"
-
-#
-#~ msgid "Its District Capital"
-#~ msgstr "زمان سفر به نزدیکترین مرکز ولسوالی"
-
-#
-#~ msgid "Closest Health Facility (Tier 1)"
-#~ msgstr "نزدیکترین خدمات صحی ردیف اول "
-
-#
-#~ msgid "Closest Health Facility (Tier 2)"
-#~ msgstr "نزدیکترین خدمات صحی ردیف اول "
-
-#
-#~ msgid "Closest Health Facility (Tier 3)"
-#~ msgstr "نزدیکترین خدمات صحی ردیف اول "
-
-#~ msgid "Area"
-#~ msgstr "مساحت"
-
-#~ msgid "Total Population"
-#~ msgstr "مجموع جمعیت"
-
-#
-#~ msgid "Earthquake Hazard Risk"
-#~ msgstr "زلزله"
-
-#
-#~ msgid "II-III Weak"
-#~ msgstr "II-III: ضعیف"
-
-#
-#~ msgid "IV Light"
-#~ msgstr "IV: خفیف"
-
-#
-#~ msgid "V Moderate"
-#~ msgstr "V: متوسط "
-
-#
-#~ msgid "VI Strong"
-#~ msgstr "VI: قوی "
-
-#
-#~ msgid "VII Very Strong"
-#~ msgstr "VII: قویتر "
-
-#
-#~ msgid "VIII Severe"
-#~ msgstr "VIII: شدید"
-
-#
-#~ msgid "IX Violent"
-#~ msgstr "IX: تند "
-
-#
-#~ msgid "X+ Extreme"
-#~ msgstr "X +: شدیدتر "
-
-#
-#~ msgid "Description :"
-#~ msgstr "توضیحات"
-
-#
-#~ msgid "Description/Damage"
-#~ msgstr "توضیحات"
-
-#
-#~ msgid "Light"
-#~ msgstr "IV: خفیف"
-
-#
-#~ msgid "Strong"
-#~ msgstr "VI: قوی "
-
-#
-#~ msgid "Very strong"
-#~ msgstr "VII: قویتر "
-
-#
-#~ msgid "Severe"
-#~ msgstr "VIII: شدید"
-
-#~ msgid "Afghanistan Spatial Data Center"
-#~ msgstr "مرکز ارقام مکانی افغانستان "
-
-#~ msgid "Register"
-#~ msgstr "ثبت نام"
-
-#~ msgid "Sign in"
-#~ msgstr "ورود"
-
-#~ msgid "Home"
-#~ msgstr "صفحه اصلی"
-
-#~ msgid "Dashboard"
-#~ msgstr "مجموعه اطلاعات"
-
-#~ msgid "Layers"
-#~ msgstr "لایه ها"
-
-#~ msgid "Interactive Maps"
-#~ msgstr "نقشه های تعاملی (فعال)"
-
-#~ msgid "Static Maps"
-#~ msgstr "نقشه استاتیک (ساکن)"
-
-#~ msgid "People"
-#~ msgstr "مردم"
-
-#~ msgid "Groups"
-#~ msgstr "گروه ها"
-
-#~ msgid "Documentation"
-#~ msgstr "مستندات"
-
-#~ msgid "About"
-#~ msgstr "درباره "
-
-#~ msgid "Disclaimer"
-#~ msgstr "رفع مسئولیت"
-
-#~ msgid "Partners"
-#~ msgstr "شریکان "
-
-#~ msgid "Videos"
-#~ msgstr "ویدیو "
-
-#~ msgid "Training"
-#~ msgstr "آموزش"
-
-#~ msgid "iMMAP"
-#~ msgstr "iMMAP"
-
-#~ msgid "Powered by"
-#~ msgstr "طراحی شده توسط"
-
-#~ msgid "GeoNode"
-#~ msgstr "GeoNode"
-
-#~ msgid "Username"
-#~ msgstr "نام کاربر"
-
-#~ msgid "Password"
-#~ msgstr "رمز عبور"
-
-#~ msgid "Remember Me"
-#~ msgstr "بخاطر بسپار "
-
-#~ msgid "Menu"
-#~ msgstr "فهرست"
-
-#~ msgid "Upload Layers"
-#~ msgstr "آپلود لایه"
-
-#~ msgid "Profile"
-#~ msgstr "نمایه"
-
-#~ msgid "Recent Activity"
-#~ msgstr "فعالیت های اخیر"
-
-#~ msgid "Inbox"
-#~ msgstr "صندوق دریافت ها "
-
-#~ msgid "Notifications"
-#~ msgstr "اطلاعات "
-
-#~ msgid "Announcements"
-#~ msgstr "اعلانات"
-
-#~ msgid "Remote Services"
-#~ msgstr "خدمات از راه دور"
-
-#~ msgid "Invite User"
-#~ msgstr "دعوت کاربر"
-
-#~ msgid "GeoServer"
-#~ msgstr "GeoServer"
-
-#~ msgid "Admin"
-#~ msgstr "مدیر سایت"
-
-#~ msgid "Help"
-#~ msgstr "کمک"
-
-#~ msgid "Log out"
-#~ msgstr "خارج شدن"
-
-#~ msgid "Type your search here ..."
-#~ msgstr "جستجوی خود را اینجا بنویسید ..."
-
-#~ msgid "Accessibility"
-#~ msgstr "دسترسی"
-
-#~ msgid "Total Area"
-#~ msgstr "مساحت کلی"
-
-#~ msgid "km"
-#~ msgstr "کیلومتر"
-
-#~ msgid "GSM Coverage – Population"
-#~ msgstr "نفوس - پوشش GSM "
-
-#~ msgid "Travel Time to Nearest Airport (pop in &#37;)"
-#~ msgstr "زمان سفر به نزدیکترین میدان هوایی "
-
-#~ msgid "Travel Time to Nearest Health Facilities Tier 2 (pop in &#37;)"
-#~ msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم (نفوس به &#37;)"
-
-#~ msgid "Travel Time to Nearest Health Facilities Tier 3 (pop in &#37;)"
-#~ msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم (نفوس به &#37;)"
-
-#~ msgid "Travel Time to Its Province Capital (pop in &#37;)"
-#~ msgstr "زمان سفر به مرکز ولایتی (نفوس به &#37;)"
-
-#~ msgid "Travel Time to Nearest Province Capital (pop in &#37;)"
-#~ msgstr "زمان سفر به نزدیکترین مرکز ولایت (نفوس به &#37;)"
-
-#~ msgid "Travel Time to Nearest District Capital (pop in &#37;)"
-#~ msgstr "زمان سفر به نزدیکترین مرکز ولسوالی (نفوس به &#37;)"
-
-#~ msgid "Travel Time to Nearest Airport"
-#~ msgstr "زمان سفر به نزدیکترین میدان هوایی "
-
-#~ msgid "Hide Detail"
-#~ msgstr "پنهان جزئیات"
-
-#~ msgid "Show Detail"
-#~ msgstr "نمایش جزئیات"
-
-#~ msgid "Region"
-#~ msgstr "منطقه"
-
-#~ msgid "1 h"
-#~ msgstr "1 ساعت "
-
-#~ msgid "2 h"
-#~ msgstr "2 ساعت"
-
-#~ msgid "3 h"
-#~ msgstr "3 ساعت"
-
-#~ msgid "4 h"
-#~ msgstr "4 ساعت"
-
-#~ msgid "5 h"
-#~ msgstr "5 ساعت"
-
-#~ msgid "6 h"
-#~ msgstr "6 ساعت"
-
-#~ msgid "7 h"
-#~ msgstr "7 ساعت"
-
-#~ msgid "8 h"
-#~ msgstr "8 ساعت"
-
-#~ msgid "Travel Time to Nearest Health Facilities Tier 1"
-#~ msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف اول"
-
-#~ msgid "Travel Time to Nearest Health Facilities Tier 2"
-#~ msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم"
-
-#~ msgid "Travel Time to Nearest Health Facilities Tier 3"
-#~ msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم"
-
-#~ msgid "Travel Time to Nearest Health Facilities Tier All"
-#~ msgstr "زمان سفر  به نزدیکترین امکانات صحی همه ردیف ها"
-
-#~ msgid "Avalanche Risk"
-#~ msgstr "خطر برف کوچ"
-
-#~ msgid "Avalanche risk total population"
-#~ msgstr "مجموع نفوس خطر برف کوچ "
-
-#~ msgid "Avalanche risk area"
-#~ msgstr "مساحت خطر برف کوچ "
-
-#~ msgid "High avalanche risk population"
-#~ msgstr "نفوس خطر برف کوچ زیاد"
-
-#~ msgid "Moderate avalanche risk population"
-#~ msgstr "نفوس خطر برف کوچ متوسط"
-
-#~ msgid "Population in avalanche risk areas"
-#~ msgstr " نفوس در ساحات خطر برف کوچ "
-
-#~ msgid "Total"
-#~ msgstr "مجموع"
-
-#~ msgid "Pop"
-#~ msgstr "نفوس"
-
-#~ msgid "Avalanche Forecast"
-#~ msgstr "پیشبینی برف کوچ"
-
-#~ msgid "Forecast avalanche risk population"
-#~ msgstr "پیشبینی نفوس تحت خطر برف کوچ "
-
-#~ msgid "Forecast high avalanche risk population"
-#~ msgstr "پیشبینی نفوس تحت خطر زیاد برف کوچ "
-
-#~ msgid "Forecast moderate avalanche risk population"
-#~ msgstr "پیشبینی نفوس تحت خطر متوسط برف کوچ "
-
-#~ msgid "Forecast low avalanche risk population"
-#~ msgstr "پیشبینی نفوس تحت خطر کم برف کوچ "
-
-#~ msgid "Population in forecasted avalanche risk areas"
-#~ msgstr "نفوس پیشبینی شده در ساحات خطر برف کوچ "
-
-#~ msgid "Baseline"
-#~ msgstr "معلومات اولیه"
-
-#~ msgid "Number of Health Facilities"
-#~ msgstr "تعداد امکانات صحی "
-
-#~ msgid "Total length of Road Network (km)"
-#~ msgstr "مجموع طول شبکه ارتباطی سرک ها (کیلومتر)"
-
-#~ msgid "Population and area overview"
-#~ msgstr "نفوس و بررسی اجمالی منطقه"
-
-#~ msgid "Settl."
-#~ msgstr "قریه "
-
-#~ msgid "Number of Health facilities"
-#~ msgstr "تعداد امکانات صحی"
-
-#~ msgid "Tier 1"
-#~ msgstr "ردیف اول"
-
-#~ msgid "Tier 2"
-#~ msgstr "ردیف دوم "
-
-#~ msgid "Tier 3"
-#~ msgstr "ردیف سوم "
-
-#~ msgid "Road network overview and length"
-#~ msgstr "طول و بررسی شبکه ارتباطی سرک ها"
-
-#~ msgid "River Crossing"
-#~ msgstr "عبور از دریا "
-
-#~ msgid "Total earthquake affected Population"
-#~ msgstr "مجموع نفوس آسیب دیده از زلزله"
-
-#~ msgid "Earthquake Mercalli Intensity Scale population overview"
-#~ msgstr "بررسی اجمالی نفوس درجه شدت میرکالی زلزله "
-
-#~ msgid "Number of affected settlements"
-#~ msgstr "تعداد قریه جات آسیب دیده"
-
-#~ msgid "Earthquake affected Population and settlement overview"
-#~ msgstr "نفوس آسیب دیده از زلزله و بررسی اجمالی قریه "
-
-#~ msgid "Mercalli Intensity Scale"
-#~ msgstr "درجه شدت میرکالی "
-
-#~ msgid "Flood Forecast"
-#~ msgstr "پیشبینی سیلاب "
-
-#~ msgid "Flash Flood Likelihood"
-#~ msgstr "احتمال سیلاب ناگهانی "
-
-#~ msgid "Likelihood"
-#~ msgstr "احتمال"
-
-#~ msgid "Med"
-#~ msgstr "متوسط "
-
-#~ msgid "River Flood Likelihood"
-#~ msgstr "احتمال سیلاب دریایی "
-
-#~ msgid "Likelihood<"
-#~ msgstr "احتمال <"
-
-#~ msgid "Flash Flood"
-#~ msgstr "سیلاب ناگهانی"
-
-#~ msgid "River Flood"
-#~ msgstr "سیلاب دریایی"
-
-#~ msgid "Population At Risk"
-#~ msgstr "نفوس در معرض خطر"
-
-#~ msgid "Population at High Risk"
-#~ msgstr "نفوس در معرض خطر بالا "
-
-#~ msgid "Population at Med. Risk"
-#~ msgstr "نفوس در معرض خطر متوسط"
-
-#~ msgid "Population living in flood risk areas"
-#~ msgstr "نفوس ساکن در مناطق خطر سیلاب "
-
-#~ msgid "Humanitarian Access"
-#~ msgstr "دسترسی بشردوستانه"
-
-#~ msgid "Search Region"
-#~ msgstr "جستجوی منطقه"
-
-#~ msgid "Incident between"
-#~ msgstr "حادثه در بین "
-
-#~ msgid "select incident type"
-#~ msgstr "انتخاب نوع حادثه"
-
-#~ msgid "Select All"
-#~ msgstr "انتخاب همه"
-
-#~ msgid "Select None"
-#~ msgstr "انتخاب هیچکدام"
-
-#~ msgid "Apply"
-#~ msgstr "درخواست"
-
-#~ msgid "select incident target"
-#~ msgstr "انتخاب هدف حادثه "
-
-#~ msgid "Number of incidents and casualties"
-#~ msgstr "تعداد حادثه و تلفات "
-
-#~ msgid "# Incidents"
-#~ msgstr "تعداد حادثه "
-
-#~ msgid "Casualties"
-#~ msgstr "تلفات"
-
-#~ msgid "Incident Target"
-#~ msgstr "هدف حادثه"
-
-#~ msgid "Latest Incidents"
-#~ msgstr "آخرین حوادث"
-
-#~ msgid "Date"
-#~ msgstr "تاریخ"
-
-#~ msgid "Today"
-#~ msgstr "آمروز"
-
-#~ msgid "Yesterday"
-#~ msgstr "دیروز"
-
-#~ msgid "Last 7 Days"
-#~ msgstr " 7 روز گذشته"
-
-#~ msgid "Last 30 Days"
-#~ msgstr "30 روز گذشته"
-
-#~ msgid "Last Month"
-#~ msgstr "ماه گذشته "
-
-#~ msgid "Last Year"
-#~ msgstr "سال گذشته "
-
-#~ msgid "Unselected Incident Type"
-#~ msgstr "لغو انتخاب نوع حادثه "
-
-#~ msgid "Selected Incident Type"
-#~ msgstr "انتخاب نوع حادثه "
-
-#~ msgid "Unselected Incident Target"
-#~ msgstr "لغو انتخاب نوع هدف"
-
-#~ msgid "Selected Incident Target"
-#~ msgstr "انتخاب نوع هدف"

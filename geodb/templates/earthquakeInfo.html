@@ -1,6 +1,8 @@
-{% load mathfilters %}
+{% load i18n mathfilters %}
 
-<html>
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
 <head>
 
 <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
@@ -42,77 +44,77 @@ table#info tr.odd td {
 
 <table id='info'>
 	<tr>
-		<td>Settlement</td>
-		<td><strong>{{name_en}}</strong></td>
+		<td>{% trans "Settlement" %}</td>
+		<td><strong>{% blocktrans %}{{name_en}}{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>Language</td>
-		<td><strong>{{language_field}}</strong></td>
+		<td>{% trans "Language" %}</td>
+		<td><strong>{% blocktrans %}{{language_field}}{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>District</td>
-		<td><strong>{{dist_na_en}}</strong></td>
+		<td>{% trans "District" %}</td>
+		<td><strong>{% blocktrans %}{{dist_na_en}}{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>Province</td>
-		<td><strong>{{prov_na_en}}</strong></td>
+		<td>{% trans "Province" %}</td>
+		<td><strong>{% blocktrans %}{{prov_na_en}}{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>Elevation</td>
-		<td><strong>{{elevation}} m above sea level</strong></td>
+		<td>{% trans "Elevation" %}</td>
+		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>Area</td>
-		<td><strong>{{vuid_area_sqm|div:1000000|floatformat}} km<sup>2</sup></strong></td>
+		<td>{% trans "Area" %}</td>
+		<td><strong>{% blocktrans %}{{vuid_area_sqm|div:1000000|floatformat}} km<sup>2</sup>{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>Total Population</td>
-		<td><strong>{{vuid_population_landscan}}</strong></td>
+		<td>{% trans "Total Population" %}</td>
+		<td><strong>{% blocktrans %}{{vuid_population_landscan}}{% endblocktrans %}</strong></td>
 	</tr>
 </table>
 
-<div class="infoPanelTitle">Earthquake Hazard Risk<sup>*</sup> :</div>
+<div class="infoPanelTitle">{% trans "Earthquake Hazard Risk" %}<sup>*</sup> :</div>
 
 <table class='tblborder'>
 	<tr>
-		<th bgcolor="#c4ceff"><div class="rotate">II-III Weak</div></th>
-		<th bgcolor="#7cfddf"><div class="rotate">IV Light</div></th>
-		<th bgcolor="#b1ff55"><div class="rotate">V Moderate</div></th>
-		<th bgcolor="#fcf109"><div class="rotate">VI Strong</div></th>
-		<th bgcolor="#ffb700"><div class="rotate">VII Very Strong</div></th>
-		<th bgcolor="#fd6500"><div class="rotate">VIII Severe</div></th>
-		<th bgcolor="#ff1f00"><div class="rotate">IX Violent</div></th>
-		<th bgcolor="#d20003"><div class="rotate">X+ Extreme</div></th>
+		<th bgcolor="#c4ceff"><div class="rotate">{% trans "II-III Weak" %}</div></th>
+		<th bgcolor="#7cfddf"><div class="rotate">{% trans "IV Light" %}</div></th>
+		<th bgcolor="#b1ff55"><div class="rotate">{% trans "V Moderate" %}</div></th>
+		<th bgcolor="#fcf109"><div class="rotate">{% trans "VI Strong" %}</div></th>
+		<th bgcolor="#ffb700"><div class="rotate">{% trans "VII Very Strong" %}</div></th>
+		<th bgcolor="#fd6500"><div class="rotate">{% trans "VIII Severe" %}</div></th>
+		<th bgcolor="#ff1f00"><div class="rotate">{% trans "IX Violent" %}</div></th>
+		<th bgcolor="#d20003"><div class="rotate">{% trans "X+ Extreme" %}</div></th>
 	</tr>
 	<tr>
-		<td bgcolor="#c4ceff" class="">{{sic_1}}</td>
-		<td bgcolor="#7cfddf" class="">{{sic_2}}</td>
-		<td bgcolor="#b1ff55" class="">{{sic_3}}</td>
-		<td bgcolor="#fcf109" class="">{{sic_4}}</td>
-		<td bgcolor="#ffb700" class="">{{sic_5}}</td>
-		<td bgcolor="#fd6500" class="">{{sic_6}}</td>
-		<td bgcolor="#ff1f00" class="">{{sic_7}}</td>
-		<td bgcolor="#d20003" class="">{{sic_8}}</td>
+		<td bgcolor="#c4ceff" class="">{% blocktrans %}{{sic_1}}{% endblocktrans %}</td>
+		<td bgcolor="#7cfddf" class="">{% blocktrans %}{{sic_2}}{% endblocktrans %}</td>
+		<td bgcolor="#b1ff55" class="">{% blocktrans %}{{sic_3}}{% endblocktrans %}</td>
+		<td bgcolor="#fcf109" class="">{% blocktrans %}{{sic_4}}{% endblocktrans %}</td>
+		<td bgcolor="#ffb700" class="">{% blocktrans %}{{sic_5}}{% endblocktrans %}</td>
+		<td bgcolor="#fd6500" class="">{% blocktrans %}{{sic_6}}{% endblocktrans %}</td>
+		<td bgcolor="#ff1f00" class="">{% blocktrans %}{{sic_7}}{% endblocktrans %}</td>
+		<td bgcolor="#d20003" class="">{% blocktrans %}{{sic_8}}{% endblocktrans %}</td>
 	</tr>
-</table>	
-<div class="disc_text"><sup>*</sup> Seismic intensity and description of potential damage (USGS, 2007)
-Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 years<sup>**</sup></div>
+</table>
+<div class="disc_text">{% blocktrans %}<sup>*</sup> Seismic intensity and description of potential damage (USGS, 2007)<br/>
+Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 years<sup>**</sup>{% endblocktrans %}</div>
 
-<div class="infoPanelTitle">Latest 20 earthquakes :</div>
+<div class="infoPanelTitle">{% trans "Latest 20 earthquakes :" %}</div>
 <table class='tblborder'>
 	<tr>
 		<th style="vertical-align: bottom;text-align: center;padding-bottom: 0px;border-bottom: 0px;width: 175px;max-width:175px"><div class=""></div></th>
-		<th rowspan=2 bgcolor="#c4ceff"><div class="rotate">II-III Weak</div></th>
-		<th rowspan=2 bgcolor="#7cfddf"><div class="rotate">IV Light</div></th>
-		<th rowspan=2 bgcolor="#b1ff55"><div class="rotate">V Moderate</div></th>
-		<th rowspan=2 bgcolor="#fcf109"><div class="rotate">VI Strong</div></th>
-		<th rowspan=2 bgcolor="#ffb700"><div class="rotate">VII Very Strong</div></th>
-		<th rowspan=2 bgcolor="#fd6500"><div class="rotate">VIII Severe</div></th>
-		<th rowspan=2 bgcolor="#ff1f00"><div class="rotate">IX Violent</div></th>
-		<th rowspan=2 bgcolor="#d20003"><div class="rotate">X+ Extreme</div></th>
+		<th rowspan=2 bgcolor="#c4ceff"><div class="rotate">{% trans "II-III Weak" %}</div></th>
+		<th rowspan=2 bgcolor="#7cfddf"><div class="rotate">{% trans "IV Light" %}</div></th>
+		<th rowspan=2 bgcolor="#b1ff55"><div class="rotate">{% trans "V Moderate" %}</div></th>
+		<th rowspan=2 bgcolor="#fcf109"><div class="rotate">{% trans "VI Strong" %}</div></th>
+		<th rowspan=2 bgcolor="#ffb700"><div class="rotate">{% trans "VII Very Strong" %}</div></th>
+		<th rowspan=2 bgcolor="#fd6500"><div class="rotate">{% trans "VIII Severe" %}</div></th>
+		<th rowspan=2 bgcolor="#ff1f00"><div class="rotate">{% trans "IX Violent" %}</div></th>
+		<th rowspan=2 bgcolor="#d20003"><div class="rotate">{% trans "X+ Extreme" %}</div></th>
 	</tr>
 	<tr>
-		<th style="vertical-align: top;text-align: center;padding-top: 0px;border-top: 0px;"><div class="">Magnitude</div></th>
+		<th style="vertical-align: top;text-align: center;padding-top: 0px;border-top: 0px;"><div class="">{% trans "Magnitude" %}</div></th>
 	</tr>
 	{% for item in eq_history  %}
 		<tr>
@@ -127,69 +129,69 @@ Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 year
 			<td rowspan=2 bgcolor="#d20003" class="">{% if item.sic >= 10 %}X{% endif %}</td>
 		</tr>
 		<tr>
-			<td style="max-width: 100px;padding: 2px !important;text-align: center;">{{item.magnitude}} M</td>
+			<td style="max-width: 100px;padding: 2px !important;text-align: center;">{% blocktrans %}{{item.magnitude}} M{% endblocktrans %}</td>
 		</tr>
 	{% endfor %}
 </table>
 
-<div class="infoPanelTitle">Description :</div>
+<div class="infoPanelTitle">{% trans "Description :" %}</div>
 <table class='tblcustborder'>
 	<tr>
-		<th>Intensity</th>
-		<th>Shaking</th>
-		<th>Description/Damage</th>
+		<th>{% trans "Intensity" %}</th>
+		<th>{% trans "Shaking" %}</th>
+		<th>{% trans "Description/Damage" %}</th>
 	</tr>
 	<tr bgcolor="#ffffff">
-		<td>I</td>
-		<td>Not felt</td>
-		<td>Not felt except by a very few under especially favorable conditions.</td>
+		<td>{% trans "I" %}</td>
+		<td>{% trans "Not felt" %}</td>
+		<td>{% trans "Not felt except by a very few under especially favorable conditions." %}</td>
 	</tr>
 	<tr bgcolor="#c4ceff">
-		<td>II</td>
-		<td>Weak</td>
-		<td>Felt only by a few persons at rest,especially on upper floors of buildings.</td>
+		<td>{% trans "II" %}</td>
+		<td>{% trans "Weak" %}</td>
+		<td>{% trans "Felt only by a few persons at rest,especially on upper floors of buildings." %}</td>
 	</tr>
 	<tr bgcolor="#c4ceff">
-		<td>III</td>
-		<td>Weak</td>
-		<td>Felt quite noticeably by persons indoors, especially on upper floors of buildings. Many people do not recognize it as an earthquake. Standing motor cars may rock slightly. Vibrations similar to the passing of a truck. Duration estimated.</td>
+		<td>{% trans "III" %}</td>
+		<td>{% trans "Weak" %}</td>
+		<td>{% trans "Felt quite noticeably by persons indoors, especially on upper floors of buildings. Many people do not recognize it as an earthquake. Standing motor cars may rock slightly. Vibrations similar to the passing of a truck. Duration estimated." %}</td>
 	</tr>
 	<tr bgcolor="#7cfddf">
-		<td>IV</td>
-		<td>Light</td>
-		<td>Felt indoors by many, outdoors by few during the day. At night, some awakened. Dishes, windows, doors disturbed; walls make cracking sound. Sensation like heavy truck striking building. Standing motor cars rocked noticeably.</td>
+		<td>{% trans "IV" %}</td>
+		<td>{% trans "Light" %}</td>
+		<td>{% trans "Felt indoors by many, outdoors by few during the day. At night, some awakened. Dishes, windows, doors disturbed; walls make cracking sound. Sensation like heavy truck striking building. Standing motor cars rocked noticeably." %}</td>
 	</tr>
 	<tr bgcolor="#b1ff55">
-		<td>V</td>
-		<td>Moderate</td>
-		<td>Felt by nearly everyone; many awakened. Some dishes, windows broken. Unstable objects overturned. Pendulum clocks may stop.</td>
+		<td>{% trans "V" %}</td>
+		<td>{% trans "Moderate" %}</td>
+		<td>{% trans "Felt by nearly everyone; many awakened. Some dishes, windows broken. Unstable objects overturned. Pendulum clocks may stop." %}</td>
 	</tr>
 	<tr bgcolor="#fcf109">
-		<td>VI</td>
-		<td>Strong</td>
-		<td>Felt by all, many frightened. Some heavy furniture moved; a few instances of fallen plaster. Damage slight.</td>
+		<td>{% trans "VI" %}</td>
+		<td>{% trans "Strong" %}</td>
+		<td>{% trans "Felt by all, many frightened. Some heavy furniture moved; a few instances of fallen plaster. Damage slight." %}</td>
 	</tr>
 	<tr bgcolor="#ffb700">
-		<td>VII</td>
-		<td>Very strong</td>
-		<td>Damage negligible in buildings of good design and construction; slight to moderate in well-built ordinary structures; considerable damage in poorly built or badly designed structures; some chimneys broken.</td>
+		<td>{% trans "VII" %}</td>
+		<td>{% trans "Very strong" %}</td>
+		<td>{% trans "Damage negligible in buildings of good design and construction; slight to moderate in well-built ordinary structures; considerable damage in poorly built or badly designed structures; some chimneys broken." %}</td>
 	</tr>
 	<tr bgcolor="#fd6500">
-		<td>VIII</td>
-		<td>Severe</td>
-		<td>Damage slight in specially designed structures; considerable damage in ordinary substantial buildings with partial collapse. Damage great in poorly built structures. Fall of chimneys, factory stacks, columns, monuments, walls. Heavy furniture overturned.</td>
+		<td>{% trans "VIII" %}</td>
+		<td>{% trans "Severe" %}</td>
+		<td>{% trans "Damage slight in specially designed structures; considerable damage in ordinary substantial buildings with partial collapse. Damage great in poorly built structures. Fall of chimneys, factory stacks, columns, monuments, walls. Heavy furniture overturned." %}</td>
 	</tr>
 	<tr bgcolor="#ff1f00">
-		<td>IX</td>
-		<td>Violent</td>
-		<td>Damage considerable in specially designed structures; well-designed frame structures thrown out of plumb. Damage great in substantial buildings, with partial collapse. Buildings shifted off foundations.</td>
+		<td>{% trans "IX" %}</td>
+		<td>{% trans "Violent" %}</td>
+		<td>{% trans "Damage considerable in specially designed structures; well-designed frame structures thrown out of plumb. Damage great in substantial buildings, with partial collapse. Buildings shifted off foundations." %}</td>
 	</tr>
 	<tr bgcolor="#d20003">
-		<td>X+</td>
-		<td>Extreme</td>
-		<td>Some well-built wooden structures destroyed; most masonry and frame structures destroyed with foundations. Rails bent.</td>
+		<td>{% trans "X+" %}</td>
+		<td>{% trans "Extreme" %}</td>
+		<td>{% trans "Some well-built wooden structures destroyed; most masonry and frame structures destroyed with foundations. Rails bent." %}</td>
 	</tr>
 </table>
-<div class="disc_text"><sup>**</sup> A 2 percent probability of exceedance in 50 years corresponds to a ground-motion return time of approximately 2500 years, or approximately a 10% probability of of exceedance in 250 years. . The seismic intensity data and classes originate from the USGS Earthquake Hazard Map for Afghanistan (2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales</div>	
+<div class="disc_text">{% blocktrans %}<sup>**</sup> A 2 percent probability of exceedance in 50 years corresponds to a ground-motion return time of approximately 2500 years, or approximately a 10% probability of of exceedance in 250 years. . The seismic intensity data and classes originate from the USGS Earthquake Hazard Map for Afghanistan (2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales{% endblocktrans %}</div>
 </body>
 </html>

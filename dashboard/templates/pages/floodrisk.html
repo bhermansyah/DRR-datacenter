@@ -16,9 +16,9 @@ li#nav_dashfloodrisk>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">{% trans "Flood Risk" %}   
+	<h1 class="dashing-title">{% trans "Flood Risk" %}
 		{% include "links_title.html" %}
-		{% include "qlink_span.html" %}	
+		{% include "qlink_span.html" %}
 	</h1>
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
@@ -42,15 +42,15 @@ li#nav_dashfloodrisk>a::after {
 			<span class='widget-title'>{% trans "Population at Med. Risk" %}</span>
 			<span class='pie-title1'>{{ total_pop_med_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ med_risk_population | intword | intcomma}}</span>
-		</li>          
+		</li>
 		<li data-row="1" data-col="4" data-sizex="1" data-sizey="1">
 			<div>{{ low_pop_atrisk_chart.as_html }}</div>
 			<span class='widget-title'>{% trans "Population at Low Risk" %}</span>
 			<span class='pie-title1'>{{ total_pop_low_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ low_risk_population | intword | intcomma}}</span>
-		</li>     
-		  
-		
+		</li>
+
+
 
   	</ul>
 </div>
@@ -59,7 +59,7 @@ li#nav_dashfloodrisk>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=8 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Population living in flood risk areas" %}</td>
+				<td colspan=8 style="padding:3px;font-weight:bolder;">{% trans "Population living in flood risk areas" %}</td>
 				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
@@ -118,7 +118,7 @@ li#nav_dashfloodrisk>a::after {
 				<td class="detail_value">{{data.cultivated_pop_risk | intword | intcomma}}</td>
 				<td class="detail_value" style="border-right: 1px solid #eee;">{{data.cultivated_area_risk | intword | intcomma}}</td>
 				<td class="detail_value">{{data.barren_pop_risk | intword | intcomma}}</td>
-				<td class="detail_value">{{data.barren_area_risk | intword | intcomma}}</td>			
+				<td class="detail_value">{{data.barren_area_risk | intword | intcomma}}</td>
 			</tr>
 			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}'>
 				<td class="rowChartIndicator" style="background: linear-gradient(to right, #efe3af {{ data.settlement_at_floodrisk_percent }}%,#ffffff {{ data.settlement_at_floodrisk_percent }}%);">{{ data.settlement_at_floodrisk_percent }}%</td>
@@ -133,7 +133,7 @@ li#nav_dashfloodrisk>a::after {
 			</tr>
 			{% endfor %}
 			<tr>
-				<td class="separator" colspan=10></td>	
+				<td class="separator" colspan=10></td>
 			</tr>
 		</tbody>
 	</table>
@@ -152,10 +152,10 @@ function show_hide_base(){
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
-		    return "show";		    
+		    return "show";
 		} else {
 			// $("div.showFlag").text("<p>Show Detail</p>");
-		    return "hide";	    
+		    return "hide";
 		}
 	});
 }

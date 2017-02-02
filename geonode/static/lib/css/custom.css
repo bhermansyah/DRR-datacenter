@@ -2526,7 +2526,9 @@ body.about li#nav_about>a::after {
 .navbar-brand-immap h1 {
   margin-left: 64px;
 }
-.dashboard table > thead > tr > td:first-child {
+/*place table title text-align value inline with direction value,
+for pages: avalancheforecast, avalancherisk, earthquake, floodrisk */
+.dashboard table > thead > tr:first-child > td:first-child {
   text-align: initial;
 }
 .dashboard [class^=showFlag_] {
@@ -2543,7 +2545,7 @@ body.about li#nav_about>a::after {
 }
 .dashboard.security #incident-type thead tr th,
 .dashboard.security #incident-target thead tr th {
-  text-align: initial;
+  /*text-align: initial;*/
 }
 .dashboard.security #latest-incidents td {
   text-align: initial;
@@ -2623,9 +2625,35 @@ html[dir=rtl] .layers #attributes th {
   direction: rtl;
   text-align: inherit;
 }
+html[dir=rtl] .layers ul.nav.stats {
+  padding-right: 0px;
+}
+html[dir=rtl] .dashboard.security .checkbox.rtl label {
+  unicode-bidi: plaintext;
+}
 /*use in combination in geoexplorer viewport page*/
-html[dir=rtl] html.ext-strict.x-viewport body > nav.navbar {
+html[dir=rtl].ext-strict.x-viewport body > nav.navbar {
   direction: rtl;
+}
+/*fix Documentation popup menu position*/
+html[dir=rtl] .dropdown-menu {
+  left: initial;
+}
+/*rtl fix for grister_styles.css*/
+html[dir=rtl] .parent_list {
+    text-align: initial;
+    padding-right: 5px;
+    padding-left: initial;
+}
+html[dir=rtl] .detail_list {
+    text-align: initial;
+    padding-right: 20px;
+    padding-left: initial;
+}
+html[dir=rtl] .rotate {
+    margin-top: initial;
+    margin-bottom: 95px;
+    /*text-align: initial;*/
 }
 /*general tweak*/
 .ellipsis {

@@ -1,6 +1,8 @@
-{% load mathfilters %}
+{% load i18n mathfilters %}
 
-<html>
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
 <head>
 
 <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
@@ -53,113 +55,113 @@ table#info tr.odd td {
 
 <table id='info'>
 	<tr>
-		<td>Settlement</td>
+		<td>{% trans "Settlement" %}</td>
 		<td><strong>{{name_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>Language</td>
+		<td>{% trans "Language" %}</td>
 		<td><strong>{{language_field}}</strong></td>
 	</tr>
 	<tr>
-		<td>District</td>
+		<td>{% trans "District" %}</td>
 		<td><strong>{{dist_na_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>Province</td>
+		<td>{% trans "Province" %}</td>
 		<td><strong>{{prov_na_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>GSM Coverage</td>
+		<td>{% trans "GSM Coverage" %}</td>
 		<td><strong><span style='color:{% if gsm_covered == 'Yes' %}darkgreen{% else %}darkred{% endif %}'>{{gsm_covered}}</span></strong></td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Closest Road</td>
-		<td><strong>Travel time : {{cl_road_time}}</strong><br/>
-			<strong>Distance : {{cl_road_distance}}</strong>
+		<td style='vertical-align: text-top;'>{% trans "Closest Road" %}</td>
+		<td><strong>{% blocktrans %}Travel time : {{cl_road_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{cl_road_distance}}{% endblocktrans %}</strong>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Closest Airport</td>
-		<td><strong>{{cl_airport_name}}</strong><br/>
-			<strong>Travel time : {{cl_airport_time}}</strong><br/>
-			<strong>Distance : {{cl_airport_distance}}</strong><br/><br/>
+		<td style='vertical-align: text-top;'>{% trans "Closest Airport" %}</td>
+		<td><strong>{% blocktrans %}{{cl_airport_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time : {{cl_airport_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{cl_airport_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{cl_airport_angle}}deg);"><div style='transform: rotate({{cl_airport_angle|mul:-1}}deg)' class='direction_label'>{{ cl_airport_direction_label }}</div></div><br/>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Closest Province Capital</td>
-		<td><strong>{{cl_prov_cap_name}}</strong><br/>
-			<strong>Province : {{ cl_prov_cap_parent }} </strong><br/>
-			<strong>Travel time : {{cl_prov_cap_time}}</strong><br/>
-			<strong>Distance : {{cl_prov_cap_distance}}</strong><br/><br/>
+		<td style='vertical-align: text-top;'>{% trans "Closest Province Capital" %}</td>
+		<td><strong>{% blocktrans %}{{cl_prov_cap_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Province : {{ cl_prov_cap_parent }} {% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time : {{cl_prov_cap_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{cl_prov_cap_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{cl_prov_cap_angle}}deg);"><div style='transform: rotate({{cl_prov_cap_angle|mul:-1}}deg)' class='direction_label'>{{ cl_prov_cap_direction_label }}</div></div><br/>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Its Province Capital</td>
-		<td><strong>{{it_prov_cap_name}}</strong><br/>
-			<strong>Travel time : {{it_prov_cap_time}}</strong><br/>
-			<strong>Distance : {{it_prov_cap_distance}}</strong><br/><br/>
+		<td style='vertical-align: text-top;'>{% trans "Its Province Capital" %}</td>
+		<td><strong>{% blocktrans %}{{it_prov_cap_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time : {{it_prov_cap_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{it_prov_cap_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{it_prov_cap_angle}}deg);"><div style='transform: rotate({{it_prov_cap_angle|mul:-1}}deg)' class='direction_label'>{{ it_prov_cap_direction_label }}</div></div><br/>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Closest District Capital</td>
-		<td><strong>{{cl_dist_cap_name}}</strong><br/>
-			<strong>Province : {{ cl_dist_cap_parent }} </strong><br/>
-			<strong>Travel time     : {{cl_dist_cap_time}}</strong><br/>
-			<strong>Distance : {{cl_dist_cap_distance}}</strong><br/><br/>
+		<td style='vertical-align: text-top;'>{% trans "Closest District Capital" %}</td>
+		<td><strong>{% blocktrans %}{{cl_dist_cap_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Province : {{ cl_dist_cap_parent }} {% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time     : {{cl_dist_cap_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{cl_dist_cap_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{cl_dist_cap_angle}}deg);"><div style='transform: rotate({{cl_dist_cap_angle|mul:-1}}deg)' class='direction_label'>{{ cl_dist_cap_direction_label }}</div></div><br/>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Its District Capital</td>
-		<td><strong>{{it_dist_cap_name}}</strong><br/>
-			<strong>Travel time     : {{it_dist_cap_time}}</strong><br/>
-			<strong>Distance : {{it_dist_cap_distance}}</strong><br/><br/>
+		<td style='vertical-align: text-top;'>{% trans "Its District Capital" %}</td>
+		<td><strong>{% blocktrans %}{{it_dist_cap_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time     : {{it_dist_cap_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{it_dist_cap_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{it_dist_cap_angle}}deg);"><div style='transform: rotate({{it_dist_cap_angle|mul:-1}}deg)' class='direction_label'>{{ it_dist_cap_direction_label }}</div></div><br/>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Closest Health Facility (Tier 1)<br/>
-			<span class="hltSubTitle">- National (H1)</span><br/>
-			<span class="hltSubTitle">- Provincial (H2)</span><br/>
-			<span class="hltSubTitle">- District (H3)</span>
+		<td style='vertical-align: text-top;'>{% trans "Closest Health Facility (Tier 1)" %}<br/>
+			<span class="hltSubTitle">{% trans "- National (H1)" %}</span><br/>
+			<span class="hltSubTitle">{% trans "- Provincial (H2)" %}</span><br/>
+			<span class="hltSubTitle">{% trans "- District (H3)" %}</span>
 		</td>
-		<td><strong>{{t1_hf_name}}</strong><br/>
-			<strong>Province : {{ t1_hf_prov_parent }} </strong><br/>
-			<strong>District : {{ t1_hf_dist_parent }} </strong><br/>
-			<strong>Travel time     : {{t1_hf_time}}</strong><br/>
-			<strong>Distance : {{t1_hf_distance}}</strong><br/><br/>
+		<td><strong>{% blocktrans %}{{t1_hf_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Province : {{ t1_hf_prov_parent }}{% endblocktrans %} </strong><br/>
+			<strong>{% blocktrans %}District : {{ t1_hf_dist_parent }} {% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time     : {{t1_hf_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{t1_hf_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{t1_hf_angle}}deg);"><div style='transform: rotate({{t1_hf_angle|mul:-1}}deg)' class='direction_label'>{{ t1_hf_direction_label }}</div></div><br/>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Closest Health Facility (Tier 2)<br/>
-			<span class="hltSubTitle">- Comprehensive Health Center (CHC)</span>
+		<td style='vertical-align: text-top;'>{% trans "Closest Health Facility (Tier 2)" %}<br/>
+			<span class="hltSubTitle">{% trans "- Comprehensive Health Center (CHC)" %}</span>
 		</td>
-		<td><strong>{{t2_hf_name}}</strong><br/>
-			<strong>Province : {{ t2_hf_prov_parent }} </strong><br/>
-			<strong>District : {{ t2_hf_dist_parent }} </strong><br/>
-			<strong>Travel time     : {{t2_hf_time}}</strong><br/>
-			<strong>Distance : {{t2_hf_distance}}</strong><br/><br/>
+		<td><strong>{% blocktrans %}{{t2_hf_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Province : {{ t2_hf_prov_parent }} {% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}District : {{ t2_hf_dist_parent }} {% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time     : {{t2_hf_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{t2_hf_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{t2_hf_angle}}deg);"><div style='transform: rotate({{t2_hf_angle|mul:-1}}deg)' class='direction_label'>{{ t2_hf_direction_label }}</div></div><br/>
 		</td>
 	</tr>
 	<tr>
-		<td style='vertical-align: text-top;'>Closest Health Facility (Tier 3)<br/>
-			<span class="hltSubTitle">- Basic Health Center (BHC)</span><br/>
-			<span class="hltSubTitle">- Sub Health Center (SHC)</span>
+		<td style='vertical-align: text-top;'>{% trans "Closest Health Facility (Tier 3)" %}<br/>
+			<span class="hltSubTitle">{% trans "- Basic Health Center (BHC)" %}</span><br/>
+			<span class="hltSubTitle">{% trans "- Sub Health Center (SHC)" %}</span>
 		</td>
-		<td><strong>{{t3_hf_name}}</strong><br/>
-			<strong>Province : {{ t3_hf_prov_parent }} </strong><br/>
-			<strong>District : {{ t3_hf_dist_parent }} </strong><br/>
-			<strong>Travel time     : {{t3_hf_time}}</strong><br/>
-			<strong>Distance : {{t3_hf_distance}}</strong><br/><br/>
+		<td><strong>{% blocktrans %}{{t3_hf_name}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Province : {{ t3_hf_prov_parent }} {% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}District : {{ t3_hf_dist_parent }} {% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Travel time     : {{t3_hf_time}}{% endblocktrans %}</strong><br/>
+			<strong>{% blocktrans %}Distance : {{t3_hf_distance}}{% endblocktrans %}</strong><br/><br/>
 			<div class="direction_arrow" style="width: 50px; transform: rotate({{t3_hf_angle}}deg);"><div style='transform: rotate({{t3_hf_angle|mul:-1}}deg)' class='direction_label'>{{ t3_hf_direction_label }}</div></div><br/>
 		</td>
 	</tr>
-	
+
 </table>
 
 </body>

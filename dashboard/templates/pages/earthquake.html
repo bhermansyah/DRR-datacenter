@@ -18,17 +18,17 @@ li#nav_dashearthquake>a::after {
 <div style="width: 960px;margin: 0 auto;margin-bottom:35px; margin-top: 10px;">
 	<select id="select_evt" class="right" onchange="location = '?page=earthquake&eq_event='+this.value+'{{add_link}}';">
 		{% for list in eq_list %}
-		  <option {% if list.selected %} selected {% endif %} value="{{ list.event_code }}">{{ list.detail_title }}</option>	
+		  <option {% if list.selected %} selected {% endif %} value="{{ list.event_code }}">{{ list.detail_title }}</option>
 		{% endfor %}
 	</select>
-</div>	
+</div>
 
 <div class="gridster">
-	<h1 class="dashing-title">{% trans "Earthquake" %} 
+	<h1 class="dashing-title">{% trans "Earthquake" %}
 		{% include "links_title.html" %}
-		{% include "qlink_span.html" %}	
+		{% include "qlink_span.html" %}
 	</h1>
-	
+
 
   	<ul>
 		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
@@ -39,21 +39,21 @@ li#nav_dashearthquake>a::after {
 			<h1 class='widget-number'>{{total_eq_pop | intword | intcomma}}</h1>
 			<span class='widget-title'>{% trans "Total earthquake affected Population" %}</span>
 		</li>
-		
+
 		<li data-row="1" data-col="6" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{settlement | intword | intcomma}}</h1>
 			<span class='widget-title'>{% trans "Number of Settlements" %}</span>
 		</li>
-		    
+
 		<li data-row="1" data-col="3" data-sizex="3" data-sizey="2">
 			<div>{{ EQ_chart.as_html }}</div>
 			<span class='widget-title'>{% trans "Earthquake Mercalli Intensity Scale population overview" %}</span>
-		</li> 
+		</li>
 		<li data-row="2" data-col="6" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{total_eq_settlements | intword | intcomma}}</h1>
 			<span class='widget-title'>{% trans "Number of affected settlements" %}</span>
-		</li> 
-		
+		</li>
+
 
   	</ul>
 </div>
@@ -63,7 +63,7 @@ li#nav_dashearthquake>a::after {
 	<table>
 		<thead>
 			<tr class='dataitem'>
-				<td colspan=15 style="text-align:left;padding:3px;font-weight:bolder;">{% trans "Earthquake affected Population and settlement overview" %}</td>
+				<td colspan=15 style="padding:3px;font-weight:bolder;">{% trans "Earthquake affected Population and settlement overview" %}</td>
 				<td colspan=2 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
 			</tr>
 			<tr>
@@ -138,11 +138,11 @@ li#nav_dashearthquake>a::after {
 				<td class="detail_value eq_violent">{{data.pop_shake_violent | intword | intcomma}}</td>
 				<td class="detail_value eq_violent">{{data.settlement_shake_violent | intword | intcomma}}</td>
 				<td class="detail_value eq_extreme">{{data.pop_shake_extreme | intword | intcomma}}</td>
-				<td class="detail_value eq_extreme">{{data.settlement_shake_extreme | intword | intcomma}}</td>	
+				<td class="detail_value eq_extreme">{{data.settlement_shake_extreme | intword | intcomma}}</td>
 			</tr>
 			{% endfor %}
 			<tr>
-				<td class="separator" colspan=17></td>	
+				<td class="separator" colspan=17></td>
 			</tr>
 		</tbody>
 	</table>
@@ -160,10 +160,10 @@ function show_hide_base(){
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
-		    return "show";		    
+		    return "show";
 		} else {
 			// $("div.showFlag").text("<p>Show Detail</p>");
-		    return "hide";	    
+		    return "hide";
 		}
 	});
 }
