@@ -1,15 +1,20 @@
+# keep msgstr in manualentry.po empty, put translation in merged po
+# manualentry.po serve as reference pot
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "Default Point"
-msgstr "پیش فرض"
+msgstr ""
 
 msgid "Document Type"
-msgstr "نوع سند"
+msgstr ""
 
 msgid "Publication"
 msgstr ""
 
 msgid "Default Polygon"
+msgstr ""
+
+msgid "Password again"
 msgstr ""

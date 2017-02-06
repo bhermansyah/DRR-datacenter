@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-01 11:17+0700\n"
+"POT-Creation-Date: 2017-02-06 14:29+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,14 +181,11 @@ msgid "Total Area"
 msgstr ""
 
 #: templates/pages/accessibility.html:30 templates/pages/avalancherisk.html:36
-#: templates/pages/baseline.html:30 templates/pages/baseline.html.py:84
-#: templates/pages/baseline.html:86 templates/pages/baseline.html.py:88
-#: templates/pages/baseline.html:90 templates/pages/baseline.html.py:208
-#: templates/pages/baseline.html:209 templates/pages/baseline.html.py:210
-#: templates/pages/baseline.html:211 templates/pages/baseline.html.py:212
-#: templates/pages/baseline.html:213 templates/pages/baseline.html.py:214
-#: templates/pages/baseline.html:215 templates/pages/baseline.html.py:216
-#: templates/pages/baseline.html:217
+#: templates/pages/baseline.html:208 templates/pages/baseline.html.py:209
+#: templates/pages/baseline.html:210 templates/pages/baseline.html.py:211
+#: templates/pages/baseline.html:212 templates/pages/baseline.html.py:213
+#: templates/pages/baseline.html:214 templates/pages/baseline.html.py:215
+#: templates/pages/baseline.html:216 templates/pages/baseline.html.py:217
 msgid "km"
 msgstr ""
 
@@ -574,6 +571,12 @@ msgstr ""
 
 #: templates/pages/baseline.html:19 templates/pages/links.html:8
 msgid "Baseline"
+msgstr ""
+
+#: templates/pages/baseline.html:30 templates/pages/baseline.html.py:84
+#: templates/pages/baseline.html:86 templates/pages/baseline.html.py:88
+#: templates/pages/baseline.html:90
+msgid "km<sup>2</sup>"
 msgstr ""
 
 #: templates/pages/baseline.html:34 templates/pages/earthquake.html:45

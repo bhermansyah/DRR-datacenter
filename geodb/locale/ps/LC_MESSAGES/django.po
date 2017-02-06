@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-01 11:17+0700\n"
+"POT-Creation-Date: 2017-02-06 14:29+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,7 +56,7 @@ msgstr ""
 msgid "Number of injured casualties by Incident Type"
 msgstr ""
 
-#: geo_calc.py:228
+#: geo_calc.py:228 templates/earthquakeInfo.html:186
 msgid "Violent"
 msgstr ""
 
@@ -275,4 +275,579 @@ msgstr ""
 
 #: geo_calc.py:2255
 msgid "Water body and marshland"
+msgstr ""
+
+#: templates/accessInfo.html:58 templates/earthquakeInfo.html:47
+#: templates/floodInfo.html:64 templates/generalInfo.html:51
+#: templates/snowInfo.html:46
+msgid "Settlement"
+msgstr ""
+
+#: templates/accessInfo.html:62 templates/earthquakeInfo.html:51
+#: templates/floodInfo.html:68 templates/generalInfo.html:55
+#: templates/snowInfo.html:50
+msgid "Language"
+msgstr ""
+
+#: templates/accessInfo.html:66 templates/earthquakeInfo.html:55
+#: templates/floodInfo.html:72 templates/generalInfo.html:59
+#: templates/snowInfo.html:54
+msgid "District"
+msgstr ""
+
+#: templates/accessInfo.html:70 templates/earthquakeInfo.html:59
+#: templates/floodInfo.html:76 templates/generalInfo.html:63
+#: templates/snowInfo.html:58
+msgid "Province"
+msgstr ""
+
+#: templates/accessInfo.html:74
+msgid "GSM Coverage"
+msgstr ""
+
+#: templates/accessInfo.html:78
+msgid "Closest Road"
+msgstr ""
+
+#: templates/accessInfo.html:79
+#, python-format
+msgid "Travel time : %(cl_road_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:80
+#, python-format
+msgid "Distance : %(cl_road_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:84
+msgid "Closest Airport"
+msgstr ""
+
+#: templates/accessInfo.html:85
+#, python-format
+msgid "%(cl_airport_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:86
+#, python-format
+msgid "Travel time : %(cl_airport_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:87
+#, python-format
+msgid "Distance : %(cl_airport_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:92
+msgid "Closest Province Capital"
+msgstr ""
+
+#: templates/accessInfo.html:93
+#, python-format
+msgid "%(cl_prov_cap_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:94
+#, python-format
+msgid "Province : %(cl_prov_cap_parent)s "
+msgstr ""
+
+#: templates/accessInfo.html:95
+#, python-format
+msgid "Travel time : %(cl_prov_cap_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:96
+#, python-format
+msgid "Distance : %(cl_prov_cap_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:101
+msgid "Its Province Capital"
+msgstr ""
+
+#: templates/accessInfo.html:102
+#, python-format
+msgid "%(it_prov_cap_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:103
+#, python-format
+msgid "Travel time : %(it_prov_cap_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:104
+#, python-format
+msgid "Distance : %(it_prov_cap_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:109
+msgid "Closest District Capital"
+msgstr ""
+
+#: templates/accessInfo.html:110
+#, python-format
+msgid "%(cl_dist_cap_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:111
+#, python-format
+msgid "Province : %(cl_dist_cap_parent)s "
+msgstr ""
+
+#: templates/accessInfo.html:112
+#, python-format
+msgid "Travel time     : %(cl_dist_cap_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:113
+#, python-format
+msgid "Distance : %(cl_dist_cap_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:118
+msgid "Its District Capital"
+msgstr ""
+
+#: templates/accessInfo.html:119
+#, python-format
+msgid "%(it_dist_cap_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:120
+#, python-format
+msgid "Travel time     : %(it_dist_cap_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:121
+#, python-format
+msgid "Distance : %(it_dist_cap_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:126
+msgid "Closest Health Facility (Tier 1)"
+msgstr ""
+
+#: templates/accessInfo.html:127
+msgid "- National (H1)"
+msgstr ""
+
+#: templates/accessInfo.html:128
+msgid "- Provincial (H2)"
+msgstr ""
+
+#: templates/accessInfo.html:129
+msgid "- District (H3)"
+msgstr ""
+
+#: templates/accessInfo.html:131
+#, python-format
+msgid "%(t1_hf_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:132
+#, python-format
+msgid "Province : %(t1_hf_prov_parent)s"
+msgstr ""
+
+#: templates/accessInfo.html:133
+#, python-format
+msgid "District : %(t1_hf_dist_parent)s "
+msgstr ""
+
+#: templates/accessInfo.html:134
+#, python-format
+msgid "Travel time     : %(t1_hf_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:135
+#, python-format
+msgid "Distance : %(t1_hf_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:140
+msgid "Closest Health Facility (Tier 2)"
+msgstr ""
+
+#: templates/accessInfo.html:141
+msgid "- Comprehensive Health Center (CHC)"
+msgstr ""
+
+#: templates/accessInfo.html:143
+#, python-format
+msgid "%(t2_hf_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:144
+#, python-format
+msgid "Province : %(t2_hf_prov_parent)s "
+msgstr ""
+
+#: templates/accessInfo.html:145
+#, python-format
+msgid "District : %(t2_hf_dist_parent)s "
+msgstr ""
+
+#: templates/accessInfo.html:146
+#, python-format
+msgid "Travel time     : %(t2_hf_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:147
+#, python-format
+msgid "Distance : %(t2_hf_distance)s"
+msgstr ""
+
+#: templates/accessInfo.html:152
+msgid "Closest Health Facility (Tier 3)"
+msgstr ""
+
+#: templates/accessInfo.html:153
+msgid "- Basic Health Center (BHC)"
+msgstr ""
+
+#: templates/accessInfo.html:154
+msgid "- Sub Health Center (SHC)"
+msgstr ""
+
+#: templates/accessInfo.html:156
+#, python-format
+msgid "%(t3_hf_name)s"
+msgstr ""
+
+#: templates/accessInfo.html:157
+#, python-format
+msgid "Province : %(t3_hf_prov_parent)s "
+msgstr ""
+
+#: templates/accessInfo.html:158
+#, python-format
+msgid "District : %(t3_hf_dist_parent)s "
+msgstr ""
+
+#: templates/accessInfo.html:159
+#, python-format
+msgid "Travel time     : %(t3_hf_time)s"
+msgstr ""
+
+#: templates/accessInfo.html:160
+#, python-format
+msgid "Distance : %(t3_hf_distance)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:48 templates/floodInfo.html:65
+#, python-format
+msgid "%(name_en)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:52 templates/floodInfo.html:69
+#, python-format
+msgid "%(language_field)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:56 templates/floodInfo.html:73
+#, python-format
+msgid "%(dist_na_en)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:60 templates/floodInfo.html:77
+#, python-format
+msgid "%(prov_na_en)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:63 templates/floodInfo.html:80
+#: templates/generalInfo.html:67
+msgid "Elevation"
+msgstr ""
+
+#: templates/earthquakeInfo.html:64 templates/floodInfo.html:81
+#: templates/generalInfo.html:68
+#, python-format
+msgid "%(elevation)s m above sea level"
+msgstr ""
+
+#: templates/earthquakeInfo.html:67 templates/floodInfo.html:84
+#: templates/generalInfo.html:71
+msgid "Area"
+msgstr ""
+
+#: templates/earthquakeInfo.html:68 templates/floodInfo.html:85
+#: templates/generalInfo.html:71
+#, python-format
+msgid "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup>"
+msgstr ""
+
+#: templates/earthquakeInfo.html:71 templates/floodInfo.html:88
+#: templates/generalInfo.html:74
+msgid "Total Population"
+msgstr ""
+
+#: templates/earthquakeInfo.html:72 templates/floodInfo.html:89
+#, python-format
+msgid "%(vuid_population_landscan)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:76
+msgid "Earthquake Hazard Risk"
+msgstr ""
+
+#: templates/earthquakeInfo.html:80 templates/earthquakeInfo.html.py:107
+msgid "II-III Weak"
+msgstr ""
+
+#: templates/earthquakeInfo.html:81 templates/earthquakeInfo.html.py:108
+msgid "IV Light"
+msgstr ""
+
+#: templates/earthquakeInfo.html:82 templates/earthquakeInfo.html.py:109
+msgid "V Moderate"
+msgstr ""
+
+#: templates/earthquakeInfo.html:83 templates/earthquakeInfo.html.py:110
+msgid "VI Strong"
+msgstr ""
+
+#: templates/earthquakeInfo.html:84 templates/earthquakeInfo.html.py:111
+msgid "VII Very Strong"
+msgstr ""
+
+#: templates/earthquakeInfo.html:85 templates/earthquakeInfo.html.py:112
+msgid "VIII Severe"
+msgstr ""
+
+#: templates/earthquakeInfo.html:86 templates/earthquakeInfo.html.py:113
+msgid "IX Violent"
+msgstr ""
+
+#: templates/earthquakeInfo.html:87 templates/earthquakeInfo.html.py:114
+msgid "X+ Extreme"
+msgstr ""
+
+#: templates/earthquakeInfo.html:90
+#, python-format
+msgid "%(sic_1)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:91
+#, python-format
+msgid "%(sic_2)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:92
+#, python-format
+msgid "%(sic_3)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:93
+#, python-format
+msgid "%(sic_4)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:94
+#, python-format
+msgid "%(sic_5)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:95
+#, python-format
+msgid "%(sic_6)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:96
+#, python-format
+msgid "%(sic_7)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:97
+#, python-format
+msgid "%(sic_8)s"
+msgstr ""
+
+#: templates/earthquakeInfo.html:100
+msgid ""
+"<sup>*</sup> Seismic intensity and description of potential damage (USGS, "
+"2007)<br/>\n"
+"Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 "
+"years<sup>**</sup>"
+msgstr ""
+
+#: templates/earthquakeInfo.html:103
+msgid "Latest 20 earthquakes :"
+msgstr ""
+
+#: templates/earthquakeInfo.html:117
+msgid "Magnitude"
+msgstr ""
+
+#: templates/earthquakeInfo.html:132
+#, python-format
+msgid "%(item.magnitude)s M"
+msgstr ""
+
+#: templates/earthquakeInfo.html:137
+msgid "Description :"
+msgstr ""
+
+#: templates/earthquakeInfo.html:140
+msgid "Intensity"
+msgstr ""
+
+#: templates/earthquakeInfo.html:141
+msgid "Shaking"
+msgstr ""
+
+#: templates/earthquakeInfo.html:142
+msgid "Description/Damage"
+msgstr ""
+
+#: templates/earthquakeInfo.html:145
+msgid "I"
+msgstr ""
+
+#: templates/earthquakeInfo.html:146
+msgid "Not felt"
+msgstr ""
+
+#: templates/earthquakeInfo.html:147
+msgid "Not felt except by a very few under especially favorable conditions."
+msgstr ""
+
+#: templates/earthquakeInfo.html:150
+msgid "II"
+msgstr ""
+
+#: templates/earthquakeInfo.html:151 templates/earthquakeInfo.html.py:156
+msgid "Weak"
+msgstr ""
+
+#: templates/earthquakeInfo.html:152
+msgid ""
+"Felt only by a few persons at rest,especially on upper floors of buildings."
+msgstr ""
+
+#: templates/earthquakeInfo.html:155
+msgid "III"
+msgstr ""
+
+#: templates/earthquakeInfo.html:157
+msgid ""
+"Felt quite noticeably by persons indoors, especially on upper floors of "
+"buildings. Many people do not recognize it as an earthquake. Standing motor "
+"cars may rock slightly. Vibrations similar to the passing of a truck. "
+"Duration estimated."
+msgstr ""
+
+#: templates/earthquakeInfo.html:160
+msgid "IV"
+msgstr ""
+
+#: templates/earthquakeInfo.html:161
+msgid "Light"
+msgstr ""
+
+#: templates/earthquakeInfo.html:162
+msgid ""
+"Felt indoors by many, outdoors by few during the day. At night, some "
+"awakened. Dishes, windows, doors disturbed; walls make cracking sound. "
+"Sensation like heavy truck striking building. Standing motor cars rocked "
+"noticeably."
+msgstr ""
+
+#: templates/earthquakeInfo.html:165
+msgid "V"
+msgstr ""
+
+#: templates/earthquakeInfo.html:166
+msgid "Moderate"
+msgstr ""
+
+#: templates/earthquakeInfo.html:167
+msgid ""
+"Felt by nearly everyone; many awakened. Some dishes, windows broken. "
+"Unstable objects overturned. Pendulum clocks may stop."
+msgstr ""
+
+#: templates/earthquakeInfo.html:170
+msgid "VI"
+msgstr ""
+
+#: templates/earthquakeInfo.html:171
+msgid "Strong"
+msgstr ""
+
+#: templates/earthquakeInfo.html:172
+msgid ""
+"Felt by all, many frightened. Some heavy furniture moved; a few instances of "
+"fallen plaster. Damage slight."
+msgstr ""
+
+#: templates/earthquakeInfo.html:175
+msgid "VII"
+msgstr ""
+
+#: templates/earthquakeInfo.html:176
+msgid "Very strong"
+msgstr ""
+
+#: templates/earthquakeInfo.html:177
+msgid ""
+"Damage negligible in buildings of good design and construction; slight to "
+"moderate in well-built ordinary structures; considerable damage in poorly "
+"built or badly designed structures; some chimneys broken."
+msgstr ""
+
+#: templates/earthquakeInfo.html:180
+msgid "VIII"
+msgstr ""
+
+#: templates/earthquakeInfo.html:181
+msgid "Severe"
+msgstr ""
+
+#: templates/earthquakeInfo.html:182
+msgid ""
+"Damage slight in specially designed structures; considerable damage in "
+"ordinary substantial buildings with partial collapse. Damage great in poorly "
+"built structures. Fall of chimneys, factory stacks, columns, monuments, "
+"walls. Heavy furniture overturned."
+msgstr ""
+
+#: templates/earthquakeInfo.html:185
+msgid "IX"
+msgstr ""
+
+#: templates/earthquakeInfo.html:187
+msgid ""
+"Damage considerable in specially designed structures; well-designed frame "
+"structures thrown out of plumb. Damage great in substantial buildings, with "
+"partial collapse. Buildings shifted off foundations."
+msgstr ""
+
+#: templates/earthquakeInfo.html:190
+msgid "X+"
+msgstr ""
+
+#: templates/earthquakeInfo.html:191
+msgid "Extreme"
+msgstr ""
+
+#: templates/earthquakeInfo.html:192
+msgid ""
+"Some well-built wooden structures destroyed; most masonry and frame "
+"structures destroyed with foundations. Rails bent."
+msgstr ""
+
+#: templates/earthquakeInfo.html:195
+#, python-format
+msgid ""
+"<sup>**</sup> A 2 percent probability of exceedance in 50 years corresponds "
+"to a ground-motion return time of approximately 2500 years, or approximately "
+"a 10%% probability of of exceedance in 250 years. . The seismic intensity "
+"data and classes originate from the USGS Earthquake Hazard Map for "
+"Afghanistan (2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. "
+"Rukstales"
+msgstr ""
+
+#: templates/snowInfo.html:62
+msgid "Approx. Current Snow Depth"
 msgstr ""

@@ -87,7 +87,8 @@
               </a></li>
               <li><a href="{% url "profile_browse" %}"><span class="count badge">
                 {{ facets.user|default:_("0") }}
-              </span>{% trans "User" %}
+              </span>{% blocktrans count counter=facets.user %}User{% plural %}Users{% endblocktrans %}
+
               </a></li>
               <li><a href="#"></a></li>
             </ul>

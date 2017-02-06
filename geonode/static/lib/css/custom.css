@@ -2668,3 +2668,6 @@ html[dir=rtl] .rotate {
 .home ul.breadcrumb span.count.badge {
   margin-left: 0.25em;
 }
+.width-10-percent {
+  width: 10%;
+}

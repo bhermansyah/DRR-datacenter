@@ -27,7 +27,7 @@ li#nav_dashbaseline>a::after {
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Area | intword | intcomma}}</h1>
-			<span class='widget-title'>{% trans "Total Area" %} ({% trans "km" %}<sup>2</sup>)</span>
+			<span class='widget-title'>{% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
 		</li>
 		<li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{settlement | intword | intcomma}}</h1>
@@ -80,14 +80,14 @@ li#nav_dashbaseline>a::after {
 				<th rowspan=2><span>Length of Roads</span></th> -->
 			</tr>
 			<tr>
-				<th><span>{% trans "Pop" %}</span></th>
-				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
-				<th><span>{% trans "Pop" %}</span></th>
-				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
-				<th><span>{% trans "Pop" %}</span></th>
-				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
-				<th><span>{% trans "Pop" %}</span></th>
-				<th><span>{% trans "Area" %} ({% trans "km" %}<sup>2</sup>)</span></th>
+				<th class="width-10-percent"><span>{% trans "Pop" %}</span></th>
+				<th class="width-10-percent"><span>{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span></th>
+				<th class="width-10-percent"><span>{% trans "Pop" %}</span></th>
+				<th class="width-10-percent"><span>{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span></th>
+				<th class="width-10-percent"><span>{% trans "Pop" %}</span></th>
+				<th class="width-10-percent"><span>{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span></th>
+				<th class="width-10-percent"><span>{% trans "Pop" %}</span></th>
+				<th class="width-10-percent"><span>{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span></th>
 			</tr>
 		</thead>
 		<tbody>

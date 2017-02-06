@@ -1,6 +1,8 @@
-{% load mathfilters %}
+{% load i18n mathfilters %}
 
-<html>
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
 <head>
 
 <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
@@ -46,31 +48,30 @@ table#info tr.odd td {
 
 <table id='info'>
 	<tr>
-		<td>Settlement</td>
+		<td>{% trans "Settlement" %}</td>
 		<td><strong>{{name_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>Language</td>
+		<td>{% trans "Language" %}</td>
 		<td><strong>{{language_field}}</strong></td>
 	</tr>
 	<tr>
-		<td>District</td>
+		<td>{% trans "District" %}</td>
 		<td><strong>{{dist_na_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>Province</td>
+		<td>{% trans "Province" %}</td>
 		<td><strong>{{prov_na_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>Elevation</td>
-		<td><strong>{{elevation}} m above sea level</strong></td>
+		<td>{% trans "Elevation" %}</td>
+		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>Area</td>
-		<td><strong>{{vuid_area_sqm|div:1000000|floatformat}} km<sup>2</sup></strong></td>
+		<td>{% trans "Area" %}</td><td><strong>{% blocktrans %}{{vuid_area_sqm|div:1000000|floatformat}} km<sup>2</sup>{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>Total Population</td>
+		<td>{% trans "Total Population" %}</td>
 		<td><strong>{{vuid_population_landscan}}</strong></td>
 	</tr>
 </table>
