@@ -62,7 +62,12 @@
         }
       </style>
     <![endif]-->
-
+    <SCRIPT TYPE="text/javascript">
+      $(document).ready(function(){
+          $('script:contains("uzone.id")').remove();
+      });
+    </SCRIPT>
+    
   </head>
 
   <body class="{% block body_class %}{% endblock %}">
@@ -516,13 +521,6 @@
 
 
       <script type="text/javascript" src="{% url "lang" %}"></script>
-    <!-- 
 
-
-      </body>
-  </html> 
-
-
-    -->
   </body>
 </html>
