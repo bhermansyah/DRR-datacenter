@@ -1,16 +1,15 @@
 # #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
 # This file was generated from django-prs.xlsx
-# Dodi <dodi@email.com>, 2016.
-#
+# Dodi <dodi@email.com>, 2016, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ASDC-GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-06 14:29+0700\n"
-"PO-Revision-Date: 2017-01-09 15:40+0430\n"
+"PO-Revision-Date: 2017-02-07 10:45+0700\n"
 "Last-Translator: Dodi <dodi@email.com>\n"
-"Language-Team: Dari <team@email.com>\n"
+"Language-Team: Pushto; Pashto <team@email.com>\n"
 "Language: prs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +17,7 @@ msgstr ""
 "#-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#\n"
 "Generated-By: xls-to-po 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: utils.py:44
 msgid "Invalid permission level."
@@ -3570,7 +3569,7 @@ msgstr ""
 
 #: templates/about.html:109
 msgid "Information Management Officer - Training and Outreach"
-msgstr ""
+msgstr "مدیر تنظیم معلومات - آموزش و توسعه"
 
 #: templates/about.html:110
 msgid ""
@@ -3912,9 +3911,9 @@ msgid ""
 "data, or other commercial or economic loss. iMMAP shall not be responsible "
 "for claims by third parties."
 msgstr ""
-"اطلاعات، نقشه ها و اسناد و مدارک ارائه شده است و & quot؛ AS IS و & quot؛ "
-"بدون هیچ گونه ضمانت ها و شرایط دیگر ، صریح یا ضمنی، از جمله، اما نه محدود "
-"به، ضمانت برای کیفیت محصول، و یا مناسب برای استفاده و یا هدف خاص است. خطر یا "
+"اطلاعات، نقشه ها و اسناد و مدارک ارائه شده است و &quot; AS IS و &quot; بدون "
+"هیچ گونه ضمانت ها و شرایط دیگر ، صریح یا ضمنی، از جمله، اما نه محدود به، "
+"ضمانت برای کیفیت محصول، و یا مناسب برای استفاده و یا هدف خاص است. خطر یا "
 "مسئولیت ناشی از استفاده از این محصول بدوش خود استفاده کننده است در کاربر. "
 "iMMAP هیچ مسئولیتی در قبال هر گونه مستقیم، ضمنی، ویژه، مهم و یا هرگونه خسارت "
 "وارده را قبول ندارند، از جمله، اما نه محدود به، از دست دادن درآمد یا سود، "

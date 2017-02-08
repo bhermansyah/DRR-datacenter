@@ -2572,6 +2572,18 @@ for pages: avalancheforecast, avalancherisk, earthquake, floodrisk */
 .documents .page-header > h2 {
   unicode-bidi: plaintext;
 }
+nav.filter #categories li li a {
+  padding-left: 40px;
+  padding-right: 10px;
+}
+nav.filter #regions li li a {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+nav.filter #regions  li li li a {
+  padding-left: 50px;
+  padding-right: 10px;
+}
 /*fix geoexplorer viewport page to ltr direction*/
 html.ext-strict.x-viewport body {
   direction: ltr;
@@ -2655,6 +2667,18 @@ html[dir=rtl] .rotate {
     margin-bottom: 95px;
     /*text-align: initial;*/
 }
+html[dir=rtl] nav.filter #categories li li a {
+  padding-left: 10px;
+  padding-right: 40px;
+}
+html[dir=rtl] nav.filter #regions li li a {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+html[dir=rtl] nav.filter #regions  li li li a {
+  padding-left: 10px;
+  padding-right: 50px;
+}
 /*general tweak*/
 .ellipsis {
   white-space: nowrap;
@@ -2670,4 +2694,15 @@ html[dir=rtl] .rotate {
 }
 .width-10-percent {
   width: 10%;
+}
+/*natural-disaster page*/
+#container-natural-disaster {
+  width: 100%;
+}
+#container-natural-disaster iframe {
+  display: block;
+  margin: auto;
+}
+ul.nav.navbar-nav {
+  font-size: 12px;
 }

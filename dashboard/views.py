@@ -15,6 +15,9 @@ import pdfkit
 from geonode.people.models import Profile
 from django.views.decorators.csrf import csrf_exempt
 
+from datetime import datetime
+from django.utils.formats import dateformat
+
 def common(request):
 	response = {}
 	code = None
@@ -36,7 +39,7 @@ def common(request):
 		filterLock = request.GET['filter']
 		rawFilterLock = filterLock
 		filterLock = 'ST_GeomFromText(\''+filterLock+'\',4326)'
-		flag = request.GET['flag']	
+		flag = request.GET['flag']
 
 	if 'pdf' in request.GET:
 		mapCode = '700'
@@ -45,28 +48,28 @@ def common(request):
 		# print px
 		queryset = matrix(user=px,resourceid=map_obj,action='Dashboard PDF '+request.GET['page'])
 		queryset.save()
-	else:	
+	else:
 		mapCode = '700'
 		map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
 		queryset = matrix(user=request.user,resourceid=map_obj,action='Dashboard '+request.GET['page'])
-		queryset.save()	
+		queryset.save()
 
 	if request.GET['page'] == 'baseline':
 		response = getBaseline(request, filterLock, flag, code)
 	elif request.GET['page'] == 'floodforecast':
 		response = getFloodForecast(request, filterLock, flag, code)
 	elif request.GET['page'] == 'floodrisk':
-		response = getFloodRisk(request, filterLock, flag, code)	
+		response = getFloodRisk(request, filterLock, flag, code)
 	elif request.GET['page'] == 'avalancherisk':
 		response = getAvalancheRisk(request, filterLock, flag, code)
 	elif request.GET['page'] == 'avalcheforecast':
-		response = getAvalancheForecast(request, filterLock, flag, code)	
+		response = getAvalancheForecast(request, filterLock, flag, code)
 	elif request.GET['page'] == 'accessibility':
-		response = getAccessibility(request, rawFilterLock, flag, code)	
+		response = getAccessibility(request, rawFilterLock, flag, code)
 	elif request.GET['page'] == 'earthquake':
-		response = getEarthquake(request, filterLock, flag, code)	
+		response = getEarthquake(request, filterLock, flag, code)
 	elif request.GET['page'] == 'security':
-		response = getSecurity(request, rawFilterLock, flag, code)			
+		response = getSecurity(request, rawFilterLock, flag, code)
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)
@@ -75,12 +78,12 @@ def common(request):
 	if '_checked' in request.GET:
 		response['checked'] = request.GET['_checked'].split(",")
 
-	return response	
+	return response
 
 # Create your views here.
 def dashboard_detail(request):
 	# print request.GET['page']
-	
+
 	if 'pdf' in request.GET:
 		options = {
 		    'quiet': '',
@@ -103,19 +106,20 @@ def dashboard_detail(request):
 		print  os.path.abspath(os.path.dirname(__file__))
 		# print 'http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)
 		pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
+		date_string = dateformat.format(datetime.now(), "Y-m-d")
 		resp = HttpResponse(pdf,content_type='application/pdf')
-		resp['Content-Disposition'] = 'attachment; filename="ourcodeworld.pdf"'
+		resp['Content-Disposition'] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
 		return resp
 	else:
 		response = common(request)
 		return render_to_response(
 	            "dashboard_base.html",
-	            RequestContext(request, response))	
+	            RequestContext(request, response))
 
 def dashboard_print(request):
 	return render_to_response(
 	            "dashboard_base.html",
-	            RequestContext(request, common(request)))			
+	            RequestContext(request, common(request)))
 
 def get_provinces(request):
 	resource = AfgAdmbndaAdm1.objects.all().values('prov_code','prov_na_en').order_by('prov_na_en')
@@ -123,16 +127,16 @@ def get_provinces(request):
 	for i in resource:
 		response['data']['provinces'].append({'name':i['prov_na_en'],'code':i['prov_code']})
 
-	resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en','prov_na_en').order_by('dist_na_en')		
+	resource = AfgAdmbndaAdm2.objects.all().values('dist_code','dist_na_en','prov_na_en').order_by('dist_na_en')
 	for i in resource:
-		response['data']['districts'].append({'name':i['dist_na_en'],'code':i['dist_code'],'parent':i['prov_na_en']})	
+		response['data']['districts'].append({'name':i['dist_na_en'],'code':i['dist_code'],'parent':i['prov_na_en']})
 	return HttpResponse(json.dumps(response), mimetype='application/json')
 
 @csrf_exempt
 def dashboard_multiple(request):
 	urls = []
 	data = request.POST
-	a = request.META.get('HTTP_HOST') 
+	a = request.META.get('HTTP_HOST')
 
 	options = {
 	    'quiet': '',
@@ -157,7 +161,7 @@ def dashboard_multiple(request):
 	for i in data['urls'].split(','):
 		if i is not None and i != '':
 			urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
-	
+
 	# print urls
 
 	# pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
@@ -183,13 +187,13 @@ def classmarkerInsert(request):
 		if data[0].cm_ts > float(cm_ts):
 			cm_ts = data[0].cm_ts
 		if data[0].cm_tsa > float(cm_tsa):
-			cm_tsa = data[0].cm_tsa	  
+			cm_tsa = data[0].cm_tsa
 		if data[0].cm_tp > float(cm_tp):
 			cm_tp = data[0].cm_tp
 
 		p = classmarker(pk=data[0].pk,cm_ts=cm_ts,cm_tsa=cm_tsa,cm_tp=cm_tp,cm_td=request.GET['cm_td'],cm_fn=request.GET['cm_fn'],cm_ln=request.GET['cm_ln'],cm_e=request.GET['cm_e'],cm_user_id=request.GET['cm_user_id'])
 	else:
-		p = classmarker(cm_ts=cm_ts,cm_tsa=cm_tsa,cm_tp=cm_tp,cm_td=request.GET['cm_td'],cm_fn=request.GET['cm_fn'],cm_ln=request.GET['cm_ln'],cm_e=request.GET['cm_e'],cm_user_id=request.GET['cm_user_id'])	
+		p = classmarker(cm_ts=cm_ts,cm_tsa=cm_tsa,cm_tp=cm_tp,cm_td=request.GET['cm_td'],cm_fn=request.GET['cm_fn'],cm_ln=request.GET['cm_ln'],cm_e=request.GET['cm_e'],cm_user_id=request.GET['cm_user_id'])
 
 	p.save()
 	return HttpResponse({}, mimetype='application/json')

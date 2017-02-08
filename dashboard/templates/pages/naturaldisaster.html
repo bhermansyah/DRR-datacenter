@@ -1,0 +1,44 @@
+{% load i18n %}
+{% load humanize %}
+
+<style type="text/css">
+li#nav_naturaldisaster>a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 0.4em;
+    width: 100%;
+    border-bottom: 2px solid #755467;
+    margin-top: 15px;
+}
+</style>
+
+
+<div id="container-natural-disaster" class="gridster">
+  <iframe frameborder="0" height="1300" scrolling="no" src="https://public.tableau.com/views/Afghanistan-Natural-Disasters_0/Dashboard?:embed=y&amp;:display_count=yes&amp;:showTabs=y?:embed=yes&amp;:tabs=no&amp;:toolbar=yes&amp;:showVizHome=no" width="1080"></iframe>
+</div>
+
+<SCRIPT TYPE="text/javascript">
+function show_hide_base(){
+	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
+		_checked.push('detail_base');
+	} else {
+		$("div.showFlag_base").text('{% trans "Show Detail" %}');
+		removeA(_checked, 'detail_base');
+	}
+	$( ".detail_base" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";
+		}
+	});
+}
+
+
+
+
+</SCRIPT>
