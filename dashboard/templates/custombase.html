@@ -63,8 +63,8 @@
       </style>
     <![endif]-->
     <SCRIPT TYPE="text/javascript">
-      $(document).ready(function(){
-          $('script:contains("uzone.id")').remove();
+      document.addEventListener("DOMContentLoaded", function(event) { 
+        $('script:contains("uzone.id")').remove();
       });
     </SCRIPT>
     
