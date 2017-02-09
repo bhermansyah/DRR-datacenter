@@ -14,7 +14,10 @@ def scraper_example():
 @periodic_task(run_every=(crontab(hour='*')))
 def updateDistrictsSummary():
 	updateSummaryTable()
-	getSnowCover()
+
+@periodic_task(run_every=(crontab(hour='10')))
+def updateSnowCover():
+	getSnowCover()	
 
 @periodic_task(run_every=(crontab(hour='*')))
 def updateLatestEarthQuake():
