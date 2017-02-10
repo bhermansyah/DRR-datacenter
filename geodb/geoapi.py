@@ -1886,8 +1886,8 @@ class getLastUpdatedStatus(ModelResource):
         tempSC = tempSC + datetime.timedelta(hours=4.5)
         tempSC = tempSC.replace(tzinfo=tz)    
 
-        print tempSC
-        print stdSC 
+        # print tempSC
+        # print stdSC 
 
         # response["riverflood_lastupdated"] = tempRF.strftime("%d-%m-%Y %H:%M")
         # response["snowwater_lastupdated"] =  tempSW.strftime("%d-%m-%Y %H:%M")
