@@ -127,7 +127,9 @@
         <div class="panel-heading">
 
           <h3 class="panel-title">{% trans "Current Flood Forecast" %}</h3>
-          <h5 class="panel-subtitle"><h5>
+          {% verbatim %}
+          <h5 class="panel-subtitle">{{ lastupdatedvalues.flood_forecast_last_updated | timeAgo }}<h5>
+          {% endverbatim %}
         </div>
         <div class="panel-body">
           <section class="featured-maps">
@@ -164,7 +166,9 @@
         <div class="panel-heading">
 
           <h3 class="panel-title">{% trans "Current Avalanche" %}</h3>
-          <h5 class="panel-subtitle"><h5>
+          {% verbatim %}
+          <h5 class="panel-subtitle">{{ lastupdatedvalues.avalanche_forecast_last_updated | timeAgo }}<h5>
+          {% endverbatim %}
         </div>
         <div class="panel-body">
           <section class="featured-maps">
@@ -198,7 +202,9 @@
         <div class="panel-heading">
 
           <h3 class="panel-title">{% trans "Current Snow Cover" %}</h3>
-          <h5 class="panel-subtitle"><h5>
+          {% verbatim %}
+          <h5 class="panel-subtitle">{{ lastupdatedvalues.snow_cover_forecast_last_updated | timeAgo }}<h5>
+          {% endverbatim %}
         </div>
         <div class="panel-body">
           <section class="featured-maps">
@@ -472,6 +478,7 @@
 {% endif %}
 <!-- <script src="http://vjs.zencdn.net/5.8.8/video.js"></script> -->
 <script src="{{ STATIC_URL }}lib/js/video-ntah.js"></script>
+<script src="{{ STATIC_URL }}lib/js/timeAgo.js"></script>
 <!-- <script src="//players.brightcove.net/3676484087001/04ac0699-ca6b-449b-a2b6-0f14b4a7893b_default/index.min.js"></script>
  -->
   <script type="text/javascript">
@@ -631,9 +638,10 @@
     FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}';
     LATESTDOCS_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='lastestdocument' %}?category__identifier__in=agr-01,agr-02,agr-03,av-01,av-02,bnd-01,bnd-02,bnd-03,bnd-04,bnd-int,dr-01,dr-02,edu-01,edu-02,eq-01,erm-01,erm-02,erm-03,erm-04,erm-05,erm-06,erm-07,erm-08,geo-01,geo-02,geo-03,geo-04,geo-05,geo-06,geo-07,geo-08,geo-09,geo-10,hlt-01,hlt-02,hlt-03,hlt-04,hydro-01,hydro-02,hydro-03,hydro-04,hz-01,hz-03,idp-01,idp-02,idp-03,idp-04,img-01,img-02,infr-01,infr-02,infr-03,infr-04,infr-05,infr-06,met-01,met-02,met-03,met-04,met-05,met-06,ot-01,ot-02,ppl-01,ppl-02,ppl-03,sec-01,sec-02,sos-01,sos-02,sos-03,sos-04&limit=6&offset=0&order_by=-date';
     LATESTFLOOD_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents' %}?category__identifier__in=fl-01,fl-02,fl-03&limit=6&offset=0&order_by=-date';
+    LAST_UPDATED_URL = '{% url 'api_dispatch_list' api_name='geoapi' resource_name='lastUpdated' %}';
     'use strict';
     (function(){
-      var module = angular.module('featured', []);
+      var module = angular.module('featured', ['yaru22.angular-timeago']);
       module.run(function($http, $rootScope){
         $http.get(FEATURED_URL).success(function(data){
           $rootScope.featured = data;
@@ -643,6 +651,9 @@
         });
         $http.get(LATESTFLOOD_URL).success(function(data){
           $rootScope.latestflood = data;
+        });
+        $http.get(LAST_UPDATED_URL).success(function(data){
+          $rootScope.lastupdatedvalues = data;
         });
       });
       var random = Math.floor((Math.random() * 1000) + 1);

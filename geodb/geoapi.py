@@ -1847,5 +1847,54 @@ class getVillages(ModelResource):
         return response
 
 
+# get last update values
+class getLastUpdatedStatus(ModelResource):
+    """last updated status api"""
+
+    class Meta:
+        resource_name = 'lastUpdated'
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get'] 
+
+    def getUpdatedValues(self, request):
+        response = {}
+
+        sw = forecastedLastUpdate.objects.filter(forecasttype='snowwater').latest('datadate')
+        rf = forecastedLastUpdate.objects.filter(forecasttype='riverflood').latest('datadate')
+
+        # print rf.datadate
+        tempRF = rf.datadate + datetime.timedelta(hours=4.5)
+        tempSW = sw.datadate + datetime.timedelta(hours=4.5)
+
+        tz = timezone('Asia/Kabul')
+        tempRF = tempRF.replace(tzinfo=tz)
+        tempSW = tempSW.replace(tzinfo=tz)
+
+        stdSC = datetime.datetime.utcnow()
+        stdSC = stdSC.replace(hour=10, minute=00, second=00)
+        tempSC = datetime.datetime.utcnow()
+        
+        if stdSC > tempSC:
+            tempSC = tempSC - datetime.timedelta(days=1)
+            tempSC = tempSC.replace(hour=10, minute=00, second=00)
+        else: 
+            tempSC = tempSC.replace(hour=10, minute=00, second=00)  
+
+        tempSC = tempSC.replace(tzinfo=tz)     
+
+        # response["riverflood_lastupdated"] = tempRF.strftime("%d-%m-%Y %H:%M")
+        # response["snowwater_lastupdated"] =  tempSW.strftime("%d-%m-%Y %H:%M")
+
+        response['flood_forecast_last_updated']=tempRF
+        response['avalanche_forecast_last_updated']=tempSW
+        response['snow_cover_forecast_last_updated']=tempSC
+        return response
+
+    def get_list(self, request, **kwargs):
+        self.method_check(request, allowed=['get'])
+        response = self.getUpdatedValues(request)
+        return self.create_response(request, response)  
+
+
 
     
