@@ -1872,15 +1872,22 @@ class getLastUpdatedStatus(ModelResource):
 
         stdSC = datetime.datetime.utcnow()
         stdSC = stdSC.replace(hour=10, minute=00, second=00)
+
         tempSC = datetime.datetime.utcnow()
-        
+        # tempSC = tempSC.replace(hour=10, minute=00, second=00)
+
         if stdSC > tempSC:
             tempSC = tempSC - datetime.timedelta(days=1)
-            tempSC = tempSC.replace(hour=10, minute=00, second=00)
-        else: 
-            tempSC = tempSC.replace(hour=10, minute=00, second=00)  
+        #     tempSC = tempSC.replace(hour=10, minute=00, second=00)
+        # else: 
+        #     tempSC = tempSC.replace(hour=10, minute=00, second=00)  
+        
+        tempSC = tempSC.replace(hour=10, minute=00, second=00)
+        tempSC = tempSC + datetime.timedelta(hours=4.5)
+        tempSC = tempSC.replace(tzinfo=tz)    
 
-        tempSC = tempSC.replace(tzinfo=tz)     
+        print tempSC
+        print stdSC 
 
         # response["riverflood_lastupdated"] = tempRF.strftime("%d-%m-%Y %H:%M")
         # response["snowwater_lastupdated"] =  tempSW.strftime("%d-%m-%Y %H:%M")
