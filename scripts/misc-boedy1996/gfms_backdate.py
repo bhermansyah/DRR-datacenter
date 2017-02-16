@@ -282,10 +282,11 @@ class GFMSProcessor(GeoDataProcessor):
             tif_file3 = tif_file1
         # print tif_file3
 
-        img_url = self.get_latest_future(date)
-        # print img_url
-        img_file4 = self.download(img_url)
-        tif_file4 = self.convert(img_file4)
+        tif_file4 = tif_file3
+        # img_url = self.get_latest_future(date)
+        # # print img_url
+        # img_file4 = self.download(img_url)
+        # tif_file4 = self.convert(img_file4)
         # print tif_file4
         
         out1 = self.cropRaster(os.path.join(self.tmp_dir, tif_file1), os.path.join(self.tmp_dir, 'outcropped1.tif'))
