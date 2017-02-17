@@ -6,7 +6,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE","geonode.settings")
 
 from gfms_backdate import GFMSProcessor
 
-start_date = datetime.datetime(2013, 01, 01, 10)
+start_date = datetime.datetime(2013, 15, 13, 10)
 end_date = datetime.datetime(2016, 02, 16, 10)
 d=start_date
 delta = datetime.timedelta(days=1)
