@@ -311,23 +311,23 @@ class GFMSProcessor(GeoDataProcessor):
         lista = band.ReadAsArray()
 
         # reclassification
-        for j in  range(file1.RasterXSize):
-            for i in  range(file1.RasterYSize):
-                # if lista[i,j] <= 0:
-                #     lista[i,j] = 0
-                # el
-                if 0 < lista[i,j] <= 10:
-                    lista[i,j] = 1
-                elif 10 < lista[i,j] <= 20:
-                    lista[i,j] = 2
-                elif 20 < lista[i,j] <= 50:
-                    lista[i,j] = 3
-                elif 50 < lista[i,j] <= 100:
-                    lista[i,j] = 4
-                elif 100 < lista[i,j] <= 200:
-                    lista[i,j] = 5        
-                elif lista[i,j] > 200:
-                    lista[i,j] = 6
+        # for j in  range(file1.RasterXSize):
+        #     for i in  range(file1.RasterYSize):
+        #         # if lista[i,j] <= 0:
+        #         #     lista[i,j] = 0
+        #         # el
+        #         if 0 < lista[i,j] <= 10:
+        #             lista[i,j] = 1
+        #         elif 10 < lista[i,j] <= 20:
+        #             lista[i,j] = 2
+        #         elif 20 < lista[i,j] <= 50:
+        #             lista[i,j] = 3
+        #         elif 50 < lista[i,j] <= 100:
+        #             lista[i,j] = 4
+        #         elif 100 < lista[i,j] <= 200:
+        #             lista[i,j] = 5        
+        #         elif lista[i,j] > 200:
+        #             lista[i,j] = 6
 
         # create new file
         file2 = driver.Create(fileOUT, file1.RasterXSize , file1.RasterYSize , 1)
@@ -377,7 +377,7 @@ class GFMSProcessor(GeoDataProcessor):
 
                                 basin = AfgShedaLvl4.objects.get(value=props['value']) 
 
-                                recordExists = Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='riverflood',basin=basin)  
+                                recordExists = Forcastedvalue.objects.all().filter(datadate=year+'-'+month+'-'+day,forecasttype='riverfloodreal',basin=basin)  
                                 if recordExists.count() > 0:
                                     if recordExists[0].riskstate < props2['DN']:
                                         c = Forcastedvalue(pk=recordExists[0].pk,basin=basin)  
@@ -390,7 +390,7 @@ class GFMSProcessor(GeoDataProcessor):
                                 else:
                                     c = Forcastedvalue(basin=basin)  
                                     c.datadate = year+'-'+month+'-'+day
-                                    c.forecasttype = 'riverflood'
+                                    c.forecasttype = 'riverfloodreal'
                                     c.riskstate = props2['DN'] 
                                     c.save()
                                     # print 'riverflood added'
