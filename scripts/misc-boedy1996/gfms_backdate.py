@@ -40,7 +40,7 @@ class GFMSProcessor(GeoDataProcessor):
     NODATA_value -9999
     """.format(cols=cols, rows=rows)
 
-    base_url = "http://eagle2.umd.edu/flood/download/"
+    base_url = "http://eagle1.umd.edu/flood/download/"
     layer_future = "gfms_latest"
     layer_current = "gfms_current"
     layer_current_24h = "gfms_current_24H"
