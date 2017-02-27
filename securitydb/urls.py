@@ -5,11 +5,15 @@ from django.contrib.auth import views as auth_views
 from .views import scresysls
 from .views import scresysed
 from .views import get_districts
+from .views import get_settlements
+from .views import geoadm_from_lonlat
 
 urlpatterns = [
     # ex: /asdcscre/
     url(r'^$', scresysed, name='security_home'),
     url(r'^list/$', scresysls, name='security_list'),
-    url(r'^(?P<prov_id>[0-9]+)/get_districts/$', get_districts, name='get_districts'),
+    url(r'^(?P<chosen_prov_code>[0-9]+)/get_districts/$', get_districts, name='get_districts'),
+    url(r'^(?P<chosen_dist_code>[0-9]+)/get_settlements/$', get_settlements, name='get_settlements'),
+    url(r'^geoadm_from_lonlat/', geoadm_from_lonlat, name='geoadm_from_lonlat'),
     url(r'^(?P<criteria_id>[0-9]+)/scref/$', scresysed, name='scref'),
 ]

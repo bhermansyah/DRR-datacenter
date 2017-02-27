@@ -6,10 +6,10 @@
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">  
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>	
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>
 
 	{% load bootstrap3 %}
     {% bootstrap_css %}
@@ -19,12 +19,11 @@
 		var mainMap = window.parent.GeoExt.MapPanel.guess();
 		var click = null;
 
-
 		function getInitialSecurityPosisition(){
 			if ($('#id_scre_latitude').val()!='' && $('#id_scre_longitude').val()!=''){
 				lat = parseFloat($('#id_scre_latitude').val());
 				lon = parseFloat($('#id_scre_longitude').val());
-				
+
 				var lonLat = new window.parent.OpenLayers.LonLat(lon, lat)
 	             .transform(
 	               new window.parent.OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
@@ -32,18 +31,18 @@
 	             );
 
 	             var feature = new window.parent.OpenLayers.Feature.Vector(new window.parent.OpenLayers.Geometry.Point(lonLat.lon, lonLat.lat));
-	             
+
 	             mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
 
 	             mainMap.map.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
 
 	             mainMap.map.panTo(lonLat);
-				
+
 			}
-		} 
+		}
 
 		function getCoordinateActivate(){
-			window.parent.OpenLayers.Control.Click = window.parent.OpenLayers.Class(window.parent.OpenLayers.Control, {                
+			window.parent.OpenLayers.Control.Click = window.parent.OpenLayers.Class(window.parent.OpenLayers.Control, {
                 defaultHandlerOptions: {
                     'single': true,
                     'double': false,
@@ -58,13 +57,13 @@
                     );
                     window.parent.OpenLayers.Control.prototype.initialize.apply(
                         this, arguments
-                    ); 
+                    );
                     this.handler = new window.parent.OpenLayers.Handler.Click(
                         this, {
                             'click': this.trigger
                         }, this.handlerOptions
                     );
-                }, 
+                },
 
                 trigger: function(e) {
                     //A click happened!
@@ -77,7 +76,7 @@
                     mainMap.map.raiseLayer(mainMap.map.getLayersByName('sec_entry_vector')[0],10000);
                     // map.getLayersByName('sec_entry_vector')
                     lonlat.transform(
-                      new window.parent.OpenLayers.Projection("EPSG:900913"), 
+                      new window.parent.OpenLayers.Projection("EPSG:900913"),
                       new window.parent.OpenLayers.Projection("EPSG:4326")
                     );
                     // console.log(lonlat, feature);
@@ -86,8 +85,26 @@
 
                     $('#id_scre_latitude').val(lonlat.lat);
                     $('#id_scre_longitude').val(lonlat.lon);
+										// console.log('lonlat.lon, lonlat.lat:',lonlat.lon, lonlat.lat);
 
                     getCoordinateDeactivate();
+
+										// get administrative names from longlat
+										$.ajax({
+											url: '/securitydb/geoadm_from_lonlat/?lon='+lonlat.lon+'&lat='+lonlat.lat ,
+											success: function(data){
+												$('#id_scre_provid option:selected').prop('selected', false);
+												$("#id_scre_provid").val(data['prov_code']);
+										    $("#id_scre_provid option[value='"+data['prov_code']+"']").prop('selected', true);
+
+												fill_options($("#id_scre_distid"), data['dist_list'], data['dist_code']);
+												fill_options($("#id_scre_settvuid"), data['sett_list'], data['vuid']);
+
+												$('#id_scre_placename').val($('#id_scre_provid option:selected').text()+", "+$('#id_scre_distid option:selected').text()+", "+$('#id_scre_settvuid option:selected').text());
+
+												return false;
+											}
+										})
                 }
 
             });
@@ -99,40 +116,18 @@
 		}
 
 		function getCoordinateDeactivate(){
-			
+
 			click.deactivate();
 			mainMap.map.removeControl(click);
 			click = null;
 		}
-
 
 		function initialize_page() {
 			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
 			prov_id = $('#id_scre_provid').val();
 			dist_id = $('#id_scre_distid').val();
 			$('#id_scre_username').attr('readonly', true);
-			if(prov_id > 0) {
-				request_url = '/securitydb/' + prov_id + '/get_districts/';
-				$('#id_scre_distid').empty();
-				$.ajax({
-					url: request_url,
-					success: function(data){
-						for(var i = 0; i < Object.keys(data).length; i++){
-							if (Object.keys(data)[i]==dist_id){
-								$('#id_scre_distid').append('<option selected value="' + Object.keys(data)[i] + '">' + Object.values(data)[i] +'</option>');
-							} else {
-								$('#id_scre_distid').append('<option value="' + Object.keys(data)[i] + '">' + Object.values(data)[i] +'</option>');
-							}	
-						}
-						return false;
-					}
-				}) 
-				$('#id_scre_distid').prop('disabled', false);
-			} else {
-				$("#id_scre_distid").off();
-				$('#id_scre_distid').prop('disabled', true);
-			}
-		
+
 			if ($('#id_scre_violent').is(":checked"))
 			{
 				if ($('#id_scre_unknown').is(":checked"))
@@ -169,11 +164,28 @@
 			}
 
 			getInitialSecurityPosisition();
-			
-          
+
 		}
+
+		function fill_options(elm, data, selected_val) {
+			elm.empty();
+			elm.append('<option value="" selected="selected">---------</option>');
+			for(var i = 0; i < Object.keys(data).length; i++){
+				elm.append('<option value="' + data[i][0] + '">' + data[i][1] +'</option>');
+			}
+			elm.prop('disabled', false);
+
+			if (selected_val != undefined) {
+				elm.find('option:selected').prop('selected', false);
+				elm.val(selected_val);
+				elm.find("option[value='"+selected_val+"']").prop('selected', true);
+			}
+
+			return false;
+		}
+
 	</script>
-	
+
     <!-- <title>{% block bootstrap3_title %}iMMAP Security System{% endblock %}</title> -->
 	<style>
 		body {font-family: sans-serif; padding:20px}
@@ -214,39 +226,81 @@
 		{% endif %}
 	</form>
 	<script type="text/javascript">
+
 	$(document).ready(function(){
-		
 
 		$('#setCoord_btn').click(function() {
 			if (!click) getCoordinateActivate();
 		});
-		
+
 		$('#id_scre_provid').change(function() {
+			// console.log('#id_scre_provid change event handler');
 			$('#id_scre_placename').val($('#id_scre_provid option:selected').text());
+			$('#id_scre_distid').prop('disabled', true).empty();
+			$('#id_scre_settvuid').prop('disabled', true).empty();
+
 			prov_id = $(this).val();
+			if (!prov_id) return;
+
+			// populate district dropdown
 			request_url = '/securitydb/' + prov_id + '/get_districts/';
-			$('#id_scre_distid').empty();
 			$.ajax({
 				url: request_url,
 				success: function(data){
-					//i = Object.keys(data).length;
-					//$('#id_scre_distid').append('<option value="' + i + '">' + i +'</option>');
-					
-					for(var i = 0; i < Object.keys(data).length; i++){
-						$('#id_scre_distid').append('<option value="' + Object.keys(data)[i] + '">' + Object.values(data)[i] +'</option>');
-					}
-				
-					//$.each(Object.keys(data), function(key, value){
-					//	$('#id_scre_distid').append('<option value="' + this.key + '">' + this.key +'</option>');
-					//});
+					fill_options($('#id_scre_distid'), data);
 					return false;
 				}
-			}) 
-			$('#id_scre_distid').prop('disabled', false);
-		})
+			})
+
+			// show selected province on map window
+			var provIdx = new Number($('#id_scre_provid').val());
+			window.parent.Ext.getCmp('provSelection').getStore().data.items.forEach(function(element) {
+				if (element.data.prov_code == provIdx) {
+					window.parent.Ext.getCmp('provSelection').onSelect(element, provIdx)
+					return false;
+				}
+			});
+
+		});
+
 		$('#id_scre_distid').change(function() {
-			$('#id_scre_placename').val($('#id_scre_provid option:selected').text()+", "+$('#id_scre_distid option:selected').text());
+			// console.log('#id_scre_distid change event handler');
+			$('#id_scre_placename').val(
+				$('#id_scre_provid option:selected').text()+", "+
+				$('#id_scre_distid option:selected').text());
+			$('#id_scre_settvuid').prop('disabled', true).empty();
+
+			// show selected district on map window
+			var distIdx = new Number($('#id_scre_distid').val());
+			if (distIdx == 0) return;
+			// console.log('distIdx', distIdx);
+			window.parent.Ext.getCmp('districtSelection').getStore().data.items.forEach(function(element) {
+				if (element.data.dist_code == distIdx) {
+					window.parent.Ext.getCmp('districtSelection').onSelect(element, distIdx)
+					return false;
+				}
+			});
+
+			// populate settlement dropdown
+			dist_id = $(this).val();
+			request_url = '/securitydb/' + dist_id + '/get_settlements/';
+			$.ajax({
+				url: request_url,
+				success: function(data){
+					fill_options($('#id_scre_settvuid'), data);
+					return false;
+				}
+			})
 		})
+
+		$('#id_scre_settvuid').change(function() {
+			// console.log('#id_scre_settvuid change event handler');
+			$('#id_scre_placename').val(
+				$('#id_scre_provid option:selected').text()+", "+
+				$('#id_scre_distid option:selected').text()+", "+
+				$('#id_scre_settvuid option:selected').text());
+		});
+
 		$('#id_scre_unknown').change(function() {
 			if ($('#id_scre_violent').is(":checked"))
 			{
@@ -313,5 +367,5 @@
 			}
 		})
 	})
-	</script>	
+	</script>
 </body>
