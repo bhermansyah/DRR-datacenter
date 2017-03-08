@@ -60,13 +60,11 @@ def geoadm_from_lonlat(request):
 def scresysls(request):
 	# instance = SecureFeature()
 	recstatus_text = request.GET.get("recstatus", False)
-	recstatus = False
+	recstatus = recstatus_default = str(len(recstatus_choices_all)-1) # default choice
 	for choice in recstatus_choices:
 		if recstatus_text == choice[1]:
 			recstatus = choice[0]
 			break
-	if recstatus == False:
-		recstatus_text = 'all'
 	criteria = request.POST.get("criteria","")
 
 	has_delete = ('geodb.delete_afgincidentoasis' in request.user.get_all_permissions())
@@ -81,7 +79,7 @@ def scresysls(request):
 	# queryset
 	search_result_list = SecureFeature.objects.order_by('scre_incidentdate')
 	if has_delete:
-		if recstatus != False:
+		if recstatus != recstatus_default:
 			search_result_list = search_result_list.filter(Q(recstatus=recstatus))
 	else:
 		search_result_list = search_result_list.filter(Q(recstatus__in=[1, 2]))
@@ -101,11 +99,14 @@ def scresysls(request):
 		# If page is out of range (e.g. 9999), deliver last page of results.
 		paged_search_result_list = paginator.page(paginator.num_pages)
 
-	render_data = {'form': form, 'search_result_list': paged_search_result_list, 'criteria': criteria, 'has_delete': has_delete, 'recstatus_choices': recstatus_choices}
-	if recstatus_text:
-		render_data['recstatus_text'] = recstatus_text;
-		render_data['rsc'] = {};
-		render_data['rsc'][recstatus_text] = 'badge';
+	render_data = {
+		'form': form,
+		'search_result_list': paged_search_result_list,
+		'criteria': criteria,
+		'has_delete': has_delete,
+		'recstatus_choices': recstatus_choices_all,
+		'rsc': {recstatus: 'badge'},
+	}
 	return render(request, 'searchform.html', render_data)
 
 def scresysed(request, criteria_id=None):
