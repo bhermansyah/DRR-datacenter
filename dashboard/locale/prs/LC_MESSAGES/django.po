@@ -2,14 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 14:29+0700\n"
-"PO-Revision-Date: 2017-01-09 15:52+0430\n"
+"POT-Creation-Date: 2017-03-07 15:36+0700\n"
+"PO-Revision-Date: 2017-02-20 09:15+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_AF\n"
@@ -24,7 +24,7 @@ msgstr "مرکز ارقام مکانی افغانستان "
 
 #: templates/custombase.html:111 templates/custombase.html.py:112
 msgid "Register"
-msgstr "ثبت نام"
+msgstr "راجستر"
 
 #: templates/custombase.html:127 templates/custombase.html.py:129
 #: templates/custombase.html:296 templates/custombase.html.py:314
@@ -82,7 +82,7 @@ msgstr "شریکان "
 
 #: templates/custombase.html:199
 msgid "Videos"
-msgstr "ویدیو "
+msgstr "ویدیو ها"
 
 #: templates/custombase.html:200
 msgid "Training"
@@ -176,7 +176,7 @@ msgstr "دسترسی"
 #: templates/pages/avalcheforecast.html:26 templates/pages/baseline.html:26
 #: templates/pages/earthquake.html:36 templates/pages/floodrisk.html:26
 msgid "Total Population"
-msgstr "مجموع جمعیت"
+msgstr "مجموع نفوس"
 
 #: templates/pages/accessibility.html:30 templates/pages/baseline.html:30
 msgid "Total Area"
@@ -193,19 +193,19 @@ msgstr "کیلومتر"
 
 #: templates/pages/accessibility.html:34
 msgid "GSM Coverage – Population"
-msgstr "نفوس - پوشش GSM "
+msgstr "نفوس - پوشش  خدمات موبایل GSM"
 
 #: templates/pages/accessibility.html:40
 msgid "GSM Coverage – Area"
-msgstr "مساحت -پوشش GSM"
+msgstr "مساحت -پوشش  خدمات موبایل GSM"
 
 #: templates/pages/accessibility.html:47
 msgid "Travel Time to Nearest Airport (pop in &#37;)"
-msgstr "زمان سفر به نزدیکترین میدان هوایی "
+msgstr "زمان سفر به نزدیکترین میدان هوایی  (pop in &#37;)"
 
 #: templates/pages/accessibility.html:51
 msgid "Nearest Health Facilities Tier 1"
-msgstr "نزدیکترین خدمات صحی ردیف اول "
+msgstr "نزدیکترین امکانات صحی ردیف اول "
 
 #: templates/pages/accessibility.html:55
 msgid "Travel Time to Nearest Health Facilities Tier 2 (pop in &#37;)"
@@ -256,7 +256,8 @@ msgstr "زمان سفر به نزدیکترین میدان هوایی "
 #: templates/pages/baseline.html.py:297 templates/pages/earthquake.html:67
 #: templates/pages/earthquake.html:155 templates/pages/floodforecast.html:155
 #: templates/pages/floodforecast.html:219 templates/pages/floodrisk.html:63
-#: templates/pages/floodrisk.html.py:147 templates/pages/security.html:172
+#: templates/pages/floodrisk.html.py:147
+#: templates/pages/naturaldisaster.html:38 templates/pages/security.html:172
 #: templates/pages/security.html.py:320
 msgid "Hide Detail"
 msgstr "پنهان جزئیات"
@@ -300,8 +301,9 @@ msgstr "پنهان جزئیات"
 #: templates/pages/floodforecast.html:218
 #: templates/pages/floodforecast.html:222 templates/pages/floodrisk.html:63
 #: templates/pages/floodrisk.html.py:146 templates/pages/floodrisk.html:150
-#: templates/pages/security.html:172 templates/pages/security.html.py:319
-#: templates/pages/security.html:323
+#: templates/pages/naturaldisaster.html:37
+#: templates/pages/naturaldisaster.html:41 templates/pages/security.html:172
+#: templates/pages/security.html.py:319 templates/pages/security.html:323
 msgid "Show Detail"
 msgstr "نمایش جزئیات"
 
@@ -471,11 +473,11 @@ msgstr "مساحت خطر برف کوچ "
 
 #: templates/pages/avalancherisk.html:42
 msgid "High avalanche risk population"
-msgstr "نفوس خطر برف کوچ زیاد"
+msgstr "نفوس خطر زیاد برف کوچ "
 
 #: templates/pages/avalancherisk.html:48
 msgid "Moderate avalanche risk population"
-msgstr "نفوس خطر برف کوچ متوسط"
+msgstr "نفوس خطر متوسط برف کوچ "
 
 #: templates/pages/avalancherisk.html:63
 msgid "Population in avalanche risk areas"
@@ -538,19 +540,19 @@ msgstr "پیشبینی برف کوچ "
 
 #: templates/pages/avalcheforecast.html:34
 msgid "Forecast avalanche risk population"
-msgstr "پیشبینی نفوس تحت خطر برف کوچ "
+msgstr " نفوس پیشبینی شده تحت خطر برف کوچ "
 
 #: templates/pages/avalcheforecast.html:40
 msgid "Forecast high avalanche risk population"
-msgstr "پیشبینی نفوس تحت خطر زیاد برف کوچ "
+msgstr "نفوس پیشبینی شده تحت خطر زیاد برف کوچ "
 
 #: templates/pages/avalcheforecast.html:46
 msgid "Forecast moderate avalanche risk population"
-msgstr "پیشبینی نفوس تحت خطر متوسط برف کوچ "
+msgstr "نفوس پیشبینی شده تحت خطر متوسط برف کوچ "
 
 #: templates/pages/avalcheforecast.html:52
 msgid "Forecast low avalanche risk population"
-msgstr "پیشبینی نفوس تحت خطر کم برف کوچ "
+msgstr " نفوس پیشبینی شده تحت خطر کم برف کوچ "
 
 #: templates/pages/avalcheforecast.html:64
 msgid "Population in forecasted avalanche risk areas"
@@ -591,7 +593,7 @@ msgstr "تعداد امکانات صحی "
 
 #: templates/pages/baseline.html:42
 msgid "Total length of Road Network (km)"
-msgstr "مجموع طول شبکه ارتباطی سرک ها (کیلومتر)"
+msgstr "مجموع طول شبکه سرک ها (کیلومتر)"
 
 #: templates/pages/baseline.html:69
 msgid "Population and area overview"
@@ -607,7 +609,7 @@ msgstr "قریه "
 
 #: templates/pages/baseline.html:76 templates/pages/floodrisk.html:69
 msgid "Built-Up"
-msgstr "رهایشی"
+msgstr "ساختمانی"
 
 #: templates/pages/baseline.html:77 templates/pages/floodrisk.html:70
 msgid "Cultivated"
@@ -663,7 +665,7 @@ msgstr "SHC"
 
 #: templates/pages/baseline.html:189
 msgid "Road network overview and length"
-msgstr "طول و بررسی شبکه ارتباطی سرک ها"
+msgstr "بررسی شبکه سرک ها و طول"
 
 #: templates/pages/baseline.html:195
 msgid "Highway"
@@ -679,7 +681,7 @@ msgstr "فرعی "
 
 #: templates/pages/baseline.html:198
 msgid "Tertiary"
-msgstr "سومین"
+msgstr "نیمه فرعی"
 
 #: templates/pages/baseline.html:199
 msgid "Residential"
@@ -840,7 +842,11 @@ msgstr "نفوس ساکن در مناطق خطر سیلاب "
 msgid "Humanitarian Access"
 msgstr "دسترسی بشردوستانه"
 
-#: templates/pages/links.html:49
+#: templates/pages/links.html:32
+msgid "Natural Disaster"
+msgstr ""
+
+#: templates/pages/links.html:52
 msgid "Search Region"
 msgstr "جستجوی منطقه"
 
@@ -870,11 +876,11 @@ msgstr "انتخاب هدف حادثه "
 
 #: templates/pages/security.html:171
 msgid "Number of incidents and casualties"
-msgstr "تعداد حادثه و تلفات "
+msgstr "تعداد حوادث و تلفات "
 
 #: templates/pages/security.html:176
 msgid "# Incidents"
-msgstr "تعداد حادثه "
+msgstr "# حوادث"
 
 #: templates/pages/security.html:177
 msgid "Casualties"
@@ -883,17 +889,17 @@ msgstr "تلفات"
 #: templates/pages/security.html:182 templates/pages/security.html.py:222
 #: templates/pages/security.html:260
 msgid "Dead"
-msgstr "کشته شده"
+msgstr "کشته"
 
 #: templates/pages/security.html:183 templates/pages/security.html.py:223
 #: templates/pages/security.html:261
 msgid "Injured"
-msgstr "زخمی شده "
+msgstr "زخمی"
 
 #: templates/pages/security.html:184 templates/pages/security.html.py:224
 #: templates/pages/security.html:262
 msgid "Violent"
-msgstr "شدیداً زخمی شده "
+msgstr "شدیداً زخمی"
 
 #: templates/pages/security.html:217
 msgid "Incident Type"
@@ -957,7 +963,7 @@ msgstr "انتخاب نوع حادثه "
 
 #: templates/pages/security.html:387
 msgid "Unselected Incident Target"
-msgstr "لغو انتخاب نوع هدف"
+msgstr "لغو انتخاب هدف حادثه "
 
 #: templates/pages/security.html:388
 msgid "Selected Incident Target"

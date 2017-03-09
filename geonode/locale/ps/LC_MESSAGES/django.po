@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ASDC-GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 14:29+0700\n"
+"POT-Creation-Date: 2017-03-07 15:36+0700\n"
 "PO-Revision-Date: 2016-12-14 14:09+0700\n"
 "Last-Translator: Dodi <dodi@email.com>\n"
 "Language-Team: Pashto <team@email.com>\n"
@@ -31,7 +31,7 @@ msgstr "دهغه اجازه لرونکی"
 msgid "Agriculture"
 msgstr "زراعتی"
 
-#: api/api.py:116 templates/index.html:181
+#: api/api.py:116 templates/index.html:185
 msgid "Avalanches"
 msgstr ""
 
@@ -120,8 +120,8 @@ msgid "computer program or routine"
 msgstr ""
 
 #
-#: base/enumerations.py:29
 #
+#: base/enumerations.py:29
 msgid "feature type"
 msgstr "شنـــــــبه    (دهفتــــه ورځ)"
 
@@ -146,8 +146,8 @@ msgid "property type"
 msgstr ""
 
 #
-#: base/enumerations.py:35
 #
+#: base/enumerations.py:35
 msgid "field session"
 msgstr "نسخه"
 
@@ -160,8 +160,8 @@ msgid "service interfaces"
 msgstr ""
 
 #
-#: base/enumerations.py:38
 #
+#: base/enumerations.py:38
 msgid "attribute class"
 msgstr "توضیع"
 
@@ -174,8 +174,8 @@ msgid "tile or spatial subset of geographic data"
 msgstr ""
 
 #
-#: base/enumerations.py:41
 #
+#: base/enumerations.py:41
 msgid "feature"
 msgstr "شنـــــــبه    (دهفتــــه ورځ)"
 
@@ -402,8 +402,8 @@ msgid "restrictions"
 msgstr "توضیع"
 
 #
-#: base/models.py:260
 #
+#: base/models.py:260
 msgid "restrictions other"
 msgstr "توضیع"
 
@@ -429,8 +429,8 @@ msgid "temporal extent end"
 msgstr ""
 
 #
-#: base/models.py:283
 #
+#: base/models.py:283
 msgid "supplemental information"
 msgstr "معلومات"
 
@@ -443,8 +443,8 @@ msgid "distribution URL"
 msgstr ""
 
 #
-#: base/models.py:289
 #
+#: base/models.py:289
 msgid "distribution description"
 msgstr "توضیع"
 
@@ -457,8 +457,8 @@ msgid "CSW typename"
 msgstr ""
 
 #
-#: base/models.py:310
 #
+#: base/models.py:310
 msgid "CSW schema"
 msgstr "منابع"
 
@@ -514,8 +514,8 @@ msgid "For example \"text/xml\""
 msgstr ""
 
 #
-#: base/management/__init__.py:14
 #
+#: base/management/__init__.py:14
 msgid "Request to download a resource"
 msgstr "دانلود"
 
@@ -566,8 +566,8 @@ msgid "published"
 msgstr "نشره ول"
 
 #
-#: base/templates/base/_resourcebase_snippet.html:26
 #
+#: base/templates/base/_resourcebase_snippet.html:26
 msgid "Map from"
 msgstr "دکټه اخیستونکی نوم"
 
@@ -772,8 +772,8 @@ msgid "Document Created"
 msgstr "سند"
 
 #
-#: documents/management/__init__.py:15
 #
+#: documents/management/__init__.py:15
 msgid "A Document was created"
 msgstr "سند"
 
@@ -783,8 +783,8 @@ msgid "Document Updated"
 msgstr "سند"
 
 #
-#: documents/management/__init__.py:19
 #
+#: documents/management/__init__.py:19
 msgid "A Document was updated"
 msgstr "سند"
 
@@ -794,20 +794,20 @@ msgid "Document Deleted"
 msgstr "سند"
 
 #
-#: documents/management/__init__.py:23
 #
+#: documents/management/__init__.py:23
 msgid "A Document was deleted"
 msgstr "سند"
 
 #
-#: documents/management/__init__.py:26
 #
+#: documents/management/__init__.py:26
 msgid "Comment on Document"
 msgstr "نظریی"
 
 #
-#: documents/management/__init__.py:27
 #
+#: documents/management/__init__.py:27
 msgid "A Document was commented on"
 msgstr "سند"
 
@@ -821,14 +821,14 @@ msgid "A rating was given to a document"
 msgstr ""
 
 #
-#: documents/templates/documents/document_detail.html:45
 #
+#: documents/templates/documents/document_detail.html:45
 msgid "External Resource"
 msgstr "منابع"
 
 #
-#: documents/templates/documents/document_detail.html:67
 #
+#: documents/templates/documents/document_detail.html:67
 msgid "Rate this document"
 msgstr "سند"
 
@@ -859,10 +859,10 @@ msgid "Edit Document"
 msgstr "سند"
 
 #
+#
 #: documents/templates/documents/document_detail.html:116
 #: layers/templates/layers/layer_detail.html:186
 #: maps/templates/maps/map_detail.html:107
-#
 msgid "Metadata"
 msgstr "دانلود"
 
@@ -880,12 +880,13 @@ msgid "Document"
 msgstr "سند"
 
 #
+#
 #: documents/templates/documents/document_detail.html:125
 #: layers/templates/layers/layer_detail.html:214
-#
 msgid "Replace"
 msgstr "سند"
 
+#
 #
 #: documents/templates/documents/document_detail.html:128
 #: groups/templates/groups/group_members.html:33
@@ -893,7 +894,6 @@ msgstr "سند"
 #: groups/templates/groups/group_members.html:86
 #: layers/templates/layers/layer_detail.html:220
 #: maps/templates/maps/map_detail.html:123
-#
 msgid "Remove"
 msgstr "پیښوونکی"
 
@@ -925,8 +925,8 @@ msgid "List of resources using this document:"
 msgstr ""
 
 #
-#: documents/templates/documents/document_detail.html:172
 #
+#: documents/templates/documents/document_detail.html:172
 msgid "This document is related to a "
 msgstr "سند"
 
@@ -974,16 +974,16 @@ msgid "Documents"
 msgstr "سند"
 
 #
+#
 #: documents/templates/documents/document_metadata.html:17
 #: layers/templates/layers/layer_metadata.html:12
 #: maps/templates/maps/map_metadata.html:12
-#
 msgid "Edit Metadata"
 msgstr "جورول"
 
 #
-#: documents/templates/documents/document_metadata.html:22
 #
+#: documents/templates/documents/document_metadata.html:22
 msgid "Editing details for"
 msgstr "مشخصات"
 
@@ -1040,8 +1040,8 @@ msgid "Replace Document"
 msgstr "سند"
 
 #
-#: documents/templates/documents/document_replace.html:16
 #
+#: documents/templates/documents/document_replace.html:16
 msgid "Replace "
 msgstr "سند"
 
@@ -1173,11 +1173,11 @@ msgid "Access"
 msgstr ""
 
 #
+#
 #: groups/models.py:188 groups/models.py:207
 #: groups/templates/groups/group_members.html:28
 #: groups/templates/groups/group_members.html:54
 #: groups/templates/groups/group_members.html:81
-#
 msgid "Manager"
 msgstr "سلیقه"
 
@@ -1199,10 +1199,10 @@ msgid "Declined"
 msgstr ""
 
 #
+#
 #: groups/templates/groups/activity.html:7
 #: groups/templates/groups/activity.html:8
 #: groups/templates/groups/activity.html:20 templates/actstream/actor.html:19
-#
 msgid "Activity Feed for"
 msgstr "فعالیت"
 
@@ -1236,6 +1236,7 @@ msgid "Comments"
 msgstr "نظریی"
 
 #
+#
 #: groups/templates/groups/activity.html:35
 #: groups/templates/groups/activity.html:44
 #: groups/templates/groups/activity.html:53
@@ -1245,7 +1246,6 @@ msgstr "نظریی"
 #: social/templates/social/activity_list.html:49
 #: social/templates/social/activity_list.html:58
 #: templates/actstream/actor.html:28
-#
 msgid "No actions yet"
 msgstr "اطلاعیه"
 
@@ -1264,15 +1264,15 @@ msgid "Create a Group"
 msgstr "جوره ول"
 
 #
+#
 #: groups/templates/groups/group_base.html:16
 #: groups/templates/groups/group_update.html:11
-#
 msgid "Update Group"
 msgstr "جوره ول"
 
 #
-#: groups/templates/groups/group_base.html:17
 #
+#: groups/templates/groups/group_base.html:17
 msgid "Remove Group"
 msgstr "ډلی"
 
@@ -1300,8 +1300,8 @@ msgid "Members"
 msgstr "نومبر"
 
 #
-#: groups/templates/groups/group_detail.html:52
 #
+#: groups/templates/groups/group_detail.html:52
 msgid "Edit Group Details"
 msgstr "مشخصات"
 
@@ -1310,8 +1310,8 @@ msgid "Manage Group Members"
 msgstr ""
 
 #
-#: groups/templates/groups/group_detail.html:54
 #
+#: groups/templates/groups/group_detail.html:54
 msgid "Delete this Group"
 msgstr "جوره ول"
 
@@ -1341,9 +1341,9 @@ msgid "Membership is by invitation only."
 msgstr ""
 
 #
+#
 #: groups/templates/groups/group_detail.html:81
 #: groups/templates/groups/group_members.html:14
-#
 msgid "Managers"
 msgstr "سلیقه"
 
@@ -1391,8 +1391,8 @@ msgid "Most popular"
 msgstr "محبوب"
 
 #
-#: groups/templates/groups/group_members.html:8
 #
+#: groups/templates/groups/group_members.html:8
 msgid "Edit Members for"
 msgstr "مشخصات"
 
@@ -1403,8 +1403,8 @@ msgid "Role"
 msgstr ""
 
 #
-#: groups/templates/groups/group_members.html:99
 #
+#: groups/templates/groups/group_members.html:99
 msgid "Add members"
 msgstr "نومبر"
 
@@ -1429,8 +1429,8 @@ msgid "Remove selected maps/data"
 msgstr ""
 
 #
-#: layers/models.py:53
 #
+#: layers/models.py:53
 msgid "style name"
 msgstr "دکټه اخیستونکی نوم"
 
@@ -1452,8 +1452,8 @@ msgid "File cannot be opened, maybe check the encoding"
 msgstr ""
 
 #
-#: layers/models.py:297
 #
+#: layers/models.py:297
 msgid "attribute name"
 msgstr "توضیع"
 
@@ -1471,8 +1471,8 @@ msgid "description of attribute to be used in metadata"
 msgstr ""
 
 #
-#: layers/models.py:310
 #
+#: layers/models.py:310
 msgid "attribute label"
 msgstr "توضیع"
 
@@ -1481,8 +1481,8 @@ msgid "title of attribute as displayed in GeoNode"
 msgstr ""
 
 #
-#: layers/models.py:317
 #
+#: layers/models.py:317
 msgid "attribute type"
 msgstr "توضیع"
 
@@ -1544,8 +1544,8 @@ msgid "average value for this field"
 msgstr ""
 
 #
-#: layers/models.py:363
 #
+#: layers/models.py:363
 msgid "median"
 msgstr "منځنیځ"
 
@@ -1631,38 +1631,38 @@ msgid "Layer Created"
 msgstr "جوره ول"
 
 #
-#: layers/management/__init__.py:34
 #
+#: layers/management/__init__.py:34
 msgid "A Layer was created"
 msgstr "جوره ول"
 
 #
-#: layers/management/__init__.py:37
 #
+#: layers/management/__init__.py:37
 msgid "Layer Updated"
 msgstr "جوره ول"
 
 #
-#: layers/management/__init__.py:38
 #
+#: layers/management/__init__.py:38
 msgid "A Layer was updated"
 msgstr "جوره ول"
 
 #
-#: layers/management/__init__.py:41
 #
+#: layers/management/__init__.py:41
 msgid "Layer Deleted"
 msgstr "جوره ول"
 
 #
-#: layers/management/__init__.py:42
 #
+#: layers/management/__init__.py:42
 msgid "A Layer was deleted"
 msgstr "جوره ول"
 
 #
-#: layers/management/__init__.py:45
 #
+#: layers/management/__init__.py:45
 msgid "Comment on Layer"
 msgstr "نظریی"
 
@@ -1671,8 +1671,8 @@ msgid "A layer was commented on"
 msgstr ""
 
 #
-#: layers/management/__init__.py:49
 #
+#: layers/management/__init__.py:49
 msgid "Rating for Layer"
 msgstr "رتبه"
 
@@ -1685,9 +1685,9 @@ msgid "Home"
 msgstr "کور"
 
 #
+#
 #: layers/templates/layers/layer_change_poc.html:5
 #: layers/templates/layers/layer_change_poc.html:7
-#
 msgid "Change point of contact"
 msgstr "اريکه"
 
@@ -1696,9 +1696,9 @@ msgid "Assign a new point of contact to the layers below:"
 msgstr ""
 
 #
+#
 #: layers/templates/layers/layer_change_poc.html:17
 #: people/templates/people/forgot_username_form.html:15
-#
 msgid "Submit"
 msgstr "نظریی"
 
@@ -1717,8 +1717,8 @@ msgid "Range"
 msgstr "تغییر ورکول"
 
 #
-#: layers/templates/layers/layer_detail.html:54
 #
+#: layers/templates/layers/layer_detail.html:54
 msgid "Average"
 msgstr "رتبه"
 
@@ -1732,8 +1732,8 @@ msgid "Standard Deviation"
 msgstr ""
 
 #
-#: layers/templates/layers/layer_detail.html:114
 #
+#: layers/templates/layers/layer_detail.html:114
 msgid "Rate this layer"
 msgstr "د استاتیک ورستنی نقشیی"
 
@@ -1755,9 +1755,9 @@ msgid "Styles"
 msgstr "سلیقه"
 
 #
+#
 #: layers/templates/layers/layer_detail.html:198
 #: services/templates/services/service_detail.html:110
-#
 msgid "Manage"
 msgstr "سلیقه"
 
@@ -1772,7 +1772,7 @@ msgstr ""
 msgid "Set"
 msgstr "انتخاب"
 
-#: layers/templates/layers/layer_detail.html:212 templates/index.html:437
+#: layers/templates/layers/layer_detail.html:212 templates/index.html:443
 #: templates/notification/request_download_resourcebase/full.txt:7
 msgid "Layer"
 msgstr "پیښوونکی"
@@ -1807,8 +1807,8 @@ msgid "Click the button below to generate a new map based on this layer."
 msgstr ""
 
 #
-#: layers/templates/layers/layer_detail.html:294
 #
+#: layers/templates/layers/layer_detail.html:294
 msgid "Documents related to this layer"
 msgstr "سند"
 
@@ -1840,8 +1840,8 @@ msgid "Change Layer Permissions"
 msgstr "دهغه اجازه لرونکی"
 
 #
-#: layers/templates/layers/layer_detail.html:338
 #
+#: layers/templates/layers/layer_detail.html:338
 msgid "External service layer"
 msgstr "څیرل"
 
@@ -1907,8 +1907,8 @@ msgid ""
 msgstr ""
 
 #
-#: layers/templates/layers/layer_remove.html:30
 #
+#: layers/templates/layers/layer_remove.html:30
 msgid "This action affects the following maps:"
 msgstr "تعقیب ول"
 
@@ -1917,15 +1917,15 @@ msgid "No maps are using this layer"
 msgstr ""
 
 #
+#
 #: layers/templates/layers/layer_replace.html:5
 #: layers/templates/layers/layer_replace.html:85
-#
 msgid "Replace Layer"
 msgstr "نصب ول"
 
 #
-#: layers/templates/layers/layer_replace.html:19
 #
+#: layers/templates/layers/layer_replace.html:19
 msgid "Replace Layer: "
 msgstr "نصب ول"
 
@@ -2014,14 +2014,14 @@ msgid ""
 msgstr ""
 
 #
-#: layers/templates/layers/layer_style_manage.html:23
 #
+#: layers/templates/layers/layer_style_manage.html:23
 msgid "Layer Default Style"
 msgstr "سلیقه"
 
 #
-#: layers/templates/layers/layer_style_manage.html:41
 #
+#: layers/templates/layers/layer_style_manage.html:41
 msgid "Available styles"
 msgstr "سلیقه"
 
@@ -2136,20 +2136,20 @@ msgid "Upload Form"
 msgstr "نصب ول"
 
 #
-#: layers/templates/upload/layer_upload_time.html:7
 #
+#: layers/templates/upload/layer_upload_time.html:7
 msgid "Upload Layer Step 2"
 msgstr "نصب ول"
 
 #
-#: layers/templates/upload/layer_upload_time.html:15
 #
+#: layers/templates/upload/layer_upload_time.html:15
 msgid "Editing details for "
 msgstr "مشخصات"
 
 #
-#: layers/templates/upload/layer_upload_time.html:19
 #
+#: layers/templates/upload/layer_upload_time.html:19
 msgid "Time Options"
 msgstr "انتخاب"
 
@@ -2207,8 +2207,8 @@ msgid "defined by the resolution"
 msgstr ""
 
 #
-#: layers/templates/upload/layer_upload_time.html:92
 #
+#: layers/templates/upload/layer_upload_time.html:92
 msgid "Continuous Intervals"
 msgstr "د تعاملی نقشیی"
 
@@ -2350,8 +2350,8 @@ msgid "Site URL"
 msgstr ""
 
 #
-#: maps/models.py:82
 #
+#: maps/models.py:82
 msgid "Featured Map URL"
 msgstr "شنـــــــبه    (دهفتــــه ورځ)"
 
@@ -2365,8 +2365,8 @@ msgid "format"
 msgstr "معلومات"
 
 #
-#: maps/models.py:391
 #
+#: maps/models.py:391
 msgid "name"
 msgstr "دکټه اخیستونکی نوم"
 
@@ -2401,8 +2401,8 @@ msgid "ows URL"
 msgstr ""
 
 #
-#: maps/models.py:426
 #
+#: maps/models.py:426
 msgid "layer params"
 msgstr "منابع"
 
@@ -2449,14 +2449,14 @@ msgid "Map Created"
 msgstr "جوره ول"
 
 #
-#: maps/management/__init__.py:34
 #
+#: maps/management/__init__.py:34
 msgid "A Map was created"
 msgstr "جوره ول"
 
 #
-#: maps/management/__init__.py:37
 #
+#: maps/management/__init__.py:37
 msgid "Map Updated"
 msgstr "جوره ول"
 
@@ -2465,8 +2465,8 @@ msgid "A Map was updated"
 msgstr ""
 
 #
-#: maps/management/__init__.py:41
 #
+#: maps/management/__init__.py:41
 msgid "Map Deleted"
 msgstr "جوره ول"
 
@@ -2510,14 +2510,14 @@ msgid "Download Map"
 msgstr "دانلود"
 
 #
-#: maps/templates/maps/map_detail.html:80
 #
+#: maps/templates/maps/map_detail.html:80
 msgid "Download Data Layers"
 msgstr "دانلود"
 
 #
-#: maps/templates/maps/map_detail.html:81
 #
+#: maps/templates/maps/map_detail.html:81
 msgid "Download Web Map Context"
 msgstr "دانلود"
 
@@ -2528,7 +2528,7 @@ msgid "Edit Map"
 msgstr "جورول"
 
 #
-#: maps/templates/maps/map_detail.html:121 templates/index.html:447
+#: maps/templates/maps/map_detail.html:121 templates/index.html:453
 msgid "Map"
 msgstr "نقشه"
 
@@ -2542,8 +2542,8 @@ msgid "This map uses the following layers:"
 msgstr ""
 
 #
-#: maps/templates/maps/map_detail.html:163
 #
+#: maps/templates/maps/map_detail.html:163
 msgid "Documents related to this map"
 msgstr "سند"
 
@@ -2556,14 +2556,14 @@ msgid "Specify which users can view or modify this map"
 msgstr ""
 
 #
-#: maps/templates/maps/map_detail.html:177
 #
+#: maps/templates/maps/map_detail.html:177
 msgid "Change Permissions of this Map"
 msgstr "دهغه اجازه لرونکی"
 
 #
-#: maps/templates/maps/map_detail.html:184
 #
+#: maps/templates/maps/map_detail.html:184
 msgid "Copy this map"
 msgstr "د استاتیک ورستنی نقشیی"
 
@@ -2572,15 +2572,15 @@ msgid "Duplicate this map and modify it for your own purposes"
 msgstr ""
 
 #
+#
 #: maps/templates/maps/map_detail.html:186
 #: maps/templates/maps/map_list.html:12
-#
 msgid "Create a New Map"
 msgstr "جوره ول"
 
 #
-#: maps/templates/maps/map_detail.html:192
 #
+#: maps/templates/maps/map_detail.html:192
 msgid "Map WMS"
 msgstr "نشره ول"
 
@@ -2711,8 +2711,8 @@ msgid "Important dates"
 msgstr ""
 
 #
-#: people/admin.py:58
 #
+#: people/admin.py:58
 msgid "Extended profile"
 msgstr "مشخصات"
 
@@ -2781,8 +2781,8 @@ msgid "Email Address"
 msgstr ""
 
 #
-#: people/management.py:32
 #
+#: people/management.py:32
 msgid "User following you"
 msgstr "تعقیب ول"
 
@@ -2918,8 +2918,8 @@ msgid "All contents"
 msgstr ""
 
 #
-#: people/templates/people/forgot_username_form.html:6
 #
+#: people/templates/people/forgot_username_form.html:6
 msgid "Forgot Username"
 msgstr "دکټه اخیستونکی نوم"
 
@@ -2994,14 +2994,14 @@ msgid "Change password"
 msgstr "پاسورد"
 
 #
-#: people/templates/people/profile_detail.html:89
 #
+#: people/templates/people/profile_detail.html:89
 msgid "Upload new layers"
 msgstr "پیښوونکی"
 
 #
-#: people/templates/people/profile_detail.html:90
 #
+#: people/templates/people/profile_detail.html:90
 msgid "Create a new map"
 msgstr "جوره ول"
 
@@ -3016,18 +3016,18 @@ msgid "Notifications"
 msgstr "اطلاعیه"
 
 #
+#
 #: people/templates/people/profile_detail.html:100 templates/500.html:225
 #: templates/base.html:323 templates/announcements/announcement_list.html:6
 #: templates/announcements/announcement_list.html:13
-#
 msgid "Announcements"
 msgstr "سند"
 
 #
+#
 #: people/templates/people/profile_detail.html:105
 #: services/templates/services/service_list.html:9 templates/500.html:228
 #: templates/base.html:326
-#
 msgid "Remote Services"
 msgstr "پیښوونکی"
 
@@ -3057,9 +3057,9 @@ msgid "Resources"
 msgstr "منابع"
 
 #
+#
 #: people/templates/people/profile_edit.html:10
 #: people/templates/people/profile_edit.html:24
-#
 msgid "Edit Your Profile"
 msgstr "مشخصات"
 
@@ -3073,8 +3073,8 @@ msgid "Change your avatar"
 msgstr ""
 
 #
-#: people/templates/people/profile_edit.html:30
 #
+#: people/templates/people/profile_edit.html:30
 msgid "Update profile"
 msgstr "مشخصات"
 
@@ -3137,8 +3137,8 @@ msgid "Service URL"
 msgstr ""
 
 #
-#: services/forms.py:15
 #
+#: services/forms.py:15
 msgid "Service name"
 msgstr "دکټه اخیستونکی نوم"
 
@@ -3246,20 +3246,20 @@ msgid "This Service contains the following layers"
 msgstr ""
 
 #
-#: services/templates/services/service_detail.html:113
 #
+#: services/templates/services/service_detail.html:113
 msgid "Edit Service Metadata"
 msgstr "جورول"
 
 #
-#: services/templates/services/service_detail.html:116
 #
+#: services/templates/services/service_detail.html:116
 msgid "Remove Service"
 msgstr "پیښوونکی"
 
 #
-#: services/templates/services/service_edit.html:15
 #
+#: services/templates/services/service_edit.html:15
 msgid "Edit Service"
 msgstr "مشخصات"
 
@@ -3311,20 +3311,20 @@ msgid "deleted"
 msgstr "انتخاب"
 
 #
-#: social/signals.py:89
 #
+#: social/signals.py:89
 msgid "updated"
 msgstr "اوبه لرونکی"
 
 #
-#: social/signals.py:94 social/tests.py:100
 #
+#: social/signals.py:94 social/tests.py:100
 msgid "added a comment"
 msgstr "نظریی"
 
 #
-#: social/signals.py:96
 #
+#: social/signals.py:96
 msgid "updated a comment"
 msgstr "نظریی"
 
@@ -3446,8 +3446,8 @@ msgid "Menu"
 msgstr ""
 
 #
-#: templates/500.html:219 templates/base.html:317
 #
+#: templates/500.html:219 templates/base.html:317
 msgid "Recent Activity"
 msgstr "فعالیت"
 
@@ -3530,18 +3530,18 @@ msgid "Anyone"
 msgstr ""
 
 #
+#
 #: templates/_permissions.html:22 templates/_permissions.html.py:54
 #: templates/_permissions.html:80 templates/_permissions.html.py:107
 #: templates/_permissions.html:133 templates/_permissions.html.py:160
-#
 msgid "The following users:"
 msgstr "تعقیب ول"
 
 #
+#
 #: templates/_permissions.html:28 templates/_permissions.html.py:60
 #: templates/_permissions.html:86 templates/_permissions.html.py:113
 #: templates/_permissions.html:139 templates/_permissions.html.py:166
-#
 msgid "The following groups:"
 msgstr "تعقیب ول"
 
@@ -3567,8 +3567,8 @@ msgid ""
 msgstr ""
 
 #
-#: templates/_permissions_form.html:9
 #
+#: templates/_permissions_form.html:9
 msgid "Set permissions for this resource"
 msgstr "دهغه اجازه لرونکی"
 
@@ -3748,8 +3748,8 @@ msgstr ""
 msgid "Afghanistan Spatial Data Center"
 msgstr "د افغانستان د هوایی ورکر شوی اداره(مرکز)"
 
-#: templates/base.html:149 templates/index.html:525
-#: templates/index.html.py:616 templates/video.html:79
+#: templates/base.html:149 templates/index.html:532
+#: templates/index.html.py:623 templates/video.html:79
 #: templates/video.html.py:170
 msgid "Dashboard"
 msgstr ""
@@ -3760,8 +3760,8 @@ msgid "Interactive Maps"
 msgstr "د تعاملی نقشیی"
 
 #: templates/base.html:158 templates/index.html:25 templates/index.html.py:86
-#: templates/index.html:107 templates/index.html.py:509
-#: templates/index.html:600 templates/video.html:63
+#: templates/index.html:107 templates/index.html.py:516
+#: templates/index.html:607 templates/video.html:63
 #: templates/video.html.py:154
 msgid "Static Maps"
 msgstr "داستاتیک نقشه"
@@ -4178,8 +4178,8 @@ msgid "Sections"
 msgstr "انتخاب"
 
 #
-#: templates/help.html:67
 #
+#: templates/help.html:67
 msgid "Browsing Layers"
 msgstr "دانلود"
 
@@ -4188,26 +4188,26 @@ msgid "Developer Access"
 msgstr ""
 
 #
-#: templates/help.html:69
 #
+#: templates/help.html:69
 msgid "Browsing Maps"
 msgstr "داستاتیک نقشه"
 
 #
-#: templates/help.html:70
 #
+#: templates/help.html:70
 msgid "Creating a Map"
 msgstr "جوره ول"
 
 #
-#: templates/help.html:71
 #
+#: templates/help.html:71
 msgid "Exporting a Map"
 msgstr "څیرل"
 
 #
-#: templates/help.html:72
 #
+#: templates/help.html:72
 msgid "Remixing a Map"
 msgstr "رتبه"
 
@@ -4258,7 +4258,7 @@ msgid "0"
 msgstr ""
 
 #
-#: templates/index.html:90 templates/index.html.py:457
+#: templates/index.html:90 templates/index.html.py:463
 #: templates/notification/account_approve/full.txt:1
 msgid "User"
 msgid_plural "Users"
@@ -4274,34 +4274,34 @@ msgstr "کته اخیستونکی"
 msgid "Current Flood Forecast"
 msgstr ""
 
-#: templates/index.html:144
+#: templates/index.html:146
 msgid "Flood"
 msgstr "سیلاب"
 
-#: templates/index.html:145
+#: templates/index.html:147
 msgid "River and flash flood forecast"
 msgstr ""
 
-#: templates/index.html:146
+#: templates/index.html:148
 msgid ""
 "Click to explore for the forecast on river floods and flash floods. River "
 "flood forecasts are valid for 4 days and updated every 6 hours, whereas the "
 "flash floods are valid for 6 hours and updated hourly."
 msgstr ""
 
-#: templates/index.html:147
+#: templates/index.html:149
 msgid "The map and statistics are is updated every 6 hours."
 msgstr ""
 
-#: templates/index.html:166
+#: templates/index.html:168
 msgid "Current Avalanche"
 msgstr ""
 
-#: templates/index.html:182
+#: templates/index.html:186
 msgid "Avalanches forecast"
 msgstr ""
 
-#: templates/index.html:183
+#: templates/index.html:187
 msgid ""
 "Click to explore for the number of people potentially affected by avalanches "
 "based on the current snow cover and snow water equivalent (at small basin "
@@ -4309,215 +4309,215 @@ msgid ""
 msgstr ""
 
 #
-#: templates/index.html:200
 #
+#: templates/index.html:204
 msgid "Current Snow Cover"
 msgstr "پوښ"
 
 #
-#: templates/index.html:215
+#: templates/index.html:221
 msgid "Snow Cover"
 msgstr "پوښ"
 
-#: templates/index.html:216
+#: templates/index.html:222
 msgid "Current Snow Cover and Depth"
 msgstr ""
 
-#: templates/index.html:217
+#: templates/index.html:223
 msgid "Click to explore for the current snow cover and depth"
 msgstr ""
 
-#: templates/index.html:234
+#: templates/index.html:240
 msgid "Latest Static Maps"
 msgstr "د استاتیک ورستنی نقشیی"
 
 #
-#: templates/index.html:235 templates/index.html.py:272
+#: templates/index.html:241 templates/index.html.py:278
 msgid "See all, total"
 msgstr "کتل"
 
-#: templates/index.html:235 templates/index.html.py:272
+#: templates/index.html:241 templates/index.html.py:278
 msgid "maps"
 msgstr ""
 
-#: templates/index.html:250 templates/index.html.py:285
-#: templates/index.html:324
+#: templates/index.html:256 templates/index.html.py:291
+#: templates/index.html:330
 msgid "from"
 msgstr ""
 
-#: templates/index.html:271
+#: templates/index.html:277
 msgid "Latest Flood Maps"
 msgstr "دسیلابو ورستنی نقشیی"
 
 #
-#: templates/index.html:351
 #
+#: templates/index.html:357
 msgid "Documentation and Video"
 msgstr "سند"
 
 #
-#: templates/index.html:437 templates/index.html.py:447
-#: templates/index.html:457
+#: templates/index.html:443 templates/index.html.py:453
+#: templates/index.html:463
 msgid "No"
 msgstr "نومبر"
 
-#: templates/index.html:438
+#: templates/index.html:444
 msgid ""
 "Click to search for geospatial data published by other users, organizations "
 "and public sources. Download data in standard formats."
 msgstr ""
 
 #
-#: templates/index.html:440
+#: templates/index.html:446
 msgid "Add layers"
 msgstr "پیښوونکی"
 
 #
-#: templates/index.html:442
+#: templates/index.html:448
 msgid "Explore layers"
 msgstr "څیرل"
 
-#: templates/index.html:448
+#: templates/index.html:454
 msgid ""
 "Data is available for browsing, aggregating and styling to generate maps "
 "which can be shared publicly or restricted to specific users only."
 msgstr ""
 
 #
-#: templates/index.html:450
+#: templates/index.html:456
 msgid "Create maps"
 msgstr "جوره ول"
 
 #
-#: templates/index.html:452
+#: templates/index.html:458
 msgid "Explore maps"
 msgstr "څیرل"
 
-#: templates/index.html:458
+#: templates/index.html:464
 msgid ""
 "GeoNode allows registered users to easily upload geospatial data in several "
 "formats including shapefile and GeoTiff."
 msgstr ""
 
-#: templates/index.html:459
+#: templates/index.html:465
 msgid "See users"
 msgstr ""
 
-#: templates/index.html:484 templates/video.html:38
+#: templates/index.html:491 templates/video.html:38
 msgid "Segment 1: English Version"
 msgstr ""
 
-#: templates/index.html:485 templates/index.html.py:576
+#: templates/index.html:492 templates/index.html.py:583
 #: templates/video.html:39 templates/video.html.py:130
 msgid "Statistics Tool"
 msgstr ""
 
-#: templates/index.html:492 templates/video.html:46
+#: templates/index.html:499 templates/video.html:46
 msgid "Segment 2: English Version"
 msgstr ""
 
-#: templates/index.html:493 templates/index.html.py:584
+#: templates/index.html:500 templates/index.html.py:591
 #: templates/video.html:47 templates/video.html.py:138
 msgid "Settlement Inspector"
 msgstr ""
 
-#: templates/index.html:500 templates/video.html:54
+#: templates/index.html:507 templates/video.html:54
 msgid "Segment 3: English Version"
 msgstr ""
 
-#: templates/index.html:501 templates/index.html.py:592
+#: templates/index.html:508 templates/index.html.py:599
 #: templates/video.html:55 templates/video.html.py:146
 msgid "Finder Tool"
 msgstr ""
 
-#: templates/index.html:508 templates/video.html:62
+#: templates/index.html:515 templates/video.html:62
 msgid "Segment 4: English Version"
 msgstr ""
 
-#: templates/index.html:516 templates/video.html:70
+#: templates/index.html:523 templates/video.html:70
 msgid "Segment 5: English Version"
 msgstr ""
 
 #
-#: templates/index.html:517 templates/index.html.py:608
+#: templates/index.html:524 templates/index.html.py:615
 #: templates/video.html:71 templates/video.html.py:162
 msgid "Earthquakes"
 msgstr "زلزله"
 
-#: templates/index.html:524 templates/video.html:78
+#: templates/index.html:531 templates/video.html:78
 msgid "Segment 6: English Version"
 msgstr ""
 
-#: templates/index.html:532 templates/video.html:86
+#: templates/index.html:539 templates/video.html:86
 msgid "Segment 7: English Version"
 msgstr ""
 
 #
-#: templates/index.html:533 templates/index.html.py:624
+#: templates/index.html:540 templates/index.html.py:631
 #: templates/video.html:87 templates/video.html.py:178
 msgid "Printing"
 msgstr "چاپ"
 
-#: templates/index.html:540 templates/video.html:94
+#: templates/index.html:547 templates/video.html:94
 msgid "Segment 8: English Version"
 msgstr ""
 
-#: templates/index.html:541 templates/video.html:95
+#: templates/index.html:548 templates/video.html:95
 msgid "Security Overview"
 msgstr ""
 
-#: templates/index.html:548 templates/video.html:102
+#: templates/index.html:555 templates/video.html:102
 msgid "Segment 9: English Version"
 msgstr ""
 
 #
-#: templates/index.html:549 templates/video.html:103
 #
+#: templates/index.html:556 templates/video.html:103
 msgid "GSM Coverage"
 msgstr "پوښ"
 
-#: templates/index.html:556 templates/video.html:110
+#: templates/index.html:563 templates/video.html:110
 msgid "Segment 10: English Version"
 msgstr ""
 
 #
-#: templates/index.html:557 templates/video.html:111
+#: templates/index.html:564 templates/video.html:111
 msgid "Earthquake Hazard Risk"
 msgstr "زلزله"
 
-#: templates/index.html:564 templates/video.html:118
+#: templates/index.html:571 templates/video.html:118
 msgid "Segment 11: English Version"
 msgstr ""
 
-#: templates/index.html:565 templates/video.html:119
+#: templates/index.html:572 templates/video.html:119
 msgid "General Information - Certification"
 msgstr ""
 
-#: templates/index.html:575 templates/video.html:129
+#: templates/index.html:582 templates/video.html:129
 msgid "Segment 1: Dari Version"
 msgstr ""
 
-#: templates/index.html:583 templates/video.html:137
+#: templates/index.html:590 templates/video.html:137
 msgid "Segment 2: Dari Version"
 msgstr ""
 
-#: templates/index.html:591 templates/video.html:145
+#: templates/index.html:598 templates/video.html:145
 msgid "Segment 3: Dari Version"
 msgstr ""
 
-#: templates/index.html:599 templates/video.html:153
+#: templates/index.html:606 templates/video.html:153
 msgid "Segment 4: Dari Version"
 msgstr ""
 
-#: templates/index.html:607 templates/video.html:161
+#: templates/index.html:614 templates/video.html:161
 msgid "Segment 5: Dari Version"
 msgstr ""
 
-#: templates/index.html:615 templates/video.html:169
+#: templates/index.html:622 templates/video.html:169
 msgid "Segment 6: Dari Version"
 msgstr ""
 
-#: templates/index.html:623 templates/video.html:177
+#: templates/index.html:630 templates/video.html:177
 msgid "Segment 7: Dari Version"
 msgstr ""
 
@@ -4939,8 +4939,8 @@ msgid "Forgot your password?"
 msgstr ""
 
 #
-#: templates/account/login.html:24
 #
+#: templates/account/login.html:24
 msgid "Not yet registered?"
 msgstr "وراندی شوی ندی"
 
@@ -4969,8 +4969,8 @@ msgid ""
 msgstr ""
 
 #
-#: templates/account/password_reset.html:25
 #
+#: templates/account/password_reset.html:25
 msgid "Reset my password"
 msgstr "پاسورد"
 
@@ -5042,8 +5042,8 @@ msgid "GeoNode administration"
 msgstr ""
 
 #
-#: templates/announcements/announcement_confirm_delete.html:10
 #
+#: templates/announcements/announcement_confirm_delete.html:10
 msgid "Delete Announcement?"
 msgstr "سند"
 
@@ -5052,20 +5052,20 @@ msgid "Are you sure you want to delete this announcement?"
 msgstr ""
 
 #
-#: templates/announcements/announcement_form.html:11
 #
+#: templates/announcements/announcement_form.html:11
 msgid "Edit Announcement"
 msgstr "سند"
 
 #
-#: templates/announcements/announcement_form.html:11
 #
+#: templates/announcements/announcement_form.html:11
 msgid "Create Announcement"
 msgstr "سند"
 
 #
-#: templates/announcements/announcement_list.html:12
 #
+#: templates/announcements/announcement_list.html:12
 msgid "New Announcement"
 msgstr "سند"
 
@@ -5111,8 +5111,8 @@ msgid "You haven't uploaded an avatar yet. Please upload one now."
 msgstr ""
 
 #
-#: templates/avatar/add.html:14 templates/avatar/change.html:21
 #
+#: templates/avatar/add.html:14 templates/avatar/change.html:21
 msgid "Upload New Image"
 msgstr "نصب ول"
 
@@ -5136,8 +5136,8 @@ msgid ""
 msgstr ""
 
 #
-#: templates/avatar/confirm_delete.html:15
 #
+#: templates/avatar/confirm_delete.html:15
 msgid "Delete These"
 msgstr "انتخاب"
 
@@ -5224,8 +5224,8 @@ msgid "The user"
 msgstr ""
 
 #
-#: templates/notification/document_created/full.txt:3
 #
+#: templates/notification/document_created/full.txt:3
 msgid "uploaded the following document"
 msgstr "تعقیب ول"
 
@@ -5250,8 +5250,8 @@ msgid "owned by"
 msgstr ""
 
 #
-#: templates/notification/document_deleted/short.txt:3
 #
+#: templates/notification/document_deleted/short.txt:3
 msgid "A document has been deleted"
 msgstr "سند"
 
@@ -5263,8 +5263,8 @@ msgid "rated"
 msgstr "اوبه لرونکی"
 
 #
-#: templates/notification/document_rated/full.txt:5
 #
+#: templates/notification/document_rated/full.txt:5
 msgid "the following document"
 msgstr "تعقیب ول"
 
@@ -5277,20 +5277,20 @@ msgid "You can visit the layer's detail page here"
 msgstr ""
 
 #
-#: templates/notification/document_rated/short.txt:3
 #
+#: templates/notification/document_rated/short.txt:3
 msgid "A document has been rated"
 msgstr "سند"
 
 #
-#: templates/notification/document_updated/full.txt:3
 #
+#: templates/notification/document_updated/full.txt:3
 msgid "The following document was updated"
 msgstr "تعقیب ول"
 
 #
-#: templates/notification/document_updated/short.txt:3
 #
+#: templates/notification/document_updated/short.txt:3
 msgid "A document has been updated"
 msgstr "سند"
 
@@ -5303,8 +5303,8 @@ msgid "A comment has been posted for a layer"
 msgstr ""
 
 #
-#: templates/notification/layer_created/full.txt:3
 #
+#: templates/notification/layer_created/full.txt:3
 msgid "uploaded the following layer"
 msgstr "تعقیب ول"
 
@@ -5321,8 +5321,8 @@ msgid "A layer has been deleted"
 msgstr ""
 
 #
-#: templates/notification/layer_rated/full.txt:5
 #
+#: templates/notification/layer_rated/full.txt:5
 msgid "the following layer"
 msgstr "تعقیب ول"
 
@@ -5331,8 +5331,8 @@ msgid "A layer has been rated"
 msgstr ""
 
 #
-#: templates/notification/layer_updated/full.txt:3
 #
+#: templates/notification/layer_updated/full.txt:3
 msgid "The following layer was updated"
 msgstr "تعقیب ول"
 
@@ -5356,8 +5356,8 @@ msgid "A comment has been posted for a map"
 msgstr ""
 
 #
-#: templates/notification/map_created/full.txt:3
 #
+#: templates/notification/map_created/full.txt:3
 msgid "created the following map"
 msgstr "تعقیب ول"
 
@@ -5366,8 +5366,8 @@ msgid "A map has been created"
 msgstr ""
 
 #
-#: templates/notification/map_deleted/full.txt:3
 #
+#: templates/notification/map_deleted/full.txt:3
 msgid "The following map was deleted"
 msgstr "تعقیب ول"
 
@@ -5385,8 +5385,8 @@ msgid "A map has been rated"
 msgstr ""
 
 #
-#: templates/notification/map_updated/full.txt:3
 #
+#: templates/notification/map_updated/full.txt:3
 msgid "The following map was updated"
 msgstr "تعقیب ول"
 
@@ -5434,9 +5434,9 @@ msgid "Blocking"
 msgstr ""
 
 #
+#
 #: templates/relationships/_profile_follow.html:6
 #: templates/relationships/relationship_list.html:16
-#
 msgid "Unfollow"
 msgstr "تعقیب ول"
 

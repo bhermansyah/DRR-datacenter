@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 14:29+0700\n"
+"POT-Creation-Date: 2017-03-07 15:36+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,7 +254,8 @@ msgstr ""
 #: templates/pages/baseline.html.py:297 templates/pages/earthquake.html:67
 #: templates/pages/earthquake.html:155 templates/pages/floodforecast.html:155
 #: templates/pages/floodforecast.html:219 templates/pages/floodrisk.html:63
-#: templates/pages/floodrisk.html.py:147 templates/pages/security.html:172
+#: templates/pages/floodrisk.html.py:147
+#: templates/pages/naturaldisaster.html:38 templates/pages/security.html:172
 #: templates/pages/security.html.py:320
 msgid "Hide Detail"
 msgstr ""
@@ -298,8 +299,9 @@ msgstr ""
 #: templates/pages/floodforecast.html:218
 #: templates/pages/floodforecast.html:222 templates/pages/floodrisk.html:63
 #: templates/pages/floodrisk.html.py:146 templates/pages/floodrisk.html:150
-#: templates/pages/security.html:172 templates/pages/security.html.py:319
-#: templates/pages/security.html:323
+#: templates/pages/naturaldisaster.html:37
+#: templates/pages/naturaldisaster.html:41 templates/pages/security.html:172
+#: templates/pages/security.html.py:319 templates/pages/security.html:323
 msgid "Show Detail"
 msgstr ""
 
@@ -838,7 +840,11 @@ msgstr ""
 msgid "Humanitarian Access"
 msgstr ""
 
-#: templates/pages/links.html:49
+#: templates/pages/links.html:32
+msgid "Natural Disaster"
+msgstr ""
+
+#: templates/pages/links.html:52
 msgid "Search Region"
 msgstr ""
 

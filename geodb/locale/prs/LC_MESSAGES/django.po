@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 14:29+0700\n"
-"PO-Revision-Date: 2017-01-05 12:29+0430\n"
+"POT-Creation-Date: 2017-03-07 15:36+0700\n"
+"PO-Revision-Date: 2017-02-20 09:24+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fa_AF\n"
@@ -52,7 +52,7 @@ msgstr "تعداد تلفات کشته شده نظر به نوع حادثه "
 
 #: geo_calc.py:218 geo_calc.py:293
 msgid "Dead"
-msgstr "کشته شده "
+msgstr "کشته "
 
 #: geo_calc.py:226
 msgid "Number of injured casualties by Incident Type"
@@ -64,7 +64,7 @@ msgstr "شدیداً زخمی"
 
 #: geo_calc.py:236
 msgid "Number of affected person by Incident Type"
-msgstr "تعداد تلفات شدیداْ زخمی شده نظر به نوع حادثه "
+msgstr "تعداد افراد آسیب دیده نظر به نوع حادثه "
 
 #: geo_calc.py:238 geo_calc.py:303 geo_calc.py:313
 msgid "Injured"
@@ -72,19 +72,19 @@ msgstr "زخمی  "
 
 #: geo_calc.py:281
 msgid "Number of Incident by Incident Target"
-msgstr "تعداد حادثه نظر به نوع هدف حادثه"
+msgstr "تعداد حادثه نظر به هدف حادثه"
 
 #: geo_calc.py:291
 msgid "Number of dead casualties by Incident Target"
-msgstr "تعداد تلفات کشته شده نظر به نوع هدف حادثه"
+msgstr "تعداد تلفات کشته شده نظر به هدف حادثه"
 
 #: geo_calc.py:301
 msgid "Number of injured casualties by Incident Target"
-msgstr "تعداد تلفات زخمی شده نظر به نوع  هدف حادثه"
+msgstr "تعداد تلفات زخمی شده نظر به هدف حادثه"
 
 #: geo_calc.py:311
 msgid "Number of affected person by Incident Target"
-msgstr "تعداد اشخاص آسیب دیده نظر به  نوع هدف حادثه"
+msgstr "تعداد اشخاص آسیب دیده نظر به هدف حادثه"
 
 #: geo_calc.py:1070
 msgid "Population with GSM coverage"
@@ -161,7 +161,7 @@ msgstr "مساحت (کیلومتر مربع)"
 
 #: geo_calc.py:1758
 msgid "Built-up"
-msgstr "رهایشی"
+msgstr "ساختمانی"
 
 #: geo_calc.py:1759
 msgid "Cultivated"
@@ -229,11 +229,11 @@ msgstr "فیصدی از مجموع امکانات صحی "
 
 #: geo_calc.py:1817
 msgid "road network type"
-msgstr "نوع شبکه ارتباطی سرک ها "
+msgstr "نوع شبکه سرک ها"
 
 #: geo_calc.py:1817
 msgid "percent of road network"
-msgstr "فیصدی شبکه ارتباطی سرک ها "
+msgstr "فیصدی شبکه سرک ها "
 
 #: geo_calc.py:1818
 msgid "Highway"
@@ -249,7 +249,7 @@ msgstr "فرعی "
 
 #: geo_calc.py:1821
 msgid "Tertiary"
-msgstr "سومین"
+msgstr "نیمه فرعی"
 
 #: geo_calc.py:1822
 msgid "Residential"
@@ -273,7 +273,7 @@ msgstr "پل "
 
 #: geo_calc.py:1830
 msgid "Road network overview"
-msgstr " بررسی شبکه ارتباطی سرک ها"
+msgstr "بررسی اجمالی شبکه سرک ها"
 
 #: geo_calc.py:2255
 msgid "Water body and marshland"
@@ -283,393 +283,388 @@ msgstr "آب ایستاده و باتلاق"
 #: templates/floodInfo.html:64 templates/generalInfo.html:51
 #: templates/snowInfo.html:46
 msgid "Settlement"
-msgstr ""
+msgstr "قریه "
 
 #: templates/accessInfo.html:62 templates/earthquakeInfo.html:51
 #: templates/floodInfo.html:68 templates/generalInfo.html:55
 #: templates/snowInfo.html:50
 msgid "Language"
-msgstr ""
+msgstr "زبان"
 
-#
 #: templates/accessInfo.html:66 templates/earthquakeInfo.html:55
 #: templates/floodInfo.html:72 templates/generalInfo.html:59
 #: templates/snowInfo.html:54
 msgid "District"
-msgstr "انتخاب ولسوالی "
+msgstr "ولسوالی "
 
-#
 #: templates/accessInfo.html:70 templates/earthquakeInfo.html:59
 #: templates/floodInfo.html:76 templates/generalInfo.html:63
 #: templates/snowInfo.html:58
 msgid "Province"
-msgstr "انتخاب ولایت "
+msgstr " ولایت "
 
-#
 #: templates/accessInfo.html:74
 msgid "GSM Coverage"
-msgstr "مساحت تحت پوشش خدمات موبایل (GSM) "
+msgstr " پوشش خدمات موبایل (GSM) "
 
 #: templates/accessInfo.html:78
 msgid "Closest Road"
-msgstr ""
+msgstr "نزدیکترین سرک"
 
 #: templates/accessInfo.html:79
 #, python-format
 msgid "Travel time : %(cl_road_time)s"
-msgstr ""
+msgstr "زمان سفر :%(cl_road_time)s"
 
 #: templates/accessInfo.html:80
 #, python-format
 msgid "Distance : %(cl_road_distance)s"
-msgstr ""
+msgstr "فاصله :  %(cl_road_distance)s"
 
 #: templates/accessInfo.html:84
 msgid "Closest Airport"
-msgstr ""
+msgstr "نزدیکترین میدان هوایی"
 
 #: templates/accessInfo.html:85
 #, python-format
 msgid "%(cl_airport_name)s"
-msgstr ""
+msgstr "%(cl_airport_name)s"
 
 #: templates/accessInfo.html:86
 #, python-format
 msgid "Travel time : %(cl_airport_time)s"
-msgstr ""
+msgstr "زمان سفر : %(cl_airport_time)s"
 
 #: templates/accessInfo.html:87
 #, python-format
 msgid "Distance : %(cl_airport_distance)s"
-msgstr ""
+msgstr "فاصله : %(cl_airport_distance)s"
 
 #: templates/accessInfo.html:92
 msgid "Closest Province Capital"
-msgstr ""
+msgstr "نزدیکترین مرکز ولایتی"
 
 #: templates/accessInfo.html:93
 #, python-format
 msgid "%(cl_prov_cap_name)s"
-msgstr ""
+msgstr "%(cl_prov_cap_name)s"
 
 #: templates/accessInfo.html:94
 #, python-format
 msgid "Province : %(cl_prov_cap_parent)s "
-msgstr ""
+msgstr "ولایت :  %(cl_prov_cap_parent)s "
 
 #: templates/accessInfo.html:95
 #, python-format
 msgid "Travel time : %(cl_prov_cap_time)s"
-msgstr ""
+msgstr "زمان سفر : %(cl_prov_cap_time)s"
 
 #: templates/accessInfo.html:96
 #, python-format
 msgid "Distance : %(cl_prov_cap_distance)s"
-msgstr ""
+msgstr "فاصله : %(cl_prov_cap_distance)s"
 
 #: templates/accessInfo.html:101
 msgid "Its Province Capital"
-msgstr ""
+msgstr "مرکز ولایتی"
 
 #: templates/accessInfo.html:102
 #, python-format
 msgid "%(it_prov_cap_name)s"
-msgstr ""
+msgstr "%(it_prov_cap_name)s"
 
 #: templates/accessInfo.html:103
 #, python-format
 msgid "Travel time : %(it_prov_cap_time)s"
-msgstr ""
+msgstr "زمان سفر :  %(it_prov_cap_time)s"
 
 #: templates/accessInfo.html:104
 #, python-format
 msgid "Distance : %(it_prov_cap_distance)s"
-msgstr ""
+msgstr "فاصله : %(it_prov_cap_distance)s"
 
 #: templates/accessInfo.html:109
 msgid "Closest District Capital"
-msgstr ""
+msgstr "نزدیکترین مرکز ولسوالی"
 
 #: templates/accessInfo.html:110
 #, python-format
 msgid "%(cl_dist_cap_name)s"
-msgstr ""
+msgstr "%(cl_dist_cap_name)s"
 
 #: templates/accessInfo.html:111
 #, python-format
 msgid "Province : %(cl_dist_cap_parent)s "
-msgstr ""
+msgstr "ولایت :  %(cl_dist_cap_parent)s "
 
 #: templates/accessInfo.html:112
 #, python-format
 msgid "Travel time     : %(cl_dist_cap_time)s"
-msgstr ""
+msgstr "زمان سفر : %(cl_dist_cap_time)s"
 
 #: templates/accessInfo.html:113
 #, python-format
 msgid "Distance : %(cl_dist_cap_distance)s"
-msgstr ""
+msgstr "فاصله : %(cl_dist_cap_distance)s"
 
 #: templates/accessInfo.html:118
 msgid "Its District Capital"
-msgstr ""
+msgstr "مرکز ولسوالی"
 
 #: templates/accessInfo.html:119
 #, python-format
 msgid "%(it_dist_cap_name)s"
-msgstr ""
+msgstr "%(it_dist_cap_name)s"
 
 #: templates/accessInfo.html:120
 #, python-format
 msgid "Travel time     : %(it_dist_cap_time)s"
-msgstr ""
+msgstr "زمان سفر : %(it_dist_cap_time)s"
 
 #: templates/accessInfo.html:121
 #, python-format
 msgid "Distance : %(it_dist_cap_distance)s"
-msgstr ""
+msgstr "فاصله : %(it_dist_cap_distance)s"
 
 #: templates/accessInfo.html:126
 msgid "Closest Health Facility (Tier 1)"
-msgstr ""
+msgstr "نزدیکترین امکانات صحی (ردیف اول)"
 
 #: templates/accessInfo.html:127
 msgid "- National (H1)"
-msgstr ""
+msgstr "- ملی (H1)"
 
 #: templates/accessInfo.html:128
 msgid "- Provincial (H2)"
-msgstr ""
+msgstr "- ولایتی (H2)"
 
 #: templates/accessInfo.html:129
 msgid "- District (H3)"
-msgstr ""
+msgstr "-ولسوالی (H3)"
 
 #: templates/accessInfo.html:131
 #, python-format
 msgid "%(t1_hf_name)s"
-msgstr ""
+msgstr "%(t1_hf_name)s"
 
 #: templates/accessInfo.html:132
 #, python-format
 msgid "Province : %(t1_hf_prov_parent)s"
-msgstr ""
+msgstr "ولایت : %(t1_hf_prov_parent)s"
 
 #: templates/accessInfo.html:133
 #, python-format
 msgid "District : %(t1_hf_dist_parent)s "
-msgstr ""
+msgstr "ولسوالی : %(t1_hf_dist_parent)s "
 
 #: templates/accessInfo.html:134
 #, python-format
 msgid "Travel time     : %(t1_hf_time)s"
-msgstr ""
+msgstr "زمان سفر :  %(t1_hf_time)s"
 
 #: templates/accessInfo.html:135
 #, python-format
 msgid "Distance : %(t1_hf_distance)s"
-msgstr ""
+msgstr "فاصله : %(t1_hf_distance)s"
 
 #: templates/accessInfo.html:140
 msgid "Closest Health Facility (Tier 2)"
-msgstr ""
+msgstr "نزدیکترین امکانات صحی (ردیف دوم)"
 
 #: templates/accessInfo.html:141
 msgid "- Comprehensive Health Center (CHC)"
-msgstr ""
+msgstr "مرکز صحی جامع (CHC)"
 
 #: templates/accessInfo.html:143
 #, python-format
 msgid "%(t2_hf_name)s"
-msgstr ""
+msgstr "%(t2_hf_name)s"
 
 #: templates/accessInfo.html:144
 #, python-format
 msgid "Province : %(t2_hf_prov_parent)s "
-msgstr ""
+msgstr "ولایت : %(t2_hf_prov_parent)s "
 
 #: templates/accessInfo.html:145
 #, python-format
 msgid "District : %(t2_hf_dist_parent)s "
-msgstr ""
+msgstr "ولسوالی : %(t2_hf_dist_parent)s "
 
 #: templates/accessInfo.html:146
 #, python-format
 msgid "Travel time     : %(t2_hf_time)s"
-msgstr ""
+msgstr "زمان سفر : %(t2_hf_time)s"
 
 #: templates/accessInfo.html:147
 #, python-format
 msgid "Distance : %(t2_hf_distance)s"
-msgstr ""
+msgstr "فاصله : %(t2_hf_distance)s"
 
 #: templates/accessInfo.html:152
 msgid "Closest Health Facility (Tier 3)"
-msgstr ""
+msgstr "نزدیکترین امکانات صحی (ردیف سوم)"
 
 #: templates/accessInfo.html:153
 msgid "- Basic Health Center (BHC)"
-msgstr ""
+msgstr "مرکز صحی عمومی (BHC)"
 
 #: templates/accessInfo.html:154
 msgid "- Sub Health Center (SHC)"
-msgstr ""
+msgstr "مراکز صحی فرعی (SHC)"
 
 #: templates/accessInfo.html:156
 #, python-format
 msgid "%(t3_hf_name)s"
-msgstr ""
+msgstr "%(t3_hf_name)s"
 
 #: templates/accessInfo.html:157
 #, python-format
 msgid "Province : %(t3_hf_prov_parent)s "
-msgstr ""
+msgstr "ولایت : %(t3_hf_prov_parent)s "
 
 #: templates/accessInfo.html:158
 #, python-format
 msgid "District : %(t3_hf_dist_parent)s "
-msgstr ""
+msgstr "ولسوالی :  %(t3_hf_dist_parent)s "
 
 #: templates/accessInfo.html:159
 #, python-format
 msgid "Travel time     : %(t3_hf_time)s"
-msgstr ""
+msgstr "زمان سفر : %(t3_hf_time)s"
 
 #: templates/accessInfo.html:160
 #, python-format
 msgid "Distance : %(t3_hf_distance)s"
-msgstr ""
+msgstr "فاصله : %(t3_hf_distance)s"
 
 #: templates/earthquakeInfo.html:48 templates/floodInfo.html:65
 #, python-format
 msgid "%(name_en)s"
-msgstr ""
+msgstr "%(name_en)s"
 
 #: templates/earthquakeInfo.html:52 templates/floodInfo.html:69
 #, python-format
 msgid "%(language_field)s"
-msgstr ""
+msgstr "%(language_field)s"
 
 #: templates/earthquakeInfo.html:56 templates/floodInfo.html:73
 #, python-format
 msgid "%(dist_na_en)s"
-msgstr ""
+msgstr "%(dist_na_en)s"
 
 #: templates/earthquakeInfo.html:60 templates/floodInfo.html:77
 #, python-format
 msgid "%(prov_na_en)s"
-msgstr ""
+msgstr "%(prov_na_en)s"
 
-#
 #: templates/earthquakeInfo.html:63 templates/floodInfo.html:80
 #: templates/generalInfo.html:67
 msgid "Elevation"
-msgstr "نفوس "
+msgstr "ارتفاع"
 
 #: templates/earthquakeInfo.html:64 templates/floodInfo.html:81
 #: templates/generalInfo.html:68
 #, python-format
 msgid "%(elevation)s m above sea level"
-msgstr ""
+msgstr "ارتفاع از سطح بحر %(elevation)s متر "
 
 #: templates/earthquakeInfo.html:67 templates/floodInfo.html:84
 #: templates/generalInfo.html:71
 msgid "Area"
-msgstr ""
+msgstr "مساحت"
 
 #: templates/earthquakeInfo.html:68 templates/floodInfo.html:85
 #: templates/generalInfo.html:71
 #, python-format
 msgid "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup>"
-msgstr ""
+msgstr "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup"
 
-#
 #: templates/earthquakeInfo.html:71 templates/floodInfo.html:88
 #: templates/generalInfo.html:74
 msgid "Total Population"
-msgstr "نفوس "
+msgstr "مجموع نفوس"
 
 #: templates/earthquakeInfo.html:72 templates/floodInfo.html:89
 #, python-format
 msgid "%(vuid_population_landscan)s"
-msgstr ""
+msgstr "%(vuid_population_landscan)s"
 
 #: templates/earthquakeInfo.html:76
 msgid "Earthquake Hazard Risk"
-msgstr ""
+msgstr "خطر زلزله"
 
 #: templates/earthquakeInfo.html:80 templates/earthquakeInfo.html.py:107
 msgid "II-III Weak"
-msgstr ""
+msgstr "II-III ضعیف"
 
 #: templates/earthquakeInfo.html:81 templates/earthquakeInfo.html.py:108
 msgid "IV Light"
-msgstr ""
+msgstr "IV سبک"
 
 #: templates/earthquakeInfo.html:82 templates/earthquakeInfo.html.py:109
 msgid "V Moderate"
-msgstr ""
+msgstr "V متوسط"
 
 #: templates/earthquakeInfo.html:83 templates/earthquakeInfo.html.py:110
 msgid "VI Strong"
-msgstr ""
+msgstr "VI قوی"
 
 #: templates/earthquakeInfo.html:84 templates/earthquakeInfo.html.py:111
 msgid "VII Very Strong"
-msgstr ""
+msgstr "VII بسیار قوی"
 
 #: templates/earthquakeInfo.html:85 templates/earthquakeInfo.html.py:112
 msgid "VIII Severe"
-msgstr ""
+msgstr "VIII شدید"
 
 #
 #: templates/earthquakeInfo.html:86 templates/earthquakeInfo.html.py:113
 msgid "IX Violent"
-msgstr "شدیداً زخمی"
+msgstr "IX تند"
 
 #: templates/earthquakeInfo.html:87 templates/earthquakeInfo.html.py:114
 msgid "X+ Extreme"
-msgstr ""
+msgstr "X + بسیار شدید "
 
 #: templates/earthquakeInfo.html:90
 #, python-format
 msgid "%(sic_1)s"
-msgstr ""
+msgstr "%(sic_1)s"
 
 #: templates/earthquakeInfo.html:91
 #, python-format
 msgid "%(sic_2)s"
-msgstr ""
+msgstr "%(sic_2)s"
 
 #: templates/earthquakeInfo.html:92
 #, python-format
 msgid "%(sic_3)s"
-msgstr ""
+msgstr "%(sic_3)s"
 
 #: templates/earthquakeInfo.html:93
 #, python-format
 msgid "%(sic_4)s"
-msgstr ""
+msgstr "%(sic_4)s"
 
 #: templates/earthquakeInfo.html:94
 #, python-format
 msgid "%(sic_5)s"
-msgstr ""
+msgstr "%(sic_5)s"
 
 #: templates/earthquakeInfo.html:95
 #, python-format
 msgid "%(sic_6)s"
-msgstr ""
+msgstr "%(sic_6)s"
 
 #: templates/earthquakeInfo.html:96
 #, python-format
 msgid "%(sic_7)s"
-msgstr ""
+msgstr "%(sic_7)s"
 
 #: templates/earthquakeInfo.html:97
 #, python-format
 msgid "%(sic_8)s"
-msgstr ""
+msgstr "%(sic_8)s"
 
 #: templates/earthquakeInfo.html:100
 msgid ""
@@ -678,64 +673,68 @@ msgid ""
 "Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 "
 "years<sup>**</sup>"
 msgstr ""
+"<SUP> * </ SUP> شدت زمین لرزه و شرح آسیب احتمالی (USGS، 2007) از<br/>\n"
+"شتاب افقی قله با احتمال 2 درصد در 50 سال<sup>**</sup>"
 
 #: templates/earthquakeInfo.html:103
 msgid "Latest 20 earthquakes :"
-msgstr ""
+msgstr "20 آخرین زلزله:"
 
 #: templates/earthquakeInfo.html:117
 msgid "Magnitude"
-msgstr ""
+msgstr "مگنیتود"
 
 #: templates/earthquakeInfo.html:132
 #, python-format
 msgid "%(item.magnitude)s M"
-msgstr ""
+msgstr "%(item.magnitude)s M"
 
 #: templates/earthquakeInfo.html:137
 msgid "Description :"
-msgstr ""
+msgstr "شرح :"
 
 #: templates/earthquakeInfo.html:140
 msgid "Intensity"
-msgstr ""
+msgstr "شدت"
 
 #: templates/earthquakeInfo.html:141
 msgid "Shaking"
-msgstr ""
+msgstr "تکان"
 
 #: templates/earthquakeInfo.html:142
 msgid "Description/Damage"
-msgstr ""
+msgstr "توضیحات / آسیب"
 
 #: templates/earthquakeInfo.html:145
 msgid "I"
-msgstr ""
+msgstr "I"
 
 #: templates/earthquakeInfo.html:146
 msgid "Not felt"
-msgstr ""
+msgstr "نا محسوس"
 
 #: templates/earthquakeInfo.html:147
 msgid "Not felt except by a very few under especially favorable conditions."
-msgstr ""
+msgstr "به جز از یک تعداد مردم در شرایط خاص احساس نمیشود."
 
 #: templates/earthquakeInfo.html:150
 msgid "II"
-msgstr ""
+msgstr "II"
 
 #: templates/earthquakeInfo.html:151 templates/earthquakeInfo.html.py:156
 msgid "Weak"
-msgstr ""
+msgstr "ضعیف"
 
 #: templates/earthquakeInfo.html:152
 msgid ""
 "Felt only by a few persons at rest,especially on upper floors of buildings."
 msgstr ""
+" تنها توسط بعضی از افراد در حالت افتیده احساس میشود ،به خصوص در طبقات فوقانی "
+"ساختمان."
 
 #: templates/earthquakeInfo.html:155
 msgid "III"
-msgstr ""
+msgstr "III"
 
 #: templates/earthquakeInfo.html:157
 msgid ""
@@ -744,14 +743,18 @@ msgid ""
 "cars may rock slightly. Vibrations similar to the passing of a truck. "
 "Duration estimated."
 msgstr ""
+"توسط افراد داخل خانه کاملا  احساس میشود، به خصوص در طبقات فوقانی ساختمان. "
+"بسیاری از مردم آن را به عنوان یک زلزله به رسمیت نمی شناسد. مثل ایستاده شدن "
+"موتر بزرگ مملو از سنگ یا لرزش هنگام عبور یک موتر باربری. مدت زمان برآورد شده "
+"است."
 
 #: templates/earthquakeInfo.html:160
 msgid "IV"
-msgstr ""
+msgstr "IV"
 
 #: templates/earthquakeInfo.html:161
 msgid "Light"
-msgstr ""
+msgstr "سُبک"
 
 #: templates/earthquakeInfo.html:162
 msgid ""
@@ -760,42 +763,52 @@ msgid ""
 "Sensation like heavy truck striking building. Standing motor cars rocked "
 "noticeably."
 msgstr ""
+"در داخل خانه توسط زیادی از مردم  و در بیرون از خانه توسط کم از مردم در روز "
+"احساس میشود ، و از طرف شب تعداد از مردم با شنیدن صدای ظروف ،کلکین ها، دروازه "
+"ها و شکستگی دیوار های به صدا در آمده بیدار میشود. احساس آن مانند موترهای "
+"باربری سنگین که با یک آپارتمان تصادم کنند.لرزیدن ماشین موتر هنگام ابستاده "
+"شدن که احساس میشود بیدار میشود و شکستگی صدا دیوال.احساس مانند کامیون های "
+"سنگین در هنگام ضربه زدن به ساختمان ویا ایستاده شدن موتر در بالای سنک بزرگ ."
 
 #: templates/earthquakeInfo.html:165
 msgid "V"
-msgstr ""
+msgstr "V"
 
 #: templates/earthquakeInfo.html:166
 msgid "Moderate"
-msgstr ""
+msgstr "متوسط"
 
 #: templates/earthquakeInfo.html:167
 msgid ""
 "Felt by nearly everyone; many awakened. Some dishes, windows broken. "
 "Unstable objects overturned. Pendulum clocks may stop."
 msgstr ""
+" تقریبا توسط همه احساس میشود ؛بیدار شدن برخی از خواب، بعضی ظروف، پنجره شکسته "
+"شده. اشیاء ناپایدار چپه گردیده و ساعتهای آونگ ممکن است متوقف شود."
 
 #: templates/earthquakeInfo.html:170
 msgid "VI"
-msgstr ""
+msgstr "VI"
 
 #: templates/earthquakeInfo.html:171
 msgid "Strong"
-msgstr ""
+msgstr "قوی"
 
 #: templates/earthquakeInfo.html:172
 msgid ""
 "Felt by all, many frightened. Some heavy furniture moved; a few instances of "
 "fallen plaster. Damage slight."
 msgstr ""
+"توسط همه احساس میشود ،برخی وحشت زده میشوند، و فرنیچر های بزرگ جای شان تغییر "
+"خورده ،و برخی از پلستر های روی دیوار پارچه شده ،آسیب جزیی به بار میاورد "
 
 #: templates/earthquakeInfo.html:175
 msgid "VII"
-msgstr ""
+msgstr "VII"
 
 #: templates/earthquakeInfo.html:176
 msgid "Very strong"
-msgstr ""
+msgstr "بسیار قوی"
 
 #: templates/earthquakeInfo.html:177
 msgid ""
@@ -803,14 +816,17 @@ msgid ""
 "moderate in well-built ordinary structures; considerable damage in poorly "
 "built or badly designed structures; some chimneys broken."
 msgstr ""
+"آسیب ناچیز در ساختمان دارای طراحی و ساخت و ساز خوب؛ اندک تا متوسط در ساختمان "
+"عادی به خوبی ساخته شده؛ خسارت قابل توجهی در ساختمان ضعیف ساخته شده و یا بد "
+"طراحی شده؛ که برخی دودکش ها شکسته شده است."
 
 #: templates/earthquakeInfo.html:180
 msgid "VIII"
-msgstr ""
+msgstr "VIII"
 
 #: templates/earthquakeInfo.html:181
 msgid "Severe"
-msgstr ""
+msgstr "شدید"
 
 #: templates/earthquakeInfo.html:182
 msgid ""
@@ -819,10 +835,14 @@ msgid ""
 "built structures. Fall of chimneys, factory stacks, columns, monuments, "
 "walls. Heavy furniture overturned."
 msgstr ""
+"آسیب های جزئی در ساختمان خاص طراحی شده. خسارت قابل توجهی در ساختمان های قابل "
+"توجهی عادی با فروپاشی نسبی. آسیب بزرگ در ساختمان ضعیف ساخته شده. سقوط دودکش "
+"ها، دودکش های کارخانه، ستون ها، بناهای تاریخی، دیوارها. موبل های سنگین "
+"واژگون شدند."
 
 #: templates/earthquakeInfo.html:185
 msgid "IX"
-msgstr ""
+msgstr "IX"
 
 #: templates/earthquakeInfo.html:187
 msgid ""
@@ -830,20 +850,24 @@ msgid ""
 "structures thrown out of plumb. Damage great in substantial buildings, with "
 "partial collapse. Buildings shifted off foundations."
 msgstr ""
+"خسارت قابل توجهی به خصوص در ساختمان های طراحی شده. آسیب های قابل توجه بزرگ "
+"در ساختمان ، با فروپاشی نسبی. تغییرات در بنیاد ساختمان ها."
 
 #: templates/earthquakeInfo.html:190
 msgid "X+"
-msgstr ""
+msgstr "X+"
 
 #: templates/earthquakeInfo.html:191
 msgid "Extreme"
-msgstr ""
+msgstr " شدیدتر "
 
 #: templates/earthquakeInfo.html:192
 msgid ""
 "Some well-built wooden structures destroyed; most masonry and frame "
 "structures destroyed with foundations. Rails bent."
 msgstr ""
+"برخی از ساختمان های چوبی تخریب شده ؛بسیاری از ساختمان های قالب سنگی همرای "
+"بنیاد آن تخریب گردیده و مسیر ریل نشیب دار و خم میشود "
 
 #: templates/earthquakeInfo.html:195
 #, python-format
@@ -855,7 +879,11 @@ msgid ""
 "Afghanistan (2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. "
 "Rukstales"
 msgstr ""
+"<sup>**</sup> در 50 سال احتمال 2 درصد زمان بازگشت زمین متناسب است با یک حرکت "
+"تقریبا 2500 سال، ویا در حدود احتمال  10 درصد در 250 سال، ارقام شدت زلزله و "
+"کلاس های آن از نقشه خطر زلزله USGS برای افغانستان (2007) سرچشمه گرفته، توسط "
+"Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales"
 
 #: templates/snowInfo.html:62
 msgid "Approx. Current Snow Depth"
-msgstr ""
+msgstr "تقریبا. عمق برف کنونی"
