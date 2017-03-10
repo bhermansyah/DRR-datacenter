@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-07 15:36+0700\n"
+"POT-Creation-Date: 2017-03-09 13:50+0700\n"
 "PO-Revision-Date: 2016-11-23 16:42+0700\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2221,9 +2221,9 @@ msgstr "داءیمی"
 
 #
 #
+#
 #: static/lib/js/GeoExplorer_add.js:863 static/lib/js/GeoExplorer_add.js:886
 #: static/lib/js/GeoExplorer_add.js:1032 static/lib/js/GeoExplorer_add.js:1059
-#
 msgid "Rainfed Agri land"
 msgstr "تغییر ورکول"
 

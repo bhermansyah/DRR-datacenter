@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-07 15:36+0700\n"
+"POT-Creation-Date: 2017-03-09 13:50+0700\n"
 "PO-Revision-Date: 2017-02-20 09:24+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -278,6 +278,222 @@ msgstr "بررسی اجمالی شبکه سرک ها"
 #: geo_calc.py:2255
 msgid "Water body and marshland"
 msgstr "آب ایستاده و باتلاق"
+
+#: views.py:1150
+msgid "Month"
+msgstr ""
+
+#: views.py:1152
+msgid "Jan"
+msgstr ""
+
+#: views.py:1153
+msgid "Feb"
+msgstr ""
+
+#: views.py:1154
+msgid "Mar"
+msgstr ""
+
+#: views.py:1155
+msgid "Apr"
+msgstr ""
+
+#: views.py:1156
+msgid "May"
+msgstr ""
+
+#: views.py:1157
+msgid "Jun"
+msgstr ""
+
+#: views.py:1158
+msgid "Jul"
+msgstr ""
+
+#: views.py:1159
+msgid "Aug"
+msgstr ""
+
+#: views.py:1160
+msgid "Sep"
+msgstr ""
+
+#: views.py:1161
+msgid "Oct"
+msgstr ""
+
+#: views.py:1162
+msgid "Nov"
+msgstr ""
+
+#: views.py:1163
+msgid "Dec"
+msgstr ""
+
+#: views.py:1165
+msgid "Snow Cover Calendar"
+msgstr ""
+
+#: views.py:1165
+msgid "No Snow"
+msgstr ""
+
+#
+#: views.py:1165
+msgid "Very low"
+msgstr "بسیار قوی"
+
+#: views.py:1165 views.py:1472 views.py:1481 views.py:1503
+msgid "Low"
+msgstr ""
+
+#
+#: views.py:1165
+msgid "Average"
+msgstr " پوشش خدمات موبایل (GSM) "
+
+#
+#: views.py:1165 views.py:1472 views.py:1483 views.py:1505
+msgid "High"
+msgstr "شاهراه"
+
+#
+#: views.py:1165
+msgid "Very high"
+msgstr "بسیار قوی"
+
+#
+#: views.py:1316
+msgid "# of Population"
+msgstr "مجموع نفوس"
+
+#
+#: views.py:1316 views.py:1317 views.py:1484 views.py:1499 views.py:1506
+#: views.py:1521
+msgid "percentage"
+msgstr "فیصدی"
+
+#: views.py:1317
+msgid "# of Area (KM2)"
+msgstr ""
+
+#
+#: views.py:1472
+msgid "Very Low"
+msgstr "بسیار قوی"
+
+#: views.py:1472 views.py:1482 views.py:1504 templates/earthquakeInfo.html:166
+msgid "Moderate"
+msgstr "متوسط"
+
+#
+#: views.py:1472
+msgid "Very High"
+msgstr "بسیار قوی"
+
+#: views.py:1472 templates/earthquakeInfo.html:191
+msgid "Extreme"
+msgstr " شدیدتر "
+
+#: views.py:1472
+msgid "Population at flood risk"
+msgstr ""
+
+#
+#: views.py:1472
+msgid "Population"
+msgstr "نفوس "
+
+#: views.py:1474
+msgid "River Flood"
+msgstr ""
+
+#: views.py:1475
+msgid "Flash Flood"
+msgstr ""
+
+#
+#: views.py:1477
+msgid "Number of population"
+msgstr "نفوس "
+
+#: views.py:1477
+msgid "Flood Forecast Exposure"
+msgstr ""
+
+#: views.py:1480 views.py:1502
+msgid "Flood Risk"
+msgstr ""
+
+#: views.py:1484
+msgid "Flood Risk Population Exposure"
+msgstr ""
+
+#
+#: views.py:1487 views.py:1509
+msgid "Lancover Type"
+msgstr "نوع پوشش زمین"
+
+#: views.py:1488 views.py:1510
+msgid "water body"
+msgstr ""
+
+#
+#: views.py:1489 views.py:1511
+msgid "barren land"
+msgstr "بی ثمر/علف زار "
+
+#
+#: views.py:1490 views.py:1512
+msgid "built up"
+msgstr "ساختمانی"
+
+#: views.py:1491 views.py:1513
+msgid "fruit trees"
+msgstr ""
+
+#: views.py:1492 views.py:1514
+msgid "irrigated agricultural"
+msgstr ""
+
+#: views.py:1493 views.py:1515
+msgid "permanent snow"
+msgstr ""
+
+#: views.py:1494 views.py:1516
+msgid "rainfeld agricultural"
+msgstr ""
+
+#
+#: views.py:1495 views.py:1517
+msgid "rangeland"
+msgstr "بی ثمر/علف زار "
+
+#
+#: views.py:1496 views.py:1518
+msgid "sandcover"
+msgstr "نوع پوشش زمین"
+
+#: views.py:1497 views.py:1519
+msgid "vineyards"
+msgstr ""
+
+#: views.py:1498 views.py:1520
+msgid "forest"
+msgstr ""
+
+#: views.py:1499
+msgid "Flood Risk Population Exposure by Landcover type"
+msgstr ""
+
+#: views.py:1506
+msgid "Flood Risk Area Exposure"
+msgstr ""
+
+#: views.py:1521
+msgid "Flood Risk Area Exposure by Landcover type"
+msgstr ""
 
 #: templates/accessInfo.html:58 templates/earthquakeInfo.html:47
 #: templates/floodInfo.html:64 templates/generalInfo.html:51
@@ -673,7 +889,8 @@ msgid ""
 "Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 "
 "years<sup>**</sup>"
 msgstr ""
-"<SUP> * </ SUP> شدت زمین لرزه و شرح آسیب احتمالی (USGS، 2007) از<br/>\n"
+"<SUP> * </ SUP> شدت زمین لرزه و شرح آسیب احتمالی (USGS، 2007) از<br/"
+">\n"
 "شتاب افقی قله با احتمال 2 درصد در 50 سال<sup>**</sup>"
 
 #: templates/earthquakeInfo.html:103
@@ -729,8 +946,8 @@ msgstr "ضعیف"
 msgid ""
 "Felt only by a few persons at rest,especially on upper floors of buildings."
 msgstr ""
-" تنها توسط بعضی از افراد در حالت افتیده احساس میشود ،به خصوص در طبقات فوقانی "
-"ساختمان."
+" تنها توسط بعضی از افراد در حالت افتیده احساس میشود ،به خصوص در "
+"طبقات فوقانی ساختمان."
 
 #: templates/earthquakeInfo.html:155
 msgid "III"
@@ -743,10 +960,10 @@ msgid ""
 "cars may rock slightly. Vibrations similar to the passing of a truck. "
 "Duration estimated."
 msgstr ""
-"توسط افراد داخل خانه کاملا  احساس میشود، به خصوص در طبقات فوقانی ساختمان. "
-"بسیاری از مردم آن را به عنوان یک زلزله به رسمیت نمی شناسد. مثل ایستاده شدن "
-"موتر بزرگ مملو از سنگ یا لرزش هنگام عبور یک موتر باربری. مدت زمان برآورد شده "
-"است."
+"توسط افراد داخل خانه کاملا  احساس میشود، به خصوص در طبقات فوقانی "
+"ساختمان. بسیاری از مردم آن را به عنوان یک زلزله به رسمیت نمی شناسد. مثل "
+"ایستاده شدن موتر بزرگ مملو از سنگ یا لرزش هنگام عبور یک موتر باربری. مدت "
+"زمان برآورد شده است."
 
 #: templates/earthquakeInfo.html:160
 msgid "IV"
@@ -763,28 +980,25 @@ msgid ""
 "Sensation like heavy truck striking building. Standing motor cars rocked "
 "noticeably."
 msgstr ""
-"در داخل خانه توسط زیادی از مردم  و در بیرون از خانه توسط کم از مردم در روز "
-"احساس میشود ، و از طرف شب تعداد از مردم با شنیدن صدای ظروف ،کلکین ها، دروازه "
-"ها و شکستگی دیوار های به صدا در آمده بیدار میشود. احساس آن مانند موترهای "
-"باربری سنگین که با یک آپارتمان تصادم کنند.لرزیدن ماشین موتر هنگام ابستاده "
-"شدن که احساس میشود بیدار میشود و شکستگی صدا دیوال.احساس مانند کامیون های "
-"سنگین در هنگام ضربه زدن به ساختمان ویا ایستاده شدن موتر در بالای سنک بزرگ ."
+"در داخل خانه توسط زیادی از مردم  و در بیرون از خانه توسط کم از مردم "
+"در روز احساس میشود ، و از طرف شب تعداد از مردم با شنیدن صدای ظروف ،کلکین ها، "
+"دروازه ها و شکستگی دیوار های به صدا در آمده بیدار میشود. احساس آن مانند "
+"موترهای باربری سنگین که با یک آپارتمان تصادم کنند.لرزیدن ماشین موتر هنگام "
+"ابستاده شدن که احساس میشود بیدار میشود و شکستگی صدا دیوال.احساس مانند کامیون "
+"های سنگین در هنگام ضربه زدن به ساختمان ویا ایستاده شدن موتر در بالای سنک "
+"بزرگ ."
 
 #: templates/earthquakeInfo.html:165
 msgid "V"
 msgstr "V"
-
-#: templates/earthquakeInfo.html:166
-msgid "Moderate"
-msgstr "متوسط"
 
 #: templates/earthquakeInfo.html:167
 msgid ""
 "Felt by nearly everyone; many awakened. Some dishes, windows broken. "
 "Unstable objects overturned. Pendulum clocks may stop."
 msgstr ""
-" تقریبا توسط همه احساس میشود ؛بیدار شدن برخی از خواب، بعضی ظروف، پنجره شکسته "
-"شده. اشیاء ناپایدار چپه گردیده و ساعتهای آونگ ممکن است متوقف شود."
+" تقریبا توسط همه احساس میشود ؛بیدار شدن برخی از خواب، بعضی ظروف، "
+"پنجره شکسته شده. اشیاء ناپایدار چپه گردیده و ساعتهای آونگ ممکن است متوقف شود."
 
 #: templates/earthquakeInfo.html:170
 msgid "VI"
@@ -799,8 +1013,9 @@ msgid ""
 "Felt by all, many frightened. Some heavy furniture moved; a few instances of "
 "fallen plaster. Damage slight."
 msgstr ""
-"توسط همه احساس میشود ،برخی وحشت زده میشوند، و فرنیچر های بزرگ جای شان تغییر "
-"خورده ،و برخی از پلستر های روی دیوار پارچه شده ،آسیب جزیی به بار میاورد "
+"توسط همه احساس میشود ،برخی وحشت زده میشوند، و فرنیچر های بزرگ جای "
+"شان تغییر خورده ،و برخی از پلستر های روی دیوار پارچه شده ،آسیب جزیی به بار "
+"میاورد "
 
 #: templates/earthquakeInfo.html:175
 msgid "VII"
@@ -816,9 +1031,9 @@ msgid ""
 "moderate in well-built ordinary structures; considerable damage in poorly "
 "built or badly designed structures; some chimneys broken."
 msgstr ""
-"آسیب ناچیز در ساختمان دارای طراحی و ساخت و ساز خوب؛ اندک تا متوسط در ساختمان "
-"عادی به خوبی ساخته شده؛ خسارت قابل توجهی در ساختمان ضعیف ساخته شده و یا بد "
-"طراحی شده؛ که برخی دودکش ها شکسته شده است."
+"آسیب ناچیز در ساختمان دارای طراحی و ساخت و ساز خوب؛ اندک تا متوسط "
+"در ساختمان عادی به خوبی ساخته شده؛ خسارت قابل توجهی در ساختمان ضعیف ساخته "
+"شده و یا بد طراحی شده؛ که برخی دودکش ها شکسته شده است."
 
 #: templates/earthquakeInfo.html:180
 msgid "VIII"
@@ -835,10 +1050,10 @@ msgid ""
 "built structures. Fall of chimneys, factory stacks, columns, monuments, "
 "walls. Heavy furniture overturned."
 msgstr ""
-"آسیب های جزئی در ساختمان خاص طراحی شده. خسارت قابل توجهی در ساختمان های قابل "
-"توجهی عادی با فروپاشی نسبی. آسیب بزرگ در ساختمان ضعیف ساخته شده. سقوط دودکش "
-"ها، دودکش های کارخانه، ستون ها، بناهای تاریخی، دیوارها. موبل های سنگین "
-"واژگون شدند."
+"آسیب های جزئی در ساختمان خاص طراحی شده. خسارت قابل توجهی در ساختمان "
+"های قابل توجهی عادی با فروپاشی نسبی. آسیب بزرگ در ساختمان ضعیف ساخته شده. "
+"سقوط دودکش ها، دودکش های کارخانه، ستون ها، بناهای تاریخی، دیوارها. موبل های "
+"سنگین واژگون شدند."
 
 #: templates/earthquakeInfo.html:185
 msgid "IX"
@@ -850,24 +1065,20 @@ msgid ""
 "structures thrown out of plumb. Damage great in substantial buildings, with "
 "partial collapse. Buildings shifted off foundations."
 msgstr ""
-"خسارت قابل توجهی به خصوص در ساختمان های طراحی شده. آسیب های قابل توجه بزرگ "
-"در ساختمان ، با فروپاشی نسبی. تغییرات در بنیاد ساختمان ها."
+"خسارت قابل توجهی به خصوص در ساختمان های طراحی شده. آسیب های قابل "
+"توجه بزرگ در ساختمان ، با فروپاشی نسبی. تغییرات در بنیاد ساختمان ها."
 
 #: templates/earthquakeInfo.html:190
 msgid "X+"
 msgstr "X+"
-
-#: templates/earthquakeInfo.html:191
-msgid "Extreme"
-msgstr " شدیدتر "
 
 #: templates/earthquakeInfo.html:192
 msgid ""
 "Some well-built wooden structures destroyed; most masonry and frame "
 "structures destroyed with foundations. Rails bent."
 msgstr ""
-"برخی از ساختمان های چوبی تخریب شده ؛بسیاری از ساختمان های قالب سنگی همرای "
-"بنیاد آن تخریب گردیده و مسیر ریل نشیب دار و خم میشود "
+"برخی از ساختمان های چوبی تخریب شده ؛بسیاری از ساختمان های قالب سنگی "
+"همرای بنیاد آن تخریب گردیده و مسیر ریل نشیب دار و خم میشود "
 
 #: templates/earthquakeInfo.html:195
 #, python-format
@@ -879,10 +1090,10 @@ msgid ""
 "Afghanistan (2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. "
 "Rukstales"
 msgstr ""
-"<sup>**</sup> در 50 سال احتمال 2 درصد زمان بازگشت زمین متناسب است با یک حرکت "
-"تقریبا 2500 سال، ویا در حدود احتمال  10 درصد در 250 سال، ارقام شدت زلزله و "
-"کلاس های آن از نقشه خطر زلزله USGS برای افغانستان (2007) سرچشمه گرفته، توسط "
-"Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales"
+"<sup>**</sup> در 50 سال احتمال 2 درصد زمان بازگشت زمین متناسب است "
+"با یک حرکت تقریبا 2500 سال، ویا در حدود احتمال  10 درصد در 250 سال، ارقام "
+"شدت زلزله و کلاس های آن از نقشه خطر زلزله USGS برای افغانستان (2007) سرچشمه "
+"گرفته، توسط Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales"
 
 #: templates/snowInfo.html:62
 msgid "Approx. Current Snow Depth"
