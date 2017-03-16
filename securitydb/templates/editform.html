@@ -184,6 +184,11 @@
 			return false;
 		}
 
+		function reset_layers() {
+			mainMap.map.getLayersByName('Mask Layer')[0].removeAllFeatures();
+			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+		};
+
 	</script>
 
     <!-- <title>{% block bootstrap3_title %}iMMAP Security System{% endblock %}</title> -->
@@ -211,13 +216,13 @@
 				</button>
 			{% endbuttons %}
 			{% buttons %}
-				<button type="submit" class="btn btn-primary">
+				<button id="btnSubmit" type="submit" class="btn btn-primary">
 					Submit
 				</button>
-				<button type="button" class="btn btn-primary" onclick="window.location.href = '/securitydb/';">
+				<button id="btnCancel" type="button" class="btn btn-primary" onclick="window.location.href = '/securitydb/';">
 					Cancel
 				</button>
-				<button type="button" class="btn btn-primary" onclick="window.location.href = '/securitydb/list';">
+				<button id="btnList" type="button" class="btn btn-primary" onclick="window.location.href = '/securitydb/list';">
 					List
 				</button>
 			{% endbuttons %}
@@ -299,6 +304,18 @@
 				$('#id_scre_provid option:selected').text()+", "+
 				$('#id_scre_distid option:selected').text()+", "+
 				$('#id_scre_settvuid option:selected').text());
+		});
+
+		$('#btnCancel').click(function() {
+			reset_layers();
+		});
+
+		$('#btnSubmit').click(function() {
+			reset_layers();
+		});
+
+		$('#btnList').click(function() {
+			reset_layers();
 		});
 
 		$('#id_scre_unknown').change(function() {

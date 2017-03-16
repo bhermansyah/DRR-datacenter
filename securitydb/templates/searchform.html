@@ -5,17 +5,64 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/lib/css/daterangepicker.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="/static/geonode/css/font-awesome.css" media="all" />
 
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
 	{% load bootstrap3 %}
     {% bootstrap_css %}
 	{{ form.media }}
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script>
+    <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3&amp;sensor=false"></script> -->
     <title>{% block bootstrap3_title %}iMMAP Security System{% endblock %}</title>
 	<style>
 		body {font-family: sans-serif; padding:20px}
 		#map {width: 800px; height: 300px}
+		.tooltip-inner {
+		    white-space: pre-wrap;
+				text-align: left;
+		}
+		.recstatus-1
+		{
+			background-color: red;
+		}
+		.recstatus-2
+		{
+			background-color: green;
+		}
+		.recstatus-0 .glyphicon, .recstatus-1 .glyphicon, .recstatus-4 .glyphicon
+		{
+			display: none;
+		}
+		.recstatus-2 .glyphicon
+		{
+			display: initial;
+		}
+		.recstatus-0 .recstatus-text::before
+		{
+			content: 'delete';
+		}
+		.recstatus-1 .recstatus-text::before
+		{
+			content: 'approve';
+		}
+		.recstatus-2 .recstatus-text::before
+		{
+			content: 'approve';
+		}
+		.recstatus-3 .recstatus-text::before
+		{
+			content: 'all';
+		}
+		.recstatus-0 .glyphicon::before, .recstatus-1 .glyphicon::before
+		{
+			content: "\e014";
+		}
+		.recstatus-2 .glyphicon::before
+		{
+			content: '\e013';
+		}
+
 	</style>
 	<script>
 		var mainMap = window.parent.GeoExt.MapPanel.guess();
@@ -35,23 +82,31 @@
 		<div class="form-group">
 			<!-- <label for="">Record Status:</label> -->
 			<span class="small">
-				<a href="?recstatus={{ recstatus_choices.3.1|lower }}" class="{{ rsc.3 }}">{{ recstatus_choices.3.1|title }}</a>
-				<a href="?recstatus={{ recstatus_choices.0.1|lower }}" class="{{ rsc.0 }}">{{ recstatus_choices.0.1|title }}</a>
-				<a href="?recstatus={{ recstatus_choices.1.1|lower }}" class="{{ rsc.1 }}">{{ recstatus_choices.1.1|title }}</a>
-				<a href="?recstatus={{ recstatus_choices.2.1|lower }}" class="{{ rsc.2 }}">{{ recstatus_choices.2.1|title }}</a>
+				<a href="?{% url_replace recstatus=recstatus_choices.3.1|lower %}" class="{{ rsc.3 }}">{{ recstatus_choices.3.1|title }}</a>
+				<a href="?{% url_replace recstatus=recstatus_choices.0.1|lower %}" class="{{ rsc.0 }}">{{ recstatus_choices.0.1|title }}</a>
+				<a href="?{% url_replace recstatus=recstatus_choices.1.1|lower %}" class="{{ rsc.1 }}">{{ recstatus_choices.1.1|title }}</a>
+				<a href="?{% url_replace recstatus=recstatus_choices.2.1|lower %}" class="{{ rsc.2 }}">{{ recstatus_choices.2.1|title }}</a>
 			</span>
 		</div>
 		{% endif %}
 		<div class="form-group">
+			<div id="reportrange" class="small" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+			    <i class="fa fa-calendar"></i>
+					<b class="glyphicon glyphicon-chevron-down small pull-right" style="line-height:10pt;"></b>
+					&nbsp;Between:
+			    <span></span>
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="usr" class="small">Criteria:</label>
-			<input type="text" class="form-control" id="id_criteria" name="criteria" value="{{ criteria }}">
+			<input type="text" class="form-control input-sm" id="id_criteria" name="criteria" value="{{ criteria }}">
 		</div>
 		<!-- {% for field in form.visible_fields %}
 			{% bootstrap_field field %}
 		{% endfor %} -->
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Search</button>
-			<a href="/securitydb/" class="btn btn-primary">
+			<button type="submit" class="btn btn-primary btn-sm">Search</button>
+			<a href="/securitydb/" class="btn btn-primary btn-sm">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 				Add Record
 			</a>
@@ -61,15 +116,30 @@
 		<table class="table table-striped table-condensed">
 			<thead>
 				<tr>
-					<th>Date</th>
+					<th>Date, Description</th>
+					<!-- <th width="40%">Date</th>
 					<th>Description</th>
+					<th></th> -->
 				</tr>
 			</thead>
 			<tbody>
 				{% for search_result in search_result_list %}
 				<tr style="border-bottom:1px solid #eee;">
-					<td width="50%" valign="top"><a style="font-size:8pt;" href="/securitydb/{{ search_result.id }}/scref">{{ search_result.scre_incidentdate }}</a></td>
-					<td valign="top"><a style="font-size:8pt;" href="/securitydb/{{ search_result.id }}/scref">{{ search_result.scre_notes }}</a></td>
+					<td id="tdRecord-{{ search_result.id }}" valign="top" class="small" data-toggle="tooltip" title="Date: {{ search_result.scre_incidentdate }}&#10;Notes: {{ search_result.scre_notes }}&#10;Place: {{ search_result.scre_placename }}&#10;User: {{ search_result.scre_username }}" data-lat="{{ search_result.scre_latitude }}" data-lon="{{ search_result.scre_longitude }}">
+						{% if has_delete %}
+						<p class='pull-right'>
+							<a style="font-size:0.9em" type="" id="toggleRecStatus-{{ search_result.id }}" class="label label-default recstatus-{{ search_result.recstatus }}">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+								<span class="recstatus-text"></span>
+							</a>
+						</p>
+						{% endif %}
+						<a href="/securitydb/{{ search_result.id }}/scref">
+							{{ search_result.scre_incidentdate }}
+							<br/>
+							{{ search_result.scre_notes }}
+						</a>
+					</td>
 				</tr>
 				{% endfor %}
 		</tbody>
@@ -92,4 +162,193 @@
 		{% endif %}
 		</div>
 	</form>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/lib/js/moment.min.js"></script>
+	<script type="text/javascript" src="/static/lib/js/daterangepicker.js"></script>
+	<script>
+
+		var mainMap = window.parent.GeoExt.MapPanel.guess();
+		var bsLblClasses = "label-default label-primary label-success label-info label-warning label-danger";
+		recstatusClasses = "recstatus-0 recstatus-1 recstatus-2 recstatus-3";
+
+		function reset_layers() {
+			mainMap.map.getLayersByName('Mask Layer')[0].removeAllFeatures();
+			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+		};
+
+		function extractRecId(fullId) {
+			var pattern = /-(\d+)$/;
+			var match = fullId.match(pattern);
+			var recId = match[1];
+			return recId;
+		};
+
+		// show popup on map, currently not working
+		function showPopup(lon, lat, text) {
+			// console.log('showPopup()');
+			// console.log('lon', lon, 'lat', lat);
+			// console.log('new window.parent.OpenLayers.LonLat(lon, lat)', new window.parent.OpenLayers.LonLat(lon, lat));
+
+			// mainMap.map.addPopup(new window.parent.OpenLayers.Popup.FramedCloud(
+      //     "chicken",
+      //     new window.parent.OpenLayers.LonLat(lon, lat),
+      //     null,
+      //     text,
+      //     null,
+      //     true
+      // ));
+
+			// popup = new window.parent.GeoExt.Popup({
+      //        title: "It's a Small World",
+      //        location: new window.parent.OpenLayers.LonLat(lon, lat),
+      //        width:200,
+      //        html: 'Boom',
+      //        maximizable: true,
+			// 			 map: mainMap.map,
+      //        collapsible: true
+      // });
+      // popup.show();
+
+			// var popup = new window.parent.OpenLayers.Popup("chicken",
+			//                    new window.parent.OpenLayers.LonLat(lon, lat),
+			//                    new window.parent.OpenLayers.Size(200,200),
+			//                    "example popup",
+			//                    true);
+			//
+			// mainMap.map.addPopup(popup);
+		};
+
+		function pointOnMap(lon, lat) {
+
+			var lonLat = new window.parent.OpenLayers.LonLat(lon, lat)
+				.transform(
+					new window.parent.OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+					new window.parent.OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+				);
+
+			var feature = new window.parent.OpenLayers.Feature.Vector(new window.parent.OpenLayers.Geometry.Point(lonLat.lon, lonLat.lat));
+
+			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+
+			mainMap.map.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
+
+			mainMap.map.panTo(lonLat);
+
+		};
+
+		function getParameterByName(name, url) {
+				if (!url) url = window.location.href;
+				name = name.replace(/[\[\]]/g, "\\$&");
+				var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+						results = regex.exec(url);
+				if (!results) return null;
+				if (!results[2]) return '';
+				return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
+
+		function updateUrlParameter(url, param, value){
+				var regex = new RegExp('([?|&]'+param+'=)[^\&]+');
+				return url.replace( regex , '$1' + value);
+		}
+
+		$('[id^=toggleRecStatus]').click(function(event) {
+			// console.log('$(\'[id^=toggleRecStatus]\').click');
+			// var pattern = /^toggleRecStatus-(\d+)$/;
+			var elmBtn = this;
+			// var match = elmBtn.id.match(pattern);
+			// var recId = match[1];
+			recId = extractRecId(elmBtn.id);
+			var request_url = '/securitydb/' + recId + '/toggle_approve/';
+			$.ajax({
+				url: request_url,
+				success: function(data){
+					if (data.success) {
+						// elmBtn.innerHTML = data.rec_status_text;
+						// console.log('data', data);
+						// console.log('elmBtn', elmBtn);
+						$(elmBtn).removeClass(recstatusClasses).addClass("recstatus-"+data.key);
+					}
+					return false;
+				}
+			});
+			event.stopImmediatePropagation();
+		});
+
+		$('[id^=tdRecord]').mouseenter(function () {
+			// console.log('$(\'[id\^=toggleRecStatus]\').mouseenter');
+			recId = extractRecId(this.id);
+			// console.log('recId', recId);
+			// console.log('this', this);
+			lat = parseFloat(this.dataset.lat);
+			lon = parseFloat(this.dataset.lon);
+			// console.log('lon', lon, 'lat', lat);
+			pointOnMap(lon, lat);
+			// showPopup(lon, lat ,'test');
+		});
+
+		$('[id^=tdRecord]').mouseleave(function () {
+			reset_layers();
+		});
+
+		// initialize bootstrap js tooltip library
+		$(function () {
+		  $('[data-toggle="tooltip"]').tooltip();
+		});
+
+	document.addEventListener('DOMContentLoaded', function() {
+		// console.log('document.addEventListener(\'DOMContentLoaded\', {})');
+		var daterange = getParameterByName("daterange");
+	    if (daterange == null){
+	      var start = moment().subtract(365, 'days');
+	      var end = moment();
+	    } else {
+	      var dateVar = daterange.split(',');
+	      var start = moment(new Date(dateVar[0].substr(0, 4), parseInt(dateVar[0].substr(5, 2))-1, dateVar[0].substr(8, 2)));
+	      var end = moment(new Date(dateVar[1].substr(0, 4), parseInt(dateVar[1].substr(5, 2))-1, dateVar[1].substr(8, 2)));;
+	    }
+
+	    function cb(start, end) {
+	        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+	    }
+
+	    $('#reportrange').daterangepicker({
+	        startDate: start,
+	        endDate: end,
+	        ranges: {
+	           'Today': [moment(), moment()],
+	           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+	           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+	           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+	           'This Month': [moment().startOf('month'), moment().endOf('month')],
+	           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+	           'Last Year': [moment().subtract(365, 'days'), moment()]
+	        }
+	    }, cb);
+
+	    cb(start, end);
+
+			$('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+	        var url = $(location).attr("href");
+	        if (daterange == null){
+						var newUrl = location.origin+location.pathname;
+						if (location.search) {
+							newUrl += location.search;
+						}
+						else {
+							newUrl += '?';
+						}
+						// console.log('newUrl', newUrl);
+	          window.document.location = newUrl+'&daterange='+picker.startDate.format('YYYY-MM-DD')+','+picker.endDate.format('YYYY-MM-DD');
+	        }
+					else {
+	          // url = url.replace(/(daterange=).*?(&)/,'$1' + picker.startDate.format('YYYY-MM-DD')+','+picker.endDate.format('YYYY-MM-DD') + '$2');
+	          url = updateUrlParameter(url, 'daterange', picker.startDate.format('YYYY-MM-DD')+','+picker.endDate.format('YYYY-MM-DD'))
+
+	          window.document.location = url;
+	        }
+	    });
+
+		});
+
+	</script>
 </body>

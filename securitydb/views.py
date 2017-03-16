@@ -40,6 +40,22 @@ def get_settlements(request, chosen_dist_code, toResponse=True):
     else:
         return settlement_list
 
+def toggle_approve(request, record_id):
+    data = {}
+    sec_record = SecureFeature.objects.get(id=record_id)
+    for key, choice in enumerate(recstatus_choices_toggleable):
+        if str(sec_record.recstatus) == str(choice[0]):
+            if key == len(recstatus_choices_toggleable)-1: # is last key
+                new_key = 0 # first key
+            else:
+                new_key = key+1
+            data['success'] = True
+            data['key'] = sec_record.recstatus = recstatus_choices_toggleable[new_key][0]
+            data['rec_status_text'] = recstatus_choices_toggleable[new_key][1];
+            sec_record.save()
+            break
+    return HttpResponse(simplejson.dumps(data), mimetype="application/json")
+
 def geoadm_from_lonlat(request):
     pnt_wkt = 'POINT('+request.GET['lon']+' '+request.GET['lat']+')'
     settlement = AfgPpla.objects.all().filter(wkb_geometry__contains=pnt_wkt).order_by('name_en')
@@ -76,6 +92,14 @@ def scresysls(request):
 		initial = {'criteria': criteria, 'recstatus': recstatus}
 		form = SearchFiltersForm(initial=initial)
 
+	# date_range
+    # print 'request.GET.get("daterange", False)', request.GET.get("daterange", False)
+	date_range = request.GET.get("daterange", False)
+	if (date_range):
+		date_range_list = date_range.split(',')
+		date_start = date_range_list[0]
+		date_end = date_range_list[1]
+
 	# queryset
 	search_result_list = SecureFeature.objects.order_by('scre_incidentdate')
 	if has_delete:
@@ -85,6 +109,8 @@ def scresysls(request):
 		search_result_list = search_result_list.filter(Q(recstatus__in=[1, 2]))
 	if criteria:
 		search_result_list = search_result_list.filter(Q(scre_notes__icontains=criteria) | Q(scre_placename__icontains=criteria))
+	if date_range:
+		search_result_list = search_result_list.filter(Q(scre_incidentdate__range=(date_start, date_end)))
 
 	# pagination
 	per_page = 25 # Show 25 items per page
@@ -99,6 +125,10 @@ def scresysls(request):
 		# If page is out of range (e.g. 9999), deliver last page of results.
 		paged_search_result_list = paginator.page(paginator.num_pages)
 
+	# insert recstatus text for each record
+	for result in paged_search_result_list:
+		result.recstatus_text = recstatus_choices_dict[str(result.recstatus)]
+
 	render_data = {
 		'form': form,
 		'search_result_list': paged_search_result_list,
@@ -110,15 +140,24 @@ def scresysls(request):
 	return render(request, 'searchform.html', render_data)
 
 def scresysed(request, criteria_id=None):
+    initial = {}
+    # initial['scre_username'] = request.user
     if criteria_id:
     	instance = SecureFeature.objects.get(id=criteria_id)
     else:
     	instance = SecureFeature()
+        initial['scre_username'] = request.user.username
 
     if request.POST:
         mutable = request.POST._mutable
         request.POST._mutable = True
-        request.POST['scre_username'] = request.user.username
+
+        # set 'scre_username' on first entry only
+        if (instance.scre_username):
+            request.POST['scre_username'] = instance.scre_username
+        else:
+            request.POST['scre_username'] = request.user.username
+
         request.POST._mutable = mutable
         # initial={
         #     'scre_provid': request.POST.get('scre_provid'),
@@ -153,14 +192,18 @@ def scresysed(request, criteria_id=None):
         	return HttpResponseRedirect('/securitydb/list/')
 
     else:
-        initial = {}
-        # initial['user'] = request.user
-        initial['scre_username'] = request.user.username
         form = SecureFeatureForm(instance=instance, initial=initial)
 
-    has_delete_right = ('geodb.delete_afgincidentoasis' in request.user.get_all_permissions())
-    if not has_delete_right:
+    # disable fields if not has_delete_right
+    has_delete_right = ('geodb.delete_afgincidentoasis'  in request.user.get_all_permissions())
+    if not has_delete_right: # is common user
     	form.fields['recstatus'].widget = forms.HiddenInput()
+        if criteria_id: # is edit mode
+            if request.user.username != instance['scre_username']: # current user is not entry creator
+                for key, field in form.fields.iteritems(): # disable fields
+                    # field.disabled = True
+                    # field.widget.attrs['readonly'] = True
+                    field.widget.attrs['disabled'] = 'disabled'
 
     # render_to_response is likely to be deprecated in the future
     # return render_to_response(

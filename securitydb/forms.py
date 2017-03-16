@@ -52,6 +52,13 @@ class SecureFeatureForm(ModelForm):
 		# required = True,
 		label = 'Record Status',
 		)
+	scre_violent = forms.ChoiceField(
+		widget = forms.RadioSelect(),
+		choices = yesno_choices,
+		initial=1, # currently doesnt work
+		# required = True,
+		label = 'Violent',
+		)
 
 	class Meta:
 		model = SecureFeature
@@ -113,6 +120,8 @@ class SecureFeatureForm(ModelForm):
 		}
 
 	def __init__(self, *args, **kwargs):
+		# if (instance) :
+		# 	print instance
 		super(SecureFeatureForm, self).__init__(*args, **kwargs)
 		self.fields['scre_eventid'].queryset = EventType.objects.order_by('evnt_name')
 		self.fields['scre_sourceid'].queryset = SourceType.objects.order_by('scrc_name')

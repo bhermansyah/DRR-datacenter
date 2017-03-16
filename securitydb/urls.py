@@ -2,11 +2,7 @@ from django.conf.urls import patterns, url
 
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.auth import views as auth_views
-from .views import scresysls
-from .views import scresysed
-from .views import get_districts
-from .views import get_settlements
-from .views import geoadm_from_lonlat
+from .views import scresysls, scresysed, get_districts, get_settlements, geoadm_from_lonlat, toggle_approve
 
 urlpatterns = [
     # ex: /asdcscre/
@@ -16,4 +12,5 @@ urlpatterns = [
     url(r'^(?P<chosen_dist_code>[0-9]+)/get_settlements/$', get_settlements, name='get_settlements'),
     url(r'^geoadm_from_lonlat/', geoadm_from_lonlat, name='geoadm_from_lonlat'),
     url(r'^(?P<criteria_id>[0-9]+)/scref/$', scresysed, name='scref'),
+    url(r'^(?P<record_id>[0-9]+)/toggle_approve/$', toggle_approve, name='toggle_approve'),
 ]
