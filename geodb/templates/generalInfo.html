@@ -68,7 +68,7 @@ table#info tr.odd td {
 		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>{% trans "Area" %}</td><td><strong>{% blocktrans %}{{vuid_area_sqm|div:1000000|floatformat}} km<sup>2</sup>{% endblocktrans %}</strong></td>
+		<td>{% trans "Area" %}</td><td><strong>{{vuid_area_sqm|div:1000000|floatformat}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Total Population" %}</td>

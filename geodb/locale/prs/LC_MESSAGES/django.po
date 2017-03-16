@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-09 13:50+0700\n"
+"POT-Creation-Date: 2017-03-16 14:54+0700\n"
 "PO-Revision-Date: 2017-02-20 09:24+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -753,26 +753,6 @@ msgstr "زمان سفر : %(t3_hf_time)s"
 msgid "Distance : %(t3_hf_distance)s"
 msgstr "فاصله : %(t3_hf_distance)s"
 
-#: templates/earthquakeInfo.html:48 templates/floodInfo.html:65
-#, python-format
-msgid "%(name_en)s"
-msgstr "%(name_en)s"
-
-#: templates/earthquakeInfo.html:52 templates/floodInfo.html:69
-#, python-format
-msgid "%(language_field)s"
-msgstr "%(language_field)s"
-
-#: templates/earthquakeInfo.html:56 templates/floodInfo.html:73
-#, python-format
-msgid "%(dist_na_en)s"
-msgstr "%(dist_na_en)s"
-
-#: templates/earthquakeInfo.html:60 templates/floodInfo.html:77
-#, python-format
-msgid "%(prov_na_en)s"
-msgstr "%(prov_na_en)s"
-
 #: templates/earthquakeInfo.html:63 templates/floodInfo.html:80
 #: templates/generalInfo.html:67
 msgid "Elevation"
@@ -791,9 +771,8 @@ msgstr "مساحت"
 
 #: templates/earthquakeInfo.html:68 templates/floodInfo.html:85
 #: templates/generalInfo.html:71
-#, python-format
-msgid "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup>"
-msgstr "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup"
+msgid "km<sup>2</sup>"
+msgstr "کیلومتر مربع"
 
 #: templates/earthquakeInfo.html:71 templates/floodInfo.html:88
 #: templates/generalInfo.html:74
@@ -889,8 +868,7 @@ msgid ""
 "Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 "
 "years<sup>**</sup>"
 msgstr ""
-"<SUP> * </ SUP> شدت زمین لرزه و شرح آسیب احتمالی (USGS، 2007) از<br/"
-">\n"
+"<SUP> * </ SUP> شدت زمین لرزه و شرح آسیب احتمالی (USGS، 2007) از<br/>\n"
 "شتاب افقی قله با احتمال 2 درصد در 50 سال<sup>**</sup>"
 
 #: templates/earthquakeInfo.html:103
@@ -946,8 +924,8 @@ msgstr "ضعیف"
 msgid ""
 "Felt only by a few persons at rest,especially on upper floors of buildings."
 msgstr ""
-" تنها توسط بعضی از افراد در حالت افتیده احساس میشود ،به خصوص در "
-"طبقات فوقانی ساختمان."
+" تنها توسط بعضی از افراد در حالت افتیده احساس میشود ،به خصوص در طبقات فوقانی "
+"ساختمان."
 
 #: templates/earthquakeInfo.html:155
 msgid "III"
@@ -960,10 +938,10 @@ msgid ""
 "cars may rock slightly. Vibrations similar to the passing of a truck. "
 "Duration estimated."
 msgstr ""
-"توسط افراد داخل خانه کاملا  احساس میشود، به خصوص در طبقات فوقانی "
-"ساختمان. بسیاری از مردم آن را به عنوان یک زلزله به رسمیت نمی شناسد. مثل "
-"ایستاده شدن موتر بزرگ مملو از سنگ یا لرزش هنگام عبور یک موتر باربری. مدت "
-"زمان برآورد شده است."
+"توسط افراد داخل خانه کاملا  احساس میشود، به خصوص در طبقات فوقانی ساختمان. "
+"بسیاری از مردم آن را به عنوان یک زلزله به رسمیت نمی شناسد. مثل ایستاده شدن "
+"موتر بزرگ مملو از سنگ یا لرزش هنگام عبور یک موتر باربری. مدت زمان برآورد شده "
+"است."
 
 #: templates/earthquakeInfo.html:160
 msgid "IV"
@@ -980,13 +958,12 @@ msgid ""
 "Sensation like heavy truck striking building. Standing motor cars rocked "
 "noticeably."
 msgstr ""
-"در داخل خانه توسط زیادی از مردم  و در بیرون از خانه توسط کم از مردم "
-"در روز احساس میشود ، و از طرف شب تعداد از مردم با شنیدن صدای ظروف ،کلکین ها، "
-"دروازه ها و شکستگی دیوار های به صدا در آمده بیدار میشود. احساس آن مانند "
-"موترهای باربری سنگین که با یک آپارتمان تصادم کنند.لرزیدن ماشین موتر هنگام "
-"ابستاده شدن که احساس میشود بیدار میشود و شکستگی صدا دیوال.احساس مانند کامیون "
-"های سنگین در هنگام ضربه زدن به ساختمان ویا ایستاده شدن موتر در بالای سنک "
-"بزرگ ."
+"در داخل خانه توسط زیادی از مردم  و در بیرون از خانه توسط کم از مردم در روز "
+"احساس میشود ، و از طرف شب تعداد از مردم با شنیدن صدای ظروف ،کلکین ها، دروازه "
+"ها و شکستگی دیوار های به صدا در آمده بیدار میشود. احساس آن مانند موترهای "
+"باربری سنگین که با یک آپارتمان تصادم کنند.لرزیدن ماشین موتر هنگام ابستاده "
+"شدن که احساس میشود بیدار میشود و شکستگی صدا دیوال.احساس مانند کامیون های "
+"سنگین در هنگام ضربه زدن به ساختمان ویا ایستاده شدن موتر در بالای سنک بزرگ ."
 
 #: templates/earthquakeInfo.html:165
 msgid "V"
@@ -997,8 +974,8 @@ msgid ""
 "Felt by nearly everyone; many awakened. Some dishes, windows broken. "
 "Unstable objects overturned. Pendulum clocks may stop."
 msgstr ""
-" تقریبا توسط همه احساس میشود ؛بیدار شدن برخی از خواب، بعضی ظروف، "
-"پنجره شکسته شده. اشیاء ناپایدار چپه گردیده و ساعتهای آونگ ممکن است متوقف شود."
+" تقریبا توسط همه احساس میشود ؛بیدار شدن برخی از خواب، بعضی ظروف، پنجره شکسته "
+"شده. اشیاء ناپایدار چپه گردیده و ساعتهای آونگ ممکن است متوقف شود."
 
 #: templates/earthquakeInfo.html:170
 msgid "VI"
@@ -1013,9 +990,8 @@ msgid ""
 "Felt by all, many frightened. Some heavy furniture moved; a few instances of "
 "fallen plaster. Damage slight."
 msgstr ""
-"توسط همه احساس میشود ،برخی وحشت زده میشوند، و فرنیچر های بزرگ جای "
-"شان تغییر خورده ،و برخی از پلستر های روی دیوار پارچه شده ،آسیب جزیی به بار "
-"میاورد "
+"توسط همه احساس میشود ،برخی وحشت زده میشوند، و فرنیچر های بزرگ جای شان تغییر "
+"خورده ،و برخی از پلستر های روی دیوار پارچه شده ،آسیب جزیی به بار میاورد "
 
 #: templates/earthquakeInfo.html:175
 msgid "VII"
@@ -1031,9 +1007,9 @@ msgid ""
 "moderate in well-built ordinary structures; considerable damage in poorly "
 "built or badly designed structures; some chimneys broken."
 msgstr ""
-"آسیب ناچیز در ساختمان دارای طراحی و ساخت و ساز خوب؛ اندک تا متوسط "
-"در ساختمان عادی به خوبی ساخته شده؛ خسارت قابل توجهی در ساختمان ضعیف ساخته "
-"شده و یا بد طراحی شده؛ که برخی دودکش ها شکسته شده است."
+"آسیب ناچیز در ساختمان دارای طراحی و ساخت و ساز خوب؛ اندک تا متوسط در ساختمان "
+"عادی به خوبی ساخته شده؛ خسارت قابل توجهی در ساختمان ضعیف ساخته شده و یا بد "
+"طراحی شده؛ که برخی دودکش ها شکسته شده است."
 
 #: templates/earthquakeInfo.html:180
 msgid "VIII"
@@ -1050,10 +1026,10 @@ msgid ""
 "built structures. Fall of chimneys, factory stacks, columns, monuments, "
 "walls. Heavy furniture overturned."
 msgstr ""
-"آسیب های جزئی در ساختمان خاص طراحی شده. خسارت قابل توجهی در ساختمان "
-"های قابل توجهی عادی با فروپاشی نسبی. آسیب بزرگ در ساختمان ضعیف ساخته شده. "
-"سقوط دودکش ها، دودکش های کارخانه، ستون ها، بناهای تاریخی، دیوارها. موبل های "
-"سنگین واژگون شدند."
+"آسیب های جزئی در ساختمان خاص طراحی شده. خسارت قابل توجهی در ساختمان های قابل "
+"توجهی عادی با فروپاشی نسبی. آسیب بزرگ در ساختمان ضعیف ساخته شده. سقوط دودکش "
+"ها، دودکش های کارخانه، ستون ها، بناهای تاریخی، دیوارها. موبل های سنگین "
+"واژگون شدند."
 
 #: templates/earthquakeInfo.html:185
 msgid "IX"
@@ -1065,8 +1041,8 @@ msgid ""
 "structures thrown out of plumb. Damage great in substantial buildings, with "
 "partial collapse. Buildings shifted off foundations."
 msgstr ""
-"خسارت قابل توجهی به خصوص در ساختمان های طراحی شده. آسیب های قابل "
-"توجه بزرگ در ساختمان ، با فروپاشی نسبی. تغییرات در بنیاد ساختمان ها."
+"خسارت قابل توجهی به خصوص در ساختمان های طراحی شده. آسیب های قابل توجه بزرگ "
+"در ساختمان ، با فروپاشی نسبی. تغییرات در بنیاد ساختمان ها."
 
 #: templates/earthquakeInfo.html:190
 msgid "X+"
@@ -1077,8 +1053,8 @@ msgid ""
 "Some well-built wooden structures destroyed; most masonry and frame "
 "structures destroyed with foundations. Rails bent."
 msgstr ""
-"برخی از ساختمان های چوبی تخریب شده ؛بسیاری از ساختمان های قالب سنگی "
-"همرای بنیاد آن تخریب گردیده و مسیر ریل نشیب دار و خم میشود "
+"برخی از ساختمان های چوبی تخریب شده ؛بسیاری از ساختمان های قالب سنگی همرای "
+"بنیاد آن تخریب گردیده و مسیر ریل نشیب دار و خم میشود "
 
 #: templates/earthquakeInfo.html:195
 #, python-format
@@ -1090,11 +1066,26 @@ msgid ""
 "Afghanistan (2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. "
 "Rukstales"
 msgstr ""
-"<sup>**</sup> در 50 سال احتمال 2 درصد زمان بازگشت زمین متناسب است "
-"با یک حرکت تقریبا 2500 سال، ویا در حدود احتمال  10 درصد در 250 سال، ارقام "
-"شدت زلزله و کلاس های آن از نقشه خطر زلزله USGS برای افغانستان (2007) سرچشمه "
-"گرفته، توسط Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales"
+"<sup>**</sup> در 50 سال احتمال 2 درصد زمان بازگشت زمین متناسب است با یک حرکت "
+"تقریبا 2500 سال، ویا در حدود احتمال  10 درصد در 250 سال، ارقام شدت زلزله و "
+"کلاس های آن از نقشه خطر زلزله USGS برای افغانستان (2007) سرچشمه گرفته، توسط "
+"Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales"
 
 #: templates/snowInfo.html:62
 msgid "Approx. Current Snow Depth"
 msgstr "تقریبا. عمق برف کنونی"
+
+#~ msgid "%(name_en)s"
+#~ msgstr "%(name_en)s"
+
+#~ msgid "%(language_field)s"
+#~ msgstr "%(language_field)s"
+
+#~ msgid "%(dist_na_en)s"
+#~ msgstr "%(dist_na_en)s"
+
+#~ msgid "%(prov_na_en)s"
+#~ msgstr "%(prov_na_en)s"
+
+#~ msgid "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup>"
+#~ msgstr "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup"

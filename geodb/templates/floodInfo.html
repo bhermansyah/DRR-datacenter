@@ -62,19 +62,19 @@ table#info tr.odd td {
 <table id='info'>
 	<tr>
 		<td>{% trans "Settlement" %}</td>
-		<td><strong>{% blocktrans %}{{name_en}}{% endblocktrans %}</strong></td>
+		<td><strong>{{name_en}}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Language" %}</td>
-		<td><strong>{% blocktrans %}{{language_field}}{% endblocktrans %}</strong></td>
+		<td><strong>{{language_field}}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "District" %}</td>
-		<td><strong>{% blocktrans %}{{dist_na_en}}{% endblocktrans %}</strong></td>
+		<td><strong>{{dist_na_en}}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Province" %}</td>
-		<td><strong>{% blocktrans %}{{prov_na_en}}{% endblocktrans %}</strong></td>
+		<td><strong>{{prov_na_en}}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Elevation" %}</td>
@@ -82,7 +82,7 @@ table#info tr.odd td {
 	</tr>
 	<tr>
 		<td>{% trans "Area" %}</td>
-		<td><strong>{% blocktrans %}{{vuid_area_sqm|div:1000000|floatformat}} km<sup>2</sup>{% endblocktrans %}</strong></td>
+		<td><strong>{{vuid_area_sqm|div:1000000|floatformat}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Total Population" %}</td>
