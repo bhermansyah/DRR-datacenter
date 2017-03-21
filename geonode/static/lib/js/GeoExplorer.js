@@ -93150,12 +93150,6 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     Ext.getCmp('bd_sec_entries_panel').show();
                     Ext.getCmp('bd_sec_entries_panel').expand();
                 } else {
-                    // reset layers
-                    var mainMap = GeoExt.MapPanel.guess();
-                    // var mainMap = this.map;
-                    mainMap.map.getLayersByName('Mask Layer')[0].removeAllFeatures();
-              			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
-
                     if (!Ext.getCmp('statMenu').pressed && !Ext.getCmp('finderTool').pressed && !Ext.getCmp('SAMTool').pressed)
                         Ext.getCmp('east').collapse();
                     Ext.getCmp('bd_sec_entries_panel').hide();
