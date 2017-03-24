@@ -27,7 +27,7 @@ li#nav_dashaccessibility>a::after {
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Area | intword | intcomma}}</h1>
-			<span class='widget-title'>{% trans "Total Area" %} ({% trans "km" %}<sup>2</sup>)</span>
+			<span class='widget-title'>{% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
 		</li>
 		<li data-row="1" data-col="5" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_coverage_chart.as_html }}</div>
@@ -48,7 +48,7 @@ li#nav_dashaccessibility>a::after {
 		</li>
 		<li data-row="2" data-col="2" data-sizex="2" data-sizey="2">
 			<div>{{ tier1_chart.as_html }}</div>
-			<span class='widget-title'>{% trans "Nearest Health Facilities Tier 1" %}</span>
+			<span class='widget-title'>{% trans "Travel Time to Nearest Health Facilities Tier 1 (pop in &#37;)" %}</span>
 		</li>
 		<li data-row="2" data-col="3" data-sizex="2" data-sizey="2">
 			<div>{{ tier2_chart.as_html }}</div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-16 14:54+0700\n"
+"POT-Creation-Date: 2017-03-22 15:05+0700\n"
 "PO-Revision-Date: 2017-02-20 09:24+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -223,7 +223,7 @@ msgstr "دیگران"
 msgid "Health facilities overview"
 msgstr "بررسی اجمالی امکانات صحی "
 
-#: geo_calc.py:1813 geo_calc.py:1845
+#: geo_calc.py:1813
 msgid "percentages from total health facilities"
 msgstr "فیصدی از مجموع امکانات صحی "
 
@@ -274,6 +274,11 @@ msgstr "پل "
 #: geo_calc.py:1830
 msgid "Road network overview"
 msgstr "بررسی اجمالی شبکه سرک ها"
+
+#
+#: geo_calc.py:1845
+msgid "percentages from total length of road network"
+msgstr "فیصدی از مجموع طول شبکه سرک ها"
 
 #: geo_calc.py:2255
 msgid "Water body and marshland"
@@ -356,12 +361,12 @@ msgstr " پوشش خدمات موبایل (GSM) "
 #
 #: views.py:1165 views.py:1472 views.py:1483 views.py:1505
 msgid "High"
-msgstr "شاهراه"
+msgstr "زیاد"
 
 #
 #: views.py:1165
 msgid "Very high"
-msgstr "بسیار قوی"
+msgstr "بسیار زیاد"
 
 #
 #: views.py:1316
@@ -390,11 +395,11 @@ msgstr "متوسط"
 #
 #: views.py:1472
 msgid "Very High"
-msgstr "بسیار قوی"
+msgstr "بسیار زیاد"
 
 #: views.py:1472 templates/earthquakeInfo.html:191
 msgid "Extreme"
-msgstr " شدیدتر "
+msgstr "شدید"
 
 #: views.py:1472
 msgid "Population at flood risk"

@@ -16,9 +16,9 @@ li#nav_dashfloodforecast>a::after {
 
 
 <div class="gridster">
-	<h1 class="dashing-title">{% trans "Flood Forecast" %}  
+	<h1 class="dashing-title">{% trans "Flood Forecast" %}
 		{% include "links_title.html" %}
-		{% include "qlink_span.html" %}	
+		{% include "qlink_span.html" %}
 	</h1>
 		<table class="overviewTab">
 			<thead>
@@ -32,8 +32,8 @@ li#nav_dashfloodforecast>a::after {
 					<th colspan=3 class="fl_forecast_high">{% trans "High" %}</th>
 					<th colspan=3 class="fl_forecast_med">{% trans "Moderate" %}</th>
 					<th colspan=3 class="fl_forecast_low">{% trans "Low" %}</th>
-				</tr>	
-			
+				</tr>
+
 				<tr>
 					<td colspan=3 class="fl_forecast_extreme">{{ flashflood_forecast_extreme_pop | intword | intcomma }}</td>
 					<td colspan=3 class="fl_forecast_vhigh">{{ flashflood_forecast_veryhigh_pop | intword | intcomma }}</td>
@@ -41,8 +41,8 @@ li#nav_dashfloodforecast>a::after {
 					<td colspan=3 class="fl_forecast_med">{{ flashflood_forecast_med_pop | intword | intcomma }}</td>
 					<td colspan=3 class="fl_forecast_low">{{ flashflood_forecast_low_pop | intword | intcomma }}</td>
 				</tr>
-			</thead>	
-			<tbody>	
+			</thead>
+			<tbody>
 				<tr>
 					<th rowspan=2 colspan=3>{% trans "Flood Risk" %}</th>
 					<th class="fl_risk_h">{% trans "High" %}</th>
@@ -78,9 +78,9 @@ li#nav_dashfloodforecast>a::after {
 					<td class="fl_risk_m">{{ flashflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
 					<td class="fl_risk_l">{{ flashflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
 				</tr>
-				
-			</tbody>	
-		</table>	
+
+			</tbody>
+		</table>
 
 		<table class="overviewTab">
 			<thead>
@@ -94,9 +94,9 @@ li#nav_dashfloodforecast>a::after {
 					<th colspan=3 class="fl_forecast_high">{% trans "High" %}</th>
 					<th colspan=3 class="fl_forecast_med">{% trans "Moderate" %}</th>
 					<th colspan=3 class="fl_forecast_low">{% trans "Low" %}</th>
-				</tr>	
-			
-				
+				</tr>
+
+
 				<tr>
 					<td colspan=3 class="fl_forecast_extreme">{{ riverflood_forecast_extreme_pop | intword | intcomma }}</td>
 					<td colspan=3 class="fl_forecast_vhigh">{{ riverflood_forecast_veryhigh_pop | intword | intcomma }}</td>
@@ -104,8 +104,8 @@ li#nav_dashfloodforecast>a::after {
 					<td colspan=3 class="fl_forecast_med">{{ riverflood_forecast_med_pop | intword | intcomma }}</td>
 					<td colspan=3 class="fl_forecast_low">{{ riverflood_forecast_low_pop | intword | intcomma }}</td>
 				</tr>
-			</thead>	
-			<tbody>	
+			</thead>
+			<tbody>
 				<tr>
 					<th rowspan=2 colspan=3>{% trans "Flood Risk" %}</th>
 					<th class="fl_risk_h">{% trans "High" %}</th>
@@ -141,9 +141,9 @@ li#nav_dashfloodforecast>a::after {
 					<td class="fl_risk_m">{{ riverflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
 					<td class="fl_risk_l">{{ riverflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
 				</tr>
-				
-			</tbody>	
-		</table>			  		
+
+			</tbody>
+		</table>
   	</ul>
 </div>
 
@@ -203,8 +203,8 @@ li#nav_dashfloodforecast>a::after {
 				<td class="detail_value fl_forecast_extreme">{{data.riverflood_forecast_extreme_pop | intword | intcomma}}</td>
 				<td class="detail_value fl_forecast_vhigh">{{data.riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
 				<td class="detail_value fl_forecast_high">{{data.riverflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_med">{{data.riverflood_forecast_med_pop | intword | intcomma}}</td>	
-				<td class="parent_value fl_forecast_low">{{data.riverflood_forecast_low_pop | intword | intcomma}}</td>		
+				<td class="detail_value fl_forecast_med">{{data.riverflood_forecast_med_pop | intword | intcomma}}</td>
+				<td class="parent_value fl_forecast_low">{{data.riverflood_forecast_low_pop | intword | intcomma}}</td>
 			</tr>
 			{% endfor %}
 		</tbody>
@@ -224,10 +224,10 @@ function show_hide_base(){
 	}
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
-		    return "show";		    
+		    return "show";
 		} else {
 			// $("div.showFlag").text("<p>Show Detail</p>");
-		    return "hide";	    
+		    return "hide";
 		}
 	});
 }

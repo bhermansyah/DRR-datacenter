@@ -33,7 +33,7 @@ li#nav_dashavalancherisk>a::after {
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<div>{{ total_area_atrisk_chart.as_html }}</div>
-			<span class='widget-title'>{% trans "Avalanche risk area" %} ({% trans "km" %}<sup>2</sup>)</span>
+			<span class='widget-title'>{% trans "Avalanche risk area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
 			<span class='pie-title1'>{{ total_area_atrisk_percent }}%</span>
 			<span class='pie-title2'>{{ total_ava_area | intword | intcomma}}</span>
 		</li>

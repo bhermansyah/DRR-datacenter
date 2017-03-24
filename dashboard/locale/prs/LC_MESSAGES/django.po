@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-09 13:50+0700\n"
+"POT-Creation-Date: 2017-03-23 12:22+0700\n"
 "PO-Revision-Date: 2017-02-20 09:15+0430\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
+
+#: templates/custombase.html:72
+msgid "Loading ..."
+msgstr ""
 
 #: templates/custombase.html:103
 msgid "Afghanistan Spatial Data Center"
@@ -183,13 +187,11 @@ msgid "Total Area"
 msgstr "مساحت کلی"
 
 #: templates/pages/accessibility.html:30 templates/pages/avalancherisk.html:36
-#: templates/pages/baseline.html:208 templates/pages/baseline.html.py:209
-#: templates/pages/baseline.html:210 templates/pages/baseline.html.py:211
-#: templates/pages/baseline.html:212 templates/pages/baseline.html.py:213
-#: templates/pages/baseline.html:214 templates/pages/baseline.html.py:215
-#: templates/pages/baseline.html:216 templates/pages/baseline.html.py:217
-msgid "km"
-msgstr "کیلومتر"
+#: templates/pages/baseline.html:30 templates/pages/baseline.html.py:84
+#: templates/pages/baseline.html:86 templates/pages/baseline.html.py:88
+#: templates/pages/baseline.html:90
+msgid "km<sup>2</sup>"
+msgstr "کیلومتر مربع"
 
 #: templates/pages/accessibility.html:34
 msgid "GSM Coverage – Population"
@@ -201,31 +203,31 @@ msgstr "مساحت -پوشش  خدمات موبایل GSM"
 
 #: templates/pages/accessibility.html:47
 msgid "Travel Time to Nearest Airport (pop in &#37;)"
-msgstr "زمان سفر به نزدیکترین میدان هوایی  (pop in &#37;)"
+msgstr "زمان سفر به نزدیکترین میدان هوایی  (&#37; نفوس به)"
 
 #: templates/pages/accessibility.html:51
-msgid "Nearest Health Facilities Tier 1"
-msgstr "نزدیکترین امکانات صحی ردیف اول "
+msgid "Travel Time to Nearest Health Facilities Tier 1 (pop in &#37;)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف اول (&#37; نفوس به)"
 
 #: templates/pages/accessibility.html:55
 msgid "Travel Time to Nearest Health Facilities Tier 2 (pop in &#37;)"
-msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم (نفوس به &#37;)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم (&#37; نفوس به)"
 
 #: templates/pages/accessibility.html:59
 msgid "Travel Time to Nearest Health Facilities Tier 3 (pop in &#37;)"
-msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم (نفوس به &#37;)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم (&#37; نفوس به)"
 
 #: templates/pages/accessibility.html:67
 msgid "Travel Time to Its Province Capital (pop in &#37;)"
-msgstr "زمان سفر به مرکز ولایتی (نفوس به &#37;)"
+msgstr "زمان سفر به مرکز ولایتی (&#37; نفوس به)"
 
 #: templates/pages/accessibility.html:71
 msgid "Travel Time to Nearest Province Capital (pop in &#37;)"
-msgstr "زمان سفر به نزدیکترین مرکز ولایت (نفوس به &#37;)"
+msgstr "زمان سفر به نزدیکترین مرکز ولایت (&#37; نفوس به)"
 
 #: templates/pages/accessibility.html:75
 msgid "Travel Time to Nearest District Capital (pop in &#37;)"
-msgstr "زمان سفر به نزدیکترین مرکز ولسوالی (نفوس به &#37;)"
+msgstr "زمان سفر به نزدیکترین مرکز ولسوالی (&#37; نفوس به)"
 
 #: templates/pages/accessibility.html:86
 msgid "Travel Time to Nearest Airport"
@@ -536,7 +538,7 @@ msgstr "مساحت"
 
 #: templates/pages/avalcheforecast.html:19 templates/pages/links.html:20
 msgid "Avalanche Forecast"
-msgstr "پیشبینی برف کوچ "
+msgstr "پیشبینی برف کوچ"
 
 #: templates/pages/avalcheforecast.html:34
 msgid "Forecast avalanche risk population"
@@ -576,12 +578,6 @@ msgstr "کم"
 #: templates/pages/baseline.html:19 templates/pages/links.html:8
 msgid "Baseline"
 msgstr "معلومات اولیه"
-
-#: templates/pages/baseline.html:30 templates/pages/baseline.html.py:84
-#: templates/pages/baseline.html:86 templates/pages/baseline.html.py:88
-#: templates/pages/baseline.html:90
-msgid "km<sup>2</sup>"
-msgstr "کیلومتر مربع"
 
 #: templates/pages/baseline.html:34 templates/pages/earthquake.html:45
 msgid "Number of Settlements"
@@ -665,7 +661,7 @@ msgstr "SHC"
 
 #: templates/pages/baseline.html:189
 msgid "Road network overview and length"
-msgstr "بررسی شبکه سرک ها و طول"
+msgstr "بررسی اجمالی طول شبکه سرک ها"
 
 #: templates/pages/baseline.html:195
 msgid "Highway"
@@ -702,6 +698,14 @@ msgstr "عبور از دریا "
 #: templates/pages/baseline.html:203
 msgid "Bridge"
 msgstr "پل "
+
+#: templates/pages/baseline.html:208 templates/pages/baseline.html.py:209
+#: templates/pages/baseline.html:210 templates/pages/baseline.html.py:211
+#: templates/pages/baseline.html:212 templates/pages/baseline.html.py:213
+#: templates/pages/baseline.html:214 templates/pages/baseline.html.py:215
+#: templates/pages/baseline.html:216 templates/pages/baseline.html.py:217
+msgid "km"
+msgstr "کیلومتر"
 
 #: templates/pages/earthquake.html:27 templates/pages/links.html:26
 msgid "Earthquake"
@@ -745,7 +749,7 @@ msgstr "VI: قوی "
 
 #: templates/pages/earthquake.html:78
 msgid "VII: Very-strong"
-msgstr "VII: قویتر "
+msgstr "VII: بسیار قوی"
 
 #: templates/pages/earthquake.html:79
 msgid "VIII: Severe"
@@ -753,11 +757,11 @@ msgstr "VIII: شدید"
 
 #: templates/pages/earthquake.html:80
 msgid "IX: Violent"
-msgstr "IX: تند "
+msgstr "IX: بسیار شدید"
 
 #: templates/pages/earthquake.html:81
 msgid "X+: Extreme"
-msgstr "X +: شدیدتر "
+msgstr "X+: شدیدتر "
 
 #: templates/pages/floodforecast.html:19 templates/pages/links.html:14
 msgid "Flood Forecast"
@@ -775,13 +779,13 @@ msgstr "احتمال"
 #: templates/pages/floodforecast.html:166
 #: templates/pages/floodforecast.html:172
 msgid "Extreme"
-msgstr "شدیدتر "
+msgstr "شدید"
 
 #: templates/pages/floodforecast.html:31 templates/pages/floodforecast.html:93
 #: templates/pages/floodforecast.html:167
 #: templates/pages/floodforecast.html:173
 msgid "Very High"
-msgstr "بسیار زیاد "
+msgstr "بسیار زیاد"
 
 #: templates/pages/floodforecast.html:47
 #: templates/pages/floodforecast.html:110 templates/pages/floodrisk.html:19
@@ -968,3 +972,6 @@ msgstr "لغو انتخاب هدف حادثه "
 #: templates/pages/security.html:388
 msgid "Selected Incident Target"
 msgstr "انتخاب نوع هدف"
+
+#~ msgid "Nearest Health Facilities Tier 1"
+#~ msgstr "نزدیکترین امکانات صحی ردیف اول "

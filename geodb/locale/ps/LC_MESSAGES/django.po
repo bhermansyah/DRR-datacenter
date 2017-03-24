@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-09 13:50+0700\n"
+"POT-Creation-Date: 2017-03-21 15:28+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Health facilities overview"
 msgstr ""
 
-#: geo_calc.py:1813 geo_calc.py:1845
+#: geo_calc.py:1813
 msgid "percentages from total health facilities"
 msgstr ""
 
@@ -271,6 +271,10 @@ msgstr ""
 
 #: geo_calc.py:1830
 msgid "Road network overview"
+msgstr ""
+
+#: geo_calc.py:1845
+msgid "percentages from total length of road network"
 msgstr ""
 
 #: geo_calc.py:2255
@@ -736,26 +740,6 @@ msgstr ""
 msgid "Distance : %(t3_hf_distance)s"
 msgstr ""
 
-#: templates/earthquakeInfo.html:48 templates/floodInfo.html:65
-#, python-format
-msgid "%(name_en)s"
-msgstr ""
-
-#: templates/earthquakeInfo.html:52 templates/floodInfo.html:69
-#, python-format
-msgid "%(language_field)s"
-msgstr ""
-
-#: templates/earthquakeInfo.html:56 templates/floodInfo.html:73
-#, python-format
-msgid "%(dist_na_en)s"
-msgstr ""
-
-#: templates/earthquakeInfo.html:60 templates/floodInfo.html:77
-#, python-format
-msgid "%(prov_na_en)s"
-msgstr ""
-
 #: templates/earthquakeInfo.html:63 templates/floodInfo.html:80
 #: templates/generalInfo.html:67
 msgid "Elevation"
@@ -774,8 +758,7 @@ msgstr ""
 
 #: templates/earthquakeInfo.html:68 templates/floodInfo.html:85
 #: templates/generalInfo.html:71
-#, python-format
-msgid "%(vuid_area_sqm|div:1000000|floatformat)s km<sup>2</sup>"
+msgid "km<sup>2</sup>"
 msgstr ""
 
 #: templates/earthquakeInfo.html:71 templates/floodInfo.html:88

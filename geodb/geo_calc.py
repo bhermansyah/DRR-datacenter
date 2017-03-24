@@ -1842,7 +1842,7 @@ def getBaseline(request, filterLock, flag, code):
             },
             'bar': { 'groupWidth': '90%' },
             'chartArea': {'width': '50%'},
-            'titleX':_('percentages from total health facilities'),
+            'titleX':_('percentages from total length of road network'),
     })
 
     # print response['poi_points']

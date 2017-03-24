@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ASDC-GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-09 13:50+0700\n"
+"POT-Creation-Date: 2017-03-22 15:42+0700\n"
 "PO-Revision-Date: 2017-02-28 14:15+0430\n"
 "Last-Translator: Dodi <dodi@email.com>\n"
 "Language-Team: Pushto; Pashto <team@email.com>\n"
@@ -3504,7 +3504,7 @@ msgstr ""
 
 #: templates/about.html:87
 msgid "Every 6 hours the river flood risk is estimated for the next 4 days"
-msgstr "برای 4 روز آینده هر 6 ساعت بعد خطر سیلاب دریایی تخمین میشود "
+msgstr "هر 6 ساعت خطر سیلاب دریایی برای 4 روز آینده تخمین میشود"
 
 #: templates/about.html:88
 msgid "Every day the snow cover and snow depth is estimated"
@@ -4323,7 +4323,7 @@ msgstr "کاربران"
 
 #: templates/index.html:129
 msgid "Current Flood Forecast"
-msgstr "پیش بینی سیلاب در حال حاضر"
+msgstr "پیش بینی فعلی سیلاب"
 
 #: templates/index.html:146
 msgid "Flood"
@@ -4391,7 +4391,7 @@ msgstr "مشاهده همه، مجموع"
 
 #: templates/index.html:241 templates/index.html.py:278
 msgid "maps"
-msgstr "نقشه ها"
+msgstr "نقشه "
 
 #: templates/index.html:256 templates/index.html.py:291
 #: templates/index.html:330
