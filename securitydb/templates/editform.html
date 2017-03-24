@@ -115,23 +115,20 @@
 			click.activate();
 		}
 
-		function getCoordinateDeactivate(){
+		function getCoordinateDeactivate() {
 
 			click.deactivate();
 			mainMap.map.removeControl(click);
 			click = null;
 		}
 
-		function initialize_page() {
-			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
-			prov_id = $('#id_scre_provid').val();
-			dist_id = $('#id_scre_distid').val();
-			$('#id_scre_username').attr('readonly', true);
-
-			if ($('#id_scre_violent').is(":checked"))
+		function setViolenceInputState() {
+			if ($('#id_scre_violent_1').is(":checked"))
 			{
+				// console.log('$(\'#id_scre_violent_1\').is(":checked")');
 				if ($('#id_scre_unknown').is(":checked"))
 				{
+					// console.log('$(\'#id_scre_unknown\').is(":checked")');
 					$('#id_scre_arrested').val('');
 					$('#id_scre_arrested').attr('readonly', true);
 					$('#id_scre_arrested').attr('color', 'grey');
@@ -141,8 +138,8 @@
 					$('#id_scre_dead').val('');
 					$('#id_scre_dead').attr('readonly', true);
 					$('#id_scre_dead').attr('color', 'grey');
-				} else
-				{
+				}
+				else {
 					$('#id_scre_arrested').attr('readonly', false);
 					$('#id_scre_arrested').attr('color', 'white');
 					$('#id_scre_injured').attr('readonly', false);
@@ -150,8 +147,10 @@
 					$('#id_scre_dead').attr('readonly', false);
 					$('#id_scre_dead').attr('color', 'white');
 				}
-			} else
+			}
+			else
 			{
+				// console.log('$(\'#id_scre_violent_1\').is(":checked") == False');
 				$('#id_scre_arrested').val('');
 				$('#id_scre_arrested').attr('readonly', true);
 				$('#id_scre_arrested').attr('color', 'grey');
@@ -161,7 +160,16 @@
 				$('#id_scre_dead').val('');
 				$('#id_scre_dead').attr('readonly', true);
 				$('#id_scre_dead').attr('color', 'grey');
-			}
+			};
+		};
+
+		function initialize_page() {
+			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+			prov_id = $('#id_scre_provid').val();
+			dist_id = $('#id_scre_distid').val();
+			$('#id_scre_username').attr('readonly', true);
+
+			setViolenceInputState();
 
 			getInitialSecurityPosisition();
 
@@ -318,71 +326,21 @@
 			reset_layers();
 		});
 
+		window.onunload = function (e) {
+			reset_layers();
+		};
+
 		$('#id_scre_unknown').change(function() {
-			if ($('#id_scre_violent').is(":checked"))
-			{
-				if ($('#id_scre_unknown').is(":checked"))
-				{
-					$('#id_scre_arrested').val('');
-					$('#id_scre_arrested').attr('readonly', true);
-					$('#id_scre_arrested').attr('color', 'grey');
-					$('#id_scre_injured').val('');
-					$('#id_scre_injured').attr('readonly', true);
-					$('#id_scre_injured').attr('color', 'grey');
-					$('#id_scre_dead').val('');
-					$('#id_scre_dead').attr('readonly', true);
-					$('#id_scre_dead').attr('color', 'grey');
-				} else
-				{
-					$('#id_scre_arrested').attr('readonly', false);
-					$('#id_scre_arrested').attr('color', 'white');
-					$('#id_scre_injured').attr('readonly', false);
-					$('#id_scre_injured').attr('color', 'white');
-					$('#id_scre_dead').attr('readonly', false);
-					$('#id_scre_dead').attr('color', 'white');
-				}
-			}
-		})
-		$('#id_scre_violent').change(function() {
-			if ($('#id_scre_violent').is(":checked"))
-			{
-				if ($('#id_scre_unknown').is(":checked"))
-				{
-					//alert('changing to checked');
-					$('#id_scre_arrested').val('');
-					$('#id_scre_arrested').attr('readonly', true);
-					$('#id_scre_arrested').attr('color', 'grey');
-					$('#id_scre_injured').val('');
-					$('#id_scre_injured').attr('readonly', true);
-					$('#id_scre_injured').attr('color', 'grey');
-					$('#id_scre_dead').val('');
-					$('#id_scre_dead').attr('readonly', true);
-					$('#id_scre_dead').attr('color', 'grey');
-				} else
-				{
-					//alert('changing to checked');
-					$('#id_scre_arrested').attr('readonly', false);
-					$('#id_scre_arrested').attr('color', 'white');
-					$('#id_scre_injured').attr('readonly', false);
-					$('#id_scre_injured').attr('color', 'white');
-					$('#id_scre_dead').attr('readonly', false);
-					$('#id_scre_dead').attr('color', 'white');
-				}
-			} else
-			{
-				//alert('changing to unchecked');
-				$('#id_scre_unknown').attr('checked', false);
-				$('#id_scre_arrested').val('');
-				$('#id_scre_arrested').attr('readonly', true);
-				$('#id_scre_arrested').attr('color', 'grey');
-				$('#id_scre_injured').val('');
-				$('#id_scre_injured').attr('readonly', true);
-				$('#id_scre_injured').attr('color', 'grey');
-				$('#id_scre_dead').val('');
-				$('#id_scre_dead').attr('readonly', true);
-				$('#id_scre_dead').attr('color', 'grey');
-			}
-		})
+			setViolenceInputState();
+		});
+
+		$('#id_scre_violent_0').change(function() {
+			setViolenceInputState();
+		});
+
+		$('#id_scre_violent_1').change(function() {
+			setViolenceInputState();
+		});
 	})
 	</script>
 </body>
