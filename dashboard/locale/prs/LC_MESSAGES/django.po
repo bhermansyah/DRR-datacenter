@@ -765,7 +765,7 @@ msgstr "X+: شدیدتر "
 
 #: templates/pages/floodforecast.html:19 templates/pages/links.html:14
 msgid "Flood Forecast"
-msgstr "پیشبینی سیلاب "
+msgstr "پیشبینی سیلاب"
 
 #: templates/pages/floodforecast.html:26
 msgid "Flash Flood Likelihood"
