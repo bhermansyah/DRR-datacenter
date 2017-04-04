@@ -91473,8 +91473,21 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             _storeCalc.adminCode = adminCode;
 
                             var date_array = Ext.getCmp('dateOccurs').getValue().format('Y-m-d').split("-");
+                            reverse_date_opt = new Date(date_array[0],date_array[1]-1,date_array[2]);
+                            reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
+                            date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ;
+
                             if (tempMap.getLayersByName('Historical Flood Forecast').length > 0) {
                                 tempMap.getLayersByName('Historical Flood Forecast')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+                            }
+                            if (tempMap.getLayersByName('Flood likelihood 2 year return period').length > 0) {
+                                tempMap.getLayersByName('Flood likelihood 2 year return period')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            }
+                            if (tempMap.getLayersByName('Flood likelihood 5 year return period').length > 0) {
+                                tempMap.getLayersByName('Flood likelihood 5 year return period')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            }
+                            if (tempMap.getLayersByName('Flood likelihood 20 year return period').length > 0) {
+                                tempMap.getLayersByName('Flood likelihood 20 year return period')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
                         }
                     }]

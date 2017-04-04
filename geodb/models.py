@@ -1427,4 +1427,36 @@ class OasisSettlements(models.Model):
     class Meta:
         managed = False
         db_table = 'oasis_settlements'
+
+
+class AfgBasinLvl4GlofasPoint(models.Model):
+    gid = models.IntegerField(primary_key=True)
+    value = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
+    wcmwf_lat = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    wcmwf_lon = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    shape_leng = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    shape_area = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
+    geom = models.PointField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = False
+        db_table = 'afg_basin_lvl4_glofas_point'   
+        
+class Glofasintegrated(models.Model):
+    basin_id = models.BigIntegerField(blank=True, null=True)
+    datadate = models.DateField(blank=True, null=True)
+    lon = models.FloatField(blank=True, null=True)
+    lat = models.FloatField(blank=True, null=True)
+    rl2 = models.FloatField(blank=True, null=True)
+    rl5 = models.FloatField(blank=True, null=True)
+    rl20 = models.FloatField(blank=True, null=True)
+    rl2_dis_percent = models.IntegerField(blank=True, null=True)
+    rl2_avg_dis_percent = models.IntegerField(blank=True, null=True)
+    rl5_dis_percent = models.IntegerField(blank=True, null=True)
+    rl5_avg_dis_percent = models.IntegerField(blank=True, null=True)
+    rl20_dis_percent = models.IntegerField(blank=True, null=True)
+    rl20_avg_dis_percent = models.IntegerField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'glofasintegrated'             
         
