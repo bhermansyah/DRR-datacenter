@@ -203,31 +203,31 @@ msgstr "مساحت -پوشش  خدمات موبایل GSM"
 
 #: templates/pages/accessibility.html:47
 msgid "Travel Time to Nearest Airport (pop in &#37;)"
-msgstr "زمان سفر به نزدیکترین میدان هوایی  (&#37; نفوس به)"
+msgstr "زمان سفر به نزدیکترین میدان هوایی  (نفوس به ٪)"
 
 #: templates/pages/accessibility.html:51
 msgid "Travel Time to Nearest Health Facilities Tier 1 (pop in &#37;)"
-msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف اول (&#37; نفوس به)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف اول (نفوس به ٪)"
 
 #: templates/pages/accessibility.html:55
 msgid "Travel Time to Nearest Health Facilities Tier 2 (pop in &#37;)"
-msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم (&#37; نفوس به)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف دوم (نفوس به ٪)"
 
 #: templates/pages/accessibility.html:59
 msgid "Travel Time to Nearest Health Facilities Tier 3 (pop in &#37;)"
-msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم (&#37; نفوس به)"
+msgstr "زمان سفر  به نزدیکترین امکانات صحی ردیف سوم (نفوس به ٪)"
 
 #: templates/pages/accessibility.html:67
 msgid "Travel Time to Its Province Capital (pop in &#37;)"
-msgstr "زمان سفر به مرکز ولایتی (&#37; نفوس به)"
+msgstr "زمان سفر به مرکز ولایتی (نفوس به ٪)"
 
 #: templates/pages/accessibility.html:71
 msgid "Travel Time to Nearest Province Capital (pop in &#37;)"
-msgstr "زمان سفر به نزدیکترین مرکز ولایت (&#37; نفوس به)"
+msgstr "زمان سفر به نزدیکترین مرکز ولایت (نفوس به ٪)"
 
 #: templates/pages/accessibility.html:75
 msgid "Travel Time to Nearest District Capital (pop in &#37;)"
-msgstr "زمان سفر به نزدیکترین مرکز ولسوالی (&#37; نفوس به)"
+msgstr "زمان سفر به نزدیکترین مرکز ولسوالی (نفوس به ٪)"
 
 #: templates/pages/accessibility.html:86
 msgid "Travel Time to Nearest Airport"
