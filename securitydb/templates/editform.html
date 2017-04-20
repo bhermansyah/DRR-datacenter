@@ -13,7 +13,11 @@
 
 	{% load bootstrap3 %}
     {% bootstrap_css %}
-	{{ form.media }}
+	<!-- {{ form.media }} -->
+
+	<link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+	<script src="{{ STATIC_URL }}lib/js/moment.min.js"></script>
+	<script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js"></script>
 
 	<script>
 		var mainMap = window.parent.GeoExt.MapPanel.guess();
@@ -242,6 +246,15 @@
 
 	$(document).ready(function(){
 
+		// fix: convert maxDate from literal string to date Object
+		var maxDate = $("#id_scre_incidentdatestr_picker").data("DateTimePicker").options.maxDate;
+		if (typeof maxDate == 'string') {
+			$("#id_scre_incidentdatestr_picker").data("DateTimePicker").options.maxDate = Date(maxDate);
+		}
+
+		// show pin button on panel header
+		$("#bd_sec_entries_panel .x-tool-pin", parent.document).css('display', 'initial');
+
 		$('#setCoord_btn').click(function() {
 			if (!click) getCoordinateActivate();
 		});
@@ -328,6 +341,7 @@
 
 		window.onunload = function (e) {
 			reset_layers();
+			$("#bd_sec_entries_panel .x-tool-pin", parent.document).css('display', 'none');
 		};
 
 		$('#id_scre_unknown').change(function() {

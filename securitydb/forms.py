@@ -18,7 +18,7 @@ from geodb.models import AfgAdmbndaAdm2
 from geodb.models import AfgPplp, AfgPpla
 # from django.contrib.auth.models import User
 
-import datetime
+from datetime import datetime, timedelta
 from securitydb.includes import *
 
 class SecureFeatureForm(ModelForm):
@@ -63,11 +63,11 @@ class SecureFeatureForm(ModelForm):
 	class Meta:
 		model = SecureFeature
 		fields = ('id', 'scre_notes', 'scre_username'
-			, 'scre_sourceid', 'scre_incidentdatestr', 'scre_incidenttimestr'
-			, 'scre_eventid', 'scre_incidenttarget'
-			, 'scre_violent', 'scre_unknown', 'scre_arrested', 'scre_injured', 'scre_dead'
 			, 'scre_provid', 'scre_distid', 'scre_settvuid', 'scre_placename'
 			, 'scre_latitude', 'scre_longitude'
+			, 'scre_incidenttimestr', 'scre_incidentdatestr', 'scre_sourceid'
+			, 'scre_eventid', 'scre_incidenttarget'
+			, 'scre_violent', 'scre_unknown', 'scre_arrested', 'scre_injured', 'scre_dead'
 			, 'scre_incidentdate', 'mpoint'
 			, 'userid', 'entrydatetime', 'recstatus', 'userud', 'updatedatetime'
 			, 'scre_sourcename', 'scre_eventname', 'scre_incidenttargetname', 'scre_provname', 'scre_distname'
@@ -89,13 +89,15 @@ class SecureFeatureForm(ModelForm):
 			# 'recstatus': forms.Select(),
 
 			'scre_incidentdatestr': DateTimePicker(options={"format": "YYYY-MM-DD"
-#				, "maxDate": json.dumps(datetime.datetime.today(), default=json_util.default)
-#				, "maxDate": now()
+				# , "maxDate": json.dumps(datetime.datetime.today(), default=json_util.default)
+				# , "maxDate": (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+				, "maxDate": datetime.now().strftime('%Y-%m-%d')
 				, "pickTime": False}),
 			'scre_incidenttimestr': DateTimePicker(options={"format": "HH:mm"
 				, "pickDate": False
 				, "pickSeconds": False}),
 		}
+		print 'datetime.now()', datetime.now().strftime('%Y-%m-%d')
 		labels = {
 			'id': 'ID Record',
 			'scre_notes': 'Notes',
