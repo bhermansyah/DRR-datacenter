@@ -223,12 +223,12 @@
 				{% bootstrap_field field %}
 			{% endfor %}
 			{% buttons %}
-				<button id="setCoord_btn" type="button" class="btn btn-primary pull-right">
+				<button id="setCoord_btn" type="button" class="btn btn-primary pull-right" {{ entriesdisabled|yesno:"disabled," }}>
 					{% bootstrap_icon "pushpin" %}
 				</button>
 			{% endbuttons %}
 			{% buttons %}
-				<button id="btnSubmit" type="submit" class="btn btn-primary">
+				<button id="btnSubmit" type="submit" class="btn btn-primary" {{ entriesdisabled|yesno:"disabled," }}>
 					Submit
 				</button>
 				<button id="btnCancel" type="button" class="btn btn-primary" onclick="window.location.href = '/securitydb/';">

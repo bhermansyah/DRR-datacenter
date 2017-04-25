@@ -141,6 +141,7 @@ def scresysls(request):
 
 def scresysed(request, criteria_id=None):
     initial = {}
+    entriesdisabled = False
     # initial['scre_username'] = request.user
     if criteria_id:
     	instance = SecureFeature.objects.get(id=criteria_id)
@@ -199,7 +200,8 @@ def scresysed(request, criteria_id=None):
     if not has_delete_right: # is common user
     	form.fields['recstatus'].widget = forms.HiddenInput()
         if criteria_id: # is edit mode
-            if request.user.username != instance['scre_username']: # current user is not entry creator
+            if request.user.username != instance.scre_username: # current user is not entry creator
+                entriesdisabled = True
                 for key, field in form.fields.iteritems(): # disable fields
                     # field.disabled = True
                     # field.widget.attrs['readonly'] = True
@@ -214,7 +216,7 @@ def scresysed(request, criteria_id=None):
     return render(
         request,
         'editform.html',
-        {'form': form,}
+        {'form': form, 'entriesdisabled': entriesdisabled}
     )
 
 
