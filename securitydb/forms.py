@@ -91,13 +91,12 @@ class SecureFeatureForm(ModelForm):
 			'scre_incidentdatestr': DateTimePicker(options={"format": "YYYY-MM-DD"
 				# , "maxDate": json.dumps(datetime.datetime.today(), default=json_util.default)
 				# , "maxDate": (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
-				, "maxDate": datetime.now().strftime('%Y-%m-%d')
+				, "maxDate": datetime.now().strftime('%Y-%m-%d') # doesnt work, because cached, put in init instead
 				, "pickTime": False}),
 			'scre_incidenttimestr': DateTimePicker(options={"format": "HH:mm"
 				, "pickDate": False
 				, "pickSeconds": False}),
 		}
-		print 'datetime.now()', datetime.now().strftime('%Y-%m-%d')
 		labels = {
 			'id': 'ID Record',
 			'scre_notes': 'Notes',
@@ -139,6 +138,9 @@ class SecureFeatureForm(ModelForm):
 			self.fields['scre_settvuid'].widget.attrs['disabled'] = 'disabled'
 		if self.initial['recstatus'] is None:
 			self.initial['recstatus'] = 1
+			
+		# put here because dynamic content, where as class meta is cached
+		self.fields['scre_incidentdatestr'].widget.options['maxDate'] = datetime.now().strftime('%Y-%m-%d')
 
 	def queryset_to_choices(self, queryset, value_col, label_col, add_empty = True):
 		list_choices = list(queryset.values(value_col, label_col).order_by(label_col))
