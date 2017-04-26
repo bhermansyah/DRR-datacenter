@@ -141,13 +141,21 @@ def scresysls(request):
 
 def scresysed(request, criteria_id=None):
     initial = {}
-    entriesdisabled = False
-    # initial['scre_username'] = request.user
-    if criteria_id:
+    editmode = True if (criteria_id) else False
+    if editmode:
     	instance = SecureFeature.objects.get(id=criteria_id)
     else:
     	instance = SecureFeature()
         initial['scre_username'] = request.user.username
+
+    # current user is not entry creator flag
+    notcreator = True if request.user.username != instance.scre_username else False
+
+    # has_delete_right flag
+    has_delete_right = ('geodb.delete_afgincidentoasis' in request.user.get_all_permissions())
+
+    # disable fields flag
+    entriesdisabled = True if not has_delete_right and editmode and notcreator else False
 
     if request.POST:
         mutable = request.POST._mutable
@@ -158,6 +166,14 @@ def scresysed(request, criteria_id=None):
             request.POST['scre_username'] = instance.scre_username
         else:
             request.POST['scre_username'] = request.user.username
+
+        # new entry
+        if (request.POST.get('recstatus', False) == False):
+            request.POST['recstatus'] = 1
+
+        # if no recstatus get it from instance
+        if (editmode and not has_delete_right):
+            request.POST['recstatus'] = instance.recstatus
 
         request.POST._mutable = mutable
         # initial={
@@ -195,17 +211,16 @@ def scresysed(request, criteria_id=None):
     else:
         form = SecureFeatureForm(instance=instance, initial=initial)
 
-    # disable fields if not has_delete_right
-    has_delete_right = ('geodb.delete_afgincidentoasis'  in request.user.get_all_permissions())
+    #  if not has_delete_right hide recstatus field
     if not has_delete_right: # is common user
     	form.fields['recstatus'].widget = forms.HiddenInput()
-        if criteria_id: # is edit mode
-            if request.user.username != instance.scre_username: # current user is not entry creator
-                entriesdisabled = True
-                for key, field in form.fields.iteritems(): # disable fields
-                    # field.disabled = True
-                    # field.widget.attrs['readonly'] = True
-                    field.widget.attrs['disabled'] = 'disabled'
+
+    # disable fields if entriesdisabled
+    if (entriesdisabled):
+        for key, field in form.fields.iteritems(): # disable fields
+            # field.disabled = True
+            # field.widget.attrs['readonly'] = True
+            field.widget.attrs['disabled'] = 'disabled'
 
     # render_to_response is likely to be deprecated in the future
     # return render_to_response(
