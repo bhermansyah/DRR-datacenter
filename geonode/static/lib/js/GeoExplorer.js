@@ -28786,9 +28786,9 @@ OpenLayers.Layer = OpenLayers.Class({
 
             selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
             if (selectedEQ) this.mergeNewParams({'CQL_FILTER': "event_code='"+selectedEQ.data.event_code+"'"});
-        } else if (this.name == 'Historical Flood Forecast'){
+        } else if (this.name == 'Historical Flood Forecast (GFMS)'){
             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
-        } else if (this.name == 'Classes of flood forecast GFMS&GLOFAS'){
+        } else if (this.name == 'Classes of flood forecast'){
             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
 
             // console.log(OpenLayers.Control.FeaturePopups);
@@ -28876,11 +28876,11 @@ OpenLayers.Layer = OpenLayers.Class({
 
 
 
-        } else if (this.name == 'Flood likelihood 2 year return period'){
+        } else if (this.name == 'Flood likelihood 2 year return period (GLOFAS)'){
             this.mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
-        } else if (this.name == 'Flood likelihood 5 year return period'){
+        } else if (this.name == 'Flood likelihood 5 year return period (GLOFAS)'){
             this.mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
-        } else if (this.name == 'Flood likelihood 20 year return period'){
+        } else if (this.name == 'Flood likelihood 20 year return period (GLOFAS)'){
             this.mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
         }
         
@@ -91585,19 +91585,19 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
                             date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ;
 
-                            if (tempMap.getLayersByName('Historical Flood Forecast').length > 0) {
-                                tempMap.getLayersByName('Historical Flood Forecast')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+                            if (tempMap.getLayersByName('Historical Flood Forecast (GFMS)').length > 0) {
+                                tempMap.getLayersByName('Historical Flood Forecast (GFMS)')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Flood likelihood 2 year return period').length > 0) {
-                                tempMap.getLayersByName('Flood likelihood 2 year return period')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            if (tempMap.getLayersByName('Flood likelihood 2 year return period (GLOFAS)').length > 0) {
+                                tempMap.getLayersByName('Flood likelihood 2 year return period (GLOFAS)')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Flood likelihood 5 year return period').length > 0) {
-                                tempMap.getLayersByName('Flood likelihood 5 year return period')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            if (tempMap.getLayersByName('Flood likelihood 5 year return period (GLOFAS)').length > 0) {
+                                tempMap.getLayersByName('Flood likelihood 5 year return period (GLOFAS)')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Flood likelihood 20 year return period').length > 0) {
-                                tempMap.getLayersByName('Flood likelihood 20 year return period')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            if (tempMap.getLayersByName('Flood likelihood 20 year return period (GLOFAS)').length > 0) {
+                                tempMap.getLayersByName('Flood likelihood 20 year return period (GLOFAS)')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Classes of flood forecast GFMS&GLOFAS').length > 0) {
+                            if (tempMap.getLayersByName('Classes of flood forecast').length > 0) {
 
                                 var gfms_select = 'TRUE';
                                 var glofas_select = 'TRUE';
@@ -91607,7 +91607,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 else if (Ext.getCmp('cb_rf_type').getValue()=='GLOFAS only')
                                     gfms_select = 'FALSE';
 
-                                tempMap.getLayersByName('Classes of flood forecast GFMS&GLOFAS')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";gfms:"+gfms_select+";glofas:"+glofas_select+";"});
+                                tempMap.getLayersByName('Classes of flood forecast')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";gfms:"+gfms_select+";glofas:"+glofas_select+";"});
                             }
                             if (tempMap.getLayersByName('Glofas Points').length > 0) {
                                 // tempMap.getLayersByName('Glofas Points')[0].setVisibility(false); 
