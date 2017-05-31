@@ -46,3 +46,7 @@ body {
 .se-pre-con{
   display: none;
 }
+
+.tabDisplayonPrint {
+  display: block !important;
+}

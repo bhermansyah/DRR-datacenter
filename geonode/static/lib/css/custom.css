@@ -2706,3 +2706,21 @@ html[dir=rtl] nav.filter #regions  li li li a {
 ul.nav.navbar-nav {
   font-size: 12px;
 }
+
+.release_lock {
+  position: relative !important;
+}
+
+.fl_tab_class {
+      margin: 0px;
+      width: 100%; 
+          margin-top: 0px !important;
+}
+.nav-tabs>li>a {
+  color: gray;
+  font-size: 9pt;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  font-weight: bolder;
+  font-size: 14pt;
+}

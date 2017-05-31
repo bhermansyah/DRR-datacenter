@@ -30,6 +30,7 @@ from django.test import RequestFactory
 import urllib2, urllib
 import pygal
 from geodb.radarchart import RadarChart
+from geodb.riverflood import getFloodForecastBySource
 
 from django.utils.translation import ugettext as _
 
@@ -1291,12 +1292,36 @@ def getListAccesibility(filterLock, flag, code):
 
 def getFloodForecast(request, filterLock, flag, code):
     response = getCommonUse(request, flag, code)
+    YEAR = datetime.datetime.utcnow().strftime("%Y")
+    MONTH = datetime.datetime.utcnow().strftime("%m")
+    DAY = datetime.datetime.utcnow().strftime("%d")
+    targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and marshland'))
+
     flood_parent = getFloodForecastMatrix(filterLock, flag, code)
     for i in flood_parent:
         response[i]=flood_parent[i]
 
+    spt_filter = 'NULL'
+    if 'filter' in request.GET:
+        spt_filter = request.GET['filter']
+
+    gfms_glofas_parent = getFloodForecastBySource('GFMS + GLOFAS', targetRisk, spt_filter, flag, code, YEAR, MONTH, DAY)
+    for i in gfms_glofas_parent:
+        response['gfms_glofas_'+i]=gfms_glofas_parent[i]
+
+    glofas_parent = getFloodForecastBySource('GLOFAS only', targetRisk, spt_filter, flag, code, YEAR, MONTH, DAY)
+    for i in glofas_parent:
+        response['glofas_'+i]=glofas_parent[i]
+
     data = getProvinceSummary(filterLock, flag, code)
     response['lc_child']=data
+
+    data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY)-1, False)
+    response['glofas_child']=data
+
+    data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY), True)
+    response['glofas_gfms_child']=data
 
     return response
 
@@ -2470,3 +2495,95 @@ def getFloodForecastMatrix(filterLock, flag, code):
     response['flashflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0),0)
 
     return response
+
+def getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, DAY, merge):
+    cursor = connections['geodb'].cursor()
+    table = 'get_glofas_detail'
+    if merge:
+        table = 'get_merge_glofas_gfms_detail'
+
+    if flag == 'entireAfg':
+        sql = "select b.prov_code as code, b.prov_na_en as na_en, \
+                a.flashflood_forecast_extreme_pop, \
+                a.flashflood_forecast_veryhigh_pop, \
+                a.flashflood_forecast_high_pop, \
+                a.flashflood_forecast_med_pop, \
+                a.flashflood_forecast_low_pop, \
+                a.flashflood_forecast_verylow_pop, \
+                a.riverflood_forecast_extreme_pop, \
+                a.riverflood_forecast_veryhigh_pop, \
+                a.riverflood_forecast_high_pop, \
+                a.riverflood_forecast_med_pop, \
+                a.riverflood_forecast_low_pop, \
+                a.riverflood_forecast_verylow_pop, \
+                c.extreme, \
+                c.veryhigh, \
+                c.high, \
+                c.moderate, \
+                c.low, \
+                c.verylow \
+                from afg_admbnda_adm1 b \
+                inner join provincesummary a  on cast(a.province as integer)=b.prov_code \
+                inner join (\
+                select \
+                prov_code,\
+                sum(extreme) as extreme,\
+                sum(veryhigh) as veryhigh,\
+                sum(high) as high, \
+                sum(moderate) as moderate, \
+                sum(low) as low, \
+                sum(verylow) as verylow \
+                from %s('%s-%s-%s') \
+                group by prov_code \
+                ) c on b.prov_code = c.prov_code \
+                order by a.\"Population\" desc" %(table,YEAR,MONTH,DAY)
+    elif flag == 'currentProvince':
+        sql = "select b.dist_code as code, b.dist_na_en as na_en, \
+                a.flashflood_forecast_extreme_pop, \
+                a.flashflood_forecast_veryhigh_pop, \
+                a.flashflood_forecast_high_pop, \
+                a.flashflood_forecast_med_pop, \
+                a.flashflood_forecast_low_pop, \
+                a.flashflood_forecast_verylow_pop, \
+                a.riverflood_forecast_extreme_pop, \
+                a.riverflood_forecast_veryhigh_pop, \
+                a.riverflood_forecast_high_pop, \
+                a.riverflood_forecast_med_pop, \
+                a.riverflood_forecast_low_pop, \
+                a.riverflood_forecast_verylow_pop, \
+                c.extreme, \
+                c.veryhigh, \
+                c.high, \
+                c.moderate, \
+                c.low, \
+                c.verylow \
+                from afg_admbnda_adm2 b \
+                inner join districtsummary a  on cast(a.district as integer)=b.dist_code \
+                inner join (\
+                select \
+                dist_code,\
+                sum(extreme) as extreme,\
+                sum(veryhigh) as veryhigh,\
+                sum(high) as high, \
+                sum(moderate) as moderate, \
+                sum(low) as low, \
+                sum(verylow) as verylow \
+                from %s('%s-%s-%s') \
+                group by dist_code \
+                ) c on b.dist_code = c.dist_code \
+                where b.prov_code=%s \
+                order by a.\"Population\" desc" %(table,YEAR,MONTH,DAY,code)
+
+    else:
+        return []
+
+    row = query_to_dicts(cursor, sql)
+
+    response = []
+
+    for i in row:
+        response.append(i)
+
+    cursor.close()
+
+    return response    

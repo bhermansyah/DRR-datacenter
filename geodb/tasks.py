@@ -3,7 +3,7 @@ from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
 from datetime import datetime
-from geodb.views import getForecastedDisaster, updateSummaryTable, getSnowCover, getLatestEarthQuake, getLatestShakemap, databasevacumm
+from geodb.views import getForecastedDisaster, updateSummaryTable, getSnowCover, getLatestEarthQuake, getLatestShakemap, databasevacumm, runGlofasDownloader
 
 logger = get_task_logger(__name__)
 
@@ -31,5 +31,9 @@ def runVacummDB():
 def updateLatestShakemap():
 	getLatestShakemap(True)
 	
+
+@periodic_task(run_every=(crontab(hour='3')))
+def runGetGlofasDS():
+	runGlofasDownloader()
 	
 

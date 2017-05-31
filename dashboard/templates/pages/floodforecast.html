@@ -81,147 +81,435 @@ li#nav_dashfloodforecast>a::after {
 
 			</tbody>
 		</table>
+		
+		<ul class="nav nav-tabs overviewTab tabDisplayonPrint">
+		    <li class='{% if "GFMS + GLOFAS" in checked or "GFMS + GLOFAS" not in checked and "GLOFAS only" not in checked and "GFMS only" not in checked %} active {% endif %} release_lock'><a class="tab_toggle" data-toggle="tab" href="#gfms_glofas">GFMS + GLOFAS</a></li>
+		    <li class='{% if "GLOFAS only" in checked %} active {% endif %} release_lock'><a class="tab_toggle" data-toggle="tab" href="#glofas">GLOFAS only</a></li>
+		    <li class='{% if "GFMS only" in checked %} active {% endif %} release_lock'><a class="tab_toggle" data-toggle="tab" href="#gfms">GFMS only</a></li>
+		</ul>
 
-		<table class="overviewTab">
-			<thead>
-				<tr>
-					<th colspan=18 colspan=3>{% trans "River Flood Likelihood" %}</th>
-				</tr>
-				<tr>
-					<th rowspan=2 colspan=3>{% trans "Likelihood<" %}/th>
-					<th colspan=3 class="fl_forecast_extreme">{% trans "Extreme" %}</th>
-					<th colspan=3 class="fl_forecast_vhigh">{% trans "Very High" %}</th>
-					<th colspan=3 class="fl_forecast_high">{% trans "High" %}</th>
-					<th colspan=3 class="fl_forecast_med">{% trans "Moderate" %}</th>
-					<th colspan=3 class="fl_forecast_low">{% trans "Low" %}</th>
-				</tr>
+		<div class="tab-content overviewTab">
+			<div id="gfms_glofas" class='tab-pane fade {% if "GFMS + GLOFAS" in checked or "GFMS + GLOFAS" not in checked and "GLOFAS only" not in checked and "GFMS only" not in checked %} in active {% endif %}'>
+			   <table class="fl_tab_class">
+					<thead>
+						<tr>
+							<th colspan=18 colspan=3>{% trans "River Flood Likelihood" %}</th>
+						</tr>
+						<tr>
+							<th rowspan=2 colspan=3>{% trans "Likelihood" %}</th>
+							<th colspan=3 class="fl_forecast_extreme">{% trans "Extreme" %}</th>
+							<th colspan=3 class="fl_forecast_vhigh">{% trans "Very High" %}</th>
+							<th colspan=3 class="fl_forecast_high">{% trans "High" %}</th>
+							<th colspan=3 class="fl_forecast_med">{% trans "Moderate" %}</th>
+							<th colspan=3 class="fl_forecast_low">{% trans "Low" %}</th>
+						</tr>
 
 
-				<tr>
-					<td colspan=3 class="fl_forecast_extreme">{{ riverflood_forecast_extreme_pop | intword | intcomma }}</td>
-					<td colspan=3 class="fl_forecast_vhigh">{{ riverflood_forecast_veryhigh_pop | intword | intcomma }}</td>
-					<td colspan=3 class="fl_forecast_high">{{ riverflood_forecast_high_pop | intword | intcomma }}</td>
-					<td colspan=3 class="fl_forecast_med">{{ riverflood_forecast_med_pop | intword | intcomma }}</td>
-					<td colspan=3 class="fl_forecast_low">{{ riverflood_forecast_low_pop | intword | intcomma }}</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th rowspan=2 colspan=3>{% trans "Flood Risk" %}</th>
-					<th class="fl_risk_h">{% trans "High" %}</th>
-					<th class="fl_risk_m">{% trans "Med" %}</th>
-					<th class="fl_risk_l">{% trans "Low" %}</th>
-					<th class="fl_risk_h">{% trans "High" %}</th>
-					<th class="fl_risk_m">{% trans "Med" %}</th>
-					<th class="fl_risk_l">{% trans "Low" %}</th>
-					<th class="fl_risk_h">{% trans "High" %}</th>
-					<th class="fl_risk_m">{% trans "Med" %}</th>
-					<th class="fl_risk_l">{% trans "Low" %}</th>
-					<th class="fl_risk_h">{% trans "High" %}</th>
-					<th class="fl_risk_m">{% trans "Med" %}</th>
-					<th class="fl_risk_l">{% trans "Low" %}</th>
-					<th class="fl_risk_h">{% trans "High" %}</th>
-					<th class="fl_risk_m">{% trans "Med" %}</th>
-					<th class="fl_risk_l">{% trans "Low" %}</th>
-				</tr>
-				<tr>
-					<td class="fl_risk_h">{{ riverflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
-					<td class="fl_risk_m">{{ riverflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
-					<td class="fl_risk_l">{{ riverflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
-					<td class="fl_risk_h">{{ riverflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
-					<td class="fl_risk_m">{{ riverflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
-					<td class="fl_risk_l">{{ riverflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
-					<td class="fl_risk_h">{{ riverflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
-					<td class="fl_risk_m">{{ riverflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
-					<td class="fl_risk_l">{{ riverflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
-					<td class="fl_risk_h">{{ riverflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
-					<td class="fl_risk_m">{{ riverflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
-					<td class="fl_risk_l">{{ riverflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
-					<td class="fl_risk_h">{{ riverflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
-					<td class="fl_risk_m">{{ riverflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
-					<td class="fl_risk_l">{{ riverflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
-				</tr>
+						<tr>
+							<td colspan=3 class="fl_forecast_extreme">{{ gfms_glofas_riverflood_forecast_extreme_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_vhigh">{{ gfms_glofas_riverflood_forecast_veryhigh_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_high">{{ gfms_glofas_riverflood_forecast_high_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_med">{{ gfms_glofas_riverflood_forecast_med_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_low">{{ gfms_glofas_riverflood_forecast_low_pop | intword | intcomma }}</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th rowspan=2 colspan=3>{% trans "Flood Risk" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+						</tr>
+						<tr>
+							<td class="fl_risk_h">{{ gfms_glofas_riverflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ gfms_glofas_riverflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ gfms_glofas_riverflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ gfms_glofas_riverflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ gfms_glofas_riverflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ gfms_glofas_riverflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ gfms_glofas_riverflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ gfms_glofas_riverflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ gfms_glofas_riverflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ gfms_glofas_riverflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ gfms_glofas_riverflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ gfms_glofas_riverflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
+						</tr>
 
-			</tbody>
-		</table>
-  	</ul>
+					</tbody>
+				</table>
+
+				<table class="fl_tab_class">
+					<thead>
+						<tr class='dataitem'>
+							<td style="text-align:left;padding:3px;"></td>
+							<td colspan=11 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+						</tr>
+						<tr>
+							<th rowspan=2><span>{% trans "Region" %}</span></th>
+							<th colspan=5>{% trans "Flash Flood" %}</th>
+							<td style="width:3px;"></td>
+							<th colspan=5>{% trans "River Flood" %}</th>
+							<!-- <th rowspan=2><span>Health Facilities</span></th>
+							<th rowspan=2><span>Length of Roads</span></th> -->
+						</tr>
+						<tr>
+							<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
+							<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
+							<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
+							<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
+							<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
+							<td></td>
+							<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
+							<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
+							<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
+							<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
+							<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='dataitem'>
+							<th class="parent_list">{{parent_label}}</th>
+							<td class="parent_value fl_forecast_extreme">{{flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_vhigh">{{flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_high">{{flashflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_med">{{flashflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{flashflood_forecast_low_pop | intword | intcomma}}</td>
+							<td></td>
+							<td class="parent_value fl_forecast_extreme">{{gfms_glofas_riverflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_vhigh">{{gfms_glofas_riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_high">{{gfms_glofas_riverflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_med">{{gfms_glofas_riverflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{gfms_glofas_riverflood_forecast_low_pop | intword | intcomma}}</td>
+						</tr>
+						{% for data in glofas_gfms_child %}
+						<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+							<th class="detail_list">{{data.na_en}}</th>
+							<td class="detail_value fl_forecast_extreme">{{data.flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_vhigh">{{data.flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_high">{{data.flashflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_med">{{data.flashflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_low">{{data.flashflood_forecast_low_pop | intword | intcomma}}</td>
+							<td></td>
+							<td class="detail_value fl_forecast_extreme">{{data.extreme | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_vhigh">{{data.veryhigh | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_high">{{data.high | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_med">{{data.moderate | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{data.low | intword | intcomma}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+			<div id="glofas" class='tab-pane fade {% if "GLOFAS only" in checked %} in active {% endif %}'>
+				<table class="fl_tab_class">
+					<thead>
+						<tr>
+							<th colspan=18 colspan=3>{% trans "River Flood Likelihood" %}</th>
+						</tr>
+						<tr>
+							<th rowspan=2 colspan=3>{% trans "Likelihood" %}</th>
+							<th colspan=3 class="fl_forecast_extreme">{% trans "Extreme" %}</th>
+							<th colspan=3 class="fl_forecast_vhigh">{% trans "Very High" %}</th>
+							<th colspan=3 class="fl_forecast_high">{% trans "High" %}</th>
+							<th colspan=3 class="fl_forecast_med">{% trans "Moderate" %}</th>
+							<th colspan=3 class="fl_forecast_low">{% trans "Low" %}</th>
+						</tr>
+
+
+						<tr>
+							<td colspan=3 class="fl_forecast_extreme">{{ glofas_riverflood_forecast_extreme_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_vhigh">{{ glofas_riverflood_forecast_veryhigh_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_high">{{ glofas_riverflood_forecast_high_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_med">{{ glofas_riverflood_forecast_med_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_low">{{ glofas_riverflood_forecast_low_pop | intword | intcomma }}</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th rowspan=2 colspan=3>{% trans "Flood Risk" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+						</tr>
+						<tr>
+							<td class="fl_risk_h">{{ glofas_riverflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ glofas_riverflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ glofas_riverflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ glofas_riverflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ glofas_riverflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ glofas_riverflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ glofas_riverflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ glofas_riverflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ glofas_riverflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ glofas_riverflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ glofas_riverflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ glofas_riverflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ glofas_riverflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ glofas_riverflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ glofas_riverflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<table class="fl_tab_class">
+					<thead>
+						<tr class='dataitem'>
+							<td style="text-align:left;padding:3px;"></td>
+							<td colspan=11 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+						</tr>
+						<tr>
+							<th rowspan=2><span>{% trans "Region" %}</span></th>
+							<th colspan=5>{% trans "Flash Flood" %}</th>
+							<td style="width:3px;"></td>
+							<th colspan=5>{% trans "River Flood" %}</th>
+							<!-- <th rowspan=2><span>Health Facilities</span></th>
+							<th rowspan=2><span>Length of Roads</span></th> -->
+						</tr>
+						<tr>
+							<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
+							<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
+							<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
+							<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
+							<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
+							<td></td>
+							<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
+							<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
+							<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
+							<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
+							<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='dataitem'>
+							<th class="parent_list">{{parent_label}}</th>
+							<td class="parent_value fl_forecast_extreme">{{flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_vhigh">{{flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_high">{{flashflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_med">{{flashflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{flashflood_forecast_low_pop | intword | intcomma}}</td>
+							<td></td>
+							<td class="parent_value fl_forecast_extreme">{{glofas_riverflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_vhigh">{{glofas_riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_high">{{glofas_riverflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_med">{{glofas_riverflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{glofas_riverflood_forecast_low_pop | intword | intcomma}}</td>
+						</tr>
+						{% for data in glofas_child %}
+						<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+							<th class="detail_list">{{data.na_en}}</th>
+							<td class="detail_value fl_forecast_extreme">{{data.flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_vhigh">{{data.flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_high">{{data.flashflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_med">{{data.flashflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_low">{{data.flashflood_forecast_low_pop | intword | intcomma}}</td>
+							<td></td>
+							<td class="detail_value fl_forecast_extreme">{{data.extreme | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_vhigh">{{data.veryhigh | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_high">{{data.high | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_med">{{data.moderate | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{data.low | intword | intcomma}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+			<div id="gfms" class='tab-pane fade {% if "GFMS only" in checked %} in active {% endif %}'>
+				<table class="fl_tab_class">
+					<thead>
+						<tr>
+							<th colspan=18 colspan=3>{% trans "River Flood Likelihood" %}</th>
+						</tr>
+						<tr>
+							<th rowspan=2 colspan=3>{% trans "Likelihood" %}</th>
+							<th colspan=3 class="fl_forecast_extreme">{% trans "Extreme" %}</th>
+							<th colspan=3 class="fl_forecast_vhigh">{% trans "Very High" %}</th>
+							<th colspan=3 class="fl_forecast_high">{% trans "High" %}</th>
+							<th colspan=3 class="fl_forecast_med">{% trans "Moderate" %}</th>
+							<th colspan=3 class="fl_forecast_low">{% trans "Low" %}</th>
+						</tr>
+
+
+						<tr>
+							<td colspan=3 class="fl_forecast_extreme">{{ riverflood_forecast_extreme_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_vhigh">{{ riverflood_forecast_veryhigh_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_high">{{ riverflood_forecast_high_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_med">{{ riverflood_forecast_med_pop | intword | intcomma }}</td>
+							<td colspan=3 class="fl_forecast_low">{{ riverflood_forecast_low_pop | intword | intcomma }}</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th rowspan=2 colspan=3>{% trans "Flood Risk" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+							<th class="fl_risk_h">{% trans "High" %}</th>
+							<th class="fl_risk_m">{% trans "Med" %}</th>
+							<th class="fl_risk_l">{% trans "Low" %}</th>
+						</tr>
+						<tr>
+							<td class="fl_risk_h">{{ riverflood_forecast_extreme_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ riverflood_forecast_extreme_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ riverflood_forecast_extreme_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ riverflood_forecast_veryhigh_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ riverflood_forecast_veryhigh_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ riverflood_forecast_veryhigh_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ riverflood_forecast_high_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ riverflood_forecast_high_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ riverflood_forecast_high_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ riverflood_forecast_med_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ riverflood_forecast_med_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ riverflood_forecast_med_risk_low_pop | intword | intcomma }}</td>
+							<td class="fl_risk_h">{{ riverflood_forecast_low_risk_high_pop | intword | intcomma }}</td>
+							<td class="fl_risk_m">{{ riverflood_forecast_low_risk_med_pop | intword | intcomma }}</td>
+							<td class="fl_risk_l">{{ riverflood_forecast_low_risk_low_pop | intword | intcomma }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<table class="fl_tab_class">
+					<thead>
+						<tr class='dataitem'>
+							<td style="text-align:left;padding:3px;"></td>
+							<td colspan=11 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+						</tr>
+						<tr>
+							<th rowspan=2><span>{% trans "Region" %}</span></th>
+							<th colspan=5>{% trans "Flash Flood" %}</th>
+							<td style="width:3px;"></td>
+							<th colspan=5>{% trans "River Flood" %}</th>
+							<!-- <th rowspan=2><span>Health Facilities</span></th>
+							<th rowspan=2><span>Length of Roads</span></th> -->
+						</tr>
+						<tr>
+							<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
+							<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
+							<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
+							<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
+							<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
+							<td></td>
+							<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
+							<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
+							<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
+							<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
+							<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class='dataitem'>
+							<th class="parent_list">{{parent_label}}</th>
+							<td class="parent_value fl_forecast_extreme">{{flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_vhigh">{{flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_high">{{flashflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_med">{{flashflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{flashflood_forecast_low_pop | intword | intcomma}}</td>
+							<td></td>
+							<td class="parent_value fl_forecast_extreme">{{riverflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_vhigh">{{riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_high">{{riverflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_med">{{riverflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{riverflood_forecast_low_pop | intword | intcomma}}</td>
+						</tr>
+						{% for data in lc_child %}
+						<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+							<th class="detail_list">{{data.na_en}}</th>
+							<td class="detail_value fl_forecast_extreme">{{data.flashflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_vhigh">{{data.flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_high">{{data.flashflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_med">{{data.flashflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_low">{{data.flashflood_forecast_low_pop | intword | intcomma}}</td>
+							<td></td>
+							<td class="detail_value fl_forecast_extreme">{{data.riverflood_forecast_extreme_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_vhigh">{{data.riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_high">{{data.riverflood_forecast_high_pop | intword | intcomma}}</td>
+							<td class="detail_value fl_forecast_med">{{data.riverflood_forecast_med_pop | intword | intcomma}}</td>
+							<td class="parent_value fl_forecast_low">{{data.riverflood_forecast_low_pop | intword | intcomma}}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
+		
 </div>
 
-<div  class="gridster">
-	<table>
-		<thead>
-			<tr class='dataitem'>
-				<td style="text-align:left;padding:3px;"></td>
-				<td colspan=11 style="text-align:right;padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
-			</tr>
-			<tr>
-				<th rowspan=2><span>{% trans "Region" %}</span></th>
-				<th colspan=5>{% trans "Flash Flood" %}</th>
-				<td style="width:3px;"></td>
-				<th colspan=5>{% trans "River Flood" %}</th>
-				<!-- <th rowspan=2><span>Health Facilities</span></th>
-				<th rowspan=2><span>Length of Roads</span></th> -->
-			</tr>
-			<tr>
-				<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
-				<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
-				<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
-				<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
-				<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
-				<td></td>
-				<th class="fl_forecast_extreme" style="width:70px;"><span>{% trans "Extreme" %}</span></th>
-				<th class="fl_forecast_vhigh" style="width:70px;"><span>{% trans "Very High" %}</span></th>
-				<th class="fl_forecast_high" style="width:70px;"><span>{% trans "High" %}</span></th>
-				<th class="fl_forecast_med" style="width:70px;"><span>{% trans "Med" %}</span></th>
-				<th class="fl_forecast_low" style="width:70px;"><span>{% trans "Low" %}</span></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr class='dataitem'>
-				<th class="parent_list">{{parent_label}}</th>
-				<td class="parent_value fl_forecast_extreme">{{flashflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_vhigh">{{flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_high">{{flashflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_med">{{flashflood_forecast_med_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_low">{{flashflood_forecast_low_pop | intword | intcomma}}</td>
-				<td></td>
-				<td class="parent_value fl_forecast_extreme">{{riverflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_vhigh">{{riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_high">{{riverflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_med">{{riverflood_forecast_med_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_low">{{riverflood_forecast_low_pop | intword | intcomma}}</td>
-			</tr>
-			{% for data in lc_child %}
-			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-				<th class="detail_list">{{data.na_en}}</th>
-				<td class="detail_value fl_forecast_extreme">{{data.flashflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_vhigh">{{data.flashflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_high">{{data.flashflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_med">{{data.flashflood_forecast_med_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_low">{{data.flashflood_forecast_low_pop | intword | intcomma}}</td>
-				<td></td>
-				<td class="detail_value fl_forecast_extreme">{{data.riverflood_forecast_extreme_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_vhigh">{{data.riverflood_forecast_veryhigh_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_high">{{data.riverflood_forecast_high_pop | intword | intcomma}}</td>
-				<td class="detail_value fl_forecast_med">{{data.riverflood_forecast_med_pop | intword | intcomma}}</td>
-				<td class="parent_value fl_forecast_low">{{data.riverflood_forecast_low_pop | intword | intcomma}}</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-</div>
 
 
 
 <SCRIPT TYPE="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+	 $('.tab_toggle').on("click", function() {
+	 	var dt = $(this).text();
+	 	$('.release_lock').each(function(e,l){
+
+	 		if ($(l).text() == dt){
+	 			_checked.push($(l).text());
+	 		} else {
+	 			removeA(_checked, $(l).text());
+	 		}
+	 	});
+	 	// console.log(_checked);
+	 });
+});
+
+
 function show_hide_base(){
-	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+	var text = 'Show Detail';
+	$('div.showFlag_base').each(function(index, obj)
+	{
+	  	text = $(this).text();
+	});
+
+	if (text == "{% trans "Show Detail" %}") {
 		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
 		_checked.push('detail_base');
 	} else {
 		$("div.showFlag_base").text('{% trans "Show Detail" %}');
 		removeA(_checked, 'detail_base');
 	}
+
 	$( ".detail_base" ).toggleClass(function(){
 		if ( $( this ).parent().is( ".hide" ) ) {
 		    return "show";

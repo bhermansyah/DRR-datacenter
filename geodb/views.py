@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd, Glofasintegrated, AfgBasinLvl4GlofasPoint
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -46,6 +46,16 @@ from graphos.sources.simple import SimpleDataSource
 from math import degrees, atan2
 
 from django.utils.translation import ugettext as _
+
+from netCDF4 import Dataset, num2date
+import numpy as np
+
+# import matplotlib.mlab as mlab
+# import matplotlib.pyplot as plt, mpld3
+# import matplotlib.ticker as ticker
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+import json
 
 GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
 
@@ -1643,3 +1653,338 @@ def getWMS(request):
         req.add_header('Content-Type', 'image/png')
         response = urllib2.urlopen(req).read()
         return HttpResponse(response, content_type='image/png' )
+
+def get_month_name(monthNo):
+    if monthNo==1:
+        return 'January'
+    elif monthNo==2:
+        return 'February'
+    elif monthNo==3:
+        return 'March'
+    elif monthNo==4:
+        return 'April'
+    elif monthNo==5:
+        return 'May'
+    elif monthNo==6:
+        return 'June'
+    elif monthNo==7:
+        return 'July'
+    elif monthNo==8:
+        return 'August'
+    elif monthNo==9:
+        return 'September'
+    elif monthNo==10:
+        return 'October'
+    elif monthNo==11:
+        return 'November'
+    elif monthNo==12:
+        return 'December'
+
+def getGlofasChart(request):
+
+    date = request.GET['date']
+    lat = float(request.GET['lat'])
+    lon = float(request.GET['lon'])
+
+    filename = "%s%s00.nc" % (getattr(settings, 'GLOFAS_NC_FILES'),date)
+    nc = Dataset(filename, 'r', Format='NETCDF4')
+
+    # get coordinates variables
+    lats = nc.variables['lat'][:]
+    lons = nc.variables['lon'][:]
+    times= nc.variables['time'][:]
+
+    lat_idx = np.where(lats==lat)[0]
+    lon_idx = np.where(lons==lon)[0]
+
+    coord_idx = list(set(lat_idx) & set(lon_idx))[0]
+
+    d = np.array(nc.variables['dis'])
+
+    rl2= nc.variables['rl2'][:]
+    rl5= nc.variables['rl5'][:]
+    rl20= nc.variables['rl20'][:]
+
+    units = nc.variables['time'].units
+    
+    dates = num2date(times[:], units=units, calendar='365_day')
+    date_arr = []
+
+    median = []
+    mean75 = []
+    mean25 = []
+    rl2_arr = []
+    rl5_arr = []
+    rl20_arr = []
+    maximum = []
+
+    date_number = []
+    date_number_label = []
+    month_name = []
+
+    first_date_even = False
+
+    for i in dates:
+        date_number.append(i.day)
+        month_name.append(i.month)
+
+    if date_number[0] % 2 == 0:
+        first_date_even = True
+    for i in dates:
+        if first_date_even:
+            if i.day % 2 == 0:
+                date_number_label.append(i.day)
+        else:
+            if i.day % 2 != 0:
+                date_number_label.append(i.day)             
+
+
+    for i in range(len(date_number)):
+        date_arr.append(i)
+        # get median line
+        median.append(np.mean(list(d[i,:,coord_idx])))
+        maximum.append(np.max(list(d[i,:,coord_idx])))
+        mean75.append(np.percentile(list(d[i,:,coord_idx]),75))
+        mean25.append(np.percentile(list(d[i,:,coord_idx]),25))
+        rl2_arr.append(rl2[coord_idx])
+        rl5_arr.append(rl5[coord_idx])
+        rl20_arr.append(rl20[coord_idx])
+
+    fig=Figure(dpi=60)
+
+    plt=fig.add_subplot(111)
+
+    plt.fill_between(date_arr, rl2_arr, rl5_arr, color='#fff68f', alpha=1, label="2 years return period")
+    plt.fill_between(date_arr, rl5_arr, rl20_arr, color='#ffaeb9', alpha=1, label="5 years return period")
+    plt.fill_between(date_arr, rl20_arr, np.max(maximum)+100, color='#ffbbff', alpha=1, label="20 years return period")
+
+
+    plt.plot(date_arr, median, c='black', alpha=1, linestyle='solid', label="EPS mean") 
+    plt.plot(date_arr, mean75, color='black', alpha=1, linestyle='dashed', label="25% - 75%")
+    plt.plot(date_arr, mean25, color='black', alpha=1, linestyle='dashed')
+
+    for i in range(51):
+        plt.fill_between(date_arr, median, list(d[:,i,coord_idx]), color='#178bff', alpha=0.25)
+
+    # print 'rl 2  ',rl2[coord_idx]
+    # print 'rl 5  ',rl5[coord_idx]
+    # print 'rl 20  ',rl20[coord_idx]
+
+    
+
+    plt.margins(x=0,y=0,tight=True)
+
+    # plt.xticks(date_arr, date_number, rotation=45)
+    major_ticks = np.arange(min(date_number)-1, max(date_number), 2)
+    minor_ticks = np.arange(min(date_number)-1, max(date_number), 1)
+
+    plt.set_xticks(major_ticks)
+    plt.set_xticks(minor_ticks, minor=True)
+    plt.set_xticklabels(date_number_label)
+    plt.set_ylabel('discharge (m$^3$/s)')
+
+    if max(month_name)==min(month_name):
+        plt.set_xlabel('Period of '+get_month_name(max(month_name)))
+    else:
+        plt.set_xlabel('Period of '+get_month_name(min(month_name))+' - '+get_month_name(max(month_name)))  
+
+    plt.grid(which='both')           
+    plt.grid(True, 'major', 'y', ls='--', lw=.5, c='k', alpha=.2)
+
+    plt.grid(True, 'major', 'x', ls='--', lw=.5, c='k', alpha=.2)
+    plt.grid(True, 'minor', 'x', lw=.3, c='k', alpha=.2) 
+
+    leg = plt.legend(prop={'size':6})
+    leg.get_frame().set_alpha(0)
+
+    canvas=FigureCanvas(fig)
+    response=HttpResponse(content_type='image/png')
+    canvas.print_png(response)
+
+    return response
+
+def getGlofasPointsJSON(request): 
+    date = request.GET['date']  
+    cursor = connections['geodb'].cursor()
+    cursor.execute("\
+        SELECT row_to_json(fc) \
+ FROM ( SELECT 'FeatureCollection' As type, array_to_json(array_agg(f)) As features \
+ FROM (SELECT 'Feature' As type \
+    , ST_AsGeoJSON(ST_SetSRID(ST_MakePoint(lg.lon, lg.lat),4326))::json As geometry \
+    , row_to_json(lp) As properties \
+   FROM glofasintegrated As lg \
+         INNER JOIN (select distinct \
+        id, round(lon, 2) as lon, \
+        round(lat, 2) as lat, \
+        rl2, \
+        rl5, \
+        rl20, \
+        rl2_dis_percent, \
+        rl2_avg_dis_percent, \
+        rl5_dis_percent, \
+        rl5_avg_dis_percent, \
+        rl20_dis_percent, \
+        rl20_avg_dis_percent, \
+        ST_SetSRID(ST_MakePoint(lon, lat),4326) as geom \
+        from glofasintegrated where datadate = '"+date+"' and rl5_dis_percent > 25) As lp \
+       ON lg.id = lp.id  ) As f )  As fc;\
+    ")
+    currPoints = cursor.fetchone()
+    cursor.close()     
+    if currPoints[0]["features"] is None:
+        currPoints[0]["features"] = []    
+    return HttpResponse(json.dumps(currPoints[0]), content_type='application/json')
+
+def calculate_glofas_params(date):
+    date_arr = date.split('-')
+    filename = getattr(settings, 'GLOFAS_NC_FILES')+date_arr[0]+date_arr[1]+date_arr[2]+"00.nc"
+    # print Glofasintegrated.objects.latest('datadate').date
+
+    nc = Dataset(filename, 'r', Format='NETCDF4')
+
+    # get coordinates variables
+    lats = nc.variables['lat'][:]
+    lons = nc.variables['lon'][:]
+
+    rl2= nc.variables['rl2'][:]
+    rl5= nc.variables['rl5'][:]
+    rl20= nc.variables['rl20'][:]
+    times = nc.variables['time'][:]
+    essemble = nc.variables['ensemble'][:]
+
+    # convert date, how to store date only strip away time?
+    # print "Converting Dates"
+    units = nc.variables['time'].units
+    dates = num2date (times[:], units=units, calendar='365_day')
+
+    d = np.array(nc.variables['dis'])
+    # header = ['Latitude', 'Longitude', 'rl2', 'rl5', 'rl20', 'rl2_dis_percent', 'rl2_avg_dis_percent', 'rl5_dis_percent', 'rl5_avg_dis_percent', 'rl20_dis_percent', 'rl20_avg_dis_percent']
+    times_index=[]
+    for i,j in enumerate(times):
+        times_index.append(i)
+
+    coord_index = 0
+    for lat, lon, rl2, rl5, rl20 in zip(lats, lons, rl2, rl5, rl20):
+
+
+        data_in = []
+        data_in.append(lat)
+        data_in.append(lon)
+        data_in.append(rl2)
+        data_in.append(rl5)
+        data_in.append(rl20)
+
+        rl2_dis_percent = []
+        rl5_dis_percent = []
+        rl20_dis_percent = []
+
+        rl2_avg_dis = []
+        rl5_avg_dis = []
+        rl20_avg_dis = []
+
+        for i in times_index:
+            data = d[i,:,coord_index]
+
+            dis_data = []
+            for l in data:
+                dis_data.append(l)
+            
+            # dis_avg = sum(dis_data)/float(51)
+            dis_avg = np.median(dis_data)
+
+            count = sum(1 for x in data if x>rl2)
+            percent_rl2 = round(float(count)/float(51)*100)
+            rl2_avg_dis.append(round(float(dis_avg)/float(rl2)*100))
+            rl2_dis_percent.append(percent_rl2)
+
+            count = sum(1 for x in data if x>rl5)
+            percent_rl5 = round(float(count)/float(51)*100)
+            rl5_avg_dis.append(round(float(dis_avg)/float(rl5)*100))
+            rl5_dis_percent.append(percent_rl5)
+
+            count = sum(1 for x in data if x>rl20)
+            percent_rl20 = round(float(count)/float(51)*100)
+            rl20_avg_dis.append(round(float(dis_avg)/float(rl20)*100))
+            rl20_dis_percent.append(percent_rl20)
+            if i>=19:
+                break
+
+        # print rl2_avg_dis
+        data_in.append(max(rl2_dis_percent))
+        temp_avg_dis=[]    
+        for index, item in enumerate(rl2_dis_percent):
+            if item == max(rl2_dis_percent):
+                # print index, item
+                temp_avg_dis.append(rl2_avg_dis[index])
+        data_in.append(max(temp_avg_dis))
+        rl2_avg_dis_percent = max(temp_avg_dis)
+
+        data_in.append(max(rl5_dis_percent))
+        temp_avg_dis=[]    
+        for index, item in enumerate(rl5_dis_percent):
+            if item == max(rl5_dis_percent):
+                # print index, item
+                temp_avg_dis.append(rl5_avg_dis[index])
+        data_in.append(max(temp_avg_dis))
+        rl5_avg_dis_percent = max(temp_avg_dis)
+
+        data_in.append(max(rl20_dis_percent))
+        temp_avg_dis=[]    
+        for index, item in enumerate(rl20_dis_percent):
+            if item == max(rl20_dis_percent):
+                # print index, item
+                temp_avg_dis.append(rl20_avg_dis[index])
+        data_in.append(max(temp_avg_dis))
+        rl20_avg_dis_percent = max(temp_avg_dis)
+
+        if coord_index>2035 and max(rl2_dis_percent)>=25:
+            pnt = Point(round(float(lon),2), round(float(lat),2), srid=4326)
+            checkdata = AfgBasinLvl4GlofasPoint.objects.filter(geom__intersects=pnt)
+            for z in checkdata:
+                p = Glofasintegrated(basin_id=z.value, datadate=date, lon=lon, lat=lat, rl2=rl2, rl5=rl5, rl20=rl20, rl2_dis_percent=max(rl2_dis_percent), rl2_avg_dis_percent=rl2_avg_dis_percent, rl5_dis_percent=max(rl5_dis_percent), rl5_avg_dis_percent=rl5_avg_dis_percent, rl20_dis_percent=max(rl20_dis_percent), rl20_avg_dis_percent=rl20_avg_dis_percent)
+                p.save()
+                print coord_index, z.value
+
+        coord_index = coord_index+1
+        # print data_in
+
+
+    nc.close() 
+    # GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
+
+
+def get_nc_file_from_ftp(date):
+    # print getattr(settings, 'GLOFAS_FTP_UNAME')
+    # print getattr(settings, 'GLOFAS_FTP_UPASS')
+    # print Glofasintegrated.objects.latest('datadate').date
+    date_arr = date.split('-')
+    base_url = 'ftp.ecmwf.int'
+    # filelist=[]
+
+    server = FTP()
+    server.connect('ftp.ecmwf.int')
+    server.login(getattr(settings, 'GLOFAS_FTP_UNAME'),getattr(settings, 'GLOFAS_FTP_UPASS'))
+
+    server.cwd("/for_IMMAP/")
+
+    try:
+        print server.size("glofas_arealist_for_IMMAP_in_Afghanistan_"+date_arr[0]+date_arr[1]+date_arr[2]+"00.nc")
+        print getattr(settings, 'GLOFAS_NC_FILES')+date_arr[0]+date_arr[1]+date_arr[2]+"00.nc"
+        server.retrbinary("RETR " + "glofas_arealist_for_IMMAP_in_Afghanistan_"+date_arr[0]+date_arr[1]+date_arr[2]+"00.nc", open(getattr(settings, 'GLOFAS_NC_FILES')+date_arr[0]+date_arr[1]+date_arr[2]+"00.nc","wb").write)
+        server.close()
+        return True
+    except:
+        server.close()
+        return False
+
+
+def runGlofasDownloader():
+    delta = datetime.timedelta(days=1)
+    d = Glofasintegrated.objects.latest('datadate').datadate + delta
+    end_date = datetime.date.today() - delta
+
+    while d <= end_date:
+        print d.strftime("%Y-%m-%d")
+        get_nc_file_from_ftp(d.strftime("%Y-%m-%d"))
+        calculate_glofas_params(d.strftime("%Y-%m-%d"))
+        d += delta

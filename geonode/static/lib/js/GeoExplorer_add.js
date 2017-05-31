@@ -839,7 +839,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             url: '../../geoapi/floodrisk/',
             // timeout: this.timeout,
             method: 'POST',
-            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code, 'date':date}),
+            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code, 'date':date, 'rf_type':Ext.getCmp('cb_rf_type').getValue()}),
             headers: {"Content-Type": "application/json"},
             success: function(response) {
                 this.store = Ext.decode(response.responseText);

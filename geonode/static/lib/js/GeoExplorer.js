@@ -28773,6 +28773,11 @@ OpenLayers.Layer = OpenLayers.Class({
      */
     afterAdd: function() {
         // console.log(this);
+        var date_array = new Date().format('Y-m-d').split("-");
+        reverse_date_opt = new Date(date_array[0],date_array[1]-1,date_array[2]);
+        reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
+        date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ;
+
         if (this.name == 'Earthquake shakemap' && Ext.getCmp('eventsEQSelection')){
             selIndex = Ext.getCmp('eventsEQSelection').selectedIndex;
             if (selIndex < 0){
@@ -28781,7 +28786,104 @@ OpenLayers.Layer = OpenLayers.Class({
 
             selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
             if (selectedEQ) this.mergeNewParams({'CQL_FILTER': "event_code='"+selectedEQ.data.event_code+"'"});
+        } else if (this.name == 'Historical Flood Forecast'){
+            this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+        } else if (this.name == 'Classes of flood forecast GFMS&GLOFAS'){
+            this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+
+            // console.log(OpenLayers.Control.FeaturePopups);
+            var vector = new OpenLayers.Layer.Vector("Glofas Points", {
+                projection: "EPSG:4326",
+                styleMap: new OpenLayers.StyleMap({
+                    'default': new OpenLayers.Style({
+                            pointRadius: '${radius}',
+                            fillOpacity: 0.6,
+                            fillColor: '${get_color}',
+                            strokeColor: '#111111',
+                            graphicName: 'circle'
+                        },{
+                            context: {
+                                radius: function(feature) {
+                                    return Math.min(feature.attributes.rl5_dis_percent, 1) * 1.5 + 2;
+                                },
+                                get_color: function(feature) {
+                                    // console.log(feature.attributes.rl5_dis_percent); 
+                                    var value = 0;
+                                    if (feature.attributes.rl5_dis_percent >= 100)
+                                        value = feature.attributes.rl5_avg_dis_percent
+                                    else
+                                        value = feature.attributes.rl5_dis_percent;
+
+                                    if (value > 160){
+                                        return '#E2070E'
+                                    } else if (value > 120 && value<=160){
+                                        return '#F96D09'
+                                    } else if (value > 90 && value<=120){
+                                        return '#FCED15'
+                                    } else if (value > 70 && value<=90){
+                                        return '#0FC87B'
+                                    } else if (value > 50 && value<=70){
+                                        return '#92E7FA'
+                                    } else if (value > 25 && value<=50){
+                                        return '#e4f4f8'
+                                    }
+                                }
+                            }
+                        }),
+                    'select': {fillColor: '#8aeeef'}
+                }),
+                strategies: [new OpenLayers.Strategy.Fixed()],
+                protocol: new OpenLayers.Protocol.HTTP({
+                    url: "/getOverviewMaps/getGlofasPointsJSON?date="+reverse_date_opt.dateFormat("Y-m-d"),
+                    format: new OpenLayers.Format.GeoJSON()
+                })
+            });
+            this.map.addLayers([vector]);
+
+            var glofas_selectCtrl = new OpenLayers.Control.SelectFeature(vector);
+            this.map.addControl(glofas_selectCtrl);
+            glofas_selectCtrl.activate();
+
+            function glofas_createPopup(feature) {
+
+                popup = new GeoExt.Popup({
+                    title: 'RL : '+ Math.round(feature.data.rl2)+'/'+ Math.round(feature.data.rl5)+'/'+ Math.round(feature.data.rl20)+' - RL % : '+feature.data.rl2_dis_percent+'/'+feature.data.rl5_dis_percent+'/'+feature.data.rl20_dis_percent,
+                    location: feature,
+                    width:403,
+                    height:342,
+                    html: '<iframe src="/getOverviewMaps/getGlofasChart?date='+reverse_date_opt.dateFormat("Ymd")+'&lon='+feature.data.lon+'&lat='+feature.data.lat+'" width="100%" height="100%"></iframe>',
+                    maximizable: true,
+                    collapsible: true
+                });
+                // unselect feature when the popup
+                // is closed
+                popup.on({
+                    close: function() {
+                        if(OpenLayers.Util.indexOf(vector.selectedFeatures,
+                                                   this.feature) > -1) {
+                            vector.unselect(this.feature);
+                        }
+                    }
+                });
+                popup.show();
+            }
+
+            vector.events.on({
+                featureselected: function(e) {
+                    glofas_createPopup(e.feature);
+                }
+            });
+
+
+
+        } else if (this.name == 'Flood likelihood 2 year return period'){
+            this.mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+        } else if (this.name == 'Flood likelihood 5 year return period'){
+            this.mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+        } else if (this.name == 'Flood likelihood 20 year return period'){
+            this.mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
         }
+        
     },
 
     /**
@@ -34982,7 +35084,12 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
                             var dashboard_url = [];
                             var dashboard_expanded = [];
+                           
                             selectedStatConfig.forEach(function(item){
+                                if (item.attributes.nodeID == 3){
+                                    dashboard_expanded[item.attributes.nodeID] = Ext.getCmp('cb_rf_type').getValue();
+                                }
+
                                 // console.log(item.id, item.attributes.url, item.attributes._checked);
                                 if (item.attributes.url) {
                                     dashboard_url[item.id] = item.attributes.url;
@@ -34993,6 +35100,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                                         dashboard_expanded[item.attributes.pnodeID] = item.attributes._checked
                                 }
                             });
+                            console.log(dashboard_expanded);
                             dashboard_url.forEach(function(item, key){
                                 if (dashboard_expanded[key]){
                                     dashboard_url[key]+='&_checked='+encodeURIComponent(dashboard_expanded[key]);
@@ -91327,7 +91435,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             tempMap.raiseLayer(vector_layerSecurityEntry,10000);
         });
 
-        var tempMap = this.mapPanel.map;
+        var tempMap = this.mapPanel.map;        
 
         var statisticsPanel = new Ext.Panel({
             title: gettext('Statistics'),
@@ -91489,6 +91597,29 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             if (tempMap.getLayersByName('Flood likelihood 20 year return period').length > 0) {
                                 tempMap.getLayersByName('Flood likelihood 20 year return period')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
+                            if (tempMap.getLayersByName('Classes of flood forecast GFMS&GLOFAS').length > 0) {
+
+                                var gfms_select = 'TRUE';
+                                var glofas_select = 'TRUE';
+
+                                if (Ext.getCmp('cb_rf_type').getValue()=='GFMS only')
+                                    glofas_select = 'FALSE'
+                                else if (Ext.getCmp('cb_rf_type').getValue()=='GLOFAS only')
+                                    gfms_select = 'FALSE';
+
+                                tempMap.getLayersByName('Classes of flood forecast GFMS&GLOFAS')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";gfms:"+gfms_select+";glofas:"+glofas_select+";"});
+                            }
+                            if (tempMap.getLayersByName('Glofas Points').length > 0) {
+                                // tempMap.getLayersByName('Glofas Points')[0].setVisibility(false); 
+                                tempMap.getLayersByName('Glofas Points')[0].destroyFeatures();
+                                tempMap.getLayersByName('Glofas Points')[0].protocol.url = "/getOverviewMaps/getGlofasPointsJSON?date="+reverse_date_opt.dateFormat("Y-m-d");
+                                tempMap.getLayersByName('Glofas Points')[0].protocol.options.url = "/getOverviewMaps/getGlofasPointsJSON?date="+reverse_date_opt.dateFormat("Y-m-d");           
+                                tempMap.getLayersByName('Glofas Points')[0].refresh({force:true});
+                                // tempMap.getLayersByName('Glofas Points')[0].drawn = false; 
+                                // tempMap.getLayersByName('Glofas Points')[0].setVisibility(true); 
+                                // console.log(tempMap.getLayersByName('Glofas Points')[0]);
+                            }
+                            
                         }
                     }]
                 }),
@@ -91703,7 +91834,35 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('dateOccurs2').setValue(newValue);
                                         }
                                     }
-                                }]
+                                },{
+                                    xtype: 'tbspacer'
+                                },
+                                new Ext.form.ComboBox({
+                                    id:'cb_rf_type',
+                                    tpl: '<tpl for="."><div ext:qtip="{target}. {desc}" class="x-combo-list-item">{target}</div></tpl>',
+                                    store: new Ext.data.ArrayStore({
+                                        fields: ['target','desc'],
+                                        data : [
+                                            ['GFMS + GLOFAS', 'Combination of Global Flood Monitoring System (GFMS) from University of Maryland and Global Flood Awareness System (GLOFAS) from JRC'],
+                                            ['GFMS only', 'Global Flood Monitoring System (GFMS) from University of Maryland'],
+                                            ['GLOFAS only', 'Global Flood Awareness System (GLOFAS) from JRC']
+                                        ]
+                                    }),
+                                    displayField:'target',
+                                    width:130,
+                                    typeAhead: true,
+                                    mode: 'local',
+                                    forceSelection: true,
+                                    triggerAction: 'all',
+                                    emptyText:'Select a state...',
+                                    selectOnFocus:true,
+                                    listeners: {
+                                       'afterrender': function(combo){
+                                        var selectedRecord = combo.getStore().getAt(0).get('target');
+                                        combo.setValue(selectedRecord);        
+                                      }
+                                    }  
+                                })]
                             })
                         ]
                     })
