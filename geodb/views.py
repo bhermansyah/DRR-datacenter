@@ -1750,7 +1750,7 @@ def getGlofasChart(request):
         rl5_arr.append(rl5[coord_idx])
         rl20_arr.append(rl20[coord_idx])
 
-    fig=Figure(dpi=150)
+    fig=Figure(dpi=120)
 
     plt=fig.add_subplot(111)
 
@@ -1799,7 +1799,7 @@ def getGlofasChart(request):
 
     canvas=FigureCanvas(fig)
 
-    response=HttpResponse(content_type='image/png')
+    response=HttpResponse(content_type='image/jpeg')
     canvas.print_png(response)
     return response
 
