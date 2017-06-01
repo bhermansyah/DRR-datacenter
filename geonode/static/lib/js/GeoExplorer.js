@@ -28851,7 +28851,8 @@ OpenLayers.Layer = OpenLayers.Class({
                     location: feature,
                     width:403,
                     height:342,
-                    html: '<iframe src="/getOverviewMaps/getGlofasChart?date='+reverse_date_opt.dateFormat("Ymd")+'&lon='+feature.data.lon+'&lat='+feature.data.lat+'" width="100%" height="100%"></iframe>',
+                    // html: '<iframe src="/getOverviewMaps/getGlofasChart?date='+reverse_date_opt.dateFormat("Ymd")+'&lon='+feature.data.lon+'&lat='+feature.data.lat+'" width="100%" height="100%"></iframe>',
+                    html: '<img src="/getOverviewMaps/getGlofasChart?date='+reverse_date_opt.dateFormat("Ymd")+'&lon='+feature.data.lon+'&lat='+feature.data.lat+'" style="width:100%;height:100%;" />',
                     maximizable: true,
                     collapsible: true
                 });
@@ -28868,11 +28869,22 @@ OpenLayers.Layer = OpenLayers.Class({
                 popup.show();
             }
 
+            function layerChanged(layer) {
+                if (layer.object.visibility){
+                    vector.setVisibility(true);
+                } else {
+                    vector.setVisibility(false);
+                }    
+                
+            }
+
             vector.events.on({
                 featureselected: function(e) {
                     glofas_createPopup(e.feature);
                 }
             });
+
+            this.events.register("visibilitychanged", this, layerChanged); 
 
 
 
