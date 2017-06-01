@@ -1295,6 +1295,9 @@ def getFloodForecast(request, filterLock, flag, code):
     YEAR = datetime.datetime.utcnow().strftime("%Y")
     MONTH = datetime.datetime.utcnow().strftime("%m")
     DAY = datetime.datetime.utcnow().strftime("%d")
+
+    reverse_date = datetime.datetime.utcnow() - datetime.timedelta(days=1)
+
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
     targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and marshland'))
 
@@ -1317,7 +1320,7 @@ def getFloodForecast(request, filterLock, flag, code):
     data = getProvinceSummary(filterLock, flag, code)
     response['lc_child']=data
 
-    data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY)-1, False)
+    data = getProvinceSummary_glofas(filterLock, flag, code, reverse_date.strftime("%Y"), reverse_date.strftime("%m"), reverse_date.strftime("%d"), False)
     response['glofas_child']=data
 
     data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY), True)
