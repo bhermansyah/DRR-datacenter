@@ -1741,13 +1741,13 @@ class getVillages(ModelResource):
         # print request.GET
         # resource = .transform(900913, field_name='wkb_geometry') string__icontains
         if request.GET['type']=='settlements':
-            resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','dist_na_en','prov_na_en','wkb_geometry')
+            resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','wkb_geometry')
         elif request.GET['type']=='healthfacility':    
             resource = AfgHltfac.objects.all()
         elif request.GET['type']=='airport':    
             resource = AfgAirdrmp.objects.all()
         else :    
-            resource = OasisSettlements.objects.all().values('vil_uid','name_en','type_settlement','dist_na_en','prov_na_en','wkb_geometry')        
+            resource = OasisSettlements.objects.all().values('vil_uid','name_en','type_settlement','wkb_geometry')        
 
         # print request.GET['dist_code']
         if request.GET['dist_code'] != '':
