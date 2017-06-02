@@ -1771,7 +1771,19 @@ class getVillages(ModelResource):
 
         response = GeoJSONSerializer().serialize(resource, use_natural_keys=True, with_modelname=False, geometry_field='wkb_geometry', srid=3857)
 
-        return response
+        data = json.loads(response)
+        for i in range(len(data['features'])):
+            data['features'][i]['properties']['number']=i+1
+            if 'name_en' in data['features'][i]['properties']:
+                data['features'][i]['properties']['fromlayer'] = 'glyphicon glyphicon-home'
+            elif 'namelong' in data['features'][i]['properties']:
+                data['features'][i]['properties']['fromlayer'] = 'glyphicon glyphicon-plane'
+            elif 'facility_name' in data['features'][i]['properties']:
+                data['features'][i]['properties']['fromlayer'] = 'glyphicon glyphicon-header'
+
+
+        # return response
+        return json.dumps(data)
 
 
 # get last update values

@@ -91031,18 +91031,80 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fillOpacity: 0.4
         };
 
-       var finder_style = {
-            fillColor: "#ffcc66",
+       // var finder_style = 
+       // {
+       //      fillColor: "#ffcc66",
+       //      strokeColor: "#ff9933",
+       //      strokeWidth: 2,
+       //      graphicName: "circle",
+       //      label: gettext("${number}"),
+       //      fontColor: "#333333",
+       //      fontFamily: "sans-serif",
+       //      fontWeight: "bold",
+       //      pointRadius: 12,
+       //      fontSize: "12px"
+       //  };
+
+       var finder_style = new OpenLayers.Style({
+            fillColor: "${getFillColor}",
             strokeColor: "#ff9933",
             strokeWidth: 2,
-            graphicName: "circle",
+            graphicName: "${getSymbol}",
             label: gettext("${number}"),
             fontColor: "#333333",
             fontFamily: "sans-serif",
             fontWeight: "bold",
-            pointRadius: 12,
-            fontSize: "12px"
-        };
+            pointRadius: "${getRadius}",
+            fontSize: "12px"        
+       }, {
+            context: {
+                getRadius: function(feature) {
+                    if (feature.attributes.type_settlement == 'Capital'){
+                        return 20;
+                    } else if (feature.attributes.type_settlement == 'Provincial capital'){
+                        return 20;
+                    } else if (feature.attributes.type_settlement == 'Provincial Centre'){
+                        return 20;
+                    } else if (feature.attributes.type_settlement == 'District Centre'){
+                        return 20;
+                    } else if (feature.attributes.type_settlement == 'District Center'){
+                        return 20;
+                    } else {
+                        return 12;
+                    }    
+                },
+                getFillColor: function(feature) {
+                    if (feature.attributes.type_settlement == 'Capital'){
+                        return '#ff3300';
+                    } else if (feature.attributes.type_settlement == 'Provincial capital'){
+                        return '#ff3300';
+                    } else if (feature.attributes.type_settlement == 'Provincial Centre'){
+                        return '#ff3300';
+                    } else if (feature.attributes.type_settlement == 'District Centre'){
+                        return '#ff3300';
+                    } else if (feature.attributes.type_settlement == 'District Center'){
+                        return '#ff3300';
+                    } else {
+                        return '#ffcc66';
+                    }    
+                },
+                getSymbol: function(feature) {
+                    if (feature.attributes.type_settlement == 'Capital'){
+                        return 'star';
+                    } else if (feature.attributes.type_settlement == 'Provincial capital'){
+                        return 'star';
+                    } else if (feature.attributes.type_settlement == 'Provincial Centre'){
+                        return 'star';
+                    } else if (feature.attributes.type_settlement == 'District Centre'){
+                        return 'star';
+                    } else if (feature.attributes.type_settlement == 'District Center'){
+                        return 'star';
+                    } else {
+                        return 'circle';
+                    }    
+                }    
+            }
+        });
 
         var finder_style_select = {
             fillColor: "#ff3300",
@@ -91053,7 +91115,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fontColor: "#333333",
             fontFamily: "sans-serif",
             fontWeight: "bold",
-            pointRadius: 15,
+            pointRadius: 17,
             fontSize: "12px"
         };
 
@@ -91259,22 +91321,22 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         finderStore.on({
             'load': function(){
-               for (var i = 0; i < this.totalLength; i++){
-                    var record = finderStore.getAt(i);
-                    // console.log(record);
-                    record.set("number", i+1);
-                    if (record.get("name_en")!=''){
-                        record.set("fromlayer", 'glyphicon glyphicon-home');
-                    }
+               // for (var i = 0; i < this.totalLength; i++){
+               //      var record = finderStore.getAt(i);
+               //      // console.log(record);
+               //      record.set("number", i+1);
+               //      if (record.get("name_en")!=''){
+               //          record.set("fromlayer", 'glyphicon glyphicon-home');
+               //      }
 
-                    if (record.get("namelong")!=''){
-                        record.set("fromlayer", 'glyphicon glyphicon-plane');
-                    }
+               //      if (record.get("namelong")!=''){
+               //          record.set("fromlayer", 'glyphicon glyphicon-plane');
+               //      }
 
-                    if (record.get("facility_name")!=''){
-                        record.set("fromlayer", 'glyphicon glyphicon-header');
-                    }
-               }
+               //      if (record.get("facility_name")!=''){
+               //          record.set("fromlayer", 'glyphicon glyphicon-header');
+               //      }
+               // }
             }
         });
         dataSelected.on({
@@ -92055,9 +92117,35 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 width: 300,
                 autoHeight: true,
                 xtype:'templatecolumn',
+
+                    //         if (feature.attributes.type_settlement == 'Capital'){
+                    //     return '#ff3300';
+                    // } else if (feature.attributes.type_settlement == 'Provincial capital'){
+                    //     return '#ff3300';
+                    // } else if (feature.attributes.type_settlement == 'Provincial Centre'){
+                    //     return '#ff3300';
+                    // } else if (feature.attributes.type_settlement == 'District Centre'){
+                    //     return '#ff3300';
+                    // } else if (feature.attributes.type_settlement == 'District Center'){
+
                 tpl: new Ext.XTemplate(
                     '<div style="float:left; padding:3px">',
-                        '<div class="full-circle"><div class="height_fix"></div><div class="content">{number}</div></div>',
+                        '<tpl for=".">',
+                            '<tpl if="type_settlement == \'Capital\' || type_settlement == \'Provincial capital\' || type_settlement == \'Provincial Centre\' || type_settlement == \'District Centre\' || type_settlement == \'District Center\'">',
+                                '<div class="full-circle-highlight"><div class="height_fix"></div><div class="content">{number}</div></div>',
+                            '</tpl>',
+                            '<tpl elseif="type_settlement != \'Capital\' && type_settlement != \'Provincial capital\' && type_settlement != \'Provincial Centre\' && type_settlement != \'District Centre\' && type_settlement != \'District Center\'">',
+                                '<div class="full-circle"><div class="height_fix"></div><div class="content">{number}</div></div>',
+                            '</tpl>',
+                            // '<tpl switch="type_settlement">',
+                            //     '<tpl case="Capital" case="Provincial capital" case="Provincial Centre" case="District Centre" case="District Center">',
+                            //         '<div class="full-circle-highlight"><div class="height_fix"></div><div class="content">{number}</div></div>',
+                            //     '</tpl>',
+                            //     '<tpl default">',
+                            //         '<div class="full-circle"><div class="height_fix"></div><div class="content">{number}</div></div>',
+                            //     '</tpl>',
+                            // '</tpl>',
+                        '</tpl>',
                     '</div>',
                     '<div style="float:left; padding-top: 7px; padding-left: 2px;">',
                         '<span class="finderheader">{name_en} {facility_name} {namelong}</span>',

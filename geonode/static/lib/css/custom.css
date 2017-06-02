@@ -2724,3 +2724,28 @@ ul.nav.navbar-nav {
   font-weight: bolder;
   font-size: 14pt;
 }
+
+.full-circle-highlight {
+    background-color: #ff3300;
+    border: 2px solid #ff9933;
+    width: 20px;
+    padding: 6;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    position: relative;
+    line-height: 1em;
+}
+
+.full-circle-highlight .height_fix {
+    margin-top: 100%;
+}
+
+.full-circle-highlight .content {
+    position: absolute;
+    left: 0;
+    top: 95%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -16px; /* Note, this must be half the font size */
+}
