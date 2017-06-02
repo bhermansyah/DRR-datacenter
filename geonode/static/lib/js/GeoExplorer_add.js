@@ -1237,7 +1237,8 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
 
                                     '<div class="w3-container">',
                                         '<p><div style="float:left;">'+gettext('Flash Flood')+'</div><div style="float:right;">{snowwater_lastupdated}</div></p><br/>',
-                                        '<p><div style="float:left;">'+gettext('River Flood')+'</div><div style="float:right;">{riverflood_lastupdated}</div></p><br/>',
+                                        '<p><div style="float:left;">'+gettext('River Flood (GFMS)')+'</div><div style="float:right;">{riverflood_lastupdated}</div></p><br/>',
+                                        '<p><div style="float:left;">'+gettext('River Flood (Glofas)')+'</div><div style="float:right;">{glofas_lastupdated}</div></p><br/>',
                                     '</div>',
                                 '</div>',
                             '</li>',

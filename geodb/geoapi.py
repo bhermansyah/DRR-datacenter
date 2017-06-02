@@ -22,6 +22,7 @@ from django.http import HttpResponse
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 
 from geodb.riverflood import getFloodForecastBySource
+import timeago
 
 FILTER_TYPES = {
     'flood': AfgFldzonea100KRiskLandcoverPop
@@ -875,8 +876,22 @@ def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None, rf
         tempRF = rf.datadate + datetime.timedelta(hours=4.5)
         tempSW = sw.datadate + datetime.timedelta(hours=4.5)
 
-        response["riverflood_lastupdated"] = tempRF.strftime("%d-%m-%Y %H:%M")
-        response["snowwater_lastupdated"] =  tempSW.strftime("%d-%m-%Y %H:%M")
+        tz = timezone('Asia/Kabul')
+        stdSC = datetime.datetime.utcnow()
+        stdSC = stdSC.replace(hour=3, minute=00, second=00)
+
+        tempSC = datetime.datetime.utcnow()
+
+        if stdSC > tempSC:
+            tempSC = tempSC - datetime.timedelta(days=1)
+        
+        tempSC = tempSC.replace(hour=3, minute=00, second=00)
+        tempSC = tempSC + datetime.timedelta(hours=4.5)
+        # tempSC = tempSC.replace(tzinfo=tz) 
+        print tempSC, tempRF, tempSW
+        response["riverflood_lastupdated"] = timeago.format(tempRF, datetime.datetime.utcnow()+ datetime.timedelta(hours=4.5))  #tempRF.strftime("%d-%m-%Y %H:%M")
+        response["snowwater_lastupdated"] =  timeago.format(tempSW, datetime.datetime.utcnow()+ datetime.timedelta(hours=4.5))   #tempSW.strftime("%d-%m-%Y %H:%M")
+        response["glofas_lastupdated"] =     timeago.format(tempSC, datetime.datetime.utcnow()+ datetime.timedelta(hours=4.5))     #tempSC.strftime("%d-%m-%Y %H:%M")
         return response        
 
 def getRisk(request):
