@@ -101,7 +101,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
         }
 
 
-        if(Ext.getCmp('settlementCB').checked) {   
+        if(Ext.getCmp('settlementCB').checked || Ext.getCmp('oasisCB').checked) {   
             if(v.length < 1 && Ext.getCmp('provSelectionLocator').getValue() == ''){
                 this.onTrigger1Click();
                 return;
