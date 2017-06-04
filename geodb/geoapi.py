@@ -1759,7 +1759,9 @@ class getVillages(ModelResource):
 
         # print choices
         # x = process.extract(request.GET['search']+";"+request.GET['distname']+";"+request.GET['provname'], choices, scorer=fuzz.token_sort_ratio, limit=10)
-        x = process.extract(request.GET['search'], choices, scorer=fuzz.token_sort_ratio, limit=10)
+
+        # x = process.extract(request.GET['search'], choices, scorer=fuzz.token_sort_ratio, limit=25)
+        x = process.extractWithoutOrder(request.GET['search'], choices, scorer=fuzz.token_sort_ratio, score_cutoff=50)
         # print x[0][0], request.GET['provname']+";"+request.GET['distname']+";"+request.GET['search']
 
         scoreKeeper = {}
