@@ -1740,6 +1740,7 @@ class getVillages(ModelResource):
 
     def fuzzyLookup(self, request):
         f = AfgPplp.objects.all().values('name_en','dist_na_en','prov_na_en','vil_uid','type_settlement','wkb_geometry')
+
         if request.GET['provname'] != '':
             f = f.filter(prov_na_en=request.GET['provname'])
         if request.GET['distname'] != '':
@@ -1747,24 +1748,29 @@ class getVillages(ModelResource):
 
         choices = []
         for i in f:
-            choices.append(i['name_en'].lstrip()+';'+i['dist_na_en']+';'+i['prov_na_en'])
+            prov_na_en = ''
+            dist_na_en = ''
+            if request.GET['provname'] != '':
+                prov_na_en = i['prov_na_en']
+            if request.GET['distname'] != '':
+                dist_na_en = i['dist_na_en']
+            # choices.append(i['name_en'].lstrip()+';'+dist_na_en+';'+prov_na_en)
+            choices.append(i['name_en'].lstrip())
 
-        x = process.extract(request.GET['provname']+";"+request.GET['distname']+";"+request.GET['search'], choices, scorer=fuzz.token_sort_ratio, limit=10)
+        # print choices
+        # x = process.extract(request.GET['search']+";"+request.GET['distname']+";"+request.GET['provname'], choices, scorer=fuzz.token_sort_ratio, limit=10)
+        x = process.extract(request.GET['search'], choices, scorer=fuzz.token_sort_ratio, limit=10)
         # print x[0][0], request.GET['provname']+";"+request.GET['distname']+";"+request.GET['search']
 
         scoreKeeper = {}
-        prov = []
-        dist = []
         settlements = []
 
         for i in x:
             # print i[0]
             scoreKeeper[i[0]]=i[1]
-            settlements.append(i[0].split(';')[0])
-            dist.append(i[0].split(';')[1])
-            prov.append(i[0].split(';')[2])
+            settlements.append(i[0])
 
-        f = f.filter(prov_na_en__in=prov,dist_na_en__in=dist,name_en__in=settlements)
+        f = f.filter(name_en__in=settlements)
         # f = f.extra(where=["name_en+';'+dist_na_en+';'+prov_na_en in "])
         return {'result':f, 'scoreKeeper':scoreKeeper}
 
@@ -1777,7 +1783,6 @@ class getVillages(ModelResource):
                 dt = self.fuzzyLookup(request)
                 resource = dt['result']
                 fuzzy = True
-                print request.GET['search']
 
         else:        
             # resource = .transform(900913, field_name='wkb_geometry') string__icontains
@@ -1815,8 +1820,8 @@ class getVillages(ModelResource):
         data = json.loads(response)
         for i in range(len(data['features'])):
             if fuzzy:
-                tmp_set = data['features'][i]['properties']['name_en']+';'+data['features'][i]['properties']['dist_na_en']+';'+data['features'][i]['properties']['prov_na_en']           
-                data['features'][i]['properties']['type_settlement']=str(dt['scoreKeeper'][tmp_set])+' macthing score'
+                tmp_set = data['features'][i]['properties']['name_en']         
+                data['features'][i]['properties']['type_settlement']=dt['scoreKeeper'][tmp_set]
 
             data['features'][i]['properties']['number']=i+1
             if 'name_en' in data['features'][i]['properties']:

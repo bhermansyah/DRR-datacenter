@@ -91321,6 +91321,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         finderStore.on({
             'load': function(){
+                finderStore.sort('type_settlement', 'desc');
                // for (var i = 0; i < this.totalLength; i++){
                //      var record = finderStore.getAt(i);
                //      // console.log(record);
@@ -92118,17 +92119,6 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 autoHeight: true,
                 sortable: true,
                 xtype:'templatecolumn',
-
-                    //         if (feature.attributes.type_settlement == 'Capital'){
-                    //     return '#ff3300';
-                    // } else if (feature.attributes.type_settlement == 'Provincial capital'){
-                    //     return '#ff3300';
-                    // } else if (feature.attributes.type_settlement == 'Provincial Centre'){
-                    //     return '#ff3300';
-                    // } else if (feature.attributes.type_settlement == 'District Centre'){
-                    //     return '#ff3300';
-                    // } else if (feature.attributes.type_settlement == 'District Center'){
-
                 tpl: new Ext.XTemplate(
                     '<div style="float:left; padding:3px">',
                         '<tpl for=".">',
@@ -92150,7 +92140,15 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     '</div>',
                     '<div style="float:left; padding-top: 7px; padding-left: 2px;">',
                         '<span class="finderheader">{name_en} {facility_name} {namelong}</span>',
-                        '<br/><span class="findersubheader">{type_settlement}{facility_types_description}{apttype}</span>',
+                        // '<tpl for=".">',
+                            '<tpl if="type_settlement &gt; 0">',
+                                '<br/><span class="findersubheader">{type_settlement} Score Matched </span>',
+                            '</tpl>',
+                            '<tpl elseif="type_settlement == \'Capital\' || type_settlement == \'Provincial capital\' || type_settlement == \'Provincial Centre\' || type_settlement == \'District Centre\' || type_settlement == \'District Center\'">',
+                                '<br/><span class="findersubheader">{type_settlement}{facility_types_description}{apttype}</span>',
+                            '</tpl>',
+                        // '</tpl>',
+                        
                     '</div>',
                     '<div class="{fromlayer}" style="float:right;padding-top: 1px; padding-right: 2px; color: rgba(158, 158, 158, 0.6);">',
                     '</div>'
