@@ -92106,6 +92106,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         var gridSelector = new Ext.grid.GridPanel({
             store: finderStore,
             width: 320,
+            loadMask: true,
             viewConfig: {
                 getRowClass: function (record, rowIndex, rp, store) {
                     return 'gridcellHeight_custom';
@@ -92482,6 +92483,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     fieldLabel: gettext(""),
                                     boxLabel: gettext('Fuzzy'),
                                     inputValue : 'fuzzy',
+                                    checked:true,
                                     listeners: {
                                         check: function (checkbox, checked) {
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
