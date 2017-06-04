@@ -91053,24 +91053,24 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             label: gettext("${number}"),
             fontColor: "#333333",
             fontFamily: "sans-serif",
-            fontWeight: "bold",
+            // fontWeight: "bold",
             pointRadius: "${getRadius}",
             fontSize: "12px"        
        }, {
             context: {
                 getRadius: function(feature) {
                     if (feature.attributes.type_settlement == 'Capital'){
-                        return 20;
+                        return 15;
                     } else if (feature.attributes.type_settlement == 'Provincial capital'){
-                        return 20;
+                        return 15;
                     } else if (feature.attributes.type_settlement == 'Provincial Centre'){
-                        return 20;
+                        return 15;
                     } else if (feature.attributes.type_settlement == 'District Centre'){
-                        return 20;
+                        return 15;
                     } else if (feature.attributes.type_settlement == 'District Center'){
-                        return 20;
+                        return 15;
                     } else {
-                        return 12;
+                        return 5;
                     }    
                 },
                 getFillColor: function(feature) {
@@ -92116,6 +92116,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 header: gettext("Search Results:"),
                 width: 300,
                 autoHeight: true,
+                sortable: true,
                 xtype:'templatecolumn',
 
                     //         if (feature.attributes.type_settlement == 'Capital'){
@@ -92473,9 +92474,22 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         layout: 'anchor',
                         defaults: {anchor: '0'},
                         defaultType: 'toolbar',
+                        id:'searchTB',
                         items : [{
                             items: [
-                                'Search by name: ', ' ',
+                                'Search by name: ', 
+                                {
+                                    xtype      : 'checkbox',
+                                    id: 'fuzzyCB',
+                                    fieldLabel: gettext(""),
+                                    boxLabel: gettext('Fuzzy'),
+                                    inputValue : 'fuzzy',
+                                    listeners: {
+                                        check: function (checkbox, checked) {
+                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                        }
+                                    }
+                                },
                                 new Ext.ux.form.SearchField({
                                     id:'freeSearchForm',
                                     store: finderStore,

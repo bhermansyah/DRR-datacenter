@@ -41,7 +41,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     onTrigger2Click : function(){
         var v = this.getRawValue();
 
-        v = v.toLowerCase();
+        // v = v.toLowerCase();
         var layers = [];
         var filters = []
         var addQS = "";
@@ -118,10 +118,16 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
             }
         }
 
+        // console.log( Ext.getCmp('provSelectionLocator').getRawValue());
+
         var o = {start: 0};
         this.store.baseParams = this.store.baseParams || {};
         this.store.baseParams[this.paramName] = queryFilter;
         this.store.baseParams['typeName'] = typeName;
+        this.store.baseParams['fuzzy'] = Ext.getCmp('fuzzyCB').checked;
+
+        this.store.baseParams['distname'] = Ext.getCmp('districtSelectionLocator').getRawValue() || '';
+        this.store.baseParams['provname'] = Ext.getCmp('provSelectionLocator').getRawValue() || '';
 
         this.store.reload({params:o});
         this.hasSearch = true;

@@ -23,6 +23,7 @@ from djgeojson.serializers import Serializer as GeoJSONSerializer
 
 from geodb.riverflood import getFloodForecastBySource
 import timeago
+from fuzzywuzzy import process, fuzz
 
 FILTER_TYPES = {
     'flood': AfgFldzonea100KRiskLandcoverPop
@@ -1737,42 +1738,86 @@ class getVillages(ModelResource):
         # return self.create_response(request, response)   
         return HttpResponse(response, mimetype='application/json')
 
+    def fuzzyLookup(self, request):
+        f = AfgPplp.objects.all().values('name_en','dist_na_en','prov_na_en','vil_uid','type_settlement','wkb_geometry')
+        if request.GET['provname'] != '':
+            f = f.filter(prov_na_en=request.GET['provname'])
+        if request.GET['distname'] != '':
+            f = f.filter(dist_na_en=request.GET['distname'])
+
+        choices = []
+        for i in f:
+            choices.append(i['name_en'].lstrip()+';'+i['dist_na_en']+';'+i['prov_na_en'])
+
+        x = process.extract(request.GET['provname']+";"+request.GET['distname']+";"+request.GET['search'], choices, scorer=fuzz.token_sort_ratio, limit=10)
+        # print x[0][0], request.GET['provname']+";"+request.GET['distname']+";"+request.GET['search']
+
+        scoreKeeper = {}
+        prov = []
+        dist = []
+        settlements = []
+
+        for i in x:
+            # print i[0]
+            scoreKeeper[i[0]]=i[1]
+            settlements.append(i[0].split(';')[0])
+            dist.append(i[0].split(';')[1])
+            prov.append(i[0].split(';')[2])
+
+        f = f.filter(prov_na_en__in=prov,dist_na_en__in=dist,name_en__in=settlements)
+        # f = f.extra(where=["name_en+';'+dist_na_en+';'+prov_na_en in "])
+        return {'result':f, 'scoreKeeper':scoreKeeper}
+
+
+
     def getStats(self, request):
-        # print request.GET
-        # resource = .transform(900913, field_name='wkb_geometry') string__icontains
-        if request.GET['type']=='settlements':
-            resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','wkb_geometry')
-        elif request.GET['type']=='healthfacility':    
-            resource = AfgHltfac.objects.all()
-        elif request.GET['type']=='airport':    
-            resource = AfgAirdrmp.objects.all()
-        else :    
-            resource = OasisSettlements.objects.all().values('vil_uid','name_en','type_settlement','wkb_geometry')        
+        # print request.GET['fuzzy']
+        fuzzy = False
+        if request.GET['fuzzy']== 'true' and request.GET['search'] != '' and (request.GET['type']=='settlements' or request.GET['type']=='s_oasis'):
+                dt = self.fuzzyLookup(request)
+                resource = dt['result']
+                fuzzy = True
+                print request.GET['search']
 
-        # print request.GET['dist_code']
-        if request.GET['dist_code'] != '':
-            resource = resource.filter(dist_code=request.GET['dist_code'])     
-
-        if request.GET['prov_code'] != '':
+        else:        
+            # resource = .transform(900913, field_name='wkb_geometry') string__icontains
             if request.GET['type']=='settlements':
-                resource = resource.filter(prov_code_1=request.GET['prov_code'])
-            else:
-                resource = resource.filter(prov_code=request.GET['prov_code'])    
+                resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','wkb_geometry')
+            elif request.GET['type']=='healthfacility':    
+                resource = AfgHltfac.objects.all()
+            elif request.GET['type']=='airport':    
+                resource = AfgAirdrmp.objects.all()
+            else :    
+                resource = OasisSettlements.objects.all().values('vil_uid','name_en','type_settlement','wkb_geometry')        
 
-        if request.GET['search'] != '':
-            if request.GET['type']=='settlements':
-                resource = resource.filter(name_en__icontains=request.GET['search'])
-            elif request.GET['type']=='healthfacility':  
-                resource = resource.filter(facility_name__icontains=request.GET['search'])    
-            elif request.GET['type']=='airport':  
-                resource = resource.filter(namelong__icontains=request.GET['search'])    
-            else:
-                resource = resource.filter(name_en__icontains=request.GET['search'])    
+            # print request.GET['dist_code']
+            if request.GET['dist_code'] != '':
+                resource = resource.filter(dist_code=request.GET['dist_code'])     
+
+            if request.GET['prov_code'] != '':
+                if request.GET['type']=='settlements':
+                    resource = resource.filter(prov_code_1=request.GET['prov_code'])
+                else:
+                    resource = resource.filter(prov_code=request.GET['prov_code'])    
+
+            if request.GET['search'] != '':
+                if request.GET['type']=='settlements':
+                    resource = resource.filter(name_en__icontains=request.GET['search'])
+                elif request.GET['type']=='healthfacility':  
+                    resource = resource.filter(facility_name__icontains=request.GET['search'])    
+                elif request.GET['type']=='airport':  
+                    resource = resource.filter(namelong__icontains=request.GET['search'])    
+                else:
+                    resource = resource.filter(name_en__icontains=request.GET['search'])    
 
         response = GeoJSONSerializer().serialize(resource, use_natural_keys=True, with_modelname=False, geometry_field='wkb_geometry', srid=3857)
 
         data = json.loads(response)
         for i in range(len(data['features'])):
+            if fuzzy:
+                tmp_set = data['features'][i]['properties']['name_en']+';'+data['features'][i]['properties']['dist_na_en']+';'+data['features'][i]['properties']['prov_na_en']           
+                data['features'][i]['properties']['type_settlement']=str(dt['scoreKeeper'][tmp_set])+' macthing score'
+
             data['features'][i]['properties']['number']=i+1
             if 'name_en' in data['features'][i]['properties']:
                 data['features'][i]['properties']['fromlayer'] = 'glyphicon glyphicon-home'

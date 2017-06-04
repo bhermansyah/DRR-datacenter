@@ -1964,10 +1964,10 @@ div.search-item.x-combo-selected {
   background-color: #F44336;
 }
 input#freeSearchForm.x-form-text.x-form-field{
-  width: 153px !important;
+  width: 148px !important;
 }
 input#freeSearchForm.x-form-text.x-form-field.x-form-focus{
-  width: 153px !important;
+  width: 148px !important;
 }
 
 #finderKindFilterTB>div.x-toolbar>table>tbody>tr>td>table>tbody>tr>td.x-toolbar-cell>div.x-form-check-wrap>label {
@@ -2749,3 +2749,17 @@ ul.nav.navbar-nav {
     text-align: center;
     margin-top: -16px; /* Note, this must be half the font size */
 }
+
+
+#searchTB .x-form-cb-label{
+    top: 6px !important;
+    font-size: 9px;
+    width: 6px;
+    margin-left: 1px;
+}
+/*input#freeSearchForm.x-form-text.x-form-field{
+  width: 116px !important;
+}
+input#freeSearchForm.x-form-text.x-form-field.x-form-focus{
+  width: 116px !important;
+}*/
