@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="container">
-	<div class="gridster">
+	<div class="gridster" style="z-index:100;">
 		<div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li id="nav_dashbaseline">
@@ -10,18 +10,30 @@
           <li id="nav_dashaccessibility">
             <a href="/dashboard/?page=accessibility{{add_link}}">{% trans 'Accessibility' %}</a>
           </li>
-          <li id="nav_dashfloodforecast">
-            <a href="/dashboard/?page=floodforecast{{add_link}}">{% trans 'Flood Forecast' %}</a>
+          <li id="nav_dashflood" class="dropdown">
+            <a href="#" data-toggle="dropdown" data-target="#">{% trans 'Floods' %}</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <li id="nav_dashfloodforecast">
+                <a href="/dashboard/?page=floodforecast{{add_link}}">{% trans 'Flood Forecast' %}</a>
+              </li>
+              <li id="nav_dashfloodrisk">
+                <a href="/dashboard/?page=floodrisk{{add_link}}">{% trans 'Flood Risk' %}</a>
+              </li>
+            </ul>
           </li>
-          <li id="nav_dashfloodrisk">
-            <a href="/dashboard/?page=floodrisk{{add_link}}">{% trans 'Flood Risk' %}</a>
+
+          <li id="nav_dashavalanche" class="dropdown">
+            <a href="#" data-toggle="dropdown" data-target="#">{% trans 'Avalanches' %}</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              <li id="nav_dashavalancheforecast">
+                <a href="/dashboard/?page=avalcheforecast{{add_link}}">{% trans 'Avalanche Forecast' %}</a>
+              </li>
+              <li id="nav_dashavalancherisk">
+                <a href="/dashboard/?page=avalancherisk{{add_link}}">{% trans 'Avalanche Risk' %}</a>
+              </li>
+            </ul>
           </li>
-          <li id="nav_dashavalancheforecast">
-            <a href="/dashboard/?page=avalcheforecast{{add_link}}">{% trans 'Avalanche Forecast' %}</a>
-          </li>
-          <li id="nav_dashavalancherisk">
-            <a href="/dashboard/?page=avalancherisk{{add_link}}">{% trans 'Avalanche Risk' %}</a>
-          </li>
+                   
           <li id="nav_dashearthquake">
             <a href="/dashboard/?page=earthquake{{add_link}}">{% trans 'Earthquake' %}</a>
           </li>
@@ -30,6 +42,9 @@
           </li>
 					<li id="nav_naturaldisaster">
             <a href="/dashboard/?page=naturaldisaster{{add_link}}">{% trans 'Natural Disaster' %}</a>
+          </li>
+          <li id="nav_weather">
+            <a href="/dashboard/?page=weather{{add_link}}">{% trans 'Weather' %}</a>
           </li>
 
         </ul>

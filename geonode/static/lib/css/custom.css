@@ -2704,7 +2704,7 @@ html[dir=rtl] nav.filter #regions  li li li a {
   margin: auto;
 }
 ul.nav.navbar-nav {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .release_lock {
@@ -2757,9 +2757,13 @@ ul.nav.navbar-nav {
     width: 6px;
     margin-left: 1px;
 }
-/*input#freeSearchForm.x-form-text.x-form-field{
-  width: 116px !important;
+
+.navbar-nav>li>a{
+  color: #333;
+  font: normal 500 12px/00px "futura-pt", sans-serif;
 }
-input#freeSearchForm.x-form-text.x-form-field.x-form-focus{
-  width: 116px !important;
-}*/
+
+.dropdown-menu>li>a {
+  color: #333;
+  font: normal 500 12px/15px "futura-pt", sans-serif;
+}
