@@ -18,6 +18,8 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 from django.utils.formats import dateformat
 
+from django.conf import settings
+
 def common(request):
 	response = {}
 	code = None
@@ -81,35 +83,61 @@ def common(request):
 	return response
 
 # Create your views here.
+import pdfcrowd
 def dashboard_detail(request):
 	# print request.GET['page']
 
 	if 'pdf' in request.GET:
-		options = {
-		    'quiet': '',
-		    'page-size': 'A4',
-		    # 'margin-left': 10,
-		    # 'margin-right': 10,
-		    'margin-bottom':10,
-		    'margin-top':25,
-		    # 'viewport-size':'800x600',
-		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization,
-		    # 'lowquality':'-'
-		    # 'disable-smart-shrinking':'-',
-		    # 'print-media-type':'-',
-		    # 'no-stop-slow-scripts':'-',
-		    # 'enable-javascript':'-',
-		    # 'javascript-delay': 30000,
-		    # 'window-status': 'ready',
-		}
-		a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
-		print  os.path.abspath(os.path.dirname(__file__))
-		# print 'http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)
-		pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
-		date_string = dateformat.format(datetime.now(), "Y-m-d")
-		resp = HttpResponse(pdf,content_type='application/pdf')
-		resp['Content-Disposition'] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
-		return resp
+		
+		try:
+			a = 'asdc.immap.org'+request.META.get('PATH_INFO')
+			print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
+			date_string = dateformat.format(datetime.now(), "Y-m-d")
+
+			# create an API client instance
+			client = pdfcrowd.Client(getattr(settings, 'PDFCROWD_UNAME'), getattr(settings, 'PDFCROWD_UPASS'))
+			client.setPageWidth('8.3in')
+			client.setPageHeight('11.7in')
+			# client.setPageMargins('1in', '1in', '1in', '1in')
+			client.setVerticalMargin("0.5in")
+			client.setHorizontalMargin("0.25in")
+			client.setHeaderUrl('http://asdc.immap.org/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string)
+			# convert a web page and store the generated PDF to a variable
+			pdf = client.convertURI('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id))
+
+			 # set HTTP response headers
+			response = HttpResponse(mimetype="application/pdf")
+			response["Cache-Control"] = "no-cache"
+			response["Accept-Ranges"] = "none"
+			response["Content-Disposition"] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
+
+			# send the generated PDF
+			response.write(pdf)
+		except pdfcrowd.Error, why:
+			options = {
+			    'quiet': '',
+			    'page-size': 'A4',
+			    # 'margin-left': 10,
+			    # 'margin-right': 10,
+			    'margin-bottom':10,
+			    'margin-top':25,
+			    # 'viewport-size':'800x600',
+			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization,
+			    # 'lowquality':'-'
+			    # 'disable-smart-shrinking':'-',
+			    # 'print-media-type':'-',
+			    # 'no-stop-slow-scripts':'-',
+			    # 'enable-javascript':'-',
+			    # 'javascript-delay': 30000,
+			    # 'window-status': 'ready',
+			}
+			a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
+			pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
+			date_string = dateformat.format(datetime.now(), "Y-m-d")
+			response = HttpResponse(pdf,content_type='application/pdf')
+			response['Content-Disposition'] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
+
+		return response
 	else:
 		response = common(request)
 		return render_to_response(
