@@ -28772,11 +28772,19 @@ OpenLayers.Layer = OpenLayers.Class({
      *     will have a base layer.  To be overridden by subclasses.
      */
     afterAdd: function() {
-        // console.log(this);
-        var date_array = new Date().format('Y-m-d').split("-");
-        reverse_date_opt = new Date(date_array[0],date_array[1]-1,date_array[2]);
-        reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
-        date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ;
+
+        if (Ext.getCmp('dateOccurs')){
+            var date_array = Ext.getCmp('dateOccurs').getValue().format('Y-m-d').split("-");
+            reverse_date_opt = new Date(date_array[0],date_array[1]-1,date_array[2]);
+            reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
+            date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ;
+        } else {
+            var date_array = new Date().format('Y-m-d').split("-");
+            reverse_date_opt = new Date(date_array[0],date_array[1]-1,date_array[2]);
+            reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
+            date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ; 
+            
+        }    
 
         if (this.name == 'Earthquake shakemap' && Ext.getCmp('eventsEQSelection')){
             selIndex = Ext.getCmp('eventsEQSelection').selectedIndex;
@@ -35112,8 +35120,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                                         dashboard_expanded[item.attributes.pnodeID] = item.attributes._checked
                                 }
                             });
-                            console.log(dashboard_expanded);
+                            // console.log(dashboard_expanded);
                             dashboard_url.forEach(function(item, key){
+                                dashboard_url[key]+='&date='+Ext.getCmp('dateOccurs').getValue().format('Y-m-d')
                                 if (dashboard_expanded[key]){
                                     dashboard_url[key]+='&_checked='+encodeURIComponent(dashboard_expanded[key]);
                                 }

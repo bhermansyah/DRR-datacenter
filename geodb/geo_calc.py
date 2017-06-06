@@ -1292,11 +1292,18 @@ def getListAccesibility(filterLock, flag, code):
 
 def getFloodForecast(request, filterLock, flag, code):
     response = getCommonUse(request, flag, code)
-    YEAR = datetime.datetime.utcnow().strftime("%Y")
-    MONTH = datetime.datetime.utcnow().strftime("%m")
-    DAY = datetime.datetime.utcnow().strftime("%d")
+    
+    includeDetailState = True
+    if 'date' in request.GET:
+        curdate = datetime.datetime(int(request.GET['date'].split('-')[0]), int(request.GET['date'].split('-')[1]), int(request.GET['date'].split('-')[2]), 00, 00) 
+        includeDetailState = False
+    else:
+        curdate = datetime.datetime.utcnow()
 
-    reverse_date = datetime.datetime.utcnow() - datetime.timedelta(days=1)
+    YEAR = curdate.strftime("%Y")
+    MONTH = curdate.strftime("%m")
+    DAY = curdate.strftime("%d")
+    reverse_date = curdate - datetime.timedelta(days=1)
 
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
     targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and marshland'))
@@ -1317,14 +1324,16 @@ def getFloodForecast(request, filterLock, flag, code):
     for i in glofas_parent:
         response['glofas_'+i]=glofas_parent[i]
 
-    data = getProvinceSummary(filterLock, flag, code)
-    response['lc_child']=data
 
-    data = getProvinceSummary_glofas(filterLock, flag, code, reverse_date.strftime("%Y"), reverse_date.strftime("%m"), reverse_date.strftime("%d"), False)
-    response['glofas_child']=data
+    if includeDetailState:
+        data = getProvinceSummary(filterLock, flag, code)
+        response['lc_child']=data
 
-    data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY), True)
-    response['glofas_gfms_child']=data
+        data = getProvinceSummary_glofas(filterLock, flag, code, reverse_date.strftime("%Y"), reverse_date.strftime("%m"), reverse_date.strftime("%d"), False)
+        response['glofas_child']=data
+
+        data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY), True)
+        response['glofas_gfms_child']=data
 
     return response
 
@@ -1336,7 +1345,7 @@ def getAvalancheForecast(request, filterLock, flag, code):
     for i in rawAvalancheRisk:
         response[i]=rawAvalancheRisk[i]
 
-    rawAvalancheForecast = getRawAvalancheForecast(filterLock, flag, code)
+    rawAvalancheForecast = getRawAvalancheForecast(request, filterLock, flag, code)
 
     for i in rawAvalancheForecast:
         response[i]=rawAvalancheForecast[i]
@@ -1370,22 +1379,32 @@ def getAvalancheForecast(request, filterLock, flag, code):
     data4.append(['',response['Population']-response['ava_forecast_low_pop']])
     response['low_pop_forecast_chart'] = gchart.PieChart(SimpleDataSource(data=data4), html_id="pie_chart4", options={'title':'', 'width': 135,'height': 135, 'pieSliceText': 'number', 'pieSliceTextStyle': 'black','legend': 'none', 'pieHole': 0.75, 'slices':{0:{'color':'red'},1:{'color':'grey'}}, 'pieStartAngle': 270, 'tooltip': { 'trigger': 'none' }, })
 
-    data = getProvinceSummary(filterLock, flag, code)
+    if 'date' not in request.GET:
+        data = getProvinceSummary(filterLock, flag, code)
 
-    for i in data:
-        i['total_pop_forecast_percent'] = int(round(i['total_ava_forecast_pop']/i['Population']*100,0))
-        i['high_pop_forecast_percent'] = int(round(i['ava_forecast_high_pop']/i['Population']*100,0))
-        i['med_pop_forecast_percent'] = int(round(i['ava_forecast_med_pop']/i['Population']*100,0))
-        i['low_pop_forecast_percent'] = int(round(i['ava_forecast_low_pop']/i['Population']*100,0))
+        for i in data:
+            i['total_pop_forecast_percent'] = int(round(i['total_ava_forecast_pop']/i['Population']*100,0))
+            i['high_pop_forecast_percent'] = int(round(i['ava_forecast_high_pop']/i['Population']*100,0))
+            i['med_pop_forecast_percent'] = int(round(i['ava_forecast_med_pop']/i['Population']*100,0))
+            i['low_pop_forecast_percent'] = int(round(i['ava_forecast_low_pop']/i['Population']*100,0))
 
-    response['lc_child']=data
+        response['lc_child']=data
 
     return response
 
-def getRawAvalancheForecast(filterLock, flag, code):
-    YEAR = datetime.datetime.utcnow().strftime("%Y")
-    MONTH = datetime.datetime.utcnow().strftime("%m")
-    DAY = datetime.datetime.utcnow().strftime("%d")
+def getRawAvalancheForecast(request, filterLock, flag, code):
+
+    includeDetailState = True
+    if 'date' in request.GET:
+        curdate = datetime.datetime(int(request.GET['date'].split('-')[0]), int(request.GET['date'].split('-')[1]), int(request.GET['date'].split('-')[2]), 00, 00) 
+        includeDetailState = False
+    else:
+        curdate = datetime.datetime.utcnow()
+
+    YEAR = curdate.strftime("%Y")
+    MONTH = curdate.strftime("%m")
+    DAY = curdate.strftime("%d")
+
     response = {}
 
     # Avalanche Forecasted
