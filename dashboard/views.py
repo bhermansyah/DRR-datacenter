@@ -102,9 +102,9 @@ def dashboard_detail(request):
 			client.setPageWidth('8.3in')
 			client.setPageHeight('11.7in')
 			# client.setPageMargins('1in', '1in', '1in', '1in')
-			client.setVerticalMargin("0.5in")
+			client.setVerticalMargin("0.70in")
 			client.setHorizontalMargin("0.25in")
-			client.setHeaderUrl('http://asdc.immap.org/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string)
+			client.setHeaderUrl('http://asdc.immap.org/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string)
 			# convert a web page and store the generated PDF to a variable
 			pdf = client.convertURI('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id))
 			 # set HTTP response headers
@@ -182,7 +182,7 @@ def dashboard_multiple(request):
 		# client.setPageMargins('1in', '1in', '1in', '1in')
 		client.setVerticalMargin("0.5in")
 		client.setHorizontalMargin("0.25in")
-		client.setHeaderUrl('http://'+a+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization+'&isodate='+date_string)
+		client.setHeaderUrl('http://'+a+'/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization+'&isodate='+date_string)
 		# convert a web page and store the generated PDF to a variable
 		merger = PdfFileMerger()
 		for i in data['urls'].split(','):
