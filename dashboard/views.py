@@ -20,6 +20,10 @@ from django.utils.formats import dateformat
 
 from django.conf import settings
 
+import pdfcrowd
+from PyPDF2 import PdfFileMerger, PdfFileReader
+from StringIO import StringIO
+
 def common(request):
 	response = {}
 	code = None
@@ -83,7 +87,6 @@ def common(request):
 	return response
 
 # Create your views here.
-import pdfcrowd
 def dashboard_detail(request):
 	# print request.GET['page']
 
@@ -104,7 +107,6 @@ def dashboard_detail(request):
 			client.setHeaderUrl('http://asdc.immap.org/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string)
 			# convert a web page and store the generated PDF to a variable
 			pdf = client.convertURI('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id))
-
 			 # set HTTP response headers
 			response = HttpResponse(mimetype="application/pdf")
 			response["Cache-Control"] = "no-cache"
@@ -113,6 +115,8 @@ def dashboard_detail(request):
 
 			# send the generated PDF
 			response.write(pdf)
+			
+
 		except pdfcrowd.Error, why:
 			options = {
 			    'quiet': '',
@@ -166,38 +170,65 @@ def dashboard_multiple(request):
 	data = request.POST
 	a = request.META.get('HTTP_HOST')
 
-	options = {
-	    'quiet': '',
-	    'page-size': 'A4',
-	    # 'margin-left': 10,
-	    # 'margin-right': 10,
-	    'margin-bottom':10,
-	    'margin-top':25,
-	    # 'viewport-size':'800x600',
-	    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization,
-		# 'lowquality':'-',
-	    # 'disable-smart-shrinking':'-',
-	    # 'print-media-type':'-',
-	    # 'no-stop-slow-scripts':'-',
-	    # 'enable-javascript':'-',
-	    'javascript-delay': 25000,
-	    # 'window-status': 'ready',
-	    'encoding': "UTF-8",
-	}
+	try:
+		a = 'asdc.immap.org'
+		print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
+		date_string = dateformat.format(datetime.now(), "Y-m-d")
 
-	# print data['urls']
-	for i in data['urls'].split(','):
-		if i is not None and i != '':
-			urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
+		# create an API client instance
+		client = pdfcrowd.Client(getattr(settings, 'PDFCROWD_UNAME'), getattr(settings, 'PDFCROWD_UPASS'))
+		client.setPageWidth('8.3in')
+		client.setPageHeight('11.7in')
+		# client.setPageMargins('1in', '1in', '1in', '1in')
+		client.setVerticalMargin("0.5in")
+		client.setHorizontalMargin("0.25in")
+		client.setHeaderUrl('http://'+a+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization+'&isodate='+date_string)
+		# convert a web page and store the generated PDF to a variable
+		merger = PdfFileMerger()
+		for i in data['urls'].split(','):
+			if i is not None and i != '':
+				# urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
+				pdf = client.convertURI(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
+				merger.append(StringIO(pdf))
+		
+		 # set HTTP response headers
+		response = HttpResponse(mimetype="application/pdf")
+		response["Cache-Control"] = "no-cache"
+		response["Accept-Ranges"] = "none"
+		response["Content-Disposition"] = 'attachment; filename="'+data['fileName']+'.pdf"'
+		
+		# send the generated PDF
+		merger.write(response)
+		return response
 
-	# print urls
+	except pdfcrowd.Error, why:
+		options = {
+		    'quiet': '',
+		    'page-size': 'A4',
+		    # 'margin-left': 10,
+		    # 'margin-right': 10,
+		    'margin-bottom':10,
+		    'margin-top':25,
+		    # 'viewport-size':'800x600',
+		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization,
+			# 'lowquality':'-',
+		    # 'disable-smart-shrinking':'-',
+		    # 'print-media-type':'-',
+		    # 'no-stop-slow-scripts':'-',
+		    # 'enable-javascript':'-',
+		    'javascript-delay': 25000,
+		    # 'window-status': 'ready',
+		    'encoding': "UTF-8",
+		}
 
-	# pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
-	pdf = pdfkit.from_url(urls, False, options=options)
-	resp = HttpResponse(pdf,content_type='application/pdf')
-	resp['Content-Disposition'] = 'attachment; filename="'+data['fileName']+'.pdf"'
-	return resp
-	# return HttpResponse({}, mimetype='application/json')
+		for i in data['urls'].split(','):
+			if i is not None and i != '':
+				urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
+
+		pdf = pdfkit.from_url(urls, False, options=options)
+		resp = HttpResponse(pdf,content_type='application/pdf')
+		resp['Content-Disposition'] = 'attachment; filename="'+data['fileName']+'.pdf"'
+		return resp
 
 def classmarkerRedirect(request):
 	return redirect('https://www.classmarker.com/online-test/start/?quiz=mft579f02fe604fb&cm_user_id='+request.user.username+'&cm_fn='+request.user.first_name+'&cm_ln='+request.user.last_name+'&cm_e='+request.user.email)

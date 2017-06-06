@@ -39,8 +39,8 @@ class RadarChart(BaseMatplotlibChart):
 
     def get_image(self):
     	custom_style = Style(
-		  background='transparent',
-		  plot_background='transparent',
+		  background='#ffffff',
+		  plot_background='#ffffff',
 		  # foreground='#53E89B',
 		  # foreground_strong='#53A0E8',
 		  # foreground_subtle='#630C0D',
