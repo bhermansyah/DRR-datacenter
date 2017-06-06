@@ -102,7 +102,7 @@ def dashboard_detail(request):
 			client.setPageWidth('8.3in')
 			client.setPageHeight('11.7in')
 			# client.setPageMargins('1in', '1in', '1in', '1in')
-			client.setVerticalMargin("0.70in")
+			client.setVerticalMargin("0.75in")
 			client.setHorizontalMargin("0.25in")
 			client.setHeaderUrl('http://asdc.immap.org/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string)
 			# convert a web page and store the generated PDF to a variable
@@ -180,7 +180,7 @@ def dashboard_multiple(request):
 		client.setPageWidth('8.3in')
 		client.setPageHeight('11.7in')
 		# client.setPageMargins('1in', '1in', '1in', '1in')
-		client.setVerticalMargin("0.5in")
+		client.setVerticalMargin("0.75in")
 		client.setHorizontalMargin("0.25in")
 		client.setHeaderUrl('http://'+a+'/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization+'&isodate='+date_string)
 		# convert a web page and store the generated PDF to a variable
