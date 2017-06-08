@@ -18,6 +18,7 @@ from geodb.models import AfgAdmbndaAdm2
 from geodb.models import AfgPplp, AfgPpla
 # from django.contrib.auth.models import User
 
+import json
 from datetime import datetime, timedelta
 from securitydb.includes import *
 
@@ -62,15 +63,38 @@ class SecureFeatureForm(ModelForm):
 
 	class Meta:
 		model = SecureFeature
-		fields = ('id', 'scre_notes', 'scre_username'
-			, 'scre_provid', 'scre_distid', 'scre_settvuid', 'scre_placename'
-			, 'scre_latitude', 'scre_longitude'
-			, 'scre_incidenttimestr', 'scre_incidentdatestr', 'scre_sourceid'
-			, 'scre_eventid', 'scre_incidenttarget'
-			, 'scre_violent', 'scre_unknown', 'scre_arrested', 'scre_injured', 'scre_dead'
-			, 'scre_incidentdate', 'mpoint'
-			, 'userid', 'entrydatetime', 'recstatus', 'userud', 'updatedatetime'
-			, 'scre_sourcename', 'scre_eventname', 'scre_incidenttargetname', 'scre_provname', 'scre_distname'
+		fields = (
+			'id',
+			'scre_notes',
+			'scre_username',
+			'scre_provid',
+			'scre_distid',
+			'scre_settvuid',
+			'scre_placename',
+			'scre_latitude',
+			'scre_longitude',
+			'scre_incidenttimestr',
+			'scre_incidentdatestr',
+			'scre_sourceid',
+			'scre_eventid',
+			'scre_incidenttarget',
+			'scre_violent',
+			'scre_unknown',
+			'scre_arrested',
+			'scre_injured',
+			'scre_dead',
+			# 'scre_incidentdate',
+			# 'mpoint',
+			# 'userid',
+			# 'entrydatetime',
+			'recstatus'
+			# 'userud',
+			# 'updatedatetime',
+			# 'scre_sourcename',
+			# 'scre_eventname',
+			# 'scre_incidenttargetname',
+			# 'scre_provname',
+			# 'scre_distname'
 		)
 
 		widgets = {
@@ -133,12 +157,16 @@ class SecureFeatureForm(ModelForm):
 		else:
 			self.fields['scre_distid'].widget.attrs['disabled'] = 'disabled'
 		if (self.initial['scre_distid']):
-			self.fields['scre_settvuid'].choices = self.queryset_to_choices(AfgPpla.objects.filter(dist_code=self.initial['scre_distid']), 'vuid', 'name_en')
+			# self.fields['scre_settvuid'].choices = self.queryset_to_choices(AfgPplp.objects.filter(dist_code=self.initial['scre_distid'], vuid__isnull=False), 'ogc_fid', 'name_en')
+			self.fields['scre_settvuid'].choices = self.queryset_to_choices(AfgPplp.objects.filter(dist_code=self.initial['scre_distid']), 'ogc_fid', 'name_en')
+			queryset = AfgPplp.objects.filter(dist_code=self.initial['scre_distid'])
+			datalonlat = [[row.ogc_fid, row.vuid, row.name_en, row.lon_x, row.lat_y] for row in queryset]
+			self.fields['scre_settvuid'].widget.attrs['data-lonlat'] = json.dumps(datalonlat)
 		else:
 			self.fields['scre_settvuid'].widget.attrs['disabled'] = 'disabled'
 		if self.initial['recstatus'] is None:
 			self.initial['recstatus'] = 1
-			
+
 		# put here because dynamic content, where as class meta is cached
 		self.fields['scre_incidentdatestr'].widget.options['maxDate'] = datetime.now().strftime('%Y-%m-%d')
 

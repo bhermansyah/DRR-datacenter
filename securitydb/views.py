@@ -40,6 +40,15 @@ def get_settlements(request, chosen_dist_code, toResponse=True):
     else:
         return settlement_list
 
+def get_settlements2(request, chosen_dist_code, toResponse=True):
+    # settlement = AfgPplp.objects.all().filter(dist_code=chosen_dist_code, vuid__isnull=False).order_by('name_en')
+    settlement = AfgPplp.objects.all().filter(dist_code=chosen_dist_code).order_by('name_en')
+    settlement_list = [[sett.ogc_fid, sett.vuid, sett.name_en, sett.lon_x, sett.lat_y] for sett in settlement]
+    if (toResponse):
+        return HttpResponse(simplejson.dumps(settlement_list), mimetype="application/json")
+    else:
+        return settlement_list
+
 def toggle_approve(request, record_id):
     data = {}
     sec_record = SecureFeature.objects.get(id=record_id)
@@ -52,6 +61,8 @@ def toggle_approve(request, record_id):
             data['success'] = True
             data['key'] = sec_record.recstatus = recstatus_choices_toggleable[new_key][0]
             data['rec_status_text'] = recstatus_choices_toggleable[new_key][1];
+            sec_record.userud = request.user.id
+            sec_record.updatedatetime = datetime.datetime.today()
             sec_record.save()
             break
     return HttpResponse(simplejson.dumps(data), mimetype="application/json")
@@ -59,19 +70,40 @@ def toggle_approve(request, record_id):
 def geoadm_from_lonlat(request):
     pnt_wkt = 'POINT('+request.GET['lon']+' '+request.GET['lat']+')'
     settlement = AfgPpla.objects.all().filter(wkb_geometry__contains=pnt_wkt).order_by('name_en')
+    area_dict = {}
     if settlement.count() > 0:
-        settlement_dict = {}
-        settlement_dict['vuid'] = settlement[0].vuid
-        settlement_dict['name_en'] = settlement[0].name_en
-        settlement_dict['prov_code'] = settlement[0].prov_code
-        settlement_dict['prov_na_en'] = settlement[0].prov_na_en
-        settlement_dict['dist_code'] = settlement[0].dist_code
-        settlement_dict['dist_na_en'] = settlement[0].dist_na_en
-        settlement_dict['dist_list'] = get_districts(None, settlement[0].prov_code, toResponse=False)
-        settlement_dict['sett_list'] = get_settlements(None, settlement[0].dist_code, toResponse=False)
-        return HttpResponse(simplejson.dumps(settlement_dict), mimetype="application/json")
+        area_dict['vuid'] = settlement[0].vuid
+        area_dict['name_en'] = settlement[0].name_en
+        area_dict['prov_code'] = settlement[0].prov_code
+        area_dict['prov_na_en'] = settlement[0].prov_na_en
+        area_dict['dist_code'] = settlement[0].dist_code
+        area_dict['dist_na_en'] = settlement[0].dist_na_en
+        area_dict['dist_list'] = get_districts(None, settlement[0].prov_code, toResponse=False)
+        area_dict['sett_list'] = get_settlements2(None, settlement[0].dist_code, toResponse=False)
     else:
-        return false
+        # fallback to district area
+        print 'fallback to district area'
+        district = AfgAdmbndaAdm2.objects.filter(wkb_geometry__contains=pnt_wkt).order_by('dist_na_en')
+        if district.count() > 0:
+            area_dict['prov_code'] = district[0].prov_code
+            area_dict['prov_na_en'] = district[0].prov_na_en
+            area_dict['dist_code'] = district[0].dist_code
+            area_dict['dist_na_en'] = district[0].dist_na_en
+            area_dict['dist_list'] = get_districts(None, district[0].prov_code, toResponse=False)
+            area_dict['sett_list'] = get_settlements2(None, district[0].dist_code, toResponse=False)
+        else:
+            # fallback to province area
+            print 'fallback to province area'
+            province = AfgAdmbndaAdm1.objects.filter(wkb_geometry__contains=pnt_wkt).order_by('prov_na_en')
+            if province.count() > 0:
+                area_dict['prov_code'] = province[0].prov_code
+                area_dict['prov_na_en'] = province[0].prov_na_en
+                area_dict['dist_list'] = get_districts(None, province[0].prov_code, toResponse=False)
+            else:
+                print 'Not found in Afghanistan area!'
+                area_dict['message'] = 'Not found in Afghanistan area!'
+
+    return HttpResponse(simplejson.dumps(area_dict), mimetype="application/json")
 
 def scresysls(request):
 	# instance = SecureFeature()
@@ -144,96 +176,97 @@ def scresysed(request, criteria_id=None):
     editmode = True if (criteria_id) else False
     if editmode:
     	instance = SecureFeature.objects.get(id=criteria_id)
-    else:
-    	instance = SecureFeature()
-        initial['scre_username'] = request.user.username
 
-    # current user is not entry creator flag
-    notcreator = True if request.user.username != instance.scre_username else False
+    	# vuid to ogc_fid, scre_settvuid is saved as vuid but displayed as ogc_fid
+    	sett = AfgPplp.objects.get(vuid=instance.scre_settvuid)
+    	instance.scre_settvuid = sett.ogc_fid
+    else: # new entry mode
+    	instance = SecureFeature()
+    	initial['scre_username'] = request.user.username
+    	# initial['recstatus'] = 1 # default
+
+    # current user is entry creator flag
+    iscreator = False if editmode and request.user.username != instance.scre_username else True
 
     # has_delete_right flag
     has_delete_right = ('geodb.delete_afgincidentoasis' in request.user.get_all_permissions())
 
     # disable fields flag
-    entriesdisabled = True if not has_delete_right and editmode and notcreator else False
+    readonly = True if not has_delete_right and editmode and not iscreator else False
 
     if request.POST:
-        mutable = request.POST._mutable
-        request.POST._mutable = True
 
-        # set 'scre_username' on first entry only
-        if (instance.scre_username):
-            request.POST['scre_username'] = instance.scre_username
-        else:
-            request.POST['scre_username'] = request.user.username
+        # pass values for form validation
+        initial['scre_provid'] = request.POST['scre_provid']
+        initial['scre_distid'] = request.POST['scre_distid']
 
-        # new entry
-        if (request.POST.get('recstatus', False) == False):
-            request.POST['recstatus'] = 1
+        form = SecureFeatureForm(request.POST, instance=instance, initial=initial)
 
-        # if no recstatus get it from instance
-        if (editmode and not has_delete_right):
-            request.POST['recstatus'] = instance.recstatus
+        # exclude username input field to prevent altering
+        del form.fields['scre_username']
 
-        request.POST._mutable = mutable
-        # initial={
-        #     'scre_provid': request.POST.get('scre_provid'),
-        #     'scre_distid': request.POST.get('scre_distid'),
-        #     'scre_settvuid': request.POST.get('scre_settvuid'), 'scre_username':request.user.username,
-        #     'user':request.user
-        #     }
-        data=request.POST
-        initial=data.dict()
-        form = SecureFeatureForm(data=data, instance=instance, initial=initial)
+        # exclude recstatus field if common user
+        if not has_delete_right:
+            del form.fields['recstatus']
+
         if form.is_valid():
+
+        	# ogc_fid to vuid, do this after form validation to avoid error
+        	settp = AfgPplp.objects.get(ogc_fid=request.POST['scre_settvuid'])
+        	if (settp.vuid):
+        		vuid = settp.vuid
+        	else:
+        		pnt_wkt = 'POINT('+str(settp.lon_x)+' '+str(settp.lat_y)+')'
+        		setta = AfgPpla.objects.get(wkb_geometry__contains=pnt_wkt)
+        		vuid = setta.vuid
+
         	frm_incdtstr=request.POST.get('scre_incidentdatestr', '')
         	frm_inctmstr=request.POST.get('scre_incidenttimestr', '')
         	frm_lat = request.POST.get('scre_latitude', '0')
         	frm_lon = request.POST.get('scre_longitude', '0')
 
-        	obj = form.save(commit=False)
+        	obj = form.save(commit=False) # use this to assign values to excluded fields
         	obj.scre_incidentdate = frm_incdtstr + " " + frm_inctmstr
         	obj.mpoint = fromstr('Point(' + frm_lon + ' ' + frm_lat + ')')
-        	if not obj.id:
-        		obj.userud = 1
+        	obj.scre_settvuid = vuid
+        	if obj.id: # edit existing
+        		obj.userud = request.user.id
         		obj.updatedatetime = datetime.datetime.today()
-        	else:
-        		obj.userid = 1
+        		if not has_delete_right: # for regular user edit will set recstatus to 1
+        		    obj.recstatus = 1
+        	else: # is new entry
+        		obj.scre_username = request.user.username
+        		obj.userid = request.user.id
         		obj.entrydatetime = datetime.datetime.today()
         	if obj.recstatus is None:
         		obj.recstatus = 1
 
-        	form.mpoint = fromstr('Point(' + frm_lon + ' ' + frm_lat + ')')
-
         	form.save()
-        	return HttpResponseRedirect('/securitydb/list/')
 
+        	return HttpResponseRedirect('/securitydb/list/')
+        else:
+        	print '\n', 'form not valid'
+        	formerrors =  dict(form.errors.items())
+        	for key in formerrors:
+        		print '%s: %s' % (key, formerrors[key].as_text())
     else:
         form = SecureFeatureForm(instance=instance, initial=initial)
 
-    #  if not has_delete_right hide recstatus field
+    #  exclude recstatus field if not has_delete_right
     if not has_delete_right: # is common user
-    	form.fields['recstatus'].widget = forms.HiddenInput()
+        if 'recstatus' in form.fields:
+            del form.fields['recstatus']
 
-    # disable fields if entriesdisabled
-    if (entriesdisabled):
-        for key, field in form.fields.iteritems(): # disable fields
-            # field.disabled = True
-            # field.widget.attrs['readonly'] = True
+    # disable input fields if readonly
+    if (readonly):
+        for key, field in form.fields.iteritems():
             field.widget.attrs['disabled'] = 'disabled'
 
-    # render_to_response is likely to be deprecated in the future
-    # return render_to_response(
-    #     'editform.html',
-    #     {'form': form,},
-    #     context_instance=RequestContext(request)
-    # )
     return render(
         request,
         'editform.html',
-        {'form': form, 'entriesdisabled': entriesdisabled}
+        {'form': form, 'readonly': readonly}
     )
-
 
 # this is your page
 def scresysinpoint(request):
