@@ -34968,7 +34968,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         // }
         var currentdate = new Date();
         var mapFileName   = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_map_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
-        var statsFileName = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_statistics_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
+        var statsFileName = 'iMMAP_AFG_'+this.customParams.mapTitle+'_'+this.layout.get("name")+'_map_and_statistics_'+currentdate.getFullYear()+'-'+(currentdate.getMonth()+1)+'-'+currentdate.getDate();
         this.customParams.outputFilename = mapFileName;
         var jsonData = Ext.apply({
             units: map.getUnits(),
@@ -35143,9 +35143,6 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                                 return;
                             }
 
-                            // if (dashboard_url.length > 0)
-                            //             this.downloadFile('../../dashboard/multiple',dashboard_url);
-
                             Ext.Ajax.request({
                                 method: 'POST',
                                 url: this.capabilities.createURL,
@@ -35154,9 +35151,41 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                                 headers: {"Content-Type": "application/json; charset=" + this.encoding},
                                 success: function(response) {
                                     var url = Ext.decode(response.responseText).getURL;
-                                    this.download(url);
-                                    if (dashboard_url.length > 0)
-                                        this.downloadFile('../../dashboard/multiple',dashboard_url, statsFileName, this.customParams.mapTitle);
+                                    // this.download(url);
+                                    // if (dashboard_url.length > 0)
+                                    //     this.downloadFile('../../dashboard/multiple',dashboard_url, statsFileName, this.customParams.mapTitle);
+                                    if (dashboard_url.length > 0){
+
+                                        Ext.Ajax.request({
+                                            method: 'POST',
+                                            url: '../../dashboard/multiple',
+                                            timeout: this.timeout,
+                                            headers: {"Content-Type": "application/json; charset=" + this.encoding},
+                                            jsonData:{
+                                                'urls': dashboard_url,
+                                                'fileName' : statsFileName,
+                                                'mapTitle' : this.customParams.mapTitle,
+                                                'mapUrl' : url
+                                            },
+                                            success: function(response) {
+                                                
+                                                var merge_pdf_url = '../../dashboard/downloadPDFFile?filename='+Ext.decode(response.responseText).filename+'&filenameoutput='+statsFileName;
+
+                                                console.log(response,merge_pdf_url);
+
+                                                this.download(merge_pdf_url);
+                                                // if (dashboard_url.length > 0)
+                                                //     this.downloadFile('../../dashboard/multiple',dashboard_url, statsFileName, this.customParams.mapTitle);
+                                            },
+                                            failure: function(response) {
+                                                this.fireEvent("printexception", this, response);
+                                            },
+                                            scope: this
+                                        });
+                                    } else {
+                                        this.download(url);
+                                    }
+
                                 },
                                 failure: function(response) {
                                     this.fireEvent("printexception", this, response);

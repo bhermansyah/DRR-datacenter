@@ -23,6 +23,7 @@ from django.conf import settings
 import pdfcrowd
 from PyPDF2 import PdfFileMerger, PdfFileReader
 from StringIO import StringIO
+import urllib2, urllib
 
 def common(request):
 	response = {}
@@ -167,7 +168,8 @@ def get_provinces(request):
 @csrf_exempt
 def dashboard_multiple(request):
 	urls = []
-	data = request.POST
+	# data = request.POST
+	data = json.loads(request.body)
 	a = request.META.get('HTTP_HOST')
 
 	try:
@@ -184,22 +186,34 @@ def dashboard_multiple(request):
 		client.setHorizontalMargin("0.25in")
 		client.setHeaderUrl('http://'+a+'/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization+'&isodate='+date_string)
 		# convert a web page and store the generated PDF to a variable
+
+		# get map pdf
+		req = urllib2.Request(data['mapUrl'])
+		req.add_unredirected_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.107 Safari/537.36')
+		fh = urllib2.urlopen(req)
+		f = fh.read()
+
 		merger = PdfFileMerger()
-		for i in data['urls'].split(','):
+
+		merger.append(StringIO(f))
+
+		for i in data['urls']:
 			if i is not None and i != '':
 				# urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
 				pdf = client.convertURI(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
 				merger.append(StringIO(pdf))
 		
 		 # set HTTP response headers
-		response = HttpResponse(mimetype="application/pdf")
-		response["Cache-Control"] = "no-cache"
-		response["Accept-Ranges"] = "none"
-		response["Content-Disposition"] = 'attachment; filename="'+data['fileName']+'.pdf"'
+		# response = HttpResponse(mimetype="application/pdf")
+		# response["Cache-Control"] = "no-cache"
+		# response["Accept-Ranges"] = "none"
+		# response["Content-Disposition"] = 'attachment; filename="'+data['fileName']+'.pdf"'
 		
 		# send the generated PDF
-		merger.write(response)
-		return response
+		# merger.write(response)
+		# return response
+		merger.write(getattr(settings, 'PRINT_CACHE_PATH')+data['mapUrl'].split('/')[-1])
+		return HttpResponse(json.dumps({'filename':data['mapUrl'].split('/')[-1]}), mimetype='application/json')
 
 	except pdfcrowd.Error, why:
 		options = {
@@ -221,14 +235,37 @@ def dashboard_multiple(request):
 		    'encoding': "UTF-8",
 		}
 
-		for i in data['urls'].split(','):
+		# f = urllib.request.urlopen(data['mapUrl']).read()
+		req = urllib2.Request(data['mapUrl'])
+		req.add_unredirected_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.107 Safari/537.36')
+		fh = urllib2.urlopen(req)
+		f = fh.read()
+
+		merger = PdfFileMerger()
+		merger.append(StringIO(f))
+
+		for i in data['urls']:
 			if i is not None and i != '':
 				urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
 
 		pdf = pdfkit.from_url(urls, False, options=options)
-		resp = HttpResponse(pdf,content_type='application/pdf')
-		resp['Content-Disposition'] = 'attachment; filename="'+data['fileName']+'.pdf"'
-		return resp
+		merger.append(StringIO(pdf))
+
+
+		# resp = HttpResponse(pdf,content_type='application/pdf')
+		# resp = HttpResponse(mimetype="application/pdf")
+		# resp["Cache-Control"] = "no-cache"
+		# resp["Accept-Ranges"] = "none"
+		# resp['Content-Disposition'] = 'attachment; filename="'+data['fileName']+'.pdf"'
+
+		merger.write(getattr(settings, 'PRINT_CACHE_PATH')+data['mapUrl'].split('/')[-1])
+		return HttpResponse(json.dumps({'filename':data['mapUrl'].split('/')[-1]}), mimetype='application/json')
+
+def downloadPDFFile(request):
+	with open(getattr(settings, 'PRINT_CACHE_PATH')+request.GET['filename'], 'r') as pdf:
+		response = HttpResponse(pdf.read(),content_type='application/pdf')
+		response['Content-Disposition'] = 'attachment; filename="'+request.GET['filenameoutput']+'.pdf"'
+        return response
 
 def classmarkerRedirect(request):
 	return redirect('https://www.classmarker.com/online-test/start/?quiz=mft579f02fe604fb&cm_user_id='+request.user.username+'&cm_fn='+request.user.first_name+'&cm_ln='+request.user.last_name+'&cm_e='+request.user.email)
