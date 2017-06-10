@@ -89684,7 +89684,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     /** api: config[emptyCommentText] ``String`` i18n */
     emptyCommentText: gettext("Enter comments here."),
     /** api: config[creatingPdfText] ``String`` i18n */
-    creatingPdfText: gettext("Creating PDF..."),
+    creatingPdfText: gettext("Creating PDF...\n This can take a few minutes"),
     /* end i18n */
 
     /** api: config[printProvider]
@@ -89841,7 +89841,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
             "render": function() {
                 if (!this.busyMask) {
                     this.busyMask = new Ext.LoadMask(this.getEl(), {
-                        msg: this.creatingPdfText
+                        msg: gettext("Creating PDF...<br/>This can take a few minutes"),//this.creatingPdfText
                     });
                 }
                 this.printProvider.on({
