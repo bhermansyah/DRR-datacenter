@@ -1990,7 +1990,7 @@ def runGlofasDownloader():
         d += delta
 
 def getWeatherInfoVillages(request):
-    template = './weatherInfo.html'
+    template = './weatherinfo.html'
     context_dict = {}
     # village = request.GET["v"]
 
