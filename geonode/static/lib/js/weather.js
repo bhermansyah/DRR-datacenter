@@ -5145,90 +5145,90 @@ MapOptions %= function(A, B, I, k) {
                 } : k
             },
             mk: function(a, b, c, f, e) {
-                function g() {
-                    for (var c = new Float64Array(256), f = new Float64Array(256), d = 0; 256 > d; d++) f[d] = l.xf((256 * b + d) / B) * p - q - ha, c[d] =
-                        (256 * a + d) / B * m - t - w;
-                    e(ra, S, c, f)
-                }
-                var h = D[f.od].Kd[f.gd].size || D[f.od].size;
-                if (5 > c) var n = Da,
-                    m = Da.width,
-                    p = Da.height;
-                else n = Ua, m = h.width, p = h.height;
-                var q = 0,
-                    t = 0,
-                    r = !0,
-                    x = k.ceil(m / n.width),
-                    z = k.ceil(p / n.height);
-                h.kf && (p *= 180 / (h.kf - h.Ji), q = p * (90 - h.kf) / 180);
-                h.Ik && (m *= 360 / (h.Ik - h.Jk), t = m * (180 + h.Jk) / 360, r = !1);
-                var B = 512 * (1 << c),
-                    h = B / 256;
-                if (!0 === D[f.od].Kd[f.gd].Sd || D[f.od].Sd) a = fa(a + h / 2, 2 * (1 << c));
-                var w = k.floor(a / h * m - t - 1),
-                    V = k.ceil((a + 1) / h * m - t + 2),
-                    ha = k.floor(l.xf(b / h) * p - q - 1),
-                    oa = k.ceil(l.xf((b + 1) / h) * p - q + 2),
-                    S = V - w,
-                    T = oa -
-                    ha,
-                    N = S * T;
-                c = 0;
-                var h = 1,
-                    na = 0,
-                    ga = 1;
-                1 != x && (r ? (c = k.floor(fa(w, m) / n.width), h = k.ceil(fa(V, m) / n.width), c > h && (h += x)) : (c = k.max(k.floor(w / n.width), 0), h = k.min(k.ceil(V / n.width), x)));
-                1 != z && (na = k.max(k.floor(ha / n.height), 0), ga = k.min(k.ceil(oa / n.height), z));
-                var A = (h - c) * (ga - na),
-                    C = u[f.gd].A || function(a) {
-                        return a
-                    };
-                0 >= A && (setTimeout(g, 1), S = T = N = 1);
-                for (var ra = new Int32Array(N), F = U[f.gd].file, Q = f.od + (U[f.gd].wd || ""), r = na; r < ga; r++)
-                    for (V = c; V < h; V++)(function(a, b) {
-                        function c(f) {
-                            for (var d = a * n.width, h = b * n.height, e = k.min((a + 1) *
-                                    n.width, m), l = k.min((b + 1) * n.height, ha + T), v = a == x - 1 ? -1 : 0, p = 0 == a ? 2 : 1, q = k.max(h, ha); q < l; q++)
-                                for (var t = (q - ha) * S, r = (q - h) * n.width, G = v; G < p; G++)
-                                    for (var u = d + m * G, Q = k.min(e + m * G, w + S), z = k.max(u, w); z < Q; z++) ra[t + (z - w)] = f[r + z - u];
-                            --A || g()
-                        }
-                        var h = {
-                                model: Q,
-                                layer: F,
-                                time: f.time,
-                                tileX: a,
-                                tileY: b,
-                                cache: String(D[f.od].end).replace(/0+$/, "")
-                            },
-                            h = d.Pc(n.path, h);
-                        if (E.Oe[h]) E.Oe[h].data ? c(E.Oe[h].data) : E.Oe[h].cf.push(c);
-                        else {
-                            var e = {
-                                cf: [c]
-                            };
-                            E.Oe[h] = e;
-                            E.mg.push(h);
-                            if (36 < E.mg.length) {
-                                var l = E.mg[0];
-                                E.Oe[l].cf.length = 0;
-                                delete E.Oe[l];
-                                E.mg.shift()
-                            }
-                            Array.isArray(h) ? d.zi(h, function(a) {
-                                for (var b = a.length, c = [], f = new Int32Array(a[0].length), d = 0; d < a[0].length; d++) {
-                                    for (var h = 0; h < b; h++) c[h] = a[h][d];
-                                    f[d] = 1E3 * C.apply(this, c)
-                                }
-                                e.data = f;
-                                for (d = 0; d < e.cf.length; d++) e.cf[d](f)
-                            }) : d.yi(h, function(a) {
-                                for (var b = new Int32Array(a.length), c = 0; c < a.length; c++) b[c] = 1E3 * C(a[c]);
-                                e.data = b;
-                                for (c = 0; c < e.cf.length; c++) e.cf[c](b)
-                            })
-                        }
-                    })(V % x, r % z)
+                // function g() {
+                //     for (var c = new Float64Array(256), f = new Float64Array(256), d = 0; 256 > d; d++) f[d] = l.xf((256 * b + d) / B) * p - q - ha, c[d] =
+                //         (256 * a + d) / B * m - t - w;
+                //     e(ra, S, c, f)
+                // }
+                // var h = D[f.od].Kd[f.gd].size || D[f.od].size;
+                // if (5 > c) var n = Da,
+                //     m = Da.width,
+                //     p = Da.height;
+                // else n = Ua, m = h.width, p = h.height;
+                // var q = 0,
+                //     t = 0,
+                //     r = !0,
+                //     x = k.ceil(m / n.width),
+                //     z = k.ceil(p / n.height);
+                // h.kf && (p *= 180 / (h.kf - h.Ji), q = p * (90 - h.kf) / 180);
+                // h.Ik && (m *= 360 / (h.Ik - h.Jk), t = m * (180 + h.Jk) / 360, r = !1);
+                // var B = 512 * (1 << c),
+                //     h = B / 256;
+                // if (!0 === D[f.od].Kd[f.gd].Sd || D[f.od].Sd) a = fa(a + h / 2, 2 * (1 << c));
+                // var w = k.floor(a / h * m - t - 1),
+                //     V = k.ceil((a + 1) / h * m - t + 2),
+                //     ha = k.floor(l.xf(b / h) * p - q - 1),
+                //     oa = k.ceil(l.xf((b + 1) / h) * p - q + 2),
+                //     S = V - w,
+                //     T = oa -
+                //     ha,
+                //     N = S * T;
+                // c = 0;
+                // var h = 1,
+                //     na = 0,
+                //     ga = 1;
+                // 1 != x && (r ? (c = k.floor(fa(w, m) / n.width), h = k.ceil(fa(V, m) / n.width), c > h && (h += x)) : (c = k.max(k.floor(w / n.width), 0), h = k.min(k.ceil(V / n.width), x)));
+                // 1 != z && (na = k.max(k.floor(ha / n.height), 0), ga = k.min(k.ceil(oa / n.height), z));
+                // var A = (h - c) * (ga - na),
+                //     C = u[f.gd].A || function(a) {
+                //         return a
+                //     };
+                // 0 >= A && (setTimeout(g, 1), S = T = N = 1);
+                // for (var ra = new Int32Array(N), F = U[f.gd].file, Q = f.od + (U[f.gd].wd || ""), r = na; r < ga; r++)
+                //     for (V = c; V < h; V++)(function(a, b) {
+                //         function c(f) {
+                //             for (var d = a * n.width, h = b * n.height, e = k.min((a + 1) *
+                //                     n.width, m), l = k.min((b + 1) * n.height, ha + T), v = a == x - 1 ? -1 : 0, p = 0 == a ? 2 : 1, q = k.max(h, ha); q < l; q++)
+                //                 for (var t = (q - ha) * S, r = (q - h) * n.width, G = v; G < p; G++)
+                //                     for (var u = d + m * G, Q = k.min(e + m * G, w + S), z = k.max(u, w); z < Q; z++) ra[t + (z - w)] = f[r + z - u];
+                //             --A || g()
+                //         }
+                //         var h = {
+                //                 model: Q,
+                //                 layer: F,
+                //                 time: f.time,
+                //                 tileX: a,
+                //                 tileY: b,
+                //                 cache: String(D[f.od].end).replace(/0+$/, "")
+                //             },
+                //             h = d.Pc(n.path, h);
+                //         if (E.Oe[h]) E.Oe[h].data ? c(E.Oe[h].data) : E.Oe[h].cf.push(c);
+                //         else {
+                //             var e = {
+                //                 cf: [c]
+                //             };
+                //             E.Oe[h] = e;
+                //             E.mg.push(h);
+                //             if (36 < E.mg.length) {
+                //                 var l = E.mg[0];
+                //                 E.Oe[l].cf.length = 0;
+                //                 delete E.Oe[l];
+                //                 E.mg.shift()
+                //             }
+                //             Array.isArray(h) ? d.zi(h, function(a) {
+                //                 for (var b = a.length, c = [], f = new Int32Array(a[0].length), d = 0; d < a[0].length; d++) {
+                //                     for (var h = 0; h < b; h++) c[h] = a[h][d];
+                //                     f[d] = 1E3 * C.apply(this, c)
+                //                 }
+                //                 e.data = f;
+                //                 for (d = 0; d < e.cf.length; d++) e.cf[d](f)
+                //             }) : d.yi(h, function(a) {
+                //                 for (var b = new Int32Array(a.length), c = 0; c < a.length; c++) b[c] = 1E3 * C(a[c]);
+                //                 e.data = b;
+                //                 for (c = 0; c < e.cf.length; c++) e.cf[c](b)
+                //             })
+                //         }
+                //     })(V % x, r % z)
             }
         };
     Y.prototype.vl = function(a) {
