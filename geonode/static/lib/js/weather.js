@@ -3741,32 +3741,32 @@ MapOptions %= function(A, B, I, k) {
             block: {},
             Df: [],
             Li: function(a, b, c, f) {
-                a = fa(a, 1 << c);
-                a = c + "/" + a + "/" + b;
-                var v = ca.block[a];
-                if (v) return v;
-                ca.block[a] = v = {
-                    loaded: 0
-                };
-                for (b = 0; c = ["land", "border"][b]; b++) v[c] = d.a("img"), v[c].onload = function() {
-                    this.onload = this.onerror = null;
-                    v.loaded++;
-                    3 == v.loaded && f()
-                }, v[c].onerror = function() {
-                    this.src = this.dk
-                }, v[c].src = ca.uh(c, a + ".png"), v[c].dk = ca.uh(c, "empty.png");
-                d.se(ca.uh("cities", a + ".js"), function(a) {
-                    try {
-                        v.cities = JSON.parse(a ||
-                            "[]")
-                    } catch (b) {
-                        v.cities = []
-                    }
-                    v.loaded++;
-                    3 == v.loaded && f()
-                });
-                ca.Df.push(a);
-                50 < ca.Df.length && (a = ca.block[ca.Df[0]], a.land.onload = a.land.onerror = a.border.onload = a.border.onerror = null, delete ca.block[ca.Df[0]], ca.Df.shift(), a = null)
+                // a = fa(a, 1 << c);
+                // a = c + "/" + a + "/" + b;
+                // var v = ca.block[a];
+                // if (v) return v;
+                // ca.block[a] = v = {
+                //     loaded: 0
+                // };
+                // for (b = 0; c = ["land", "border"][b]; b++) v[c] = d.a("img"), v[c].onload = function() {
+                //     this.onload = this.onerror = null;
+                //     v.loaded++;
+                //     3 == v.loaded && f()
+                // }, v[c].onerror = function() {
+                //     this.src = this.dk
+                // }, v[c].src = ca.uh(c, a + ".png"), v[c].dk = ca.uh(c, "empty.png");
+                // d.se(ca.uh("cities", a + ".js"), function(a) {
+                //     try {
+                //         v.cities = JSON.parse(a ||
+                //             "[]")
+                //     } catch (b) {
+                //         v.cities = []
+                //     }
+                //     v.loaded++;
+                //     3 == v.loaded && f()
+                // });
+                // ca.Df.push(a);
+                // 50 < ca.Df.length && (a = ca.block[ca.Df[0]], a.land.onload = a.land.onerror = a.border.onload = a.border.onerror = null, delete ca.block[ca.Df[0]], ca.Df.shift(), a = null)
             },
             uh: function(a, b) {
                 return Ta + a + "/" + b
