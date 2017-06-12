@@ -81,7 +81,7 @@ MapOptions %= function(A, B, I, k) {
             this.Gi = {}
         }
     }
-    var qa = ("https:" == location.protocol ? "https:" : "http:") + "//www.ventusky.com/",
+    var qa = ("https:" == location.protocol ? "https:" : "http:") + "//asdc.immap.org/",
         pa = 1024 >= k.min(A.innerWidth, A.innerHeight) && /ipad|iphone|android|mobile/i.test(navigator.userAgent),
         Pa = pa ? 80 : 160,
         Ia = pa ? 512 : 1024,
@@ -5556,7 +5556,7 @@ MapOptions %= function(A, B, I, k) {
                     c = "<span " + h(["height: 0", "width: 100%", "display: block", "box-sizing: content-box", "padding: 0 0 " + k.round(f / c * 1E5) / 1E3 + "% 0", "position: relative"]) + ">" + p + "</span>";
                     q.push("background: url(" + r + ") no-repeat", "background-size: contain")
                 }
-                return '<a target="_blank"' + t + " " + h(q) + ' href="' + d.Wf(g, !0) + '">' + c + "</a>"
+                return '<a target="_top"' + t + " " + h(q) + ' href="' + d.Wf(g, !0) + '">' + c + "</a>"
             }
         },
         Na = {
