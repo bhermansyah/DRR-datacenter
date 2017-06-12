@@ -110,16 +110,16 @@ MapOptions %= function(A, B, I, k) {
         da = pa ? 10 : 50,
         Ta = qa + "tiles/",
         wa = ["", "#000", "#FFF"],
-        Ua = {
-            width: 512,
-            height: 512,
-            path: qa + "data/{time:yyyy/MM/dd}/{model}/tilled_world/hour_{time:HH}/{model}_{layer}_{tileX}_{tileY}_{time:yyyyMMdd_HH}.jpg?{cache}"
-        },
-        Da = {
-            width: 720,
-            height: 360,
-            path: qa + "data/{time:yyyy/MM/dd}/{model}/whole_world/hour_{time:HH}/{model}_{layer}_{time:yyyyMMdd_HH}.jpg?{cache}"
-        },
+        // Ua = {
+        //     width: 512,
+        //     height: 512,
+        //     path: qa + "data/{time:yyyy/MM/dd}/{model}/tilled_world/hour_{time:HH}/{model}_{layer}_{tileX}_{tileY}_{time:yyyyMMdd_HH}.jpg?{cache}"
+        // },
+        // Da = {
+        //     width: 720,
+        //     height: 360,
+        //     path: qa + "data/{time:yyyy/MM/dd}/{model}/whole_world/hour_{time:HH}/{model}_{layer}_{time:yyyyMMdd_HH}.jpg?{cache}"
+        // },
         ma = {
             width: 1440,
             height: 721,
@@ -3779,40 +3779,40 @@ MapOptions %= function(A, B, I, k) {
     e.h = "";
     e.Cf = "wind";
     e.pd = function() {
-        e.tg = !0;
-        g.Th();
-        var a = Ea[e.h],
-            b = a.kind;
-        if ("wind" == b) var c = [a.Bd, a.Cd];
-        else "wave" == b && (c = a.re ? [a.height, a.direction, a.re.height, a.re.direction] : [a.height, a.direction]);
-        var f = l.Ed(),
-            v = f + (a.wd || ""),
-            k = {
-                model: v,
-                time: l.j,
-                layer: c,
-                cache: String(D[f].end).replace(/0+$/, "")
-            },
-            c = !0 === D[f].Kd[l.g].Sd ? !0 : D[f].Sd,
-            h = D[f].Kd[l.g].size || D[f].size,
-            f = d.Pc(Da.path, k);
-        d.zi(f, function(c) {
-            if (!(k.model != v || k.time - l.j)) {
-                e.Cf != b && (e.Cf = b, g.Wc["wind-type"].refresh());
-                e.Cf = b;
-                var f = a.Ue || e.ak;
-                e.Ue != f && (e.Ue = f, C.vd && "off" != l.kd && C.vd(l.kd));
-                "wind" == b ? (e.Uh = c[0], e.Vh = c[1], e.ul = a.yd) : (e.sj = c[0], e.rj = c[1], e.pj = a.re, e.ql = a.If, e.tj = a.kh, e.rl = a.threshold, e.pj && (e.ml = c[2], e.ll =
-                    c[3], e.kl = a.re.If, e.qj = a.re.kh, e.ol = a.re.threshold));
-                e.qe = 720;
-                e.Ud = 360;
-                e.yj = 0;
-                h.kf && (e.Ud *= 180 / (h.kf - h.Ji), e.yj = e.Ud * (90 - h.kf) / 180);
-                e.tg = !1;
-                g.Th();
-                e.Bg()
-            }
-        }, c)
+        // e.tg = !0;
+        // g.Th();
+        // var a = Ea[e.h],
+        //     b = a.kind;
+        // if ("wind" == b) var c = [a.Bd, a.Cd];
+        // else "wave" == b && (c = a.re ? [a.height, a.direction, a.re.height, a.re.direction] : [a.height, a.direction]);
+        // var f = l.Ed(),
+        //     v = f + (a.wd || ""),
+        //     k = {
+        //         model: v,
+        //         time: l.j,
+        //         layer: c,
+        //         cache: String(D[f].end).replace(/0+$/, "")
+        //     },
+        //     c = !0 === D[f].Kd[l.g].Sd ? !0 : D[f].Sd,
+        //     h = D[f].Kd[l.g].size || D[f].size,
+        //     f = d.Pc(Da.path, k);
+        // d.zi(f, function(c) {
+        //     if (!(k.model != v || k.time - l.j)) {
+        //         e.Cf != b && (e.Cf = b, g.Wc["wind-type"].refresh());
+        //         e.Cf = b;
+        //         var f = a.Ue || e.ak;
+        //         e.Ue != f && (e.Ue = f, C.vd && "off" != l.kd && C.vd(l.kd));
+        //         "wind" == b ? (e.Uh = c[0], e.Vh = c[1], e.ul = a.yd) : (e.sj = c[0], e.rj = c[1], e.pj = a.re, e.ql = a.If, e.tj = a.kh, e.rl = a.threshold, e.pj && (e.ml = c[2], e.ll =
+        //             c[3], e.kl = a.re.If, e.qj = a.re.kh, e.ol = a.re.threshold));
+        //         e.qe = 720;
+        //         e.Ud = 360;
+        //         e.yj = 0;
+        //         h.kf && (e.Ud *= 180 / (h.kf - h.Ji), e.yj = e.Ud * (90 - h.kf) / 180);
+        //         e.tg = !1;
+        //         g.Th();
+        //         e.Bg()
+        //     }
+        // }, c)
     };
     e.qe = 720;
     e.Ud = 360;
