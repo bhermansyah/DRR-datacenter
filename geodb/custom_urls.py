@@ -12,4 +12,5 @@ urlpatterns = patterns(
     url(r'^getWMS$', 'getWMS', name='getWMS'),
     url(r'^getGlofasChart$', 'getGlofasChart', name='getGlofasChart'),
     url(r'^getGlofasPointsJSON$', 'getGlofasPointsJSON', name='getGlofasPointsJSON'),
+    url(r'^weatherinfo$', 'getWeatherInfoVillages', name='getWeatherInfoVillages'),
 )

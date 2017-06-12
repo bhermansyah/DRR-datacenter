@@ -1988,3 +1988,28 @@ def runGlofasDownloader():
         get_nc_file_from_ftp(d.strftime("%Y-%m-%d"))
         calculate_glofas_params(d.strftime("%Y-%m-%d"))
         d += delta
+
+def getWeatherInfoVillages(request):
+    template = './weatherInfo.html'
+    context_dict = {}
+    # village = request.GET["v"]
+
+    # context_dict = getCommonVillageData(village)
+
+    # link = "https://www.ventusky.com/panel.php?link="+request.GET["x"]+";"+request.GET["y"]+"&lang=en-us&id="
+    # f = urllib.urlopen(link)
+    # myfile = f.read()
+    headers = {'Cookie':{}}
+    if 'parametr' in request.GET:
+        response = requests.get("https://www.ventusky.com/aside/forecast.ajax.php?parametr="+request.GET["parametr"]+"&lon="+request.GET["lon"]+"&lat="+request.GET["lat"]+"&tz=Asia/Kabul&lang=en-us", headers=headers) 
+        print "https://www.ventusky.com/aside/forecast.ajax.php?parametr="+request.GET["parametr"]+"&lon="+request.GET["lon"]+"&lat="+request.GET["lat"]+"&tz=Asia/Kabul&lang=en-us"
+        return HttpResponse(response.content)
+    else:
+        response = requests.get("https://www.ventusky.com/panel.php?link="+request.GET["x"]+";"+request.GET["y"]+"&lang=en-us&id=", headers=headers)
+    
+    response.cookies = {}
+    # print response.cookies
+    context_dict['htmlrsult'] = response.content
+
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))

@@ -1,0 +1,108 @@
+{% load i18n mathfilters %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+<!doctype html>
+
+
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
+<head>
+
+<!-- <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" /> -->
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Location - Weather Forecast Maps | Ventusky</title>
+    <!-- <link rel=stylesheet href="https://www.ventusky.com/app/style.css?1487631600"> -->
+    <link rel=stylesheet href="{{ STATIC_URL }}lib/css/weather.css">
+    
+    <meta name="description" content="Location - Weather forecast for 10 days, information from meteorological stations, webcams, sunrise and sunset, wind and precipitation maps for this place">
+    <meta name="keywords" content="weather, forecast, maps, wind, temperature, precipitation, rain, cloud, pressure, CAPE">
+    <meta name="application-name" content="Ventusky">
+    
+        
+    <meta property="og:image" content="https://www.ventusky.com/images/social.jpg">
+    		   
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@Ventuskycom">
+    <meta name="twitter:title" content="Location - Weather Forecast Maps | Ventusky">
+    <meta name="twitter:description" content="Location - Weather forecast for 10 days, information from meteorological stations, webcams, sunrise and sunset, wind and precipitation maps for this place">
+    <meta name="twitter:image" content="https://www.ventusky.com/images/social.jpg">
+		
+    <link rel="shortcut icon" href="https://www.ventusky.com/images/favicon.ico">
+    <link rel="apple-touch-icon" href="https://www.ventusky.com/images/custom_icon.png">
+    
+</head>
+<body>
+	<form id="header">
+        <h1><a href="./">Ventusky</a></h1>
+        <label>
+            <input name="q" />
+        </label>
+        <ul>
+            <li class="progress"></li>
+        </ul>
+    </form>
+    <menu>
+        <li>
+            <a href="about" id="menu-about" class="button">About</a>
+        </li>
+    </menu>
+
+	<script>
+var MapOptions = {
+  "lang": "en-us",
+  "lat": 34.5167,
+  "lon": 69.1833,
+  "zoom": 4,
+  "model": "auto",
+  "now":               Date.UTC(2017, 5, 10, 09),
+
+  "iconTimelineStart": Date.UTC(2016, 4, 1, 12),
+  "iconTimelineEnd":   Date.UTC(2017, 5, 13, 6),
+  "iconUpdated":       Date.UTC(2017, 5, 10, 0),
+  
+  "icon-waterTimelineStart": Date.UTC(2016, 4, 1, 12),
+  "icon-waterTimelineEnd":   Date.UTC(2017, 5, 16, 21),
+  "icon-waterUpdated":       Date.UTC(2017, 5, 10, 0),
+
+  "gfsTimelineStart":  Date.UTC(2016, 4, 1, 12),
+  "gfsTimelineEnd":    Date.UTC(2017, 5, 19, 12),
+  "gfsUpdated":        Date.UTC(2017, 5, 10, 0),
+
+  "gemTimelineStart":  Date.UTC(2016, 5, 11, 18),
+  "gemTimelineEnd":    Date.UTC(2017, 5, 19, 12),
+  "gemUpdated":        Date.UTC(2017, 5, 10, 0),
+
+  "gemAccumulationStart": Date.UTC(2017, 5, 10, 03),
+  "iconAccumulationStart": Date.UTC(2017, 5, 10, 00),
+  "gfsAccumulationStart": Date.UTC(2017, 5, 10, 03)
+};
+    </script>
+
+    <script src="{{ STATIC_URL }}lib/js/weather.js"></script>
+
+    <!--<script src="https://www.ventusky.com/app/script-en-us.js"></script>-->
+
+
+	<div id="aside">
+        <div id="aside_inner">
+	        <span id="aside_close_btn" onclick="document.getElementById('aside').className='hidden'">
+	            <span class="aside_close_btn_ico"></span>
+	        </span>
+
+
+	        {{htmlrsult | safe }}
+
+
+        </div>
+    </div>    
+
+
+    
+</body>
+</html>
+

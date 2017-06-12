@@ -1658,7 +1658,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
             for (var i=0,ii=features.length; i<ii; ++i) {
                 feature = features[i];
                 // console.log(features);
-
+                // console.log(evt.features[0].attributes.pplp_point_x,evt.features[0].attributes.pplp_point_y);
                 config.push(Ext.apply({
                     title: feature.data.name_en ? feature.data.name_en : title,
                     dataCustom : feature.data,
@@ -1699,6 +1699,12 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             height : 500,
                             style:"height:500px;",
                             html: '<iframe src="../../getOverviewMaps/earthquakeinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
+                        },{
+                            title: gettext('Weather'),
+                            defaults: {autoScroll: true},
+                            height : 500,
+                            style:"height:500px;",
+                            html: '<iframe src="../../getOverviewMaps/weatherinfo?x='+feature.data.pplp_point_y+'&y='+feature.data.pplp_point_x+'" width="100%" height="100%"></iframe>'
                         }]
                     }],
                     listeners: {
