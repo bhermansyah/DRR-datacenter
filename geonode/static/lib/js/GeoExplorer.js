@@ -51277,24 +51277,27 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
             for (var i=0; i<mapConfig.layers.length; ++i) {
                 conf = mapConfig.layers[i];
                 source = this.layerSources[conf.source];
+                // console.log(source, conf);
                 // source may not have loaded properly (failure handled elsewhere)
                 if (source) {
                     record = source.createLayerRecord(conf);
+                    
                     if (record) {
                         if (record.get("group") === "background") {
                             baseRecords.push(record);
                         } else {
-                            if (record.get("source") == 3){
+                            // console.log(record, record.json.title);
+                            if (source.url == 'http://asdc.immap.org/geoserver/wms' && record.json.tiled && record.json.cached){
                                 var tempUrls = [
-                                    'http://asdc.immap.org/geoserver/wms',
-                                    'http://map1.asdc.immap.org/geoserver/wms',
-                                    'http://map2.asdc.immap.org/geoserver/wms',
-                                    'http://map3.asdc.immap.org/geoserver/wms',
-                                    'http://map4.asdc.immap.org/geoserver/wms',
-                                    'http://map5.asdc.immap.org/geoserver/wms',
-                                    'http://map6.asdc.immap.org/geoserver/wms',
-                                    'http://map7.asdc.immap.org/geoserver/wms',
-                                    'http://map8.asdc.immap.org/geoserver/wms'
+                                    'http://asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map1.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map2.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map3.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map4.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map5.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map6.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map7.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map8.asdc.immap.org/geoserver/gwc/service/wms'
                                 ]
                                 record.data.layer.url = tempUrls;
                                 // console.log(record.data.layer.url);

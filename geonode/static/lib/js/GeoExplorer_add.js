@@ -1684,38 +1684,38 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                         items:[{
                             title: gettext('General Information'),
                             // defaults: {autoScroll: true},
-                            height : 2000,
-                            style:"height:2000px;",
+                            height : 2100,
+                            style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/generalinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
                             title: gettext('Accessibility'),
                             // defaults: {autoScroll: true},
-                            height : 2000,
-                            style:"height:2000px;",
+                            height : 2100,
+                            style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/accessibilityinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
                             title: gettext('Snow Cover and forecasted'),
                             // defaults: {autoScroll: true},
-                            height : 2000,
-                            style:"height:2000px;",
+                            height : 2100,
+                            style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/snowinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
                             title: gettext('Flood and Forecasted'),
                             // defaults: {autoScroll: true},
-                            height : 2000,
-                            style:"height:2000px;",
+                            height : 2100,
+                            style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/floodinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
                             title: gettext('Earthquake'),
                             // defaults: {autoScroll: true},
-                            height : 2000,
-                            style:"height:2000px;",
+                            height : 2100,
+                            style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/earthquakeinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
                             title: gettext('Weather'),
                             // defaults: {autoScroll: true},
-                            height : 2000,
-                            style:"height:2000px;",
+                            height : 2100,
+                            style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/weatherinfo?x='+feature.data.pplp_point_y+'&y='+feature.data.pplp_point_x+'" width="100%" height="100%"></iframe>'
                         }]
                     }],
