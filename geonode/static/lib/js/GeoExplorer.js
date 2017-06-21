@@ -51287,17 +51287,29 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                             baseRecords.push(record);
                         } else {
                             // console.log(record, record.json.title);
-                            if (source.url == 'http://asdc.immap.org/geoserver/wms' && record.json.tiled && record.json.cached){
+                            // if (source.url == 'http://asdc.immap.org/geoserver/wms' && record.json.tiled && record.json.cached){
+                            if (source.url == 'http://asdc.immap.org/geoserver/wms'){
+                                // var tempUrls = [
+                                //     'http://asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map1.asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map2.asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map3.asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map4.asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map5.asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map6.asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map7.asdc.immap.org/geoserver/gwc/service/wms',
+                                //     'http://map8.asdc.immap.org/geoserver/gwc/service/wms'
+                                // ]
                                 var tempUrls = [
-                                    'http://asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map1.asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map2.asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map3.asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map4.asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map5.asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map6.asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map7.asdc.immap.org/geoserver/gwc/service/wms',
-                                    'http://map8.asdc.immap.org/geoserver/gwc/service/wms'
+                                    'http://asdc.immap.org/geoserver/wms',
+                                    'http://map1.asdc.immap.org/geoserver/wms',
+                                    'http://map2.asdc.immap.org/geoserver/wms',
+                                    'http://map3.asdc.immap.org/geoserver/wms',
+                                    'http://map4.asdc.immap.org/geoserver/wms',
+                                    'http://map5.asdc.immap.org/geoserver/wms',
+                                    'http://map6.asdc.immap.org/geoserver/wms',
+                                    'http://map7.asdc.immap.org/geoserver/wms',
+                                    'http://map8.asdc.immap.org/geoserver/wms'
                                 ]
                                 record.data.layer.url = tempUrls;
                                 // console.log(record.data.layer.url);
