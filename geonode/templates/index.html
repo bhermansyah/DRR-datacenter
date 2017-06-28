@@ -657,8 +657,12 @@
         });
       });
       var random = Math.floor((Math.random() * 1000) + 1);
+      var today = new Date();
+      var dd = today.getDate();
+      var mm = today.getMonth()+1;
+      var yyyy = today.getFullYear();
 
-      $( "#floodSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_flood_forecasted_villages_basin,afg_admbnda_adm1,geonode:current_flood_forecasted_villages_basin&styles=,snapshot_admin1,current_flood_forecasted_villages_basin_a18d81bc&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+      $( "#floodSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:glofas_gfms_merge,afg_admbnda_adm1&styles=,snapshot_admin1&VIEWPARAMS=year:'+yyyy+';month:'+mm+';day:'+dd+';&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
       $( "#avaSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
       $( "#scSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_snow_depth,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
 
