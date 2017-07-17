@@ -291,6 +291,24 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
     else:
         config = snapshot_config(snapshot, map_obj, request.user)
 
+    # translation for map legend
+    # (map title, map abstract, layer title, layer abstract)
+    if config['about']['title']:
+        config['about']['title'] = _(config['about']['title'])
+    if config['about']['abstract']:
+        config['about']['abstract'] = _(config['about']['abstract'])
+    for layer in config['map']['layers']:
+        if 'title' in layer:
+            if layer['title']:
+                layer['title'] = _(layer['title'])
+                if 'args' in layer:
+                    for idx, val in enumerate(layer['args']):
+                        layer['args'][idx] = _(val)
+        if 'capability' in layer:
+            if 'abstract' in layer['capability']:
+                if layer['capability']['abstract']:
+                    layer['capability']['abstract'] = _(layer['capability']['abstract'])
+
     return render_to_response(template, RequestContext(request, {
         'config': json.dumps(config),
         'map': map_obj

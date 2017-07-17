@@ -81461,6 +81461,7 @@ gxp.plugins.LayerManager = Ext.extend(gxp.plugins.LayerTree, {
                     baseParams: Ext.apply({
                         transparent: true,
                         format: "image/png",
+                        Language: GeoExt.Lang.locale,
                         legend_options: "fontAntiAliasing:true;fontSize:11;fontName:Arial"
                     }, baseParams),
                     layerRecord: this.target.mapPanel.layers.getByLayer(attr.layer),
