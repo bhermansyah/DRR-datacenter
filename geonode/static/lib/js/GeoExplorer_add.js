@@ -1571,6 +1571,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                     layers: [layer],
                     infoFormat: infoFormat,
                     vendorParams: vendorParams,
+                    id:'s_inspect',
                     eventListeners: {
                         getfeatureinfo: function(evt) {
                             // console.log(evt);

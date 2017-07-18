@@ -1823,7 +1823,7 @@ class getVillages(ModelResource):
         for i in range(len(data['features'])):
             if fuzzy:
                 tmp_set = data['features'][i]['properties']['name_en']         
-                data['features'][i]['properties']['type_settlement']=dt['scoreKeeper'][tmp_set]
+                data['features'][i]['properties']['score']=dt['scoreKeeper'][tmp_set]
 
             data['features'][i]['properties']['number']=i+1
             if 'name_en' in data['features'][i]['properties']:

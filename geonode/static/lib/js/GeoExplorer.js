@@ -91354,6 +91354,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 name:"facility_types_description"
             },{
                 name:"fromlayer"
+            },{
+                name:"score"
             }],
             proxy: new GeoExt.data.ProtocolProxy({
                 protocol: new OpenLayers.Protocol.HTTP({
@@ -91375,7 +91377,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
         finderStore.on({
             'load': function(){
-                finderStore.sort('type_settlement', 'desc');
+                finderStore.sort('score', 'desc');
                // for (var i = 0; i < this.totalLength; i++){
                //      var record = finderStore.getAt(i);
                //      // console.log(record);
@@ -92196,10 +92198,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     '<div style="float:left; padding-top: 7px; padding-left: 2px;">',
                         '<span class="finderheader">{name_en} {facility_name} {namelong}</span>',
                         // '<tpl for=".">',
-                            '<tpl if="type_settlement &gt; 0">',
-                                '<br/><span class="findersubheader">{type_settlement} Score Matched </span>',
+                            '<tpl if="score &gt; 0">',
+                                '<br/><span class="findersubheader">{score} Score Matched </span>',
                             '</tpl>',
-                            '<tpl elseif="type_settlement == \'Capital\' || type_settlement == \'Provincial capital\' || type_settlement == \'Provincial Centre\' || type_settlement == \'District Centre\' || type_settlement == \'District Center\'">',
+                            // '<tpl elseif="type_settlement == \'Capital\' || type_settlement == \'Provincial capital\' || type_settlement == \'Provincial Centre\' || type_settlement == \'District Centre\' || type_settlement == \'District Center\'">',
+                            '<tpl else>', 
                                 '<br/><span class="findersubheader">{type_settlement}{facility_types_description}{apttype}</span>',
                             '</tpl>',
                         // '</tpl>',
@@ -92216,6 +92219,13 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         gridSelector.getSelectionModel().on('rowselect', function(sm, rowIdx, r) {
             // console.log(sm,rowIdx, r);
             tempMap.panTo(new OpenLayers.LonLat(r.data.feature.geometry.x, r.data.feature.geometry.y));
+            // console.log(r.data.feature);
+            if (r.data.feature.data.fromlayer == "glyphicon glyphicon-home"){
+                tempMap.getControlsBy("id", "s_inspect")[0].activate();
+                tempMap.getControlsBy("id", "s_inspect")[0].request(tempMap.getPixelFromLonLat(new OpenLayers.LonLat(r.data.feature.geometry.x, r.data.feature.geometry.y)));
+                tempMap.getControlsBy("id", "s_inspect")[0].deactivate();
+            }    
+
         });
 
         var finderToolsPanel = new Ext.Panel({
