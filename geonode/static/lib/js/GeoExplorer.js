@@ -92217,10 +92217,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         });
 
         gridSelector.getSelectionModel().on('rowselect', function(sm, rowIdx, r) {
-            // console.log(sm,rowIdx, r);
             tempMap.panTo(new OpenLayers.LonLat(r.data.feature.geometry.x, r.data.feature.geometry.y));
-            // console.log(r.data.feature);
-            if (r.data.feature.data.fromlayer == "glyphicon glyphicon-home"){
+            // console.log(Ext.getCmp('show_s_inspector_toggle'));
+            if (r.data.feature.data.fromlayer == "glyphicon glyphicon-home" && Ext.getCmp('show_s_inspector_toggle').pressed){
                 tempMap.getControlsBy("id", "s_inspect")[0].activate();
                 tempMap.getControlsBy("id", "s_inspect")[0].request(tempMap.getPixelFromLonLat(new OpenLayers.LonLat(r.data.feature.geometry.x, r.data.feature.geometry.y)));
                 tempMap.getControlsBy("id", "s_inspect")[0].deactivate();
@@ -92243,7 +92242,17 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             layout:'border',
             bbar: new Ext.Toolbar({
                 // style : 'width:100%',
-                items:['->',{
+                items:[
+                {
+                    text: gettext('Show settlement inspector'),
+                    iconCls: 'icon-village-inspector',
+                    enableToggle: true,
+                    tooltip: 'Show settlement inspector on row or point click',
+                    id: 'show_s_inspector_toggle',
+                    handler: function(){
+                    }
+                },
+                '->',{
                     text: gettext('Reset'),
                     iconCls: 'gxp-icon-reset',
                     handler: function(){
