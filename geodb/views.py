@@ -69,7 +69,7 @@ gdal_path = '/usr/bin/' # production
 def getLatestEarthQuake():
     startdate = datetime.datetime.utcnow()
     startdate = startdate - datetime.timedelta(days=30)
-    contents = getContents('dyfi',['stationlist.txt'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
+    contents = getContents('origin',['stationlist.txt'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
 
     for content in contents:
         point = Point(x=content['geometry']['coordinates'][0], y=content['geometry']['coordinates'][1],srid=4326)
