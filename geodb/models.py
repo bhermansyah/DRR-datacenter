@@ -346,9 +346,15 @@ class AfgPplp(models.Model):
     reg_unama_na_en = models.CharField(max_length=255, blank=True)
     dist_na_ps = models.CharField(max_length=255, blank=True)
     reg_unama_na_dar = models.CharField(max_length=255, blank=True)
-    vuid = models.CharField(max_length=255, blank=True)
-    vuid_population_landscan = models.IntegerField(blank=True, null=True)
     vuid_area_sqm = models.FloatField(blank=True, null=True)
+    vuidnear = models.CharField(max_length=255, blank=True)
+    vuid_buildings = models.FloatField(blank=True, null=True)
+    vuid_population = models.FloatField(blank=True, null=True)
+    vuid_pop_per_building = models.FloatField(blank=True, null=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    name_local = models.CharField(max_length=255, blank=True)
+    name_local_confidence = models.CharField(max_length=255, blank=True)
+    name_alternative_en = models.CharField(max_length=255, blank=True)
     objects = models.GeoManager()
     class Meta:
         managed = False
