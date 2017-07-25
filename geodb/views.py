@@ -1480,7 +1480,7 @@ def getFloodInfoVillages(request):
 
     data = []
     data.append(['floodtype',_('Very Low'), _('Low'), _('Moderate'), _('High'), _('Very High'), _('Extreme'), _('Population at flood risk'), _('Population')])
-    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], context_dict['vuid_population_landscan']])
+    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], context_dict['vuid_population']])
     data.append([_('River Flood'),context_dict['riverflood_forecast_verylow_pop'], context_dict['riverflood_forecast_low_pop'], context_dict['riverflood_forecast_med_pop'], context_dict['riverflood_forecast_high_pop'], context_dict['riverflood_forecast_veryhigh_pop'], context_dict['riverflood_forecast_extreme_pop'], context_dict['total_risk_population'], context_dict['vuid_population_landscan']])
     data.append([_('Flash Flood'),context_dict['flashflood_forecast_verylow_pop'], context_dict['flashflood_forecast_low_pop'], context_dict['flashflood_forecast_med_pop'], context_dict['flashflood_forecast_high_pop'], context_dict['flashflood_forecast_veryhigh_pop'], context_dict['flashflood_forecast_extreme_pop'], context_dict['total_risk_population'], context_dict['vuid_population_landscan']])
     data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], context_dict['vuid_population_landscan']])
