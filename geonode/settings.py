@@ -257,6 +257,7 @@ GEONODE_APPS = (
     # GeoNode Contrib Apps
 
     # 'geonode.contrib.dynamic',
+    'geonode.userstatistics',
 
     # GeoServer Apps
     # Geoserver needs to come last because
