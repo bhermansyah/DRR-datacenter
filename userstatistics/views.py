@@ -9,7 +9,7 @@ from django.template.response import TemplateResponse
 from geonode.groups.models import GroupProfile
 from django.shortcuts import render
 
-from geonode.userstatistics.models import UserActivity
+from matrix.models import matrix
 from geonode.base.models import ResourceBase
 from django.contrib.auth import get_user_model
 from django.core import serializers
@@ -29,7 +29,7 @@ def userstatistics(request):
     data['jsondata']['user'] = {}
     start = time.time()
     print 'query start', start
-    data['jsondata']['useractivities']['data'] = [[r[0].strftime('%Y-%m-%d %H:%M:%S'), str(r[1]), str(r[2]), str(r[3]), str(r[4])] for r in UserActivity.objects.values_list('created', 'user__username', 'user__organization', 'action', 'resourceid__title')]
+    data['jsondata']['useractivities']['data'] = [[r[0].strftime('%Y-%m-%d %H:%M:%S'), str(r[1]), str(r[2]), str(r[3]), str(r[4])] for r in matrix.objects.values_list('created', 'user__username', 'user__organization', 'action', 'resourceid__title')]
     data['jsondata']['user']['data'] = [[str(r[0]), str(r[1]), r[2].strftime('%Y-%m-%d %H:%M:%S')] for r in get_user_model().objects.values_list('username', 'organization', 'date_joined')]
     # data['user']['data'] = get_user_model().objects.all()
     end = time.time()

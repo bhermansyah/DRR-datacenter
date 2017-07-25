@@ -87,7 +87,7 @@ urlpatterns = patterns('',
                        (r'^security/', include('geonode.security.urls')),
 
                        # Users statistics
-                       url(r'^userstatistics$', 'geonode.userstatistics.views.userstatistics', name='userstatistics'),
+                       url(r'^userstatistics$', 'userstatistics.views.userstatistics', name='userstatistics'),
 
                        # Accounts
                        url(r'^account/ajax_login$', 'geonode.views.ajax_login', name='account_ajax_login'),
