@@ -1458,5 +1458,57 @@ class Glofasintegrated(models.Model):
     rl20_avg_dis_percent = models.IntegerField(blank=True, null=True)
     class Meta:
         managed = False
-        db_table = 'glofasintegrated'             
+        db_table = 'glofasintegrated'         
+
+class AfgPpltDemographics(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    vuidnear = models.CharField(max_length=50, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    dist_na_en = models.CharField(max_length=100, blank=True)
+    prov_na_en = models.CharField(max_length=100, blank=True)
+    prov_code_field = models.IntegerField(db_column='prov_code_', blank=True, null=True) # Field renamed because it ended with '_'.
+    partofbuil = models.CharField(max_length=100, blank=True)
+    vuid_buildings = models.IntegerField(blank=True, null=True)
+    vuid_population = models.IntegerField(blank=True, null=True)
+    vuid_male_perc = models.FloatField(blank=True, null=True)
+    vuid_female_perc = models.FloatField(blank=True, null=True)
+    note = models.CharField(max_length=200, blank=True)
+    vuid_pop_per_building = models.FloatField(blank=True, null=True)
+    m_perc_yrs_0_4 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_5_9 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_10_14 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_15_19 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_20_24 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_25_29 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_30_34 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_35_39 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_40_44 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_45_49 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_50_54 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_55_59 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_60_64 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_65_69 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_70_74 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_75_79 = models.FloatField(blank=True, null=True)
+    m_perc_yrs_80pls = models.FloatField(blank=True, null=True)
+    f_perc_yrs_0_4 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_5_9 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_10_14 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_15_19 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_20_24 = models.FloatField(db_column='f_perc_yrs__20_24', blank=True, null=True) # Field renamed because it contained more than one '_' in a row.
+    f_perc_yrs_25_29 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_30_34 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_35_39 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_40_44 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_45_49 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_50_54 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_55_59 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_60_64 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_65_69 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_70_74 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_75_79 = models.FloatField(blank=True, null=True)
+    f_perc_yrs_80pls = models.FloatField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_pplt_demographics'    
         
