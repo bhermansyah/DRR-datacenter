@@ -305,7 +305,6 @@ class AfgPpla(models.Model):
     area_population = models.FloatField(blank=True, null=True)
     area_buildings = models.FloatField(blank=True, null=True)
     area_sqm = models.IntegerField(blank=True, null=True)
-    basin_id = models.FloatField(blank=True, null=True)
     vuid = models.CharField(max_length=255, blank=True)
     name_en = models.CharField(max_length=255, blank=True)
     vuid_buildings = models.FloatField(blank=True, null=True)
