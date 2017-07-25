@@ -315,6 +315,8 @@ class AfgPpla(models.Model):
     name_local_confidence = models.CharField(max_length=255, blank=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
+    pplp_point_x = models.FloatField(blank=True, null=True)
+    pplp_point_y = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
     class Meta:
         managed = False
