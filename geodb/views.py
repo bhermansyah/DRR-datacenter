@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd, Glofasintegrated, AfgBasinLvl4GlofasPoint
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd, Glofasintegrated, AfgBasinLvl4GlofasPoint, AfgPpltDemographics
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -1323,8 +1323,58 @@ def getGeneralInfoVillages(request):
         data1.append([i['agg_simplified_description'],i['totalpop']])
         data2.append([i['agg_simplified_description'],round(i['totalarea']/1000000,1)])
 
+    rowsgenderpercent = AfgPpltDemographics.objects.all().filter(vuidnear=village).values()
+    i = rowsgenderpercent[0]
+
+    data3 = []
+    data3.append(['Gender','Percent'])
+    data3.append(['Male', i['vuid_male_perc']])
+    data3.append(['Female', i['vuid_female_perc']])
+
+    data4 = []
+    data4.append(['Age','Male','Female'])
+    if context_dict['vuid_population'] > 200:
+        data4.append(['0-4 years',   i['m_perc_yrs_0_4'], -i['m_perc_yrs_0_4']])
+        data4.append(['5-9 years',   i['m_perc_yrs_5_9'],  -i['f_perc_yrs_5_9']])
+        data4.append(['10-14 years', i['m_perc_yrs_10_14'],  -i['f_perc_yrs_10_14']])
+        data4.append(['15-19 years', i['m_perc_yrs_15_19'],  -i['f_perc_yrs_15_19']])
+        data4.append(['20-24 years', i['m_perc_yrs_20_24'],  -i['f_perc_yrs_20_24']])
+        data4.append(['25-29 years', i['m_perc_yrs_25_29'],  -i['f_perc_yrs_25_29']])
+        data4.append(['30-34 years', i['m_perc_yrs_30_34'],  -i['f_perc_yrs_30_34']])
+        data4.append(['35-39 years', i['m_perc_yrs_35_39'],  -i['f_perc_yrs_35_39']])
+        data4.append(['40-44 years', i['m_perc_yrs_40_44'],  -i['f_perc_yrs_40_44']])
+        data4.append(['45-49 years', i['m_perc_yrs_45_49'],  -i['f_perc_yrs_45_49']])
+        data4.append(['50-54 years', i['m_perc_yrs_50_54'],  -i['f_perc_yrs_50_54']])
+        data4.append(['55-59 years', i['m_perc_yrs_55_59'],  -i['f_perc_yrs_55_59']])
+        data4.append(['60-64 years', i['m_perc_yrs_60_64'],  -i['f_perc_yrs_60_64']])
+        data4.append(['65-69 years', i['m_perc_yrs_65_69'],  -i['f_perc_yrs_65_69']])
+        data4.append(['70-74 years', i['m_perc_yrs_70_74'],  -i['f_perc_yrs_70_74']])
+        data4.append(['75-79 years', i['m_perc_yrs_75_79'],   -i['f_perc_yrs_75_79']])
+        data4.append(['80+ years', i['m_perc_yrs_80pls'],   -i['f_perc_yrs_80pls']])
+    else:
+        data4.append(['0-9 years',   i['m_perc_yrs_0_4']+i['m_perc_yrs_5_9'], -i['m_perc_yrs_0_4']-i['f_perc_yrs_5_9']])
+        data4.append(['10-19 years', i['m_perc_yrs_10_14']+i['m_perc_yrs_15_19'],  -i['f_perc_yrs_10_14']-i['f_perc_yrs_15_19']])
+        data4.append(['20-29 years', i['m_perc_yrs_20_24']+i['m_perc_yrs_25_29'],  -i['f_perc_yrs_20_24']-i['f_perc_yrs_25_29']])
+        data4.append(['30-39 years', i['m_perc_yrs_30_34']+i['m_perc_yrs_35_39'],  -i['f_perc_yrs_30_34']-i['f_perc_yrs_35_39']])
+        data4.append(['40-49 years', i['m_perc_yrs_40_44']+i['m_perc_yrs_45_49'],  -i['f_perc_yrs_40_44']-i['f_perc_yrs_45_49']])
+        data4.append(['50-59 years', i['m_perc_yrs_50_54']+i['m_perc_yrs_55_59'],  -i['f_perc_yrs_50_54']-i['f_perc_yrs_55_59']])
+        data4.append(['60-69 years', i['m_perc_yrs_60_64']+i['m_perc_yrs_65_69'],  -i['f_perc_yrs_60_64']-i['f_perc_yrs_65_69']])
+        data4.append(['70-79 years', i['m_perc_yrs_70_74']+i['m_perc_yrs_75_79'],  -i['f_perc_yrs_70_74']-i['f_perc_yrs_75_79']])
+        data4.append(['80+ years', i['m_perc_yrs_80pls'],   -i['f_perc_yrs_80pls']])
+
+    for i, v in enumerate(data3):
+        if i > 0:
+            v[1] = {'v':v[1], 'f':str(abs(round(v[1], 1)))+' %'}
+
+    for i, v in enumerate(data4):
+        if i > 0:
+            v[1] = {'v':v[1], 'f':str(abs(round(v[1], 1)))+' %'}
+            v[2] = {'v':v[2], 'f':str(abs(round(v[2], 1)))+' %'}
+
     context_dict['landcover_pop_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title': _("# of Population"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
     context_dict['landcover_area_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title': _("# of Area (KM2)"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
+    context_dict['gender_ratio_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title': _("Gender Ratio (in %)"), 'width': 225,'height': 225, 'pieSliceText': _('value'),'legend': {'position': 'top', 'maxLines':3},'tooltip': {'text': 'value'}})
+    context_dict['gender_ratio_by_age_chart'] = gchart.BarChart(SimpleDataSource(data=data4), html_id="bar_chart1", options={'title': _("Gender Ratio by Age Group (in %)"), 'width': 225,'height': 225,'isStacked': True, 'hAxis': {'format': ';','title': _('in percent of total population')}, 'vAxis': {'direction': -1}, 'legend': {'position': 'top', 'maxLines':3}})
 
     context_dict.pop('position')
     return render_to_response(template,
@@ -1421,8 +1471,8 @@ def getFloodInfoVillages(request):
 
     # riverflood
     currRF = targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(year,month,day))
-    currRF = currRF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','pop', 'area')
-    temp = dict([(c['basinmember__basins__riskstate'], c['pop']) for c in currRF])
+    currRF = currRF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','vuid_population_landscan', 'vuid_area_sqm')
+    temp = dict([(c['basinmember__basins__riskstate'], c['vuid_population_landscan']) for c in currRF])
     context_dict['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
     context_dict['riverflood_forecast_low_pop']=round(temp.get(2, 0),0)
     context_dict['riverflood_forecast_med_pop']=round(temp.get(3, 0),0)
@@ -1432,7 +1482,7 @@ def getFloodInfoVillages(request):
 
     currFF = targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(year,month,day))
     currFF = currFF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','pop', 'area')
-    temp = dict([(c['basinmember__basins__riskstate'], c['pop']) for c in currFF])
+    temp = dict([(c['basinmember__basins__riskstate'], c['vuid_population_landscan']) for c in currFF])
     context_dict['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
     context_dict['flashflood_forecast_low_pop']=round(temp.get(2, 0),0)
     context_dict['flashflood_forecast_med_pop']=round(temp.get(3, 0),0)
@@ -1440,20 +1490,20 @@ def getFloodInfoVillages(request):
     context_dict['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
     context_dict['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
 
-    floodRisk = targetRisk.values('deeperthan').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('deeperthan','pop', 'area')
-    temp = dict([(c['deeperthan'], c['pop']) for c in floodRisk])
+    floodRisk = targetRisk.values('deeperthan').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('deeperthan','vuid_population_landscan', 'vuid_area_sqm')
+    temp = dict([(c['deeperthan'], c['vuid_population_landscan']) for c in floodRisk])
     context_dict['high_risk_population']=round(temp.get('271 cm', 0),0)
     context_dict['med_risk_population']=round(temp.get('121 cm', 0), 0)
     context_dict['low_risk_population']=round(temp.get('029 cm', 0),0)
     context_dict['total_risk_population']=context_dict['high_risk_population']+context_dict['med_risk_population']+context_dict['low_risk_population']
-    temp = dict([(c['deeperthan'], c['area']) for c in floodRisk])
+    temp = dict([(c['deeperthan'], c['vuid_area_sqm']) for c in floodRisk])
     context_dict['high_risk_area']=round(temp.get('271 cm', 0)/1000000,1)
     context_dict['med_risk_area']=round(temp.get('121 cm', 0)/1000000,1)
     context_dict['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)
 
 
-    floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','pop', 'area')
-    temp = dict([(c['agg_simplified_description'], c['pop']) for c in floodRiskLC])
+    floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','vuid_population_landscan', 'vuid_area_sqm')
+    temp = dict([(c['agg_simplified_description'], c['vuid_population_landscan']) for c in floodRiskLC])
     context_dict['water_body_pop_risk']=round(temp.get('Water body and marshland', 0),0)
     context_dict['barren_land_pop_risk']=round(temp.get('Barren land', 0),0)
     context_dict['built_up_pop_risk']=round(temp.get('Built-up', 0),0)
@@ -1465,7 +1515,7 @@ def getFloodInfoVillages(request):
     context_dict['sandcover_pop_risk']=round(temp.get('Sand cover', 0),0)
     context_dict['vineyards_pop_risk']=round(temp.get('Vineyards', 0),0)
     context_dict['forest_pop_risk']=round(temp.get('Forest and shrubs', 0),0)
-    temp = dict([(c['agg_simplified_description'], c['area']) for c in floodRiskLC])
+    temp = dict([(c['agg_simplified_description'], c['vuid_area_sqm']) for c in floodRiskLC])
     context_dict['water_body_area_risk']=round(temp.get('Water body and marshland', 0)/1000000,1)
     context_dict['barren_land_area_risk']=round(temp.get('Barren land', 0)/1000000,1)
     context_dict['built_up_area_risk']=round(temp.get('Built-up', 0)/1000000,1)
@@ -1513,6 +1563,7 @@ def getFloodInfoVillages(request):
     dataFLRiskArea.append([_('Low'),context_dict['low_risk_area']])
     dataFLRiskArea.append([_('Moderate'),context_dict['med_risk_area']])
     dataFLRiskArea.append([_('High'),context_dict['high_risk_area']])
+    print 'dataFLRiskArea', dataFLRiskArea
     context_dict['floodrisk_area_chart'] = gchart.PieChart(SimpleDataSource(data=dataFLRiskArea), html_id="pie_chart3", options={'slices': {0:{'color': 'blue'},1:{'color': 'orange'},2:{'color': 'red'}},'title': _("Flood Risk Area Exposure"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
 
     dataFLRiskPop = []
@@ -1545,6 +1596,9 @@ def getCommonVillageData(village):
     context_dict = {}
     for i in databaseFields:
         context_dict[i] = getattr(px, i)
+
+    rowsAfgPplp = AfgPplp.objects.filter(vuid=village).values().first()
+    context_dict['language_field'] = rowsAfgPplp['language_field']
 
     px = get_object_or_404(AfgPplp, vil_uid=village)
     context_dict['elevation'] = round(px.elevation,1)
@@ -1706,7 +1760,7 @@ def getGlofasChart(request):
     rl20= nc.variables['rl20'][:]
 
     units = nc.variables['time'].units
-    
+
     dates = num2date(times[:], units=units, calendar='365_day')
     date_arr = []
 
@@ -1736,7 +1790,7 @@ def getGlofasChart(request):
                 date_number_label.append(i.day)
         else:
             if i.day % 2 != 0:
-                date_number_label.append(i.day)             
+                date_number_label.append(i.day)
 
 
     for i in range(len(date_number)):
@@ -1759,7 +1813,7 @@ def getGlofasChart(request):
     plt.fill_between(date_arr, rl20_arr, np.max(maximum)+100, color='#ffbbff', alpha=1, label="20 years return period")
 
 
-    plt.plot(date_arr, median, c='black', alpha=1, linestyle='solid', label="EPS mean") 
+    plt.plot(date_arr, median, c='black', alpha=1, linestyle='solid', label="EPS mean")
     plt.plot(date_arr, mean75, color='black', alpha=1, linestyle='dashed', label="25% - 75%")
     plt.plot(date_arr, mean25, color='black', alpha=1, linestyle='dashed')
 
@@ -1770,7 +1824,7 @@ def getGlofasChart(request):
     # print 'rl 5  ',rl5[coord_idx]
     # print 'rl 20  ',rl20[coord_idx]
 
-    
+
 
     plt.margins(x=0,y=0,tight=True)
 
@@ -1786,13 +1840,13 @@ def getGlofasChart(request):
     if max(month_name)==min(month_name):
         plt.set_xlabel('Period of '+get_month_name(max(month_name)))
     else:
-        plt.set_xlabel('Period of '+get_month_name(min(month_name))+' - '+get_month_name(max(month_name)))  
+        plt.set_xlabel('Period of '+get_month_name(min(month_name))+' - '+get_month_name(max(month_name)))
 
-    plt.grid(which='both')           
+    plt.grid(which='both')
     plt.grid(True, 'major', 'y', ls='--', lw=.5, c='k', alpha=.2)
 
     plt.grid(True, 'major', 'x', ls='--', lw=.5, c='k', alpha=.2)
-    plt.grid(True, 'minor', 'x', lw=.3, c='k', alpha=.2) 
+    plt.grid(True, 'minor', 'x', lw=.3, c='k', alpha=.2)
 
     leg = plt.legend(prop={'size':6})
     leg.get_frame().set_alpha(0)
@@ -1803,8 +1857,8 @@ def getGlofasChart(request):
     canvas.print_png(response)
     return response
 
-def getGlofasPointsJSON(request): 
-    date = request.GET['date']  
+def getGlofasPointsJSON(request):
+    date = request.GET['date']
     cursor = connections['geodb'].cursor()
     cursor.execute("\
         SELECT row_to_json(fc) \
@@ -1830,9 +1884,9 @@ def getGlofasPointsJSON(request):
        ON lg.id = lp.id  ) As f )  As fc;\
     ")
     currPoints = cursor.fetchone()
-    cursor.close()     
+    cursor.close()
     if currPoints[0]["features"] is None:
-        currPoints[0]["features"] = []    
+        currPoints[0]["features"] = []
     return HttpResponse(json.dumps(currPoints[0]), content_type='application/json')
 
 def calculate_glofas_params(date):
@@ -1888,7 +1942,7 @@ def calculate_glofas_params(date):
             dis_data = []
             for l in data:
                 dis_data.append(l)
-            
+
             # dis_avg = sum(dis_data)/float(51)
             dis_avg = np.median(dis_data)
 
@@ -1911,7 +1965,7 @@ def calculate_glofas_params(date):
 
         # print rl2_avg_dis
         data_in.append(max(rl2_dis_percent))
-        temp_avg_dis=[]    
+        temp_avg_dis=[]
         for index, item in enumerate(rl2_dis_percent):
             if item == max(rl2_dis_percent):
                 # print index, item
@@ -1920,7 +1974,7 @@ def calculate_glofas_params(date):
         rl2_avg_dis_percent = max(temp_avg_dis)
 
         data_in.append(max(rl5_dis_percent))
-        temp_avg_dis=[]    
+        temp_avg_dis=[]
         for index, item in enumerate(rl5_dis_percent):
             if item == max(rl5_dis_percent):
                 # print index, item
@@ -1929,7 +1983,7 @@ def calculate_glofas_params(date):
         rl5_avg_dis_percent = max(temp_avg_dis)
 
         data_in.append(max(rl20_dis_percent))
-        temp_avg_dis=[]    
+        temp_avg_dis=[]
         for index, item in enumerate(rl20_dis_percent):
             if item == max(rl20_dis_percent):
                 # print index, item
@@ -1949,7 +2003,7 @@ def calculate_glofas_params(date):
         # print data_in
 
 
-    nc.close() 
+    nc.close()
     # GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
 
 
@@ -2001,11 +2055,11 @@ def getWeatherInfoVillages(request):
     # myfile = f.read()
     headers = {'Cookie':{}}
     if 'parametr' in request.GET:
-        response = requests.get("https://www.ventusky.com/aside/forecast.ajax.php?parametr="+request.GET["parametr"]+"&lon="+request.GET["lon"]+"&lat="+request.GET["lat"]+"&tz=Asia/Kabul&lang=en-ca", verify=False) 
+        response = requests.get("https://www.ventusky.com/aside/forecast.ajax.php?parametr="+request.GET["parametr"]+"&lon="+request.GET["lon"]+"&lat="+request.GET["lat"]+"&tz=Asia/Kabul&lang=en-ca", verify=False)
         return HttpResponse(response.content)
     else:
         response = requests.get("https://www.ventusky.com/panel.php?link="+request.GET["x"]+";"+request.GET["y"]+"&lang=en-ca&id=", verify=False)
-    
+
     response.cookies = {}
     # print response.cookies
     context_dict['htmlrsult'] = response.content

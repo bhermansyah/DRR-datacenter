@@ -82,11 +82,11 @@ table#info tr.odd td {
 	</tr>
 	<tr>
 		<td>{% trans "Area" %}</td>
-		<td><strong>{{vuid_area_sqm|div:1000000|floatformat}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
+		<td><strong>{{area_sqm|div:1000000|floatformat}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Total Population" %}</td>
-		<td><strong>{% blocktrans %}{{vuid_population_landscan}}{% endblocktrans %}</strong></td>
+		<td><strong>{{vuid_population|floatformat:"0"}}</strong></td>
 	</tr>
 </table>
 <div style='width:90%;margin:1em auto;'>

@@ -32,7 +32,7 @@ table#info tr.odd td {
 	height:250 !important;
 }
 
-#pie_chart2{
+#pie_chart2, #pie_chart3, #bar_chart1{
 	width: 250 !important;
 	height:250 !important;
 }
@@ -68,16 +68,43 @@ table#info tr.odd td {
 		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
-		<td>{% trans "Area" %}</td><td><strong>{{vuid_area_sqm|div:1000000|floatformat}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
+		<td>{% trans "Area" %}</td><td><strong>{{area_sqm|div:1000000|floatformat}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Total Population" %}</td>
-		<td><strong>{{vuid_population_landscan}}</strong></td>
+		<td><strong>{{vuid_population|floatformat:"0" }}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Area Buildings" %}</td>
+		<td><strong>{{vuid_buildings|floatformat:"0" }}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Population per Buildings" %}</td>
+		<td><strong>{{vuid_pop_per_building|floatformat:"0" }}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Settlement Buildings" %}</td>
+		<td><strong>{{vuid_buildings|floatformat:"0" }}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Local Name" %}</td>
+		<td><strong>{{name_local}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Local Name Confidence Level" %}</td>
+		<td><strong>{{name_local_confidence}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Alternative English name" %}</td>
+		<td><strong>{{name_alternative_en}}</strong></td>
 	</tr>
 </table>
-<div style='width:90%;margin:1em auto;'>
+<div class="" style='width:90%;margin:1em auto;'>
 	<div style='float:left;'>{{ landcover_pop_chart.as_html }}</div>
-	<div style='float:right;'>{{ landcover_area_chart.as_html }}</div>
+	<div style='float:left;'>{{ landcover_area_chart.as_html }}</div>
+	<p style='clear: both;'><h3>{% trans "Demographic" %}</h3></p>
+	<div style='float:left;'>{{ gender_ratio_chart.as_html }}</div>
+	<div style='float:left;'>{{ gender_ratio_by_age_chart.as_html }}</div>
 </div>
 </body>
 </html>
