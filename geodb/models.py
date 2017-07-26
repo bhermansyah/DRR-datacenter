@@ -1076,21 +1076,29 @@ class villagesummaryEQ(models.Model):
 class AfgPplaBasin(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
     wkb_geometry = models.MultiPolygonField(blank=True, null=True)
-    vuid = models.CharField(max_length=255, blank=True)
-    name_en = models.CharField(max_length=255, blank=True)
+    vuidnear = models.CharField(max_length=50, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
     dist_na_en = models.CharField(max_length=255, blank=True)
     prov_na_en = models.CharField(max_length=255, blank=True)
     prov_code = models.IntegerField(blank=True, null=True)
-    basin_id = models.FloatField(blank=True, null=True)
     area_population = models.FloatField(blank=True, null=True)
-    area_sqm = models.FloatField(blank=True, null=True)
+    area_buildings = models.FloatField(blank=True, null=True)
+    area_sqm = models.IntegerField(blank=True, null=True)
+    basin_id = models.FloatField(blank=True, null=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    name_en = models.CharField(max_length=255, blank=True)
+    vuid_buildings = models.FloatField(blank=True, null=True)
+    vuid_population = models.FloatField(blank=True, null=True)
+    vuid_pop_per_building = models.FloatField(blank=True, null=True)
+    name_local = models.CharField(max_length=255, blank=True)
+    name_alternative_en = models.CharField(max_length=255, blank=True)
+    name_local_confidence = models.CharField(max_length=255, blank=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
-    basinmember = models.ForeignKey(AfgShedaLvl4, related_name='basinmemberpplp')
+    basinmember_id = models.IntegerField(blank=True, null=True)
     objects = models.GeoManager()
     class Meta:
-        managed = True
+        managed = False
         db_table = 'afg_ppla_basin'
 
 class villagesummary(models.Model):
