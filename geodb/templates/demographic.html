@@ -28,14 +28,14 @@ table#info tr.odd td {
 	background:#f7fbff
 }
 
-#pie_chart1{
+/*#pie_chart1, #pie_chart2{
 	width: 250 !important;
 	height:250 !important;
-}
+}*/
 
-#pie_chart2{
-	width: 250 !important;
-	height:250 !important;
+#pie_chart3, #bar_chart1{
+	/*width: 510 !important;*/
+	/*height:250 !important;*/
 }
 
 </style>
@@ -64,10 +64,10 @@ table#info tr.odd td {
 		<td>{% trans "Province" %}</td>
 		<td><strong>{{prov_na_en}}</strong></td>
 	</tr>
-	<tr>
+	<!-- <tr>
 		<td>{% trans "Elevation" %}</td>
 		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td>{% trans "Area" %}</td>
 		<td><strong>{{area_sqm|div:1000000|floatformat|intcomma}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
@@ -82,13 +82,13 @@ table#info tr.odd td {
 	</tr> -->
 	<tr>
 		<td>{% trans "Average Household Size" %}</td>
-		<td><strong>{{vuid_pop_per_building|floatformat:"2" }}</strong></td>
+		<td><strong>{{vuid_pop_per_building|floatformat:"1" }}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Number of Buildings" %}</td>
 		<td><strong>{{vuid_buildings|floatformat:"0"|intcomma }}</strong></td>
 	</tr>
-	<tr>
+	<!-- <tr>
 		<td>{% trans "Local Name" %}</td>
 		<td><strong>{{name_local}}</strong></td>
 	</tr>
@@ -103,11 +103,11 @@ table#info tr.odd td {
 	<tr>
 		<td>{% trans "Type of Settlement" %}</td>
 		<td><strong>{{type_settlement}}</strong></td>
-	</tr>
+	</tr> -->
 </table>
 <div class="" style='width:90%;margin:1em auto;'>
-	<div style='float:left;'>{{ landcover_pop_chart.as_html }}</div>
-	<div style='float:left;'>{{ landcover_area_chart.as_html }}</div>
+	<div style='float:left;'>{{ gender_ratio_chart.as_html }}</div>
+	<div style='float:left;'>{{ gender_ratio_by_age_chart.as_html }}</div>
 </div>
 </body>
 </html>

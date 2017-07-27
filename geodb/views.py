@@ -1323,58 +1323,8 @@ def getGeneralInfoVillages(request):
         data1.append([i['agg_simplified_description'],i['totalpop']])
         data2.append([i['agg_simplified_description'],round(i['totalarea']/1000000,1)])
 
-    rowsgenderpercent = AfgPpltDemographics.objects.all().filter(vuidnear=village).values()
-    i = rowsgenderpercent[0]
-
-    data3 = []
-    data3.append(['Gender','Percent'])
-    data3.append(['Male', i['vuid_male_perc']])
-    data3.append(['Female', i['vuid_female_perc']])
-
-    data4 = []
-    data4.append(['Age','Male','Female'])
-    if context_dict['vuid_population'] > 200:
-        data4.append(['0-4 years',   i['m_perc_yrs_0_4'], -i['m_perc_yrs_0_4']])
-        data4.append(['5-9 years',   i['m_perc_yrs_5_9'],  -i['f_perc_yrs_5_9']])
-        data4.append(['10-14 years', i['m_perc_yrs_10_14'],  -i['f_perc_yrs_10_14']])
-        data4.append(['15-19 years', i['m_perc_yrs_15_19'],  -i['f_perc_yrs_15_19']])
-        data4.append(['20-24 years', i['m_perc_yrs_20_24'],  -i['f_perc_yrs_20_24']])
-        data4.append(['25-29 years', i['m_perc_yrs_25_29'],  -i['f_perc_yrs_25_29']])
-        data4.append(['30-34 years', i['m_perc_yrs_30_34'],  -i['f_perc_yrs_30_34']])
-        data4.append(['35-39 years', i['m_perc_yrs_35_39'],  -i['f_perc_yrs_35_39']])
-        data4.append(['40-44 years', i['m_perc_yrs_40_44'],  -i['f_perc_yrs_40_44']])
-        data4.append(['45-49 years', i['m_perc_yrs_45_49'],  -i['f_perc_yrs_45_49']])
-        data4.append(['50-54 years', i['m_perc_yrs_50_54'],  -i['f_perc_yrs_50_54']])
-        data4.append(['55-59 years', i['m_perc_yrs_55_59'],  -i['f_perc_yrs_55_59']])
-        data4.append(['60-64 years', i['m_perc_yrs_60_64'],  -i['f_perc_yrs_60_64']])
-        data4.append(['65-69 years', i['m_perc_yrs_65_69'],  -i['f_perc_yrs_65_69']])
-        data4.append(['70-74 years', i['m_perc_yrs_70_74'],  -i['f_perc_yrs_70_74']])
-        data4.append(['75-79 years', i['m_perc_yrs_75_79'],   -i['f_perc_yrs_75_79']])
-        data4.append(['80+ years', i['m_perc_yrs_80pls'],   -i['f_perc_yrs_80pls']])
-    else:
-        data4.append(['0-9 years',   i['m_perc_yrs_0_4']+i['m_perc_yrs_5_9'], -i['m_perc_yrs_0_4']-i['f_perc_yrs_5_9']])
-        data4.append(['10-19 years', i['m_perc_yrs_10_14']+i['m_perc_yrs_15_19'],  -i['f_perc_yrs_10_14']-i['f_perc_yrs_15_19']])
-        data4.append(['20-29 years', i['m_perc_yrs_20_24']+i['m_perc_yrs_25_29'],  -i['f_perc_yrs_20_24']-i['f_perc_yrs_25_29']])
-        data4.append(['30-39 years', i['m_perc_yrs_30_34']+i['m_perc_yrs_35_39'],  -i['f_perc_yrs_30_34']-i['f_perc_yrs_35_39']])
-        data4.append(['40-49 years', i['m_perc_yrs_40_44']+i['m_perc_yrs_45_49'],  -i['f_perc_yrs_40_44']-i['f_perc_yrs_45_49']])
-        data4.append(['50-59 years', i['m_perc_yrs_50_54']+i['m_perc_yrs_55_59'],  -i['f_perc_yrs_50_54']-i['f_perc_yrs_55_59']])
-        data4.append(['60-69 years', i['m_perc_yrs_60_64']+i['m_perc_yrs_65_69'],  -i['f_perc_yrs_60_64']-i['f_perc_yrs_65_69']])
-        data4.append(['70-79 years', i['m_perc_yrs_70_74']+i['m_perc_yrs_75_79'],  -i['f_perc_yrs_70_74']-i['f_perc_yrs_75_79']])
-        data4.append(['80+ years', i['m_perc_yrs_80pls'],   -i['f_perc_yrs_80pls']])
-
-    for i, v in enumerate(data3):
-        if i > 0:
-            v[1] = {'v':v[1], 'f':str(abs(round(v[1], 1)))+' %'}
-
-    for i, v in enumerate(data4):
-        if i > 0:
-            v[1] = {'v':v[1], 'f':str(abs(round(v[1], 1)))+' %'}
-            v[2] = {'v':v[2], 'f':str(abs(round(v[2], 1)))+' %'}
-
     context_dict['landcover_pop_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title': _("# of Population"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
     context_dict['landcover_area_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title': _("# of Area (KM2)"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
-    context_dict['gender_ratio_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title': _("Gender Ratio (in %)"), 'width': 225,'height': 225, 'pieSliceText': _('value'),'legend': {'position': 'top', 'maxLines':3},'tooltip': {'text': 'value'}})
-    context_dict['gender_ratio_by_age_chart'] = gchart.BarChart(SimpleDataSource(data=data4), html_id="bar_chart1", options={'title': _("Gender Ratio by Age Group (in %)"), 'width': 225,'height': 225,'isStacked': True, 'hAxis': {'format': ';','title': _('in percent of total population')}, 'vAxis': {'direction': -1}, 'legend': {'position': 'top', 'maxLines':3}})
 
     context_dict.pop('position')
     return render_to_response(template,
@@ -1597,10 +1547,8 @@ def getCommonVillageData(village):
     for i in databaseFields:
         context_dict[i] = getattr(px, i)
 
-    rowsAfgPplp = AfgPplp.objects.filter(vuid=village).values().first()
-    context_dict['language_field'] = rowsAfgPplp['language_field']
-
     px = get_object_or_404(AfgPplp, vil_uid=village)
+    context_dict['language_field'] = px.language_field
     context_dict['elevation'] = round(px.elevation,1)
     context_dict['position'] = px.wkb_geometry
     return context_dict
@@ -2064,5 +2012,70 @@ def getWeatherInfoVillages(request):
     # print response.cookies
     context_dict['htmlrsult'] = response.content
 
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))
+
+def getDemographicInfo(request):
+    template = './demographic.html'
+    village = request.GET["v"]
+
+    context_dict = getCommonVillageData(village)
+
+    rowsgenderpercent = AfgPpltDemographics.objects.all().filter(vuidnear=village).values()
+    i = rowsgenderpercent[0]
+
+    data3 = []
+    data3.append(['Gender','Percent'])
+    data3.append(['Male', i['vuid_male_perc']])
+    data3.append(['Female', i['vuid_female_perc']])
+
+    data4 = []
+    data4.append(['Age','Male','Female'])
+    data4options={'title': _("Gender Ratio by Age Group (in %)"), 'width': 510, 'isStacked': True, 'hAxis': {'format': ';','title': _('in percent of total population')}, 'vAxis': {'title': _('age group in years'),'direction': -1}, 'legend': {'position': 'top', 'maxLines':3}}
+    if context_dict['vuid_population'] > 200:
+        data4.append(['0-4',   -i['m_perc_yrs_0_4'],    i['f_perc_yrs_0_4']])
+        data4.append(['5-9',   -i['m_perc_yrs_5_9'],    i['f_perc_yrs_5_9']])
+        data4.append(['10-14', -i['m_perc_yrs_10_14'],  i['f_perc_yrs_10_14']])
+        data4.append(['15-19', -i['m_perc_yrs_15_19'],  i['f_perc_yrs_15_19']])
+        data4.append(['20-24', -i['m_perc_yrs_20_24'],  i['f_perc_yrs_20_24']])
+        data4.append(['25-29', -i['m_perc_yrs_25_29'],  i['f_perc_yrs_25_29']])
+        data4.append(['30-34', -i['m_perc_yrs_30_34'],  i['f_perc_yrs_30_34']])
+        data4.append(['35-39', -i['m_perc_yrs_35_39'],  i['f_perc_yrs_35_39']])
+        data4.append(['40-44', -i['m_perc_yrs_40_44'],  i['f_perc_yrs_40_44']])
+        data4.append(['45-49', -i['m_perc_yrs_45_49'],  i['f_perc_yrs_45_49']])
+        data4.append(['50-54', -i['m_perc_yrs_50_54'],  i['f_perc_yrs_50_54']])
+        data4.append(['55-59', -i['m_perc_yrs_55_59'],  i['f_perc_yrs_55_59']])
+        data4.append(['60-64', -i['m_perc_yrs_60_64'],  i['f_perc_yrs_60_64']])
+        data4.append(['65-69', -i['m_perc_yrs_65_69'],  i['f_perc_yrs_65_69']])
+        data4.append(['70-74', -i['m_perc_yrs_70_74'],  i['f_perc_yrs_70_74']])
+        data4.append(['75-79', -i['m_perc_yrs_75_79'],  i['f_perc_yrs_75_79']])
+        data4.append(['80+',   -i['m_perc_yrs_80pls'],  i['f_perc_yrs_80pls']])
+
+        data4options['height'] = 450
+        data4options['vAxis']['textStyle'] = {'fontSize': 11}
+    else:
+        data4.append(['0-9',   -i['m_perc_yrs_0_4']  -i['m_perc_yrs_5_9'],    i['f_perc_yrs_0_4']  +i['f_perc_yrs_5_9']])
+        data4.append(['10-19', -i['m_perc_yrs_10_14']-i['m_perc_yrs_15_19'],  i['f_perc_yrs_10_14']+i['f_perc_yrs_15_19']])
+        data4.append(['20-29', -i['m_perc_yrs_20_24']-i['m_perc_yrs_25_29'],  i['f_perc_yrs_20_24']+i['f_perc_yrs_25_29']])
+        data4.append(['30-39', -i['m_perc_yrs_30_34']-i['m_perc_yrs_35_39'],  i['f_perc_yrs_30_34']+i['f_perc_yrs_35_39']])
+        data4.append(['40-49', -i['m_perc_yrs_40_44']-i['m_perc_yrs_45_49'],  i['f_perc_yrs_40_44']+i['f_perc_yrs_45_49']])
+        data4.append(['50-59', -i['m_perc_yrs_50_54']-i['m_perc_yrs_55_59'],  i['f_perc_yrs_50_54']+i['f_perc_yrs_55_59']])
+        data4.append(['60-69', -i['m_perc_yrs_60_64']-i['m_perc_yrs_65_69'],  i['f_perc_yrs_60_64']+i['f_perc_yrs_65_69']])
+        data4.append(['70-79', -i['m_perc_yrs_70_74']-i['m_perc_yrs_75_79'],  i['f_perc_yrs_70_74']+i['f_perc_yrs_75_79']])
+        data4.append(['80+',   -i['m_perc_yrs_80pls'],                        i['f_perc_yrs_80pls']])
+
+    for i, v in enumerate(data3):
+        if i > 0:
+            v[1] = {'v':v[1], 'f':str(abs(round(v[1], 1)))+' %'}
+
+    for i, v in enumerate(data4):
+        if i > 0:
+            v[1] = {'v':v[1], 'f':str(abs(round(v[1], 1)))+' %'}
+            v[2] = {'v':v[2], 'f':str(abs(round(v[2], 1)))+' %'}
+
+    context_dict['gender_ratio_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title': _("Gender Ratio (in %)"), 'width': 510, 'pieSliceText': _('value'),'pieHole':0.5,'legend': {'position': 'top', 'maxLines':3},'tooltip': {'text': 'value'}})
+    context_dict['gender_ratio_by_age_chart'] = gchart.BarChart(SimpleDataSource(data=data4), html_id="bar_chart1", options=data4options)
+
+    context_dict.pop('position')
     return render_to_response(template,
                                   RequestContext(request, context_dict))
