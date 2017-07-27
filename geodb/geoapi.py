@@ -1755,7 +1755,7 @@ class getVillages(ModelResource):
             if request.GET['distname'] != '':
                 dist_na_en = i['dist_na_en']
             # choices.append(i['name_en'].lstrip()+';'+dist_na_en+';'+prov_na_en)
-            choices.append(i['name_en'].lstrip())
+            choices.append(i['name_en'])
 
         # print choices
         # x = process.extract(request.GET['search']+";"+request.GET['distname']+";"+request.GET['provname'], choices, scorer=fuzz.token_sort_ratio, limit=10)
