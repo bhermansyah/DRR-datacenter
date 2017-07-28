@@ -263,7 +263,7 @@ class AfgLndcrva(models.Model):
     basin_id = models.FloatField(blank=True, null=True)
     area_sqm = models.FloatField(blank=True, null=True)
     aggcode_simplified = models.CharField(max_length=255, blank=True)
-    agg_simplified_description = models.CharField(max_length=-1, blank=True)
+    agg_simplified_description = models.CharField(max_length=255, blank=True)
     area_population = models.FloatField(blank=True, null=True)
     area_buildings = models.IntegerField(blank=True, null=True)
     area_buildup_assoc = models.CharField(max_length=255, blank=True)
