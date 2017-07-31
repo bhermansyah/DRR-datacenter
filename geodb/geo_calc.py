@@ -1652,12 +1652,12 @@ def getSettlementAtFloodRisk(filterLock, flag, code):
 
     # Number settlement at risk of flood
     if flag=='drawArea':
-        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
+        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Build Up').extra(
             select={
                 'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*fldarea_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
     elif flag=='entireAfg':
-        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
+        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Build Up').extra(
             select={
                 'numbersettlementsatrisk': 'count(distinct vuid)'}).values('numbersettlementsatrisk')
     elif flag=='currentProvince':
@@ -1665,17 +1665,17 @@ def getSettlementAtFloodRisk(filterLock, flag, code):
             ff0001 =  "dist_code  = '"+str(code)+"'"
         else :
             ff0001 =  "prov_code  = '"+str(code)+"'"
-        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
+        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Build Up').extra(
             select={
                 'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {ff0001}).values('numbersettlementsatrisk')
     elif flag=='currentBasin':
-        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
+        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Build Up').extra(
             select={
                 'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {"vuid = '"+str(code)+"'"}).values('numbersettlementsatrisk')
     else:
-        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Built-up').extra(
+        countsBase = targetRisk.exclude(mitigated_pop__gt=0).filter(agg_simplified_description='Build Up').extra(
             select={
                 'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
@@ -1728,14 +1728,14 @@ def getRawFloodRisk(filterLock, flag, code):
 
     # landcover/pop/atrisk
     temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
-    response['built_up_pop_risk'] = round(temp.get('Built-up', 0),0)
-    response['cultivated_pop_risk'] = round(temp.get('Fruit trees', 0),0)+round(temp.get('Irrigated agricultural land', 0),0)+round(temp.get('Rainfed agricultural land', 0),0)+round(temp.get('Vineyards', 0),0)
-    response['barren_pop_risk'] = round(temp.get('Barren land', 0),0)+round(temp.get('Permanent snow', 0),0)+round(temp.get('Rangeland', 0),0)+round(temp.get('Sand cover', 0),0)+round(temp.get('Forest and shrubs', 0),0)
+    response['built_up_pop_risk'] = round(temp.get('Build Up', 0),0)
+    response['cultivated_pop_risk'] = round(temp.get('Fruit Trees', 0),0)+round(temp.get('Irrigated Agricultural Land', 0),0)+round(temp.get('Rainfed', 0),0)+round(temp.get('Vineyards', 0),0)
+    response['barren_pop_risk'] = round(temp.get('Barren land', 0),0)+round(temp.get('Snow', 0) or 0,0) +round(temp.get('Rangeland', 0),0)+round(temp.get('Sand Covered Areas', 0),0)+round(temp.get('Forest & Shrub', 0),0)+round(temp.get('Sand Dunes', 0),0)
 
     temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
-    response['built_up_area_risk'] = round(temp.get('Built-up', 0)/1000000,1)
-    response['cultivated_area_risk'] = round(temp.get('Fruit trees', 0)/1000000,1)+round(temp.get('Irrigated agricultural land', 0)/1000000,1)+round(temp.get('Rainfed agricultural land', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
-    response['barren_area_risk'] = round(temp.get('Barren land', 0)/1000000,1)+round(temp.get('Permanent snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand cover', 0)/1000000,1)+round(temp.get('Forest and shrubs', 0)/1000000,1)
+    response['built_up_area_risk'] = round(temp.get('Build Up', 0)/1000000,1)
+    response['cultivated_area_risk'] = round(temp.get('Fruit Trees', 0)/1000000,1)+round(temp.get('Irrigated Agricultural Land', 0)/1000000,1)+round(temp.get('Rainfed', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
+    response['barren_area_risk'] = round(temp.get('Barren land', 0)/1000000,1)+round(temp.get('Snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand Covered Areas', 0)/1000000,1)+round(temp.get('Forest & Shrub', 0)/1000000,1)+round(temp.get('Sand Dunes', 0)/1000000,1)
 
     return response
 
@@ -1745,14 +1745,14 @@ def getRawBaseLine(filterLock, flag, code):
     parent_data = getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', flag, code, None)
     temp = dict([(c['agg_simplified_description'], c['count']) for c in parent_data])
 
-    response['built_up_pop'] = round(temp.get('Built-up', 0),0)
-    response['cultivated_pop'] = round(temp.get('Fruit trees', 0),0)+round(temp.get('Irrigated agricultural land', 0),0)+round(temp.get('Rainfed agricultural land', 0),0)+round(temp.get('Vineyards', 0),0)
-    response['barren_pop'] = round(temp.get('Water body and marshland', 0),0)+round(temp.get('Barren land', 0),0)+round(temp.get('Permanent snow', 0),0)+round(temp.get('Rangeland', 0),0)+round(temp.get('Sand cover', 0),0)+round(temp.get('Forest and shrubs', 0),0)
+    response['built_up_pop'] = round(temp.get('Build Up', 0),0)
+    response['cultivated_pop'] = round(temp.get('Fruit Trees', 0),0)+round(temp.get('Irrigated Agricultural Land', 0),0)+round(temp.get('Rainfed', 0),0)+round(temp.get('Vineyards', 0),0)
+    response['barren_pop'] = round(temp.get('Water body and Marshland', 0),0)+round(temp.get('Barren land', 0),0)+round(temp.get('Snow', 0),0)+round(temp.get('Rangeland', 0),0)+round(temp.get('Sand Covered Areas', 0),0)+round(temp.get('Forest & Shrub', 0),0)+round(temp.get('Sand Dunes', 0),0)
 
     temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in parent_data])
-    response['built_up_area'] = round(temp.get('Built-up', 0)/1000000,1)
-    response['cultivated_area'] = round(temp.get('Fruit trees', 0)/1000000,1)+round(temp.get('Irrigated agricultural land', 0)/1000000,1)+round(temp.get('Rainfed agricultural land', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
-    response['barren_area'] = round(temp.get('Water body and marshland', 0)/1000000,1)+round(temp.get('Barren land', 0)/1000000,1)+round(temp.get('Permanent snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand cover', 0)/1000000,1)+round(temp.get('Forest and shrubs', 0)/1000000,1)
+    response['built_up_area'] = round(temp.get('Build Up', 0)/1000000,1)
+    response['cultivated_area'] = round(temp.get('Fruit Trees', 0)/1000000,1)+round(temp.get('Irrigated Agricultural Land', 0)/1000000,1)+round(temp.get('Rainfed', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
+    response['barren_area'] = round(temp.get('Water body and Marshland', 0)/1000000,1)+round(temp.get('Barren land', 0)/1000000,1)+round(temp.get('Snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand Covered Areas', 0)/1000000,1)+round(temp.get('Forest & Shrub', 0)/1000000,1)+round(temp.get('Sand Dunes', 0)/1000000,1)
 
     return response
 
