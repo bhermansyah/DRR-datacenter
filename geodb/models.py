@@ -596,7 +596,7 @@ class AfgFldzonea100KRiskLandcoverPop(models.Model):
     fldarea_population = models.FloatField(blank=True, null=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
-    basinmember_id = models.IntegerField(blank=True, null=True)
+    basinmember = models.ForeignKey(AfgShedaLvl4, related_name='basinmembers')
     mitigated_pop = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
     class Meta:
