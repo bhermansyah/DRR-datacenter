@@ -141,16 +141,16 @@ def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None, rf
             
             # pop at risk level
             temp = dict([(c['deeperthan'], c['count']) for c in counts])
-            response['high_risk_population']=round(temp.get('271 cm', 0),0)
-            response['med_risk_population']=round(temp.get('121 cm', 0), 0)
-            response['low_risk_population']=round(temp.get('029 cm', 0),0)
+            response['high_risk_population']=round((temp.get('271 cm', 0) or 0),0)
+            response['med_risk_population']=round((temp.get('121 cm', 0) or 0), 0)
+            response['low_risk_population']=round((temp.get('029 cm', 0) or 0),0)
             response['total_risk_population']=response['high_risk_population']+response['med_risk_population']+response['low_risk_population']
 
             # area at risk level
             temp = dict([(c['deeperthan'], c['areaatrisk']) for c in counts])
-            response['high_risk_area']=round(temp.get('271 cm', 0)/1000000,1)
-            response['med_risk_area']=round(temp.get('121 cm', 0)/1000000,1)
-            response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)    
+            response['high_risk_area']=round((temp.get('271 cm', 0) or 0)/1000000,1)
+            response['med_risk_area']=round((temp.get('121 cm', 0) or 0)/1000000,1)
+            response['low_risk_area']=round((temp.get('029 cm', 0) or 0)/1000000,1)    
             response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2) 
 
             counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code, None)
