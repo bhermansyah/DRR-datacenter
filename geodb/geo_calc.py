@@ -1306,7 +1306,7 @@ def getFloodForecast(request, filterLock, flag, code):
     reverse_date = curdate - datetime.timedelta(days=1)
 
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and marshland'))
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and Marshland'))
 
     flood_parent = getFloodForecastMatrix(filterLock, flag, code)
     for i in flood_parent:
@@ -1648,7 +1648,7 @@ def getFloodRisk(request, filterLock, flag, code):
 def getSettlementAtFloodRisk(filterLock, flag, code):
     response = {}
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and Marshland')
 
     # Number settlement at risk of flood
     if flag=='drawArea':
@@ -1705,7 +1705,7 @@ def getRawAvalancheRisk(filterLock, flag, code):
 def getRawFloodRisk(filterLock, flag, code):
     response = {}
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and marshland')
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and Marshland')
 
     # Flood Risk
     counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0), filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code, None)
@@ -2090,12 +2090,12 @@ def getTotalArea(filterLock, flag, code, targetBase):
 
 def getTotalSettlement(filterLock, flag, code, targetBase):
     if flag=='drawArea':
-        countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+        countsBase = targetBase.exclude(agg_simplified_description='Water body and Marshland').extra(
             select={
                 'numbersettlements': 'count(distinct vuid)'},
             where = {'st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_sqm > 1 and ST_Intersects(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
     elif flag=='entireAfg':
-        countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+        countsBase = targetBase.exclude(agg_simplified_description='Water body and Marshland').extra(
             select={
                 'numbersettlements': 'count(distinct vuid)'}).values('numbersettlements')
     elif flag=='currentProvince':
@@ -2103,17 +2103,17 @@ def getTotalSettlement(filterLock, flag, code, targetBase):
             ff0001 =  "dist_code  = '"+str(code)+"'"
         else :
             ff0001 =  "prov_code  = '"+str(code)+"'"
-        countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+        countsBase = targetBase.exclude(agg_simplified_description='Water body and Marshland').extra(
             select={
                 'numbersettlements': 'count(distinct vuid)'},
             where = {ff0001}).values('numbersettlements')
     elif flag=='currentBasin':
-        countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+        countsBase = targetBase.exclude(agg_simplified_description='Water body and Marshland').extra(
             select={
                 'numbersettlements': 'count(distinct vuid)'},
             where = {"vuid = '"+str(code)+"'"}).values('numbersettlements')
     else:
-        countsBase = targetBase.exclude(agg_simplified_description='Water body and marshland').extra(
+        countsBase = targetBase.exclude(agg_simplified_description='Water body and Marshland').extra(
             select={
                 'numbersettlements': 'count(distinct vuid)'},
             where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlements')
@@ -2299,7 +2299,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
     DAY = datetime.datetime.utcnow().strftime("%d")
 
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and marshland'))
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and Marshland'))
 
     counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
     temp = dict([(c['deeperthan'], c['count']) for c in counts])
