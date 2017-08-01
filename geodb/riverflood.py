@@ -22,6 +22,9 @@ def query_to_dicts(cursor, query_string, *query_args):
 
 def getFloodForecastBySource(sourceType, targetRisk, filterLock, flag, code, YEAR, MONTH, DAY):
 	# DAY = int(DAY)-1
+	if sourceType == None:
+		sourceType = 'GFMS only'
+		
 	response = {}
 	if sourceType == 'GFMS only':
 		# River Flood Forecasted (GFMS)

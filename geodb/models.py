@@ -746,7 +746,7 @@ class provincesummary(models.Model):
     sand_dunes_pop_risk                         = models.FloatField(blank=True, null=True)
     sand_dunes_area                             = models.FloatField(blank=True, null=True)
     sand_dunes_area_risk                        = models.FloatField(blank=True, null=True)
-    
+
     class Meta:
         managed = True
         db_table = 'provincesummary'             
@@ -880,6 +880,11 @@ class districtsummary(models.Model):
     ava_forecast_med_pop                        = models.FloatField(blank=True, null=True) 
     ava_forecast_high_pop                       = models.FloatField(blank=True, null=True)
     total_ava_forecast_pop                      = models.FloatField(blank=True, null=True)
+
+    sand_dunes_pop                              = models.FloatField(blank=True, null=True)
+    sand_dunes_pop_risk                         = models.FloatField(blank=True, null=True)
+    sand_dunes_area                             = models.FloatField(blank=True, null=True)
+    sand_dunes_area_risk                        = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = True

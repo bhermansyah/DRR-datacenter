@@ -2220,13 +2220,13 @@ def getProvinceSummary(filterLock, flag, code):
         sql = "select b.prov_code as code, b.prov_na_en as na_en, a.*, \
             a.fruit_trees_pop+a.irrigated_agricultural_land_pop+a.rainfed_agricultural_land_pop+a.vineyards_pop as cultivated_pop,  \
             a.fruit_trees_area+a.irrigated_agricultural_land_area+a.rainfed_agricultural_land_area+a.vineyards_area as cultivated_area,  \
-            a.water_body_pop+a.barren_land_pop+a.permanent_snow_pop+a.rangeland_pop+a.sandcover_pop+a.forest_pop as barren_pop,  \
-            a.water_body_area+a.barren_land_area+a.permanent_snow_area+a.rangeland_area+a.sandcover_area+a.forest_area as barren_area,  \
+            a.water_body_pop+a.barren_land_pop+a.permanent_snow_pop+a.rangeland_pop+a.sandcover_pop+a.forest_pop+a.sand_dunes_pop as barren_pop,  \
+            a.water_body_area+a.barren_land_area+a.permanent_snow_area+a.rangeland_area+a.sandcover_area+a.forest_area+a.sand_dunes_area as barren_area,  \
              \
             a.fruit_trees_pop_risk+a.irrigated_agricultural_land_pop_risk+a.rainfed_agricultural_land_pop_risk+a.vineyards_pop_risk as cultivated_pop_risk, \
             a.fruit_trees_area_risk+a.irrigated_agricultural_land_area_risk+a.rainfed_agricultural_land_area_risk+a.vineyards_area_risk as cultivated_area_risk, \
-            a.barren_land_pop_risk+a.permanent_snow_pop_risk+a.rangeland_pop_risk+a.sandcover_pop_risk+a.forest_pop_risk as barren_pop_risk, \
-            a.barren_land_area_risk+a.permanent_snow_area_risk+a.rangeland_area_risk+a.sandcover_area_risk+a.forest_area_risk as barren_area_risk \
+            a.barren_land_pop_risk+a.permanent_snow_pop_risk+a.rangeland_pop_risk+a.sandcover_pop_risk+a.forest_pop_risk+a.sand_dunes_pop_risk as barren_pop_risk, \
+            a.barren_land_area_risk+a.permanent_snow_area_risk+a.rangeland_area_risk+a.sandcover_area_risk+a.forest_area_risk+a.sand_dunes_area_risk as barren_area_risk \
             from provincesummary a \
             inner join afg_admbnda_adm1 b on cast(a.province as integer)=b.prov_code \
             order by a.\"Population\" desc"
@@ -2234,13 +2234,13 @@ def getProvinceSummary(filterLock, flag, code):
         sql = "select b.dist_code as code, b.dist_na_en as na_en, a.*, \
             a.fruit_trees_pop+a.irrigated_agricultural_land_pop+a.rainfed_agricultural_land_pop+a.vineyards_pop as cultivated_pop,  \
             a.fruit_trees_area+a.irrigated_agricultural_land_area+a.rainfed_agricultural_land_area+a.vineyards_area as cultivated_area,  \
-            a.water_body_pop+a.barren_land_pop+a.permanent_snow_pop+a.rangeland_pop+a.sandcover_pop+a.forest_pop as barren_pop,  \
-            a.water_body_area+a.barren_land_area+a.permanent_snow_area+a.rangeland_area+a.sandcover_area+a.forest_area as barren_area,  \
+            a.water_body_pop+a.barren_land_pop+a.permanent_snow_pop+a.rangeland_pop+a.sandcover_pop+a.forest_pop+a.sand_dunes_pop as barren_pop,  \
+            a.water_body_area+a.barren_land_area+a.permanent_snow_area+a.rangeland_area+a.sandcover_area+a.forest_area+a.sand_dunes_area as barren_area,  \
              \
             a.fruit_trees_pop_risk+a.irrigated_agricultural_land_pop_risk+a.rainfed_agricultural_land_pop_risk+a.vineyards_pop_risk as cultivated_pop_risk, \
             a.fruit_trees_area_risk+a.irrigated_agricultural_land_area_risk+a.rainfed_agricultural_land_area_risk+a.vineyards_area_risk as cultivated_area_risk, \
-            a.barren_land_pop_risk+a.permanent_snow_pop_risk+a.rangeland_pop_risk+a.sandcover_pop_risk+a.forest_pop_risk as barren_pop_risk, \
-            a.barren_land_area_risk+a.permanent_snow_area_risk+a.rangeland_area_risk+a.sandcover_area_risk+a.forest_area_risk as barren_area_risk \
+            a.barren_land_pop_risk+a.permanent_snow_pop_risk+a.rangeland_pop_risk+a.sandcover_pop_risk+a.forest_pop_risk+a.sand_dunes_pop_risk as barren_pop_risk, \
+            a.barren_land_area_risk+a.permanent_snow_area_risk+a.rangeland_area_risk+a.sandcover_area_risk+a.forest_area_risk+a.sand_dunes_area_risk as barren_area_risk \
             from districtsummary a \
             inner join afg_admbnda_adm2 b on cast(a.district as integer)=b.dist_code \
             where b.prov_code="+str(code)+" \
