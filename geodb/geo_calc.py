@@ -1712,30 +1712,30 @@ def getRawFloodRisk(filterLock, flag, code):
 
     # pop at risk level
     temp = dict([(c['deeperthan'], c['count']) for c in counts])
-    response['high_risk_population']=round(temp.get('271 cm', 0),0)
-    response['med_risk_population']=round(temp.get('121 cm', 0), 0)
-    response['low_risk_population']=round(temp.get('029 cm', 0),0)
+    response['high_risk_population']=round(temp.get('271 cm', 0) or 0,0)
+    response['med_risk_population']=round(temp.get('121 cm', 0) or 0, 0)
+    response['low_risk_population']=round(temp.get('029 cm', 0) or 0,0)
     response['total_risk_population']=response['high_risk_population']+response['med_risk_population']+response['low_risk_population']
 
     # area at risk level
     temp = dict([(c['deeperthan'], c['areaatrisk']) for c in counts])
-    response['high_risk_area']=round(temp.get('271 cm', 0)/1000000,1)
-    response['med_risk_area']=round(temp.get('121 cm', 0)/1000000,1)
-    response['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)
+    response['high_risk_area']=round((temp.get('271 cm', 0) or 0)/1000000,1)
+    response['med_risk_area']=round((temp.get('121 cm', 0) or 0)/1000000,1)
+    response['low_risk_area']=round((temp.get('029 cm', 0) or 0)/1000000,1)
     response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2)
 
     counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code, None)
 
     # landcover/pop/atrisk
     temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
-    response['built_up_pop_risk'] = round(temp.get('Build Up', 0),0)
-    response['cultivated_pop_risk'] = round(temp.get('Fruit Trees', 0),0)+round(temp.get('Irrigated Agricultural Land', 0),0)+round(temp.get('Rainfed', 0),0)+round(temp.get('Vineyards', 0),0)
-    response['barren_pop_risk'] = round(temp.get('Barren land', 0),0)+round(temp.get('Snow', 0) or 0,0) +round(temp.get('Rangeland', 0),0)+round(temp.get('Sand Covered Areas', 0),0)+round(temp.get('Forest & Shrub', 0),0)+round(temp.get('Sand Dunes', 0),0)
+    response['built_up_pop_risk'] = round(temp.get('Build Up', 0) or 0,0)
+    response['cultivated_pop_risk'] = round(temp.get('Fruit Trees', 0) or 0,0)+round(temp.get('Irrigated Agricultural Land', 0),0)+round(temp.get('Rainfed', 0),0)+round(temp.get('Vineyards', 0),0)
+    response['barren_pop_risk'] = round(temp.get('Barren land', 0) or 0,0)+round(temp.get('Snow', 0) or 0,0) +round(temp.get('Rangeland', 0),0)+round(temp.get('Sand Covered Areas', 0),0)+round(temp.get('Forest & Shrub', 0),0)+round(temp.get('Sand Dunes', 0),0)
 
     temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
-    response['built_up_area_risk'] = round(temp.get('Build Up', 0)/1000000,1)
-    response['cultivated_area_risk'] = round(temp.get('Fruit Trees', 0)/1000000,1)+round(temp.get('Irrigated Agricultural Land', 0)/1000000,1)+round(temp.get('Rainfed', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
-    response['barren_area_risk'] = round(temp.get('Barren land', 0)/1000000,1)+round(temp.get('Snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand Covered Areas', 0)/1000000,1)+round(temp.get('Forest & Shrub', 0)/1000000,1)+round(temp.get('Sand Dunes', 0)/1000000,1)
+    response['built_up_area_risk'] = round((temp.get('Build Up', 0) or 0)/1000000,1)
+    response['cultivated_area_risk'] = round((temp.get('Fruit Trees', 0) or 0)/1000000,1)+round(temp.get('Irrigated Agricultural Land', 0)/1000000,1)+round(temp.get('Rainfed', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
+    response['barren_area_risk'] = round((temp.get('Barren land', 0) or 0)/1000000,1)+round(temp.get('Snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand Covered Areas', 0)/1000000,1)+round(temp.get('Forest & Shrub', 0)/1000000,1)+round(temp.get('Sand Dunes', 0)/1000000,1)
 
     return response
 
