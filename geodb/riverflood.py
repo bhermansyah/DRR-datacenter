@@ -24,28 +24,28 @@ def getFloodForecastBySource(sourceType, targetRisk, filterLock, flag, code, YEA
 	# DAY = int(DAY)-1
 	if sourceType == None:
 		sourceType = 'GFMS only'
-		
+
 	response = {}
 	if sourceType == 'GFMS only':
 		# River Flood Forecasted (GFMS)
 		counts =  geodb.geoapi.getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
 
 		temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
-		response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
-		response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0) 
-		response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0) 
-		response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0) 
-		response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
-		response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+		response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0) or 0,0) 
+		response['riverflood_forecast_low_pop']=round(temp.get(2, 0) or 0,0) 
+		response['riverflood_forecast_med_pop']=round(temp.get(3, 0) or 0,0) 
+		response['riverflood_forecast_high_pop']=round(temp.get(4, 0) or 0,0) 
+		response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0) or 0,0) 
+		response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0) or 0,0) 
 		response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] + response['riverflood_forecast_low_pop'] + response['riverflood_forecast_med_pop'] + response['riverflood_forecast_high_pop'] + response['riverflood_forecast_veryhigh_pop'] + response['riverflood_forecast_extreme_pop']
 
 		temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
-		response['riverflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0) 
-		response['riverflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0) 
-		response['riverflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0) 
-		response['riverflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0) 
-		response['riverflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0) 
-		response['riverflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0) 
+		response['riverflood_forecast_verylow_area']=round((temp.get(1, 0) or 0)/1000000,0) 
+		response['riverflood_forecast_low_area']=round((temp.get(2, 0) or 0)/1000000,0) 
+		response['riverflood_forecast_med_area']=round((temp.get(3, 0) or 0)/1000000,0) 
+		response['riverflood_forecast_high_area']=round((temp.get(4, 0) or 0)/1000000,0) 
+		response['riverflood_forecast_veryhigh_area']=round((temp.get(5, 0) or 0)/1000000,0) 
+		response['riverflood_forecast_extreme_area']=round((temp.get(6, 0) or 0)/1000000,0) 
 		response['total_riverflood_forecast_area']=response['riverflood_forecast_verylow_area'] + response['riverflood_forecast_low_area'] + response['riverflood_forecast_med_area'] + response['riverflood_forecast_high_area'] + response['riverflood_forecast_veryhigh_area'] + response['riverflood_forecast_extreme_area']
 
 		# flood risk and riverflood forecast matrix
@@ -93,39 +93,39 @@ def getFloodForecastBySource(sourceType, targetRisk, filterLock, flag, code, YEA
 
 		temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
 		temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-		response['riverflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0),0)
-		response['riverflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-		response['riverflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0),0)
+		response['riverflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+		response['riverflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+		response['riverflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
 		temp = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
 		temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-		response['riverflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0),0)
-		response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0), 0) 
-		response['riverflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0),0)
+		response['riverflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+		response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0) 
+		response['riverflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
 		temp = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
 		temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-		response['riverflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0),0)
-		response['riverflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-		response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0),0) 
+		response['riverflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+		response['riverflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+		response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0) 
 
 		temp = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
 		temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-		response['riverflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0),0)
-		response['riverflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-		response['riverflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0),0)
+		response['riverflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+		response['riverflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+		response['riverflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
 		temp = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
 		temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-		response['riverflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0),0)
-		response['riverflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-		response['riverflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0),0)
+		response['riverflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+		response['riverflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+		response['riverflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
 		temp = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
 		temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-		response['riverflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0),0)
-		response['riverflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-		response['riverflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0),0)
+		response['riverflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+		response['riverflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+		response['riverflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
 	elif sourceType=='GLOFAS only':
 		if not code:
