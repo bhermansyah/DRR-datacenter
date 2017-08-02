@@ -985,7 +985,7 @@ def updateEarthQuakeSummaryTable(event_code):
         # ")
 
         cursor.execute("\
-            select a.vil_uid, b.grid_value, sum(a.vuid_population_landscan) as pop     \
+            select a.vil_uid, b.grid_value, sum(a.vuid_population) as pop     \
             from afg_pplp a, earthquake_shakemap b   \
             where b.event_code = '"+event_code+"' and b.grid_value > 1  and a.dist_code="+str(aoi.dist_code)+"\
             and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
@@ -1421,8 +1421,8 @@ def getFloodInfoVillages(request):
 
     # riverflood
     currRF = targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(year,month,day))
-    currRF = currRF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','vuid_population_landscan', 'vuid_area_sqm')
-    temp = dict([(c['basinmember__basins__riskstate'], c['vuid_population_landscan']) for c in currRF])
+    currRF = currRF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','vuid_population', 'vuid_area_sqm')
+    temp = dict([(c['basinmember__basins__riskstate'], c['vuid_population']) for c in currRF])
     context_dict['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
     context_dict['riverflood_forecast_low_pop']=round(temp.get(2, 0),0)
     context_dict['riverflood_forecast_med_pop']=round(temp.get(3, 0),0)
@@ -1432,7 +1432,7 @@ def getFloodInfoVillages(request):
 
     currFF = targetRisk.select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(year,month,day))
     currFF = currFF.values('basinmember__basins__riskstate').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('basinmember__basins__riskstate','pop', 'area')
-    temp = dict([(c['basinmember__basins__riskstate'], c['vuid_population_landscan']) for c in currFF])
+    temp = dict([(c['basinmember__basins__riskstate'], c['vuid_population']) for c in currFF])
     context_dict['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
     context_dict['flashflood_forecast_low_pop']=round(temp.get(2, 0),0)
     context_dict['flashflood_forecast_med_pop']=round(temp.get(3, 0),0)
@@ -1440,8 +1440,8 @@ def getFloodInfoVillages(request):
     context_dict['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
     context_dict['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
 
-    floodRisk = targetRisk.values('deeperthan').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('deeperthan','vuid_population_landscan', 'vuid_area_sqm')
-    temp = dict([(c['deeperthan'], c['vuid_population_landscan']) for c in floodRisk])
+    floodRisk = targetRisk.values('deeperthan').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('deeperthan','vuid_population', 'vuid_area_sqm')
+    temp = dict([(c['deeperthan'], c['vuid_population']) for c in floodRisk])
     context_dict['high_risk_population']=round(temp.get('271 cm', 0),0)
     context_dict['med_risk_population']=round(temp.get('121 cm', 0), 0)
     context_dict['low_risk_population']=round(temp.get('029 cm', 0),0)
@@ -1452,8 +1452,8 @@ def getFloodInfoVillages(request):
     context_dict['low_risk_area']=round(temp.get('029 cm', 0)/1000000,1)
 
 
-    floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','vuid_population_landscan', 'vuid_area_sqm')
-    temp = dict([(c['agg_simplified_description'], c['vuid_population_landscan']) for c in floodRiskLC])
+    floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','vuid_population', 'vuid_area_sqm')
+    temp = dict([(c['agg_simplified_description'], c['vuid_population']) for c in floodRiskLC])
     context_dict['water_body_pop_risk']=round(temp.get('Water body and marshland', 0),0)
     context_dict['barren_land_pop_risk']=round(temp.get('Barren land', 0),0)
     context_dict['built_up_pop_risk']=round(temp.get('Built-up', 0),0)
