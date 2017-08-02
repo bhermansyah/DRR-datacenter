@@ -124,15 +124,15 @@ def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None, rf
             counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', flag, code, None)
             # pop at risk level
             temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
-            response['high_ava_population']=round(temp.get('High', 0),0)
-            response['med_ava_population']=round(temp.get('Moderate', 0), 0)
+            response['high_ava_population']=round(temp.get('High', 0) or 0,0)
+            response['med_ava_population']=round(temp.get('Moderate' or 0, 0), 0)
             response['low_ava_population']=0
             response['total_ava_population']=response['high_ava_population']+response['med_ava_population']+response['low_ava_population']
 
             # area at risk level
             temp = dict([(c['avalanche_cat'], c['areaatrisk']) for c in counts])
-            response['high_ava_area']=round(temp.get('High', 0)/1000000,1)
-            response['med_ava_area']=round(temp.get('Moderate', 0)/1000000,1)
+            response['high_ava_area']=round((temp.get('High', 0) or 0)/1000000,1)
+            response['med_ava_area']=round((temp.get('Moderate', 0) or 0)/1000000,1)
             response['low_ava_area']=0    
             response['total_ava_area']=round(response['high_ava_area']+response['med_ava_area']+response['low_ava_area'],2) 
 
