@@ -1292,10 +1292,10 @@ def getListAccesibility(filterLock, flag, code):
 
 def getFloodForecast(request, filterLock, flag, code):
     response = getCommonUse(request, flag, code)
-    
+
     includeDetailState = True
     if 'date' in request.GET:
-        curdate = datetime.datetime(int(request.GET['date'].split('-')[0]), int(request.GET['date'].split('-')[1]), int(request.GET['date'].split('-')[2]), 00, 00) 
+        curdate = datetime.datetime(int(request.GET['date'].split('-')[0]), int(request.GET['date'].split('-')[1]), int(request.GET['date'].split('-')[2]), 00, 00)
         includeDetailState = False
     else:
         curdate = datetime.datetime.utcnow()
@@ -1396,7 +1396,7 @@ def getRawAvalancheForecast(request, filterLock, flag, code):
 
     includeDetailState = True
     if 'date' in request.GET:
-        curdate = datetime.datetime(int(request.GET['date'].split('-')[0]), int(request.GET['date'].split('-')[1]), int(request.GET['date'].split('-')[2]), 00, 00) 
+        curdate = datetime.datetime(int(request.GET['date'].split('-')[0]), int(request.GET['date'].split('-')[1]), int(request.GET['date'].split('-')[2]), 00, 00)
         includeDetailState = False
     else:
         curdate = datetime.datetime.utcnow()
@@ -2209,7 +2209,7 @@ def getTotalRoadNetwork(filterLock, flag, code, targetBase):
             where = {
                 'ST_Within(wkb_geometry'+', '+filterLock+')'
             }).values('road_length')
-    return round(countsRoadBase[0]['road_length'],0)
+    return round(float(countsRoadBase[0]['road_length'] or 0),0)
 
 def getProvinceSummary(filterLock, flag, code):
     cursor = connections['geodb'].cursor()
@@ -2608,4 +2608,4 @@ def getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, DAY, merge):
 
     cursor.close()
 
-    return response    
+    return response

@@ -1693,6 +1693,12 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/generalinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
+                            title: gettext('Demographic'),
+                            // defaults: {autoScroll: true},
+                            height : 2100,
+                            style:"height:2100px;",
+                            html: '<iframe src="../../getOverviewMaps/demographic?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
+                        },{
                             title: gettext('Accessibility'),
                             // defaults: {autoScroll: true},
                             height : 2100,
@@ -1722,12 +1728,6 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             height : 2100,
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/weatherinfo?x='+feature.data.pplp_point_y+'&y='+feature.data.pplp_point_x+'" width="100%" height="100%"></iframe>'
-                        },{
-                            title: gettext('Demographic'),
-                            // defaults: {autoScroll: true},
-                            height : 2100,
-                            style:"height:2100px;",
-                            html: '<iframe src="../../getOverviewMaps/demographic?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         }]
                     }],
                     listeners: {
