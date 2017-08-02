@@ -125,7 +125,7 @@ def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None, rf
             # pop at risk level
             temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
             response['high_ava_population']=round(temp.get('High', 0) or 0,0)
-            response['med_ava_population']=round(temp.get('Moderate' or 0, 0), 0)
+            response['med_ava_population']=round(temp.get('Moderate', 0) or 0,0)
             response['low_ava_population']=0
             response['total_ava_population']=response['high_ava_population']+response['med_ava_population']+response['low_ava_population']
 
