@@ -482,21 +482,21 @@ def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None, rf
         counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
 
-        response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0) 
-        response['flashflood_forecast_low_pop']=round(temp.get(2, 0),0) 
-        response['flashflood_forecast_med_pop']=round(temp.get(3, 0),0) 
-        response['flashflood_forecast_high_pop']=round(temp.get(4, 0),0) 
-        response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0) 
-        response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0) 
+        response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0) or 0,0) 
+        response['flashflood_forecast_low_pop']=round(temp.get(2, 0) or 0,0) 
+        response['flashflood_forecast_med_pop']=round(temp.get(3, 0) or 0,0) 
+        response['flashflood_forecast_high_pop']=round(temp.get(4, 0) or 0,0) 
+        response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0) or 0,0) 
+        response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0) or 0,0) 
         response['total_flashflood_forecast_pop']=response['flashflood_forecast_verylow_pop'] + response['flashflood_forecast_low_pop'] + response['flashflood_forecast_med_pop'] + response['flashflood_forecast_high_pop'] + response['flashflood_forecast_veryhigh_pop'] + response['flashflood_forecast_extreme_pop']
 
         temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
-        response['flashflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0) 
-        response['flashflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0) 
-        response['flashflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0) 
-        response['flashflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0) 
-        response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0) 
-        response['flashflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0) 
+        response['flashflood_forecast_verylow_area']=round((temp.get(1, 0) or 0)/1000000,0) 
+        response['flashflood_forecast_low_area']=round((temp.get(2, 0) or 0)/1000000,0) 
+        response['flashflood_forecast_med_area']=round((temp.get(3, 0) or 0)/1000000,0) 
+        response['flashflood_forecast_high_area']=round((temp.get(4, 0) or 0)/1000000,0) 
+        response['flashflood_forecast_veryhigh_area']=round((temp.get(5, 0) or 0)/1000000,0) 
+        response['flashflood_forecast_extreme_area']=round((temp.get(6, 0) or 0)/1000000,0) 
         response['total_flashflood_forecast_area']=response['flashflood_forecast_verylow_area'] + response['flashflood_forecast_low_area'] + response['flashflood_forecast_med_area'] + response['flashflood_forecast_high_area'] + response['flashflood_forecast_veryhigh_area'] + response['flashflood_forecast_extreme_area']
 
         response['total_flood_forecast_pop'] = response['total_riverflood_forecast_pop'] + response['total_flashflood_forecast_pop']
