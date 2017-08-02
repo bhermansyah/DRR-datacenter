@@ -243,11 +243,8 @@ class AfgFldzonea100KNciaV2271Cm(models.Model):
 class AfgFldzonea100KNciaV2Risk25Mbuffer(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
     wkb_geometry = models.MultiPolygonField(blank=True, null=True)
-    id = models.IntegerField(blank=True, null=True)
     deeperthan = models.CharField(max_length=255, blank=True)
-    province_n = models.CharField(max_length=255, blank=True)
-    district_n = models.CharField(max_length=255, blank=True)
-    basinname = models.CharField(max_length=255, blank=True)
+    dist_code = models.IntegerField(blank=True, null=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
@@ -552,15 +549,16 @@ class AfgAvsa(models.Model):
     avalanche_zone = models.CharField(max_length=255, blank=True)
     avalanche_area = models.IntegerField(blank=True, null=True)
     avalanche_lenght_m = models.IntegerField(blank=True, null=True)
-    vuid = models.CharField(max_length=255, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
     dist_na_en = models.CharField(max_length=255, blank=True)
     prov_na_en = models.CharField(max_length=255, blank=True)
     prov_code = models.IntegerField(blank=True, null=True)
     basin_id = models.FloatField(blank=True, null=True)
-    sum_area_population = models.FloatField(blank=True, null=True)
-    sum_area_sqm = models.FloatField(blank=True, null=True)
+    vuid = models.CharField(max_length=255, blank=True)
+    source = models.CharField(max_length=255, blank=True)
+    sum_area_sqm = models.IntegerField(blank=True, null=True)
     avalanche_pop = models.IntegerField(blank=True, null=True)
+    area_buildings = models.IntegerField(blank=True, null=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
     basinmember = models.ForeignKey(AfgShedaLvl4, related_name='basinmembersava')
@@ -568,7 +566,6 @@ class AfgAvsa(models.Model):
     class Meta:
         managed = False
         db_table = 'afg_avsa'
-
 
 class AfgFldzonea100KRiskLandcoverPop(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
