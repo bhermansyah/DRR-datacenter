@@ -463,9 +463,9 @@ def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None, rf
 
         counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
         temp = dict([(c['deeperthan'], c['count']) for c in counts])
-        response['high_risk_mitigated_population']=round(temp.get('271 cm', 0),0)
-        response['med_risk_mitigated_population']=round(temp.get('121 cm', 0), 0)
-        response['low_risk_mitigated_population']=round(temp.get('029 cm', 0),0)
+        response['high_risk_mitigated_population']=round(temp.get('271 cm', 0) or 0,0)
+        response['med_risk_mitigated_population']=round(temp.get('121 cm', 0) or 0, 0)
+        response['low_risk_mitigated_population']=round(temp.get('029 cm', 0) or 0,0)
         response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
 
 
