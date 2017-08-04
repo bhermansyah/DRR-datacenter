@@ -1185,6 +1185,7 @@ class AfgCaptPpl(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
     vil_uid = models.CharField(max_length=50, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
     distance_to_road = models.IntegerField(blank=True, null=True)
     time_to_road = models.IntegerField(blank=True, null=True)
     airdrm_id = models.IntegerField(blank=True, null=True)
@@ -1212,8 +1213,8 @@ class AfgCaptPpl(models.Model):
     hltfac_tier3_dist = models.IntegerField(blank=True, null=True)
     hltfac_tier3_time = models.IntegerField(blank=True, null=True)
     class Meta:
-        managed = True
-        db_table = 'afg_capt_ppl'        
+        managed = False
+        db_table = 'afg_capt_ppl'      
 
 class AfgHltfac(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
