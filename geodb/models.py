@@ -1257,33 +1257,42 @@ class forecastedLastUpdate(models.Model):
 
 class AfgCaptAdm1ItsProvcImmap(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
-    vuid = models.CharField(max_length=50, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    vuid = models.CharField(max_length=50, blank=True)
     facilities_name = models.CharField(max_length=50, blank=True)
     time = models.CharField(max_length=50, blank=True)
+    area_sqm = models.FloatField(blank=True, null=True)
     sum_area_population = models.FloatField(blank=True, null=True)
+    area_buildings = models.FloatField(blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'afg_capt_adm1_its_provc_immap'
 
 class AfgCaptAdm1NearestProvcImmap(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
-    vuid = models.CharField(max_length=50, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    vuid = models.CharField(max_length=50, blank=True)
     facilities_name = models.CharField(max_length=50, blank=True)
     time = models.CharField(max_length=50, blank=True)
+    area_sqm = models.FloatField(blank=True, null=True)
     sum_area_population = models.FloatField(blank=True, null=True)
+    area_buildings = models.FloatField(blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'afg_capt_adm1_nearest_provc_immap'
 
 class AfgCaptAdm2NearestDistrictcImmap(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
-    vuid = models.CharField(max_length=50, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    vuid = models.CharField(max_length=50, blank=True)
     facilities_name = models.CharField(max_length=50, blank=True)
     time = models.CharField(max_length=50, blank=True)
+    area_sqm = models.FloatField(blank=True, null=True)
     sum_area_population = models.FloatField(blank=True, null=True)
+    area_buildings = models.FloatField(blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'afg_capt_adm2_nearest_districtc_immap'
