@@ -1335,15 +1335,17 @@ class AfgCaptHltfacTier3Immap(models.Model):
 
 class AfgCaptHltfacTierallImmap(models.Model):
     ogc_fid = models.IntegerField(primary_key=True)
-    vuid = models.CharField(max_length=50, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    vuid = models.CharField(max_length=50, blank=True)
     facilities_name = models.CharField(max_length=50, blank=True)
     time = models.CharField(max_length=50, blank=True)
-    frequency = models.IntegerField(blank=True, null=True)
+    area_sqm = models.FloatField(blank=True, null=True)
     sum_area_population = models.FloatField(blank=True, null=True)
+    area_buildings = models.FloatField(blank=True, null=True)
     class Meta:
         managed = False
-        db_table = 'afg_capt_hltfac_tierall_immap'    
+        db_table = 'afg_capt_hltfac_tierall_immap'   
 
 class AfgIncidentOasis(models.Model):
     uid = models.IntegerField(db_column='UID', primary_key=True) # Field name made lowercase.
