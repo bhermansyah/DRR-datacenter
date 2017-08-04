@@ -1388,6 +1388,7 @@ class AfgCapaGsmcvr(models.Model):
     gsm_coverage = models.CharField(max_length=255, blank=True)
     gsm_coverage_population = models.FloatField(blank=True, null=True)
     gsm_coverage_area_sqm = models.FloatField(blank=True, null=True)
+    area_buildings = models.IntegerField(blank=True, null=True)
     shape_length = models.FloatField(blank=True, null=True)
     shape_area = models.FloatField(blank=True, null=True)
     objects = models.GeoManager()
