@@ -1421,10 +1421,11 @@ class AfgCaptGmscvr(models.Model):
     vuid = models.CharField(max_length=255, blank=True)
     dist_code = models.IntegerField(blank=True, null=True)
     prov_code = models.IntegerField(blank=True, null=True)
-    frequency = models.IntegerField(blank=True, null=True)
-    gsm_coverage_area_sqm = models.FloatField(blank=True, null=True)
-    gsm_coverage_population = models.FloatField(blank=True, null=True)
     gsm_coverage = models.CharField(max_length=255, blank=True)
+    frequency = models.IntegerField(blank=True, null=True)
+    gsm_coverage_population = models.FloatField(blank=True, null=True)
+    gsm_coverage_area_sqm = models.FloatField(blank=True, null=True)
+    area_buildings = models.FloatField(blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'afg_capt_gmscvr'
