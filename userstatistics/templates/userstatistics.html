@@ -35,22 +35,22 @@
     },
     {
       text: 'Number of User Activity Group By Date and Resource',
-      sql: 'SELECT * FROM (SELECT SUBSTRING(created, 1, 10) AS `date`, resource, count(*) AS `count` FROM usac GROUP BY SUBSTRING(created, 1, 10), resource) t1 ORDER BY `date`;',
+      sql: 'SELECT * FROM (SELECT SUBSTRING(actiontime, 1, 10) AS `date`, resource, count(*) AS `count` FROM usac GROUP BY SUBSTRING(actiontime, 1, 10), resource) t1 ORDER BY `date`;',
       sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, resource, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, resource) t1 ORDER BY `date`;',
       sqlfiltered: this.sql,
       filter: {},
       fnbuildsqlfiltered: function() {
         var arresource = $('#filterresource option:selected').map(function(a, b) {return '"'+b.value+'"';});
         var wherein = "WHERE `resource` IN ("+arresource.get().join()+')';
-        var datefunc = 'SUBSTRING(created, 1, 10)';
+        var datefunc = 'SUBSTRING(actiontime, 1, 10)';
         if ($('#periodic').val() == 'weekly') {
-          datefunc = 'isoWeekYear(created)+\'-\'+MID(\'0\'+isoWeek(created),-1)';
+          datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
         }
         else if ($('#periodic').val() == 'monthly') {
-          datefunc = 'YEAR(created)+\'-\'+MID(\'0\'+MONTH(created),-1)';
+          datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
         }
         else if ($('#periodic').val() == 'quarterly') {
-          datefunc = 'YEAR(created)+\'-\'+parseInt((MONTH(created)+2)/3)';
+          datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
         }
         this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
         this.filter['resource'] = $('#filterresource option:selected').map(function(a, b) {return b.value;}).get();
@@ -93,7 +93,7 @@
         qryopted = this;
 
         // find date count
-        // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(created, 1, 10))) AS `datecount` FROM usac;");
+        // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
         // var datecount = r[0]['datecount'];
 
         // get all distinct resource to make y labels
@@ -216,22 +216,22 @@
     },
     {
       text: 'Number of User Activity Group By Date and Organization',
-      sql: 'SELECT * FROM (SELECT SUBSTRING(`created`, 1, 10) AS `date`, organization, count(*) AS `count` FROM usac GROUP BY SUBSTRING(`created`, 1, 10), organization) t1 ORDER BY `date`;',
+      sql: 'SELECT * FROM (SELECT SUBSTRING(`actiontime`, 1, 10) AS `date`, organization, count(*) AS `count` FROM usac GROUP BY SUBSTRING(`actiontime`, 1, 10), organization) t1 ORDER BY `date`;',
       sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, organization, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, organization) t1 ORDER BY `date`;',
       sqlfiltered: this.sql,
       filter: {},
       fnbuildsqlfiltered: function() {
         var arorganization = $('#filterorganization option:selected').map(function(a, b) {return '"'+b.value+'"';});
         var wherein = "WHERE `organization` IN ("+arorganization.get().join()+')';
-        var datefunc = 'SUBSTRING(created, 1, 10)';
+        var datefunc = 'SUBSTRING(actiontime, 1, 10)';
         if ($('#periodic').val() == 'weekly') {
-          datefunc = 'isoWeekYear(created)+\'-\'+MID(\'0\'+isoWeek(created),-1)';
+          datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
         }
         else if ($('#periodic').val() == 'monthly') {
-          datefunc = 'YEAR(created)+\'-\'+MID(\'0\'+MONTH(created),-1)';
+          datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
         }
         else if ($('#periodic').val() == 'quarterly') {
-          datefunc = 'YEAR(created)+\'-\'+parseInt((MONTH(created)+2)/3)';
+          datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
         }
         this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
         this.filter['organization'] = $('#filterorganization option:selected').map(function(a, b) {return b.value;}).get();
@@ -274,7 +274,7 @@
         qryopted = this;
 
         // find date count
-        // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(created, 1, 10))) AS `datecount` FROM usac;");
+        // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
         // var datecount = r[0]['datecount'];
 
         // get all distinct organization to make y labels
@@ -407,15 +407,15 @@
       fnbuildsqlfiltered: function() {
         var arorganization = $('#filterorganization option:selected').map(function(a, b) {return '"'+b.value+'"';});
         var wherein = "WHERE `organization` IN ("+arorganization.get().join()+')';
-        var datefunc = 'SUBSTRING(date_joined, 1, 10)';
+        var datefunc = 'SUBSTRING(date_join, 1, 10)';
         if ($('#periodic').val() == 'weekly') {
-          datefunc = 'isoWeekYear(date_joined)+\'-\'+MID(\'0\'+isoWeek(date_joined),-1)';
+          datefunc = 'isoWeekYear(date_join)+\'-\'+MID(\'0\'+isoWeek(date_join),-1)';
         }
         else if ($('#periodic').val() == 'monthly') {
-          datefunc = 'YEAR(date_joined)+\'-\'+MID(\'0\'+MONTH(date_joined),-1)';
+          datefunc = 'YEAR(date_join)+\'-\'+MID(\'0\'+MONTH(date_join),-1)';
         }
         else if ($('#periodic').val() == 'quarterly') {
-          datefunc = 'YEAR(date_joined)+\'-\'+parseInt((MONTH(date_joined)+2)/3)';
+          datefunc = 'YEAR(date_join)+\'-\'+parseInt((MONTH(date_join)+2)/3)';
         }
         this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
         this.filter['organization'] = $('#filterorganization option:selected').map(function(a, b) {return b.value;}).get();
@@ -595,9 +595,9 @@
         // ylabels = Object.keys(data[0]);
 
         // build xlabels
-        r = alasql("SELECT * FROM (SELECT SUBSTRING(date_joined, 1, 10) AS `date_joined`, COUNT(SUBSTRING(date_joined, 1, 10)) AS `newusercount` FROM user GROUP BY SUBSTRING(date_joined, 1, 10)) t1 ORDER BY date_joined;");
-        var startdate = r[0]['date_joined'];
-        var enddate = r[r.length-1]['date_joined'];
+        r = alasql("SELECT * FROM (SELECT SUBSTRING(date_join, 1, 10) AS `date_join`, COUNT(SUBSTRING(date_join, 1, 10)) AS `newusercount` FROM user GROUP BY SUBSTRING(date_join, 1, 10)) t1 ORDER BY date_join;");
+        var startdate = r[0]['date_join'];
+        var enddate = r[r.length-1]['date_join'];
         xlabels = makeserialdates(startdate, enddate);
 
         // transfer 'newusercount' values to yvalues
@@ -605,7 +605,7 @@
         ylabels.push('total user');
         yvalues[ylabels[0]] = Array(xlabels.length).fill(0);
         for (let i in r) {
-          idate = xlabels.indexOf(r[i]['date_joined']);
+          idate = xlabels.indexOf(r[i]['date_join']);
           yvalues[ylabels[0]][idate] = r[i]['newusercount'];
         }
         // console.log('yvalues', yvalues);
