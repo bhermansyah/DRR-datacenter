@@ -23,7 +23,7 @@ try:
 		else:
 			ggg += 1
 			print ggg
-			context_dict['VUID'] = row[0]
+
 			# general Info
 			databaseFields = AfgPpla._meta.get_all_field_names()
 			databaseFields.remove('ogc_fid')
@@ -33,6 +33,7 @@ try:
 			databaseFields.remove('name_local')
 			px = get_object_or_404(AfgPpla, vuid=row[0])
 			context_dict = {}
+			context_dict['VUID'] = row[0]
 			for i in databaseFields:
 				context_dict[i] = getattr(px, i)
 
