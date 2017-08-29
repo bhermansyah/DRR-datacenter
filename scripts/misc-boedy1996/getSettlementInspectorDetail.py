@@ -23,6 +23,7 @@ try:
 		else:
 			ggg += 1
 			print ggg
+			context_dict['VUID'] = row[0]
 			# general Info
 			databaseFields = AfgPpla._meta.get_all_field_names()
 			databaseFields.remove('ogc_fid')
@@ -293,6 +294,7 @@ try:
 	for i in data[0]:
 		header.append(i)
 
+	print header
 	writer.writerow(header)
 	for x in data:	
 		baris = []
