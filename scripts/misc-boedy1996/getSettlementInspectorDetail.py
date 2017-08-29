@@ -192,7 +192,7 @@ try:
 			context_dict['low_flood_risk_area']=round(temp.get('029 cm', 0)/1000000,1)
 
 			floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','pop', 'area')
-			temp = dict([(c['agg_simplified_description'], c['vuid_population']) for c in floodRiskLC])
+			temp = dict([(c['agg_simplified_description'], c['pop']) for c in floodRiskLC])
 			context_dict['water_body_pop_flood_risk']=round(temp.get('Water body and Marshland', 0),0)
 			context_dict['barren_land_pop_flood_risk']=round(temp.get('Barren land', 0),0)
 			context_dict['built_up_pop_flood_risk']=round(temp.get('Build Up', 0),0)
@@ -205,7 +205,7 @@ try:
 			context_dict['vineyards_pop_flood_risk']=round(temp.get('Vineyards', 0),0)
 			context_dict['forest_pop_flood_risk']=round(temp.get('Forest & Shrub', 0),0)
 			context_dict['sand_dunes_pop_flood_risk']=round(temp.get('Sand Dunes', 0),0)
-			temp = dict([(c['agg_simplified_description'], c['vuid_area_sqm']) for c in floodRiskLC])
+			temp = dict([(c['agg_simplified_description'], c['area']) for c in floodRiskLC])
 			context_dict['water_body_area_flood_risk']=round(temp.get('Water body and Marshland', 0)/1000000,1)
 			context_dict['barren_land_area_flood_risk']=round(temp.get('Barren land', 0)/1000000,1)
 			context_dict['built_up_area_flood_risk']=round(temp.get('Build Up', 0)/1000000,1)
