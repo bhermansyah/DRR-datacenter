@@ -175,23 +175,23 @@ try:
 			targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all().filter(vuid=row[0])
 			targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and Marshland')
 
-			floodRisk = targetRisk.values('deeperthan').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm'), buildings=Sum('area_buildings')).values('deeperthan','vuid_population', 'vuid_area_sqm', 'area_buildings')
-			temp = dict([(c['deeperthan'], c['vuid_population']) for c in floodRisk])
+			floodRisk = targetRisk.values('deeperthan').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm'), buildings=Sum('area_buildings')).values('deeperthan','pop', 'area', 'buildings')
+			temp = dict([(c['deeperthan'], c['pop']) for c in floodRisk])
 			context_dict['high_flood_risk_population']=round(temp.get('271 cm', 0) or 0,0)
 			context_dict['med_flood_risk_population']=round(temp.get('121 cm', 0) or 0, 0)
 			context_dict['low_flood_risk_population']=round(temp.get('029 cm', 0) or 0,0)
 
-			temp = dict([(c['deeperthan'], c['area_buildings']) for c in floodRisk])
+			temp = dict([(c['deeperthan'], c['buildings']) for c in floodRisk])
 			context_dict['high_flood_risk_buildings']=round(temp.get('271 cm', 0) or 0,0)
 			context_dict['med_flood_risk_buildings']=round(temp.get('121 cm', 0) or 0, 0)
 			context_dict['low_flood_risk_buildings']=round(temp.get('029 cm', 0) or 0,0)
 
-			temp = dict([(c['deeperthan'], c['vuid_area_sqm']) for c in floodRisk])
+			temp = dict([(c['deeperthan'], c['area']) for c in floodRisk])
 			context_dict['high_flood_risk_area']=round(temp.get('271 cm', 0)/1000000,1)
 			context_dict['med_flood_risk_area']=round(temp.get('121 cm', 0)/1000000,1)
 			context_dict['low_flood_risk_area']=round(temp.get('029 cm', 0)/1000000,1)
 
-			floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','vuid_population', 'vuid_area_sqm', 'area_buildings')
+			floodRiskLC = targetRiskIncludeWater.values('agg_simplified_description').annotate(pop=Sum('fldarea_population'), area=Sum('fldarea_sqm')).values('agg_simplified_description','pop', 'area')
 			temp = dict([(c['agg_simplified_description'], c['vuid_population']) for c in floodRiskLC])
 			context_dict['water_body_pop_flood_risk']=round(temp.get('Water body and Marshland', 0),0)
 			context_dict['barren_land_pop_flood_risk']=round(temp.get('Barren land', 0),0)
@@ -222,21 +222,21 @@ try:
 			# avalanche Risk
 			targetAvalanche = AfgAvsa.objects.all().filter(vuid=row[0])
 			# counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', 'area_buildings', flag, code, None)
-			counts = targetAvalanche.values('avalanche_cat').annotate(pop=Sum('avalanche_pop'), area=Sum('sum_area_sqm'), buildings=Sum('area_buildings')).values('avalanche_cat','avalanche_pop', 'sum_area_sqm', 'area_buildings')
+			counts = targetAvalanche.values('avalanche_cat').annotate(pop=Sum('avalanche_pop'), area=Sum('sum_area_sqm'), buildings=Sum('area_buildings')).values('avalanche_cat','pop', 'area', 'buildings')
 			# pop at risk level
-			temp = dict([(c['avalanche_cat'], c['avalanche_pop']) for c in counts])
+			temp = dict([(c['avalanche_cat'], c['pop']) for c in counts])
 			context_dict['high_ava_population']=round(temp.get('High', 0) or 0,0)
 			context_dict['med_ava_population']=round(temp.get('Moderate', 0) or 0,0)
 			context_dict['low_ava_population']=0
 
 			# area at risk level
-			temp = dict([(c['avalanche_cat'], c['sum_area_sqm']) for c in counts])
+			temp = dict([(c['avalanche_cat'], c['area']) for c in counts])
 			context_dict['high_ava_area']=round((temp.get('High', 0) or 0)/1000000,1)
 			context_dict['med_ava_area']=round((temp.get('Moderate', 0) or 0)/1000000,1)
 			context_dict['low_ava_area']=0    
 
 			# Number of Building on Avalanche Risk
-			temp = dict([(c['avalanche_cat'], c['area_buildings']) for c in counts])
+			temp = dict([(c['avalanche_cat'], c['buildings']) for c in counts])
 			context_dict['high_ava_buildings']=temp.get('High', 0) or 0
 			context_dict['med_ava_buildings']=temp.get('Moderate', 0) or 0
 
