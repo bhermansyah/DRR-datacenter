@@ -844,15 +844,15 @@ def getEQData(filterLock, flag, code, event_code):
 def GetAccesibilityData(filterLock, flag, code):
     response = {}
     if flag=='entireAfg':
-        q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
-        q2 = AfgCaptAdm1NearestProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
-        q3 = AfgCaptAdm2NearestDistrictcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
+        q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
+        q2 = AfgCaptAdm1NearestProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
+        q3 = AfgCaptAdm2NearestDistrictcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
         q4 = AfgCaptAirdrmImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
-        q5 = AfgCaptHltfacTier1Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
-        q6 = AfgCaptHltfacTier2Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
-        q7 = AfgCaptHltfacTier3Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
-        q8 = AfgCaptHltfacTierallImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'))
-        gsm = AfgCapaGsmcvr.objects.all().aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
+        q5 = AfgCaptHltfacTier1Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
+        q6 = AfgCaptHltfacTier2Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
+        q7 = AfgCaptHltfacTier3Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
+        q8 = AfgCaptHltfacTierallImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
+        gsm = AfgCapaGsmcvr.objects.all().aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 
     elif flag =='currentProvince':
         if len(str(code)) > 2:
@@ -1685,7 +1685,7 @@ def getSettlementAtFloodRisk(filterLock, flag, code):
 def getRawAvalancheRisk(filterLock, flag, code):
     response = {}
     targetAvalanche = AfgAvsa.objects.all()
-    counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', flag, code, None)
+    counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', 'area_buildings', flag, code, None)
     # pop at risk level
     temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
     response['high_ava_population']=round(temp.get('High', 0),0)
@@ -1708,7 +1708,7 @@ def getRawFloodRisk(filterLock, flag, code):
     targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and Marshland')
 
     # Flood Risk
-    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0), filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', flag, code, None)
+    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0), filterLock, 'deeperthan', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, None)
 
     # pop at risk level
     temp = dict([(c['deeperthan'], c['count']) for c in counts])
@@ -1717,6 +1717,14 @@ def getRawFloodRisk(filterLock, flag, code):
     response['low_risk_population']=round(temp.get('029 cm', 0) or 0,0)
     response['total_risk_population']=response['high_risk_population']+response['med_risk_population']+response['low_risk_population']
 
+    # building at risk level
+    temp = dict([(c['deeperthan'], c['houseatrisk']) for c in counts])
+    response['high_risk_buildings']=round(temp.get('271 cm', 0) or 0,0)
+    response['med_risk_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+    response['low_risk_buildings']=round(temp.get('029 cm', 0) or 0,0)
+    response['total_risk_buildings']=response['high_risk_buildings']+response['med_risk_buildings']+response['low_risk_buildings']
+
+
     # area at risk level
     temp = dict([(c['deeperthan'], c['areaatrisk']) for c in counts])
     response['high_risk_area']=round((temp.get('271 cm', 0) or 0)/1000000,1)
@@ -1724,7 +1732,7 @@ def getRawFloodRisk(filterLock, flag, code):
     response['low_risk_area']=round((temp.get('029 cm', 0) or 0)/1000000,1)
     response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2)
 
-    counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', flag, code, None)
+    counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, None)
 
     # landcover/pop/atrisk
     temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
@@ -1742,12 +1750,17 @@ def getRawFloodRisk(filterLock, flag, code):
 def getRawBaseLine(filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
     response = {}
-    parent_data = getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', flag, code, None)
+    parent_data = getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', 'area_buildings', flag, code, None)
+    
     temp = dict([(c['agg_simplified_description'], c['count']) for c in parent_data])
-
     response['built_up_pop'] = round(temp.get('Build Up', 0),0)
     response['cultivated_pop'] = round(temp.get('Fruit Trees', 0),0)+round(temp.get('Irrigated Agricultural Land', 0),0)+round(temp.get('Rainfed', 0),0)+round(temp.get('Vineyards', 0),0)
     response['barren_pop'] = round(temp.get('Water body and Marshland', 0),0)+round(temp.get('Barren land', 0),0)+round(temp.get('Snow', 0),0)+round(temp.get('Rangeland', 0),0)+round(temp.get('Sand Covered Areas', 0),0)+round(temp.get('Forest & Shrub', 0),0)+round(temp.get('Sand Dunes', 0),0)
+
+    temp = dict([(c['agg_simplified_description'], c['houseatrisk']) for c in parent_data])
+    response['built_up_buildings'] = temp.get('Build Up', 0) or 0
+    response['cultivated_buildings'] = temp.get('Fruit Trees', 0) or 0+temp.get('Irrigated Agricultural Land', 0) or 0+temp.get('Rainfed', 0) or 0+temp.get('Vineyards', 0) or 0
+    response['barren_buildings'] = temp.get('Water body and Marshland', 0) or 0+temp.get('Barren land', 0) or 0+temp.get('Snow', 0) or 0+temp.get('Rangeland', 0) or 0+temp.get('Sand Covered Areas', 0) or 0+temp.get('Forest & Shrub', 0) or 0+temp.get('Sand Dunes', 0) or 0
 
     temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in parent_data])
     response['built_up_area'] = round(temp.get('Build Up', 0)/1000000,1)
@@ -1762,6 +1775,7 @@ def getBaseline(request, filterLock, flag, code):
 
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
     response['hltfac']=getTotalHealthFacilities(filterLock, flag, code, AfgHltfac)
     response['roadnetwork']=getTotalRoadNetwork(filterLock, flag, code, AfgRdsl)
@@ -1801,10 +1815,10 @@ def getBaseline(request, filterLock, flag, code):
     response['additional_child']=data
 
     dataLC = []
-    dataLC.append([_('landcover type'),_('population'), { 'role': 'annotation' },_('area (km2)'), { 'role': 'annotation' }])
-    dataLC.append([_('Built-up'),round(response['built_up_pop']/response['Population']*100,0), response['built_up_pop'], round(response['built_up_area']/response['Area']*100,0), response['built_up_area'] ])
-    dataLC.append([_('Cultivated'),round(response['cultivated_pop']/response['Population']*100,0), response['cultivated_pop'], round(response['cultivated_area']/response['Area']*100,0), response['cultivated_area'] ])
-    dataLC.append([_('Barren/Rangeland'),round(response['barren_pop']/response['Population']*100,0), response['barren_pop'], round(response['barren_area']/response['Area']*100,0), response['barren_area'] ])
+    dataLC.append([_('landcover type'),_('population'), { 'role': 'annotation' },_('buildings'), { 'role': 'annotation' },_('area (km2)'), { 'role': 'annotation' }])
+    dataLC.append([_('Built-up'),round(response['built_up_pop']/response['Population']*100,0), response['built_up_pop'],round(response['built_up_buildings']/response['Buildings']*100,0), response['built_up_buildings'], round(response['built_up_area']/response['Area']*100,0), response['built_up_area'] ])
+    dataLC.append([_('Cultivated'),round(response['cultivated_pop']/response['Population']*100,0), response['cultivated_pop'],round(response['cultivated_buildings']/response['Buildings']*100,0), response['cultivated_buildings'], round(response['cultivated_area']/response['Area']*100,0), response['cultivated_area'] ])
+    dataLC.append([_('Barren/Rangeland'),round(response['barren_pop']/response['Population']*100,0), response['barren_pop'],round(response['barren_buildings']/response['Buildings']*100,0), response['barren_buildings'], round(response['barren_area']/response['Area']*100,0), response['barren_area'] ])
     response['landcover_chart'] = gchart.BarChart(
         SimpleDataSource(data=dataLC),
         html_id="pie_chart1",
@@ -1824,7 +1838,7 @@ def getBaseline(request, filterLock, flag, code):
             },
             'bar': { 'groupWidth': '90%' },
             'chartArea': {'width': '50%'},
-            'titleX':_('percentages from total population and area'),
+            'titleX':_('percentages from total population, buildings & area'),
     })
     if response['hltfac']==0:
         response['hltfac'] = 0.000001
@@ -1991,6 +2005,54 @@ def getParentHltFacRecap(filterLock, flag, code):
                 'ST_Within(wkb_geometry'+', '+filterLock+')'
             }).values('facility_types_description','numberhospital')
     return countsHLTBase
+
+def getTotalBuildings(filterLock, flag, code, targetBase):
+    # All population number
+    if flag=='drawArea':
+        countsBase = targetBase.extra(
+            select={
+                'countbase' : 'SUM(  \
+                        case \
+                            when ST_CoveredBy(wkb_geometry,'+filterLock+') then area_buildings \
+                            else st_area(st_intersection(wkb_geometry,'+filterLock+')) / st_area(wkb_geometry)*area_buildings end \
+                    )'
+            },
+            where = {
+                'ST_Intersects(wkb_geometry, '+filterLock+')'
+            }).values('countbase')
+    elif flag=='entireAfg':
+        countsBase = targetBase.extra(
+            select={
+                'countbase' : 'SUM(area_buildings)'
+            }).values('countbase')
+    elif flag=='currentProvince':
+        if len(str(code)) > 2:
+            ff0001 =  "dist_code  = '"+str(code)+"'"
+        else :
+            ff0001 =  "prov_code  = '"+str(code)+"'"
+        countsBase = targetBase.extra(
+            select={
+                'countbase' : 'SUM(area_buildings)'
+            },
+            where = {
+                ff0001
+            }).values('countbase')
+    elif flag=='currentBasin':
+        countsBase = targetBase.extra(
+            select={
+                'countbase' : 'SUM(area_buildings)'
+            },
+            where = {"vuid = '"+str(code)+"'"}).values('countbase')
+    else:
+        countsBase = targetBase.extra(
+            select={
+                'countbase' : 'SUM(area_buildings)'
+            },
+            where = {
+                'ST_Within(wkb_geometry, '+filterLock+')'
+            }).values('countbase')
+
+    return round(countsBase[0]['countbase'],0)
 
 def getTotalPop(filterLock, flag, code, targetBase):
     # All population number
@@ -2301,15 +2363,15 @@ def getFloodForecastMatrix(filterLock, flag, code):
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
     targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and Marshland'))
 
-    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', flag, code, None)
+    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', 'area_buildings', flag, code, None)
     temp = dict([(c['deeperthan'], c['count']) for c in counts])
-    response['high_risk_mitigated_population']=round(temp.get('271 cm', 0),0)
-    response['med_risk_mitigated_population']=round(temp.get('121 cm', 0), 0)
-    response['low_risk_mitigated_population']=round(temp.get('029 cm', 0),0)
+    response['high_risk_mitigated_population']=round(temp.get('271 cm', 0) or 0,0)
+    response['med_risk_mitigated_population']=round(temp.get('121 cm', 0) or 0, 0)
+    response['low_risk_mitigated_population']=round(temp.get('029 cm', 0) or 0,0)
     response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
 
     # River Flood Forecasted
-    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
+    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
     temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
     response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
     response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0)
@@ -2411,7 +2473,7 @@ def getFloodForecastMatrix(filterLock, flag, code):
 
     # Flash Flood Forecasted
     # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
-    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
+    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
     temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
 
     response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0)

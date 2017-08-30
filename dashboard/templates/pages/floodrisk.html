@@ -33,9 +33,13 @@ li#nav_dashfloodrisk>a::after {
 		{% include "qlink_span.html" %}
 	</h1>
   	<ul>
-		<li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
 			<span class='widget-title'>{% trans "Total Population" %}</span>
+		</li>
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{total_risk_buildings | intword | intcomma}}</h1>
+			<span class='widget-title'>{% trans "Total Buildings at Risk" %}</span>
 		</li>
 		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
 			<div>{{ total_pop_atrisk_chart.as_html }}</div>
