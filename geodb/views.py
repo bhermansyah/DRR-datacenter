@@ -1954,8 +1954,8 @@ def calculate_glofas_params(date):
         coord_index = coord_index+1
         # print data_in
 
-    print Glofasintegrated.objects.filter(datadate=date).count
-    if Glofasintegrated.objects.filter(datadate=date).count == 0 :
+    print Glofasintegrated.objects.filter(datadate=date).count()
+    if Glofasintegrated.objects.filter(datadate=date).count() == 0 :
         Glofasintegrated(datadate=date).save()
 
     nc.close()
