@@ -986,7 +986,7 @@ def updateEarthQuakeSummaryTable(event_code):
         # ")
 
         cursor.execute("\
-            select a.vil_uid, b.grid_value, sum(a.vuid_population) as pop     \
+            select a.vil_uid, b.grid_value, sum(a.vuid_population) as pop, sum(a.vuid_buildings) as buldings     \
             from afg_pplp a, earthquake_shakemap b   \
             where b.event_code = '"+event_code+"' and b.grid_value > 1  and a.dist_code="+str(aoi.dist_code)+"\
             and ST_Within(a.wkb_geometry,b.wkb_geometry)    \
@@ -1017,45 +1017,59 @@ def updateEarthQuakeSummaryTable(event_code):
                 settlementInPopData = [x for x in popData if x[0]==settlement[0]]
 
                 temp = [x for x in settlementInPopData if x[1]==2]
-                riskNumber['pop_shake_weak']= getKeyCustom(temp)
+                riskNumber['pop_shake_weak']= getKeyCustom(temp,2)
+                riskNumber['buildings_shake_weak']= getKeyCustom(temp,3)
                 temp = [x for x in settlementInPopData if x[1]==3]
-                riskNumber['pop_shake_weak']= riskNumber['pop_shake_weak'] + getKeyCustom(temp)
+                riskNumber['pop_shake_weak']= riskNumber['pop_shake_weak'] + getKeyCustom(temp,2)
+                riskNumber['buildings_shake_weak']= riskNumber['buildings_shake_weak'] + getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==4]
-                riskNumber['pop_shake_light']=getKeyCustom(temp)
+                riskNumber['pop_shake_light']=getKeyCustom(temp,2)
+                riskNumber['buildings_shake_light']=getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==5]
-                riskNumber['pop_shake_moderate']=getKeyCustom(temp)
+                riskNumber['pop_shake_moderate']=getKeyCustom(temp,2)
+                riskNumber['buildings_shake_moderate']=getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==6]
-                riskNumber['pop_shake_strong']=getKeyCustom(temp)
+                riskNumber['pop_shake_strong']=getKeyCustom(temp,2)
+                riskNumber['buildings_shake_strong']=getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==7]
-                riskNumber['pop_shake_verystrong']=getKeyCustom(temp)
+                riskNumber['pop_shake_verystrong']=getKeyCustom(temp,2)
+                riskNumber['buildings_shake_verystrong']=getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==8]
-                riskNumber['pop_shake_severe']=getKeyCustom(temp)
+                riskNumber['pop_shake_severe']=getKeyCustom(temp,2)
+                riskNumber['buildings_shake_severe']=getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==9]
-                riskNumber['pop_shake_violent']=getKeyCustom(temp)
+                riskNumber['pop_shake_violent']=getKeyCustom(temp,2)
+                riskNumber['buildings_shake_violent']=getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==10]
-                riskNumber['pop_shake_extreme']=getKeyCustom(temp)
+                riskNumber['pop_shake_extreme']=getKeyCustom(temp,2)
+                riskNumber['buildings_shake_extreme']=getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==11]
-                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp)
+                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp,2)
+                riskNumber['buildings_shake_extreme']=riskNumber['buildings_shake_extreme']+getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==12]
-                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp)
+                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp,2)
+                riskNumber['buildings_shake_extreme']=riskNumber['buildings_shake_extreme']+getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==13]
-                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp)
+                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp,2)
+                riskNumber['buildings_shake_extreme']=riskNumber['buildings_shake_extreme']+getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==14]
-                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp)
+                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp,2)
+                riskNumber['buildings_shake_extreme']=riskNumber['buildings_shake_extreme']+getKeyCustom(temp,3)
 
                 temp = [x for x in settlementInPopData if x[1]==15]
-                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp)
+                riskNumber['pop_shake_extreme']=riskNumber['pop_shake_extreme']+getKeyCustom(temp,2)
+                riskNumber['buildings_shake_extreme']=riskNumber['buildings_shake_extreme']+getKeyCustom(temp,3)
 
                 riskNumber['settlement_shake_weak']=0
                 riskNumber['settlement_shake_light']=0
@@ -1100,10 +1114,10 @@ def updateEarthQuakeSummaryTable(event_code):
     cursor.close()
     return
 
-def getKeyCustom(dt):
+def getKeyCustom(dt, idx):
     result = 0
     if len(dt)>0:
-        result = round(dt[0][2],0)
+        result = round(dt[0][idx],0)
     return result
 
 def getSnowVillage(request):

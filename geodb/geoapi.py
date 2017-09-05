@@ -1339,7 +1339,15 @@ class EarthQuakeStatisticResource(ModelResource):
                         when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_extreme \
                         else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_extreme \
                     end \
-                )),0) as settlement_shake_extreme     \
+                )),0) as settlement_shake_extreme,     \
+                coalesce(round(sum(b.buildings_shake_weak)),0) as buildings_shake_weak,     \
+                coalesce(round(sum(b.buildings_shake_light)),0) as buildings_shake_light,     \
+                coalesce(round(sum(b.buildings_shake_moderate)),0) as buildings_shake_moderate,     \
+                coalesce(round(sum(b.buildings_shake_strong)),0) as buildings_shake_strong,     \
+                coalesce(round(sum(b.buildings_shake_verystrong)),0) as buildings_shake_verystrong,     \
+                coalesce(round(sum(b.buildings_shake_severe)),0) as buildings_shake_severe,     \
+                coalesce(round(sum(b.buildings_shake_violent)),0) as buildings_shake_violent,     \
+                coalesce(round(sum(b.buildings_shake_extreme)),0) as buildings_shake_extreme \
                 from afg_ppla a, villagesummary_eq b   \
                 where  a.vuid = b.village and b.event_code = '"+boundaryFilter['event_code']+"'  \
                 and ST_Intersects(a.wkb_geometry,"+filterLock+")    \
@@ -1372,7 +1380,16 @@ class EarthQuakeStatisticResource(ModelResource):
                     'settlement_shake_verystrong' : 'coalesce(SUM(settlement_shake_verystrong),0)',
                     'settlement_shake_severe' : 'coalesce(SUM(settlement_shake_severe),0)',
                     'settlement_shake_violent' : 'coalesce(SUM(settlement_shake_violent),0)',
-                    'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
+                    'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)',
+
+                    'buildings_shake_weak' : 'coalesce(SUM(buildings_shake_weak),0)',
+                    'buildings_shake_light' : 'coalesce(SUM(buildings_shake_light),0)',
+                    'buildings_shake_moderate' : 'coalesce(SUM(buildings_shake_moderate),0)',
+                    'buildings_shake_strong' : 'coalesce(SUM(buildings_shake_strong),0)',
+                    'buildings_shake_verystrong' : 'coalesce(SUM(buildings_shake_verystrong),0)',
+                    'buildings_shake_severe' : 'coalesce(SUM(buildings_shake_severe),0)',
+                    'buildings_shake_violent' : 'coalesce(SUM(buildings_shake_violent),0)',
+                    'buildings_shake_extreme' : 'coalesce(SUM(buildings_shake_extreme),0)'
                 },
                 where = {
                     "event_code = '"+boundaryFilter['event_code']+"'"
@@ -1392,7 +1409,15 @@ class EarthQuakeStatisticResource(ModelResource):
                     'settlement_shake_verystrong',
                     'settlement_shake_severe',
                     'settlement_shake_violent',
-                    'settlement_shake_extreme'
+                    'settlement_shake_extreme',
+                    'buildings_shake_weak',
+                    'buildings_shake_light',
+                    'buildings_shake_moderate',
+                    'buildings_shake_strong',
+                    'buildings_shake_verystrong',
+                    'buildings_shake_severe',
+                    'buildings_shake_violent',
+                    'buildings_shake_extreme'
                 ))   
         elif flag =='currentProvince':
             if len(str(boundaryFilter['code'])) > 2:
@@ -1417,7 +1442,16 @@ class EarthQuakeStatisticResource(ModelResource):
                     'settlement_shake_verystrong' : 'coalesce(SUM(settlement_shake_verystrong),0)',
                     'settlement_shake_severe' : 'coalesce(SUM(settlement_shake_severe),0)',
                     'settlement_shake_violent' : 'coalesce(SUM(settlement_shake_violent),0)',
-                    'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
+                    'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)',
+
+                    'buildings_shake_weak' : 'coalesce(SUM(buildings_shake_weak),0)',
+                    'buildings_shake_light' : 'coalesce(SUM(buildings_shake_light),0)',
+                    'buildings_shake_moderate' : 'coalesce(SUM(buildings_shake_moderate),0)',
+                    'buildings_shake_strong' : 'coalesce(SUM(buildings_shake_strong),0)',
+                    'buildings_shake_verystrong' : 'coalesce(SUM(buildings_shake_verystrong),0)',
+                    'buildings_shake_severe' : 'coalesce(SUM(buildings_shake_severe),0)',
+                    'buildings_shake_violent' : 'coalesce(SUM(buildings_shake_violent),0)',
+                    'buildings_shake_extreme' : 'coalesce(SUM(buildings_shake_extreme),0)'
                 },
                 where = {
                     "event_code = '"+boundaryFilter['event_code']+"' and "+ff0001       
@@ -1437,7 +1471,15 @@ class EarthQuakeStatisticResource(ModelResource):
                     'settlement_shake_verystrong',
                     'settlement_shake_severe',
                     'settlement_shake_violent',
-                    'settlement_shake_extreme'
+                    'settlement_shake_extreme',
+                    'buildings_shake_weak',
+                    'buildings_shake_light',
+                    'buildings_shake_moderate',
+                    'buildings_shake_strong',
+                    'buildings_shake_verystrong',
+                    'buildings_shake_severe',
+                    'buildings_shake_violent',
+                    'buildings_shake_extreme'
                 ))  
         else:
             cursor = connections['geodb'].cursor()
@@ -1457,7 +1499,15 @@ class EarthQuakeStatisticResource(ModelResource):
                 coalesce(round(sum(b.settlement_shake_verystrong)),0) as settlement_shake_verystrong,     \
                 coalesce(round(sum(b.settlement_shake_severe)),0) as settlement_shake_severe,     \
                 coalesce(round(sum(b.settlement_shake_violent)),0) as settlement_shake_violent,     \
-                coalesce(round(sum(b.settlement_shake_extreme)),0) as settlement_shake_extreme     \
+                coalesce(round(sum(b.settlement_shake_extreme)),0) as settlement_shake_extreme,     \
+                coalesce(round(sum(b.buildings_shake_weak)),0) as buildings_shake_weak,     \
+                coalesce(round(sum(b.buildings_shake_light)),0) as buildings_shake_light,     \
+                coalesce(round(sum(b.buildings_shake_moderate)),0) as buildings_shake_moderate,     \
+                coalesce(round(sum(b.buildings_shake_strong)),0) as buildings_shake_strong,     \
+                coalesce(round(sum(b.buildings_shake_verystrong)),0) as buildings_shake_verystrong,     \
+                coalesce(round(sum(b.buildings_shake_severe)),0) as buildings_shake_severe,     \
+                coalesce(round(sum(b.buildings_shake_violent)),0) as buildings_shake_violent,     \
+                coalesce(round(sum(b.buildings_shake_extreme)),0) as buildings_shake_extreme    \
                 from afg_ppla a, villagesummary_eq b   \
                 where  a.vuid = b.village and b.event_code = '"+boundaryFilter['event_code']+"'  \
                 and ST_Within(a.wkb_geometry,"+filterLock+")    \

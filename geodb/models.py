@@ -1070,7 +1070,17 @@ class villagesummaryEQ(models.Model):
     settlement_shake_verystrong =  models.FloatField(blank=True, null=True) 
     settlement_shake_severe =  models.FloatField(blank=True, null=True) 
     settlement_shake_violent =  models.FloatField(blank=True, null=True) 
-    settlement_shake_extreme =  models.FloatField(blank=True, null=True)     
+    settlement_shake_extreme =  models.FloatField(blank=True, null=True)   
+
+    buildings_shake_weak =  models.FloatField(blank=True, null=True) 
+    buildings_shake_light =  models.FloatField(blank=True, null=True) 
+    buildings_shake_moderate =  models.FloatField(blank=True, null=True) 
+    buildings_shake_strong =  models.FloatField(blank=True, null=True) 
+    buildings_shake_verystrong =  models.FloatField(blank=True, null=True) 
+    buildings_shake_severe =  models.FloatField(blank=True, null=True) 
+    buildings_shake_violent =  models.FloatField(blank=True, null=True) 
+    buildings_shake_extreme =  models.FloatField(blank=True, null=True)   
+
     class Meta:
         managed = True
         db_table = 'villagesummary_eq'         
