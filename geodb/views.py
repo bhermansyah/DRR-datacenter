@@ -1314,14 +1314,13 @@ def getGeneralInfoVillages(request):
     village = request.GET["v"]
 
     context_dict = getCommonVillageData(village)
-
     px = AfgLndcrva.objects.all().filter(vuid=village).values('agg_simplified_description').annotate(totalpop=Sum('area_population'), totalarea=Sum('area_sqm')).values('agg_simplified_description','totalpop', 'totalarea')
     data1 = []
     data2 = []
     data1.append(['agg_simplified_description','area_population'])
     data2.append(['agg_simplified_description','area_sqm'])
     for i in px:
-        data1.append([i['agg_simplified_description'],i['totalpop']])
+        data1.append([i['agg_simplified_description'],round(i['totalpop'] or 0,0)])
         data2.append([i['agg_simplified_description'],round(i['totalarea']/1000000,1)])
 
     context_dict['landcover_pop_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title': _("# of Population"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
@@ -1483,10 +1482,10 @@ def getFloodInfoVillages(request):
 
     data = []
     data.append(['floodtype',_('Very Low'), _('Low'), _('Moderate'), _('High'), _('Very High'), _('Extreme'), _('Population at flood risk'), _('Population')])
-    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], context_dict['vuid_population']])
-    data.append([_('River Flood'),context_dict['riverflood_forecast_verylow_pop'], context_dict['riverflood_forecast_low_pop'], context_dict['riverflood_forecast_med_pop'], context_dict['riverflood_forecast_high_pop'], context_dict['riverflood_forecast_veryhigh_pop'], context_dict['riverflood_forecast_extreme_pop'], context_dict['total_risk_population'], context_dict['vuid_population']])
-    data.append([_('Flash Flood'),context_dict['flashflood_forecast_verylow_pop'], context_dict['flashflood_forecast_low_pop'], context_dict['flashflood_forecast_med_pop'], context_dict['flashflood_forecast_high_pop'], context_dict['flashflood_forecast_veryhigh_pop'], context_dict['flashflood_forecast_extreme_pop'], context_dict['total_risk_population'], context_dict['vuid_population']])
-    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], context_dict['vuid_population']])
+    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], round(context_dict['vuid_population'] or 0, 0)])
+    data.append([_('River Flood'),context_dict['riverflood_forecast_verylow_pop'], context_dict['riverflood_forecast_low_pop'], context_dict['riverflood_forecast_med_pop'], context_dict['riverflood_forecast_high_pop'], context_dict['riverflood_forecast_veryhigh_pop'], context_dict['riverflood_forecast_extreme_pop'], context_dict['total_risk_population'], round(context_dict['vuid_population'] or 0, 0)])
+    data.append([_('Flash Flood'),context_dict['flashflood_forecast_verylow_pop'], context_dict['flashflood_forecast_low_pop'], context_dict['flashflood_forecast_med_pop'], context_dict['flashflood_forecast_high_pop'], context_dict['flashflood_forecast_veryhigh_pop'], context_dict['flashflood_forecast_extreme_pop'], context_dict['total_risk_population'], round(context_dict['vuid_population'] or 0, 0)])
+    data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], round(context_dict['vuid_population'] or 0, 0)])
     context_dict['combo_pop_chart'] = gchart.ComboChart(SimpleDataSource(data=data), html_id="combo_chart", options={'vAxis': {'title': _('Number of population')},'legend': {'position': 'top', 'maxLines':2}, 'colors': ['#b9c246', '#e49307', '#e49307', '#e7711b', '#e2431e', '#d3362d', 'red', 'green' ], 'title': _("Flood Forecast Exposure"), 'seriesType': 'bars', 'series': {6: {'type': 'area', 'lineDashStyle': [2, 2, 20, 2, 20, 2]}, 7: {'type': 'area', 'lineDashStyle':[10, 2]}}, 'isStacked': 'true'})
 
     dataFLRiskPop = []
