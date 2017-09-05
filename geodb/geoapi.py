@@ -341,7 +341,7 @@ def getRiskExecuteExternal(filterLock, flag, code, yy=None, mm=None, dd=None, rf
                 WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
                 AND forcastedvalue.datadate = '%s-%s-%s' \
                 AND forcastedvalue.forecasttype = 'snowwater' ) \
-                GROUP BY forcastedvalue.riskstate" %(filterLock,filterLock,YEAR,MONTH,DAY)
+                GROUP BY forcastedvalue.riskstate" %(filterLock,filterLock, filterLock,filterLock,YEAR,MONTH,DAY)
             # cursor.execute("select forcastedvalue.riskstate, \
             #     sum(case \
             #         when ST_CoveredBy(afg_avsa.wkb_geometry , %s) then afg_avsa.avalanche_pop \
