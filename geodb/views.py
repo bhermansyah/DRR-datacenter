@@ -1954,6 +1954,8 @@ def calculate_glofas_params(date):
         coord_index = coord_index+1
         # print data_in
 
+        if Glofasintegrated.objects.filter(datadate=date).count == 0 :
+            Glofasintegrated(datadate=date).save()
 
     nc.close()
     # GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
