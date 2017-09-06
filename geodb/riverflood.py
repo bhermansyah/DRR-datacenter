@@ -203,13 +203,38 @@ def getFloodForecastBySource(sourceType, targetRisk, filterLock, flag, code, YEA
 		round(sum(high_area),1)::double precision as riverflood_forecast_high_area, \
 		round(sum(moderate_area),1)::double precision as riverflood_forecast_med_area, \
 		round(sum(low_area),1)::double precision as riverflood_forecast_low_area, \
-		round(sum(verylow_area),1)::double precision as riverflood_forecast_verylow_area \
+		round(sum(verylow_area),1)::double precision as riverflood_forecast_verylow_area, \
+		round(sum(extreme_buildings)) as riverflood_forecast_extreme_buildings, \
+		round(sum(veryhigh_buildings)) as riverflood_forecast_veryhigh_buildings, \
+		round(sum(high_buildings)) as riverflood_forecast_high_buildings, \
+		round(sum(moderate_buildings)) as riverflood_forecast_med_buildings, \
+		round(sum(low_buildings)) as riverflood_forecast_low_buildings, \
+		round(sum(verylow_buildings)) as riverflood_forecast_verylow_buildings, \
+		round(sum(extreme_high_buildings)) as riverflood_forecast_extreme_risk_high_buildings, \
+		round(sum(extreme_med_buildings)) as riverflood_forecast_extreme_risk_med_buildings, \
+		round(sum(extreme_low_buildings)) as riverflood_forecast_extreme_risk_low_buildings, \
+		round(sum(veryhigh_high_buildings)) as riverflood_forecast_veryhigh_risk_high_buildings, \
+		round(sum(veryhigh_med_buildings)) as riverflood_forecast_veryhigh_risk_med_buildings, \
+		round(sum(veryhigh_low_buildings)) as riverflood_forecast_veryhigh_risk_low_buildings, \
+		round(sum(high_high_buildings)) as riverflood_forecast_high_risk_high_buildings, \
+		round(sum(high_med_buildings)) as riverflood_forecast_high_risk_med_buildings, \
+		round(sum(high_low_buildings)) as riverflood_forecast_high_risk_low_buildings, \
+		round(sum(moderate_high_buildings)) as riverflood_forecast_med_risk_high_buildings, \
+		round(sum(moderate_med_buildings)) as riverflood_forecast_med_risk_med_buildings, \
+		round(sum(moderate_low_buildings)) as riverflood_forecast_med_risk_low_buildings,\
+		round(sum(low_high_buildings)) as riverflood_forecast_low_risk_high_buildings, \
+		round(sum(low_med_buildings)) as riverflood_forecast_low_risk_med_buildings, \
+		round(sum(low_low_buildings)) as riverflood_forecast_low_risk_low_buildings, \
+		round(sum(verylow_high_buildings)) as riverflood_forecast_verylow_risk_high_buildings, \
+		round(sum(verylow_med_buildings)) as riverflood_forecast_verylow_risk_med_buildings, \
+		round(sum(verylow_low_buildings)) as riverflood_forecast_verylow_risk_low_buildings \
 		from get_glofas(date('%s-%s-%s')-1,'%s',%s,'%s')" %(YEAR,MONTH,DAY,flag,code,filterLock)
 		row = query_to_dicts(cursor, sql)
 		for item in row:
 			response = item
 		response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] if response['riverflood_forecast_verylow_pop'] else 0 + response['riverflood_forecast_low_pop'] if response['riverflood_forecast_low_pop'] else 0 + response['riverflood_forecast_med_pop'] if response['riverflood_forecast_med_pop'] else 0 + response['riverflood_forecast_high_pop'] if response['riverflood_forecast_high_pop'] else 0 + response['riverflood_forecast_veryhigh_pop'] if response['riverflood_forecast_veryhigh_pop'] else 0 + response['riverflood_forecast_extreme_pop'] if response['riverflood_forecast_extreme_pop'] else 0
 		response['total_riverflood_forecast_area']=response['riverflood_forecast_verylow_area'] if response['riverflood_forecast_verylow_area'] else 0 + response['riverflood_forecast_low_area'] if response['riverflood_forecast_low_area'] else 0 + response['riverflood_forecast_med_area'] if response['riverflood_forecast_med_area'] else 0 + response['riverflood_forecast_high_area'] if response['riverflood_forecast_high_area'] else 0 + response['riverflood_forecast_veryhigh_area'] if response['riverflood_forecast_veryhigh_area'] else 0 + response['riverflood_forecast_extreme_area'] if response['riverflood_forecast_extreme_area'] else 0
+		response['total_riverflood_forecast_buildings']=response['riverflood_forecast_verylow_buildings'] if response['riverflood_forecast_verylow_buildings'] else 0 + response['riverflood_forecast_low_buildings'] if response['riverflood_forecast_low_buildings'] else 0 + response['riverflood_forecast_med_buildings'] if response['riverflood_forecast_med_buildings'] else 0 + response['riverflood_forecast_high_buildings'] if response['riverflood_forecast_high_buildings'] else 0 + response['riverflood_forecast_veryhigh_buildings'] if response['riverflood_forecast_veryhigh_buildings'] else 0 + response['riverflood_forecast_extreme_buildings'] if response['riverflood_forecast_extreme_buildings'] else 0
 		cursor.close()
 	elif sourceType=='GFMS + GLOFAS':
 		if not code:
@@ -245,7 +270,31 @@ def getFloodForecastBySource(sourceType, targetRisk, filterLock, flag, code, YEA
 		round(sum(high_area),1)::double precision as riverflood_forecast_high_area, \
 		round(sum(moderate_area),1)::double precision as riverflood_forecast_med_area, \
 		round(sum(low_area),1)::double precision as riverflood_forecast_low_area, \
-		round(sum(verylow_area),1)::double precision as riverflood_forecast_verylow_area \
+		round(sum(verylow_area),1)::double precision as riverflood_forecast_verylow_area, \
+		round(sum(extreme_buildings)) as riverflood_forecast_extreme_buildings, \
+		round(sum(veryhigh_buildings)) as riverflood_forecast_veryhigh_buildings, \
+		round(sum(high_buildings)) as riverflood_forecast_high_buildings, \
+		round(sum(moderate_buildings)) as riverflood_forecast_med_buildings, \
+		round(sum(low_buildings)) as riverflood_forecast_low_buildings, \
+		round(sum(verylow_buildings)) as riverflood_forecast_verylow_buildings, \
+		round(sum(extreme_high_buildings)) as riverflood_forecast_extreme_risk_high_buildings, \
+		round(sum(extreme_med_buildings)) as riverflood_forecast_extreme_risk_med_buildings, \
+		round(sum(extreme_low_buildings)) as riverflood_forecast_extreme_risk_low_buildings, \
+		round(sum(veryhigh_high_buildings)) as riverflood_forecast_veryhigh_risk_high_buildings, \
+		round(sum(veryhigh_med_buildings)) as riverflood_forecast_veryhigh_risk_med_buildings, \
+		round(sum(veryhigh_low_buildings)) as riverflood_forecast_veryhigh_risk_low_buildings, \
+		round(sum(high_high_buildings)) as riverflood_forecast_high_risk_high_buildings, \
+		round(sum(high_med_buildings)) as riverflood_forecast_high_risk_med_buildings, \
+		round(sum(high_low_buildings)) as riverflood_forecast_high_risk_low_buildings, \
+		round(sum(moderate_high_buildings)) as riverflood_forecast_med_risk_high_buildings, \
+		round(sum(moderate_med_buildings)) as riverflood_forecast_med_risk_med_buildings, \
+		round(sum(moderate_low_buildings)) as riverflood_forecast_med_risk_low_buildings,\
+		round(sum(low_high_buildings)) as riverflood_forecast_low_risk_high_buildings, \
+		round(sum(low_med_buildings)) as riverflood_forecast_low_risk_med_buildings, \
+		round(sum(low_low_buildings)) as riverflood_forecast_low_risk_low_buildings, \
+		round(sum(verylow_high_buildings)) as riverflood_forecast_verylow_risk_high_buildings, \
+		round(sum(verylow_med_buildings)) as riverflood_forecast_verylow_risk_med_buildings, \
+		round(sum(verylow_low_buildings)) as riverflood_forecast_verylow_risk_low_buildings \
 		from get_merge_glofas_gfms(date('%s-%s-%s'),'%s',%s,'%s')" %(YEAR,MONTH,DAY,flag,code,filterLock)
 		row = query_to_dicts(cursor, sql)
 		for item in row:
