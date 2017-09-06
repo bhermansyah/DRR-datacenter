@@ -1117,7 +1117,7 @@ def updateEarthQuakeSummaryTable(event_code):
 def getKeyCustom(dt, idx):
     result = 0
     if len(dt)>0:
-        result = round(dt[0][idx],0)
+        result = round(dt[0][idx] or 0,0)
     return result
 
 def getSnowVillage(request):
