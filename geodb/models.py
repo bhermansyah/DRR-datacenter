@@ -743,6 +743,13 @@ class provincesummary(models.Model):
     sand_dunes_area                             = models.FloatField(blank=True, null=True)
     sand_dunes_area_risk                        = models.FloatField(blank=True, null=True)
 
+    total_buildings                             = models.FloatField(blank=True, null=True)
+    total_risk_buildings                        = models.FloatField(blank=True, null=True)
+
+    high_ava_buildings                          = models.FloatField(blank=True, null=True)
+    med_ava_buildings                           = models.FloatField(blank=True, null=True)
+    total_ava_buildings                         = models.FloatField(blank=True, null=True)
+
     class Meta:
         managed = True
         db_table = 'provincesummary'             
@@ -881,6 +888,13 @@ class districtsummary(models.Model):
     sand_dunes_pop_risk                         = models.FloatField(blank=True, null=True)
     sand_dunes_area                             = models.FloatField(blank=True, null=True)
     sand_dunes_area_risk                        = models.FloatField(blank=True, null=True)
+
+    total_buildings                             = models.FloatField(blank=True, null=True)
+    total_risk_buildings                        = models.FloatField(blank=True, null=True)
+
+    high_ava_buildings                          = models.FloatField(blank=True, null=True)
+    med_ava_buildings                           = models.FloatField(blank=True, null=True)
+    total_ava_buildings                         = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = True
