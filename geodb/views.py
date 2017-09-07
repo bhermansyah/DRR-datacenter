@@ -541,7 +541,7 @@ def updateSummaryTable():   # for district
     databaseFields.remove('province')
     for aoi in resourcesProvinces:
         start = time.time()
-        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.prov_code)
+        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.prov_code, YYYY, MONTH, DAY)
         px = provincesummary.objects.filter(province=aoi.prov_code)
 
         if px.count()>0:
@@ -566,7 +566,7 @@ def updateSummaryTable():   # for district
     databaseFields.remove('district')
     for aoi in resourcesDistricts:
         start = time.time()
-        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.dist_code)
+        riskNumber = getRiskExecuteExternal('ST_GeomFromText(\''+aoi.wkb_geometry.wkt+'\',4326)', 'currentProvince', aoi.dist_code, YYYY, MONTH, DAY)
         px = districtsummary.objects.filter(district=aoi.dist_code)
 
         if px.count()>0:
