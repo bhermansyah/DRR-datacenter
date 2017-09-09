@@ -174,9 +174,9 @@ def calculate_glofas_params(date):
 # calculate_glofas_params('2017-04-01')
 px = Glofasintegrated.objects.order_by().values('datadate').distinct()
 for i in px:
-	print i['datadate']
+	print str(i['datadate'])
 	Glofasintegrated.objects.filter(datadate=i['datadate']).delete()
-	calculate_glofas_params(i['datadate'])
+	calculate_glofas_params(str(i['datadate']))
 
 
 
