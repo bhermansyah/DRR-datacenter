@@ -1855,6 +1855,27 @@ def getGlofasPointsJSON(request):
         currPoints[0]["features"] = []
     return HttpResponse(json.dumps(currPoints[0]), content_type='application/json')
 
+
+def getRefactorData():
+    # f_IN = open("/Users/budi/Documents/iMMAP/DRR-datacenter/scripts/misc-boedy1996/Glofas_Baseline_Output_Adjustment_factor.csv", 'rU')
+    f_IN = open("/home/ubuntu/Glofas_Baseline_Output_Adjustment_factor.csv", 'rU')
+    reader = csv.reader(f_IN)
+    first = True
+    data = {}
+
+    for row in reader:
+        if first:
+            first = False
+        else:
+            lon = row[2]
+            lat = row[1]
+
+            # data[lat][lon]['rl2_factor']=row[8]
+            data[lat]={lon:{'rl2_factor':row[8],'rl5_factor':row[9],'rl20_factor':row[10]}}
+
+    f_IN.close()
+    return data
+
 def calculate_glofas_params(date):
     date_arr = date.split('-')
     filename = getattr(settings, 'GLOFAS_NC_FILES')+date_arr[0]+date_arr[1]+date_arr[2]+"00.nc"
@@ -1884,8 +1905,23 @@ def calculate_glofas_params(date):
         times_index.append(i)
 
     coord_index = 0
+    refactor = getRefactorData()
+
     for lat, lon, rl2, rl5, rl20 in zip(lats, lons, rl2, rl5, rl20):
 
+        try:
+            # print refactor[str(lat)][str(lon)]
+            rl2_temp = rl2*float(refactor[str(lat)][str(lon)]['rl2_factor'])
+            rl5_temp = rl5*float(refactor[str(lat)][str(lon)]['rl5_factor'])
+            rl20_temp = rl20*float(refactor[str(lat)][str(lon)]['rl20_factor'])
+        except:
+            rl2_temp = rl2
+            rl5_temp = rl5
+            rl20_temp = rl20
+        
+        rl2 = rl2_temp
+        rl5 = rl5_temp
+        rl20 = rl20_temp
 
         data_in = []
         data_in.append(lat)
