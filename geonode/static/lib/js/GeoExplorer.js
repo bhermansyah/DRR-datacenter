@@ -34998,7 +34998,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 layer.baseURL = "http://asdc.immap.org/geoserver/wms";
         });
 
-        console.log(encodedLayers);
+        // console.log(encodedLayers);
         jsonData.layers = encodedLayers;
 
         var calcStore = _storeCalc;
@@ -51329,7 +51329,7 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                         if (record.get("group") === "background") {
                             baseRecords.push(record);
                         } else {
-                            console.log(this.gwcAvailable);
+                            // console.log(this.gwcAvailable);
                             
                             if (!!~this.gwcAvailable.indexOf(record.json.name)){
                                 var tempUrls = [
