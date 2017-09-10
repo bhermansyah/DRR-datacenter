@@ -68,19 +68,19 @@ def calculate_glofas_params(date):
     for lat, lon, rl2, rl5, rl20 in zip(lats, lons, rl2s, rl5s, rl20s):
     	# print str(lat), str(lon)
     	
-    	try:
-    		# print refactor[str(lat)][str(lon)]
-    		rl2_temp = rl2*float(refactor[str(lat)][str(lon)]['rl2_factor'])
-    		rl5_temp = rl5*float(refactor[str(lat)][str(lon)]['rl5_factor'])
-    		rl20_temp = rl20*float(refactor[str(lat)][str(lon)]['rl20_factor'])
-    	except:
-    		rl2_temp = rl2
-    		rl5_temp = rl5
-    		rl20_temp = rl20
+    	# try:
+    	# 	# print refactor[str(lat)][str(lon)]
+    	# 	rl2_temp = rl2*float(refactor[str(lat)][str(lon)]['rl2_factor'])
+    	# 	rl5_temp = rl5*float(refactor[str(lat)][str(lon)]['rl5_factor'])
+    	# 	rl20_temp = rl20*float(refactor[str(lat)][str(lon)]['rl20_factor'])
+    	# except:
+    	# 	rl2_temp = rl2
+    	# 	rl5_temp = rl5
+    	# 	rl20_temp = rl20
         
-        rl2 = rl2_temp
-        rl5 = rl5_temp
-        rl20 = rl20_temp
+     #    rl2 = rl2_temp
+     #    rl5 = rl5_temp
+     #    rl20 = rl20_temp
 
         # print rl2,rl5,rl20, refactor[str(lat)][str(lon)]['rl2_factor']
 
@@ -170,13 +170,13 @@ def calculate_glofas_params(date):
 
     nc.close()
 
-# Glofasintegrated.objects.filter(datadate='2017-04-01').delete()
-# calculate_glofas_params('2017-04-01')
-px = Glofasintegrated.objects.order_by().values('datadate').distinct()
-for i in px:
-	print str(i['datadate'])
-	Glofasintegrated.objects.filter(datadate=i['datadate']).delete()
-	calculate_glofas_params(str(i['datadate']))
+Glofasintegrated.objects.filter(datadate='2017-04-13').delete()
+calculate_glofas_params('2017-04-13')
+# px = Glofasintegrated.objects.order_by().values('datadate').distinct()
+# for i in px:
+# 	print str(i['datadate'])
+# 	Glofasintegrated.objects.filter(datadate=i['datadate']).delete()
+# 	calculate_glofas_params(str(i['datadate']))
 
 
 
