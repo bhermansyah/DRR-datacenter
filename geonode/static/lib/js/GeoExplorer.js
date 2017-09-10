@@ -34992,6 +34992,13 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 // console.log(layer,enc);
             }
         }, this);
+        
+        Ext.each(encodedLayers, function(layer){
+            if (layer.baseURL == "http://asdc.immap.org/geoserver/gwc/service/wms") 
+                layer.baseURL = "http://asdc.immap.org/geoserver/wms";
+        });
+
+        console.log(encodedLayers);
         jsonData.layers = encodedLayers;
 
         var calcStore = _storeCalc;
@@ -50904,6 +50911,8 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
      */
     saveErrorText: gettext("Trouble saving: "),
 
+    gwcAvailable : [],
+
     /** private: method[constructor]
      *  Construct the viewer.
      */
@@ -51034,6 +51043,37 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
             this.fireEvent("layerselectionchange", record);
         }
         return changed;
+    },
+
+    /** initiate to collect the avalaible GWC layers from ASDC geoserver.
+     */
+    initGWCAvalaible : function(){
+        
+        var conn = new Ext.data.Connection; 
+        conn.request({ 
+          url: 'http://asdc.immap.org/geoserver/gwc/rest/layers',  
+          scope:this,
+          callback: function(options, success, response) 
+          {  
+            if (success) 
+            {
+                var dq = Ext.DomQuery; 
+                var xml = response.responseXML; 
+                   
+                var node = dq.selectNode('layers', xml);  
+                data = node.getElementsByTagName("name");
+               
+                for (i = 0; i <data.length; i++) {
+                    // console.log(data[i].childNodes[0].nodeValue);
+                    this.gwcAvailable.push(data[i].childNodes[0].nodeValue);
+                }
+
+                this.addLayers();
+                this.checkLayerRecordQueue();
+                this.fireEvent("ready"); 
+            } 
+          } 
+        });  
     },
 
     /** api: method[loadConfig]
@@ -51260,14 +51300,17 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
         // initialize tooltips
         Ext.QuickTips.init();
 
-        // add any layers from config
-        this.addLayers();
+        // // add any layers from config
+        // this.addLayers();
 
-        // respond to any queued requests for layer records
-        this.checkLayerRecordQueue();
+        // // respond to any queued requests for layer records
+        // this.checkLayerRecordQueue();
 
-        // broadcast ready state
-        this.fireEvent("ready");
+        // // broadcast ready state
+        // this.fireEvent("ready");
+
+        // addlayers, checkLayerRecordQueue and chnage fireevent are move inside iniGWCAvailable function
+        this.initGWCAvalaible();
     },
 
     addLayers: function() {
@@ -51286,7 +51329,22 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                         if (record.get("group") === "background") {
                             baseRecords.push(record);
                         } else {
-                            // console.log(record, record.json.title);
+                            console.log(this.gwcAvailable);
+                            
+                            if (!!~this.gwcAvailable.indexOf(record.json.name)){
+                                var tempUrls = [
+                                    'http://asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map1.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map2.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map3.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map4.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map5.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map6.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map7.asdc.immap.org/geoserver/gwc/service/wms',
+                                    'http://map8.asdc.immap.org/geoserver/gwc/service/wms'
+                                ]
+                                record.data.layer.url = tempUrls;
+                            }
                             // if (source.url == 'http://asdc.immap.org/geoserver/wms' && record.json.tiled && record.json.cached){
                             // if (source.url == 'http://asdc.immap.org/geoserver/wms'){
                                 // var tempUrls = [
