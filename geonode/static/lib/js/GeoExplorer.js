@@ -91959,6 +91959,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     xtype: 'datefield',
                                     width: 130,
                                     value: new Date().format('m/d/y'),
+                                    format: 'd F Y',
                                     listeners: {
                                         'select': function(field, newValue, oldValue) {
                                             Ext.getCmp('dateOccurs').setValue(newValue);
@@ -92030,6 +92031,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     xtype: 'datefield',
                                     width: 130,
                                     value: new Date().format('m/d/y'),
+                                    format: 'd F Y',
                                     listeners: {
                                         'select': function(field, newValue, oldValue) {
                                             Ext.getCmp('dateOccurs').setValue(newValue);
@@ -92813,6 +92815,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         vtype: 'daterange',
                         xtype: 'datefield',
                         width: 130,
+                        format: 'd F Y',
                         endDateField: 'enddt', // id of the end date field
                         value: new Date().add(Date.DAY, -365).format('m/d/y')
                     },{
@@ -92822,6 +92825,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         vtype: 'daterange',
                         xtype: 'datefield',
                         width: 130,
+                        format: 'd F Y',
                         startDateField: 'startdt', // id of the start date field
                         value: new Date().format('m/d/y')
                     },
