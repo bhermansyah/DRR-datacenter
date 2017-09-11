@@ -112,10 +112,6 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_pplp.xml" type="text/xml"/>
   </layer>
   <layer>
-    <name>geonode:afg_rdsl</name>
-    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_rdsl.xml" type="text/xml"/>
-  </layer>
-  <layer>
     <name>geonode:afg_riv</name>
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_riv.xml" type="text/xml"/>
   </layer>
