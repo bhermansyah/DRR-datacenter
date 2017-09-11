@@ -1,0 +1,150 @@
+<layers>
+  <layer>
+    <name>geonode:afg_admbnda_adm1</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_admbnda_adm1.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_admbnda_adm2</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_admbnda_adm2.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_admbnda_int</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_admbnda_int.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_airdrma</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_airdrma.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_airdrmp</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_airdrmp.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_avsa</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_avsa.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_adm1_its_provc</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_adm1_its_provc.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_adm1_nearest_provc</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_adm1_nearest_provc.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_adm2_nearest_districtc</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_adm2_nearest_districtc.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_airdrm</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_airdrm.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_gsmcvr</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_gsmcvr.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_hltfac_tier1</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_hltfac_tier1.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_hltfac_tier2</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_hltfac_tier2.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_hltfac_tier3</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_hltfac_tier3.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_capa_hltfac_tierall</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_capa_hltfac_tierall.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_elev_dem_30m_aster_hillshade</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_elev_dem_30m_aster_hillshade.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_eq_hzda</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_eq_hzda.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_faultsl_unk_cafd</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_faultsl_unk_cafd.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_faultsl_unk_usgs</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_faultsl_unk_usgs.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_fldzonea_100k_risk_landcover_pop</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_fldzonea_100k_risk_landcover_pop.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_fldzonea_100k_risk_mitigated_areas</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_fldzonea_100k_risk_mitigated_areas.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_geology_tecta</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_geology_tecta.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_hltfac</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_hltfac.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_lndcrva</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_lndcrva.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_lndcrva_simplified</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_lndcrva_simplified.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_poia_buildings</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_poia_buildings.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_ppla</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_ppla.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_pplp</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_pplp.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_rdsl</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_rdsl.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_riv</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_riv.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_sheda_lvl3</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_sheda_lvl3.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_snowa_average_extent</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_snowa_average_extent.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:contour</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Acontour.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:fsac_geolocations_sample</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Afsac_geolocations_sample.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:province_center</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aprovince_center.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:slope_hosp_lndcvr_nofld_noava_nouxo__4kmsq_gonogo</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aslope_hosp_lndcvr_nofld_noava_nouxo__4kmsq_gonogo.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:wrl_admbnda_int</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Awrl_admbnda_int.xml" type="text/xml"/>
+  </layer>
+</layers>

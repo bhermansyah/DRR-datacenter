@@ -51051,7 +51051,7 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
         
         var conn = new Ext.data.Connection; 
         conn.request({ 
-          url: 'http://asdc.immap.org/geoserver/gwc/rest/layers',  
+          url: 'http://asdc.immap.org/static/gwclayers.xml',  
           scope:this,
           callback: function(options, success, response) 
           {  
