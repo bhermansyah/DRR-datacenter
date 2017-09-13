@@ -1,0 +1,92 @@
+{% load i18n mathfilters %}
+{% load humanize %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
+<head>
+
+<link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
+<style>
+table#info {
+	width:90%;
+	border-top:1px solid #e5eff8;
+	/*border-right:1px solid #e5eff8;*/
+	margin:1em auto;
+	border-collapse:collapse;
+}
+
+table#info td{
+	color:#0D63AD;
+	border-bottom:1px solid #e5eff8;
+	/*border-left:1px solid #e5eff8;*/
+	padding:.3em 1em;
+}
+
+table#info tr.odd td {
+	background:#f7fbff
+}
+
+#pie_chart1{
+	width: 250 !important;
+	height:250 !important;
+}
+
+#pie_chart2{
+	width: 250 !important;
+	height:250 !important;
+}
+
+</style>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+</head>
+<body>
+
+<table id='info'>
+	<tr>
+		<td>{% trans "Settlement" %}</td>
+		<td><strong>{{name_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Language" %}</td>
+		<td><strong>{{language_field}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "District" %}</td>
+		<td><strong>{{dist_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Province" %}</td>
+		<td><strong>{{prov_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Elevation" %}</td>
+		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Area" %}</td>
+		<td><strong>{{area_sqm|div:1000000|floatformat|intcomma}} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Total Population" %}</td>
+		<td><strong>{{vuid_population|floatformat:"0"|intcomma }}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Number of Buildings" %}</td>
+		<td><strong>{{vuid_buildings|floatformat:"0"|intcomma }}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Landslide Susceptibility" %}</td>
+		<td>
+			<strong>{{landslide_risk}}</strong>
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd, Glofasintegrated, AfgBasinLvl4GlofasPoint, AfgPpltDemographics
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd, Glofasintegrated, AfgBasinLvl4GlofasPoint, AfgPpltDemographics, AfgLspAffpplp
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -1417,6 +1417,40 @@ def getEarthquakeInfoVillages(request):
     # context_dict['landcover_area_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title': _("# of Area (KM2)"), 'width': 250,'height': 250, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
 
     context_dict.pop('position')
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))
+
+def getLandSlideInfoVillages(request):
+    template = './landslideinfo.html'
+    village = request.GET["v"]
+    currentdate = datetime.datetime.utcnow()
+    year = currentdate.strftime("%Y")
+    month = currentdate.strftime("%m")
+    day = currentdate.strftime("%d")
+
+    context_dict = getCommonVillageData(village)
+
+    px = get_object_or_404(AfgLspAffpplp, vuid=village)
+    try:
+        context_dict['landslide_risk'] = px.lsi_immap
+    except:
+        context_dict['landslide_risk'] = 0
+
+    if context_dict['landslide_risk'] >= 7:
+        context_dict['landslide_risk'] = 'Very High'
+    elif context_dict['landslide_risk'] >= 5 and context_dict['landslide_risk'] < 7:
+        context_dict['landslide_risk'] = 'High' 
+    elif context_dict['landslide_risk'] >= 4 and context_dict['landslide_risk'] < 5:
+        context_dict['landslide_risk'] = 'Moderate'        
+    elif context_dict['landslide_risk'] >= 2 and context_dict['landslide_risk'] < 4:
+        context_dict['landslide_risk'] = 'Low' 
+    elif context_dict['landslide_risk'] >= 1 and context_dict['landslide_risk'] < 2:
+        context_dict['landslide_risk'] = 'Very Low'        
+    else :
+        context_dict['landslide_risk'] = 'None' 
+
+    context_dict.pop('position')
+
     return render_to_response(template,
                                   RequestContext(request, context_dict))
 

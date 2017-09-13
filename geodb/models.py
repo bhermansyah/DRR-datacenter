@@ -1572,4 +1572,20 @@ class AfgPpltDemographics(models.Model):
     class Meta:
         managed = False
         db_table = 'afg_pplt_demographics'    
+
+class AfgLspAffpplp(models.Model):
+    ogc_fid = models.IntegerField(primary_key=True)
+    wkb_geometry = models.PointField(blank=True, null=True)
+    dist_code = models.IntegerField(blank=True, null=True)
+    prov_code = models.IntegerField(blank=True, null=True)
+    vuid = models.CharField(max_length=50, blank=True)
+    lsi_ku = models.IntegerField(blank=True, null=True)
+    ls_s1_wb = models.IntegerField(blank=True, null=True)
+    ls_s2_wb = models.IntegerField(blank=True, null=True)
+    ls_s3_wb = models.IntegerField(blank=True, null=True)
+    lsi_immap = models.FloatField(blank=True, null=True)
+    objects = models.GeoManager()
+    class Meta:
+        managed = False
+        db_table = 'afg_lsp_affpplp'
         
