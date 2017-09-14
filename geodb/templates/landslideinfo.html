@@ -92,6 +92,7 @@ table#info tr.odd td {
 
 <table class='tblborder'>
 	<tr>
+		<th bgcolor="#FFFFFF" style="border-top: hidden;border-left: hidden;"><div class="rotate"></div></th>
 		<th bgcolor="#FFFFFF"><div class="rotate">{% trans "No Risk" %}</div></th>
 		<th bgcolor="#8cea8a"><div class="rotate">{% trans "Very Low" %}</div></th>
 		<th bgcolor="#1eb263"><div class="rotate">{% trans "Low" %}</div></th>
@@ -100,12 +101,49 @@ table#info tr.odd td {
 		<th bgcolor="#e31a1c"><div class="rotate">{% trans "Very High" %}</div></th>
 	</tr>
 	<tr>
+		<td bgcolor="#FFFFFF" class="" style="max-width:200px;"><span style="font-size: small;text-align: left;">{% trans "Landslide Indexes (iMMAP 2017)" %}</span></td>
 		<td bgcolor="#FFFFFF" class="">{% if landslide_risk == "None" %} X {% endif %}</td>
 		<td bgcolor="#8cea8a" class="">{% if landslide_risk == "Very Low" %} X {% endif %}</td>
 		<td bgcolor="#1eb263" class="">{% if landslide_risk == "Low" %} X {% endif %}</td>
 		<td bgcolor="#fff231" class="">{% if landslide_risk == "Moderate" %} X {% endif %}</td>
 		<td bgcolor="#ff7f00" class="">{% if landslide_risk == "High" %} X {% endif %}</td>
 		<td bgcolor="#e31a1c" class="">{% if landslide_risk == "Very High" %} X {% endif %}</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF" class="" style="max-width:200px;"><span style="font-size: small;text-align: left;">{% trans "Multi-criteria Landslide Susceptibility Index Nathan Schlagel, Ashlee Dere, William Johnson , John F. Shroder (2016). Multi-criteria analysis of landslide susceptibility, Afghanistan" %}</span></td>
+		<td bgcolor="#FFFFFF" class="">{% if landslide_risk_lsi_ku == "None" %} X {% endif %}</td>
+		<td bgcolor="#8cea8a" class="">{% if landslide_risk_lsi_ku == "Very Low" %} X {% endif %}</td>
+		<td bgcolor="#1eb263" class="">{% if landslide_risk_lsi_ku == "Low" %} X {% endif %}</td>
+		<td bgcolor="#fff231" class="">{% if landslide_risk_lsi_ku == "Moderate" %} X {% endif %}</td>
+		<td bgcolor="#ff7f00" class="">{% if landslide_risk_lsi_ku == "High" %} X {% endif %}</td>
+		<td bgcolor="#e31a1c" class="">{% if landslide_risk_lsi_ku == "Very High" %} X {% endif %}</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF" class="" style="max-width:200px;"><span style="font-size: small;text-align: left;">{% trans "Landslide susceptibility - bedrock landslides in slow evolution (S1) World Bank (2016)" %}</span></td>
+		<td bgcolor="#FFFFFF" class="">{% if landslide_risk_ls_s1_wb == "None" %} X {% endif %}</td>
+		<td bgcolor="#8cea8a" class="">{% if landslide_risk_ls_s1_wb == "Very Low" %} X {% endif %}</td>
+		<td bgcolor="#1eb263" class="">{% if landslide_risk_ls_s1_wb == "Low" %} X {% endif %}</td>
+		<td bgcolor="#fff231" class="">{% if landslide_risk_ls_s1_wb == "Moderate" %} X {% endif %}</td>
+		<td bgcolor="#ff7f00" class="">{% if landslide_risk_ls_s1_wb == "High" %} X {% endif %}</td>
+		<td bgcolor="#e31a1c" class="">{% if landslide_risk_ls_s1_wb == "Very High" %} X {% endif %}</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF" class="" style="max-width:200px;"><span style="font-size: small;text-align: left;">{% trans "Landslide susceptibility - bedrock landslides in rapid evolution (S2) World Bank (2016)" %}</span></td>
+		<td bgcolor="#FFFFFF" class="">{% if landslide_risk_ls_s2_wb == "None" %} X {% endif %}</td>
+		<td bgcolor="#8cea8a" class="">{% if landslide_risk_ls_s2_wb == "Very Low" %} X {% endif %}</td>
+		<td bgcolor="#1eb263" class="">{% if landslide_risk_ls_s2_wb == "Low" %} X {% endif %}</td>
+		<td bgcolor="#fff231" class="">{% if landslide_risk_ls_s2_wb == "Moderate" %} X {% endif %}</td>
+		<td bgcolor="#ff7f00" class="">{% if landslide_risk_ls_s2_wb == "High" %} X {% endif %}</td>
+		<td bgcolor="#e31a1c" class="">{% if landslide_risk_ls_s2_wb == "Very High" %} X {% endif %}</td>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF" class="" style="max-width:200px;"><span style="font-size: small;text-align: left;">{% trans "Landslide susceptibility - cover material in rapid evolution (S3) World Bank (2016)" %}</span></td>
+		<td bgcolor="#FFFFFF" class="">{% if landslide_risk_ls_s3_wb == "None" %} X {% endif %}</td>
+		<td bgcolor="#8cea8a" class="">{% if landslide_risk_ls_s3_wb == "Very Low" %} X {% endif %}</td>
+		<td bgcolor="#1eb263" class="">{% if landslide_risk_ls_s3_wb == "Low" %} X {% endif %}</td>
+		<td bgcolor="#fff231" class="">{% if landslide_risk_ls_s3_wb == "Moderate" %} X {% endif %}</td>
+		<td bgcolor="#ff7f00" class="">{% if landslide_risk_ls_s3_wb == "High" %} X {% endif %}</td>
+		<td bgcolor="#e31a1c" class="">{% if landslide_risk_ls_s3_wb == "Very High" %} X {% endif %}</td>
 	</tr>
 </table>
 

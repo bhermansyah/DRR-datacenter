@@ -1436,6 +1436,26 @@ def getLandSlideInfoVillages(request):
     except:
         context_dict['landslide_risk'] = 0
 
+    try:
+        context_dict['landslide_risk_lsi_ku'] = px.lsi_ku
+    except:
+        context_dict['landslide_risk_lsi_ku'] = 0
+
+    try:
+        context_dict['landslide_risk_ls_s1_wb'] = px.ls_s1_wb
+    except:
+        context_dict['landslide_risk_ls_s1_wb'] = 0
+
+    try:
+        context_dict['landslide_risk_ls_s2_wb'] = px.ls_s2_wb
+    except:
+        context_dict['landslide_risk_ls_s2_wb'] = 0
+
+    try:
+        context_dict['landslide_risk_ls_s3_wb'] = px.ls_s3_wb
+    except:
+        context_dict['landslide_risk_ls_s3_wb'] = 0
+
     if context_dict['landslide_risk'] >= 7:
         context_dict['landslide_risk'] = 'Very High'
     elif context_dict['landslide_risk'] >= 5 and context_dict['landslide_risk'] < 7:
@@ -1448,6 +1468,59 @@ def getLandSlideInfoVillages(request):
         context_dict['landslide_risk'] = 'Very Low'        
     else :
         context_dict['landslide_risk'] = 'None' 
+
+
+    if context_dict['landslide_risk_lsi_ku'] >= 7:
+        context_dict['landslide_risk_lsi_ku'] = 'Very High'
+    elif context_dict['landslide_risk_lsi_ku'] >= 5 and context_dict['landslide_risk_lsi_ku'] < 7:
+        context_dict['landslide_risk_lsi_ku'] = 'High' 
+    elif context_dict['landslide_risk_lsi_ku'] >= 4 and context_dict['landslide_risk_lsi_ku'] < 5:
+        context_dict['landslide_risk_lsi_ku'] = 'Moderate'        
+    elif context_dict['landslide_risk_lsi_ku'] >= 2 and context_dict['landslide_risk_lsi_ku'] < 4:
+        context_dict['landslide_risk_lsi_ku'] = 'Low' 
+    elif context_dict['landslide_risk_lsi_ku'] >= 1 and context_dict['landslide_risk_lsi_ku'] < 2:
+        context_dict['landslide_risk_lsi_ku'] = 'Very Low'        
+    else :
+        context_dict['landslide_risk_lsi_ku'] = 'None' 
+
+    if context_dict['landslide_risk_ls_s1_wb'] >= 7:
+        context_dict['landslide_risk_ls_s1_wb'] = 'Very High'
+    elif context_dict['landslide_risk_ls_s1_wb'] >= 5 and context_dict['landslide_risk_ls_s1_wb'] < 7:
+        context_dict['landslide_risk_ls_s1_wb'] = 'High' 
+    elif context_dict['landslide_risk_ls_s1_wb'] >= 4 and context_dict['landslide_risk_ls_s1_wb'] < 5:
+        context_dict['landslide_risk_ls_s1_wb'] = 'Moderate'        
+    elif context_dict['landslide_risk_ls_s1_wb'] >= 2 and context_dict['landslide_risk_ls_s1_wb'] < 4:
+        context_dict['landslide_risk_ls_s1_wb'] = 'Low' 
+    elif context_dict['landslide_risk_ls_s1_wb'] >= 1 and context_dict['landslide_risk_ls_s1_wb'] < 2:
+        context_dict['landslide_risk_ls_s1_wb'] = 'Very Low'        
+    else :
+        context_dict['landslide_risk_ls_s1_wb'] = 'None' 
+
+    if context_dict['landslide_risk_ls_s2_wb'] >= 7:
+        context_dict['landslide_risk_ls_s2_wb'] = 'Very High'
+    elif context_dict['landslide_risk_ls_s2_wb'] >= 5 and context_dict['landslide_risk_ls_s2_wb'] < 7:
+        context_dict['landslide_risk_ls_s2_wb'] = 'High' 
+    elif context_dict['landslide_risk_ls_s2_wb'] >= 4 and context_dict['landslide_risk_ls_s2_wb'] < 5:
+        context_dict['landslide_risk_ls_s2_wb'] = 'Moderate'        
+    elif context_dict['landslide_risk_ls_s2_wb'] >= 2 and context_dict['landslide_risk_ls_s2_wb'] < 4:
+        context_dict['landslide_risk_ls_s2_wb'] = 'Low' 
+    elif context_dict['landslide_risk_ls_s2_wb'] >= 1 and context_dict['landslide_risk_ls_s2_wb'] < 2:
+        context_dict['landslide_risk_ls_s2_wb'] = 'Very Low'        
+    else :
+        context_dict['landslide_risk_ls_s2_wb'] = 'None' 
+
+    if context_dict['landslide_risk_ls_s3_wb'] >= 7:
+        context_dict['landslide_risk_ls_s3_wb'] = 'Very High'
+    elif context_dict['landslide_risk_ls_s3_wb'] >= 5 and context_dict['landslide_risk_ls_s3_wb'] < 7:
+        context_dict['landslide_risk_ls_s3_wb'] = 'High' 
+    elif context_dict['landslide_risk_ls_s3_wb'] >= 4 and context_dict['landslide_risk_ls_s3_wb'] < 5:
+        context_dict['landslide_risk_ls_s3_wb'] = 'Moderate'        
+    elif context_dict['landslide_risk_ls_s3_wb'] >= 2 and context_dict['landslide_risk_ls_s3_wb'] < 4:
+        context_dict['landslide_risk_ls_s3_wb'] = 'Low' 
+    elif context_dict['landslide_risk_ls_s3_wb'] >= 1 and context_dict['landslide_risk_ls_s3_wb'] < 2:
+        context_dict['landslide_risk_ls_s3_wb'] = 'Very Low'        
+    else :
+        context_dict['landslide_risk_ls_s3_wb'] = 'None' 
 
     context_dict.pop('position')
 
