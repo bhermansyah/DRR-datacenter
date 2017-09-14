@@ -80,11 +80,32 @@ table#info tr.odd td {
 		<td>{% trans "Number of Buildings" %}</td>
 		<td><strong>{{vuid_buildings|floatformat:"0"|intcomma }}</strong></td>
 	</tr>
-	<tr>
+<!-- 	<tr>
 		<td>{% trans "Landslide Susceptibility" %}</td>
 		<td>
 			<strong>{{landslide_risk}}</strong>
 		</td>
+	</tr> -->
+</table>
+
+<div class="infoPanelTitle">{% trans "Landslide Susceptibility" %}<sup>*</sup> :</div>
+
+<table class='tblborder'>
+	<tr>
+		<th bgcolor="#FFFFFF"><div class="rotate">{% trans "No Risk" %}</div></th>
+		<th bgcolor="#8cea8a"><div class="rotate">{% trans "Very Low" %}</div></th>
+		<th bgcolor="#1eb263"><div class="rotate">{% trans "Low" %}</div></th>
+		<th bgcolor="#fff231"><div class="rotate">{% trans "Moderate" %}</div></th>
+		<th bgcolor="#ff7f00"><div class="rotate">{% trans "High" %}</div></th>
+		<th bgcolor="#e31a1c"><div class="rotate">{% trans "Very High" %}</div></th>
+	</tr>
+	<tr>
+		<td bgcolor="#FFFFFF" class="">{% if landslide_risk == "None" %} X {% endif %}</td>
+		<td bgcolor="#8cea8a" class="">{% if landslide_risk == "Very Low" %} X {% endif %}</td>
+		<td bgcolor="#1eb263" class="">{% if landslide_risk == "Low" %} X {% endif %}</td>
+		<td bgcolor="#fff231" class="">{% if landslide_risk == "Moderate" %} X {% endif %}</td>
+		<td bgcolor="#ff7f00" class="">{% if landslide_risk == "High" %} X {% endif %}</td>
+		<td bgcolor="#e31a1c" class="">{% if landslide_risk == "Very High" %} X {% endif %}</td>
 	</tr>
 </table>
 
