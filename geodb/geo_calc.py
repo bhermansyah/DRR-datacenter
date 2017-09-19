@@ -2436,39 +2436,39 @@ def getFloodForecastMatrix(filterLock, flag, code):
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['riverflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['riverflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    response['riverflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['riverflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['riverflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['riverflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    response['riverflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['riverflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['riverflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    response['riverflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['riverflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['riverflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['riverflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    response['riverflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['riverflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['riverflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['riverflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['riverflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    response['riverflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['riverflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['riverflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
     temp = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
     temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['riverflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['riverflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    response['riverflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['riverflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['riverflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
 
 
     # Flash Flood Forecasted
