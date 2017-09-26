@@ -100,8 +100,28 @@
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_lndcrva_simplified.xml" type="text/xml"/>
   </layer>
   <layer>
+    <name>geonode:afg_ls_30m_wb_s1</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_ls_30m_wb_s1.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_ls_30m_wb_s2</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_ls_30m_wb_s2.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_ls_30m_wb_s3</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_ls_30m_wb_s3.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_ls_500m_ku_lsi</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_ls_500m_ku_lsi.xml" type="text/xml"/>
+  </layer>
+  <layer>
     <name>geonode:afg_poia_buildings</name>
     <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_poia_buildings.xml" type="text/xml"/>
+  </layer>
+  <layer>
+    <name>geonode:afg_popr_1000m</name>
+    <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://asdc.immap.org/geoserver/gwc/rest/layers/geonode%3Aafg_popr_1000m.xml" type="text/xml"/>
   </layer>
   <layer>
     <name>geonode:afg_ppla</name>
