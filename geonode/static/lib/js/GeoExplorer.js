@@ -91687,6 +91687,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             tpl.overwrite(Ext.getCmp('avalancheForecastView').body, {});
                             tpl.overwrite(Ext.getCmp('eqView').body, {});
                             tpl.overwrite(Ext.getCmp('accessibilitiesView').body, {});
+                            tpl.overwrite(Ext.getCmp('landslideView').body, {});
                             Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
                         }
                     },{
@@ -91765,6 +91766,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             _storeCalc.setAccessibilityStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
 
                             _storeCalc.setEarthQuakeFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode, Ext.getCmp('eventsEQSelection').getValue(), Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.title, Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.date_custom);
+
+                            _storeCalc.setLandslideStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
 
                             _storeCalc.filter = filter;
                             _storeCalc.adminCode = adminCode;
@@ -92214,6 +92217,14 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             })
                         ]
                     }),
+                    html: gettext('Apply filter to generate the statistics')
+                },{
+                    title: gettext('Landslide Risk'),
+                    id: 'landslideView',
+                    defaults: {autoScroll: true},
+                    height : 850,
+                    style:"height:850px;",
+                    overflowY: 'scroll',
                     html: gettext('Apply filter to generate the statistics')
                 }]
             })]

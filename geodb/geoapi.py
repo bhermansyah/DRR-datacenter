@@ -2163,5 +2163,380 @@ class getLastUpdatedStatus(ModelResource):
         return self.create_response(request, response)  
 
 
+class getLandslide(ModelResource):
+    class Meta:
+        resource_name = 'getlandslide'
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        cache = SimpleCache() 
+
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        response = self.getData(request)
+        return self.create_response(request, response)   
+
+    def getData(self, request):
+        boundaryFilter = json.loads(request.body)
+
+        temp1 = []
+        for i in boundaryFilter['spatialfilter']:
+            temp1.append('ST_GeomFromText(\''+i+'\',4326)')
+
+        temp2 = 'ARRAY['
+        first=True
+        for i in temp1:
+            if first:
+                 temp2 = temp2 + i
+                 first=False
+            else :
+                 temp2 = temp2 + ', ' + i  
+
+        temp2 = temp2+']'
+        
+        filterLock = 'ST_Union('+temp2+')'
+        flag = boundaryFilter['flag']
+        code = boundaryFilter['code']
+
+        response = {}
+
+        if flag=='entireAfg':
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid"
+
+        elif flag =='currentProvince':
+            if len(str(boundaryFilter['code'])) > 2:
+                ff0001 =  "afg_pplp.dist_code  = '"+str(boundaryFilter['code'])+"'"
+            else :
+                ff0001 =  "afg_pplp.prov_code_1  = '"+str(boundaryFilter['code'])+"'" 
+
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
+                    where " +  ff0001  
+
+        elif flag =='drawArea':
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
+                    where ST_Intersects(afg_pplp.wkb_geometry,"+filterLock+")"
+        else:
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
+                    where ST_Intersects(afg_pplp.wkb_geometry,"+filterLock+")"
+        
+        cursor = connections['geodb'].cursor()
+        row = query_to_dicts(cursor, sql)
+        counts = []
+        for i in row:
+            counts.append(i)
+        cursor.close()
+
+        print counts
+
+        return counts[0]
+
+
 
     

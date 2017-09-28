@@ -506,6 +506,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
     store: null,
     EQStore: null,
     accessibilityStore: null,
+    landslideStore: null,
     active : true,
     filter : [],
     adminCode: null,
@@ -751,6 +752,125 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             }
         });
     },
+    setLandslideStore: function(filter, flag, code){
+        var myObj = {
+            filterdata : filter
+        };
+        var tpl = new Ext.Template(gettext('Please Wait ...'));
+        tpl.overwrite(Ext.getCmp('landslideView').body, {});
+        Ext.Ajax.request({
+            url: '../../geoapi/getlandslide/',
+            method: 'POST',
+            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code}),
+            headers: {"Content-Type": "application/json"},
+            success: function(response) {
+                this.landslideStore = Ext.decode(response.responseText);
+                var tpl = new Ext.Template(
+                    '<div class="statisticsPanel">',
+                        '<ul>',
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1 align="center">'+gettext('Landslide Indexes (iMMAP 2017)')+'</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td style="padding: 5px;" align="center">'+gettext('Risk Level')+'</td><td style="padding: 5px;" align="right">'+gettext('Population')+'</td></tr>',
+                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr style="background:rgba(140, 234, 138, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very Low')+'</td><td style="padding: 5px;" align="right">{lsi_immap_very_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(30, 178, 99, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Low')+'</td><td style="padding: 5px;" align="right">{lsi_immap_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 242, 49, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Moderate')+'</td><td style="padding: 5px;" align="right">{lsi_immap_moderate:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 127, 0, 0.4)"><td style="padding: 5px;" align="left">'+gettext('High')+'</td><td style="padding: 5px;" align="right">{lsi_immap_high:toMega}</td></tr>',
+                                            '<tr style="background:rgba(227, 26, 28, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very High')+'</td><td style="padding: 5px;" align="right">{lsi_immap_very_high:toMega}</td></tr>',
+                                        '</table>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1 align="center">'+gettext('Multi-criteria Landslide Susceptibility Index')+'</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td style="padding: 5px;" align="center">'+gettext('Risk Level')+'</td><td style="padding: 5px;" align="right">'+gettext('Population')+'</td></tr>',
+                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr style="background:rgba(140, 234, 138, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very Low')+'</td><td style="padding: 5px;" align="right">{lsi_ku_very_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(30, 178, 99, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Low')+'</td><td style="padding: 5px;" align="right">{lsi_ku_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 242, 49, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Moderate')+'</td><td style="padding: 5px;" align="right">{lsi_ku_moderate:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 127, 0, 0.4)"><td style="padding: 5px;" align="left">'+gettext('High')+'</td><td style="padding: 5px;" align="right">{lsi_ku_high:toMega}</td></tr>',
+                                            '<tr style="background:rgba(227, 26, 28, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very High')+'</td><td style="padding: 5px;" align="right">{lsi_ku_very_high:toMega}</td></tr>',
+                                        '</table>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1 align="center">'+gettext('Landslide susceptibility - bedrock landslides in slow evolution (S1)')+'</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td style="padding: 5px;" align="center">'+gettext('Risk Level')+'</td><td style="padding: 5px;" align="right">'+gettext('Population')+'</td></tr>',
+                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr style="background:rgba(140, 234, 138, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very Low')+'</td><td style="padding: 5px;" align="right">{ls_s1_wb_very_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(30, 178, 99, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Low')+'</td><td style="padding: 5px;" align="right">{ls_s1_wb_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 242, 49, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Moderate')+'</td><td style="padding: 5px;" align="right">{ls_s1_wb_moderate:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 127, 0, 0.4)"><td style="padding: 5px;" align="left">'+gettext('High')+'</td><td style="padding: 5px;" align="right">{ls_s1_wb_high:toMega}</td></tr>',
+                                            '<tr style="background:rgba(227, 26, 28, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very High')+'</td><td style="padding: 5px;" align="right">{ls_s1_wb_very_high:toMega}</td></tr>',
+                                        '</table>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+
+                            '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1 align="center">'+gettext('Landslide susceptibility - bedrock landslides in rapid evolution (S2)')+'</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td style="padding: 5px;" align="center">'+gettext('Risk Level')+'</td><td style="padding: 5px;" align="right">'+gettext('Population')+'</td></tr>',
+                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr style="background:rgba(140, 234, 138, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very Low')+'</td><td style="padding: 5px;" align="right">{ls_s2_wb_very_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(30, 178, 99, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Low')+'</td><td style="padding: 5px;" align="right">{ls_s2_wb_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 242, 49, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Moderate')+'</td><td style="padding: 5px;" align="right">{ls_s2_wb_moderate:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 127, 0, 0.4)"><td style="padding: 5px;" align="left">'+gettext('High')+'</td><td style="padding: 5px;" align="right">{ls_s2_wb_high:toMega}</td></tr>',
+                                            '<tr style="background:rgba(227, 26, 28, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very High')+'</td><td style="padding: 5px;" align="right">{ls_s2_wb_very_high:toMega}</td></tr>',
+                                        '</table>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+
+                             '<li>',
+                                '<div class="w3-card-4">',
+                                    '<header class="w3-container w3-blue">',
+                                      '<h1 align="center">'+gettext('Landslide susceptibility - cover material in rapid evolution (S3)')+'</h1>',
+                                    '</header>',
+                                    '<div class="w3-container">',
+                                        '<table style="width:100%"">',
+                                            '<tr><td style="padding: 5px;" align="center">'+gettext('Risk Level')+'</td><td style="padding: 5px;" align="right">'+gettext('Population')+'</td></tr>',
+                                            '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                            '<tr style="background:rgba(140, 234, 138, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very Low')+'</td><td style="padding: 5px;" align="right">{ls_s3_wb_very_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(30, 178, 99, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Low')+'</td><td style="padding: 5px;" align="right">{ls_s3_wb_low:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 242, 49, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Moderate')+'</td><td style="padding: 5px;" align="right">{ls_s3_wb_moderate:toMega}</td></tr>',
+                                            '<tr style="background:rgba(255, 127, 0, 0.4)"><td style="padding: 5px;" align="left">'+gettext('High')+'</td><td style="padding: 5px;" align="right">{ls_s3_wb_high:toMega}</td></tr>',
+                                            '<tr style="background:rgba(227, 26, 28, 0.4)"><td style="padding: 5px;" align="left">'+gettext('Very High')+'</td><td style="padding: 5px;" align="right">{ls_s3_wb_very_high:toMega}</td></tr>',
+                                        '</table>',
+                                    '</div>',
+                                '</div>',
+                            '</li>',
+
+                        '</ul>',
+                    '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>'
+                );
+                tpl.overwrite(Ext.getCmp('landslideView').body, this.landslideStore);
+                Ext.getCmp('landslideView').body.highlight('#c3daf9', {block:true});
+            }
+        });
+    },
     setEarthQuakeFeatureStore: function(filter, flag, code, event_code, title, date_custom){
         var myObj = {
             filterdata : filter
@@ -826,6 +946,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         Ext.getCmp('statContainer').setActiveTab('avalancheView');
         Ext.getCmp('statContainer').setActiveTab('eqView');
         Ext.getCmp('statContainer').setActiveTab('accessibilitiesView');
+        Ext.getCmp('statContainer').setActiveTab('landslideView');
         Ext.getCmp('statContainer').setActiveTab('baselineView');
 
         var tpl = new Ext.Template(gettext('Please Wait ...'));
