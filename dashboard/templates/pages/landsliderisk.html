@@ -1,0 +1,345 @@
+{% load i18n %}
+{% load humanize %}
+
+<style type="text/css">
+li#nav_dashlandslide>a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    height: 0.4em;
+    width: 100%;
+    border-bottom: 2px solid #755467;
+    margin-top: 5px;
+}
+
+</style>
+
+
+<div class="gridster">
+	<h1 class="dashing-title">{% trans "Landslide Risk" %}
+		{% include "links_title.html" %}
+		{% include "qlink_span.html" %}
+	</h1>
+  	<ul>
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{Population | intword | intcomma}}</h1>
+			<span class='widget-title'>{% trans "Total Population" %}</span>
+		</li>
+		<li data-row="1" data-col="1" data-sizex="1" data-sizey="1">
+			<h1 class='widget-number'>{{settlement | intword | intcomma}}</h1>
+			<span class='widget-title'>{% trans "Total Setllements" %}</span>
+		</li>	
+
+		<li data-row="1" data-col="3" data-sizex="2" data-sizey="2">
+			<div>{{ landslide_chart1.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>	
+		<li data-row="1" data-col="3" data-sizex="2" data-sizey="2">
+			<div>{{ landslide_chart2.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="1" data-col="3" data-sizex="2" data-sizey="2">
+			<div>{{ landslide_chart3.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="1" data-col="3" data-sizex="2" data-sizey="2">
+			<div>{{ landslide_chart4.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>
+		<li data-row="1" data-col="3" data-sizex="2" data-sizey="2">
+			<div>{{ landslide_chart5.as_html }}</div>
+			<span class='widget-title'></span>
+		</li>
+  	</ul>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td colspan=3 style="padding:3px;font-weight:bolder;">{% trans "# Population by Landslide Indexes (iMMAP 2017)" %}</td>
+				<td colspan=2 style="padding:3px;"><div class='showFlag_base' onClick='show_hide_base()'>{% if "detail_base" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+			</tr>
+			<tr>
+				<th><span>{% trans "Region" %}</span></th>
+				<th class="width-10-percent">{% trans "Very High" %}</th>
+				<th class="width-10-percent">{% trans "High" %}</th>
+				<th class="width-10-percent">{% trans "Moderate" %}</th>
+				<th class="width-10-percent">{% trans "Low" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{lsi_immap_very_high | intword | intcomma}}</td>
+				<td class="parent_value">{{lsi_immap_high | intword | intcomma}}</td>
+				<td class="parent_value">{{lsi_immap_moderate | intword | intcomma}}</td>
+				<td class="parent_value">{{lsi_immap_low | intword | intcomma}}</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base {% if "detail_base" not in checked %} hide {% endif %}' onclick="window.document.location='?page=landslide&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.lsi_immap_very_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.lsi_immap_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.lsi_immap_moderate | intword | intcomma}}</td>
+				<td class="detail_value">{{data.lsi_immap_low | intword | intcomma}}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td colspan=3 style="padding:3px;font-weight:bolder;">{% trans "# Population by Multi-criteria Landslide Susceptibility Index" %}</td>
+				<td colspan=2 style="padding:3px;"><div class='showFlag_base1' onClick='show_hide_base1()'>{% if "detail_base1" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+			</tr>
+			<tr>
+				<th><span>{% trans "Region" %}</span></th>
+				<th class="width-10-percent">{% trans "Very High" %}</th>
+				<th class="width-10-percent">{% trans "High" %}</th>
+				<th class="width-10-percent">{% trans "Moderate" %}</th>
+				<th class="width-10-percent">{% trans "Low" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{lsi_ku_very_high | intword | intcomma}}</td>
+				<td class="parent_value">{{lsi_ku_high | intword | intcomma}}</td>
+				<td class="parent_value">{{lsi_ku_moderate | intword | intcomma}}</td>
+				<td class="parent_value">{{lsi_ku_low | intword | intcomma}}</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base1 {% if "detail_base1" not in checked %} hide {% endif %}' onclick="window.document.location='?page=landslide&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.lsi_ku_very_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.lsi_ku_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.lsi_ku_moderate | intword | intcomma}}</td>
+				<td class="detail_value">{{data.lsi_ku_low | intword | intcomma}}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td colspan=3 style="padding:3px;font-weight:bolder;">{% trans "# Population by Landslide susceptibility - bedrock landslides in slow evolution (S1)" %}</td>
+				<td colspan=2 style="padding:3px;"><div class='showFlag_base2' onClick='show_hide_base2()'>{% if "detail_base2" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+			</tr>
+			<tr>
+				<th><span>{% trans "Region" %}</span></th>
+				<th class="width-10-percent">{% trans "Very High" %}</th>
+				<th class="width-10-percent">{% trans "High" %}</th>
+				<th class="width-10-percent">{% trans "Moderate" %}</th>
+				<th class="width-10-percent">{% trans "Low" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{ls_s1_wb_very_high | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s1_wb_high | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s1_wb_moderate | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s1_wb_low | intword | intcomma}}</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base2 {% if "detail_base2" not in checked %} hide {% endif %}' onclick="window.document.location='?page=landslide&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.ls_s1_wb_very_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s1_wb_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s1_wb_moderate | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s1_wb_low | intword | intcomma}}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td colspan=3 style="padding:3px;font-weight:bolder;">{% trans "# Population by Landslide susceptibility - bedrock landslides in rapid evolution (S2)" %}</td>
+				<td colspan=2 style="padding:3px;"><div class='showFlag_base3' onClick='show_hide_base3()'>{% if "detail_base3" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+			</tr>
+			<tr>
+				<th><span>{% trans "Region" %}</span></th>
+				<th class="width-10-percent">{% trans "Very High" %}</th>
+				<th class="width-10-percent">{% trans "High" %}</th>
+				<th class="width-10-percent">{% trans "Moderate" %}</th>
+				<th class="width-10-percent">{% trans "Low" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{ls_s2_wb_very_high | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s2_wb_high | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s2_wb_moderate | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s2_wb_low | intword | intcomma}}</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base3 {% if "detail_base3" not in checked %} hide {% endif %}' onclick="window.document.location='?page=landslide&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.ls_s2_wb_very_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s2_wb_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s2_wb_moderate | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s2_wb_low | intword | intcomma}}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div  class="gridster">
+	<table>
+		<thead>
+			<tr class='dataitem'>
+				<td colspan=3 style="padding:3px;font-weight:bolder;">{% trans "# Population by Landslide susceptibility - cover material in rapid evolution (S3)" %}</td>
+				<td colspan=2 style="padding:3px;"><div class='showFlag_base4' onClick='show_hide_base4()'>{% if "detail_base4" in checked %}{% trans "Hide Detail" %}{% else %}{% trans "Show Detail" %}{% endif %}</div></td>
+			</tr>
+			<tr>
+				<th><span>{% trans "Region" %}</span></th>
+				<th class="width-10-percent">{% trans "Very High" %}</th>
+				<th class="width-10-percent">{% trans "High" %}</th>
+				<th class="width-10-percent">{% trans "Moderate" %}</th>
+				<th class="width-10-percent">{% trans "Low" %}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='dataitem'>
+				<td class="parent_list">{{parent_label}}</td>
+				<td class="parent_value">{{ls_s3_wb_very_high | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s3_wb_high | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s3_wb_moderate | intword | intcomma}}</td>
+				<td class="parent_value">{{ls_s3_wb_low | intword | intcomma}}</td>
+			</tr>
+			{% for data in lc_child %}
+			<tr class='dataitem detail_base4 {% if "detail_base4" not in checked %} hide {% endif %}' onclick="window.document.location='?page=landslide&code={{data.code}}';">
+				<td class="detail_list">{{data.na_en}}</td>
+				<td class="detail_value">{{data.ls_s3_wb_very_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s3_wb_high | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s3_wb_moderate | intword | intcomma}}</td>
+				<td class="detail_value">{{data.ls_s3_wb_low | intword | intcomma}}</td>
+			</tr>
+			{% endfor %}
+			<tr>
+				<td class="separator" colspan=10></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<SCRIPT TYPE="text/javascript">
+function show_hide_base(){
+	if ($("div.showFlag_base").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base").text('{% trans "Hide Detail" %}');
+		_checked.push('detail_base');
+	} else {
+		$("div.showFlag_base").text('{% trans "Show Detail" %}');
+		removeA(_checked, 'detail_base');
+	}
+	$( ".detail_base" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";
+		}
+	});
+}
+
+function show_hide_base1(){
+	if ($("div.showFlag_base1").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base1").text('{% trans "Hide Detail" %}');
+		_checked.push('detail_base1');
+	} else {
+		$("div.showFlag_base1").text('{% trans "Show Detail" %}');
+		removeA(_checked, 'detail_base1');
+	}
+	$( ".detail_base1" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";
+		}
+	});
+}
+
+function show_hide_base2(){
+	if ($("div.showFlag_base2").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base2").text('{% trans "Hide Detail" %}');
+		_checked.push('detail_base2');
+	} else {
+		$("div.showFlag_base2").text('{% trans "Show Detail" %}');
+		removeA(_checked, 'detail_base2');
+	}
+	$( ".detail_base2" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";
+		}
+	});
+}
+
+function show_hide_base3(){
+	if ($("div.showFlag_base3").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base3").text('{% trans "Hide Detail" %}');
+		_checked.push('detail_base3');
+	} else {
+		$("div.showFlag_base3").text('{% trans "Show Detail" %}');
+		removeA(_checked, 'detail_base3');
+	}
+	$( ".detail_base3" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";
+		}
+	});
+}
+
+function show_hide_base4(){
+	if ($("div.showFlag_base4").text() == "{% trans "Show Detail" %}") {
+		$("div.showFlag_base4").text('{% trans "Hide Detail" %}');
+		_checked.push('detail_base4');
+	} else {
+		$("div.showFlag_base4").text('{% trans "Show Detail" %}');
+		removeA(_checked, 'detail_base4');
+	}
+	$( ".detail_base4" ).toggleClass(function(){
+		if ( $( this ).parent().is( ".hide" ) ) {
+		    return "show";
+		} else {
+			// $("div.showFlag").text("<p>Show Detail</p>");
+		    return "hide";
+		}
+	});
+}
+
+
+</SCRIPT>

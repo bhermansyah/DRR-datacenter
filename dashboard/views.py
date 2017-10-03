@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader
-from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity
+from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity, getLandslideRisk
 from geodb.models import AfgAdmbndaAdm1, AfgAdmbndaAdm2
 from django.shortcuts import HttpResponse
 from matrix.models import matrix
@@ -77,6 +77,8 @@ def common(request):
 		response = getEarthquake(request, filterLock, flag, code)
 	elif request.GET['page'] == 'security':
 		response = getSecurity(request, rawFilterLock, flag, code)
+	elif request.GET['page'] == 'landslide':
+		response = getLandslideRisk(request, filterLock, flag, code)	
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)

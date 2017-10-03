@@ -32,6 +32,8 @@
     		{% include "pages/naturaldisaster.html" %}
         {% elif request.GET.page == 'weather' %}
             {% include "pages/weather.html" %}
+        {% elif request.GET.page == 'landslide' %}
+            {% include "pages/landsliderisk.html" %}
     	{% endif %}
     </div>
 

@@ -2533,8 +2533,6 @@ class getLandslide(ModelResource):
             counts.append(i)
         cursor.close()
 
-        print counts
-
         return counts[0]
 
 
