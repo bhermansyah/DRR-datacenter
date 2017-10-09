@@ -28782,9 +28782,9 @@ OpenLayers.Layer = OpenLayers.Class({
             var date_array = new Date().format('Y-m-d').split("-");
             reverse_date_opt = new Date(date_array[0],date_array[1]-1,date_array[2]);
             reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
-            date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ; 
-            
-        }    
+            date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ;
+
+        }
 
         if (this.name == 'Earthquake shakemap' && Ext.getCmp('eventsEQSelection')){
             selIndex = Ext.getCmp('eventsEQSelection').selectedIndex;
@@ -28794,9 +28794,9 @@ OpenLayers.Layer = OpenLayers.Class({
 
             selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
             if (selectedEQ) this.mergeNewParams({'CQL_FILTER': "event_code='"+selectedEQ.data.event_code+"'"});
-        } else if (this.name == 'Historical Flood Forecast (GFMS)'){
+        } else if (this.name == gettext('Historical Flood Prediction')){
             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
-        } else if (this.name == 'Classes of flood forecast'){
+        } else if (this.name == gettext('Classes of flood prediction GFMS&GLOFAS')){
             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
 
             // console.log(OpenLayers.Control.FeaturePopups);
@@ -28815,7 +28815,7 @@ OpenLayers.Layer = OpenLayers.Class({
                                     return Math.min(feature.attributes.rl5_dis_percent, 1) * 1.5 + 2;
                                 },
                                 get_color: function(feature) {
-                                    // console.log(feature.attributes.rl5_dis_percent); 
+                                    // console.log(feature.attributes.rl5_dis_percent);
                                     var value = 0;
                                     if (feature.attributes.rl5_dis_percent >= 100)
                                         value = feature.attributes.rl5_avg_dis_percent
@@ -28882,8 +28882,8 @@ OpenLayers.Layer = OpenLayers.Class({
                     vector.setVisibility(true);
                 } else {
                     vector.setVisibility(false);
-                }    
-                
+                }
+
             }
 
             vector.events.on({
@@ -28892,7 +28892,7 @@ OpenLayers.Layer = OpenLayers.Class({
                 }
             });
 
-            this.events.register("visibilitychanged", this, layerChanged); 
+            this.events.register("visibilitychanged", this, layerChanged);
 
 
 
@@ -28903,7 +28903,7 @@ OpenLayers.Layer = OpenLayers.Class({
         } else if (this.name == 'Flood likelihood 20 year return period (GLOFAS)'){
             this.mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
         }
-        
+
     },
 
     /**
@@ -34827,7 +34827,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     "id":"31",
                     "nodeID":"31",
                     "pnodeID":"3",
-                    "text":"Expand Population living in flood forecast areas",
+                    "text":"Expand Population living in flood prediction areas",
                     "leaf":true,
                     "_checked":"detail_base"
                 }
@@ -34854,7 +34854,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             "id":"5",
             "nodeID":"5",
             "pnodeID":"0",
-            "text":"Avalanche forecast",
+            "text":"Avalanche Prediction",
             "leaf":false,
             "expanded" : false,
             "url":"?page=avalcheforecast&pdf=true",
@@ -34863,7 +34863,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     "id":"51",
                     "nodeID":"51",
                     "pnodeID":"5",
-                    "text":"Expand Population in forecasted avalanche risk areas",
+                    "text":"Expand Population in predicted avalanche risk areas",
                     "leaf":true,
                     "_checked":"detail_base"
                 }
@@ -34992,9 +34992,9 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 // console.log(layer,enc);
             }
         }, this);
-        
+
         Ext.each(encodedLayers, function(layer){
-            if (layer.baseURL == "http://asdc.immap.org/geoserver/gwc/service/wms") 
+            if (layer.baseURL == "http://asdc.immap.org/geoserver/gwc/service/wms")
                 layer.baseURL = "http://asdc.immap.org/geoserver/wms";
         });
 
@@ -35111,7 +35111,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
                             var dashboard_url = [];
                             var dashboard_expanded = [];
-                           
+
                             selectedStatConfig.forEach(function(item){
                                 if (item.attributes.nodeID == 3){
                                     dashboard_expanded[item.attributes.nodeID] = Ext.getCmp('cb_rf_type').getValue();
@@ -35175,7 +35175,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                                                 'mapUrl' : url
                                             },
                                             success: function(response) {
-                                                
+
                                                 var merge_pdf_url = '../../dashboard/downloadPDFFile?filename='+Ext.decode(response.responseText).filename+'&filenameoutput='+statsFileName;
 
                                                 console.log(response,merge_pdf_url);
@@ -51048,21 +51048,21 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
     /** initiate to collect the avalaible GWC layers from ASDC geoserver.
      */
     initGWCAvalaible : function(){
-        
-        var conn = new Ext.data.Connection; 
-        conn.request({ 
-          url: 'http://asdc.immap.org/static/gwclayers.xml',  
+
+        var conn = new Ext.data.Connection;
+        conn.request({
+          url: 'http://asdc.immap.org/static/gwclayers.xml',
           scope:this,
-          callback: function(options, success, response) 
-          {  
-            if (success) 
+          callback: function(options, success, response)
+          {
+            if (success)
             {
-                var dq = Ext.DomQuery; 
-                var xml = response.responseXML; 
-                   
-                var node = dq.selectNode('layers', xml);  
+                var dq = Ext.DomQuery;
+                var xml = response.responseXML;
+
+                var node = dq.selectNode('layers', xml);
                 data = node.getElementsByTagName("name");
-               
+
                 for (i = 0; i <data.length; i++) {
                     // console.log(data[i].childNodes[0].nodeValue);
                     this.gwcAvailable.push(data[i].childNodes[0].nodeValue);
@@ -51070,10 +51070,10 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
 
                 this.addLayers();
                 this.checkLayerRecordQueue();
-                this.fireEvent("ready"); 
-            } 
-          } 
-        });  
+                this.fireEvent("ready");
+            }
+          }
+        });
     },
 
     /** api: method[loadConfig]
@@ -51324,13 +51324,13 @@ gxp.Viewer = Ext.extend(Ext.util.Observable, {
                 // source may not have loaded properly (failure handled elsewhere)
                 if (source) {
                     record = source.createLayerRecord(conf);
-                    
+
                     if (record) {
                         if (record.get("group") === "background") {
                             baseRecords.push(record);
                         } else {
                             // console.log(this.gwcAvailable);
-                            
+
                             if (!!~this.gwcAvailable.indexOf(record.json.name)){
                                 var tempUrls = [
                                     'http://asdc.immap.org/geoserver/gwc/service/wms',
@@ -91143,7 +91143,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fillOpacity: 0.4
         };
 
-       // var finder_style = 
+       // var finder_style =
        // {
        //      fillColor: "#ffcc66",
        //      strokeColor: "#ff9933",
@@ -91167,7 +91167,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             fontFamily: "sans-serif",
             // fontWeight: "bold",
             pointRadius: "${getRadius}",
-            fontSize: "12px"        
+            fontSize: "12px"
        }, {
             context: {
                 getRadius: function(feature) {
@@ -91183,7 +91183,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         return 15;
                     } else {
                         return 5;
-                    }    
+                    }
                 },
                 getFillColor: function(feature) {
                     if (feature.attributes.type_settlement == 'Capital'){
@@ -91198,7 +91198,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         return '#ff3300';
                     } else {
                         return '#ffcc66';
-                    }    
+                    }
                 },
                 getSymbol: function(feature) {
                     if (feature.attributes.type_settlement == 'Capital'){
@@ -91213,8 +91213,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         return 'star';
                     } else {
                         return 'circle';
-                    }    
-                }    
+                    }
+                }
             }
         });
 
@@ -91624,7 +91624,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             tempMap.raiseLayer(vector_layerSecurityEntry,10000);
         });
 
-        var tempMap = this.mapPanel.map;        
+        var tempMap = this.mapPanel.map;
 
         var statisticsPanel = new Ext.Panel({
             title: gettext('Statistics'),
@@ -91777,19 +91777,19 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             reverse_date_opt.setDate(reverse_date_opt.getDate()-1);
                             date_array_reverse = reverse_date_opt.dateFormat("Y-m-d").split("-") ;
 
-                            if (tempMap.getLayersByName('Historical Flood Forecast (GFMS)').length > 0) {
-                                tempMap.getLayersByName('Historical Flood Forecast (GFMS)')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+                            if (tempMap.getLayersByName(gettext('Historical Flood Prediction')).length > 0) {
+                                tempMap.getLayersByName(gettext('Historical Flood Prediction'))[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Flood likelihood 2 year return period (GLOFAS)').length > 0) {
-                                tempMap.getLayersByName('Flood likelihood 2 year return period (GLOFAS)')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            if (tempMap.getLayersByName(gettext('Flood likelihood 2 year return period (GLOFAS)')).length > 0) {
+                                tempMap.getLayersByName(gettext('Flood likelihood 2 year return period (GLOFAS)'))[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Flood likelihood 5 year return period (GLOFAS)').length > 0) {
-                                tempMap.getLayersByName('Flood likelihood 5 year return period (GLOFAS)')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            if (tempMap.getLayersByName(gettext('Flood likelihood 5 year return period (GLOFAS)')).length > 0) {
+                                tempMap.getLayersByName(gettext('Flood likelihood 5 year return period (GLOFAS)'))[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Flood likelihood 20 year return period (GLOFAS)').length > 0) {
-                                tempMap.getLayersByName('Flood likelihood 20 year return period (GLOFAS)')[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
+                            if (tempMap.getLayersByName(gettext('Flood likelihood 20 year return period (GLOFAS)')).length > 0) {
+                                tempMap.getLayersByName(gettext('Flood likelihood 20 year return period (GLOFAS)'))[0].mergeNewParams({'viewparams': "year:"+date_array_reverse[0]+";month:"+date_array_reverse[1]+";day:"+date_array_reverse[2]+";"});
                             }
-                            if (tempMap.getLayersByName('Classes of flood forecast').length > 0) {
+                            if (tempMap.getLayersByName(gettext('Classes of flood prediction GFMS&GLOFAS')).length > 0) {
 
                                 var gfms_select = 'TRUE';
                                 var glofas_select = 'TRUE';
@@ -91799,19 +91799,19 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 else if (Ext.getCmp('cb_rf_type').getValue()=='GLOFAS only')
                                     gfms_select = 'FALSE';
 
-                                tempMap.getLayersByName('Classes of flood forecast')[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";gfms:"+gfms_select+";glofas:"+glofas_select+";"});
+                                tempMap.getLayersByName(gettext('Classes of flood prediction GFMS&GLOFAS'))[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";gfms:"+gfms_select+";glofas:"+glofas_select+";"});
                             }
                             if (tempMap.getLayersByName('Glofas Points').length > 0) {
-                                // tempMap.getLayersByName('Glofas Points')[0].setVisibility(false); 
+                                // tempMap.getLayersByName('Glofas Points')[0].setVisibility(false);
                                 tempMap.getLayersByName('Glofas Points')[0].destroyFeatures();
                                 tempMap.getLayersByName('Glofas Points')[0].protocol.url = "/getOverviewMaps/getGlofasPointsJSON?date="+reverse_date_opt.dateFormat("Y-m-d");
-                                tempMap.getLayersByName('Glofas Points')[0].protocol.options.url = "/getOverviewMaps/getGlofasPointsJSON?date="+reverse_date_opt.dateFormat("Y-m-d");           
+                                tempMap.getLayersByName('Glofas Points')[0].protocol.options.url = "/getOverviewMaps/getGlofasPointsJSON?date="+reverse_date_opt.dateFormat("Y-m-d");
                                 tempMap.getLayersByName('Glofas Points')[0].refresh({force:true});
-                                // tempMap.getLayersByName('Glofas Points')[0].drawn = false; 
-                                // tempMap.getLayersByName('Glofas Points')[0].setVisibility(true); 
+                                // tempMap.getLayersByName('Glofas Points')[0].drawn = false;
+                                // tempMap.getLayersByName('Glofas Points')[0].setVisibility(true);
                                 // console.log(tempMap.getLayersByName('Glofas Points')[0]);
                             }
-                            
+
                         }
                     }]
                 }),
@@ -91996,7 +91996,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     overflowY: 'scroll',
                     html: gettext('Apply filter to generate the statistics')
                 },{
-                    title: gettext('Flood Forecasted'),
+                    title: gettext('Flood Prediction'),
                     id: 'floodForecastView',
                     defaults: {autoScroll: true},
                     height : 850,
@@ -92052,9 +92052,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     listeners: {
                                        'afterrender': function(combo){
                                         var selectedRecord = combo.getStore().getAt(0).get('target');
-                                        combo.setValue(selectedRecord);        
+                                        combo.setValue(selectedRecord);
                                       }
-                                    }  
+                                    }
                                 })]
                             })
                         ]
@@ -92068,7 +92068,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     overflowY: 'scroll',
                     html: gettext('Apply filter to generate the statistics')
                 },{
-                    title: gettext('Avalanche Forecasted'),
+                    title: gettext('Avalanche Prediction'),
                     id: 'avalancheForecastView',
                     defaults: {autoScroll: true},
                     height : 850,
@@ -92273,11 +92273,11 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 '<br/><span class="findersubheader">{score} Score Matched </span>',
                             '</tpl>',
                             // '<tpl elseif="type_settlement == \'Capital\' || type_settlement == \'Provincial capital\' || type_settlement == \'Provincial Centre\' || type_settlement == \'District Centre\' || type_settlement == \'District Center\'">',
-                            '<tpl else>', 
+                            '<tpl else>',
                                 '<br/><span class="findersubheader">{type_settlement}{facility_types_description}{apttype}</span>',
                             '</tpl>',
                         // '</tpl>',
-                        
+
                     '</div>',
                     '<div class="{fromlayer}" style="float:right;padding-top: 1px; padding-right: 2px; color: rgba(158, 158, 158, 0.6);">',
                     '</div>'
@@ -92294,7 +92294,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 tempMap.getControlsBy("id", "s_inspect")[0].activate();
                 tempMap.getControlsBy("id", "s_inspect")[0].request(tempMap.getPixelFromLonLat(new OpenLayers.LonLat(r.data.feature.geometry.x, r.data.feature.geometry.y)));
                 tempMap.getControlsBy("id", "s_inspect")[0].deactivate();
-            }    
+            }
 
         });
 
@@ -92620,7 +92620,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                         id:'searchTB',
                         items : [{
                             items: [
-                                'Search by name: ', 
+                                'Search by name: ',
                                 {
                                     xtype      : 'checkbox',
                                     id: 'fuzzyCB',

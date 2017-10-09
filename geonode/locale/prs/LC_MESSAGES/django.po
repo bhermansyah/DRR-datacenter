@@ -1,1148 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# ASDC Translation File.
+# Copyright (C) 2017
+# This file is distributed under the same license as the asdc.immmap.org package.
+# asdc.immap.org, 2017.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ASDC_Legend\n"
-"Report-Msgid-Bugs-To: you@example.com\n"
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: asdc.immap.org\n"
 "POT-Creation-Date: 2007-10-18 14:00+0100\n"
-"PO-Revision-Date: 2017-06-14 09:48+0430\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"PO-Revision-Date: 2007-10-18 14:00+0100\n"
+"Last-Translator: asdc.immap.org\n"
+"Language-Team: asdc.immap.org\n"
 "Language: prs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
-
-#: population_density_villages.sld:100 population_density_districts.sld:100
-msgid "> 1K"
-msgstr "1K<"
-
-#: population_density_villages.sld:13
-#: current_flood_forecasted_provinces.sld:13
-#: current_flood_forecasted_villages_197057b1.sld:12
-#: current_flood_forecasted_villages.sld:13
-#: current_avalanche_forecast_villages.sld:13 flood_risk_villages.sld:13
-#: current_flash_flood_forecasted_districts.sld:13
-#: current_flash_flood_forecasted_villages.sld:13
-#: current_flood_forecasted_districts_850ab442.sld:12
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:12
-#: current_avalanche_forecast_districts.sld:13
-#: current_flood_forecasted_villages_a3b9b4a5.sld:12
-#: current_flood_forecasted_villages_70fa82f9.sld:12
-#: current_avalanche_forecast_provinces.sld:13
-#: current_riverflood_forcasted_village.sld:13
-#: current_river_flood_forecasted.sld:13 current_snow_depth.sld:13
-#: current_snow_depth.sld:24 current_flash_flood_forecasted_provinces.sld:13
-#: population_density_provinces.sld:13
-#: current_riverflood_forcasted_prov.sld:13
-#: current_flood_forecasted_villages_9cc5351b.sld:12
-#: current_flood_forecasted_districts.sld:14
-#: population_density_districts.sld:13
-msgid "Less 10"
-msgstr "کمتر از 10"
-
-#: population_density_villages.sld:57
-#: current_flood_forecasted_villages_basin.sld:30
-#: current_flood_forecasted_provinces.sld:59
-#: current_flood_forecasted_villages_197057b1.sld:56
-#: current_flood_forecasted_villages.sld:57
-#: current_avalanche_forecast_villages.sld:58
-#: current_avalanche_forecast_villages.sld:59
-#: current_flash_flood_forecasted_districts.sld:56
-#: current_flash_flood_forecasted_districts.sld:57
-#: current_flash_flood_forecasted_villages.sld:57
-#: current_flood_forecasted_districts_850ab442.sld:58
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:57
-#: current_avalanche_forecast_districts.sld:56
-#: current_avalanche_forecast_districts.sld:57
-#: current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: current_flood_forecasted_villages_a3b9b4a5.sld:56
-#: current_flood_forecasted_villages_70fa82f9.sld:56
-#: current_avalanche_forecast_provinces.sld:56
-#: current_avalanche_forecast_provinces.sld:57
-#: current_riverflood_forcasted_village.sld:56
-#: current_riverflood_forcasted_village.sld:57
-#: current_river_flood_forecasted.sld:56
-#: current_river_flood_forecasted.sld:57
-#: current_flash_flood_forecasted_provinces.sld:56
-#: current_flash_flood_forecasted_provinces.sld:57
-#: population_density_provinces.sld:57
-#: current_riverflood_forcasted_prov.sld:56
-#: current_riverflood_forcasted_prov.sld:57
-#: current_flood_forecasted_villages_9cc5351b.sld:56
-#: current_flood_forecasted_districts.sld:60
-#: population_density_districts.sld:57
-msgid "101-1000"
-msgstr "101-1000"
-
-#: population_density_villages.sld:79
-#: current_flood_forecasted_villages_basin.sld:47
-#: current_flood_forecasted_provinces.sld:82
-#: current_flood_forecasted_villages_197057b1.sld:78
-#: current_flood_forecasted_villages.sld:79
-#: current_avalanche_forecast_villages.sld:81
-#: current_avalanche_forecast_villages.sld:82
-#: current_flash_flood_forecasted_districts.sld:78
-#: current_flash_flood_forecasted_districts.sld:79
-#: current_flash_flood_forecasted_villages.sld:79
-#: current_flood_forecasted_districts_850ab442.sld:81
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:79
-#: current_avalanche_forecast_districts.sld:78
-#: current_avalanche_forecast_districts.sld:79
-#: current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: current_flood_forecasted_villages_a3b9b4a5.sld:78
-#: current_flood_forecasted_villages_70fa82f9.sld:78
-#: current_avalanche_forecast_provinces.sld:78
-#: current_avalanche_forecast_provinces.sld:79
-#: current_riverflood_forcasted_village.sld:78
-#: current_riverflood_forcasted_village.sld:79
-#: current_river_flood_forecasted.sld:78
-#: current_river_flood_forecasted.sld:79
-#: current_flash_flood_forecasted_provinces.sld:79
-#: population_density_provinces.sld:79
-#: current_riverflood_forcasted_prov.sld:78
-#: current_riverflood_forcasted_prov.sld:79
-#: current_flood_forecasted_villages_9cc5351b.sld:78
-#: current_flood_forecasted_districts.sld:83
-#: population_density_districts.sld:79
-msgid "1001-5000"
-msgstr "1001-5000"
-
-#: population_density_villages.sld:101
-#: current_flood_forecasted_villages_basin.sld:64
-#: current_flood_forecasted_villages_basin.sld:81
-#: current_flood_forecasted_provinces.sld:105
-#: current_flood_forecasted_villages_197057b1.sld:100
-#: current_flood_forecasted_villages.sld:101
-#: current_avalanche_forecast_villages.sld:104
-#: current_avalanche_forecast_villages.sld:105
-#: current_flash_flood_forecasted_districts.sld:100
-#: current_flash_flood_forecasted_districts.sld:101
-#: current_flash_flood_forecasted_villages.sld:101
-#: current_flood_forecasted_districts_850ab442.sld:104
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:101
-#: current_avalanche_forecast_districts.sld:100
-#: current_avalanche_forecast_districts.sld:101
-#: current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: current_flood_forecasted_villages_a3b9b4a5.sld:100
-#: current_flood_forecasted_villages_70fa82f9.sld:100
-#: current_avalanche_forecast_provinces.sld:100
-#: current_avalanche_forecast_provinces.sld:101
-#: current_riverflood_forcasted_village.sld:100
-#: current_riverflood_forcasted_village.sld:101
-#: current_river_flood_forecasted.sld:100
-#: current_river_flood_forecasted.sld:101
-#: current_flash_flood_forecasted_provinces.sld:101
-#: population_density_provinces.sld:101
-#: current_riverflood_forcasted_prov.sld:100
-#: current_riverflood_forcasted_prov.sld:101
-#: current_flood_forecasted_villages_9cc5351b.sld:100
-#: current_flood_forecasted_districts.sld:106
-#: population_density_districts.sld:101
-msgid ">5000"
-msgstr "5000<"
-
-#: current_flood_forecasted_villages_basin.sld:6
-#: current_flood_forecasted_villages_basin_fd1d2584.sld:1
-msgid "Default for current_flood_forecasted_villages_basin"
-msgstr "پیش فرض برای current_flood_forecasted_villages_basin"
-
-#: afg_pplp_1fc3e9cd.sld:6
-msgid "Settlements Style"
-msgstr "سبک (استایل)قریه جات"
-
-#: afg_rdsl_bb8119ee.sld:6 afg_rdsl_legend_osm.sld:6
-msgid "Road Network"
-msgstr "شبکه سرک ها"
-
-#: population_provinces.sld:6 population_provinces_ebdfe9bc.sld:1
-msgid "population_provinces"
-msgstr "نفوس ولایتی"
-
-#: population_provinces.sld:12 population_provinces_ebdfe9bc.sld:1
-msgid "< 500 K"
-msgstr "500K > "
-
-#: population_provinces.sld:56 population_provinces_ebdfe9bc.sld:1
-msgid "1 - 5 M"
-msgstr "1-5M"
-
-#: population_provinces.sld:78 population_provinces_ebdfe9bc.sld:1
-msgid "5 - 10 M"
-msgstr "5-10M"
-
-#: population_provinces.sld:100 population_provinces_ebdfe9bc.sld:1
-msgid ">10 M"
-msgstr "10 M<"
-
-#: glofas_rl2.sld:6
-msgid "Default for current_glofas_rl2"
-msgstr "پیش فرض فعلی برای  glofas_rl2"
-
-#: afg_rdsl.sld:6
-msgid "afg_rdsl"
-msgstr "afg_rdsl"
-
-#: afg_rdsl.sld:61 afg_rdsl_legend_osm.sld:527 afg_rdsl_legend_osm.sld:805
-#: afg_rdsl_legend_osm.sld:1015
-msgid "Tertiary"
-msgstr "نیمه فرعی"
-
-#: afg_hltfac_tier3.sld:6
-msgid "Hospitals Others"
-msgstr "شفاخانه های دیگر "
-
-#: afg_hltfac_tier3.sld:13 afg_hltfac_efb04a60.sld:12
-msgid "Day Care Feeding"
-msgstr "مرکز مراقبت تغذیه روزانه"
-
-#: afg_hltfac_tier3.sld:51 afg_hltfac_efb04a60.sld:100
-msgid "Drug Addicted Treatment Center"
-msgstr "مرکز درمان معتاد به مواد مخدر"
-
-#: afg_hltfac_tier3.sld:89 afg_hltfac_efb04a60.sld:122
-msgid "EPI Fixed Center (EPI)"
-msgstr " مرکز تثبیت (EPI)"
-
-#: afg_hltfac_tier3.sld:127 afg_hltfac_efb04a60.sld:144
-msgid "Eye Clinic / Hospital"
-msgstr "شفاخانه/کلینیک چشم"
-
-#: afg_hltfac_tier3.sld:165 afg_hltfac_efb04a60.sld:167
-msgid "Malaria Center (MC)"
-msgstr "مرکز ملاریا(MC)"
-
-#: afg_hltfac_tier3.sld:203 afg_hltfac_efb04a60.sld:190
-msgid "Maternity Home (MH)"
-msgstr "زایشگاه خانگی (MH)"
-
-#: afg_hltfac_tier3.sld:243 afg_hltfac_efb04a60.sld:236
-msgid "Mental Clinic / Hospital"
-msgstr "شفاخانه/کلینیک روانی"
-
-#: afg_hltfac_tier3.sld:281 afg_hltfac_efb04a60.sld:259
-msgid "Mobile Health Team (MHT)"
-msgstr "تیم سیار صحی (MHT)"
-
-#: afg_hltfac_tier3.sld:323 afg_hltfac_efb04a60.sld:328
-msgid "Physiotherapy Center"
-msgstr "مرکز فیزیوتراپی"
-
-#: afg_hltfac_tier3.sld:361 afg_hltfac_efb04a60.sld:351
-msgid "Private Clinic"
-msgstr "کلینیک خصوصی"
-
-#: afg_hltfac_tier3.sld:401 afg_hltfac_efb04a60.sld:421
-msgid "Rehabilitation Center (RH)"
-msgstr "مركز توانبخشي (RH)"
-
-#: afg_hltfac_tier3.sld:439 afg_hltfac_efb04a60.sld:444
-msgid "Special Hospital (SH)"
-msgstr "شفاخانه های خصوصی(SH)"
-
-#: afg_hltfac_tier3.sld:479 afg_hltfac_efb04a60.sld:490
-msgid "Supplementary Feeding Center (SFC)"
-msgstr "مرکز تغذیه اضافی (SFC)"
-
-#: afg_hltfac_tier3.sld:517 afg_hltfac_efb04a60.sld:513
-msgid "TB Control Center (TBC)"
-msgstr "مرکز کنترل توبرکلوز (TBC)"
-
-#: afg_hltfac_tier3.sld:555 afg_hltfac_efb04a60.sld:305
-msgid "Other"
-msgstr "دیگر"
-
-#: afg_rdsl_c834070d.sld:6
-msgid "Road Network Without Tracks"
-msgstr "شبکه سرک ها بدون جاده"
-
-#: afg_fldzonea_100k_risk_landcover_pop_61b50395.sld:1
-#: afg_fldzonea_100k_risk_landcover_pop.sld:13
-msgid "Flood Risk"
-msgstr "خطر سیلاب"
-
-#: afg_fldzonea_100k_risk_landcover_pop_61b50395.sld:1
-#: afg_fldzonea_100k_risk_landcover_pop.sld:20
-#: afg_fldzonea_100k_risk_landcover_pop.sld:21
-msgid "Low Risk"
-msgstr "خطر کم "
-
-#: afg_fldzonea_100k_risk_landcover_pop_61b50395.sld:1
-#: afg_fldzonea_100k_risk_landcover_pop.sld:48
-#: afg_fldzonea_100k_risk_landcover_pop.sld:49
-msgid "Medium Risk"
-msgstr "خطر متوسط"
-
-#: afg_fldzonea_100k_risk_landcover_pop_61b50395.sld:1
-#: afg_fldzonea_100k_risk_landcover_pop.sld:76
-#: afg_fldzonea_100k_risk_landcover_pop.sld:77
-msgid "High Risk"
-msgstr "زیاد"
-
-#
-#: earthquake_shakemap.sld:6
-msgid "earthquake_shakemap"
-msgstr "نقشه لرزش زلزله"
-
-#: earthquake_shakemap.sld:12 afg_eq_hzda.sld:12
-msgid "I | Not Felt"
-msgstr "نا محسوس"
-
-#: earthquake_shakemap.sld:29 afg_eq_hzda.sld:29
-msgid "II-III | Weak"
-msgstr "II-III ضعیف"
-
-#: earthquake_shakemap.sld:51 afg_eq_hzda.sld:52
-msgid "IV | Light"
-msgstr "IV سبک"
-
-#: earthquake_shakemap.sld:68 afg_eq_hzda.sld:69
-msgid "V | Moderate"
-msgstr "V متوسط"
-
-#: earthquake_shakemap.sld:85 afg_eq_hzda.sld:86
-msgid "VI | Strong"
-msgstr "VI قوی"
-
-#: earthquake_shakemap.sld:102 afg_eq_hzda.sld:103
-msgid "VII | Very Strong"
-msgstr "VII بسیار قوی"
-
-#: earthquake_shakemap.sld:119 afg_eq_hzda.sld:120
-msgid "VIII | Severe"
-msgstr "VIII شدید"
-
-#
-#: earthquake_shakemap.sld:136 afg_eq_hzda.sld:137
-msgid "IX | Violent"
-msgstr "IX تند"
-
-#: earthquake_shakemap.sld:153 earthquake_shakemap.sld:154
-#: afg_eq_hzda.sld:154 afg_eq_hzda.sld:155
-msgid "X+ | Extreme"
-msgstr "X+ | شدیدتر"
-
-#: earthquake_shakemap.sld:13 afg_eq_hzda.sld:13
-msgid "Not Felt"
-msgstr "نا محسوس"
-
-#: earthquake_shakemap.sld:30 afg_eq_hzda.sld:30
-msgid "Weak"
-msgstr "ضعیف"
-
-#: earthquake_shakemap.sld:52 afg_eq_hzda.sld:53
-msgid "Light"
-msgstr "سبک"
-
-#: earthquake_shakemap.sld:86 afg_eq_hzda.sld:87
-msgid "Strong"
-msgstr "قوی"
-
-#: earthquake_shakemap.sld:103 afg_eq_hzda.sld:104
-msgid "Very Strong"
-msgstr "بسیار قوی"
-
-#: earthquake_shakemap.sld:120 afg_eq_hzda.sld:121
-msgid "Severe"
-msgstr "شدید"
-
-#: earthquake_shakemap.sld:137 afg_eq_hzda.sld:138
-msgid "Violent"
-msgstr "تند"
-
-#: avalanche_risk_districts.sld:12
-msgid "< 500"
-msgstr " 500>"
-
-#: avalanche_risk_districts.sld:34 population_villages.sld:56
-#: population_density_districts.sld:78 avalanche_risk_villages.sld:56
-msgid "500-1K"
-msgstr "500-1K"
-
-#: avalanche_risk_districts.sld:56
-msgid "1K - 2K"
-msgstr "1K - 2K"
-
-#: avalanche_risk_districts.sld:78
-msgid "2K - 5K"
-msgstr "2K - 5K"
-
-#: avalanche_risk_districts.sld:100
-msgid ">5K"
-msgstr "5K<"
-
-#: afg_capa_hltfac_tier2.sld:6 moph_afg_dews_outbreaks.sld:6
-#: afg_poia_buildings.sld:6 afg_capa_hltfac_tier1_c7344e10.sld:1
-#: afg_capa_adm1_nearest_provc.sld:6 polygon.sld:6 afg_ppla.sld:6
-#: polygon_nothing.sld:6 afg_capa_adm1_its_provc.sld:6
-#: afg_snowa_average_extent.sld:6 afg_capa_airdrm.sld:6
-#: afg_capa_adm2_nearest_districtc.sld:6
-#: afg_fldzonea_100k_risk_mitigated_areas_89b0a8b9.sld:6
-msgid "Default Polygon"
-msgstr "پیش فرض چند ضلعی"
-
-#: afg_capa_hltfac_tier2.sld:13 afg_poia_buildings.sld:13
-#: afg_capa_hltfac_tier1_c7344e10.sld:1 afg_capa_adm1_nearest_provc.sld:13
-#: polygon.sld:13 afg_ppla.sld:13 polygon_nothing.sld:13
-#: afg_capa_adm1_its_provc.sld:13 afg_snowa_average_extent.sld:13
-#: afg_capa_airdrm.sld:13 afg_snowa_average_extent_e0d9af71.sld:12
-#: afg_capa_adm2_nearest_districtc.sld:13
-#: afg_fldzonea_100k_risk_mitigated_areas_89b0a8b9.sld:12
-msgid "Boundary"
-msgstr "سرحد"
-
-#: current_flood_forecasted_provinces.sld:6
-msgid "current_flood_forecasted_provinces"
-msgstr "پیش بینی ولایتی سیلاب حال حاضر"
-
-#: current_flood_forecasted_provinces.sld:12
-#: current_flood_forecasted_districts_850ab442.sld:11
-#: current_flood_forecasted_districts.sld:13
-msgid "< 1 K"
-msgstr "1K >"
-
-#: current_flood_forecasted_provinces.sld:35
-msgid "1 K-10 K"
-msgstr "1K-10 K"
-
-#: current_flood_forecasted_provinces.sld:58
-#: current_flood_forecasted_districts_850ab442.sld:80
-#: current_flood_forecasted_districts.sld:82
-msgid "10 K - 50 K"
-msgstr "10K-50K"
-
-#: current_flood_forecasted_provinces.sld:81
-msgid "50 K - 100 K"
-msgstr "50K-100K"
-
-#: current_flood_forecasted_provinces.sld:104
-msgid "> 100 K"
-msgstr "100K<"
-
-#: moph_afg_dews_outbreaks.sld:13
-msgid "dews outbreak"
-msgstr "شیوع سیستم هشدار زودهنگام بیماری"
-
-#: current_flood_forecasted_villages_197057b1.sld:6
-msgid "current river flood moderate forecasted settlement area"
-msgstr "سیلاب دریایی فعلی ساحه ولسوالی متوسط پیشبینی شده"
-
-#: current_flood_forecasted_villages_197057b1.sld:11
-#: current_flood_forecasted_villages.sld:12
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:11
-#: current_flood_forecasted_villages_a3b9b4a5.sld:11
-#: current_flood_forecasted_villages_70fa82f9.sld:11
-#: current_flood_forecasted_villages_9cc5351b.sld:11
-msgid "< 50"
-msgstr "50>"
-
-#: current_flood_forecasted_villages_197057b1.sld:33
-#: current_flood_forecasted_villages.sld:34
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:34
-#: current_flood_forecasted_villages_a3b9b4a5.sld:33
-#: current_flood_forecasted_villages_70fa82f9.sld:33
-#: current_flood_forecasted_villages_9cc5351b.sld:33
-msgid "50-250"
-msgstr "50-250"
-
-#: current_flood_forecasted_villages_197057b1.sld:55
-#: current_flood_forecasted_villages.sld:56
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:56
-#: current_flood_forecasted_villages_a3b9b4a5.sld:55
-#: current_flood_forecasted_villages_70fa82f9.sld:55
-#: current_flood_forecasted_villages_9cc5351b.sld:55
-msgid "250-500"
-msgstr "250-500"
-
-#: current_flood_forecasted_villages_197057b1.sld:77
-#: current_flood_forecasted_villages.sld:78
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:78
-#: current_flood_forecasted_villages_a3b9b4a5.sld:77
-#: current_flood_forecasted_villages_70fa82f9.sld:77
-#: current_flood_forecasted_villages_9cc5351b.sld:77
-msgid "500-1000"
-msgstr "500-1000"
-
-#: current_flood_forecasted_villages_197057b1.sld:99
-#: current_flood_forecasted_villages.sld:100
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:100
-#: current_flood_forecasted_villages_a3b9b4a5.sld:99
-#: current_flood_forecasted_villages_70fa82f9.sld:99
-#: current_flood_forecasted_villages_9cc5351b.sld:99
-msgid "> 1000"
-msgstr " 1000<"
-
-#: current_avalanche_forecast_villages.sld:6
-#: current_avalanche_forecast_districts.sld:7
-#: current_avalanche_forecast_provinces.sld:6
-msgid "current avalanche district area"
-msgstr "ساحه فعلی برف کوچ ولسوالی"
-
-#: afg_eq_hzda.sld:6
-msgid ""
-"Seismic intensity and description of potential damage (2% probability in 50 "
-"years)"
-msgstr "شدت زمین لرزه و شرح شدت آسیب ( احتمال 2 ٪ در سال)"
-
-#: flood_risk_districts.sld:12
-msgid "< 10 K"
-msgstr "10K >"
-
-#: flood_risk_districts.sld:34
-msgid "10 - 50 K"
-msgstr " 10-50K"
-
-#: flood_risk_districts.sld:56
-msgid "50 - 100 K"
-msgstr " 50-100K"
-
-#: flood_risk_districts.sld:78
-msgid "100 - 500 K"
-msgstr " 100-500K"
-
-#: flood_risk_districts.sld:100
-msgid "> 500 K"
-msgstr "500K <"
-
-#: flood_risk_districts.sld:13
-msgid "Less 10000"
-msgstr "کمتر از 10000"
-
-#: flood_risk_districts.sld:35
-msgid "10000-50000"
-msgstr "10000-50000"
-
-#: flood_risk_districts.sld:57
-msgid "50001-100000"
-msgstr "50001-100000"
-
-#: flood_risk_districts.sld:79
-msgid "100001-500000"
-msgstr "100001-500000"
-
-#: flood_risk_districts.sld:101
-msgid ">500000"
-msgstr "500000<"
-
-# #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
-# manual entry for variable translation
-#: point_nothing.sld:13 afg_hltfac.sld:6 afg_incident_oasis_point.sld:13
-#: afg_util_well.sld:6 point.sld:13 afg_poip.sld:13
-msgid "Default Point"
-msgstr "پیش فرض نقطه"
-
-#
-#: point_nothing.sld:20 point.sld:20 afg_poip.sld:20
-msgid "Red Square"
-msgstr "مربع سرخ"
-
-#: point_nothing.sld:21 afg_hltfac.sld:14 afg_incident_oasis_point.sld:21
-#: afg_util_well.sld:14 point.sld:21 afg_poip.sld:21
-msgid "A 6 pixel square with a red fill and no stroke"
-msgstr "یک مربع 6 پیکسلی با رنگ سرخ بی حرکت"
-
-#: population_villages.sld:12 avalanche_risk_villages.sld:12
-msgid "< 100"
-msgstr " 100>"
-
-#: population_villages.sld:78
-msgid "1K-5K"
-msgstr "1K-5K"
-
-#: population_villages.sld:100
-#: current_flash_flood_forecasted_villages.sld:100
-msgid "> 5K"
-msgstr " 5K<"
-
-#: flood_risk_villages.sld:56 flood_risk_villages.sld:57
-msgid "100-250"
-msgstr "100-250"
-
-#: flood_risk_villages.sld:78 flood_risk_villages.sld:79
-msgid "251-500"
-msgstr "251-500"
-
-#: flood_risk_villages.sld:100 flood_risk_villages.sld:101
-msgid ">500"
-msgstr "500<"
-
-#: afg_airdrma.sld:13 afg_airdrma.sld:14
-msgid "Airport Detail"
-msgstr "جزئیات میدان هوایی"
-
-#: afg_airdrma.sld:21 afg_airdrma.sld:22
-msgid "Perimeter"
-msgstr "محدوده"
-
-#: afg_airdrma.sld:43 afg_airdrma.sld:44
-msgid "Runway"
-msgstr "خط پرواز"
-
-#: afg_airdrma.sld:64 afg_airdrma.sld:65 afg_poia_buildings_d4c060b1.sld:12
-msgid "Building"
-msgstr "ساختمان"
-
-#: afg_airdrma.sld:85 afg_airdrma.sld:86
-msgid "Apron"
-msgstr "صحن"
-
-#: afg_hltfac.sld:13
-msgid "Hospital"
-msgstr "شفاخانه"
-
-#: current_flash_flood_forecasted_villages.sld:56
-msgid "100 - 1K"
-msgstr " 1-100K"
-
-#: current_flash_flood_forecasted_villages.sld:78
-msgid "1K - 5K"
-msgstr "1K - 5K"
-
-#: afg_hltfac_efb04a60.sld:6
-msgid "Hospitals Default"
-msgstr "پیش فرض شفاخانه ها"
-
-#: afg_hltfac_efb04a60.sld:56 afg_hltfac_t2.sld:58
-msgid "Basic Health Center"
-msgstr "مرکز صحی اولیه (BHC)"
-
-#: afg_hltfac_efb04a60.sld:78
-msgid "District Hospital"
-msgstr "شفاخانه ولسوالی"
-
-#: afg_hltfac_efb04a60.sld:213
-msgid "MCH Clinic M1 or M2 (MCH)"
-msgstr "کلینیک آزمایش هموگلوبین خون M1 یا (MCH) M2"
-
-#: afg_hltfac_efb04a60.sld:282
-msgid "MoPH National"
-msgstr "وزرات صحت عامه"
-
-#: afg_hltfac_efb04a60.sld:374 afg_hltfac_hospitals.sld:47
-msgid "Provincial Hospital (H2)"
-msgstr "شفاخانه های ولایتی (H2)"
-
-#: afg_hltfac_efb04a60.sld:398 afg_hltfac_hospitals.sld:12
-msgid "Regional / National Hospital (H1)"
-msgstr "شفاخانه منطقه ای / ملی (H1)"
-
-#: afg_hltfac_efb04a60.sld:467 afg_hltfac_t2.sld:103
-#: afg_hltfac_tier3_bhc.sld:57
-msgid "Sub Health Center (SHC)"
-msgstr "مرکز صحی فرعی (SHC)"
-
-# #-#-#-#-#  django.po (ASDC-GeoNode)  #-#-#-#-#
-# manual entry for variable translation
-#: afg_faultsl_unk_usgs.sld:13 afg_faultsl_unk_cafd.sld:13 line.sld:13
-msgid "Default Line"
-msgstr "پیش فرض خط"
-
-#: afg_faultsl_unk_usgs.sld:20
-msgid "USGS Fault line"
-msgstr "خطوط شکستگی USGS"
-
-#: afg_faultsl_unk_usgs.sld:14 line.sld:14
-msgid "A sample style that draws a line"
-msgstr "یک سبک نمونه که یک خط را ترسیم می کند"
-
-#: afg_faultsl_unk_cafd.sld:19
-msgid "CAFD Fault Line"
-msgstr "خطوط شکستگی CAFD"
-
-#
-#: earthquake_events.sld:6 earthquake_events_past.sld:6
-msgid "earthquake_events"
-msgstr "رویدادهای زلزله"
-
-#: earthquake_events.sld:12 earthquake_events_past.sld:12
-msgid "+4"
-msgstr "4+"
-
-#: earthquake_events.sld:40 earthquake_events_past.sld:51
-msgid "+5"
-msgstr "5+"
-
-#: earthquake_events.sld:69 earthquake_events_past.sld:101
-msgid "+6"
-msgstr "6+"
-
-#: earthquake_events.sld:98 earthquake_events_past.sld:162
-msgid "+7"
-msgstr "7+"
-
-#: earthquake_events.sld:127 earthquake_events_past.sld:234
-msgid "+8"
-msgstr "8+"
-
-#: earthquake_events.sld:41 earthquake_events.sld:70 earthquake_events.sld:99
-#: earthquake_events.sld:128
-msgid "4-"
-msgstr "-4"
-
-#: current_flood_forecasted_districts_850ab442.sld:6
-#: current_flood_forecasted_villages_a3b9b4a5.sld:6
-msgid "current river flood high forecasted district area"
-msgstr "سیلاب دریایی فعلی ساحه ولسوالی زیاد پیشبینی شده"
-
-#: current_flood_forecasted_districts_850ab442.sld:34
-#: current_flood_forecasted_districts.sld:36
-msgid "1 K - 5 K"
-msgstr "1K - 5 K"
-
-#: current_flood_forecasted_districts_850ab442.sld:57
-#: current_flood_forecasted_districts.sld:59
-msgid "5 K - 10 K"
-msgstr "5K - 10 K"
-
-#: current_flood_forecasted_districts_850ab442.sld:103
-#: current_flood_forecasted_districts.sld:105
-msgid "> 50 K"
-msgstr "50K <"
-
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:6
-msgid "Population affected by flood forecast settlements"
-msgstr "جمعیت آسیب دیدهء پیش بینی سیلاب قریه جات  "
-
-#: current_snow_cover_area.sld:6 current_snow_cover_area.sld:12
-#: current_snow_cover_area.sld:13
-msgid "Current Snow Cover"
-msgstr "پوشش فعلی برف"
-
-#: afg_poia_buildings_d4c060b1.sld:6
-msgid "Buildings"
-msgstr "تعمیرات"
-
-#: afg_incident_oasis.sld:11
-msgid "Heatmap"
-msgstr "نقشه حرارتی"
-
-#: afg_incident_oasis.sld:12
-msgid "A heatmap surface showing population density"
-msgstr "یک سطح نقشه حرارتی نشان دهندهء تراکم جمعیت است"
-
-#: avalanche_risk_provinces.sld:34
-msgid "10K - 50K"
-msgstr "10K - 50K"
-
-#: avalanche_risk_provinces.sld:56
-msgid "50K - 200K"
-msgstr "50K - 200K"
-
-#: avalanche_risk_provinces.sld:78
-msgid "200K - 500K"
-msgstr "200K - 500K"
-
-#: avalanche_risk_provinces.sld:100
-msgid "> 500K"
-msgstr "500K<"
-
-#: afg_incident_oasis_point.sld:20
-msgid "Incidents"
-msgstr "حوادث"
-
-#: afg_elev_dem_30m_aster_hillshade.sld:7
-msgid "afg_elev_dem_30m_aster_hillshade"
-msgstr "afg_elev_dem_30m_aster_hillshade"
-
-#: current_flood_forecasted_villages_70fa82f9.sld:6
-msgid "current river flood extreme forecasted district area"
-msgstr "سیلاب دریایی فعلی ساحه ولسوالی شدید پیشبینی شده"
-
-#
-#: afg_lndcrva.sld:13 afg_lndcrva.sld:14 afg_lndcrva_fcbc6417.sld:1
-msgid "Land Cover"
-msgstr "پوشش زمین"
-
-#: afg_lndcrva.sld:20 afg_lndcrva.sld:21 afg_lndcrva_fcbc6417.sld:1
-msgid "Water body and marshland"
-msgstr "آب ایستاده و باتلاق"
-
-#: afg_lndcrva.sld:42 afg_lndcrva.sld:43 afg_lndcrva_fcbc6417.sld:1
-msgid "Barren land"
-msgstr "زمین بی ثمر"
-
-#: afg_lndcrva.sld:64 afg_lndcrva.sld:65 afg_lndcrva_fcbc6417.sld:1
-msgid "Built-up"
-msgstr "مسکونی"
-
-#: afg_lndcrva.sld:86 afg_lndcrva.sld:87 afg_lndcrva_fcbc6417.sld:1
-msgid "Fruit trees"
-msgstr "درختان میوه"
-
-#: afg_lndcrva.sld:108 afg_lndcrva.sld:109 afg_lndcrva_fcbc6417.sld:1
-msgid "Irrigated agricultural land"
-msgstr "زمین زراعتی آبی"
-
-#
-#: afg_lndcrva.sld:130 afg_lndcrva.sld:131 afg_lndcrva_fcbc6417.sld:1
-msgid "Permanent snow"
-msgstr "برف دائمی"
-
-#: afg_lndcrva.sld:152 afg_lndcrva.sld:153 afg_lndcrva_fcbc6417.sld:1
-msgid "Rainfed agricultural land"
-msgstr "زمین زراعتی للمی"
-
-#: afg_lndcrva.sld:174 afg_lndcrva.sld:175 afg_lndcrva_fcbc6417.sld:1
-msgid "Rangeland"
-msgstr "علف زار"
-
-#
-#: afg_lndcrva.sld:196 afg_lndcrva.sld:197 afg_lndcrva_fcbc6417.sld:1
-msgid "Sand cover"
-msgstr "ریگ زار"
-
-#: afg_lndcrva.sld:218 afg_lndcrva.sld:219 afg_lndcrva_fcbc6417.sld:1
-msgid "Vineyards"
-msgstr "باغ های انگور"
-
-#: population_provinces_f2cb0cf9.sld:9
-msgid "test"
-msgstr "آزمایش"
-
-#: afg_geology_tecta.sld:6
-msgid "Tectonic Regions"
-msgstr "مناطق تکتونیکی"
-
-#: afg_geology_tecta.sld:13 afg_geology_tecta.sld:14
-msgid "Transpressional Plate Boundary"
-msgstr "سرحد پلیت نشر شده"
-
-#: afg_geology_tecta.sld:70 afg_geology_tecta.sld:71
-msgid "North Afghan Platform"
-msgstr "پلاتفورم شمالی افغانستان"
-
-#: afg_geology_tecta.sld:127 afg_geology_tecta.sld:128
-msgid "Middle Afghanistan"
-msgstr " افغانستان مرکزی"
-
-#: afg_geology_tecta.sld:184 afg_geology_tecta.sld:185
-msgid "Accreted Terranes"
-msgstr "ترانه های متصل شده"
-
-#
-#: afg_admbnda_adm2.sld:12 overview_adm2.sld:12
-msgid "Districts"
-msgstr "ولسوالی ها"
-
-#: line.sld:20
-msgid "Blue Line"
-msgstr "خط آبی"
-
-#: line.sld:21
-msgid "A solid blue line with a 1 pixel width"
-msgstr "یک خط آبی  با عرض 1پیکسل"
-
-#: afg_util_well.sld:13
-msgid "Blue Circle"
-msgstr "دایره آبی"
-
-#: afg_snowa_average_extent_95ac983a.sld:6
-msgid "average snow extent"
-msgstr "حد اوسط برف"
-
-#: afg_snowa_average_extent_95ac983a.sld:11
-msgid "Very low"
-msgstr "بسیار کم"
-
-#: afg_snowa_average_extent_95ac983a.sld:45
-msgid "Average"
-msgstr "اوسط"
-
-#: afg_snowa_average_extent_95ac983a.sld:79
-msgid "Very high"
-msgstr "بسیار زیاد"
-
-#: afg_snowa_average_extent_95ac983a.sld:12 current_snow_depth.sld:46
-msgid "5-25c"
-msgstr "5-25c"
-
-#: afg_snowa_average_extent_95ac983a.sld:29 current_snow_depth.sld:68
-msgid "15-50cm"
-msgstr "15-50cm"
-
-#: afg_snowa_average_extent_95ac983a.sld:46 current_snow_depth.sld:90
-msgid "25cm-1m"
-msgstr "25cm-1m"
-
-#: afg_snowa_average_extent_95ac983a.sld:63 current_snow_depth.sld:112
-msgid "25cm-1.5m"
-msgstr "25cm-1.5m"
-
-#: afg_snowa_average_extent_95ac983a.sld:80 current_snow_depth.sld:134
-#: current_snow_depth.sld:156
-msgid "75cm-2m"
-msgstr "75cm-2m"
-
-#: raster.sld:13
-msgid "Default Raster"
-msgstr " پیش فرض رستر"
-
-#: raster.sld:20
-msgid "Opaque Raster"
-msgstr "رستر بدون شفافیت"
-
-#: raster.sld:14
-msgid "A sample style that draws a raster, good for displaying imagery"
-msgstr " یک سبک نمونه ای که رستر را طراحی می کند، مناسب برای نمایش تصاویر است"
-
-#: raster.sld:21
-msgid "A raster with 100% opacity"
-msgstr "یک رستر با شفافیت 100٪"
-
-#: afg_snowa_average_extent_e0d9af71.sld:6
-msgid "Snow coverage"
-msgstr "پوشش برف"
-
-#: afg_capa_gsmcvr_f2a4c4e6.sld:6
-msgid "GSM coverage"
-msgstr "پوشش خدمات موبایل  GSM"
-
-#: earthquake_shakemap_589f8d0a.sld:1
-msgid "bb"
-msgstr "bb"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:6
-msgid "Travel time in hours"
-msgstr "زمان سفر در ساعت"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:12
-msgid "<1 h"
-msgstr "<1 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:29
-msgid "<2 h"
-msgstr "<2 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:46
-msgid "<3 h"
-msgstr "<3 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:63
-msgid "<4 h"
-msgstr "<4 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:80
-msgid "<5 h"
-msgstr "<5 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:97
-msgid "<6 h"
-msgstr "<6 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:114
-msgid "<7 h"
-msgstr "<7 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:131
-msgid "<8 h"
-msgstr "<8 h"
-
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:148
-msgid ">8 h"
-msgstr ">8 h"
-
-#: current_snow_depth.sld:6
-msgid "current_snow_depth"
-msgstr "عمق ـ فعلی ـ برف"
-
-#
-#: current_snow_depth.sld:12
-msgid "Snow cover, no info on depth"
-msgstr "پوش برف، معلوماتی در مورد عمق وجود نیست"
-
-#: current_snow_depth.sld:23
-msgid "< 10 cm"
-msgstr "10cm > "
-
-#: current_snow_depth.sld:45
-msgid "5-25 cm"
-msgstr "5-25cm "
-
-#: current_snow_depth.sld:67
-msgid "15-50 cm"
-msgstr "15-50cm"
-
-#: current_snow_depth.sld:89
-msgid "25 cm - 1 m"
-msgstr "25cm - 1 m"
-
-#: current_snow_depth.sld:111
-msgid "50 cm - 1.5 m"
-msgstr "50cm - 1.5 m "
-
-#: current_snow_depth.sld:133
-msgid "75 cm - 2 m"
-msgstr "75cm - 2m"
-
-#: current_snow_depth.sld:155
-msgid "> 1-2 m"
-msgstr " 1-2m <"
-
-#: current_flash_flood_forecasted_provinces.sld:78
-msgid "1 - 5K"
-msgstr " 1-5K "
-
-#: current_flash_flood_forecasted_provinces.sld:100
-msgid "> 5 K"
-msgstr "5 K<"
-
-#: population_density_provinces.sld:34
-msgid "10-20"
-msgstr "10-20"
-
-#: population_density_provinces.sld:56
-msgid "20-50"
-msgstr "20-50"
-
-#: population_density_provinces.sld:78
-msgid "50-100"
-msgstr "50-100"
-
-#: population_density_provinces.sld:100
-msgid "> 100"
-msgstr "100<"
-
-#: afg_hltfac_t2.sld:6
-msgid "Hospitals CHC-MCH-BHC-SBHC"
-msgstr "شفاخانه های CHC-MCH-BHC-SBHC"
-
-#: afg_rdsl_legend_osm.sld:12 afg_rdsl_legend_osm.sld:56
-#: afg_rdsl_legend_osm.sld:130 afg_rdsl_legend_osm.sld:437
-#: afg_rdsl_legend_osm.sld:733 afg_rdsl_legend_osm.sld:945
-msgid "Track"
-msgstr "جاده"
-
-#: afg_rdsl_legend_osm.sld:92 afg_rdsl_legend_osm.sld:398
-#: afg_rdsl_legend_osm.sld:699
-msgid "Path"
-msgstr "مسیر"
-
-#: afg_rdsl_legend_osm.sld:170 afg_rdsl_legend_osm.sld:478
-#: afg_rdsl_legend_osm.sld:765 afg_rdsl_legend_osm.sld:976
-msgid "Residential"
-msgstr "مسکونی"
-
-#: afg_rdsl_legend_osm.sld:220
-msgid "Tertiery"
-msgstr "نیمه فرعی"
-
-#: afg_rdsl_legend_osm.sld:254 afg_rdsl_legend_osm.sld:559
-#: afg_rdsl_legend_osm.sld:827 afg_rdsl_legend_osm.sld:1036
-#: afg_rdsl_legend_osm.sld:1120
-msgid "Secondary"
-msgstr "فرعی"
-
-#: afg_rdsl_legend_osm.sld:285 afg_rdsl_legend_osm.sld:589
-#: afg_rdsl_legend_osm.sld:857 afg_rdsl_legend_osm.sld:1058
-#: afg_rdsl_legend_osm.sld:1141
-msgid "Primary"
-msgstr "اصلی"
-
-#: afg_rdsl_legend_osm.sld:317 afg_rdsl_legend_osm.sld:618
-#: afg_rdsl_legend_osm.sld:887 afg_rdsl_legend_osm.sld:1087
-#: afg_rdsl_legend_osm.sld:1164
-msgid "National Highway"
-msgstr "شاهراه منطقوی"
-
-#: afg_rdsl_legend_osm.sld:347 afg_rdsl_legend_osm.sld:648
-msgid "Bridge"
-msgstr "پل"
-
-#: afg_rdsl_legend_osm.sld:371 afg_rdsl_legend_osm.sld:672
-#: afg_rdsl_legend_osm.sld:917
-msgid "River Crossing"
-msgstr "عبور از دریا"
-
-#: contour.sld:11
-msgid "Contour DEM"
-msgstr "منحنی ارتفاع DEM"
-
-#: contour.sld:16
-msgid "Contour Line (50)"
-msgstr "منحنی ارتفاع (50)"
-
-#: contour.sld:28
-msgid "Contour Line (500)"
-msgstr "منحنی ارتفاع (500)"
-
-#: contour.sld:12
-msgid "Extracts contours from DEM"
-msgstr "منحنی ارتفاع استخراج شده از DEM"
-
-#: glofas_rl5.sld:6
-msgid "Default for current_glofas_rl5"
-msgstr "پیش فرض برای فعلی glofas_rl5"
-
-#: current_flood_forecasted_villages_9cc5351b.sld:6
-msgid "current river flood very high forecasted district area"
-msgstr "سیلاب دریایی فعلی ساحه ولسوالی بسیار زیاد پیشبینی شده"
-
-#: afg_pplp_9e5722c4.sld:6
-msgid "Settlements style"
-msgstr "سبک (استایل) قریه جات"
-
-#: afg_avsa.sld:6 afg_avsa.sld:8
-msgid "Avalanche"
-msgstr "برف کوچ"
-
-#: afg_hltfac_hospitals.sld:6
-msgid "Hospitals Tier 1"
-msgstr "شفاخانه های ردیف دوم"
-
-#: afg_hltfac_hospitals.sld:82
-msgid "District Hospital (H3)"
-msgstr "شفاخانه های ولسوالی (H3)"
-
-#: afg_hltfac_hospitals.sld:7
-msgid "Show only the main hospital (tier1 health facilities)"
-msgstr "نشان داده شود تنها شفاخانه عمومی (امکانات صحی ردیف ۱ )"
-
-#: wrl_admbnda_int.sld:16
-msgid "World"
-msgstr "جهان "
-
-#: slope_hosp_lndcvr_nofld_noava_nouxo__4kmsq_gonogo.sld:6
-msgid "GSM slope_hosp_lndcvr_nofld_noava_nouxo__4kmsq_gonogo"
-msgstr "GSM slope_hosp_lndcvr_nofld_noava_nouxo__4kmsq_gonogo"
-
-#: slope_hosp_lndcvr_nofld_noava_nouxo__4kmsq_gonogo.sld:10
-msgid "Go Area"
-msgstr "Go Area"
-
-#: slope_hosp_lndcvr_nofld_noava_nouxo__4kmsq_gonogo.sld:25
-msgid "No Go Area"
-msgstr "No Go Area"
-
-#: avalanche_risk_villages.sld:78
-msgid "1 K - 2K"
-msgstr "1K - 2K"
-
-#: avalanche_risk_villages.sld:100
-msgid "> 2K"
-msgstr "2K <"
-
-#: afg_hltfac_tier3_bhc.sld:6
-msgid "Hospitals Tier 3"
-msgstr "شفاخانه های ردیف سوم"
-
-#: afg_hltfac_tier3_bhc.sld:12
-msgid "Basic Health Center (BHC)"
-msgstr "مرکز صحی اولیه (BHC)"
+"X-Generator: dbtopo.py 20171007\n"
 
 msgid "Land cover (not simplified- do not use)"
 msgstr "پوشش زمین (ساده نشده - استفاده نشود)"
@@ -1172,17 +46,6 @@ msgstr "نفوس قریه جات"
 msgid "The population is aggregated from settlement and landcover dataset\r\n"
 msgstr "نفوس از مجموعه اطلاعات (ارقام) قریه جات و پوشش زمین جمع شده\n"
 
-msgid "Airports/Airfields"
-msgstr "میدان های هوایی"
-
-msgid ""
-"Airports visually confirmed in satellite imagery by iMMAP staff. Runway "
-"length, width estimated from digitised runways. Oher attributes NGA/WFP\r\n"
-msgstr ""
-"مرتسم میدان های هوایی روی تصاویر ماهواره ای توسط کارمندان iMMAP  تایید شده. "
-"طول و عرض خط حرکت پرواز طیاره از رقومی سازی شدهء آن برآورد شده است. مشخصات "
-"دیگر NGA/WFP\n"
-
 msgid "International boundaries"
 msgstr "سرحدات بین المللی"
 
@@ -1209,11 +72,16 @@ msgstr ""
 "مدل دریا ها از 10 کیلومتر مربع مناطق حوضه آبخیز که از DEM اصلاح شده "
 "هایدرولوژیکی استخراج شده ساخته شده.\n"
 
-msgid "Afghan national boundary"
-msgstr "سرحدات ملی افغان"
+msgid "Airports/Airfields"
+msgstr "میدان های هوایی"
 
-msgid "Boundary area of Afghanistan, matches the AGCHO boundaries. \r\n"
-msgstr "ساحه سرحدات افغانستان با سرحدات AGCHO مطابقت میکند.\n"
+msgid ""
+"Airports visually confirmed in satellite imagery by iMMAP staff. Runway "
+"length, width estimated from digitised runways. Oher attributes NGA/WFP\r\n"
+msgstr ""
+"مرتسم میدان های هوایی روی تصاویر ماهواره ای توسط کارمندان iMMAP  تایید شده. "
+"طول و عرض خط حرکت پرواز طیاره از رقومی سازی شدهء آن برآورد شده است. مشخصات "
+"دیگر NGA/WFP\n"
 
 msgid "Land cover"
 msgstr "پوشش زمین"
@@ -1234,31 +102,18 @@ msgstr ""
 "سنج مشخص میشود. شدت قدرت تکان تولید شده زلزله در یک محل خاص را اندازه گیری "
 "میکند. شدت از اثرات آن بر مردم، ساختارهای انسانی و محیط طبیعی مشخص می شود.\n"
 
-msgid "Flash flood forecast districts"
-msgstr "پیش بینی ولسوالی های  سیلاب ناگهانی (از اثر بارش شدید)"
+msgid "Afghan national boundary"
+msgstr "سرحدات ملی افغان"
 
-msgid ""
-"Flash Flood are based on the WMO Flash Flood Guidance System (FFGS), and it "
-"enables the iMMAP DRR program to integrate Imminent Flash Flood Threats, "
-"Persistence Flash Flood Threat and Forecast Flash Flood Threats. In "
-"combination with the Afghanistan Flood Hazard Map, iMMAP modelled population "
-"and land use estimates it allows to assess the potential number of persons "
-"or productive land area at risk of flash flood for the next 6 hours. \r\n"
-msgstr ""
-"سیلاب ناگهانی (از اثر بارش شدید) بر اساس (FFGS) سیستم رهنمای سیلاب ناگهانی "
-"WMO است. و این قادر می سازد برنامه iMMAP DRR را که تهدید سیلاب ناگهانی قریب "
-"الوقوع را شامل ساخته، ادامه داده و تهدید سیلاب ناگهانی را پیش بینی نماید، با "
-"ترکیب نقشه خطر سیلاب افغانستان، iMMAP مدل تخمین نفوس و پوشش زمینی را ساخته "
-"که بررسی بیشترین تعداد مردم و مساحات تولیدی در معرض خطر سیلاب ناگهانی برای 6 "
-"ساعت بعدی اجازه میدهد.\n"
+msgid "Boundary area of Afghanistan, matches the AGCHO boundaries. \r\n"
+msgstr "ساحه سرحدات افغانستان با سرحدات AGCHO مطابقت میکند.\n"
 
-msgid "River flood forecast districts"
+msgid "River flood prediction districts"
 msgstr "پیش بینی ولسوالی های سیلاب دریایی"
 
 msgid ""
-"River floods are at present forecasted using the low resolution data from "
-"the Global Flood Monitoring System (GFMS) and will early 2016, pending on "
-"data availability, be complemented with the EU JRC Global Floods Awareness "
+"River floods are at present predicted using the low resolution data from the "
+"Global Flood Monitoring System (GFMS) and EU JRC Global Floods Awareness "
 "System (GLOFAS).  As base system it used the Flood Hazard Map of "
 "Afghanistan. Merged risk categories including 25m buffer. Created with "
 "hydraulic modeling from high Resolution DEM data. For more information on "
@@ -1293,41 +148,6 @@ msgstr ""
 "\n"
 "توسط اولایور اس. بایود، چارلس اس. مولر، و کینیت اس. روکستالیس (2007). نقشه "
 "خطر زلزله برای افغانستان. USGS\n"
-
-msgid "Avalanche risk forecast districts"
-msgstr "پیشبینی ولسوالی های خطر برف کوچ"
-
-msgid ""
-"\"The avalanche forecast risk is based on solely on the Current Snow "
-"Coverage and Depth extent and the presence of avalanche areas. This is a "
-"very rudimentary risk forecast as there are no accurate/sufficient ground "
-"observation stations available. With proper observations the stability "
-"condition of the snowpack, can be assessed. The avalanche risk is based on "
-"the following categories of snow water equivalent (SWE): Low:  SWE > 60 and "
-"<= 100 mm ; Moderate: SWE > 100 and <= 140 mm: High: SWE > 140 mm. iMMAP has "
-"modelled 340.000 avalanche areas for entire Afghanistan. The modelling "
-"process was conducted in two major components, at one hand the "
-"identification of the Avalanche trigger areas, and at the other hand "
-"modelling the avalanche chute and run-out areas. The iMMAP data is modelled, "
-"and utilizes as a main input dataset 30m resolution ASTER DEM. \r\n"
-"- The avalanche areas were only computed for areas which had snow cover of "
-"the past 9 years. \r\n"
-"- The trigger areas were calculated using established methodologies\"\r\n"
-msgstr ""
-"\"پیش بینی خطر برف کوچ صرفا بر پوشش فعلی برف، اندازه عمق و موجودیت مناطق برف "
-"کوچ مربوط است. این پیش بینی خطر بسیار ابتدایی است، طوریکه هیچ دستگاه اندازه "
-"گیری زمینی دقیق و کافی وجود ندارد. با مشاهدات مناسب حالت ثبات توده برف می "
-"تواند بررسی شود. خطر برف کوچ بر اساس طبقه بندی ذیل آب معادل برف (SWE) "
-"میباشد:\n"
-"پایین: SWE>60 و<= 100 میلی متر ؛ متوسط: SWE>100 و<= 140 میلی متر ؛ بالا: "
-"SWE> 140 میلی متر. موسسه iMMAP برای کل افغانستان 340.000 ساحه برف کوچ را مدل "
-"سازی نموده. پروسه مدل سازی به اساس دو جز اصلی طراحی شده، از یک سو مدل سازی "
-"مناطق آغاز برف کوچ و از سوی دیگر مدل سازی میل و ساحه ریختن برف کوچ. ارقام "
-"iMMAP بطور یک مجموعه ارقام اصلی ورودی DEM ASTER با وضاحت 30m مدل شده و "
-"استفاده میشود.\n"
-"- مناطق برف کوچ تنها برای مناطقی که از 9 سال گذشته پوشش برف دارند محاسبه شده "
-"است.\n"
-"- مناطق آغاز برف کوچ با استفاده از روش ایجاد شده محاسبه شده است.\n"
 
 msgid "Elevation contours"
 msgstr "خطوط منحنی ارتفاع"
@@ -1495,20 +315,6 @@ msgstr ""
 "است.\n"
 "- مناطق آغاز برف کوچ با استفاده از روش ایجاد شده محاسبه شده است."
 
-msgid "Mitigated areas"
-msgstr "مناطق کاهش یافته نفوس"
-
-msgid ""
-"The areas have been mitigated either by physical constructions such as "
-"gabion walls or avalanche protection, alternatively it can indicate areas "
-"which have received preparedness training. These areas can be mapped, or be "
-"utilized to reduce e.g. Flood risk \r\n"
-msgstr ""
-"مناطق یا با ساختمانهای فیزیکی مانند دیوار محافظوی و یا حفاظت برف کوچ کاهش "
-"یافته است، معادلا میتواند شامل شود مناطقی را که آموزش آمادگی دریافت کرده "
-"اند. این مناطق می تواند روی نقشه جور شوند و یا به منظور کاهش خطر سیلاب "
-"استفاده شوند.\n"
-
 msgid "Hillshade"
 msgstr "سایه روشن"
 
@@ -1546,6 +352,54 @@ msgstr ""
 
 msgid "Earthquakes in the past month"
 msgstr "زلزله ها در ماه گذشته"
+
+msgid "Landslide susceptibility - cover material in rapid evolution (S3)"
+msgstr ""
+
+msgid ""
+"Afghanistan landslide susceptibility map for cover material landslides in "
+"rapid evolution (S3), nationwide. This map shows the susceptibility for "
+"cover material landslides in rapid evolution, including: debris-mud flows. "
+"Susceptibility values are represented according the following scale: 0=Null; "
+"1-3=Low; 4-5=Moderate; 6=High; 7-9=Very High (World Bank, 2016)\r\n"
+msgstr ""
+
+msgid "Mitigated areas"
+msgstr "مناطق کاهش یافته نفوس"
+
+msgid ""
+"The areas have been mitigated either by physical constructions such as "
+"gabion walls or avalanche protection, alternatively it can indicate areas "
+"which have received preparedness training. These areas can be mapped, or be "
+"utilized to reduce e.g. Flood risk \r\n"
+msgstr ""
+"مناطق یا با ساختمانهای فیزیکی مانند دیوار محافظوی و یا حفاظت برف کوچ کاهش "
+"یافته است، معادلا میتواند شامل شود مناطقی را که آموزش آمادگی دریافت کرده "
+"اند. این مناطق می تواند روی نقشه جور شوند و یا به منظور کاهش خطر سیلاب "
+"استفاده شوند.\n"
+
+msgid "Land cover of major cities"
+msgstr ""
+
+msgid ""
+"Detailed land cover of major cities in Afghanistan, mostly outline of "
+"features of interest."
+msgstr ""
+
+msgid "fsac_geolocations_sample"
+msgstr ""
+
+msgid "Earthquakes"
+msgstr "زلزله ها"
+
+msgid ""
+"No abstract providedMagnitude and Intensity measure different "
+"characteristics of earthquakes. Magnitude measures the energy released at "
+"the source of the earthquake. Magnitude is determined from measurements on "
+"seismographs. Intensity measures the strength of shaking produced by the "
+"earthquake at a certain location. Intensity is determined from effects on "
+"people, human structures, and the natural environment "
+msgstr ""
 
 msgid "Tectonic regions"
 msgstr "مناطق تکتونیکی"
@@ -1729,41 +583,6 @@ msgstr ""
 "است.\n"
 "- مناطق آغاز برف کوچ با استفاده از روش ایجاد شده محاسبه شده است.\n"
 
-msgid "Flood forecast settlements"
-msgstr "سیلاب پیشبینی شده"
-
-msgid ""
-"Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
-"System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
-"Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
-"Threats. In combination with the Afghanistan Flood Hazard Map, iMMAP "
-"modelled population and land use estimates it allows to assess the potential "
-"number of persons or productive land area at risk of flash flood for the "
-"next 6 hours.  The other flood risk are typical river floods, these are at "
-"present forecasted using the low resolution data from the Global Flood "
-"Monitoring System (GFMS) and will early 2016, pending on data availability, "
-"be complemented with the EU JRC Global Floods Awareness System (GLOFAS).  As "
-"base system it used the Flood Hazard Map of Afghanistan. Merged risk "
-"categories including 25m buffer. Created with hydraulic modeling from high "
-"Resolution DEM data. For more information on methodology, contact NC3A Geo."
-"\r\n"
-msgstr ""
-"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
-"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
-"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
-"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
-"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
-"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
-"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
-"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
-"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
-"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
-"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
-"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
-
-msgid "Classes of flood forecast GFMS&GLOFAS"
-msgstr "درجه پیش بینی سیلاب GFMS و GLOFAS"
-
 msgid "Travel time to nearest provincial capital"
 msgstr "زمان سفر به نزدیکترین مرکز ولایت"
 
@@ -1805,6 +624,17 @@ msgstr "زمان سفر به نزدیکترین شفاخانه (H1-2-3)"
 msgid "province_center"
 msgstr "مرکز ولایت"
 
+msgid "Landslide susceptibility - bedrock landslides in slow evolution (S1)"
+msgstr ""
+
+msgid ""
+"Afghanistan landslide susceptibility map for bedrock landslides in slow "
+"evolution, including: rotational slides, translational slides, earth flows "
+"and lateral spreading. Susceptibility values are represented according the "
+"following scale: 0=Null; 1-3=Low; 4-5=Moderate; 6=High; 7-9=Very High (World "
+"Bank, 2016)"
+msgstr ""
+
 msgid "Travel time to nearest hospital (H1-2-3, CHC)"
 msgstr "زمان سفر به نزدیکترین شفاخانه (H1-2-3, CHC)"
 
@@ -1827,9 +657,6 @@ msgid ""
 "description of shaking by employing a combination of recorded and estimated "
 "shaking values."
 msgstr ""
-
-msgid "Flash flood forecast provinces"
-msgstr "پیش بینی ولایتی  سیلاب ناگهانی (از اثر بارش شدید)"
 
 msgid "Provincial boundaries"
 msgstr "سرحدات ولایتی"
@@ -1856,8 +683,16 @@ msgstr ""
 msgid "Avalanche risk exposure districts"
 msgstr "ولسوالی های در معرض خطر برف کوچ"
 
-msgid "Flash flood forecast settlements"
-msgstr "پیش بینی سیلاب دریایی و  سیلاب ناگهانی (از اثر بارش شدید)"
+msgid "Landslide susceptibility - bedrock landslides in rapid evolution (S2)"
+msgstr ""
+
+msgid ""
+"This map shows the susceptibility for bedrock landslides in slow evolution, "
+"including: rotational slides, translational slides, earth flows and lateral "
+"spreading. Susceptibility values are represented according the following "
+"scale: 0=Null; 1-3=Low; 4-5=Moderate; 6=High; 7-9=Very High\r\n"
+"Source (World Bank, 2016)"
+msgstr ""
 
 msgid "Avalanche risk exposure settlements"
 msgstr "قریه جات در معرض خطر برف کوچ"
@@ -1936,9 +771,6 @@ msgstr ""
 "طبیعی در فاصله دوره 5،10، 20 ساله خواهد بود. این وقایع نخواهد عمیق باشد. "
 "است. برای کسب اطلاعات بیشتر اسناد AFG-FHM را ببینید.\n"
 
-msgid "Flood forecast districts"
-msgstr "ولسوالی پیش بینی شده سیلاب"
-
 msgid "Flood risk exposure provinces"
 msgstr "ولایات در معرض خطر سیلاب"
 
@@ -1966,15 +798,6 @@ msgstr ""
 "طبیعی در فاصله دوره 5،10، 20 ساله خواهد بود. این وقایع نخواهد عمیق باشد. "
 "است. برای کسب اطلاعات بیشتر اسناد AFG-FHM را ببینید."
 
-msgid "Flood forecast provinces"
-msgstr "ولایات پیش بینی شده سیلاب"
-
-msgid "Avalanche risk forecast provinces"
-msgstr "ولایات پیش بینی شده برف کوچ"
-
-msgid "Avalanche risk forecast settlements"
-msgstr "قریه جات پیش بینی شده برف کوچ"
-
 msgid "District boundaries"
 msgstr "سرحدات ولسوالی ها"
 
@@ -1997,29 +820,56 @@ msgstr ""
 "در منابع زیر: 1) نامه بین AGCHO و دفتر رئیس جمهور (تاریخ 5 مارچ 2007)، و 2) "
 "بیانیه مشترک از IDLG و AGCHO (تاریخ 26 مارچ 2012)\n"
 
-msgid "River flood forecast provinces"
-msgstr "ولایات پیش بینی شده سیلاب دریایی"
-
-msgid "River flood forecast settlements"
-msgstr "قریه جات پیش بینی شده سیلاب دریایی"
+msgid "Avalanche risk prediction provinces"
+msgstr "ولایات پیش بینی شده برف کوچ"
 
 msgid ""
-"River floods are at present forecasted using the low resolution data from "
-"the Global Flood Monitoring System (GFMS) and will early 2016, pending on "
-"data availability, be complemented with the EU JRC Global Floods Awareness "
-"System (GLOFAS).  As base system it used the Flood Hazard Map of "
-"Afghanistan. Merged risk categories including 25m buffer. Created with "
-"hydraulic modeling from high Resolution DEM data. For more information on "
-"methodology, contact NC3A Geo.\r\n"
-"\r\n"
+"\"The avalanche prediction risk is based on solely on the Current Snow "
+"Coverage and Depth extent and the presence of avalanche areas. This is a "
+"very rudimentary risk prediction as there are no accurate/sufficient ground "
+"observation stations available. With proper observations the stability "
+"condition of the snowpack, can be assessed. The avalanche risk is based on "
+"the following categories of snow water equivalent (SWE): Low:  SWE > 60 and "
+"<= 100 mm ; Moderate: SWE > 100 and <= 140 mm: High: SWE > 140 mm. iMMAP has "
+"modelled 340.000 avalanche areas for entire Afghanistan. The modelling "
+"process was conducted in two major components, at one hand the "
+"identification of the Avalanche trigger areas, and at the other hand "
+"modelling the avalanche chute and run-out areas. The iMMAP data is modelled, "
+"and utilizes as a main input dataset 30m resolution ASTER DEM. \r\n"
+"- The avalanche areas were only computed for areas which had snow cover of "
+"the past 9 years. \r\n"
+"- The trigger areas were calculated using established methodologies\"\r\n"
 msgstr ""
-"سیلاب های دریایی در حال حاضر با استفاده از ارقام با کیفیت پایین سیستم نظارت "
-"جهانی سیلاب (GFMS) پیش بینی شده اند و خواهد در اوایل سال 2016، در انتظار به "
-"دسترس بودن ارقام، با اتحادیه اروپا JRC سیستم آگاهی سیلاب جهانی (GLOFAS) "
-"تکمیل شود. بطور اساس سیستم، نقشه خطر سیلاب افغانستان استفاده شده. دسته ها "
-"خطر مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با "
-"وضاحت بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس "
-"بگیرید.\n"
+
+msgid "Avalanche risk prediction settlements"
+msgstr "قریه جات پیش بینی شده برف کوچ"
+
+msgid ""
+"\"The avalanche prediction risk is based on solely on the Current Snow "
+"Coverage and Depth extent and the presence of avalanche areas. This is a "
+"very rudimentary risk forecast as there are no accurate/sufficient ground "
+"observation stations available. With proper observations the stability "
+"condition of the snowpack, can be assessed. The avalanche risk is based on "
+"the following categories of snow water equivalent (SWE): Low:  SWE > 60 and "
+"<= 100 mm ; Moderate: SWE > 100 and <= 140 mm: High: SWE > 140 mm. iMMAP has "
+"modelled 340.000 avalanche areas for entire Afghanistan. The modelling "
+"process was conducted in two major components, at one hand the "
+"identification of the Avalanche trigger areas, and at the other hand "
+"modelling the avalanche chute and run-out areas. The iMMAP data is modelled, "
+"and utilizes as a main input dataset 30m resolution ASTER DEM. \r\n"
+"- The avalanche areas were only computed for areas which had snow cover of "
+"the past 9 years. \r\n"
+"- The trigger areas were calculated using established methodologies\"\r\n"
+msgstr ""
+
+msgid "Population Grid"
+msgstr ""
+
+msgid "Population Grid. This dataset is modeled population per square km. "
+msgstr ""
+
+msgid "Classes of flood prediction GFMS&GLOFAS"
+msgstr "درجه پیش بینی سیلاب GFMS و GLOFAS"
 
 msgid "Road network"
 msgstr "شبکه سرک ها"
@@ -2037,9 +887,6 @@ msgstr ""
 
 msgid "andma_office"
 msgstr "دفتر ANDMA"
-
-msgid "Historical Flood Forecast"
-msgstr "پیش بینی تاریخی سیلاب"
 
 msgid "Snow coverage average extent "
 msgstr "اندازه اوسط پوشش برف"
@@ -2113,554 +960,166 @@ msgstr ""
 "برف SNOW-17 استخراج شده است . Snow-17 برای اولین بار توسط آندرسون (1973) به "
 "عنوان بخشی از سیستم پیش بینی بارش دریایی سراسری (NWSRFS)شرح داده شده است.\n"
 
-msgid "Avalanche forecast"
-msgstr "پیش بینی برف کوچ"
+msgid "Historical Flood Prediction"
+msgstr "پیش بینی تاریخی سیلاب"
+
+msgid "River flood prediction provinces"
+msgstr "ولایات پیش بینی شده سیلاب دریایی"
+
+msgid "River flood prediction settlements"
+msgstr "قریه جات پیش بینی شده سیلاب دریایی"
 
 msgid ""
-"Shows the number of people potentially affected by avalanches based on the "
-"current snow cover and snow water equivalent (at small basin scale)"
-msgstr ""
-"نشان می دهد تعداد نفوس به شدت متاثر شده توسط برف کوچ بر اساس پوشش برف فعلی و "
-"معادل آب آن (در مقیاس حوضه آبی کوچک) را نشان می دهد."
-
-msgid "Humanitarian Access"
-msgstr "دسترسی بشردوستانه"
-
-msgid ""
-"The security incidents from the iMMAP data repository can be reviewed here. "
-"The incident data is updated every workday by iMMAP staff for the previous "
-"days. Using the security overview tool, the incidents can be filtered by "
-"type, data, target and area. "
-msgstr ""
-"حوادث امنیتی از ارقام موسسه iMMAP است و میتوان در اینجا بررسی کرد . حوادث "
-"امنیتی در هر روز کاری توسط کارمندان iMMAP برای روز های قبل اپدیت میشود. با "
-"استفاده از ابزار مرورگر امنیتی، حوادث را می توان نظر به  نوع، تاریخ، هدف و "
-"ساحه فیلتر کرد."
-
-msgid "Earthquake"
-msgstr "زلزله"
-
-msgid ""
-"Shows the epicentre of the latest earthquakes as well as the shakemap. "
-"Shakemaps and the affected population can be loaded by using the latest tab "
-"in the statistics menu.\r\n"
+"River floods are at present predicted using the low resolution data from the "
+"Global Flood Monitoring System (GFMS) and EU JRC Global Floods Awareness "
+"System (GLOFAS).  As base system it used the Flood Hazard Map of "
+"Afghanistan. Merged risk categories including 25m buffer. Created with "
+"hydraulic modeling from high Resolution DEM data. For more information on "
+"methodology, contact NC3A Geo.\r\n"
 "\r\n"
-"Additionally it shows the tectonic regions of Afghanistan derived from the "
-"USGS \"Seismotectonic Map of Afghanistan, with Annotated Bibliography"
-"\" (2005) by By Russell L. Wheeler, Charles G. Bufe, Margo L. Johnson, and "
-"Richard L. Dart. \r\n"
+msgstr ""
+
+msgid "Flash flood prediction districts"
+msgstr "پیش بینی ولسوالی های سیلاب دریایی"
+
+msgid ""
+"Flash Flood are based on the WMO Flash Flood Guidance System (FFGS), and it "
+"enables the iMMAP DRR program to integrate Imminent Flash Flood Threats, "
+"Persistence Flash Flood Threat and Forecast Flash Flood Threats. In "
+"combination with the Afghanistan Flood Hazard Map, iMMAP modelled population "
+"and land use estimates it allows to assess the potential number of persons "
+"or productive land area at risk of flash flood for the next 6 hours. \r\n"
+msgstr ""
+"سیلاب ناگهانی (از اثر بارش شدید) بر اساس (FFGS) سیستم رهنمای سیلاب ناگهانی "
+"WMO است. و این قادر می سازد برنامه iMMAP DRR را که تهدید سیلاب ناگهانی قریب "
+"الوقوع را شامل ساخته، ادامه داده و تهدید سیلاب ناگهانی را پیش بینی نماید، با "
+"ترکیب نقشه خطر سیلاب افغانستان، iMMAP مدل تخمین نفوس و پوشش زمینی را ساخته "
+"که بررسی بیشترین تعداد مردم و مساحات تولیدی در معرض خطر سیلاب ناگهانی برای 6 "
+"ساعت بعدی اجازه میدهد.\n"
+
+msgid "Flood prediction settlements"
+msgstr "سیلاب پیشبینی شده"
+
+msgid ""
+"Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
+"System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
+"Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
+"Threats. In combination with the Afghanistan Flood Hazard Map, iMMAP modeled "
+"population and land use estimates it allows to assess the potential number "
+"of persons or productive land area at risk of flash flood for the next 6 "
+"hours.  The other flood risk are typical river floods, these are at present "
+"predicted using the low resolution data from the Global Flood Monitoring "
+"System (GFMS) and the EU JRC Global Floods Awareness System (GLOFAS).  As "
+"base system it used the Flood Hazard Map of Afghanistan. Merged risk "
+"categories including 25m buffer. Created with hydraulic modeling from high "
+"Resolution DEM data. For more information on methodology, contact NC3A Geo."
 "\r\n"
-"Seismic intensity and description of potential damage (USGS, 2007). Peak "
-"Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 years"
-"\r\n"
-"\r\n"
-"A 2 percent probability of exceedance in 50 years corresponds to a ground-"
-"motion return time of approximately 2500 years, or approximately a 10% "
-"probability of of exceedance in 250 years. . The seismic intensity data and "
-"classes originate from the USGS Earthquake Hazard Map for Afghanistan "
-"(2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales"
 msgstr ""
-"مرکز حوادث اخیر زلزله و همچنین نقشه زلزله را نشان می دهد.نقشه زلزله و نفوس "
-"متأثر شده دریافت خواهد شد در برگهء  اخیری مینوی افزار ساحوی .\n"
-"علاوه بر این، مناطق تکتونیکی افغانستان نشان داده شده که گرفته شده از  USGS "
-"\"نقشه لرزه های زمین شناسی افغانستان با کتابشناسی کتبی(2005)\"  توسط راسل ل. "
-"ویلر، چارلز جی بوف، مارگو جانسون و ریچارد ل. دارت.\n"
-"شدت لرزه و توصیف آسیب احتمالی (USGS، 2007).شتاب افقی قله با احتمال 2 درصد در "
-"50 سال گذشته\n"
-"2٪ احتمال تجاوز در 50 سال مربوط به زمان بازگشت زمین به زمین تقریبا 2500 سال "
-"است، یا تقریبا 10٪ احتمال بیش از حد در 250 سال است. \n"
-"اطلاعات شدت زلزله و کلاس هی آن از نقشه آسیب زلزله USGS برای افغانستان (2007) "
-"توسط Oliver S. Boyd, Charles S. Mueller و Kenneth S. Rukstales سرچشمه گرفته."
+"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
+"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
+"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
+"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
+"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
+"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
+"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
+"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
+"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
+"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
+"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
+"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
 
-msgid "Snow cover and depth"
-msgstr "پوشش و عمق برف"
-
-msgid ""
-"Shows the current snow cover and approximate depth. Using this data it is "
-"easy to see which villages and roads are at present within snow areas, and "
-"which are not. \r\n"
-"This data is updated daily, at one with 1km resolution snow coverage data "
-"and at the other hand at small basin scale the snow water equivalent "
-"converted to approximate snow depth.  "
-msgstr ""
-"پوشش و عمق تقریبی برف را نشان می دهد. با استفاده از این معلومات به آسانی "
-"دیده میتوانیم که کدام قریه جات و سرک ها در حال حاضر پوشیده از برف هستند و "
-"کدام نیستند .\n"
-"این ارقام روزانه اپدیت میشود،  با کیفیت یک کیلومتری پوشش برف و در مقیاس حوضه "
-"کوچک آب معادل آب برفی مبدل به عمق تقریبی برف است."
-
-msgid "Total population"
-msgstr "مجموع نفوس"
-
-msgid ""
-"Shows the total population per province/district/settlement. Note, that some "
-"settlements have a very large area of influence, e.g. in Reg(istan) district/"
-"Kandahar province only has one settlement."
-msgstr ""
-"مجموعه نفوس هر ولایت، ولسوالی ویا قریه را نشان می دهد. به یاد داشته باشید که "
-"برخی از قریه جات یک منطقه بسیار بزرگ را دارد، بطور مثال، در ولسوالی ریگستان "
-"ولایت کندهار تنها یک قریه است."
-
-msgid "Population density"
-msgstr "تراکم نفوس"
-
-msgid ""
-"Population density overview. The modelled number of population per square km."
-msgstr "بررسی اجمالی تراکم نفوس. مدل شده تعداد نفوس در هر کیلومتر مربع ."
-
-msgid "UN Habitat - R&R"
-msgstr "سازمان مسکن ملل متحد  R&R - (UN Habitat)"
-
-msgid ""
-"This Interactive map contains iMMAP baseline data, as well as data relevant "
-"to identify potential (re)settlement areas of Refugees and Returnees.  The "
-"intended usage is primarily for the Afghanistan Housing, Land and Property "
-"Taskforce, UN Habitat, UN HCR, GiRO and ARAZI.\n"
-"\n"
-"This data indicate Go and No Go areas for potential allocation sites for "
-"Returnees and Refugees. This data was created by iMMAP for UN Habitat.  \n"
-"\n"
-"The Red areas are so called \"No Go\" areas based upon the following "
-"criteria:\n"
-"- Slope > 15 degrees\n"
-"- Landmine/UXO areas (only for Nangarhar Province)\n"
-"- Flood Zone areas (100 year return period)\n"
-"- Avalanche areas\n"
-"- Continuous area less than 4 square kilometers \n"
-"- National/District/Provincial Hospital > 2h AND Comprehensive Helat Center "
-">1h travel time \n"
-"- Landcover classes unlikely to be government lands or fit for settlement "
-"(existing buildup areas, irrigated agricultural lands, vineyards, fruit "
-"trees, cultivated lands, sand dunes, snow fields, water)\n"
+msgid "Multi-criteria Landslide Susceptibility Index"
 msgstr ""
 
-msgid "River and flash flood forecast"
+msgid ""
+"Layers were combined as a weighted overlay to create a landslide "
+"susceptibility index (LSI). Lithology, fault, river, and road data compiled "
+"by the USGS were derived from both pre- and mid-war sources of varying "
+"detail. A 10 year subset of earthquake data was used to reduce processing "
+"time; earthquake density was weighted by magnitude. An NDVI tile was used as "
+"vegetation data covering most of the country. Slope and aspect data were "
+"derived from 90m SRTM. Aspect and earthquake density diagrams not included "
+"because of their small scale features. Each factor was assigned weights for "
+"their own min-max range, and expected contribution to landslide "
+"susceptibility relative to each other developed through literature review.  "
+"Published studies of known landslides and corresponding Google Earth imagery "
+"were compared to same locations in the landslide susceptibility map (Nathan "
+"Schlagel et al. 2016)"
+msgstr ""
+
+msgid "Flash flood prediction settlements"
 msgstr "پیش بینی سیلاب دریایی و  سیلاب ناگهانی (از اثر بارش شدید)"
 
+msgid "Flash flood prediction provinces"
+msgstr "پیش بینی ولایتی  سیلاب ناگهانی (از اثر بارش شدید)"
+
+msgid "Flood prediction provinces"
+msgstr "ولایات پیش بینی شده سیلاب"
+
 msgid ""
-"Gives forecast on river floods and flash floods. River flood forecasts are "
-"valid for 4 days and updated every 6 hours, whereas the flash floods are "
-"valid for 6 hours and updated hourly. \n"
-"The map and statistics are is updated every 6 hours."
+"Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
+"System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
+"Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
+"Threats. In combination with the Afghanistan Flood Hazard Map, iMMAP "
+"modelled population and land use estimates it allows to assess the potential "
+"number of persons or productive land area at risk of flash flood for the "
+"next 6 hours.  The other flood risk are typical river floods, these are at "
+"present predicted using the low resolution data from the Global Flood "
+"Monitoring System (GFMS) and will early 2016, EU JRC Global Floods Awareness "
+"System (GLOFAS).  As base system it used the Flood Hazard Map of "
+"Afghanistan. Merged risk categories including 25m buffer. Created with "
+"hydraulic modeling from high Resolution DEM data. For more information on "
+"methodology, contact NC3A Geo.\r\n"
 msgstr ""
-"پیش بینی سیلاب های دریایی و ناگهانی (از اثر بارش شدید) را می دهد. سیلاب "
-"دریایی هر 6 ساعت بعد آپدیت شده و به مدت 4 روز موجود است، در حالیکه  سیلاب "
-"ناگهانی (از اثر بارش شدید) مدت 6 ساعت موجود بوده و ساعت وار آپدیت میشود.\n"
-"نقشه و ارقام در هر 6 ساعت آپدیت میشوند."
+"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
+"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
+"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
+"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
+"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
+"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
+"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
+"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
+"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
+"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
+"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
+"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
 
-msgid "Accessibility to health facilities in Laghman province"
-msgstr "دسترسی به امکانات صحی در ولایت لغمان"
-
-msgid "Baseline & Humanitarian Access"
-msgstr "اطلاعات اولیه و دسترسی بشر دوستانه"
-
-msgid "Travel time from facilities/locations"
-msgstr "زمان سفر از امکانات / موقعیت"
+msgid "Flood prediction districts"
+msgstr "ولسوالی پیش بینی شده سیلاب"
 
 msgid ""
-"Here multiple maps show the travel time by road in hours from/to the nearest "
-"e.g. Hospital, airport, district center. \r\n"
-"Additional features will be added in the future, e.g. warehouses, schools."
-"\r\n"
-"For each travel region, the details of the nearest facility are knows. e.g. "
-"Not only is the nearest hospital more than 3 hours away, the name will also "
-"be shown."
+"Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
+"System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
+"Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
+"Threats. In combination with the Afghanistan Flood Hazard Map, iMMAP "
+"modelled population and land use estimates it allows to assess the potential "
+"number of persons or productive land area at risk of flash flood for the "
+"next 6 hours.  The other flood risk are typical river floods, these are at "
+"present predicted using the low resolution data from the Global Flood "
+"Monitoring System (GFMS) and EU JRC Global Floods Awareness System "
+"(GLOFAS).  As base system it used the Flood Hazard Map of Afghanistan. "
+"Merged risk categories including 25m buffer. Created with hydraulic modeling "
+"from high Resolution DEM data. For more information on methodology, contact "
+"NC3A Geo.\r\n"
 msgstr ""
-" اینجا چندین نقشه زمان سفر در ساعت از طریق سرک به نزدیکترین شفاخانه، میدان "
-"هوایی، مراکز ولسوالی را نشان میدهد .\n"
-"همچنان در آینده چونین معلومات  برای مکاتب و فروشگاه ها نیز اضافه خواهند "
-"شد .\n"
-"برای سفر یک منطقه ، جزئیات نزدیک ترین سهولت ها درج است به عنوان مثال:  "
-"نزدیکترین شفاخانه بیش از 3 ساعت فاصله دارد، نام سهولت ها نیز نشان داده خواهد "
-"شد."
+"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
+"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
+"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
+"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
+"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
+"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
+"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
+"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
+"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
+"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
+"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
+"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
 
-msgid "Transportation network of Afghanistan"
-msgstr "شبکه راه های حمل و نقل افغانستان"
+msgid "Avalanche risk prediction districts"
+msgstr "پیشبینی ولسوالی های خطر برف کوچ"
 
-msgid ""
-"Gives the transportation network of Afghanistan as well as various points of "
-"interest."
-msgstr "شبکه راه های حمل و نقل افغانستان و همچنین نقاط مختلف از علاقه می دهد."
-
-msgid "Avalanche areas and risk exposure"
-msgstr "ساحه برف کوچ و معرض خطر"
-
-msgid ""
-"This map gives an overview of the avalanche areas in Afghanistan. Additional "
-"layers indicate population potentially exposed to them. Avalanche areas were "
-"modelled by Emlyn Hagen of iMMAP, 2015"
+msgid "Avalanche population risk exposure settlements"
 msgstr ""
-"این نقشه یک دید کلی از مناطق برف کوچ افغانستان میدهد. لایه های اضافی نشان "
-"دهنده نفوس به شدت متاثر شده از آن میباشد. مناطق برف کوچ که توسط ایملین هاگین "
-"iMMAP در 2015 مدل شده است."
-
-#: flood_risk_provinces.sld:6 avalanche_risk_districts.sld:6
-#: current_flood_forecasted_villages.sld:6 flood_risk_districts.sld:6
-#: population_villages.sld:6 flood_risk_villages.sld:6
-#: current_flash_flood_forecasted_districts.sld:6
-#: current_flash_flood_forecasted_villages.sld:6
-#: avalanche_risk_provinces.sld:6 current_riverflood_forcasted_village.sld:6
-#: current_river_flood_forecasted.sld:6
-#: current_flash_flood_forecasted_provinces.sld:6
-#: population_density_provinces.sld:6 current_riverflood_forcasted_prov.sld:6
-#: current_flood_forecasted_districts.sld:7
-#: population_density_districts.sld:6 avalanche_risk_villages.sld:6
-msgid "current river flood forecasted district area"
-msgstr "سیلاب دریایی فعلی ساحه ولسوالی پیش بینی شده"
-
-#: flood_risk_provinces.sld:12
-msgid "< 50 K"
-msgstr "< 50 K"
-
-#: flood_risk_provinces.sld:34
-msgid "50 - 250 K"
-msgstr "50 - 250 K"
-
-#: flood_risk_provinces.sld:56
-msgid "250 - 500 K"
-msgstr "250 - 500 K"
-
-#: flood_risk_provinces.sld:78 population_provinces.sld:34
-#: population_provinces_ebdfe9bc.sld:1
-msgid "500 K - 1 M"
-msgstr "500 K - 1 M"
-
-#: flood_risk_provinces.sld:100
-msgid ">1 M"
-msgstr ">1 M"
-
-#: flood_risk_provinces.sld:13 population_districts.sld:13
-#: population_provinces.sld:13 avalanche_risk_districts.sld:13
-#: population_villages.sld:13 avalanche_risk_provinces.sld:13
-#: population_provinces_ebdfe9bc.sld:1 avalanche_risk_villages.sld:13
-msgid "Less 100000"
-msgstr "کمتر از 100000"
-
-#: flood_risk_provinces.sld:35 population_districts.sld:35
-#: population_provinces.sld:35 avalanche_risk_districts.sld:35
-#: population_villages.sld:35 avalanche_risk_provinces.sld:35
-#: population_provinces_ebdfe9bc.sld:1 avalanche_risk_villages.sld:35
-msgid "100001-250000"
-msgstr "100001-250000"
-
-#: flood_risk_provinces.sld:57 population_districts.sld:57
-#: population_provinces.sld:57 avalanche_risk_districts.sld:57
-#: population_villages.sld:57 avalanche_risk_provinces.sld:57
-#: population_provinces_ebdfe9bc.sld:1 avalanche_risk_villages.sld:57
-msgid "250001-500000"
-msgstr "250001-500000"
-
-#: flood_risk_provinces.sld:79 population_districts.sld:79
-#: population_provinces.sld:79 avalanche_risk_districts.sld:79
-#: population_villages.sld:79 avalanche_risk_provinces.sld:79
-#: population_provinces_ebdfe9bc.sld:1 avalanche_risk_villages.sld:79
-msgid "500001-1000000"
-msgstr "500001-1000000"
-
-#: flood_risk_provinces.sld:101 population_districts.sld:101
-#: population_provinces.sld:101 avalanche_risk_districts.sld:101
-#: population_villages.sld:101 avalanche_risk_provinces.sld:101
-#: population_provinces_ebdfe9bc.sld:1 avalanche_risk_villages.sld:101
-msgid ">1000000"
-msgstr ">1000000"
-
-#: afg_sheda_lvl3_dd6ac0c0.sld:6
-msgid "Basins"
-msgstr "حوضه ها"
-
-#: afg_sheda_lvl3_dd6ac0c0.sld:12
-msgid "Basin"
-msgstr "حوضه"
-
-#: afg_sheda_lvl3_dd6ac0c0.sld:7
-#: afg_fldzonea_100k_risk_landcover_pop_61b50395.sld:1
-#: afg_fldzonea_100k_risk_landcover_pop.sld:14 afg_capa_hltfac_tier2.sld:8
-#: moph_afg_dews_outbreaks.sld:8 afg_poia_buildings.sld:8
-#: afg_capa_hltfac_tier1_c7344e10.sld:1 afg_capa_adm1_nearest_provc.sld:8
-#: polygon.sld:8 afg_ppla.sld:8 polygon_nothing.sld:8
-#: afg_poia_buildings_d4c060b1.sld:7 afg_capa_adm1_its_provc.sld:8
-#: afg_snowa_average_extent.sld:8 afg_capa_airdrm.sld:8
-#: afg_snowa_average_extent_e0d9af71.sld:7
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:7
-#: afg_capa_adm2_nearest_districtc.sld:8
-#: afg_fldzonea_100k_risk_mitigated_areas_89b0a8b9.sld:7
-msgid "A sample style that draws a polygon"
-msgstr "یک ستایل ساده که یک پولیکون را رسم میکند"
-
-#: afg_sheda_lvl3_dd6ac0c0.sld:13 afg_capa_hltfac_tier2.sld:14
-#: moph_afg_dews_outbreaks.sld:14 afg_poia_buildings.sld:14
-#: afg_capa_hltfac_tier1_c7344e10.sld:1 afg_capa_adm1_nearest_provc.sld:14
-#: polygon.sld:14 afg_ppla.sld:14 polygon_nothing.sld:14
-#: afg_poia_buildings_d4c060b1.sld:13 afg_capa_adm1_its_provc.sld:14
-#: afg_snowa_average_extent.sld:14 afg_capa_airdrm.sld:14
-#: afg_snowa_average_extent_e0d9af71.sld:13
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:13
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:30
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:47
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:64
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:81
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:98
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:115
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:132
-#: afg_capa_adm1_its_provc_4f4f0ce0.sld:149
-#: afg_capa_adm2_nearest_districtc.sld:14
-#: afg_fldzonea_100k_risk_mitigated_areas_89b0a8b9.sld:13
-msgid "A polygon with a gray fill and a 1 pixel black outline"
-msgstr "یک چند ضلعی با رنگ خاکستری و یک حجره (پیکسل) با اضلاع سیاه"
-
-#: afg_pplp_952bbb05.sld:6
-msgid "Administrative Centers"
-msgstr "ساحه اداری"
-
-#: afg_pplp_952bbb05.sld:12 afg_pplp.sld:244 afg_pplp_1fc3e9cd.sld:243
-#: afg_pplp_ff3c0a42.sld:1 afg_pplp_a3e06c97.sld:253
-#: afg_pplp_9e5722c4.sld:243
-msgid "District center"
-msgstr "مرکز ولسوالی"
-
-#: afg_pplp_952bbb05.sld:34 afg_pplp.sld:291 afg_pplp_1fc3e9cd.sld:290
-#: afg_pplp_ff3c0a42.sld:1 afg_pplp_a3e06c97.sld:309
-#: afg_pplp_9e5722c4.sld:283
-msgid "Provincial capital"
-msgstr "مرکز ولایتی"
-
-#: afg_pplp_952bbb05.sld:7 afg_pplp.sld:8 afg_hltfac_0d5a9a45.sld:7
-#: afg_airdrmp.sld:8 afg_pplp_1fc3e9cd.sld:7 afg_hltfac_tier3.sld:7
-#: point_nothing.sld:14 afg_hltfac.sld:8 afg_hltfac_efb04a60.sld:7
-#: afg_incident_oasis_point.sld:14 afg_util_well.sld:8 point.sld:14
-#: afg_hltfac_t2.sld:7 afg_pplp_9e5722c4.sld:7 afg_hltfac_tier3_bhc.sld:7
-#: afg_poip.sld:14
-msgid "A sample style that draws a point"
-msgstr "یک ستایل ساده که یک نقطه را رسم میکند"
-
-#: afg_pplp.sld:13 afg_pplp_1fc3e9cd.sld:12 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:12 afg_pplp_9e5722c4.sld:12
-msgid "Hamlet"
-msgstr "دهکده"
-
-#: afg_pplp.sld:36 afg_pplp_1fc3e9cd.sld:35 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:66 afg_pplp_9e5722c4.sld:35
-msgid "Small Village"
-msgstr "قریه کوچک"
-
-#: afg_pplp.sld:65 afg_pplp_1fc3e9cd.sld:64 afg_pplp_9e5722c4.sld:64
-msgid "Village"
-msgstr "قریه"
-
-#: afg_pplp.sld:94 afg_pplp_1fc3e9cd.sld:93 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:128 afg_pplp_9e5722c4.sld:93
-msgid "Town"
-msgstr "شهرک"
-
-#: afg_pplp.sld:123 afg_pplp_1fc3e9cd.sld:122 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:195 afg_pplp_9e5722c4.sld:122
-msgid "City"
-msgstr "شهر"
-
-#: afg_pplp.sld:194 afg_pplp_1fc3e9cd.sld:193 afg_pplp_9e5722c4.sld:193
-msgid "city label 2"
-msgstr "علامت شهر 2"
-
-#: afg_pplp.sld:14 afg_pplp_1fc3e9cd.sld:13 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:13 afg_pplp_9e5722c4.sld:13
-msgid "Less than 20"
-msgstr "کمتر از 20"
-
-#: afg_pplp.sld:37 afg_pplp_1fc3e9cd.sld:36 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:67 afg_pplp_9e5722c4.sld:36
-msgid "21-200"
-msgstr "21-200"
-
-#: afg_pplp.sld:66 afg_pplp_1fc3e9cd.sld:65 afg_pplp_9e5722c4.sld:65
-msgid "201-1000"
-msgstr "201-1000"
-
-#: afg_pplp.sld:95 afg_pplp_1fc3e9cd.sld:94 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:129 afg_pplp_9e5722c4.sld:94
-msgid "1001-10000"
-msgstr "1001-10000"
-
-#: afg_pplp.sld:124 afg_pplp_1fc3e9cd.sld:123 afg_pplp_ff3c0a42.sld:1
-#: afg_pplp_a3e06c97.sld:196 afg_pplp_9e5722c4.sld:123
-msgid "Greater than 10000"
-msgstr "بیشتر از 10000"
-
-#: afg_hltfac_0d5a9a45.sld:6
-msgid "Hospitals Tier 2"
-msgstr "شفاخانه ردیف 2"
-
-#: afg_hltfac_0d5a9a45.sld:12 afg_hltfac_efb04a60.sld:34 afg_hltfac_t2.sld:13
-msgid "Comprehensive Health Center"
-msgstr "مرکز صحی جامع (CHC)"
-
-#: afg_airdrmp.sld:13 afg_airdrmp.sld:14
-msgid "Airport"
-msgstr "میدان هوایی"
-
-#: afg_airdrmp.sld:33 afg_airdrmp.sld:34
-msgid "Airfield"
-msgstr "فرودگاه"
-
-#: afg_airdrmp.sld:53 afg_airdrmp.sld:54
-msgid "Airstrip"
-msgstr "خط پرواز"
-
-#: afg_airdrmp.sld:75 afg_airdrmp.sld:76 afg_airdrma.sld:106
-#: afg_airdrma.sld:107
-msgid "Helipad"
-msgstr "آب و تالاب"
-
-#: population_districts.sld:6
-msgid "population_districts"
-msgstr "نفوس ولسوالی ها"
-
-#: population_districts.sld:12 avalanche_risk_provinces.sld:12
-msgid "< 10K"
-msgstr "10K>"
-
-#: population_districts.sld:34
-msgid "10K-100K"
-msgstr "10K-100K"
-
-#: population_districts.sld:56
-msgid "100K-500K"
-msgstr "100K-500K"
-
-#: population_districts.sld:78
-msgid "500K-2M"
-msgstr "500K-2M"
-
-#: population_districts.sld:100
-msgid "> 2M"
-msgstr "2M<"
-
-#: glofas_rl20.sld:6
-msgid "Default for current_glofas_rl20"
-msgstr "Default for current_glofas_rl20"
-
-#: glofas_rl20.sld:12 glofas_rl2.sld:12 glofas_rl5.sld:12
-msgid "Very Low"
-msgstr "بسیار ضعیف"
-
-#: glofas_rl20.sld:35 current_flood_forecasted_villages_basin.sld:12
-#: glofas_rl2.sld:35 current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: afg_snowa_average_extent_95ac983a.sld:28 glofas_rl5.sld:35
-msgid "Low"
-msgstr "کم"
-
-#: glofas_rl20.sld:58 current_flood_forecasted_villages_basin.sld:29
-#: glofas_rl2.sld:58 earthquake_shakemap.sld:69 afg_eq_hzda.sld:70
-#: current_flood_forecasted_villages_basin_fd1d2584.sld:1 glofas_rl5.sld:58
-#: afg_avsa.sld:35 afg_avsa.sld:36
-msgid "Moderate"
-msgstr "متوسط"
-
-#: glofas_rl20.sld:81 current_flood_forecasted_villages_basin.sld:46
-#: glofas_rl2.sld:81 current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: afg_snowa_average_extent_95ac983a.sld:62 glofas_rl5.sld:81 afg_avsa.sld:13
-#: afg_avsa.sld:14
-msgid "High"
-msgstr "زیاد"
-
-#: glofas_rl20.sld:104 current_flood_forecasted_villages_basin.sld:63
-#: glofas_rl2.sld:104 current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: glofas_rl5.sld:104
-msgid "Very High"
-msgstr "بسیار زیاد"
-
-#: glofas_rl20.sld:127 current_flood_forecasted_villages_basin.sld:80
-#: glofas_rl2.sld:127 current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: glofas_rl5.sld:127
-msgid "Extreme"
-msgstr "شدیدتر"
-
-#: glofas_rl20.sld:13 glofas_rl2.sld:13 glofas_rl5.sld:13
-msgid "0-25"
-msgstr "0-25"
-
-#: glofas_rl20.sld:36 glofas_rl2.sld:36 glofas_rl5.sld:36
-msgid "25-50"
-msgstr "25-50"
-
-#: glofas_rl20.sld:59 glofas_rl2.sld:59 glofas_rl5.sld:59
-msgid "50-75"
-msgstr "50-75"
-
-#: glofas_rl20.sld:82 glofas_rl2.sld:82 glofas_rl5.sld:82
-msgid "75-100"
-msgstr "75-100"
-
-#: glofas_rl20.sld:105 glofas_rl2.sld:105 glofas_rl5.sld:105
-msgid "100-125"
-msgstr "100-125"
-
-#: glofas_rl20.sld:128 glofas_rl2.sld:128 glofas_rl5.sld:128
-msgid ">125"
-msgstr "125>"
-
-#: population_density_villages.sld:6
-msgid "population_density_villages"
-msgstr "تخمین نفوس در سطح قریه جات"
-
-#: population_density_villages.sld:12
-#: current_avalanche_forecast_villages.sld:12 flood_risk_villages.sld:12
-#: current_flash_flood_forecasted_districts.sld:12
-#: current_flash_flood_forecasted_villages.sld:12
-#: current_avalanche_forecast_districts.sld:12
-#: current_avalanche_forecast_provinces.sld:12
-#: current_riverflood_forcasted_village.sld:12
-#: current_river_flood_forecasted.sld:12
-#: current_flash_flood_forecasted_provinces.sld:12
-#: population_density_provinces.sld:12
-#: current_riverflood_forcasted_prov.sld:12
-#: population_density_districts.sld:12
-msgid "< 10"
-msgstr "10>"
-
-#: population_density_villages.sld:34 population_density_villages.sld:35
-#: current_flood_forecasted_villages_basin.sld:13
-#: current_flood_forecasted_provinces.sld:36
-#: current_flood_forecasted_villages_197057b1.sld:34
-#: current_flood_forecasted_villages.sld:35
-#: current_avalanche_forecast_villages.sld:35
-#: current_avalanche_forecast_villages.sld:36 flood_risk_villages.sld:34
-#: flood_risk_villages.sld:35 current_flash_flood_forecasted_districts.sld:34
-#: current_flash_flood_forecasted_districts.sld:35
-#: current_flash_flood_forecasted_villages.sld:34
-#: current_flash_flood_forecasted_villages.sld:35
-#: current_flood_forecasted_districts_850ab442.sld:35
-#: current_flood_forecasted_villages_basin_7e39b7aa.sld:1
-#: current_flood_forecasted_villages_basin_a18d81bc.sld:35
-#: current_avalanche_forecast_districts.sld:34
-#: current_avalanche_forecast_districts.sld:35
-#: current_flood_forecasted_villages_basin_fd1d2584.sld:1
-#: current_flood_forecasted_villages_a3b9b4a5.sld:34
-#: current_flood_forecasted_villages_70fa82f9.sld:34
-#: current_avalanche_forecast_provinces.sld:34
-#: current_avalanche_forecast_provinces.sld:35
-#: current_riverflood_forcasted_village.sld:34
-#: current_riverflood_forcasted_village.sld:35
-#: current_river_flood_forecasted.sld:34
-#: current_river_flood_forecasted.sld:35
-#: current_flash_flood_forecasted_provinces.sld:34
-#: current_flash_flood_forecasted_provinces.sld:35
-#: population_density_provinces.sld:35
-#: current_riverflood_forcasted_prov.sld:34
-#: current_riverflood_forcasted_prov.sld:35
-#: current_flood_forecasted_villages_9cc5351b.sld:34
-#: current_flood_forecasted_districts.sld:37
-#: population_density_districts.sld:34 population_density_districts.sld:35
-msgid "11-100"
-msgstr "11-100"
-
-#: population_density_villages.sld:56 population_villages.sld:34
-#: population_density_districts.sld:56 avalanche_risk_villages.sld:34
-msgid "100-500"
-msgstr "100-500"
-
-#: population_density_villages.sld:78
-msgid "500 - 1K"
-msgstr "500-1K"
 
 msgid "Google Satellite"
 msgstr ""
@@ -2679,10 +1138,10 @@ msgstr "نقشه باز شهری MapQuest"
 msgid "MapQuest Imagery"
 msgstr "تصاویر MapQuest"
 
-msgid "Avalanche population risk exposure settlements"
+msgid "Health facilities Tier 2"
 msgstr ""
 
-msgid "Health facilities Others"
+msgid "Health facilities Tier 1"
 msgstr ""
 
 msgid "Health facilities (H1,2,3)"
@@ -2709,13 +1168,10 @@ msgstr ""
 msgid "Tier 1 Health facilities"
 msgstr ""
 
+msgid "Health facilities Others"
+msgstr ""
+
 msgid "Health facilities Tier 3"
-msgstr ""
-
-msgid "Health facilities Tier 2"
-msgstr ""
-
-msgid "Health facilities Tier 1"
 msgstr ""
 
 msgid "Security Incidents Casualties Cluster"
@@ -2724,23 +1180,32 @@ msgstr ""
 msgid "Security Incidents Points"
 msgstr ""
 
+msgid "Earthquakes with Shakemap "
+msgstr ""
+
 msgid "Health facilities CHC-BHC"
 msgstr ""
 
-msgid "Classes of flood forecast"
-msgstr ""
+msgid "Avalanche risk forecast settlements"
+msgstr "قریه جات پیش بینی شده برف کوچ"
 
-msgid "Flood likelihood 20 year return period (GLOFAS)"
-msgstr ""
+msgid "Avalanche risk forecast districts"
+msgstr "پیشبینی ولسوالی های خطر برف کوچ"
 
-msgid "Flood likelihood 5 year return period (GLOFAS)"
-msgstr ""
-
-msgid "Flood likelihood 2 year return period (GLOFAS)"
-msgstr ""
+msgid "Avalanche risk forecast provinces"
+msgstr "ولایات پیش بینی شده برف کوچ"
 
 msgid "Snow coverage likelihood (average)"
 msgstr ""
+
+msgid "Flood forecast provinces"
+msgstr "ولایات پیش بینی شده سیلاب"
+
+msgid "Flood forecast districts"
+msgstr "ولسوالی پیش بینی شده سیلاب"
+
+msgid "Flood forecast settlements"
+msgstr "سیلاب پیشبینی شده"
 
 msgid "Global Satellite Composite IR"
 msgstr ""
@@ -2781,6 +1246,30 @@ msgstr ""
 msgid "Surface Observations (METAR)"
 msgstr ""
 
+msgid "Security Casualties Heatmap"
+msgstr ""
+
+msgid "Flood prediction population affected (provinces)"
+msgstr ""
+
+msgid "Flood prediction population affected (districts)"
+msgstr ""
+
+msgid "Flood prediction population affected (settlements)"
+msgstr ""
+
+msgid "Flood prediction"
+msgstr "پیشبینی سیلاب"
+
+msgid "Flood likelihood 20 year return period (GLOFAS)"
+msgstr ""
+
+msgid "Flood likelihood 5 year return period (GLOFAS)"
+msgstr ""
+
+msgid "Flood likelihood 2 year return period (GLOFAS)"
+msgstr ""
+
 msgid ""
 "The Ministry of Economy, Trade, and Industry (METI) of Japan and the United "
 "States National Aeronautics and Space Administration (NASA) jointly "
@@ -2795,7 +1284,105 @@ msgid ""
 "and village names (by iMMAP)"
 msgstr ""
 
+msgid ""
+"- Seismic intensity and description of potential damage (Source: USGS, "
+"2007)\n"
+"Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 "
+"years**\n"
+"\n"
+"** A 2 percent probability of exceedance in 50 years corresponds to a ground-"
+"motion return time of approximately 2500 years, or approximately a 10% "
+"probability of of exceedance in 250 years. . The seismic intensity data and "
+"classes originate from the USGS Earthquake Hazard Map for Afghanistan "
+"(2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales"
+msgstr ""
+
+msgid ""
+"This map shows the susceptibility for bedrock landslides in slow evolution, "
+"including: rotational slides, translational slides, earth flows and lateral "
+"spreading. Susceptibility values are represented according the following "
+"scale: 0=Null; 1-3=Low; 4-5=Moderate; 6=High; 7-9=Very High\n"
+"Source (World Bank, 2016)"
+msgstr ""
+
+msgid ""
+"Afghanistan landslide susceptibility map for cover material landslides in "
+"rapid evolution (S3), nationwide. This map shows the susceptibility for "
+"cover material landslides in rapid evolution, including: debris-mud flows. "
+"Susceptibility values are represented according the following scale: 0=Null; "
+"1-3=Low; 4-5=Moderate; 6=High; 7-9=Very High (World Bank, 2016)\n"
+msgstr ""
+
 msgid "Shows the contour lines at various intervals\n"
+msgstr ""
+
+msgid ""
+"Rivers modelled from 10 square kilometer catchment areas, extracted from a "
+"hydrological corrected DEM.\n"
+"\n"
+msgstr ""
+"مدل دریا ها از 10 کیلومتر مربع مناطق حوضه آبخیز که از DEM اصلاح شده "
+"هایدرولوژیکی استخراج شده ساخته شده.\n"
+
+msgid ""
+"Airports visually confirmed and digitised in satellite imagery by iMMAP "
+"staff. Runway length, width estimated from digitised runways. Other "
+"attributes NGA/WFP\n"
+msgstr ""
+
+msgid ""
+"The Building outline and POI's of Afghanistan created/provided by "
+"OpenStreetMaps\n"
+msgstr ""
+
+msgid ""
+"Routable road network of Afghanistan from a variety of sources, including "
+"digitization by iMMAP. Road speed is calculated based on slope, sinuosity, "
+"elevation, type, number of river crossings, length through water and or "
+"build-up areas.\n"
+"\n"
+msgstr ""
+
+msgid ""
+"Shows the 399 district boundary areas of Afghanistan. Dari and Pashto names "
+"were added by iMMAP. Source: Afghanistan Geodesy and Cartography Head Office "
+"(AGCHO). AGCHO and the Independent Directorate for Local Governance (IDLG) "
+"are recognized as the sole authoritative source for legal and technical "
+"issues related to the delimitation of administrative boundaries, "
+"composition, and division of the administrative units of Afghanistan as per "
+"the following references: 1) Letter between AGCHO and the President's Office "
+"(dated 5 March 2007); and 2) Joint statement from IDLG and AGCHO (dated 26 "
+"March 2012).\n"
+msgstr ""
+
+msgid ""
+"Shows the 34 provincial boundary areas of Afghanistan. Dari names were added "
+"by iMMAP. Source: Afghanistan Geodesy and Cartography Head Office (AGCHO). "
+"AGCHO and the Independent Directorate for Local Governance (IDLG) are "
+"recognized as the sole authoritative source for legal and technical issues "
+"related to the delimitation of administrative boundaries, composition, and "
+"division of the administrative units of Afghanistan as per the following "
+"references: 1) Letter between AGCHO and the President's Office (dated 5 "
+"March 2007); and 2) Joint statement from IDLG and AGCHO (dated 26 March "
+"2012).\n"
+msgstr ""
+
+msgid ""
+"Contains the health facilities of Afghanistan, it is a combination of a "
+"cleaned MoPH-HMIS (October 2015) and WHO-HPRO  Survey 2015. \n"
+"\n"
+"At present the most accurate health facility dataset in Afghanistan. This "
+"data has been cleaned and the information thoroughly investigated, also "
+"using satellite imagery. Some facilities will be at a scale of 1:10K others "
+"will only be positioned in or near the settlement coordinates. Though it is "
+"not unlikely that some facilities will be located in an incorrect settlement/"
+"district or even province.\n"
+"\n"
+msgstr ""
+
+msgid ""
+"Airports visually confirmed in satellite imagery by iMMAP staff. Runway "
+"length, width estimated from digitised runways. Oher attributes NGA/WFP\n"
 msgstr ""
 
 msgid ""
@@ -2851,38 +1438,6 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Contains the health facilities of Afghanistan, it is a combination of a "
-"cleaned MoPH-HMIS (October 2015) and WHO-HPRO  Survey 2015. \n"
-"\n"
-"At present the most accurate health facility dataset in Afghanistan. This "
-"data has been cleaned and the information thoroughly investigated, also "
-"using satellite imagery. Some facilities will be at a scale of 1:10K others "
-"will only be positioned in or near the settlement coordinates. Though it is "
-"not unlikely that some facilities will be located in an incorrect settlement/"
-"district or even province.\n"
-"\n"
-msgstr ""
-
-msgid ""
-"Rivers modelled from 10 square kilometer catchment areas, extracted from a "
-"hydrological corrected DEM.\n"
-"\n"
-msgstr ""
-"مدل دریا ها از 10 کیلومتر مربع مناطق حوضه آبخیز که از DEM اصلاح شده "
-"هایدرولوژیکی استخراج شده ساخته شده.\n"
-
-msgid ""
-"Airports visually confirmed and digitised in satellite imagery by iMMAP "
-"staff. Runway length, width estimated from digitised runways. Other "
-"attributes NGA/WFP\n"
-msgstr ""
-
-msgid ""
-"The Building outline and POI's of Afghanistan created/provided by "
-"OpenStreetMaps\n"
-msgstr ""
-
-msgid ""
 "iMMAP has modelled 340.000 avalanche areas for entire Afghanistan. The "
 "modelling process was conducted in two major components, at one hand the "
 "identification of the Avalanche trigger areas, and at the other hand "
@@ -2894,49 +1449,20 @@ msgid ""
 msgstr ""
 
 msgid ""
+"Geologic faults used or considered in calculating the seismic hazard of "
+"Afghanistan\n"
+"\n"
+"By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales (2007). "
+"Earthquake Hazard Map for Afghanistan. USGS\n"
+msgstr ""
+
+msgid ""
 "Final Flood Hazard Map of Afghanistan. Created with hydraulic modeling from "
 "high Resolution DEM data. For more information on methodology, contact NC3A "
 "Geo.\n"
 msgstr ""
 
-msgid ""
-"Routable road network of Afghanistan from a variety of sources, including "
-"digitization by iMMAP. Road speed is calculated based on slope, sinuosity, "
-"elevation, type, number of river crossings, length through water and or "
-"build-up areas.\n"
-"\n"
-msgstr ""
-
-msgid ""
-"Shows the 399 district boundary areas of Afghanistan. Dari and Pashto names "
-"were added by iMMAP. Source: Afghanistan Geodesy and Cartography Head Office "
-"(AGCHO). AGCHO and the Independent Directorate for Local Governance (IDLG) "
-"are recognized as the sole authoritative source for legal and technical "
-"issues related to the delimitation of administrative boundaries, "
-"composition, and division of the administrative units of Afghanistan as per "
-"the following references: 1) Letter between AGCHO and the President's Office "
-"(dated 5 March 2007); and 2) Joint statement from IDLG and AGCHO (dated 26 "
-"March 2012).\n"
-msgstr ""
-
-msgid ""
-"Shows the 34 provincial boundary areas of Afghanistan. Dari names were added "
-"by iMMAP. Source: Afghanistan Geodesy and Cartography Head Office (AGCHO). "
-"AGCHO and the Independent Directorate for Local Governance (IDLG) are "
-"recognized as the sole authoritative source for legal and technical issues "
-"related to the delimitation of administrative boundaries, composition, and "
-"division of the administrative units of Afghanistan as per the following "
-"references: 1) Letter between AGCHO and the President's Office (dated 5 "
-"March 2007); and 2) Joint statement from IDLG and AGCHO (dated 26 March "
-"2012).\n"
-msgstr ""
-
 msgid "Water wells as recorded and verified by DACAAR. \n"
-msgstr ""
-
-msgid ""
-"Airports visually confirmed in satellite imagery by iMMAP staff. Runway "
-"length, width estimated from digitised runways. Oher attributes NGA/WFP\n"
 msgstr ""
 
 msgid ""
@@ -2978,6 +1504,148 @@ msgid ""
 msgstr ""
 
 msgid ""
+"33 sub-basins in Afghanistan, created and simplified from 10 sqkm watershed\n"
+msgstr ""
+
+msgid ""
+"Magnitude and Intensity measure different characteristics of earthquakes. "
+"Magnitude measures the energy released at the source of the earthquake. "
+"Magnitude is determined from measurements on seismographs. Intensity "
+"measures the strength of shaking produced by the earthquake at a certain "
+"location. Intensity is determined from effects on people, human structures, "
+"and the natural environment.\n"
+msgstr ""
+
+msgid ""
+"\"The avalanche forecast risk is based on solely on the Current Snow "
+"Coverage and Depth extent and the presence of avalanche areas. This is a "
+"very rudimentary risk forecast as there are no accurate/sufficient ground "
+"observation stations available. With proper observations the stability "
+"condition of the snowpack, can be assessed. The avalanche risk is based on "
+"the following categories of snow water equivalent (SWE): Low:  SWE > 60 and "
+"<= 100 mm ; Moderate: SWE > 100 and <= 140 mm: High: SWE > 140 mm. iMMAP has "
+"modelled 340.000 avalanche areas for entire Afghanistan. The modelling "
+"process was conducted in two major components, at one hand the "
+"identification of the Avalanche trigger areas, and at the other hand "
+"modelling the avalanche chute and run-out areas. The iMMAP data is modelled, "
+"and utilizes as a main input dataset 30m resolution ASTER DEM. \r\n"
+"- The avalanche areas were only computed for areas which had snow cover of "
+"the past 9 years. \r\n"
+"- The trigger areas were calculated using established methodologies\"\r\n"
+msgstr ""
+"\"پیش بینی خطر برف کوچ صرفا بر پوشش فعلی برف، اندازه عمق و موجودیت مناطق برف "
+"کوچ مربوط است. این پیش بینی خطر بسیار ابتدایی است، طوریکه هیچ دستگاه اندازه "
+"گیری زمینی دقیق و کافی وجود ندارد. با مشاهدات مناسب حالت ثبات توده برف می "
+"تواند بررسی شود. خطر برف کوچ بر اساس طبقه بندی ذیل آب معادل برف (SWE) "
+"میباشد:\n"
+"پایین: SWE>60 و<= 100 میلی متر ؛ متوسط: SWE>100 و<= 140 میلی متر ؛ بالا: "
+"SWE> 140 میلی متر. موسسه iMMAP برای کل افغانستان 340.000 ساحه برف کوچ را مدل "
+"سازی نموده. پروسه مدل سازی به اساس دو جز اصلی طراحی شده، از یک سو مدل سازی "
+"مناطق آغاز برف کوچ و از سوی دیگر مدل سازی میل و ساحه ریختن برف کوچ. ارقام "
+"iMMAP بطور یک مجموعه ارقام اصلی ورودی DEM ASTER با وضاحت 30m مدل شده و "
+"استفاده میشود.\n"
+"- مناطق برف کوچ تنها برای مناطقی که از 9 سال گذشته پوشش برف دارند محاسبه شده "
+"است.\n"
+"- مناطق آغاز برف کوچ با استفاده از روش ایجاد شده محاسبه شده است.\n"
+
+msgid ""
+"GSM/Mobile phone coverage modelled for entire Afghanistan. Using this data, "
+"it is possible to assess which villages/infrastructure and which population "
+"have GSM coverage.  The data was modelled by the DRR team, after "
+"digitization of all mobile phone towers. One Afghan operator shared their "
+"coverage data with iMMAP, which was used to calibrate the coverage "
+"methodology for other operators."
+msgstr ""
+
+msgid ""
+"The current snow coverage extent is updated daily, and is extracted from a "
+"1km resolution “Snow and ice cover”. The source data originates from the US "
+"National Ice Center's Interactive Multisensor Snow and Ice Mapping System "
+"(IMS) at 1km resolution. The snow coverage gives no approximation on depth "
+"by itself. It can range from a few mm of snow and ice to multiple meters of "
+"snow. The snow depth is based on the Snow Water Equivalent (SWE), which "
+"gives how much water a snow pack would contain in melted form (in mm depth). "
+"The depth is approximated from the snow compactness ratio, with a minimum of "
+"1/10 (fluffy snow) to 1/2 for very dense/compact snow (heavy/wet snow). The "
+"Snow Water Equivalent (SWE) is extracted from the SNOW-17 snow accumulation "
+"and ablation model, aggregated at the Flash Flood Guidance System Basis "
+"level. Snow-17 was first described by Anderson (1973) as a component of the "
+"National Weather Service River Forecast System (NWSRFS)\n"
+"\n"
+msgstr ""
+
+msgid ""
+"\"The avalanche prediction risk is based on solely on the Current Snow "
+"Coverage and Depth extent and the presence of avalanche areas. This is a "
+"very rudimentary risk forecast as there are no accurate/sufficient ground "
+"observation stations available. With proper observations the stability "
+"condition of the snowpack, can be assessed. The avalanche risk is based on "
+"the following categories of snow water equivalent (SWE): Low:  SWE > 60 and "
+"<= 100 mm ; Moderate: SWE > 100 and <= 140 mm: High: SWE > 140 mm. iMMAP has "
+"modelled 340.000 avalanche areas for entire Afghanistan. The modelling "
+"process was conducted in two major components, at one hand the "
+"identification of the Avalanche trigger areas, and at the other hand "
+"modelling the avalanche chute and run-out areas. The iMMAP data is modelled, "
+"and utilizes as a main input dataset 30m resolution ASTER DEM. \n"
+"- The avalanche areas were only computed for areas which had snow cover of "
+"the past 9 years. \n"
+"- The trigger areas were calculated using established methodologies\"\n"
+msgstr ""
+"\"پیش بینی خطر برف کوچ صرفا بر پوشش فعلی برف، اندازه عمق و موجودیت مناطق برف "
+"کوچ مربوط است. این پیش بینی خطر بسیار ابتدایی است، طوریکه هیچ دستگاه اندازه "
+"گیری زمینی دقیق و کافی وجود ندارد. با مشاهدات مناسب حالت ثبات توده برف می "
+"تواند بررسی شود. خطر برف کوچ بر اساس طبقه بندی ذیل آب معادل برف (SWE) "
+"میباشد:\n"
+"پایین: SWE>60 و<= 100 میلی متر ؛ متوسط: SWE>100 و<= 140 میلی متر ؛ بالا: "
+"SWE> 140 میلی متر. موسسه iMMAP برای کل افغانستان 340.000 ساحه برف کوچ را مدل "
+"سازی نموده. پروسه مدل سازی به اساس دو جز اصلی طراحی شده، از یک سو مدل سازی "
+"مناطق آغاز برف کوچ و از سوی دیگر مدل سازی میل و ساحه ریختن برف کوچ. ارقام "
+"iMMAP بطور یک مجموعه ارقام اصلی ورودی DEM ASTER با وضاحت 30m مدل شده و "
+"استفاده میشود.\n"
+"- مناطق برف کوچ تنها برای مناطقی که از 9 سال گذشته پوشش برف دارند محاسبه شده "
+"است.\n"
+"- مناطق آغاز برف کوچ با استفاده از روش ایجاد شده محاسبه شده است.\n"
+
+msgid ""
+"Final Flood Hazard Map of Afghanistan. Created with hydraulic modeling from "
+"high Resolution DEM data. For more information on methodology, contact NC3A "
+"Geo."
+msgstr ""
+
+msgid "Water wells as recorded and verified by DACAAR."
+msgstr ""
+
+msgid ""
+"Final Flood Hazard Map of Afghanistan. Merged risk categories including 25m "
+"buffer. Static Flood Risk relates to both River and Flash Floods and is "
+"based on the “NATO C3 Agency, Emlyn Hagen (2009) Afghanistan Flood Hazard "
+"Map” (AFG-FHM) inundation outline. The AFG-FHM is categorised in high, "
+"moderate and low flood risk. These categories are based on potential flood "
+"depth at a 100-year inundation event. Low flood risk relates to inundation "
+"more than 29cm, moderate to 1.21m and high flood risk more than 2.7m. The "
+"100-year inundation interval. Implies that every year there is a 1% chance "
+"of such a flood event occurring. Though most events will naturally be 5,10, "
+"20-year inundation interval. These events will not be as deep. For "
+"additional information see documentation of the AFG-FHM.\n"
+msgstr ""
+
+msgid ""
+"Final Flood Hazard Map of Afghanistan. Merged risk categories including 25m "
+"buffer. Static Flood Risk relates to both River and Flash Floods and is "
+"based on the “NATO C3 Agency, Emlyn Hagen (2009) Afghanistan Flood Hazard "
+"Map” (AFG-FHM) inundation outline. The AFG-FHM is categorised in high, "
+"moderate and low flood risk. These categories are based on potential flood "
+"depth at a 100-year inundation event. Low flood risk relates to inundation "
+"more than 29cm, moderate to 1.21m and high flood risk more than 2.7m. The "
+"100-year inundation interval. Implies that every year there is a 1% chance "
+"of such a flood event occurring. Though most events will naturally be 5,10, "
+"20-year inundation interval. These events will not be as deep. For "
+"additional information see documentation of the AFG-FHM.\n"
+"\n"
+"\n"
+msgstr ""
+
+msgid ""
 "Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
 "System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
 "Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
@@ -2992,6 +1660,18 @@ msgid ""
 "categories including 25m buffer. Created with hydraulic modeling from high "
 "Resolution DEM data. For more information on methodology, contact NC3A Geo.\n"
 msgstr ""
+"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
+"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
+"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
+"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
+"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
+"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
+"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
+"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
+"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
+"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
+"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
+"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
 
 msgid ""
 "Default value for the time dimension is the latest observation time slot."
@@ -3003,7 +1683,134 @@ msgid ""
 "denotes forecast validity time and defaults to first forecast time stamp."
 msgstr ""
 
+msgid ""
+"Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
+"System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
+"Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
+"Threats. In combination with the Afghanistan Flood Hazard Map, iMMAP modeled "
+"population and land use estimates it allows to assess the potential number "
+"of persons or productive land area at risk of flash flood for the next 6 "
+"hours.  The other flood risk are typical river floods, these are at present "
+"predicted using the low resolution data from the Global Flood Monitoring "
+"System (GFMS) and the EU JRC Global Floods Awareness System (GLOFAS).  As "
+"base system it used the Flood Hazard Map of Afghanistan. Merged risk "
+"categories including 25m buffer. Created with hydraulic modeling from high "
+"Resolution DEM data. For more information on methodology, contact NC3A Geo.\n"
+msgstr ""
+"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
+"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
+"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
+"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
+"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
+"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
+"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
+"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
+"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
+"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
+"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
+"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
+
 msgid "Boundary area of Afghanistan, matches the AGCHO boundaries. \n"
+msgstr ""
+
+msgid ""
+"Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
+"System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
+"Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
+"Threats. In combination with the Afghanistan Flood Hazard Map, iMMAP "
+"modelled population and land use estimates it allows to assess the potential "
+"number of persons or productive land area at risk of flash flood for the "
+"next 6 hours.  The other flood risk are typical river floods, these are at "
+"present predicted using the low resolution data from the Global Flood "
+"Monitoring System (GFMS) and will early 2016, EU JRC Global Floods Awareness "
+"System (GLOFAS).  As base system it used the Flood Hazard Map of "
+"Afghanistan. Merged risk categories including 25m buffer. Created with "
+"hydraulic modeling from high Resolution DEM data. For more information on "
+"methodology, contact NC3A Geo.\n"
+msgstr ""
+"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
+"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
+"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
+"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
+"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
+"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
+"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
+"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
+"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
+"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
+"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
+"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
+
+msgid ""
+"Combination of the Flash Flood are based on the WMO Flash Flood Guidance "
+"System (FFGS), and it enables the iMMAP DRR program to integrate Imminent "
+"Flash Flood Threats, Persistence Flash Flood Threat and Forecast Flash Flood "
+"Threats. In combination with the Afghanistan Flood Hazard Map, iMMAP "
+"modelled population and land use estimates it allows to assess the potential "
+"number of persons or productive land area at risk of flash flood for the "
+"next 6 hours.  The other flood risk are typical river floods, these are at "
+"present predicted using the low resolution data from the Global Flood "
+"Monitoring System (GFMS) and EU JRC Global Floods Awareness System "
+"(GLOFAS).  As base system it used the Flood Hazard Map of Afghanistan. "
+"Merged risk categories including 25m buffer. Created with hydraulic modeling "
+"from high Resolution DEM data. For more information on methodology, contact "
+"NC3A Geo.\n"
+msgstr ""
+"ترکیبی از سیلاب ناگهانی (از اثر بارش شدید) بر اساس سیستم هدایت سیلاب "
+"ناگهانی  (FFGS)  سازمان هواشناسی جهانی(WMO) میباشد، و  این برنامه کاهش حوادث "
+"خطرات iMMAP  را قادر می سازد تا از تهدیدات قریب الوقوع پیش بینی سیلاب را "
+"ادغام کنند. در ترکیب با نقشه خطر سیلاب افغانستان، iMMAP مدل جمعیت و استفاده "
+"از زمین را تخمین می زند که اجازه می دهد تا تعداد افراد و یا زمین های تولیدی "
+"را در معرض خطر سیلاب ناگهانی در 6 ساعت آینده را ارزیابی کنند. سیلاب های دیگر "
+"معمولی  سیل های دریایی هستند که در حال حاضر با استفاده از اطلاعات با وضاحت "
+"پایین از سیستم نظارت جهانی سیل (GFMS) پیش بینی می شود و در اوایل سال 2016 "
+"میباشد، در انتظار دسترسی به اطلاعات سیستم اطلاعات آگاهانه جهانی سیل (GLOFAS) "
+"به عنوان سیستم اساسی از نقشه خطر سیلاب افغانستان استفاده کرد. دسته ها خطر "
+"مدغم شده شامل بافر 25M بوده، که با مدل سازی هایدرولیکی از ارقام DEM با وضاحت "
+"بالا ایجاد شده، برای اطلاعات بیشتر در میتودولوژی، با NC3A Geo تماس بگیرید.\n"
+
+msgid ""
+"Flash Flood are based on the WMO Flash Flood Guidance System (FFGS), and it "
+"enables the iMMAP DRR program to integrate Imminent Flash Flood Threats, "
+"Persistence Flash Flood Threat and Forecast Flash Flood Threats. In "
+"combination with the Afghanistan Flood Hazard Map, iMMAP modelled population "
+"and land use estimates it allows to assess the potential number of persons "
+"or productive land area at risk of flash flood for the next 6 hours. \n"
+msgstr ""
+
+msgid "The population is aggregated from settlement and landcover dataset\n"
+msgstr ""
+
+msgid ""
+"The Settlement Area of Interest/Influence, indicates the areas which are "
+"designated to be closed and/or associated to the settlement. Settlement "
+"names originate from the MISTI settlement dataset.\r\n"
+"\r\n"
+" It would be incorrect to considered it as an virtual administrative/"
+"cadastral boundary layer. The settlement boundary layers are modelled have  "
+"no reflection on any real administrative/political boundaries. E.g. A small "
+"hamlet/village at the end of a valley with population of 50 persons, could "
+"be assigned the hinterland mountain range of multiple hundred square km. "
+"Simply as it is the nearest settlement, however the actual settlement and "
+"how the local population assess the village might only be 1-2 square km. "
+"This association is generally not entirely incorrect, settlements are "
+"generally located near productive land where the closest village will be the "
+"custodian of the area. Barenland however will not have any villages."
+msgstr ""
+
+msgid "Default Point"
+msgstr ""
+
+msgid "Document Type"
+msgstr ""
+
+msgid "Publication"
+msgstr ""
+
+msgid "Default Polygon"
+msgstr ""
+
+msgid "Password again"
 msgstr ""
 
 #: utils.py:44
@@ -3029,6 +1836,10 @@ msgstr "اداری"
 #: api/api.py:118
 msgid "Droughts"
 msgstr "خشک سالی"
+
+#: api/api.py:119
+msgid "Earthquake"
+msgstr "زلزله"
 
 #: api/api.py:120
 msgid "Education"
@@ -3671,31 +2482,31 @@ msgstr "URL سند اگر خارجی باشد."
 msgid "URL"
 msgstr "URL"
 
-#: documents/views.py:30
+#: documents/views.py:36
 msgid "You are not permitted to delete this document"
 msgstr "شما اجازه ندارید این سند را حذف کنید"
 
-#: documents/views.py:31
+#: documents/views.py:37
 msgid "You do not have permissions for this document."
 msgstr "شما اجازه دسترسی به این سند را  ندارید."
 
-#: documents/views.py:32
+#: documents/views.py:38
 msgid "You are not permitted to modify this document"
 msgstr "شما اجازه اصلاح این سند را ندارید."
 
-#: documents/views.py:34
+#: documents/views.py:40
 msgid "You are not permitted to modify this document's metadata"
 msgstr "شما اجازه اصلاح میتادیتای این سند را ندارید."
 
-#: documents/views.py:35
+#: documents/views.py:41
 msgid "You are not permitted to view this document"
 msgstr "شما اجازه مشاهده این سند را ندارید."
 
-#: documents/views.py:71 documents/views.py:125
+#: documents/views.py:77 documents/views.py:131
 msgid "You are not allowed to view this document."
 msgstr "شما اجازه مشاهده این سند را ندارید."
 
-#: documents/views.py:215
+#: documents/views.py:221
 msgid "You are not allowed to edit this document."
 msgstr "شما اجازه تصحیح این سند را ندارید."
 
@@ -4559,6 +3370,10 @@ msgstr "علامه"
 #: layers/templates/layers/layer_detail.html:53
 msgid "Range"
 msgstr "محدوده"
+
+#: layers/templates/layers/layer_detail.html:54
+msgid "Average"
+msgstr "اوسط"
 
 #: layers/templates/layers/layer_detail.html:55
 msgid "Median"
@@ -5681,6 +4496,10 @@ msgid ""
 "contacted"
 msgstr "آدرس فزیکی و ایمیل که در آن سازمان و یا اشخاص بتواند در تماس باشند"
 
+#: people/models.py:69
+msgid "City"
+msgstr "شهر"
+
 #: people/models.py:73
 msgid "city of the location"
 msgstr "موقعیت شهر"
@@ -5838,12 +4657,12 @@ msgid "Invite User"
 msgstr "دعوت  کاربر"
 
 #: people/templates/people/profile_detail.html:107 templates/500.html:231
-#: templates/base.html:329
+#: templates/base.html:330
 msgid "GeoServer"
 msgstr "GeoServer"
 
 #: people/templates/people/profile_detail.html:110 templates/500.html:234
-#: templates/base.html:332
+#: templates/base.html:333
 msgid "Admin"
 msgstr "مدیر سایت"
 
@@ -6240,17 +5059,17 @@ msgstr "فعالیت اخیر"
 msgid "Inbox"
 msgstr "دریافت ها"
 
-#: templates/500.html:239 templates/base.html:337
+#: templates/500.html:239 templates/base.html:338
 msgid "Help"
 msgstr "کمک"
 
-#: templates/500.html:245 templates/base.html:343
+#: templates/500.html:245 templates/base.html:344
 #: templates/account/logout.html:6 templates/account/logout.html.py:12
 #: templates/account/logout.html:17
 msgid "Log out"
 msgstr "خارج شدن"
 
-#: templates/500.html:280 templates/base.html:379
+#: templates/500.html:280 templates/base.html:380
 msgid "Type your search here ..."
 msgstr "جستجوی خود را اینجا بنویسید ..."
 
@@ -6392,7 +5211,7 @@ msgstr ""
 #: templates/about.html:25
 msgid ""
 "The information provided on ASDC are especially useful in regards to "
-"forecasting, emergency response, M&E and planning purposes."
+"prediction, emergency response, M&E and planning purposes."
 msgstr ""
 "اطلاعات ارائه شده در ASDC به خصوص در رابطه با پیش بینی، واکنش های اضطراری، "
 "نظارت و ارزیابی و اهداف برنامه ریزی مفید است."
@@ -6438,6 +5257,10 @@ msgstr "بیش از 135.000 حوادث ضبط شده  (از سال 2008)"
 msgid "Can be filtered by date/incident type/area and target type."
 msgstr "میتوان فیلتر بر اساس تاریخ / نوع حادثه / منطقه و نوع هدف."
 
+#: templates/about.html:76
+msgid "GSM coverage"
+msgstr "پوشش خدمات موبایل  GSM"
+
 #: templates/about.html:77
 msgid "Accessibility. Travel time and distance between points of interest:"
 msgstr "دسترسی. زمان و فاصله سفر در بین نقاط مورد علاقه:"
@@ -6460,7 +5283,7 @@ msgstr ""
 
 #: templates/about.html:84
 msgid ""
-"Forecasting (including estimates on population at risk for each of the "
+"Prediction (including estimates on population at risk for each of the "
 "following):"
 msgstr "پیش بینی (از جمله برآورد نفوس در معرض خطر برای هر یک از موارد ذیل ):"
 
@@ -6471,7 +5294,9 @@ msgstr ""
 "میماند  "
 
 #: templates/about.html:87
-msgid "Every 6 hours the river flood risk is estimated for the next 4 days"
+msgid ""
+"Every 6 hours the river flood risk is estimated for the next 4 (GFMS) - 20 "
+"(GLOFAS) days"
 msgstr "هر 6 ساعت خطر سیلاب دریایی برای 4 روز آینده تخمین میشود"
 
 #: templates/about.html:88
@@ -6507,7 +5332,7 @@ msgid ""
 "Dr. Emlyn Hagen has led the development of the ASDC conceptually and "
 "scientifically. At one hand creating the various unique data sets utilised "
 "by the project, as well as developing the scientific methodology for the "
-"forecasting and statistics."
+"prediction and statistics."
 msgstr ""
 "داکتر ایملین هاگن (Emlyn Hagen) از نظر علمی و نظری  توسعه ASDC را رهبری "
 "مینماید. او از یک سو ایجاد مجموعه ارقام های مختلف بینظیر که استفاده شده "
@@ -6600,6 +5425,10 @@ msgstr "توسعه یافته توسط iMMAP"
 #: templates/base.html:243
 msgid "iMMAP"
 msgstr "iMMAP"
+
+#: templates/base.html:328
+msgid "User Statistics"
+msgstr ""
 
 #: templates/developer.html:4 templates/developer.html.py:8
 msgid "Information for Developers"
@@ -7290,18 +6119,22 @@ msgid "Users"
 msgstr "کاربران"
 
 #: templates/index.html:129
-msgid "Current Flood Forecast"
+msgid "Current Flood Prediction"
 msgstr "پیش بینی فعلی سیلاب"
 
 #: templates/index.html:146
 msgid "Flood"
 msgstr "سیلاب"
 
+#: templates/index.html:147
+msgid "River and flash flood prediction"
+msgstr "پیش بینی سیلاب دریایی و  سیلاب ناگهانی (از اثر بارش شدید)"
+
 #: templates/index.html:148
 msgid ""
-"Click to explore for the forecast on river floods and flash floods. River "
-"flood forecasts are valid for 4 days and updated every 6 hours, whereas the "
-"flash floods are valid for 6 hours and updated hourly."
+"Click to explore for the prediction on river floods and flash floods. River "
+"flood predictions are valid for 4 days and updated every 6 hours, whereas "
+"the flash floods are valid for 6 hours and updated hourly."
 msgstr ""
 " برای جستجوی پیشبینی سیلاب های دریایی و سیلاب های ناگهانی(باران شدید) اینجا "
 "کلیک کنید .سیلاب دریایی هر 6 ساعت بعد آپدیت شده به مدت 4 روز معتبر بوده در "
@@ -7317,7 +6150,7 @@ msgid "Current Avalanche"
 msgstr "برف کوچ فعلی"
 
 #: templates/index.html:186
-msgid "Avalanches forecast"
+msgid "Avalanches prediction"
 msgstr "پیشبینی برف کوچ"
 
 #: templates/index.html:187
@@ -7328,6 +6161,10 @@ msgid ""
 msgstr ""
 "اینجا کلیک کنید برای جستجوی تعداد مردم که در حال حاضر تحت تأثیر برف کوچ قرار "
 "دارند به اساس پوشش برف و آب معادل برف (به مقیاس حوضه کوچک)"
+
+#: templates/index.html:204
+msgid "Current Snow Cover"
+msgstr "پوشش فعلی برف"
 
 #: templates/index.html:221
 msgid "Snow Cover"
@@ -7450,11 +6287,6 @@ msgstr "بخش 4: نسخه انگلیسی  "
 msgid "Segment 5: English Version"
 msgstr "بخش 5: نسخه انگلیسی  "
 
-#: templates/index.html:524 templates/index.html.py:615
-#: templates/video.html:71 templates/video.html.py:162
-msgid "Earthquakes"
-msgstr "زلزله ها"
-
 #: templates/index.html:531 templates/video.html:78
 msgid "Segment 6: English Version"
 msgstr "بخش 6: نسخه انگلیسی  "
@@ -7569,7 +6401,7 @@ msgstr "سیستم هدایت سیلاب ناگهانی (FFGS) از مرکز ت�
 
 #: templates/partners.html:22
 msgid ""
-"WMO data is used for the flash flood forecasts, as well as providing snow "
+"WMO data is used for the flash flood predictions, as well as providing snow "
 "water equivalent data used to calculate snow depth"
 msgstr ""
 "ارقام و آمار WMO برای پیش بینی سیلاب ها استفاده می شود، و همچنین ارائه دهنده "
@@ -7593,7 +6425,7 @@ msgstr ""
 #: templates/partners.html:32
 msgid ""
 "Global Flood Monitoring System (GFMS) is supported by NOAA and is an "
-"essential component of the flood forecasting system"
+"essential component of the flood prediction system"
 msgstr ""
 "سیستم نظارت جهانی سیلاب (GFMS) توسط NOAA حمایت میشود که یکی از عمده ترین "
 "سیستم پیش بینی سیلاب میباشد "
@@ -7630,7 +6462,7 @@ msgstr "دانشگاه مریلند (Maryland)"
 msgid ""
 "Global Flood Monitoring System (GFMS) is maintained by the university of "
 "Maryland. The data is essential for one component of the river flood "
-"forecasting in Afghanistan. NOAA and NASA are other partners which  help "
+"prediction in Afghanistan. NOAA and NASA are other partners which  help "
 "create this data"
 msgstr ""
 "سیستم نظارت جهانی سیلاب (GFMS) که توسط دانشگاه مریلند تمویل میشود. ارقام این "
@@ -7645,7 +6477,7 @@ msgstr "سازمان سراسری هوانوردی و فضا (NASA)"
 msgid ""
 "Global Flood Monitoring System (GFMS) is maintained by the university of "
 "Maryland. The data is essential for one component of the river flood "
-"forecasting in Afghanistan. NOAA and NASA are other partners which  help "
+"prediction in Afghanistan. NOAA and NASA are other partners which  help "
 "create this data."
 msgstr ""
 "سیستم نظارت جهانی سیلاب (GFMS) که توسط دانشگاه مریلند تمویل میشود. ارقام این "
@@ -7699,13 +6531,12 @@ msgstr "کمیسیون مشترک تحقیقات (JRC) - سیستم آگاهی �
 
 #: templates/partners.html:97
 msgid ""
-"The Global Flood Awareness System (GloFAS) data will be integrated at a "
-"later stage, yet it is already beign used to assess the accuracy of the "
-"River Flood Forecast."
+"The Global Flood Awareness System (GloFAS) data is since 2017 being used to "
+"aid with flood prediction. It has a time horizon of 30 days, of which 20 "
+"days are used for our flood prediction estimates. The Global Flood Awareness "
+"System (GloFAS), jointly developed by the European Commission and the "
+"European Centre for Medium-Range Weather Forecasts."
 msgstr ""
-"ارقام سیستم آگاهی سیلاب جهانی (GloFAS) : ارقام این مرجع در مرحله بعدی داخل "
-"سایت میشود، در حال حاضر برای آرزیابی دقت و صحت پیش بینی سیلاب های دریایی "
-"استفاده می شود."
 
 #: templates/partners.html:105
 msgid "NATO Communications and Information Agency (NCI Agency)"
@@ -7715,7 +6546,7 @@ msgstr "آژانس اطلاعات و ارتباطات NATO( آژانس NCI)"
 msgid ""
 "Afghanistan Flood Hazard Map was provided by NATO NCI Agency (previously "
 "NC3A), it is a crucial data set without which static flood risk and flash/"
-"river flood forecasting would not be possible"
+"river flood prediction would not be possible"
 msgstr ""
 "نقشه خطرات سیلاب افغانستان توسط آژانس NATO NCI  تهیه شده  ، این یکی از ست "
 "ارقام مهم است که بدون آن امکان پیشبینی خطر سیلاب های دریایی و سیلاب از اثر "
@@ -8651,12 +7482,3 @@ msgstr "برگشت به دریافت ها"
 #: templates/user_messages/thread_detail.html:26
 msgid "Send Reply"
 msgstr "ارسال پاسخ"
-
-msgid "Publication"
-msgstr "نشریه"
-
-msgid "Password again"
-msgstr "رمز عبور دوباره "
-
-msgid "Document Type"
-msgstr "نوع سند"

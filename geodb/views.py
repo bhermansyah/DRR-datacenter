@@ -1459,68 +1459,68 @@ def getLandSlideInfoVillages(request):
     if context_dict['landslide_risk'] >= 7:
         context_dict['landslide_risk'] = 'Very High'
     elif context_dict['landslide_risk'] >= 5 and context_dict['landslide_risk'] < 7:
-        context_dict['landslide_risk'] = 'High' 
+        context_dict['landslide_risk'] = 'High'
     elif context_dict['landslide_risk'] >= 4 and context_dict['landslide_risk'] < 5:
-        context_dict['landslide_risk'] = 'Moderate'        
+        context_dict['landslide_risk'] = 'Moderate'
     elif context_dict['landslide_risk'] >= 2 and context_dict['landslide_risk'] < 4:
-        context_dict['landslide_risk'] = 'Low' 
+        context_dict['landslide_risk'] = 'Low'
     elif context_dict['landslide_risk'] >= 1 and context_dict['landslide_risk'] < 2:
-        context_dict['landslide_risk'] = 'Very Low'        
+        context_dict['landslide_risk'] = 'Very Low'
     else :
-        context_dict['landslide_risk'] = 'None' 
+        context_dict['landslide_risk'] = 'None'
 
 
     if context_dict['landslide_risk_lsi_ku'] >= 7:
         context_dict['landslide_risk_lsi_ku'] = 'Very High'
     elif context_dict['landslide_risk_lsi_ku'] >= 5 and context_dict['landslide_risk_lsi_ku'] < 7:
-        context_dict['landslide_risk_lsi_ku'] = 'High' 
+        context_dict['landslide_risk_lsi_ku'] = 'High'
     elif context_dict['landslide_risk_lsi_ku'] >= 4 and context_dict['landslide_risk_lsi_ku'] < 5:
-        context_dict['landslide_risk_lsi_ku'] = 'Moderate'        
+        context_dict['landslide_risk_lsi_ku'] = 'Moderate'
     elif context_dict['landslide_risk_lsi_ku'] >= 2 and context_dict['landslide_risk_lsi_ku'] < 4:
-        context_dict['landslide_risk_lsi_ku'] = 'Low' 
+        context_dict['landslide_risk_lsi_ku'] = 'Low'
     elif context_dict['landslide_risk_lsi_ku'] >= 1 and context_dict['landslide_risk_lsi_ku'] < 2:
-        context_dict['landslide_risk_lsi_ku'] = 'Very Low'        
+        context_dict['landslide_risk_lsi_ku'] = 'Very Low'
     else :
-        context_dict['landslide_risk_lsi_ku'] = 'None' 
+        context_dict['landslide_risk_lsi_ku'] = 'None'
 
     if context_dict['landslide_risk_ls_s1_wb'] >= 7:
         context_dict['landslide_risk_ls_s1_wb'] = 'Very High'
     elif context_dict['landslide_risk_ls_s1_wb'] >= 5 and context_dict['landslide_risk_ls_s1_wb'] < 7:
-        context_dict['landslide_risk_ls_s1_wb'] = 'High' 
+        context_dict['landslide_risk_ls_s1_wb'] = 'High'
     elif context_dict['landslide_risk_ls_s1_wb'] >= 4 and context_dict['landslide_risk_ls_s1_wb'] < 5:
-        context_dict['landslide_risk_ls_s1_wb'] = 'Moderate'        
+        context_dict['landslide_risk_ls_s1_wb'] = 'Moderate'
     elif context_dict['landslide_risk_ls_s1_wb'] >= 2 and context_dict['landslide_risk_ls_s1_wb'] < 4:
-        context_dict['landslide_risk_ls_s1_wb'] = 'Low' 
+        context_dict['landslide_risk_ls_s1_wb'] = 'Low'
     elif context_dict['landslide_risk_ls_s1_wb'] >= 1 and context_dict['landslide_risk_ls_s1_wb'] < 2:
-        context_dict['landslide_risk_ls_s1_wb'] = 'Very Low'        
+        context_dict['landslide_risk_ls_s1_wb'] = 'Very Low'
     else :
-        context_dict['landslide_risk_ls_s1_wb'] = 'None' 
+        context_dict['landslide_risk_ls_s1_wb'] = 'None'
 
     if context_dict['landslide_risk_ls_s2_wb'] >= 7:
         context_dict['landslide_risk_ls_s2_wb'] = 'Very High'
     elif context_dict['landslide_risk_ls_s2_wb'] >= 5 and context_dict['landslide_risk_ls_s2_wb'] < 7:
-        context_dict['landslide_risk_ls_s2_wb'] = 'High' 
+        context_dict['landslide_risk_ls_s2_wb'] = 'High'
     elif context_dict['landslide_risk_ls_s2_wb'] >= 4 and context_dict['landslide_risk_ls_s2_wb'] < 5:
-        context_dict['landslide_risk_ls_s2_wb'] = 'Moderate'        
+        context_dict['landslide_risk_ls_s2_wb'] = 'Moderate'
     elif context_dict['landslide_risk_ls_s2_wb'] >= 2 and context_dict['landslide_risk_ls_s2_wb'] < 4:
-        context_dict['landslide_risk_ls_s2_wb'] = 'Low' 
+        context_dict['landslide_risk_ls_s2_wb'] = 'Low'
     elif context_dict['landslide_risk_ls_s2_wb'] >= 1 and context_dict['landslide_risk_ls_s2_wb'] < 2:
-        context_dict['landslide_risk_ls_s2_wb'] = 'Very Low'        
+        context_dict['landslide_risk_ls_s2_wb'] = 'Very Low'
     else :
-        context_dict['landslide_risk_ls_s2_wb'] = 'None' 
+        context_dict['landslide_risk_ls_s2_wb'] = 'None'
 
     if context_dict['landslide_risk_ls_s3_wb'] >= 7:
         context_dict['landslide_risk_ls_s3_wb'] = 'Very High'
     elif context_dict['landslide_risk_ls_s3_wb'] >= 5 and context_dict['landslide_risk_ls_s3_wb'] < 7:
-        context_dict['landslide_risk_ls_s3_wb'] = 'High' 
+        context_dict['landslide_risk_ls_s3_wb'] = 'High'
     elif context_dict['landslide_risk_ls_s3_wb'] >= 4 and context_dict['landslide_risk_ls_s3_wb'] < 5:
-        context_dict['landslide_risk_ls_s3_wb'] = 'Moderate'        
+        context_dict['landslide_risk_ls_s3_wb'] = 'Moderate'
     elif context_dict['landslide_risk_ls_s3_wb'] >= 2 and context_dict['landslide_risk_ls_s3_wb'] < 4:
-        context_dict['landslide_risk_ls_s3_wb'] = 'Low' 
+        context_dict['landslide_risk_ls_s3_wb'] = 'Low'
     elif context_dict['landslide_risk_ls_s3_wb'] >= 1 and context_dict['landslide_risk_ls_s3_wb'] < 2:
-        context_dict['landslide_risk_ls_s3_wb'] = 'Very Low'        
+        context_dict['landslide_risk_ls_s3_wb'] = 'Very Low'
     else :
-        context_dict['landslide_risk_ls_s3_wb'] = 'None' 
+        context_dict['landslide_risk_ls_s3_wb'] = 'None'
 
     context_dict.pop('position')
 
@@ -1607,7 +1607,7 @@ def getFloodInfoVillages(request):
     data.append([_('River Flood'),context_dict['riverflood_forecast_verylow_pop'], context_dict['riverflood_forecast_low_pop'], context_dict['riverflood_forecast_med_pop'], context_dict['riverflood_forecast_high_pop'], context_dict['riverflood_forecast_veryhigh_pop'], context_dict['riverflood_forecast_extreme_pop'], context_dict['total_risk_population'], round(context_dict['vuid_population'] or 0, 0)])
     data.append([_('Flash Flood'),context_dict['flashflood_forecast_verylow_pop'], context_dict['flashflood_forecast_low_pop'], context_dict['flashflood_forecast_med_pop'], context_dict['flashflood_forecast_high_pop'], context_dict['flashflood_forecast_veryhigh_pop'], context_dict['flashflood_forecast_extreme_pop'], context_dict['total_risk_population'], round(context_dict['vuid_population'] or 0, 0)])
     data.append(['',0,0,0,0,0,0,context_dict['total_risk_population'], round(context_dict['vuid_population'] or 0, 0)])
-    context_dict['combo_pop_chart'] = gchart.ComboChart(SimpleDataSource(data=data), html_id="combo_chart", options={'vAxis': {'title': _('Number of population')},'legend': {'position': 'top', 'maxLines':2}, 'colors': ['#b9c246', '#e49307', '#e49307', '#e7711b', '#e2431e', '#d3362d', 'red', 'green' ], 'title': _("Flood Forecast Exposure"), 'seriesType': 'bars', 'series': {6: {'type': 'area', 'lineDashStyle': [2, 2, 20, 2, 20, 2]}, 7: {'type': 'area', 'lineDashStyle':[10, 2]}}, 'isStacked': 'false'})
+    context_dict['combo_pop_chart'] = gchart.ComboChart(SimpleDataSource(data=data), html_id="combo_chart", options={'vAxis': {'title': _('Number of population')},'legend': {'position': 'top', 'maxLines':2}, 'colors': ['#b9c246', '#e49307', '#e49307', '#e7711b', '#e2431e', '#d3362d', 'red', 'green' ], 'title': _("Flood Prediction Exposure"), 'seriesType': 'bars', 'series': {6: {'type': 'area', 'lineDashStyle': [2, 2, 20, 2, 20, 2]}, 7: {'type': 'area', 'lineDashStyle':[10, 2]}}, 'isStacked': 'false'})
 
     dataFLRiskPop = []
     dataFLRiskPop.append([_('Flood Risk'),'Population'])
@@ -2025,7 +2025,7 @@ def calculate_glofas_params(date):
             rl2_temp = rl2
             rl5_temp = rl5
             rl20_temp = rl20
-        
+
         rl2 = rl2_temp
         rl5 = rl5_temp
         rl20 = rl20_temp
@@ -2237,8 +2237,8 @@ def getDemographicInfo(request):
             v[1] = {'v':v[1], 'f':str(abs(round(v[1], 1)))+' %'}
             v[2] = {'v':v[2], 'f':str(abs(round(v[2], 1)))+' %'}
 
-    context_dict['gender_ratio_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", options={'title': _("Gender Ratio (in %)"), 'width': 510, 'pieSliceText': _('value'),'pieHole':0.5,'legend': {'position': 'top', 'maxLines':3},'tooltip': {'text': 'value'}})
-    context_dict['gender_ratio_by_age_chart'] = gchart.BarChart(SimpleDataSource(data=data4), html_id="bar_chart1", options=data4options)
+    context_dict['gender_ratio_chart'] = gchart.PieChart(SimpleDataSource(data=data3), html_id="pie_chart3", width=510, options={'title': _("Gender Ratio (in %)"), 'width': 510, 'pieSliceText': _('value'),'pieHole':0.5,'legend': {'position': 'top', 'maxLines':3},'tooltip': {'text': 'value'}})
+    context_dict['gender_ratio_by_age_chart'] = gchart.BarChart(SimpleDataSource(data=data4), html_id="bar_chart1", width=510, options=data4options)
 
     context_dict.pop('position')
     return render_to_response(template,

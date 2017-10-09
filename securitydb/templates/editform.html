@@ -393,6 +393,10 @@
 		$("#bd_sec_entries_panel .x-tool-pin", parent.document).css('display', 'initial');
 
 		$('#setCoord_btn').click(function() {
+
+			// remove 'Mask Layer' to make pin location easier
+			mainMap.map.getLayersByName('Mask Layer')[0].removeAllFeatures();
+
 			if (!click) getCoordinateActivate();
 		});
 

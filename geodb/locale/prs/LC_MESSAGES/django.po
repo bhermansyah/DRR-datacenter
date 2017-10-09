@@ -424,7 +424,7 @@ msgid "Number of population"
 msgstr "نفوس "
 
 #: views.py:1477
-msgid "Flood Forecast Exposure"
+msgid "Flood Prediction Exposure"
 msgstr ""
 
 #: views.py:1480 views.py:1502

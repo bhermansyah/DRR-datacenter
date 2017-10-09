@@ -1718,7 +1718,7 @@ msgid "Accessibility"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:91663
-msgid "Flood Forecasted"
+msgid "Flood Predicted"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:91698
@@ -1726,7 +1726,7 @@ msgid "Flood Risk"
 msgstr "د سیلاب خطره"
 
 #: static/lib/js/GeoExplorer.js:91706
-msgid "Avalanche Forecasted"
+msgid "Avalanche Predicted"
 msgstr ""
 
 #: static/lib/js/GeoExplorer.js:91741
@@ -2438,7 +2438,7 @@ msgid "Last Updated"
 msgstr "سند"
 
 #: static/lib/js/GeoExplorer_add.js:1294
-msgid "Avalanche Forecast"
+msgid "Avalanche Prediction"
 msgstr ""
 
 #
@@ -2461,11 +2461,11 @@ msgid "General Information"
 msgstr ""
 
 #: static/lib/js/GeoExplorer_add.js:1684
-msgid "Snow Cover and forecasted"
+msgid "Snow Cover"
 msgstr ""
 
 #: static/lib/js/GeoExplorer_add.js:1690
-msgid "Flood and Forecasted"
+msgid "Flooding"
 msgstr ""
 
 #: static/lib/js/GeoExplorer_add.js:1791

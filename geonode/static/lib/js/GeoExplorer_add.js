@@ -1489,7 +1489,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                                     '</header>',
 
                                     '<div class="w3-container">',
-                                        '<p><div style="float:left;">'+gettext('Avalanche Forecast')+'</div><div style="float:right;">{snowwater_lastupdated}</div></p><br/>',
+                                        '<p><div style="float:left;">'+gettext('Avalanche Prediction')+'</div><div style="float:right;">{snowwater_lastupdated}</div></p><br/>',
                                         '<p><div style="float:left;">'+gettext('Snow Coverage & Depth')+'</div><div style="float:right;">{snowwater_lastupdated}</div></p><br/>',
                                     '</div>',
                                 '</div>',
@@ -1886,7 +1886,7 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/generalinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
-                            title: gettext('Demographic'),
+                            title: gettext('Demographics'),
                             // defaults: {autoScroll: true},
                             height : 2100,
                             style:"height:2100px;",
@@ -1898,13 +1898,13 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/accessibilityinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
-                            title: gettext('Snow Cover and forecasted'),
+                            title: gettext('Snow Cover'),
                             // defaults: {autoScroll: true},
                             height : 2100,
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/snowinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
-                            title: gettext('Flood and Forecasted'),
+                            title: gettext('Flooding'),
                             // defaults: {autoScroll: true},
                             height : 2100,
                             style:"height:2100px;",

@@ -537,27 +537,27 @@ msgid "Area"
 msgstr ""
 
 #: templates/pages/avalcheforecast.html:19 templates/pages/links.html:20
-msgid "Avalanche Forecast"
+msgid "Avalanche Prediction"
 msgstr ""
 
 #: templates/pages/avalcheforecast.html:34
-msgid "Forecast avalanche risk population"
+msgid "Avalanche risk population prediction"
 msgstr ""
 
 #: templates/pages/avalcheforecast.html:40
-msgid "Forecast high avalanche risk population"
+msgid "High avalanche risk population prediction"
 msgstr ""
 
 #: templates/pages/avalcheforecast.html:46
-msgid "Forecast moderate avalanche risk population"
+msgid "Moderate avalanche risk population prediction"
 msgstr ""
 
 #: templates/pages/avalcheforecast.html:52
-msgid "Forecast low avalanche risk population"
+msgid "Low avalanche risk population prediction"
 msgstr ""
 
 #: templates/pages/avalcheforecast.html:64
-msgid "Population in forecasted avalanche risk areas"
+msgid "Population in predicted avalanche risk areas"
 msgstr ""
 
 #: templates/pages/avalcheforecast.html:72
@@ -762,7 +762,7 @@ msgid "X+: Extreme"
 msgstr ""
 
 #: templates/pages/floodforecast.html:19 templates/pages/links.html:14
-msgid "Flood Forecast"
+msgid "Flood Prediction"
 msgstr ""
 
 #: templates/pages/floodforecast.html:26

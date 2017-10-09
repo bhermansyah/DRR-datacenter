@@ -3607,7 +3607,7 @@ msgstr ""
 #: templates/about.html:25
 msgid ""
 "The information provided on ASDC are especially useful in regards to "
-"forecasting, emergency response, M&E and planning purposes."
+"prediction, emergency response, M&E and planning purposes."
 msgstr ""
 
 #: templates/about.html:32
@@ -3672,7 +3672,7 @@ msgstr ""
 
 #: templates/about.html:84
 msgid ""
-"Forecasting (including estimates on population at risk for each of the "
+"Prediction (including estimates on population at risk for each of the "
 "following):"
 msgstr ""
 
@@ -3681,7 +3681,7 @@ msgid "Every hour the Flash Flood Risk is estimated valid for the next 6 hours"
 msgstr ""
 
 #: templates/about.html:87
-msgid "Every 6 hours the river flood risk is estimated for the next 4 days"
+msgid "Every 6 hours the river flood risk is estimated for the next 4 (GFMS) - 20 (GLOFAS) days"
 msgstr ""
 
 #: templates/about.html:88
@@ -3715,7 +3715,7 @@ msgid ""
 "Dr. Emlyn Hagen has led the development of the ASDC conceptually and "
 "scientifically. At one hand creating the various unique data sets utilised "
 "by the project, as well as developing the scientific methodology for the "
-"forecasting and statistics."
+"prediction and statistics."
 msgstr ""
 
 #: templates/about.html:106
@@ -4271,7 +4271,7 @@ msgid "Users"
 msgstr "کته اخیستونکی"
 
 #: templates/index.html:129
-msgid "Current Flood Forecast"
+msgid "Current Flood Prediction"
 msgstr ""
 
 #: templates/index.html:146
@@ -4279,13 +4279,13 @@ msgid "Flood"
 msgstr "سیلاب"
 
 #: templates/index.html:147
-msgid "River and flash flood forecast"
+msgid "River and flash flood prediction"
 msgstr ""
 
 #: templates/index.html:148
 msgid ""
-"Click to explore for the forecast on river floods and flash floods. River "
-"flood forecasts are valid for 4 days and updated every 6 hours, whereas the "
+"Click to explore for the prediction on river floods and flash floods. River "
+"flood predictions are valid for 4 days and updated every 6 hours, whereas the "
 "flash floods are valid for 6 hours and updated hourly."
 msgstr ""
 
@@ -4298,7 +4298,7 @@ msgid "Current Avalanche"
 msgstr ""
 
 #: templates/index.html:186
-msgid "Avalanches forecast"
+msgid "Avalanches prediction"
 msgstr ""
 
 #: templates/index.html:187
@@ -4561,7 +4561,7 @@ msgstr ""
 
 #: templates/partners.html:22
 msgid ""
-"WMO data is used for the flash flood forecasts, as well as providing snow "
+"WMO data is used for the flash flood predictions, as well as providing snow "
 "water equivalent data used to calculate snow depth"
 msgstr ""
 
@@ -4580,7 +4580,7 @@ msgstr ""
 #: templates/partners.html:32
 msgid ""
 "Global Flood Monitoring System (GFMS) is supported by NOAA and is an "
-"essential component of the flood forecasting system"
+"essential component of the flood prediction system"
 msgstr ""
 
 #: templates/partners.html:40
@@ -4611,7 +4611,7 @@ msgstr ""
 msgid ""
 "Global Flood Monitoring System (GFMS) is maintained by the university of "
 "Maryland. The data is essential for one component of the river flood "
-"forecasting in Afghanistan. NOAA and NASA are other partners which  help "
+"prediction in Afghanistan. NOAA and NASA are other partners which  help "
 "create this data"
 msgstr ""
 
@@ -4623,7 +4623,7 @@ msgstr ""
 msgid ""
 "Global Flood Monitoring System (GFMS) is maintained by the university of "
 "Maryland. The data is essential for one component of the river flood "
-"forecasting in Afghanistan. NOAA and NASA are other partners which  help "
+"prediction in Afghanistan. NOAA and NASA are other partners which  help "
 "create this data."
 msgstr ""
 
@@ -4666,9 +4666,11 @@ msgstr ""
 
 #: templates/partners.html:97
 msgid ""
-"The Global Flood Awareness System (GloFAS) data will be integrated at a "
-"later stage, yet it is already beign used to assess the accuracy of the "
-"River Flood Forecast."
+"The Global Flood Awareness System (GloFAS) data is since 2017 being used to "
+"aid with flood prediction. It has a time horizon of 30 days, of which 20 days "
+"are used for our flood prediction estimates. The Global Flood Awareness "
+"System (GloFAS), jointly developed by the European Commission and the "
+"European Centre for Medium-Range Weather Forecasts."
 msgstr ""
 
 #: templates/partners.html:105
@@ -4679,7 +4681,7 @@ msgstr ""
 msgid ""
 "Afghanistan Flood Hazard Map was provided by NATO NCI Agency (previously "
 "NC3A), it is a crucial data set without which static flood risk and flash/"
-"river flood forecasting would not be possible"
+"river flood prediction would not be possible"
 msgstr ""
 
 #: templates/partners.html:107
