@@ -68,9 +68,9 @@ class SignupForm(forms.Form):
         label=_("Organization"),
         widget=forms.TextInput(), required=True)
 
-    org_acronym = forms.ChoiceField(
+    org_acronym = forms.CharField(
         label=_("Organisation acronym"),
-        widget=forms.Select(), choices=ORG_ACCRONYM, required=True)
+        widget=forms.Select(choices=ORG_ACCRONYM), required=True)
 
 
     position = forms.CharField(
