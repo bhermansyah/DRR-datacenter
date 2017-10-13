@@ -27,7 +27,7 @@ from django.conf import settings
 
 from taggit.managers import TaggableManager
 
-from geonode.base.enumerations import COUNTRIES
+from geonode.base.enumerations import COUNTRIES, ORG_ACCRONYM, ORG_NAME_STATUS
 from geonode.groups.models import GroupProfile
 
 from account.models import EmailAddress
@@ -98,6 +98,26 @@ class Profile(AbstractUser):
         blank=True,
         null=True,
         help_text=_('Title'))
+    org_acronym = models.CharField(
+         _('Organisation acronym'),
+         choices=ORG_ACCRONYM,
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_('Organisation acronym'))
+    org_type = models.CharField(
+         _('Organisation Type'),
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_('Organisation Type'))
+    org_name_status = models.CharField(
+         _('Organisation Name Status'),
+        choices=ORG_NAME_STATUS,
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text=_('Organisation Name Status'))
 
     def get_absolute_url(self):
         return reverse('profile_detail', args=[self.username, ])
