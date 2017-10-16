@@ -1474,9 +1474,9 @@ def getRawAvalancheForecast(request, filterLock, flag, code):
         row = cursor.fetchall()
         cursor.close()
 
-    response['ava_forecast_low_pop']=round(dict(row).get(1, 0),0)
-    response['ava_forecast_med_pop']=round(dict(row).get(2, 0),0)
-    response['ava_forecast_high_pop']=round(dict(row).get(3, 0),0)
+    response['ava_forecast_low_pop']=round(dict(row).get(1, 0) or 0,0)
+    response['ava_forecast_med_pop']=round(dict(row).get(2, 0) or 0,0)
+    response['ava_forecast_high_pop']=round(dict(row).get(3, 0) or 0,0)
     response['total_ava_forecast_pop']=response['ava_forecast_low_pop'] + response['ava_forecast_med_pop'] + response['ava_forecast_high_pop']
 
     return response
