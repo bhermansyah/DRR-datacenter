@@ -27,31 +27,41 @@ def userstatistics(request):
     data['jsondata'] = {}
     data['jsondata']['useractivities'] = {}
     data['jsondata']['user'] = {}
+    user_exclude = ['admin', 'dodiws', 'dodiwsreg', 'rafinkanisa', 'boedy1996']
     start = time.time()
     print 'query start', start
     data['jsondata']['useractivities']['data'] = [
         [
-            r[0].encode('utf-8').strip(),
-            r[1].encode('utf-8').strip(),
-            r[2].encode('utf-8').strip(),
-            str(r[3]),
-            str(r[4]),
-            str(r[5]),
-            str(r[6]),
-            str(r[7]),
-            r[8].strftime('%Y-%m-%d %H:%M:%S'),
-            r[9].strftime('%Y-%m-%d %H:%M:%S'),
+            unicode(r[0]).encode('utf-8').strip(),
+            unicode(r[1]).encode('utf-8').strip(),
+            unicode(r[2]).encode('utf-8').strip(),
+            unicode(r[3]).encode('utf-8').strip(),
+            unicode(r[4]).encode('utf-8').strip(),
+            unicode(r[5]).encode('utf-8').strip(),
+            unicode(r[6]).encode('utf-8').strip(),
+            unicode(r[7]).encode('utf-8').strip(),
+            unicode(r[8]).encode('utf-8').strip(),
+            unicode(r[9]).encode('utf-8').strip(),
+            # str(r[3]),
+            # str(r[4]),
+            # str(r[5]),
+            # str(r[6]),
+            # str(r[7]),
             r[10].strftime('%Y-%m-%d %H:%M:%S'),
-            r[10].strftime('%Y'),
-            r[10].strftime('%m'),
-            r[10].strftime('%d')
+            r[11].strftime('%Y-%m-%d %H:%M:%S'),
+            r[12].strftime('%Y-%m-%d %H:%M:%S'),
+            r[12].strftime('%Y'),
+            r[12].strftime('%m'),
+            r[12].strftime('%d')
         ]
-        for r in matrix.objects.values_list(
+        for r in matrix.objects.exclude(user__username__in=user_exclude).values_list(
             'user__username',
             'user__first_name',
             'user__last_name',
             'user__email',
             'user__organization',
+            'user__org_acronym',
+            'user__org_type',
             'action',
             'resourceid__title',
             'resourceid__csw_type',
@@ -60,7 +70,17 @@ def userstatistics(request):
             'created'
         )
     ]
-    data['jsondata']['user']['data'] = [[str(r[0]), str(r[1]), r[2].strftime('%Y-%m-%d %H:%M:%S')] for r in get_user_model().objects.values_list('username', 'organization', 'date_joined')]
+
+    data['jsondata']['user']['data'] = [
+        [
+            unicode(r[0]).encode('utf-8').strip(),
+            unicode(r[1]).encode('utf-8').strip(),
+            unicode(r[2]).encode('utf-8').strip(),
+            unicode(r[3]).encode('utf-8').strip(),
+            r[4].strftime('%Y-%m-%d %H:%M:%S')
+        ]
+        for r in get_user_model().objects.exclude(username__in=user_exclude).values_list('username', 'organization', 'org_acronym', 'org_type', 'date_joined')
+    ]
     # data['user']['data'] = get_user_model().objects.all()
     end = time.time()
     print 'query end', end
@@ -71,6 +91,8 @@ def userstatistics(request):
         str('last_name'),
         str('email'),
         str('organization'),
+        str('org_acronym'),
+        str('org_type'),
         str('action'),
         str('resource'),
         str('type_of_object'),
@@ -81,5 +103,5 @@ def userstatistics(request):
         str('action_month'),
         str('action_day')
     ]
-    data['jsondata']['user']['columns'] = [str('username'), str('organization'), str('date_join')]
+    data['jsondata']['user']['columns'] = [str('username'), str('organization'), str('org_acronym'), str('org_type'), str('date_join')]
     return render(request, 'userstatistics.html', data)
