@@ -570,7 +570,7 @@ ORG_ACCRONYM = (
     ('HI','HI'),
     ('HTAC','HTAC'),
     ('HYDROC','HYDROC'),
-    ('HYMEP ','HYMEP'),
+    ('HYMEP','HYMEP'),
     ('ICIMOD','ICIMOD'),
     ('ICRC','ICRC'),
     ('IDLG','IDLG'),
