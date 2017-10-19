@@ -49,6 +49,45 @@ sitemaps = {
     "map": MapSitemap
 }
 
+v2urlpatterns = patterns('',
+                       # ubah
+                       url(r'^/?$', TemplateView.as_view(template_name='v2/index.html'), name='home'),
+                       url(r'^help/$', TemplateView.as_view(template_name='v2/help.html'), name='help'),
+                       url(r'^developer/$', TemplateView.as_view(template_name='v2/developer.html'), name='developer'),
+                       url(r'^about/$', TemplateView.as_view(template_name='v2/about.html'), name='about'),
+                       url(r'^disclaimer/$', TemplateView.as_view(template_name='v2/disclaimer.html'), name='disclaimer'),
+                       url(r'^partners/$', TemplateView.as_view(template_name='v2/partners.html'), name='partners'),
+                       url(r'^video/$', TemplateView.as_view(template_name='v2/video.html'), name='video'),
+                       url(r'^training/$', TemplateView.as_view(template_name='v2/training.html'), name='training'),
+                       url(r'^documentation/$', TemplateView.as_view(template_name='v2/doc.html'), name='documentation'),
+                       url(r'^layers/$', TemplateView.as_view(template_name='v2/layer_list.html'), name='layer_browse'),
+                       url(r'^maps/$', TemplateView.as_view(template_name='v2/map_list.html'), name='map_browse'),
+                       url(r'^documents/$', TemplateView.as_view(template_name='v2/document_list.html'), name='document_browse'),
+                       # /ubah
+                       # ubah
+                       (r'^layers/', include('geonode.layers.urls')),
+                       # /ubah
+                       # ubah
+                       (r'^maps/', include('geonode.maps.urls')),
+                       # (r'^maps/$', TemplateView.as_view(template_name='v2/map_list.html'), name='v2_maps_browse'),
+                       # /ubah
+                       # ubah
+                       (r"^account/", include("account.urls")),
+                       (r'^people/', include('geonode.people.urls')),
+                       # /ubah
+                       # ubah
+                       (r'^documents/', include('geonode.documents.urls')),
+                       # (r'^documents/$', TemplateView.as_view(template_name='v2/document_list.html'), name='document_browse'),
+                       # /ubah
+                       # ubah
+                       (r'^/', include('dashboard.urls')),
+                       (r'^dashboard/', include('dashboard.urls')),
+                       url(r'', include(geoapi.urls)),
+                       (r'^getOverviewMaps/', include('geodb.custom_urls')),
+                       (r'^people/', include('geonode.people.urls')),
+                       # /ubah
+                       )
+
 urlpatterns = patterns('',
 
                        # Static pages
@@ -61,12 +100,33 @@ urlpatterns = patterns('',
                        url(r'^video/$', TemplateView.as_view(template_name='video.html'), name='video'),
                        url(r'^training/$', TemplateView.as_view(template_name='training.html'), name='training'),
                        url(r'^documentation/$', TemplateView.as_view(template_name='documentation.html'), name='documentation'),
+                       # ubah
+                    #    url(r'^v2/?$', TemplateView.as_view(template_name='v2/index.html'), name='home'),
+                    #    url(r'^v2/help/$', TemplateView.as_view(template_name='v2/help.html'), name='help'),
+                    #    url(r'^v2/developer/$', TemplateView.as_view(template_name='v2/developer.html'), name='developer'),
+                    #    url(r'^v2/about/$', TemplateView.as_view(template_name='v2/about.html'), name='about'),
+                    #    url(r'^v2/disclaimer/$', TemplateView.as_view(template_name='v2/disclaimer.html'), name='disclaimer'),
+                    #    url(r'^v2/partners/$', TemplateView.as_view(template_name='v2/partners.html'), name='partners'),
+                    #    url(r'^v2/video/$', TemplateView.as_view(template_name='v2/video.html'), name='video'),
+                    #    url(r'^v2/training/$', TemplateView.as_view(template_name='v2/training.html'), name='training'),
+                    #    url(r'^v2/documentation/$', TemplateView.as_view(template_name='v2/doc.html'), name='documentation'),
+                       # /ubah
+
 
                        # Layer views
                        (r'^layers/', include('geonode.layers.urls')),
+                       # ubah
+                    #    (r'^v2/layers/', include('geonode.layers.urls')),
+                       # /ubah
+
 
                        # Map views
                        (r'^maps/', include('geonode.maps.urls')),
+                       # ubah
+                    #    (r'^v2/maps/', include('geonode.maps.urls')),
+                    #    # (r'^v2/maps/$', TemplateView.as_view(template_name='v2/map_list.html'), name='v2_maps_browse'),
+                       # /ubah
+
 
                        # Catalogue views
                        (r'^catalogue/', include('geonode.catalogue.urls')),
@@ -77,6 +137,10 @@ urlpatterns = patterns('',
                        # Social views
                        (r"^account/", include("account.urls")),
                        (r'^people/', include('geonode.people.urls')),
+                       # ubah
+                    #    (r"^v2/account/", include("account.urls")),
+                    #    (r'^v2/people/', include('geonode.people.urls')),
+                       # /ubah
                        (r'^avatar/', include('avatar.urls')),
                        (r'^comments/', include('dialogos.urls')),
                        (r'^ratings/', include('agon_ratings.urls')),
@@ -106,13 +170,61 @@ urlpatterns = patterns('',
                        (r'^admin/', include(admin.site.urls)),
                        (r'^groups/', include('geonode.groups.urls')),
                        (r'^documents/', include('geonode.documents.urls')),
+                       # ubah
+                    #    (r'^v2/documents/', include('geonode.documents.urls')),
+                    #    # (r'^v2/documents/$', TemplateView.as_view(template_name='v2/document_list.html'), name='document_browse'),
+                       # /ubah
+
                        (r'^services/', include('geonode.services.urls')),
                        url(r'', include(api.urls)),
                        url(r'', include(geoapi.urls)),
                        (r'^getOverviewMaps/', include('geodb.custom_urls')),
                        (r'^dashboard/', include('dashboard.urls')),
-                       (r'^securitydb/', include('securitydb.urls'))
+                       # ubah
+                    #    (r'^v2/', include('dashboard.urls')),
+                    #    (r'^v2/dashboard/', include('dashboard.urls')),
+                       # /ubah
+
+                       (r'^securitydb/', include('securitydb.urls')),
+
+                       # v2 will overwrite named url with the same name
+                       (r'^v2/', include(v2urlpatterns, namespace='v2')),
                        )
+
+# if 'v2' in request.path:
+# if True:
+#     urlpatterns += patterns('',
+#                        # ubah
+#                        url(r'^v2/?$', TemplateView.as_view(template_name='v2/index.html'), name='home'),
+#                        url(r'^v2/help/$', TemplateView.as_view(template_name='v2/help.html'), name='help'),
+#                        url(r'^v2/developer/$', TemplateView.as_view(template_name='v2/developer.html'), name='developer'),
+#                        url(r'^v2/about/$', TemplateView.as_view(template_name='v2/about.html'), name='about'),
+#                        url(r'^v2/disclaimer/$', TemplateView.as_view(template_name='v2/disclaimer.html'), name='disclaimer'),
+#                        url(r'^v2/partners/$', TemplateView.as_view(template_name='v2/partners.html'), name='partners'),
+#                        url(r'^v2/video/$', TemplateView.as_view(template_name='v2/video.html'), name='video'),
+#                        url(r'^v2/training/$', TemplateView.as_view(template_name='v2/training.html'), name='training'),
+#                        url(r'^v2/documentation/$', TemplateView.as_view(template_name='v2/doc.html'), name='documentation'),
+#                        # /ubah
+#                        # ubah
+#                        (r'^v2/layers/', include('geonode.layers.urls')),
+#                        # /ubah
+#                        # ubah
+#                        (r'^v2/maps/', include('geonode.maps.urls')),
+#                        # (r'^v2/maps/$', TemplateView.as_view(template_name='v2/map_list.html'), name='v2_maps_browse'),
+#                        # /ubah
+#                        # ubah
+#                        (r"^v2/account/", include("account.urls")),
+#                        (r'^v2/people/', include('geonode.people.urls')),
+#                        # /ubah
+#                        # ubah
+#                        (r'^v2/documents/', include('geonode.documents.urls')),
+#                        # (r'^v2/documents/$', TemplateView.as_view(template_name='v2/document_list.html'), name='document_browse'),
+#                        # /ubah
+#                        # ubah
+#                        (r'^v2/', include('dashboard.urls')),
+#                        (r'^v2/dashboard/', include('dashboard.urls')),
+#                        # /ubah
+#                             )
 
 if "geonode.contrib.dynamic" in settings.INSTALLED_APPS:
     urlpatterns += patterns('',

@@ -1,0 +1,58 @@
+{% extends "v2/custombase.html" %}
+{% load i18n %}
+{% load url from future %}
+
+{% block title %} {{ block.super }} {% endblock %}
+
+{% block body_class %}dashboard {{ request.GET.page }}{% endblock %}
+
+{% block head %}{{ block.super }}
+  <script>
+  {% if jsondata %}
+    jsondata = {{ jsondata|safe }};
+  {% else %}
+    jsondata = {};
+  {% endif %}
+
+  {% if 'print' in request.build_absolute_uri %}
+    var animate= false;
+  {% else %}
+    var animate= true;
+  {% endif %}
+  </script>
+{% endblock %}
+
+
+
+{% block body_outer %}
+
+<!-- <iframe name="iframe1" width="100%" height="800" src="http://reporthub.immap.org/#/immap/drr/baseline/afghanistan" frameborder="no" scrolling="yes"></iframe> -->
+	{% include "v2/links.html" %}
+    <!-- <div id="" class="container"> -->
+    	{% if request.GET.page == 'baseline' %}
+    		{% include "v2/dash_baseline.html" %}
+    	{% elif request.GET.page == 'floodforecast' %}
+    		{% include "v2/dash_fforecast.html" %}
+    	{% elif request.GET.page == 'floodrisk' %}
+    		{% include "v2/dash_frisk.html" %}
+    	{% elif request.GET.page == 'avalancherisk' %}
+    		{% include "v2/dash_arisk.html" %}
+    	{% elif request.GET.page == 'avalcheforecast' %}
+    		{% include "v2/dash_aforecast.html" %}
+    	{% elif request.GET.page == 'accessibility' %}
+    		{% include "v2/dash_accessibility.html" %}
+    	{% elif request.GET.page == 'earthquake' %}
+    		{% include "v2/dash_earthquake.html" %}
+    	{% elif request.GET.page == 'security' %}
+    		{% include "v2/dash_haccess.html" %}
+		  {% elif request.GET.page == 'naturaldisaster' %}
+    		{% include "v2/dash_ndisaster.html" %}
+      {% elif request.GET.page == 'weather' %}
+        {% include "v2/dash_weather.html" %}
+      {% elif request.GET.page == 'landslide' %}
+        {% include "v2/dash_landslide.html" %}
+    	{% endif %}
+    <!-- </div> -->
+
+
+{% endblock body_outer %}

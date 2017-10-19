@@ -1,0 +1,156 @@
+{% extends "v2/site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "About ASDC" %} — {{ block.super }} {% endblock %}
+{% block body_class %}about{% endblock %}
+{% block body_outer %}
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>About</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="#">Documentation</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">About</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<!-- About Us -->
+	<section id="about" class="container">
+	    <div class="center">
+	        <h2>{% trans "About ASDC" %}</h2>
+	        <p></p>
+	    </div>
+	    <hr>
+	    <p>{% trans "The Afghanistan Spatial Data Center (ASDC) is developed by iMMAP in Afghanistan. It is part of the iMMAP Disaster Risk Reduction Program, which is funded by the United States Agency for International Development (USAID)/Office of U.S. Foreign Disaster Assistance (OFDA)." %}</p>
+        <p>{% trans "The Disaster Risk Reduction (DRR) program is a scientific program that supports the humanitarian community with critical information to aid decision makers in emergency response or program development. The Afghanistan Spatial Data Center (ASDC) is the dissemination platform for DRR data and other baseline information. At present the ASDC is the most advanced geoportal on Afghanistan containing comprehensive and accurate data. The iMMAP DRR program is funded by USAID and it is ready for daily usage." %}</p>
+	    <p>{% trans "The information provided on ASDC are especially useful in regards to prediction, emergency response, M&E and planning purposes." %}</p>
+	    <hr>
+
+	    <div class="row">
+	    	<center>
+		    	<div class="col-md-4">
+		    		<iframe src="https://docs.google.com/viewer?srcid=0BzBdhyC69O7NeWdFdHlqc1NuSHM&pid=explorer&efh=false&a=v&chrome=false&embedded=true" style="width:330px; height:455px;" frameborder="0"></iframe>
+		    	</div>
+		    	<div class="col-md-4">
+		    		<iframe src="https://docs.google.com/viewer?srcid=0BzBdhyC69O7NQmtSQ1gzdVg4dzA&pid=explorer&efh=false&a=v&chrome=false&embedded=true" style="width:330px; height:455px;" frameborder="0"></iframe>
+		    	</div>
+		    	<div class="col-md-4">
+		    		<iframe src="https://docs.google.com/viewer?srcid=0BzBdhyC69O7NYnhlc3FIUzNXRTA&pid=explorer&efh=false&a=v&chrome=false&embedded=true" style="width:330px; height:455px;" frameborder="0"></iframe>
+		    	</div>
+	    	</center>
+	    </div>
+
+	    <p>&nbsp;</p>
+
+	    <div class="row">
+	        <!-- Left Column -->
+	        <div class="col-md-12 ">
+	            <h3>{% trans "Main available information" %}</h3>
+	            <div class="col-md-6">
+	            	<h4>{% trans "Population estimates at village level" %}</h4>
+	            	<ul class="arrow">
+	            	    <li>{% trans "Flood risk areas and population/landcover type at risk" %}</li>
+	            	    <li>{% trans "Avalanche risk areas and population at risk" %} </li>
+	            	    <li>{% trans "Humanitarian Access for entire Afghanistan, mapped daily" %}</li>
+	            	    	<ul>
+	            	    		<li>{% trans "More than 135.000 incidents on record (since 2008)" %}</li>
+	            	    		<li>{% trans "Can be filtered by date/incident type/area and target type." %}</li>
+	            	    	</ul>
+	            	    <li>{% trans "GSM coverage" %}</li>
+	            	    <li>{% trans "Accessibility. Travel time and distance between points of interest:" %}</li>
+	            	    	<ul>
+	            	    		<li>{% trans "e.g. How many million persons can reach the hospital within one-hour travel time (at nationwide/province/district/sub area)" %}</li>
+	            	    		<li>{% trans "e.g. For each village which is the nearest hospital, airport or administrative centre how far is it and how long does it take to travel there" %}</li>
+	            	    	</ul>
+	            	</ul>
+	            </div>
+	            <div class="col-md-6">
+	            	<h4>{% trans "Prediction" %}</h4>
+	            	<p>{% trans "(including estimates on population at risk for each of the following):" %}</p>
+	            	<ul class="arrow">
+	            	    <li>{% trans "Every hour the Flash Flood Risk is estimated valid for the next 6 hours" %}</li>
+	            	    <li>{% trans "Every 6 hours the river flood risk is estimated for the next 4 (GFSM) - 20 (GLOFAS) days" %}</li>
+	            	    <li>{% trans "Every day the snow cover and snow depth is estimated" %}</li>
+	            	    <li>{% trans "Once a day the avalanche risk based on snow cover and depth is assessed" %}</li>
+	            	    <li>{% trans "Earthquake data is being monitored every 5 minutes" %}</li>
+	            	    <li>{% trans "+5M Earthquakes estimates on population shake intensity (approx. 1 1/2 hours after event)" %}</li>
+	            	</ul>
+	            </div>
+	            
+	            <hr>
+	            <!-- <h3></h3> -->
+	            
+	        </div>
+	        <!-- /Left Column -->
+	        <!-- Right Column -->
+	        <!-- <div class="col-md-6">
+	            <h3>DRR Core Team</h3>
+	            <h4>Program Manager and Science Officer</h4>
+	            <p>Dr. Emlyn Hagen has led the development of the ASDC conceptually and scientifically. At one hand creating the various unique data sets utilised by the project, as well as developing the scientific methodology for the forecasting and statistics.</p>
+	            <h4>GeoNode Developer</h4>
+	            <p>Mr. Budi Hermansyah has created the ASDC GeoNode portal. Which is an advanced and further development of the GeoNode supported by the World Bank. These advancements include the creation of all statistics and user interfaces, statistics, POI’s models, as well as automated data retrieval and analysis for forecasting purposes. Furthermore, an advanced dashboard has been created by Mr Budi Hermansyah.</p>
+	            <h4>Information Management Officer - Training and Outreach</h4>
+	            <p>Noor Zangana has led the dedicated training program of users on the ASDC since July 2016. She is supported by two local nationals in this effort. The training program is further supported by videos as well as a certification process.</p>
+	        </div> -->
+	        <!-- /Right Column -->
+	    </div>
+	    <p>&nbsp;</p>
+
+	    <!-- Meet the team -->
+	    <hr>
+	    <h2 class="center">{% trans "DRR Core Team" %}</h2>
+	    <hr>
+	    <div class="row">
+	        <div class="col-md-3">
+	            <div class="x_panel">
+	                <p><img src="images/sample/team1.jpg" alt="" ></p>
+	                <h5 class="center">{% trans "Program Manager and Science Officer" %}</h5>
+	                <p>{% trans "Dr. Emlyn Hagen has led the development of the ASDC conceptually and scientifically. At one hand creating the various unique data sets utilised by the project, as well as developing the scientific methodology for the prediction and statistics." %}</p>
+	                <a class="btn btn-social btn-facebook" href="#"><i class="icon-facebook"></i></a> <a class="btn btn-social btn-google-plus" href="#"><i class="icon-google-plus"></i></a> <a class="btn btn-social btn-twitter" href="#"><i class="icon-twitter"></i></a> <a class="btn btn-social btn-linkedin" href="#"><i class="icon-linkedin"></i></a>
+	            </div>
+	        </div>
+
+	        <div class="col-md-3">
+	            <div class="x_panel">
+	                <p><img src="images/sample/team2.jpg" alt="" ></p>
+	                <h5 class="center">{% trans "GeoNode Developer" %}</h5>
+	                <p>{% trans "Mr. Budi Hermansyah has created the ASDC GeoNode portal. Which is an advanced and further development of the GeoNode supported by the World Bank. These advancements include the creation of all statistics and user interfaces, statistics, POI’s models, as well as automated data retrieval and analysis for forecasting purposes. Furthermore, an advanced dashboard has been created by Mr Budi Hermansyah." %}</p>
+	                <a class="btn btn-social btn-facebook" href="#"><i class="icon-facebook"></i></a> <a class="btn btn-social btn-google-plus" href="#"><i class="icon-google-plus"></i></a> <a class="btn btn-social btn-twitter" href="#"><i class="icon-twitter"></i></a> <a class="btn btn-social btn-linkedin" href="#"><i class="icon-linkedin"></i></a>
+	            </div>
+	        </div>
+
+	        <div class="col-md-3">
+	            <div class="x_panel">
+	                <p><img src="images/sample/team4.jpg" alt="" ></p>
+	                <h5 class="center">{% trans "Information Management Officer - Training and Outreach" %}</h5>
+	                <p>{% trans "Noor Zangana has led the dedicated training program of users on the ASDC since July 2016. She is supported by two local nationals in this effort. The training program is further supported by videos as well as a certification process." %}</p>
+	                <a class="btn btn-social btn-facebook" href="#"><i class="icon-facebook"></i></a> <a class="btn btn-social btn-google-plus" href="#"><i class="icon-google-plus"></i></a> <a class="btn btn-social btn-twitter" href="#"><i class="icon-twitter"></i></a> <a class="btn btn-social btn-linkedin" href="#"><i class="icon-linkedin"></i></a>
+	            </div>
+	        </div>
+
+	        <div class="col-md-3">
+	            <div class="x_panel">
+	                <p><img src="images/sample/team3.jpg" alt="" ></p>
+	                <h5>Put other name here</h5>
+	                <p>Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat.</p>
+	                <a class="btn btn-social btn-facebook" href="#"><i class="icon-facebook"></i></a> <a class="btn btn-social btn-google-plus" href="#"><i class="icon-google-plus"></i></a> <a class="btn btn-social btn-twitter" href="#"><i class="icon-twitter"></i></a> <a class="btn btn-social btn-linkedin" href="#"><i class="icon-linkedin"></i></a>
+	            </div>
+	        </div>
+	    </div>
+	    <p>&nbsp;</p>
+	    <p></p>
+	    <hr>
+	</section>
+
+{% endblock %}

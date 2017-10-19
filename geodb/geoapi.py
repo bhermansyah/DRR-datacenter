@@ -61,7 +61,10 @@ class FloodRiskStatisticResource(ModelResource):
 
         o = urlparse(request.META.get('HTTP_REFERER')).path
         o=o.split('/')
-        mapCode = o[2]
+        if 'v2' in o:
+            mapCode = o[3]
+        else:
+            mapCode = o[2]
         map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
 
         queryset = matrix(user=request.user,resourceid=map_obj,action='Interactive Calculation')

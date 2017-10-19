@@ -1,0 +1,731 @@
+{% load i18n %}
+{% load humanize %}
+{% load app_filters %}
+
+	<div class="tab-content container">
+	    <section id="landslide">
+	        <div class="row">
+	            <div class="breadcrumb breadcrumb-custom">
+	                <span>{% trans "Landslide Risk" %}</span>
+	                {% include "v2/breadcrumb.html" %}
+	            </div>
+	        </div>
+	        <div class="row">
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Indexes (iMMAP 2017)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+	                    <div class="row">
+	                        <div class="col-md-12 col-sm-12 col-xs-12">
+	                            <div id="echart_donut_lsi" class="ch-size-pie"></div>
+	                        </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Multi-criteria Susceptibility Index" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+	                    <div class="row">
+	                        <div class="col-md-12 col-sm-12 col-xs-12">
+	                            <div id="echart_donut_ku" class="ch-size-pie"></div>
+	                        </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Susceptibility (S1)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+	                    <div class="row">
+	                        <div class="col-md-12 col-sm-12 col-xs-12">
+	                            <div id="echart_donut_S1" class="ch-size-pie"></div>
+	                        </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Susceptibility (S2)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+	                    <div class="row">
+	                        <div class="col-md-12 col-sm-12 col-xs-12">
+	                            <div id="echart_donut_S2" class="ch-size-pie"></div>
+	                        </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Susceptibility (S3)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+	                    <div class="row">
+	                        <div class="col-md-12 col-sm-12 col-xs-12">
+	                            <div id="echart_donut_S3" class="ch-size-pie"></div>
+	                        </div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	        </div>
+	        <div class="row">
+	            <div class="col-md-8 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2>{% trans "Population by Landslide Indexes (iMMAP 2017)" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <p class="text-muted font-13 m-b-30">
+	                        	Put any description here
+	                        </p>
+	                        <div class="table-responsive hidden-print">
+	                            <table id="" class="table table-hover online">
+	                                <thead>
+	                                    <tr>
+	                                        <th rowspan="2">{% trans "Region" %}</th>
+	                                        <th colspan="4">{% trans "Risk Level" %}</th>
+	                                    </tr>
+	                                    <tr>
+	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                                        <th class="landslide_high hum">{% trans "High" %}</th>
+	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td class="boldRow">{{parent_label}}</td>
+	                                        <td class="boldRow landslide_vhigh">{{lsi_immap_very_high}}</td>
+	                                        <td class="boldRow landslide_high">{{lsi_immap_high}}</td>
+	                                        <td class="boldRow landslide_mod">{{lsi_immap_moderate}}</td>
+	                                        <td class="boldRow landslide_low">{{lsi_immap_low}}</td>
+	                                    </tr>
+	                                    {% for data in lc_child %}
+	                                    <tr class="selectable" onclick="window.document.location='?page=landslide&code={{data.code}}';">
+	                                        <td>{{data.na_en}}</td>
+	                                        <td class="landslide_vhigh">{{data.lsi_immap_very_high}}</td>
+	                                        <td class="landslide_high">{{data.lsi_immap_high}}</td>
+	                                        <td class="landslide_mod">{{data.lsi_immap_moderate}}</td>
+	                                        <td class="landslide_low">{{data.lsi_immap_low}}</td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                        <div class="table-responsive visible-print-block">
+	                        	<table class="table table-condensed print">
+	                        	    <thead>
+	                        	        <tr>
+	                        	            <th rowspan="2">{% trans "Region" %}</th>
+	                        	            <th colspan="4">{% trans "Risk Level" %}</th>
+	                        	        </tr>
+	                        	        <tr>
+	                        	            <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                        	            <th class="landslide_high hum">{% trans "High" %}</th>
+	                        	            <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                        	            <th class="landslide_low hum">{% trans "Low" %}</th>
+	                        	        </tr>
+	                        	    </thead>
+	                        	    <tbody>
+	                        	        <tr>
+	                        	            <td class="boldRow">{{parent_label}}</td>
+	                        	            <td class="boldRow landslide_vhigh">{{lsi_immap_very_high}}</td>
+	                        	            <td class="boldRow landslide_high">{{lsi_immap_high}}</td>
+	                        	            <td class="boldRow landslide_mod">{{lsi_immap_moderate}}</td>
+	                        	            <td class="boldRow landslide_low">{{lsi_immap_low}}</td>
+	                        	        </tr>
+	                        	        {% for data in lc_child %}
+	                        	        <tr>
+	                        	            <td>{{data.na_en}}</td>
+	                        	            <td class="landslide_vhigh">{{data.lsi_immap_very_high}}</td>
+	                        	            <td class="landslide_high">{{data.lsi_immap_high}}</td>
+	                        	            <td class="landslide_mod">{{data.lsi_immap_moderate}}</td>
+	                        	            <td class="landslide_low">{{data.lsi_immap_low}}</td>
+	                        	        </tr>
+	                        	        {% endfor %}
+	                        	    </tbody>
+	                        	</table>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Indexes (iMMAP 2017)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+                		<div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                			<div id="echart_bar_horizontal_lsi" class="ch-size"></div>
+                		</div>
+                	    <div class="col-md-12 col-xs-12 col-sm-4 center">
+                	    	<div class="tile_count">
+                	    		<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+                	    		    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+                	    		    <div class="count red">{% readable Population %}</div>
+                	    		</div>
+                	    	</div>
+                	    </div>
+	                </div>
+	              </div>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	            <div class="col-md-8 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2>{% trans "Population by Multi-criteria Landslide Susceptibility Index" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <p class="text-muted font-13 m-b-30">
+	                        	Put any description here
+	                        </p>
+	                        <div class="table-responsive hidden-print">
+	                            <table id="" class="table table-hover online">
+	                                <thead>
+	                                    <tr>
+	                                        <th rowspan="2">{% trans "Region" %}</th>
+	                                        <th colspan="4">{% trans "Risk Level" %}</th>
+	                                    </tr>
+	                                    <tr>
+	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                                        <th class="landslide_high hum">{% trans "High" %}</th>
+	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td class="boldRow">{{parent_label}}</td>
+	                                        <td class="boldRow landslide_vhigh">{{lsi_ku_very_high}}</td>
+	                                        <td class="boldRow landslide_high">{{lsi_ku_high}}</td>
+	                                        <td class="boldRow landslide_mod">{{lsi_ku_moderate}}</td>
+	                                        <td class="boldRow landslide_low">{{lsi_ku_low}}</td>
+	                                    </tr>
+	                                    {% for data in lc_child %}
+	                                    <tr class="selectable" onclick="window.document.location='?page=landslide&code={{data.code}}';">
+	                                        <td>{{data.na_en}}</td>
+	                                        <td class="landslide_vhigh">{{data.lsi_ku_very_high}}</td>
+	                                        <td class="landslide_high">{{data.lsi_ku_high}}</td>
+	                                        <td class="landslide_mod">{{data.lsi_ku_moderate}}</td>
+	                                        <td class="landslide_low">{{data.lsi_ku_low}}</td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                        <div class="table-responsive visible-print-block">
+	                        	<table class="table table-condensed print">
+	                        	    <thead>
+	                        	        <tr>
+	                        	            <th rowspan="2">{% trans "Region" %}</th>
+	                        	            <th colspan="4">{% trans "Risk Level" %}</th>
+	                        	        </tr>
+	                        	        <tr>
+	                        	            <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                        	            <th class="landslide_high hum">{% trans "High" %}</th>
+	                        	            <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                        	            <th class="landslide_low hum">{% trans "Low" %}</th>
+	                        	        </tr>
+	                        	    </thead>
+	                        	    <tbody>
+	                        	        <tr>
+	                        	            <td class="boldRow">{{parent_label}}</td>
+	                        	            <td class="boldRow landslide_vhigh">{{lsi_ku_very_high}}</td>
+	                        	            <td class="boldRow landslide_high">{{lsi_ku_high}}</td>
+	                        	            <td class="boldRow landslide_mod">{{lsi_ku_moderate}}</td>
+	                        	            <td class="boldRow landslide_low">{{lsi_ku_low}}</td>
+	                        	        </tr>
+	                        	        {% for data in lc_child %}
+	                        	        <tr>
+	                        	            <td>{{data.na_en}}</td>
+	                        	            <td class="landslide_vhigh">{{data.lsi_ku_very_high}}</td>
+	                        	            <td class="landslide_high">{{data.lsi_ku_high}}</td>
+	                        	            <td class="landslide_mod">{{data.lsi_ku_moderate}}</td>
+	                        	            <td class="landslide_low">{{data.lsi_ku_low}}</td>
+	                        	        </tr>
+	                        	        {% endfor %}
+	                        	    </tbody>
+	                        	</table>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Multi-criteria Susceptibility Index" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+                		<div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                			<div id="echart_bar_horizontal_ku" class="ch-size"></div>
+                		</div>
+                	    <div class="col-md-12 col-xs-12 col-sm-4 center">
+                	    	<div class="tile_count">
+                	    		<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+                	    		    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+                	    		    <div class="count red">{% readable Population %}</div>
+                	    		</div>
+                	    	</div>
+                	    </div>
+	                </div>
+	              </div>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	            <div class="col-md-8 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2>{% trans "Population by Landslide susceptibility - bedrock landslides in slow evolution (S1)" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <p class="text-muted font-13 m-b-30">
+	                        	Put any description here
+	                        </p>
+	                        <div class="table-responsive hidden-print">
+	                            <table id="" class="table table-hover online">
+	                                <thead>
+	                                    <tr>
+	                                        <th rowspan="2">{% trans "Region" %}</th>
+	                                        <th colspan="4">{% trans "Risk Level" %}</th>
+	                                    </tr>
+	                                    <tr>
+	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                                        <th class="landslide_high hum">{% trans "High" %}</th>
+	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td class="boldRow">{{parent_label}}</td>
+	                                        <td class="boldRow landslide_vhigh">{{ls_s1_wb_very_high}}</td>
+	                                        <td class="boldRow landslide_high">{{ls_s1_wb_high}}</td>
+	                                        <td class="boldRow landslide_mod">{{ls_s1_wb_moderate}}</td>
+	                                        <td class="boldRow landslide_low">{{ls_s1_wb_low}}</td>
+	                                    </tr>
+	                                    {% for data in lc_child %}
+	                                    <tr class="selectable" onclick="window.document.location='?page=landslide&code={{data.code}}';">
+	                                        <td>{{data.na_en}}</td>
+	                                        <td class="landslide_vhigh">{{data.ls_s1_wb_very_high}}</td>
+	                                        <td class="landslide_high">{{data.ls_s1_wb_high}}</td>
+	                                        <td class="landslide_mod">{{data.ls_s1_wb_moderate}}</td>
+	                                        <td class="landslide_low">{{data.ls_s1_wb_low}}</td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                        <div class="table-responsive visible-print-block">
+	                        	<table class="table table-condensed print">
+	                        	    <thead>
+	                        	        <tr>
+	                        	            <th rowspan="2">{% trans "Region" %}</th>
+	                        	            <th colspan="4">{% trans "Risk Level" %}</th>
+	                        	        </tr>
+	                        	        <tr>
+	                        	            <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                        	            <th class="landslide_high hum">{% trans "High" %}</th>
+	                        	            <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                        	            <th class="landslide_low hum">{% trans "Low" %}</th>
+	                        	        </tr>
+	                        	    </thead>
+	                        	    <tbody>
+	                        	        <tr>
+	                        	            <td class="boldRow">{{parent_label}}</td>
+	                        	            <td class="boldRow landslide_vhigh">{{ls_s1_wb_very_high}}</td>
+	                        	            <td class="boldRow landslide_high">{{ls_s1_wb_high}}</td>
+	                        	            <td class="boldRow landslide_mod">{{ls_s1_wb_moderate}}</td>
+	                        	            <td class="boldRow landslide_low">{{ls_s1_wb_low}}</td>
+	                        	        </tr>
+	                        	        {% for data in lc_child %}
+	                        	        <tr>
+	                        	            <td>{{data.na_en}}</td>
+	                        	            <td class="landslide_vhigh">{{data.ls_s1_wb_very_high}}</td>
+	                        	            <td class="landslide_high">{{data.ls_s1_wb_high}}</td>
+	                        	            <td class="landslide_mod">{{data.ls_s1_wb_moderate}}</td>
+	                        	            <td class="landslide_low">{{data.ls_s1_wb_low}}</td>
+	                        	        </tr>
+	                        	        {% endfor %}
+	                        	    </tbody>
+	                        	</table>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Susceptibility (S1)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+                		<div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                			<div id="echart_bar_horizontal_s1" class="ch-size"></div>
+                		</div>
+                	    <div class="col-md-12 col-xs-12 col-sm-4 center">
+                	    	<div class="tile_count">
+                	    		<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+                	    		    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+                	    		    <div class="count red">{% readable Population %}</div>
+                	    		</div>
+                	    	</div>
+                	    </div>
+	                </div>
+	              </div>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	            <div class="col-md-8 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2>{% trans "Population by Landslide susceptibility - bedrock landslides in rapid evolution (S2)" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <p class="text-muted font-13 m-b-30">
+	                        	Put any description here
+	                        </p>
+	                        <div class="table-responsive hidden-print">
+	                            <table id="" class="table table-hover online">
+	                                <thead>
+	                                    <tr>
+	                                        <th rowspan="2">{% trans "Region" %}</th>
+	                                        <th colspan="4">{% trans "Risk Level" %}</th>
+	                                    </tr>
+	                                    <tr>
+	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                                        <th class="landslide_high hum">{% trans "High" %}</th>
+	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td class="boldRow">{{parent_label}}</td>
+	                                        <td class="boldRow landslide_vhigh">{{ls_s2_wb_very_high}}</td>
+	                                        <td class="boldRow landslide_high">{{ls_s2_wb_high}}</td>
+	                                        <td class="boldRow landslide_mod">{{ls_s2_wb_moderate}}</td>
+	                                        <td class="boldRow landslide_low">{{ls_s2_wb_low}}</td>
+	                                    </tr>
+	                                    {% for data in lc_child %}
+	                                    <tr class="selectable" onclick="window.document.location='?page=landslide&code={{data.code}}';">
+	                                        <td>{{data.na_en}}</td>
+	                                        <td class="landslide_vhigh">{{data.ls_s2_wb_very_high}}</td>
+	                                        <td class="landslide_high">{{data.ls_s2_wb_high}}</td>
+	                                        <td class="landslide_mod">{{data.ls_s2_wb_moderate}}</td>
+	                                        <td class="landslide_low">{{data.ls_s2_wb_low}}</td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                        <div class="table-responsive visible-print-block">
+	                            <table class="table table-condensed print">
+	                                <thead>
+	                                    <tr>
+	                                        <th rowspan="2">{% trans "Region" %}</th>
+	                                        <th colspan="4">{% trans "Risk Level" %}</th>
+	                                    </tr>
+	                                    <tr>
+	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                                        <th class="landslide_high hum">{% trans "High" %}</th>
+	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td class="boldRow">{{parent_label}}</td>
+	                                        <td class="boldRow landslide_vhigh">{{lsi_immap_very_high}}</td>
+	                                        <td class="boldRow landslide_high">{{lsi_immap_high}}</td>
+	                                        <td class="boldRow landslide_mod">{{lsi_immap_moderate}}</td>
+	                                        <td class="boldRow landslide_low">{{lsi_immap_low}}</td>
+	                                    </tr>
+	                                    {% for data in lc_child %}
+	                                    <tr>
+	                                        <td>{{data.na_en}}</td>
+	                                        <td class="landslide_vhigh">{{data.lsi_immap_very_high}}</td>
+	                                        <td class="landslide_high">{{data.lsi_immap_high}}</td>
+	                                        <td class="landslide_mod">{{data.lsi_immap_moderate}}</td>
+	                                        <td class="landslide_low">{{data.lsi_immap_low}}</td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Susceptibility (S2)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+                		<div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                			<div id="echart_bar_horizontal_s2" class="ch-size"></div>
+                		</div>
+                	    <div class="col-md-12 col-xs-12 col-sm-4 center">
+                	    	<div class="tile_count">
+                	    		<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+                	    		    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+                	    		    <div class="count red">{% readable Population %}</div>
+                	    		</div>
+                	    	</div>
+                	    </div>
+	                </div>
+	              </div>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	            <div class="col-md-8 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2>{% trans "Population by Landslide susceptibility - cover material in rapid evolution (S3)" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <p class="text-muted font-13 m-b-30">
+	                        	Put any description here
+	                        </p>
+	                        <div class="table-responsive hidden-print">
+	                            <table id="" class="table table-hover online">
+	                                <thead>
+	                                    <tr>
+	                                        <th rowspan="2">{% trans "Region" %}</th>
+	                                        <th colspan="4">{% trans "Risk Level" %}</th>
+	                                    </tr>
+	                                    <tr>
+	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                                        <th class="landslide_high hum">{% trans "High" %}</th>
+	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td class="boldRow">{{parent_label}}</td>
+	                                        <td class="boldRow landslide_vhigh">{{ls_s3_wb_very_high}}</td>
+	                                        <td class="boldRow landslide_high">{{ls_s3_wb_high}}</td>
+	                                        <td class="boldRow landslide_mod">{{ls_s3_wb_moderate}}</td>
+	                                        <td class="boldRow landslide_low">{{ls_s3_wb_low}}</td>
+	                                    </tr>
+	                                    {% for data in lc_child %}
+	                                    <tr class="selectable" onclick="window.document.location='?page=landslide&code={{data.code}}';">
+	                                        <td>{{data.na_en}}</td>
+	                                        <td class="landslide_vhigh">{{data.ls_s3_wb_very_high}}</td>
+	                                        <td class="landslide_high">{{data.ls_s3_wb_high}}</td>
+	                                        <td class="landslide_mod">{{data.ls_s3_wb_moderate}}</td>
+	                                        <td class="landslide_low">{{data.ls_s3_wb_low}}</td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                        <div class="table-responsive visible-print-block">
+	                            <table class="table table-condensed print">
+	                                <thead>
+	                                    <tr>
+	                                        <th rowspan="2">{% trans "Region" %}</th>
+	                                        <th colspan="4">{% trans "Risk Level" %}</th>
+	                                    </tr>
+	                                    <tr>
+	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
+	                                        <th class="landslide_high hum">{% trans "High" %}</th>
+	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
+	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
+	                                    </tr>
+	                                </thead>
+	                                <tbody>
+	                                    <tr>
+	                                        <td class="boldRow">{{parent_label}}</td>
+	                                        <td class="boldRow landslide_vhigh">{{lsi_immap_very_high}}</td>
+	                                        <td class="boldRow landslide_high">{{lsi_immap_high}}</td>
+	                                        <td class="boldRow landslide_mod">{{lsi_immap_moderate}}</td>
+	                                        <td class="boldRow landslide_low">{{lsi_immap_low}}</td>
+	                                    </tr>
+	                                    {% for data in lc_child %}
+	                                    <tr>
+	                                        <td>{{data.na_en}}</td>
+	                                        <td class="landslide_vhigh">{{data.lsi_immap_very_high}}</td>
+	                                        <td class="landslide_high">{{data.lsi_immap_high}}</td>
+	                                        <td class="landslide_mod">{{data.lsi_immap_moderate}}</td>
+	                                        <td class="landslide_low">{{data.lsi_immap_low}}</td>
+	                                    </tr>
+	                                    {% endfor %}
+	                                </tbody>
+	                            </table>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>{% trans "Landslide Susceptibility (S3)" %}</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+                		<div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                			<div id="echart_bar_horizontal_s3" class="ch-size"></div>
+                		</div>
+                	    <div class="col-md-12 col-xs-12 col-sm-4 center">
+                	    	<div class="tile_count">
+                	    		<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+                	    		    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+                	    		    <div class="count red">{% readable Population %}</div>
+                	    		</div>
+                	    	</div>
+                	    </div>
+	                </div>
+	              </div>
+	            </div>
+	        </div>
+	    </section>
+	</div>
+
+<script type="text/javascript">
+	var color = [ '#43A047', '#FDD835' , '#FB8C00', '#e84c3d' ];
+	var level_risk = ['{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}' ];
+	var level_risk_pie = ['{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}', '{% trans "Not at Risk" %}' ];
+
+	var pop = {{Population}};
+	var lsi = [{{lsi_immap_low}}, {{lsi_immap_moderate}}, {{lsi_immap_high}}, {{lsi_immap_very_high}}];
+	var lsi_ku = [{{lsi_ku_low}}, {{lsi_ku_moderate}}, {{lsi_ku_high}}, {{lsi_ku_very_high}}];
+	var ls_s1_wb = [{{ls_s1_wb_low}}, {{ls_s1_wb_moderate}}, {{ls_s1_wb_high}}, {{ls_s1_wb_very_high}}];
+	var ls_s2_wb = [{{ls_s2_wb_low}}, {{ls_s2_wb_moderate}}, {{ls_s2_wb_high}}, {{ls_s2_wb_very_high}}];
+	var ls_s3_wb = [{{ls_s3_wb_low}}, {{ls_s3_wb_moderate}}, {{ls_s3_wb_high}}, {{ls_s3_wb_very_high}}];
+
+	// console.log(ls_s1_wb);
+
+</script>

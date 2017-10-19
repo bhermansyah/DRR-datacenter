@@ -34,6 +34,8 @@ from geonode.people.forms import ProfileForm
 from geonode.people.forms import ForgotUsernameForm
 from geonode.tasks.email import send_email
 
+import re
+
 
 @login_required
 def profile_edit(request, username=None):
@@ -59,7 +61,7 @@ def profile_edit(request, username=None):
         else:
             form = ProfileForm(instance=profile)
 
-        return render(request, "people/profile_edit.html", {
+        return render(request, "v2/profile_edit.html" if re.match('^/v2', request.path) else "people/profile_edit.html", {
             "profile": profile,
             "form": form,
         })
@@ -72,7 +74,7 @@ def profile_detail(request, username):
     profile = get_object_or_404(Profile, username=username)
     # combined queryset from each model content type
 
-    return render(request, "people/profile_detail.html", {
+    return render(request, "v2/profile_detail.html" if re.match('^/v2', request.path) else "people/profile_detail.html", {
         "profile": profile,
     })
 
@@ -105,7 +107,7 @@ def forgot_username(request):
             else:
                 message = _("No user could be found with that email address.")
 
-    return render_to_response('people/forgot_username_form.html',
+    return render_to_response("v2/forgot_username_form.html" if re.match('^/v2', request.path) else 'people/forgot_username_form.html',
                               RequestContext(request, {
                                   'message': message,
                                   'form': username_form

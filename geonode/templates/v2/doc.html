@@ -1,0 +1,220 @@
+{% extends "v2/site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Documentation" %} — {{ block.super }} {% endblock %}
+{% block body_class %}about{% endblock %}
+{% block body_outer %}
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>Documentation & Video</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="#">Documentation</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">Documentation & Videos</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<!-- Documentation -->
+	<section id="doc" class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h3>{% trans "Documentation" %}</h3>
+				<p>Put your description here.
+				<br>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+			</div>
+			<div class="col-md-6">
+				<center>
+					<iframe src="https://docs.google.com/viewer?srcid=0BzBdhyC69O7NVlg3bDU0SnZoenM&pid=explorer&efh=false&a=v&chrome=false&embedded=true" style="width:460px; height:600px;" frameborder="0"></iframe>
+				</center>
+			</div>
+		</div>
+
+		<p>&nbsp;</p>
+
+		<!-- <div class="row"> -->
+			<h3>{% trans "Videos" %}</h3>
+			<p>{% trans "To facilitate better communication, a Youtube channel has been made to host basic instruction videos on the functionalities of the Afghanistan Spatial Data Center (asdc.immap.org). The instruction videos can be found on YouTube and on the ASDC (available in Dari and English). Currently, there are 11 training videos, in total 1 ½ hours of material." %}
+			</p>
+			<a href="https://www.youtube.com/channel/UCkd_swrFk9vN81s9SQ3fKgg">{% trans "Go to Youtube Channel" %}</a>
+		<!-- </div> -->
+		<div class="col-md-12 panel-custom" style="align-items: stretch; padding: 0; margin: 15px 0;">
+	        <video id="myPlayerID"
+	          data-account="3676484087001"
+	          data-player="04ac0699-ca6b-449b-a2b6-0f14b4a7893b"
+	          data-embed="default"
+	          class="video-js" controls
+	          data-setup='{"example_option":true}'>
+	        </video>
+		    <ol class="vjs-playlist"></ol>
+		</div>
+	</section>
+
+
+	<script src="{{ STATIC_URL }}lib/js/video-ntah.js"></script>
+	<script type="text/javascript">
+	  videojs('myPlayerID').ready(function () {
+	    var myPlayer = this;
+	    myPlayer.playlist([{
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 1- Statistics Tool.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 1: English Version" %}",
+	      "description": "{% trans "Statistics Tool" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 2- Settlement Inspector.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 2: English Version" %}",
+	      "description": "{% trans "Settlement Inspector" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 3: English Version" %}",
+	      "description": "{% trans "Finder Tool" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/finder_tool.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/finder_tool.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 4: English Version" %}",
+	      "description": "{% trans "Static Maps" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/static_maps.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/static_maps.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 5: English Version" %}",
+	      "description": "{% trans "Earthquakes" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/earthquake.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/earthquake.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 6: English Version" %}",
+	      "description": "{% trans "Dashboard" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/dashboard.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/dashboard.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 7- Printing.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 7: English Version" %}",
+	      "description": "{% trans "Printing" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 8- Security Overview.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 8: English Version" %}",
+	      "description": "{% trans "Security Overview" %}",
+	      // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+	      // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 9- GSM Coverage.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 9: English Version" %}",
+	      "description": "{% trans "GSM Coverage" %}",
+	      // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+	      // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 10- Earthquake Hazard Risk.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 10: English Version" %}",
+	      "description": "{% trans "Earthquake Hazard Risk" %}",
+	      // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+	      // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 11- General Information - Certification.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 11: English Version" %}",
+	      "description": "{% trans "General Information - Certification" %}",
+	      // "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+	      // "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+	    }
+
+
+	    ,{
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 1- Statistics Tool - Dari.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 1: Dari Version" %}",
+	      "description": "{% trans "Statistics Tool" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/statistic_tool.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 2- Settlement Inspector - Dari.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 2: Dari Version" %}",
+	      "description": "{% trans "Settlement Inspector" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/settlement_inspector.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 3- Finder Tool - Dari.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 3: Dari Version" %}",
+	      "description": "{% trans "Finder Tool" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/finder_tool.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/finder_tool.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 4- Static Maps - Dari.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 4: Dari Version" %}",
+	      "description": "{% trans "Static Maps" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/static_maps.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/static_maps.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 5- Earthquakes - Dari.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 5: Dari Version" %}",
+	      "description": "{% trans "Earthquakes" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/earthquake.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/earthquake.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 6- Dashboard - Dari.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 6: Dari Version" %}",
+	      "description": "{% trans "Dashboard" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/dashboard.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/dashboard.jpg"
+	    }, {
+	      "sources": [{
+	        "src": "http://asdc.immap.org/static/lib/video/ASDC - Segment 7- Printing - Dari.mp4", "type": "video/mp4"
+	      }],
+	      "name": "{% trans "Segment 7: Dari Version" %}",
+	      "description": "{% trans "Printing" %}",
+	      "thumbnail": "http://asdc.immap.org/static/lib/video/printing.jpg",
+	      "poster": "http://asdc.immap.org/static/lib/video/printing.jpg"
+	    }]);
+	  });
+	</script>
+
+
+{% endblock %}

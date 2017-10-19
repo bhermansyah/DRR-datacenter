@@ -1,0 +1,24 @@
+{% load i18n %}
+
+<!-- <a href="#" class="user-profile"> -->
+  <!-- <img src="/static/v2/images/user.png" alt="">Admin -->
+  {% if resource.owner == resource.poc and resource.owner == resource.metadata_author %}
+    {% with resource.owner as profile %}
+      {% include "v2/_profile_about_item.html" %}
+    {% endwith %}
+  <p>{% trans "Owner, Point of Contact, Metadata Author" %}</p>
+  {% else %}
+    {% with resource.owner as profile %}
+      {% include "v2/_profile_about_item.html" %}
+    {% endwith %}
+  <p>{% trans "Owner" %}</p>
+    {% with resource.poc as profile %}
+      {% include "v2/_profile_about_item.html" %}
+    {% endwith %}
+  <p>{% trans "Point of Contact" %}</p>
+    {% with resource.metadata_author as profile %}
+      {% include "v2/_profile_about_item.html" %}
+    {% endwith %}
+  <p>{% trans "Metadata Author" %}</p>
+  {% endif %}
+<!-- </a> -->

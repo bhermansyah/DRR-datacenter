@@ -1,0 +1,109 @@
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+  <!-- Categories Panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading" id="headingCategories">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans "Categories" %}</a>
+      </h4>
+    </div>
+    <div id="collapseCategories" class="panel-collapse collapse in" aria-labelledby="headingCategories" aria-expanded="true">
+      <div class="panel-body">
+        <div class="side-menu-search hidden">
+          <input type="search" class="form-control input-sm input-sm" name="" placeholder="Search...">
+        </div>
+        <div class="side-menu-list">
+          <ul class="list-unstyled"> 
+            {% verbatim %}
+            <div>
+              <li ng-repeat="category in categories" ng-if="category.count > 0">
+                <div> 
+                  <a data-value="{{ category.identifier }}" data-filter="category__identifier__in">
+                    <span>
+                      <i ng-if="!category.show" class="glyphicon glyphicon-plus" ng-click="test($event)"></i>
+                      <i ng-if="category.show" class="glyphicon glyphicon-minus" ng-click="test($event)"></i>
+                    {{ category.gn_description | limitTo: 25 }}{{ category.gn_description.length > 25 ? '...' : ''}}
+                    </span>
+                    <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ category.count }}</span>
+                  </a>
+                  
+                  <div ng-show="category.show">
+                    <ul class="list-unstyled" style="padding-left: 15px;">
+                      <li ng-repeat="item in category.children" ng-if="item.count > 0">
+                        <div class="checkbox checkbox-red"> 
+                          <label><input type="checkbox" data-value="{{ item.identifier }}" data-filter="category__identifier__in" ng-click="multiple_choice_listener($event)">{{ item.gn_description | limitTo: 25 }}{{ item.gn_description.length > 25 ? '...' : ''}}
+                          </label> 
+                          <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ item.count }}</span>
+                        </div> 
+                      </li>
+                    </ul>
+                  </div>
+                </div> 
+                {% endverbatim %}
+              </li>
+            </div>
+          </ul> 
+        </div>
+      </div> 
+    </div>
+  </div>
+
+  <!-- Keywords Panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingProv">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseKeywords" aria-expanded="false" aria-controls="collapseProv" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans "Keywords" %}</a>
+      </h4>
+    </div>
+    <div id="collapseKeywords" class="panel-collapse collapse in" role="tabpanel"  aria-expanded="false">
+      <div class="panel-body">
+        <div class="side-menu-search hidden">
+          <input type="search" class="form-control input-sm input-sm" name="" placeholder="Search...">
+        </div>
+        <div class="side-menu-list">
+          <ul class="list-unstyled"> 
+            {% verbatim %}
+            <li ng-repeat="keyword in keywords" ng-if="keyword.count > 0"> 
+              <div class="checkbox checkbox-red"> 
+                <label><input type="checkbox" data-value="{{ keyword.slug }}" data-filter="keywords__slug__in" ng-click="multiple_choice_listener($event)">{{ keyword.name }}
+                </label> 
+                <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ keyword.count }}</span>
+              </div> 
+            </li> 
+            {% endverbatim %}
+          </ul> 
+        </div>
+      </div> 
+    </div>
+  </div>
+
+  <!-- Date Panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading" id="headingDate">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapseDate" aria-expanded="false" aria-controls="collapseDate" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans "Date Published" %}</a>
+      </h4>
+    </div>
+    <div id="collapseDate" class="panel-collapse collapse in" aria-labelledby="headingDate" aria-expanded="true">
+      <div class="panel-body">
+        <div class="">
+          <!-- <span>Date</span> -->
+          <div class="form-group col-md-6">
+            <label>From</label>
+            <input value="yyyy-mm-dd" data-date-format="YYYY-MM-DD" type="text" class="form-control input-sm datepicker" placeholder="{% trans 'yyyy-mm-dd' %}" ng-model="date_query.date__gte" />
+          </div>
+          <div class="form-group col-md-6">
+            <label>To</label>
+            <input value="yyyy-mm-dd" data-date-format="YYYY-MM-DD" type="text" class="form-control input-sm datepicker" placeholder="{% trans 'yyyy-mm-dd' %}" ng-model="date_query.date__lte" />
+          </div>
+        </div>
+        <!-- <div>
+          <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+            <span></span> <b class="caret"></b>
+          </div>
+        </div> -->
+      </div> 
+    </div>
+  </div>

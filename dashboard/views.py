@@ -24,6 +24,8 @@ import pdfcrowd
 from PyPDF2 import PdfFileMerger, PdfFileReader
 from StringIO import StringIO
 import urllib2, urllib
+from urlparse import parse_qs, urlsplit, urlunsplit
+import re
 
 def common(request):
 	response = {}
@@ -78,7 +80,7 @@ def common(request):
 	elif request.GET['page'] == 'security':
 		response = getSecurity(request, rawFilterLock, flag, code)
 	elif request.GET['page'] == 'landslide':
-		response = getLandslideRisk(request, filterLock, flag, code)	
+		response = getLandslideRisk(request, filterLock, flag, code)
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)
@@ -87,14 +89,50 @@ def common(request):
 	if '_checked' in request.GET:
 		response['checked'] = request.GET['_checked'].split(",")
 
+	class CustomEncoder(json.JSONEncoder):
+	    def default(self, obj):
+	        if obj.__class__.__name__  == "GeoValuesQuerySet":
+	            return list(obj)
+	        elif obj.__class__.__name__  == "date":
+	            return obj.strftime("%Y-%m-%d")
+	        elif obj.__class__.__name__  == "datetime":
+	            return obj.strftime("%Y-%m-%d %H:%M:%S")
+	        else:
+	            print 'not converted to json:', obj.__class__.__name__
+	            # return {} # convert un-json-able object to empty object
+	            return 'not converted to json:', obj.__class__.__name__ # convert un-json-able object to empty object
+
+	# response['jsondata'] = json.dumps(response, cls = CustomEncoder)
+
 	return response
 
 # Create your views here.
 def dashboard_detail(request):
 	# print request.GET['page']
 
+	def set_query_parameter(url, param_name, param_value):
+	    """Given a URL, set or replace a query parameter and return the
+	    modified URL.
+
+	    >>> set_query_parameter('http://example.com?foo=bar&biz=baz', 'foo', 'stuff')
+	    'http://example.com?foo=stuff&biz=baz'
+
+	    """
+	    scheme, netloc, path, query_string, fragment = urlsplit(url)
+	    query_params = parse_qs(query_string)
+
+	    query_params[param_name] = [param_value]
+	    new_query_string = urllib.urlencode(query_params, doseq=True)
+
+	    return urlunsplit((scheme, netloc, path, new_query_string, fragment))
+
+	# add '?page=baseline' to url if none exist
+	if ('page' not in request.GET) or (not request.GET.get('page')):
+	    currenturl = request.build_absolute_uri()
+	    return redirect(set_query_parameter(currenturl, 'page', 'baseline'))
+
 	if 'pdf' in request.GET:
-		
+
 		try:
 			a = 'asdc.immap.org'+request.META.get('PATH_INFO')
 			print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
@@ -118,7 +156,7 @@ def dashboard_detail(request):
 
 			# send the generated PDF
 			response.write(pdf)
-			
+
 
 		except pdfcrowd.Error, why:
 			options = {
@@ -130,6 +168,7 @@ def dashboard_detail(request):
 			    'margin-top':25,
 			    # 'viewport-size':'800x600',
 			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization,
+			    # 'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header(v2).html?name='+request.user.first_name+'-'+request.user.last_name+'&cust_title=&organization='+request.user.organization,
 			    # 'lowquality':'-'
 			    # 'disable-smart-shrinking':'-',
 			    # 'print-media-type':'-',
@@ -138,6 +177,8 @@ def dashboard_detail(request):
 			    # 'javascript-delay': 30000,
 			    # 'window-status': 'ready',
 			}
+			if re.match('^/v2', request.path):
+			    options['viewport-size'] = '1240x800'
 			a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
 			pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
 			date_string = dateformat.format(datetime.now(), "Y-m-d")
@@ -147,13 +188,18 @@ def dashboard_detail(request):
 		return response
 	else:
 		response = common(request)
-		return render_to_response(
-	            "dashboard_base.html",
-	            RequestContext(request, response))
+		if 'v2' in request.path:
+		    return render_to_response(
+		            "v2/dashboard_base.html",
+		            RequestContext(request, response))
+		else:
+		    return render_to_response(
+		            "dashboard_base.html",
+		            RequestContext(request, response))
 
 def dashboard_print(request):
 	return render_to_response(
-	            "dashboard_base.html",
+	            "v2/dashboard_base.html" if re.match('^/v2', request.path) else "dashboard_base.html",
 	            RequestContext(request, common(request)))
 
 def get_provinces(request):
@@ -204,13 +250,13 @@ def dashboard_multiple(request):
 				# urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
 				pdf = client.convertURI(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
 				merger.append(StringIO(pdf))
-		
+
 		 # set HTTP response headers
 		# response = HttpResponse(mimetype="application/pdf")
 		# response["Cache-Control"] = "no-cache"
 		# response["Accept-Ranges"] = "none"
 		# response["Content-Disposition"] = 'attachment; filename="'+data['fileName']+'.pdf"'
-		
+
 		# send the generated PDF
 		# merger.write(response)
 		# return response

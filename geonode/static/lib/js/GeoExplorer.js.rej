@@ -1,0 +1,10 @@
+diff a/geonode/static/lib/js/GeoExplorer.js b/geonode/static/lib/js/GeoExplorer.js	(rejected hunks)
+@@ -28796,7 +28796,7 @@
+             if (selectedEQ) this.mergeNewParams({'CQL_FILTER': "event_code='"+selectedEQ.data.event_code+"'"});
+         } else if (this.name == gettext('Historical Flood Prediction')){
+             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+-        } else if (this.name == gettext('Classes of flood prediction GFMS&GLOFAS')){
++        } else if (this.name == gettext('Flood prediction')){
+             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+ 
+             // console.log(OpenLayers.Control.FeaturePopups);

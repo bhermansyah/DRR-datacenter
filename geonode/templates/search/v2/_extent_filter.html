@@ -1,0 +1,17 @@
+{% load i18n %}
+
+	<div class="panel panel-default">
+	  <div class="panel-heading" id="headingExtent">
+	    <h4 class="panel-title">
+	      <a data-toggle="collapse" href="#collapseExtent" aria-expanded="false" aria-controls="collapseExtent" class="collapsed"><i class="more-less glyphicon glyphicon-plus"></i>{% trans "Extent" %}</a>
+	    </h4>
+	  </div>
+	  <div id="collapseExtent" class="panel-collapse collapse" aria-labelledby="headingExtent" aria-expanded="false">
+	    <div class="panel-body">
+	      <div class="control-group leaflet_map">
+	        <leaflet class="filter-map-container" center="map_center" defaults="defaults" layers="layers" id="filter-map">
+	        </leaflet>
+	      </div>
+	    </div> 
+	  </div>
+	</div>

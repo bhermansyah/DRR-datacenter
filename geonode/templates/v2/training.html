@@ -1,0 +1,81 @@
+{% extends "v2/site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "About ASDC" %} — {{ block.super }} {% endblock %}
+{% block body_class %}about training {{ block.super }}{% endblock %}
+{% block body_outer %}
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>Training</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="#">Documentation</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">Training</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<!-- Training -->
+	<section id="training" class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<h3>{% trans "Dedicated Training Program" %}</h3>
+				<p>{% trans "A dedicated training program is available. Make an appointment at the iMMAP offices in Kabul for basic or in-depth training. Training sessions can exist in the form of a half day introductory session, up to 3-day in-depth training sessions." %}</p>
+				<p>{% trans "Training is given in English by Noor Zangana, a dedicated professional trainer on the ASDC. She is supported by two local national staff. Alternatively, 20-30 minutes telephone walkthrough training sessions are also possible." %}</p>
+			</div>
+			<div class="col-md-3">
+				<img src="{{ STATIC_URL }}v2/images/training5.png">
+			</div>
+		</div>
+
+		<p>&nbsp;</p>
+
+		<div class="row">
+			<div class="col-md-9">
+				<h3>{% trans "ASDC Professional User Certification program" %}</h3>
+				<p>{% trans "iMMAP has initiated the ASDC Professional User Certification program, which further expands the ASDC training program with hands-on exercises. The certification highlights user proficiency with the functionalities of the ASDC and the capability to independently advance this knowledge." %}</p>
+				<p>{% trans "The certification takes place online and consist of 80 interactive questions &#40;75&#37; passing mark&#41;, tied to various scenarios. For proficient users it will take approximately 1-2 hours to complete, whereas for novice yet trained users it can take more than 3 hours. Having seen the ASDC Training videos is a perquisite to be able to complete." %}</p>
+				<p>{% trans "In the future, the certification will be a perquisite to access the Humanitarian Access tool/data" %}</p>
+				<a href="../dashboard/classmarker" target="_blank">{% trans "Go to Certification Portal" %}</a>
+			</div>
+			<div class="col-md-3">
+				<img src="{{ STATIC_URL }}v2/images/training4.png">
+			</div>
+		</div>
+
+		<p>&nbsp;</p>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>Videos</h3>
+				<p>{% trans "To facilitate better communication, a Youtube channel has been made to host basic instruction videos on the functionalities of the Afghanistan Spatial Data Center (asdc.immap.org). The instruction videos can be found on YouTube and on the ASDC (available in Dari and English). Currently, there are 11 training videos, in total 1 ½ hours of material." %}</p>
+				<a href="https://www.youtube.com/channel/UCkd_swrFk9vN81s9SQ3fKgg">{% trans "Go to Youtube Channel" %}</a>
+
+				<p>&nbsp;</p>
+			</div>
+			<div class="col-md-3">
+				Gambar 1
+			</div>
+			<div class="col-md-3">
+				Gambar 2
+			</div>
+			<div class="col-md-3">
+				Gambar 1
+			</div>
+			<div class="col-md-3">
+				Gambar 2
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

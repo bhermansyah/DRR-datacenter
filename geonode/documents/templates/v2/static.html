@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Static Maps</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<!-- DateRangePicker -->
+	<link rel="stylesheet" type="text/css" href="css/daterangepicker.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+
+	<style type="text/css">
+		/*Layer*/
+		.sidebar{
+		    background-color: #fff;
+		}
+
+		.section-title{
+		    margin: 12px 0; 
+		    font-size: 18px;
+		}
+
+		.panel-default{
+		    box-sizing: border-box; 
+		    max-height: 200px; 
+		    overflow-y: auto;
+		    border: 0;
+		}
+
+		.panel-default>.panel-heading{
+		    background-color: transparent; 
+		    border-bottom: 1px solid #ddd; 
+		    padding: 10px 0;
+		    color: inherit;
+		}
+
+		.more-less{
+		    float: right;
+		}
+
+		.panel-body{
+		    overflow-y: auto;
+		}
+
+		.outer-left{
+		    /*margin-left: 1px;*/
+		}
+
+		.controls-product-item{
+		    background-color: #f1f1f1;
+		    margin: 0;
+		    padding: 12px 0;
+		    height: 50px;
+		}
+
+		.product-item-view{
+		    padding: 2px 0;
+		}
+
+		.product-item-view .nav-tabs{
+		    border: none;
+		}
+
+		.product-item-view .nav li span{
+		    display:inline-block;
+		    font-size:12px;
+		    font-weight:500;
+		    padding:4px 10px 2px 0;
+		}
+
+		.product-item-view .nav li a{
+		    padding: 2px 6px;
+		    border-radius: 0;
+		}
+
+		.product-item-view .nav li.active a, .product-item-view .nav li.active a:focus, .product-item-view .nav li.active a:hover{
+		    border: none;
+		}
+
+		@media(max-width: 768px){
+			.controls-product-item{
+				height: auto;
+			}
+
+			.product-item-view, .controls-product-item .pagination, .custom-select{
+				display: block;
+				text-align: center;
+			}
+
+			.product-item-view .nav-tabs{
+				display: inline-block;
+			}
+		}
+
+		.custom-select{
+		    text-align: center;
+		}
+
+		.custom-select section, .custom-select ul{
+		    display: inline-block;
+		}
+
+		.controls-product-item .custom-select section:first-child, .controls-product-item .custom-select ul:first-child{
+		    padding-right: 0;
+		}
+
+		.controls-product-item .custom-select ul>li{
+		    float: left;
+		    margin-right: 20px;
+		}
+
+		.custom-select section label, .custom-select ul label{
+		    font-size:12px;
+		    font-weight:500;
+		    margin-right:6px;
+		}
+
+		.custom-select section span.customSelect, .custom-select ul span.customSelect{
+		    background-color:#fff;
+		    border:1px solid #ddd;
+		    color:#7c7c7c;
+		    font-size:12px;
+		    /*padding:5px 10px 5px 14px;*/
+		    font-weight:600;
+		    text-align:left;
+		}
+
+		.custom-select section span.customSelect span.customSelectInner:after, .custom-select ul span.customSelect span.customSelectInner:after{
+		    content:"\f0dd";
+		    font-family:FontAwesome;
+		    float:right;
+		    padding-left:10px;
+		    font-size:10px;
+		}
+
+		.controls-product-item nav{
+		    text-align: right;
+		}
+
+		.controls-product-item .pagination{
+		    margin: 0;
+		}
+
+		.pagination>li{
+		    display: inline-block;
+		    margin-right: 2px;
+		}
+
+		.pagination>li>a, .pagination>li>span{
+		    padding: 2px 9.5px;
+		    color: #666;
+		}
+
+		.pagination>li:first-child>a, .pagination>li:first-child>span{
+		    border-bottom-left-radius: 0;
+		    border-top-left-radius: 0;
+		}
+
+		.pagination>li:last-child>a, .pagination>li:last-child>span{
+			border-bottom-right-radius: 0;
+		    border-top-right-radius: 0;
+		}
+
+		.product-setting{
+			padding: 10px 0;
+			height: 50px;
+			background-color: #fff;
+		}
+
+		.tab-pane{
+			background-color: #fff;
+		}
+
+		.inner-top-xs{
+		    padding-top: 20px;
+		}
+
+		.row-map{
+			margin: 0 15px;
+		}
+
+		/* Remove border and add padding to thumbnails */
+		.thumbnail-custom2 {
+		    padding: 0 0 15px 0;
+		    /*border: none;
+		    border-radius: 0;*/
+		    /*background-color: #a72b1f;*/
+		}
+
+		.thumbnail-custom2 p {
+		    margin-top: 15px;
+		    color: #555;
+		}
+
+		.thumbnail-custom2:hover{
+		    background-color: #a72b1f;
+		}
+
+		.thumbnail-custom2:hover p{
+		    color: #fff;
+		}
+
+		.portfolio-item-map{
+		    background-color: #fff;
+		    padding-left: 5px;
+		    padding-right: 5px;
+		    padding-bottom: 10px;
+		    margin: 15px;
+		    /*margin-left: 1px;
+		    margin-right: 1px;*/
+		}
+
+		figure{
+		    border: 2px solid;
+		    border-radius: 8px;
+		    border-color: #f6f6f6;
+		}
+
+		.mediaholder{
+		    position: relative;
+		    overflow: hidden;
+		    width: 100%;
+		    box-sizing: border-box;
+		    moz box sizing: border-box;
+		    -webkit-box-sizing: border-box;
+		}
+
+		.mediaholder img{
+		    width: 100%;
+		    height: 160px;
+		    display: block;
+		    position: relative;
+		}
+
+		.portfolio-item img{
+		    border-radius: 3px 3px 0 0;
+		}
+
+		.portfolio-item .hovercover{
+		    border-radius: 3px 3px 0 0;
+		}
+
+		.hovercover{
+		    width: 100%;
+		    height: 100%;
+		    position: absolute;
+		    top: 0px;
+		    left: 0px;
+		    background-color: rgba(0,0,0,0.35);
+		    opacity: 0;
+		    border-radius: 3px;
+		}
+
+		.hovericon{
+		    position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    color: #fff;
+		    font-size: 18px;
+		    margin-top: -30px;
+		    margin-left: -30px;
+		    width: 60px;
+		    height: 60px;
+		    background-color: rgba(0,0,0,0.35);
+		    border-radius: 50%;
+		}
+
+		.hoverlink{
+		    display: block;
+		    height: 19px;
+		    width: 19px;
+		    margin: 21px 0 0 20px;
+		}
+
+		.category-product .product-item-grid .item-description{
+		    padding: 8px 10px 13px 12px;
+		    background-color: #f6f6f6;
+		    color: #333;
+		    text-align: justify;
+		    height: 150px;
+		    overflow-y: hidden;
+		    border-radius: 0 0 3px 3px;
+		    webkit transition: all 200ms ease in out;
+		    transition: all 200ms ease in out;
+		}
+
+		.item-description h3{
+		    text-align: center;
+		    margin-top: 8px;
+		    margin-bottom: 5px;
+		    font-size: 17px;
+		}
+
+		.portfolio-item:hover > figure > a .item-description{
+		    background-color: #a72b1f;
+		    color: #fff;
+		    overflow-y: auto;
+		    box-shadow: inset 0px -1px 0px 0px rgba(0,0,0,0.1);
+		}
+
+		.portfolio-item:hover .hovercover{
+		    opacity: 1;
+		}
+
+		.thumbnail-custom {
+		    border-radius: 0;
+		    margin-bottom: 0;
+		}
+
+		.overlay-fade {
+		  position: absolute;
+		  top: 0;
+		  bottom: 0;
+		  left: 0;
+		  right: 0;
+		  height: 100%;
+		  width: 100%;
+		  opacity: 0;
+		  transition: .5s ease;
+		  background-color: #000;
+		}
+
+		.thumbnail-custom:hover .overlay-fade {
+		  opacity: 0.8;
+		}
+
+		.outer-top-vs{
+			/*margin-top: 40px;*/
+		}
+
+		.category-product .product-item-list-v1{
+			/*margin-bottom: 40px;*/
+			padding: 40px 15px;
+			border-bottom: 1px dashed #bbb!important; 
+		}
+
+		@media (max-width: 425px){
+			.category-product .product-item-list-v1 .product-info .name{
+				font-size: 18px;
+			}
+		}
+
+		.category-product .product-item-grid {
+			padding: 0 5px 10px;
+		}
+
+		.category-product .product-item-grid .product {
+			border: 2px solid #f6f6f6;
+			border-radius: 8px;
+		}
+		
+		.category-product .product-item-list-v1 .product-info .product-short-desc{
+			font-size:13px;
+			line-height:22px;
+			padding:20px 0;
+			margin:0;
+			/*max-height: 116px;
+			overflow-y: auto;*/
+		}
+
+		.category-product .product-item-grid .cart, .category-product .product-item-list-v1 .cart{
+			display: inline-block;
+		}
+
+		.category-product .product-item-grid .cart .action ul li, .category-product .product-item-list-v1 .cart .action ul li{
+			float:left;
+			display:table;
+			height:34px;
+			padding-right:12px;
+		}
+
+		.category-product .product-item-grid .cart .action ul li{
+			padding-right: 3px;
+		}
+
+		.category-product .product-item-grid .product .item-description .rating span label{
+			font-size: 15px;
+			line-height: 5px;
+		}
+
+		.set-permit-body{
+			height: auto;
+		}
+
+		/*.category-product-inner{
+			padding: 0 15px;
+		}*/
+
+		/*.product-item-list{
+			padding: 40px 15px;
+		}*/
+
+		.btn-checkbox{
+			background-color: #ddd;
+			color: #fff;
+			border-radius: 50%;
+			/*display: none;*/
+			position: absolute;
+			width: 30px;
+			padding: 6px 0;
+			margin: 3px;
+			z-index: 1;
+		}
+
+		.btn-checkbox:hover, .btn-checkbox:focus, .btn-checkbox:active:focus, .btn-checkbox.active:focus{
+			background-color: #a72b1f;
+			color: #fff;
+		}
+
+		.category-product .products:hover .btn-checkbox{
+			/*display: table-cell;*/
+		}
+
+		.btn-checkbox:active:focus, .btn-checkbox.active:focus .product {
+			border-color: #a72b1f;
+		}
+
+		.resource_selected{
+			border: 3px solid #a72b1f;
+		}
+
+		.desc-more{
+			text-align: justify;
+		}
+
+		a.morelink {
+			text-decoration:none;
+			outline: none;
+		}
+
+		.morecontent span {
+			display: none;
+		}
+
+		.rating {
+		    float:left;
+		    /*width:300px;*/
+		    /*padding-right: 10px;*/
+		    /*border-right: 1px solid #bbb;*/
+		}
+		.rating span { 
+			float:right; 
+			position:relative; 
+		}
+		.rating span input {
+		    position:absolute;
+		    top:0px;
+		    left:0px;
+		    opacity:0;
+		}
+		.rating span label:before {
+			content: '\f005';
+			font-family: FontAwesome;
+		}
+		.rating span label {
+			/*content: '\f006';
+			font-family: FontAwesome;*/
+		    display:inline-block;
+		    width: 100%;
+		    /*height:10px;*/
+		    text-align:center;
+		    color:#ddd;
+		    /*background-color: #ccc;*/
+		    font-size:20px;
+		    margin-right:2px;
+		    line-height:30px;
+		    /*border-radius:50%;
+		    -webkit-border-radius:50%;*/
+		}
+		.rating span:hover ~ span label,
+		.rating span:hover label,
+		.rating span.checked label,
+		.rating span.checked ~ span label {
+		    /*background-color: #F90;*/
+		    color:#F90;
+		}
+
+		.paper_size_symbol{
+			font-size: 3em;
+			width: 30px;
+			color: #a72b1f;
+		}
+
+		.paper_size_val{
+			left: -25px;
+		    top: -5px;
+		    position: relative;
+		    color: white;
+		    font-size: small;
+		    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		}
+
+		.product_stat{
+			margin-top: 10px;
+		}
+
+		.product_stat>div {
+			display: inline-block;
+			border-right: 1px solid #bbb;
+			padding: 0 10px;
+			height: 40px;
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		}
+
+		/*notes*/
+
+		/*don't use .modal-dialog in custom.css and re-style the login modalcss*/
+
+	</style>
+</head>
+<body ng-controller="MyCtrl">
+	<!-- Navbar -->
+	<nav class="navbar navbar-fixed-top navbar-upper" role="navigation">
+	    <div class="container">
+	        <div class="navbar-header">
+	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+	                Menu 
+	                <i class="fa fa-bars"></i>
+	            </button>
+	            <a id="logo" class="pull-left" href="index.html"></a>
+	            <a id="logo2" class="pull-left navbar-brand-immap" href="index.html"><h1 class="webTitle" style="height:50px">AFGHANISTAN SPATIAL DATA CENTER</h1></a>
+	        </div>
+	        <!-- Collect the nav links, forms, and other content for toggling -->
+	        <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
+	            <div class="row">
+	                <select class="language">
+	                  <!-- <option>Language</option> -->
+	                  <option value="eng">English</option>
+	                  <option value="dari">Dari</option>
+	                  <option value="pashto">Pashto</option>
+	                </select>
+	            </div>
+	            <ul class="nav navbar-nav">
+	                <li>
+	                    <a href="index.html">Home</a>
+	                </li>
+	                <li class="active">
+	                    <a href="dashboard.html">dashboard</a>
+	                </li>
+	                <li>
+	                    <a href="#">LAYERS</a>
+	                </li>
+	                <li class="dropdown">
+	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">MAPS&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+	                    <ul class="dropdown-menu">
+	                        <li>
+	                            <a href="#">Static Maps</a>
+	                        </li>
+	                        <li>
+	                            <a href="#">Interactive Maps</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li class="dropdown">
+	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">documentation&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+	                    <ul class="dropdown-menu">
+	                        <li>
+	                            <a href="partner.html">Partner</a>
+	                        </li>
+	                        <li>
+	                            <a href="doc.html">Documentation & Videos</a>
+	                        </li>
+	                        <li>
+	                            <a href="training.html">Training</a>
+	                        </li>
+	                        <li>
+	                            <a href="404.html">404</a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="about.html">About</a>
+	                        </li>
+	                        <li>
+	                            <a href="disclaimer.html">Disclaimer</a>
+	                        </li>
+	                    </ul>
+	                </li> 
+	                <!-- Tombol yang muncul kalo udh login -->
+	                <li class="login">
+	                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+	                    <img src="images/user.png" alt="">User
+	                    <span class=" fa fa-angle-down"></span>
+	                  </a>
+	                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+	                    <!-- <li><a href="javascript:;"> Profile</a></li> -->
+	                    <li><a href="javascript:;"><i class="fa fa-user pull-right"></i> Profile</a></li>
+	                    <li><a href="javascript:;"><i class="fa fa-inbox pull-right"></i> Inbox</a></li>
+	                    <li><a href="javascript:;"><i class="fa fa-clock-o pull-right"></i> Recent Activity</a></li>
+	                    <li><a href="javascript:;"><i class="fa fa-cog pull-right"></i> Settings</a></li>
+	                    <li><a href="javascript:;"><i class="fa fa-question pull-right"></i> Help</a></li>
+	                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+	                  </ul>
+	                </li>
+	            </ul>                         
+	        </div>
+	        <!--/.nav-collapse -->
+	    </div>                 
+	</nav>
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>Static Maps</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="#">Maps</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">Static Maps</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<section id="static">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3 col-sm-12 sidebar">
+					<div class="side-menu">
+						<div class="panel-group" role="tablist" aria-multiselectable="true">
+							<a href="#" style="float: right;">Clear all</a>
+							<h3 class="section-title">Filter</h3>
+							<div>
+								<input type="search" class="form-control input-sm input-sm" name="" placeholder="Search..." ng-model="countryFilter">
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" id="headingDate">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" href="#collapseDate" aria-expanded="false" aria-controls="collapseDate" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>Date</a>
+									</h4>
+								</div>
+								<div id="collapseDate" class="panel-collapse collapse in" aria-labelledby="headingDate" aria-expanded="true">
+									<div class="panel-body">
+										<div>
+										  <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+										    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+										    <span></span> <b class="caret"></b>
+										  </div>
+										</div>
+									</div> 
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" id="headingType">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" href="#collapseType" aria-expanded="false" aria-controls="collapseType" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>Type</a>
+									</h4>
+								</div>
+								<div id="collapseType" class="panel-collapse collapse in" aria-labelledby="headingType" aria-expanded="true">
+									<div class="panel-body">
+										<ul class="list-unstyled"> 
+											<li> 
+												<div class="checkbox"> 
+													<label><input type="checkbox">Raster <span class="badge">12</span>
+													</label> 
+												</div> 
+											</li> 
+											<li>
+												<div class="checkbox">
+													<label><input type="checkbox">Vector (120)</label> 
+												</div> 
+											</li> 
+										</ul> 
+									</div> 
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" id="headingRegion">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" href="#collapseRegion" aria-expanded="false" aria-controls="collapseRegion" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>Region</a>
+									</h4>
+								</div>
+								<div id="collapseRegion" class="panel-collapse collapse in" aria-labelledby="headingRegion" aria-expanded="true">
+									<div class="panel-body">
+
+										<div id="accord">
+											<div>
+												<div id="country1">
+													<a href="prov1" data-parent="#accord"></a>
+												</div>
+												<div id="prov1">
+													<div>
+														<div id="district1">
+															
+														</div>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div id="country2">
+													<a href="prov2" data-parent="#accord"></a>
+												</div>
+												<div id="prov2">
+													
+												</div>
+											</div>
+										</div>
+
+										<ul class="list-unstyled"> 
+											<div id="collapse_Country">
+												<li>
+													<a data-toggle="collapse" href="#collapseCountry" aria-expanded="false" aria-controls="collapseCountry"><i class="more-less glyphicon glyphicon-minus"></i>Afghanistan</a>
+													<div class="collapse" id="collapseCountry">
+														<ul class="list-unstyled">
+															<li>
+																<a data-toggle="collapse" href="#collapseProv1" aria-expanded="false" aria-controls="collapseProv1" data-parent="#collapse_Country"><i class="more-less glyphicon glyphicon-minus"></i>Province</a>
+																<div class="collapse" id="collapseProv1">
+																	<ul class="list-unstyled">
+																		<li>
+																			<div class="checkbox"> 
+																				<label><input type="checkbox">District<span class="badge">2</span>
+																				</label> 
+																			</div> 
+																		</li>
+																	</ul>
+																</div>
+															</li>
+															<li>
+																<a data-toggle="collapse" href="#collapseProv2" aria-expanded="false" aria-controls="collapseProv2" data-parent="#collapse_Country"><i class="more-less glyphicon glyphicon-minus"></i>Province</a>
+																<div class="collapse" id="collapseProv2">
+																	<ul class="list-unstyled">
+																		<li>
+																			<div class="checkbox"> 
+																				<label><input type="checkbox">District<span class="badge">2</span>
+																				</label> 
+																			</div> 
+																		</li>
+																	</ul>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</li>
+												<li> 
+													<div class="checkbox"> 
+														<label><input type="checkbox">Province <span class="badge">12</span>
+														</label> 
+													</div> 
+												</li> 
+												<li>
+													<div class="checkbox">
+														<label><input type="checkbox">North Region (120)</label> 
+													</div> 
+												</li> 
+											</div>
+										</ul> 
+									</div> 
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" id="headingCategories">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>Categories</a>
+									</h4>
+								</div>
+								<div id="collapseCategories" class="panel-collapse collapse in" aria-labelledby="headingCategories" aria-expanded="true">
+									<div class="panel-body">
+										<div>
+											<input type="search" class="form-control input-sm input-sm" name="" placeholder="Search...">
+										</div>
+										<ul class="list-unstyled"> 
+											<li> 
+												<div class="checkbox"> 
+													<label><input type="checkbox">Province <span class="badge">12</span>
+													</label> 
+												</div> 
+											</li> 
+											<li>
+												<div class="checkbox">
+													<label><input type="checkbox">North Region (120)</label> 
+												</div> 
+											</li> 
+										</ul> 
+									</div> 
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" id="headingExtent">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" href="#collapseExtent" aria-expanded="false" aria-controls="collapseExtent" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>Extent</a>
+									</h4>
+								</div>
+								<div id="collapseExtent" class="panel-collapse collapse in" aria-labelledby="headingExtent" aria-expanded="true">
+									<div class="panel-body">
+										<ul class="list-unstyled"> 
+											<li> 
+												<div class="checkbox"> 
+													<label><input type="checkbox">Province <span class="badge">12</span>
+													</label> 
+												</div> 
+											</li> 
+											<li>
+												<div class="checkbox">
+													<label><input type="checkbox">North Region (120)</label> 
+												</div> 
+											</li> 
+										</ul> 
+									</div> 
+								</div>
+							</div>
+							<div class="panel panel-default" id="accordion">
+								<div class="panel-heading" role="tab" id="headingProv">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseProv" aria-expanded="false" aria-controls="collapseProv" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>Type</a>
+									</h4>
+								</div>
+								<div id="collapseProv" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingProv" aria-expanded="true">
+									<div class="panel-body">
+										<ul class="list-unstyled"> 
+											<li> 
+												<div class="checkbox"> 
+													<label><input type="checkbox">Raster <span class="badge">12</span>
+													</label> 
+												</div> 
+											</li> 
+											<li>
+												<div class="checkbox">
+													<label><input type="checkbox">Vector (120)</label> 
+												</div> 
+											</li> 
+										</ul> 
+									</div> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-9 col-sm-12 outer-bottom-sm outer-left">
+					<div class="controls-product-top outer-top-vs">
+						<div class="controls-product-item row">
+							<div class="col-md-3 col-sm-3">
+								<div class="product-item-view">
+									<ul class="nav nav-tabs">
+										<li><span>View as:</span></li>
+										<li class="active">
+											<a data-toggle="tab" href="#grid-container"><i class="icon fa fa-th"></i></a>
+										</li>
+										<li>
+											<a data-toggle="tab" href="#list-container"><i class="icon fa fa-th-list"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-6 col-sm-5">
+								<div class="custom-select">
+									<ul class="list-unstyled">
+										<li class="short-by">
+											<label>Sort by:</label>
+											<select ng-model="selectedOrder" ng-options="option for option in options">
+												<option>Most Recent</option>
+												<option>Less Recent</option>
+												<option>A to Z</option>
+											</select>
+											<!-- <select class="styled hasCustomSelect" style="-webkit-appearance: menulist-button; width: 87px; position: absolute; opacity: 0; height: 29px; font-size: 12px;">
+												<option>Position</option>
+												<option>Low</option>
+												<option>High</option>
+												<option>A to Z</option>
+											</select>
+											<span class="customSelect styled" style="display: inline-block;">
+												<span class="customSelectInner" style="/*width: 50px;*/ display: inline-block;">Position</span>
+											</span> -->
+										</li>
+										<li class="show-page">
+											<label>Show:</label>
+											<select>
+												<option>20</option>
+												<option>50</option>
+												<option>All</option>
+											</select>
+											<!-- <select class="styled hasCustomSelect" style="-webkit-appearance: menulist-button; width: 48px; position: absolute; opacity: 0; height: 29px; font-size: 12px;">
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+											</select>
+											<span class="customSelect styled" style="display: inline-block;">
+												<span class="customSelectInner" style="/*width: 7px;*/ display: inline-block;">1</span>
+											</span> -->
+											<label>of 2486 Maps.</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-4">
+								<nav>
+									<ul class="pagination">
+										<li>
+											<a href="#" class="prev" aria-label="Previous">
+												<span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+											</a>
+										</li>
+										<li class="active">
+											<a href="#">1</a>
+										</li>
+										<li>
+											<a href="#">2</a>
+										</li>
+										<li>
+											<a href="#">3</a>
+										</li>
+										<li>
+											<a href="#" class="next" aria-label="Next">
+												<span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+											</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+					<div class="product-setting">
+						<div class="pull-right">
+							<button data-toggle="modal" class="btn btn-primary" data-target="#set_permissions">Set permissions</button>
+							<a href="/layers/upload" class="btn btn-primary" target="_self">Upload Layers</a>
+						</div>
+					</div>
+					<div class="search-result-container">
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane active" id="grid-container">
+								<div class="category-product inner-top-xs">
+									<div class="row row-map">
+										<div class="product-item-grid col-md-3 col-sm-3">
+											<!-- <figure> -->
+											<button class="btn btn-checkbox"><i class="fa fa-check"></i></button>
+											<div class="product">
+												<div class="mediaholder">
+													<!-- <a href="#"> -->
+														<img src="images/map2.png">
+														<!-- <div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div> -->
+													<!-- </a> -->
+												</div>
+												<!-- <a href="#"> -->
+													<!-- <figcaption class="item-description"> -->
+													<div class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
+														<div class="rating">
+															<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+															<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+															<span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+															<span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+															<span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+														</div>
+														<div class="cart animate-effect"> 
+															<div class="action"> 
+																<ul class="list-unstyled"> 
+																	<li class="add-cart-button"> 
+																		<a class="btn btn-primary" href="#">View</a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Details"><i class="fa fa-info"></i></a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Create Map"><i class="fa fa-pencil-square-o"></i></a> 
+																	</li> 
+																</ul> 
+															</div> 
+														</div> 
+													</div>
+													<!-- </figcaption> -->
+												<!-- </a> -->
+											</div>
+											<!-- </figure> -->
+										</div>
+										<div class="product-item-grid col-md-3 col-sm-3">
+											<!-- <figure> -->
+											<button class="btn btn-checkbox"><i class="fa fa-check"></i></button>
+											<div class="product">
+												<div class="mediaholder">
+													<!-- <a href="#"> -->
+														<img src="images/map2.png">
+														<!-- <div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div> -->
+													<!-- </a> -->
+												</div>
+												<!-- <a href="#"> -->
+													<!-- <figcaption class="item-description"> -->
+													<div class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
+														<div class="rating">
+															<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+															<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+															<span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+															<span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+															<span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+														</div>
+														<div class="cart animate-effect"> 
+															<div class="action"> 
+																<ul class="list-unstyled"> 
+																	<li class="add-cart-button"> 
+																		<a class="btn btn-primary" href="#">View</a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Details"><i class="fa fa-info"></i></a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Create Map"><i class="fa fa-pencil-square-o"></i></a> 
+																	</li> 
+																</ul> 
+															</div> 
+														</div> 
+													</div>
+													<!-- </figcaption> -->
+												<!-- </a> -->
+											</div>
+											<!-- </figure> -->
+										</div>
+										<div class="product-item-grid col-md-3 col-sm-3">
+											<!-- <figure> -->
+											<button class="btn btn-checkbox"><i class="fa fa-check"></i></button>
+											<div class="product">
+												<div class="mediaholder">
+													<!-- <a href="#"> -->
+														<img src="images/map2.png">
+														<!-- <div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div> -->
+													<!-- </a> -->
+												</div>
+												<!-- <a href="#"> -->
+													<!-- <figcaption class="item-description"> -->
+													<div class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
+														<div class="rating">
+															<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+															<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+															<span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+															<span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+															<span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+														</div>
+														<div class="cart animate-effect"> 
+															<div class="action"> 
+																<ul class="list-unstyled"> 
+																	<li class="add-cart-button"> 
+																		<a class="btn btn-primary" href="#">View</a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Details"><i class="fa fa-info"></i></a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Create Map"><i class="fa fa-pencil-square-o"></i></a> 
+																	</li> 
+																</ul> 
+															</div> 
+														</div> 
+													</div>
+													<!-- </figcaption> -->
+												<!-- </a> -->
+											</div>
+											<!-- </figure> -->
+										</div>
+										<div class="product-item-grid col-md-3 col-sm-3">
+											<!-- <figure> -->
+											<button class="btn btn-checkbox"><i class="fa fa-check"></i></button>
+											<div class="product">
+												<div class="mediaholder">
+													<!-- <a href="#"> -->
+														<img src="images/map2.png">
+														<!-- <div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div> -->
+													<!-- </a> -->
+												</div>
+												<!-- <a href="#"> -->
+													<!-- <figcaption class="item-description"> -->
+													<div class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
+														<div class="rating">
+															<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+															<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+															<span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+															<span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+															<span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+														</div>
+														<div class="cart animate-effect"> 
+															<div class="action"> 
+																<ul class="list-unstyled"> 
+																	<li class="add-cart-button"> 
+																		<a class="btn btn-primary" href="#">View</a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Details"><i class="fa fa-info"></i></a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Create Map"><i class="fa fa-pencil-square-o"></i></a> 
+																	</li> 
+																</ul> 
+															</div> 
+														</div> 
+													</div>
+													<!-- </figcaption> -->
+												<!-- </a> -->
+											</div>
+											<!-- </figure> -->
+										</div>
+										<div class="product-item-grid col-md-3 col-sm-3">
+											<!-- <figure> -->
+											<button class="btn btn-checkbox"><i class="fa fa-check"></i></button>
+											<div class="product">
+												<div class="mediaholder">
+													<!-- <a href="#"> -->
+														<img src="images/map2.png">
+														<!-- <div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div> -->
+													<!-- </a> -->
+												</div>
+												<!-- <a href="#"> -->
+													<!-- <figcaption class="item-description"> -->
+													<div class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
+														<div class="rating">
+															<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+															<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+															<span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+															<span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+															<span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+														</div>
+														<div class="cart animate-effect"> 
+															<div class="action"> 
+																<ul class="list-unstyled"> 
+																	<li class="add-cart-button"> 
+																		<a class="btn btn-primary" href="#">View</a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Details"><i class="fa fa-info"></i></a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Create Map"><i class="fa fa-pencil-square-o"></i></a> 
+																	</li> 
+																</ul> 
+															</div> 
+														</div> 
+													</div>
+													<!-- </figcaption> -->
+												<!-- </a> -->
+											</div>
+											<!-- </figure> -->
+										</div>
+										<div class="product-item-grid col-md-3 col-sm-3">
+											<!-- <figure> -->
+											<button class="btn btn-checkbox"><i class="fa fa-check"></i></button>
+											<div class="product">
+												<div class="mediaholder">
+													<!-- <a href="#"> -->
+														<img src="images/map2.png">
+														<!-- <div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div> -->
+													<!-- </a> -->
+												</div>
+												<!-- <a href="#"> -->
+													<!-- <figcaption class="item-description"> -->
+													<div class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
+														<div class="rating">
+															<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+															<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+															<span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+															<span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+															<span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+														</div>
+														<div class="cart animate-effect"> 
+															<div class="action"> 
+																<ul class="list-unstyled"> 
+																	<li class="add-cart-button"> 
+																		<a class="btn btn-primary" href="#">View</a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Details"><i class="fa fa-info"></i></a> 
+																	</li> 
+																	<li> 
+																		<a class="btn btn-primary" href="#" title="Create Map"><i class="fa fa-pencil-square-o"></i></a> 
+																	</li> 
+																</ul> 
+															</div> 
+														</div> 
+													</div>
+													<!-- </figcaption> -->
+												<!-- </a> -->
+											</div>
+											<!-- </figure> -->
+										</div>
+
+										<!-- <div class="col-sm-4 col-md-3 wow fadeInUp animated" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeInUp;"> 
+											<div class="products grid-v1"> 
+												<div class="product"> 
+													<div class="product-image"> 
+														<a href="assets/images/products/7.jpg" data-lightbox="image-1"> 
+															<div class="image"> 
+																<img src="assets/images/products/7.jpg" class="img-responsive" alt=""> 
+															</div> 
+															<div class="tag">
+																<div class="tag-text new">new</div>
+															</div> 
+															<div class="hover-effect">
+																<i class="fa fa-search"></i>
+															</div> 
+														</a> 
+													</div> 
+													<div class="product-info"> 
+														<h3 class="name">
+															<a href="index.php?page=details-v1">Product name #01</a>
+														</h3> 
+														<div class="star-rating" title="Rated 4.50 out of 5"> 
+															<span style="width:90%">
+																<strong class="rating">4.50</strong> out of 5
+															</span> 
+														</div> 
+														<div class="product-price"> 
+															<ins> <span class="amount">$ 369.99</span> </ins> 
+															<del><span class="amount">$ 400.99</span></del> 
+														</div> 
+													</div> 
+													<div class="cart animate-effect"> 
+														<div class="action"> 
+															<ul class="list-unstyled"> 
+																<li class="add-cart-button"> 
+																	<a class="btn btn-primary" href="index.php?page=details-v1">Add to cart</a> 
+																</li> 
+																<li> 
+																	<a class="btn btn-primary whislist" href="#" title="Wishlist"> 
+																		<i class="icon fa fa-heart"></i> 
+																	</a> 
+																</li> 
+																<li> 
+																	<a class="btn btn-primary compare" href="#" title="Compare"> 
+																	<i class="fa fa-exchange"></i> </a> 
+																</li> 
+															</ul> 
+														</div> 
+													</div> 
+												</div> 
+											</div> 
+										</div>
+										<div class="portfolio-item col-md-3 col-sm-3" ng-repeat="detail in details | filter:{country: countryFilter} | orderBy:selectedOrder">
+											<figure>
+												<div class="mediaholder">
+													<a href="#">
+														<img src="images/map2.png">
+														<div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div>
+													</a>
+												</div>
+												<a href="#">
+													<figcaption class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<span>{{ detail }}</span>
+													</figcaption>
+												</a>
+											</figure>
+										</div>
+										<div class="portfolio-item col-md-3 col-sm-3">
+											<figure>
+												<div class="mediaholder">
+													<a href="#">
+														<img src="images/map2.png">
+														<div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div>
+													</a>
+												</div>
+												<a href="#">
+													<figcaption class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<span>Percentage of children with acute respiratory infection taken to a health facility</span>
+													</figcaption>
+												</a>
+											</figure>
+										</div>
+										<div class="portfolio-item col-md-3 col-sm-3">
+											<figure>
+												<div class="mediaholder">
+													<a href="#">
+														<img src="images/map2.png">
+														<div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div>
+													</a>
+												</div>
+												<a href="#">
+													<figcaption class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<span>Percentage of children with acute respiratory infection taken to a health facility</span>
+													</figcaption>
+												</a>
+											</figure>
+										</div>
+										<div class="portfolio-item col-md-3 col-sm-3">
+											<figure>
+												<div class="mediaholder">
+													<a href="#">
+														<img src="images/map2.png">
+														<div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div>
+													</a>
+												</div>
+												<a href="#">
+													<figcaption class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<span>Percentage of children with acute respiratory infection taken to a health facility</span>
+													</figcaption>
+												</a>
+											</figure>
+										</div>
+										<div class="portfolio-item col-md-3 col-sm-3">
+											<figure>
+												<div class="mediaholder">
+													<a href="#">
+														<img src="images/map2.png">
+														<div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div>
+													</a>
+												</div>
+												<a href="#">
+													<figcaption class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<span>Percentage of children with acute respiratory infection taken to a health facility</span>
+													</figcaption>
+												</a>
+											</figure>
+										</div>
+										<div class="portfolio-item col-md-3 col-sm-3">
+											<figure>
+												<div class="mediaholder">
+													<a href="#">
+														<img src="images/map2.png">
+														<div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div>
+													</a>
+												</div>
+												<a href="#">
+													<figcaption class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<span>Percentage of children with acute respiratory infection taken to a health facility</span>
+													</figcaption>
+												</a>
+											</figure>
+										</div>
+										<div class="portfolio-item col-md-3 col-sm-3">
+											<figure>
+												<div class="mediaholder">
+													<a href="#">
+														<img src="images/map2.png">
+														<div class="hovercover">
+															<div class="hovericon">
+																<i class="fa fa-link hoverlink"></i>
+															</div>
+														</div>
+													</a>
+												</div>
+												<a href="#">
+													<figcaption class="item-description">
+														<span>
+															Admin, 24 Apr 2017
+															<i class="fa fa-eye pull-right"> 6</i>
+														</span>
+														<h3>Children with ARI taken to a health facility</h3>
+														<span>Percentage of children with acute respiratory infection taken to a health facility</span>
+													</figcaption>
+												</a>
+											</figure>
+										</div> -->
+										Isi grid
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="list-container">
+								<div class="category-product">
+									<div class="category-product-inner wow fadeInUp animated"> 
+										<div class="products product-item-list-v1"> 
+											<div class="row product-item-list"> 
+												<div class="col-md-3 col-sm-4 col-xs-12"> 
+													<button class="btn btn-checkbox"><i class="fa fa-check"></i></button>
+													<div class="product-image"> 
+														<div class="image"> 
+															<img src="images/map2.png" class="img-responsive" alt="" data-pagespeed-url-hash="2007347518" data-pagespeed-onload="pagespeed.CriticalImages.checkImageForCriticality(this);" onload="var elem=this;if (this==window) elem=document.body;elem.setAttribute('data-pagespeed-loaded', 1)" data-pagespeed-loaded="1"> 
+														</div> 
+														<div>	
+														</div> 
+													</div> 
+												</div> 
+												<div class="col-md-9 col-sm-8 col-xs-12"> 
+													<div class="product-info"> 
+														<h3 class="name">
+															<a href="#">Earthquake reported on 2015-12-25 23-44-47 (UTC+04-30) in Yamgan district, Badakshan province</a>
+														</h3>
+														<div>
+															Highlighted 26-28 October and 25 December 215 Events
+														</div>
+														<div>
+															<i class="fa fa-user"></i>
+															Admin | 
+															<i class="fa fa-calendar"></i>
+															Published 24 April 2017 
+														</div>
+														<div class="row product_stat center">
+															<div class="col-md-3">
+																<div class="rating" style="line-height: 20px;">
+																	<span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+																	<span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+																	<span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+																	<span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+																	<span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+																</div>
+															    15 votes
+															</div>
+															<div class="col-md-1">
+																<div style="font-weight: 600; font-size: 20px; line-height: 20px; font-family: 'Arial',sans-serif; color: #a72b1f;">58</div>
+																Views
+															</div>
+															<div class="col-md-1">
+																<i class="fa fa-file paper_size_symbol"><span class="paper_size_val">A3</span></i>
+															</div>
+															<div class="col-md-2">
+																Data Source
+																<div>iMMAP</div>
+															</div>
+															<div class="col-md-2">
+																Region
+																<div>
+																	Afghanistan
+																</div>
+															</div>
+														</div>
+														
+														<!-- <div class="star-rating" title="Rated 4.50 out of 5">
+															<span style="width:90%">
+																<strong class="rating">4.50</strong> out of 5
+															</span> 
+														</div>  -->
+														<!-- <div class="product-price"> 
+															<ins> 
+																<span class="amount">$ 369.99</span> 
+															</ins> 
+															<del>
+																<span class="amount">$ 400.99</span>
+															</del>
+														</div>  -->
+														<div class="product-short-desc"> 
+															<p class="desc-more">Geologic faults used or considered in calculating the seismic hazard of Afghanistan By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales (2007). Earthquake Hazard Map for Afghanistan. USGS</p> 
+															<div class="tag"> Keywords : 
+																<a href="#">
+																	<span class="label label-danger">Satellite</span>
+																</a>
+																<a href="#">
+																	<span class="label label-danger">Administrative</span>
+																</a>
+															</div>
+														</div> 
+													</div> 
+													<div class="cart animate-effect"> 
+														<div class="action"> 
+															<ul class="list-unstyled"> 
+																<li class="add-cart-button"> 
+																	<a class="btn btn-primary" href="#">View</a> 
+																</li> 
+																<li> 
+																	<a class="btn btn-primary" href="#">Details</a> 
+																</li> 
+																<li> 
+																	<a class="btn btn-primary" href="#">Create Map</a> 
+																</li> 
+															</ul> 
+														</div> 
+													</div> 
+												</div> 
+											</div> 
+										</div>
+										<div class="products product-item-list-v1"> 
+											<div class="row"> 
+												<div class="col-md-3 col-sm-4 col-xs-12"> 
+													<div class="product-image"> 
+														<div class="image"> 
+															<img src="images/map2.png" class="img-responsive" alt="" data-pagespeed-url-hash="2007347518" data-pagespeed-onload="pagespeed.CriticalImages.checkImageForCriticality(this);" onload="var elem=this;if (this==window) elem=document.body;elem.setAttribute('data-pagespeed-loaded', 1)" data-pagespeed-loaded="1"> 
+														</div> 
+														<div class="tag">
+															<div class="tag-text sale">sale</div>
+														</div> 
+													</div> 
+												</div> 
+												<div class="col-md-9 col-sm-8 col-xs-12"> 
+													<div class="product-info"> 
+														<h3 class="name">
+															<a href="index.php?page=details-v1">Product name #01</a>
+														</h3>
+														<div class="star-rating" title="Rated 4.50 out of 5">
+															<span style="width:90%">
+																<strong class="rating">4.50</strong> out of 5
+															</span> 
+														</div> 
+														<div class="product-price"> 
+															<ins> 
+																<span class="amount">$ 369.99</span> 
+															</ins> 
+															<del>
+																<span class="amount">$ 400.99</span>
+															</del>
+														</div> 
+														<div class="product-short-desc"> 
+															<p class="desc-more">Central Asia Fault Database. Locations of faults shown in the interactive map come from previously published literature and databases. A large number of fault traces are taken from the HimaTibetMap which is an open-source digital database of active faults located in the Indo-Asian collision zone. The faults taken from the HimaTibetMap are based on field observations and interpretations of satellite images and digital topographic data by Taylor et al. (2003) and Taylor and Yin (2009) as well as other previously published work. When digitized data are not available, we digitally captured individual fault traces from maps and figures using ArcMap software. This step required a comprehensive review of published literature that led to the selection of over 20 different scientific manuscripts from which fault traces were captured. To digitize a fault, a map is first aligned to available datasets (e.g., country boundaries) and then georeferenced using more accurate data layers such as ASTER GDEM2 (30-meter resolution). The fault traces are then digitized and linked to an attribute table in ArcMap. The attribute table contains information about each fault including its name, sense of movement, references, and other important remarks such as variations in fault name or location. Fault location accuracy depends on the scale of observation used in previous investigations. When there are discrepancies in fault locations, we slightly adjusted the position of previously mapped faults to coincide with surface features visible in satellite imagery or digital topography data that are indicative of their trace.</p> 
+															<div class="tag"> Keywords : 
+																<a href="#">
+																	<span class="label label-danger">Satellite</span>
+																</a>
+																<a href="#">
+																	<span class="label label-danger">Administrative</span>
+																</a>
+															</div>
+														</div> 
+													</div> 
+													<div class="cart animate-effect"> 
+														<div class="action"> 
+															<ul class="list-unstyled"> 
+																<li class="add-cart-button"> 
+																	<a class="btn btn-primary" href="index.php?page=details-v1">Add to cart</a> 
+																</li> 
+																<li> 
+																	<a class="btn btn-primary whislist" href="#" title="Wishlist"> <i class="icon fa fa-heart"></i> </a> 
+																</li> 
+																<li> 
+																	<a class="btn btn-primary compare" href="#" title="Compare"> <i class="fa fa-exchange"></i> </a> 
+																</li> 
+															</ul> 
+														</div> 
+													</div> 
+												</div> 
+											</div> 
+										</div> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Bottom -->
+	<section id="bottom" class="main">
+	    <!--Container-->
+	    <div class="container">
+	        <!--row-fluids-->
+	        <div class="row">
+	            <!--Contact Form-->
+	            <div class="col-md-3">
+	                <h4>ADDRESS</h4>
+	                <ul class="list-unstyled address">
+	                    <li>
+	                        <i class="fa fa-home"></i>
+	                        <strong>Address:</strong> 1032 Wayback Lane, Wantagh
+	                        <br>NY 11793
+	                    </li>
+	                    <li>
+	                        <i class="fa fa-envelope"></i>
+	                        <strong>Email: </strong> support@email.com
+	                    </li>
+	                    <li>
+	                        <i class="fa fa-globe"></i>
+	                        <strong>Website:</strong> www.domain.com
+	                    </li>
+	                    <li>
+	                        <i class="fa fa-phone"></i>
+	                        <strong>Toll Free:</strong> 631-409-3105
+	                    </li>
+	                </ul>
+	            </div>
+	            <!--End Contact Form-->
+	            
+	            <!--Contact Form-->
+	            <div class="col-md-9">
+	                <h4>CONTACT FORM</h4>
+	                <div class="status alert alert-success" style="display: none"></div>
+
+	                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+	                  <div class="row">
+	                    <div class="col-md-5">
+	                        <label>First Name</label>
+	                        <input type="text" class="input-block-level" required="required" placeholder="Your First Name">
+	                        <label>Last Name</label>
+	                        <input type="text" class="input-block-level" required="required" placeholder="Your Last Name">
+	                        <label>Email Address</label>
+	                        <input type="text" class="input-block-level" required="required" placeholder="Your email address">
+	                    </div>
+	                    <div class="col-md-7">
+	                        <label>Message</label>
+	                        <textarea name="message" id="message" required="required" class="input-block-level" rows="8"></textarea>
+	                    </div>
+
+	                </div>
+	                <button type="submit" class="btn btn-primary btn-large pull-right">Send Message</button>
+	                <p> </p>
+
+	                </form>
+	            </div>
+	            <!--End Contact Form-->
+	        </div>
+	        <!--/row-fluid-->
+	    </div>
+	    <!--/container-->
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-5 cp">
+	                &copy; 2016 
+	                <a target="_blank" href="http://immap.org/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">iMMAP</a>. All Rights Reserved.
+	            </div>
+	            <!--/Copyright-->
+	            <div class="col-md-6">
+	                <ul class="social pull-right">
+	                    <li>
+	                        <a href="#"><i class="fa fa-envelope"></i></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-facebook"></i></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-twitter"></i></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-linkedin"></i></a>
+	                    </li>                             
+	                    <li>
+	                        <a href="#"><i class="fa fa-youtube"></i></a>
+	                    </li>
+	                </ul>
+	            </div>
+	            <div class="col-md-1">
+	                <a id="gototop" class="gototop pull-right" href="#"><i class="fa fa-angle-up"></i></a>
+	            </div>
+	            <!--/Goto Top-->
+	        </div>
+	    </div>
+	</footer>
+
+	<!-- Permission -->
+	<div id="set_permissions" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4>Set Permission</h4>
+				</div>
+				<div class="modal-body">
+					<!-- <div class="container-fluid"> -->
+						<div class="row">
+							<div class="col-xs-2 col-sm-3">
+								<ul class="nav nav-pills nav-stacked">
+								  	<li class="active">
+								  		<a data-toggle="pill" href="#privacy"><i class="fa fa-lock"></i><span class="hidden-xs">Privacy</span></a>
+								  	</li>
+								  	<li>
+								  		<a data-toggle="pill" href="#edit"><i class="fa fa-pencil"></i><span class="hidden-xs">Edit</span></a>
+								  	</li>
+								  	<li>
+								  		<a data-toggle="pill" href="#manage"><i class="fa fa-users"></i><span class="hidden-xs">Manage</span></a>
+								  	</li>
+								</ul>
+							</div>
+							<div class="col-xs-10 col-sm-9">
+								<div class="tab-content">
+									<div id="privacy" class="tab-pane fade in active">
+										<div>
+											<div></div>
+											<div></div>
+										</div>
+										<div>
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td rowspan="3">Who Can View</td>
+														<td><input type="checkbox" name="">Anyone</td>
+													</tr>
+													<tr>
+														<td>Following User<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td>Following Group<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td rowspan="3">Who Can Download</td>
+														<td><input type="checkbox" name="">Anyone</td>
+													</tr>
+													<tr>
+														<td>Following User<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td>Following Group<input type="text" name=""></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div id="edit" class="tab-pane fade">
+										<div>
+											<table class="table table-striped">
+												<tbody>
+													<tr>
+														<td rowspan="2">Who Can Change Metadata</td>
+														<td>Following User<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td>Following Group<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td rowspan="2">Who Can Edit Data</td>
+														<td>Following User<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td>Following Group<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td rowspan="2">Who Can Edit Styles</td>
+														<td>Following User<input type="text" name=""></td>
+													</tr>
+													<tr>
+														<td>Following Group<input type="text" name=""></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div id="manage" class="tab-pane fade">
+										<table class="table table-striped">
+											<tbody>
+												<tr>
+													<td rowspan="2">Who Can Manage (Update, Delete, Change Permission, Publish / Unpublish)</td>
+													<td>Following User<input type="text" name=""></td>
+												</tr>
+												<tr>
+													<td>Following Group<input type="text" name=""></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- </div> -->
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary">Apply</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Angular -->
+    <script src="js/angular.min.js"></script>
+	<!-- DateRangePicker -->
+	<script src="js/moment.min.js"></script>
+	<script src="js/daterangepicker.js"></script>
+
+	<!-- Custom -->
+	<script src="js/custom.js"></script>
+
+	<script type="text/javascript">
+		// Accordion plus-minus
+		function toggleIcon(e) {
+		    $(e.target)
+		        .prev('.panel-heading')
+		        .find(".more-less")
+		        .toggleClass('glyphicon-minus glyphicon-plus');
+		}
+		$('.panel-group').on('hidden.bs.collapse', toggleIcon);
+		$('.panel-group').on('shown.bs.collapse', toggleIcon);
+		// /Accordion plus-minus
+
+		// More Less
+		$(document).ready(function() {
+			var showChar = 200;
+			var ellipsestext = "...";
+			var moretext = "Read more";
+			var lesstext = "Less";
+			$('.desc-more').each(function() {
+				var content = $(this).html();
+
+				if(content.length > showChar) {
+
+					var c = content.substr(0, showChar);
+					var h = content.substr(showChar-0, content.length - showChar);
+
+					var html = c+'<span class="moreelipses">'+ellipsestext+'</span><span class="morecontent"><span>'+h+'</span>&nbsp;&nbsp;<a href="" class="morelink">'+moretext+'</a></span>';
+
+					$(this).html(html);
+				}
+
+			});
+
+			$(".morelink").click(function(){
+				if($(this).hasClass("less")) {
+					$(this).removeClass("less");
+					$(this).html(moretext);
+				} else {
+					$(this).addClass("less");
+					$(this).html(lesstext);
+				}
+				$(this).parent().prev().toggle();
+				$(this).prev().toggle();
+				return false;
+			});
+		});
+
+	</script>
+	<script type="text/javascript">
+		// angular order by
+		var app = angular.module('plunker', []);
+
+		app.controller('MyCtrl', function($scope) {
+		  
+		  // order by options
+		  $scope.options = ['country', 'address'];
+		  
+		  // all countries
+		  $scope.details = [{
+		    id:1, country:'Finland', address:'Mainstreet 2'
+		  },{
+		    id:2, country:'Mexico', address:'Some address'
+		  },{
+		    id:3, country:'Canada', address:'Snowroad 45'
+		  }];
+		});
+	</script>
+</body>
+</html>

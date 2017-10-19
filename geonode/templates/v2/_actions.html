@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<ul class="nav nav-tabs" style="">
+    <li class="active"><a data-toggle="tab" href="#info">{% trans "Info" %}</a></li>
+    {% if resource.polymorphic_ctype.name == 'layer' %}
+    <li><a data-toggle="tab" href="#attribute">{% trans "Attributes" %}</a></li>
+    {% endif %}
+    <li><a data-toggle="tab" href="#rate">{% trans "Rate" %}</a></li>
+    <li><a data-toggle="tab" href="#comment">{% trans "Comment" %}</a></li>
+    {% if GEOGIG_ENABLED and resource.link_set.geogig %}
+    <li><a data-toggle="tab" href="#geogig">{% trans "GeoGig" %}</a></li>
+    {% endif %}
+</ul>

@@ -1,0 +1,209 @@
+{% load i18n %}
+
+  <nav class="navbar navbar-lower" data-spy="affix" data-offset-top="20">
+    <div class="container">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-lower-collapse">
+          <i class="fa fa-chevron-down center"></i>
+      </button>
+      <div class="collapse navbar-collapse collapse-buttons navbar-lower-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'v2:dashboard_detail' %}?page=baseline"><span>{% trans 'Baseline' %}</span></a></li>
+          <li><a href="{% url 'v2:dashboard_detail' %}?page=accessibility"><span>{% trans 'Accessibility' %}</span></a></li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>{% trans 'Floods' %}</span>&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'v2:dashboard_detail' %}?page=floodforecast">{% trans 'Flood Prediction' %}</a></li>
+                <li><a href="{% url 'v2:dashboard_detail' %}?page=floodrisk">{% trans 'Flood Risk' %}</a></li>
+              </ul>
+
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>{% trans 'Avalanches' %}</span>&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'v2:dashboard_detail' %}?page=avalcheforecast">{% trans 'Avalanche Prediction' %}</a></li>
+              <li><a href="{% url 'v2:dashboard_detail' %}?page=avalancherisk">{% trans 'Avalanche Risk' %}</a></li>
+            </ul>
+          </li>
+          <li>
+              <a href="{% url 'v2:dashboard_detail' %}?page=landslide"><span>{% trans 'Landslide' %}</span></a>
+          </li>
+          <li>
+              <a href="{% url 'v2:dashboard_detail' %}?page=earthquake"><span>{% trans 'Earthquake' %}</span></a>
+          </li>
+          <li>
+              <a href="{% url 'v2:dashboard_detail' %}?page=security"><span>{% trans 'Humanitarian Access' %}</span></a>
+          </li>
+          <li>
+              <a href="{% url 'v2:dashboard_detail' %}?page=naturaldisaster"><span>{% trans 'Natural Disaster' %}</span></a>
+          </li>
+          <li>
+            <a href="{% url 'v2:dashboard_detail' %}?page=weather"><span>{% trans 'Weather' %}</span></a>
+          </li>
+          <li>
+            <button id="pdf" class="btn btn-red"><i class="fa fa-file-pdf-o"></i></button>
+          </li>
+          <li class="pull-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-search" aria-hidden="true"></i></a>
+            <ul class="dropdown-menu dropdown-search">
+              <li>
+                <var id="result-container" class="result-container"></var>
+                <form id="form-country_v2" name="form-country_v2">
+                  <div class="typeahead__container container-search">
+                    <div class="typeahead__field">
+                      <span class="typeahead__query search-query">
+                        <input class="js-typeahead-country_v2 search" type="search" name="country_v2[query]" placeholder="{% trans 'Search' %}" autocomplete="off">
+                      </span>
+                      <span class="typeahead__button search-icon">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% include "v2/qlink_list.html" %}
+
+  <script type="text/javascript">
+
+    var _checked = [];
+
+    function removeA(arr) {
+        var what, a = arguments, L = a.length, ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax= arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      $.typeahead({
+          input: '.js-typeahead-country_v2',
+          minLength: 1,
+          maxItem: 20,
+          order: "asc",
+          mustSelectItem : true,
+          // href: "https://en.wikipedia.org/?title={{display}}",
+          // template: "{{name}} <small style='color:#999;'>{{group}}</small>",
+          template :function (query, item) {
+            var url = $(location).attr("href");
+            if (getParameterByName("code") == null){
+              url += '&code='+item.code;
+            } else {
+              url = updateUrlParameter(url, 'code', item.code);
+            }
+
+            if (item.code == 0){
+              url = removeParam('code', url)
+            }
+
+            item.href = url;
+            if (item.group =='district'){
+              return '<span class="row">' +
+                  '<span>'+item.name+' <small style="color:#999;">'+item.group+' in '+item.parent+' province</small></span>' +
+              "</span>";
+            } else {
+              return '<span class="row">' +
+                  '<span>'+item.name+' <small style="color:#999;">'+item.group+'</small></span>' +
+              "</span>";
+            }
+          },
+          source: {
+              country: {
+                  display: "name",
+                  href: "https://www.github.com/",
+                  data: [{
+                    "name":"Afghanistan",
+                    "code":0
+                  }]
+              },
+              province: {
+                  display: "name",
+                  href: "https://www.github.com/",
+                  ajax: {
+                      type: "GET",
+                      url: "/dashboard/getprovinces",
+                      path: "data.provinces"
+                  }
+              },
+              district: {
+                  display: "name",
+                  href: "https://www.github.com/",
+                  ajax: {
+                      type: "GET",
+                      url: "/dashboard/getprovinces",
+                      path: "data.districts"
+                  }
+              }
+          },
+          callback: {
+              onNavigateAfter: function (node, lis, a, item, query, event) {
+                  if (~[38,40].indexOf(event.keyCode)) {
+                      var resultList = node.closest("form").find("ul.typeahead__list"),
+                          activeLi = lis.filter("li.active"),
+                          offsetTop = activeLi[0] && activeLi[0].offsetTop - (resultList.height() / 2) || 0;
+
+                      resultList.scrollTop(offsetTop);
+                  }
+
+              },
+              onClickAfter: function (node, a, item, event) {
+
+                  event.preventDefault();
+
+                  // var r = confirm("You will be redirected to:\n" + item.href + "\n\nContinue?");
+                  // if (r == true) {
+                      // window.open(item.href);
+                      window.document.location = item.href;
+                  // }
+
+                  $('#result-container').text('');
+
+              },
+              onResult: function (node, query, result, resultCount) {
+                  if (query === "") return;
+
+                  var text = "";
+                  if (result.length > 0 && result.length < resultCount) {
+                      text = "Showing <strong>" + result.length + "</strong> of <strong>" + resultCount + '</strong> elements matching "' + query + '"';
+                  } else if (result.length > 0) {
+                      text = 'Showing <strong>' + result.length + '</strong> elements matching "' + query + '"';
+                  } else {
+                      text = 'No results matching "' + query + '"';
+                  }
+                  $('#result-container').html(text);
+
+              }//,
+              // onMouseEnter: function (node, a, item, event) {
+
+              //     if (item.group === "country") {
+              //         $(a).append('<span class="flag-chart flag-' + item.display.replace(' ', '-').toLowerCase() + '"></span>')
+              //     }
+
+              // },
+              // onMouseLeave: function (node, a, item, event) {
+
+              //     $(a).find('.flag-chart').remove();
+
+              // }
+          }
+      });
+
+
+      $('button#pdf').on('click', function(event) {
+        var url = $(location).attr("href");
+        $(".se-pre-con").fadeIn("slow");
+        window.document.location = url+'&pdf=true&_checked='+_checked;
+        $(".se-pre-con").fadeOut("slow");
+      });
+    });
+  </script>

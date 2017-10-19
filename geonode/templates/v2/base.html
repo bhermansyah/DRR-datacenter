@@ -1,0 +1,432 @@
+{% load i18n avatar_tags %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#a72b1f">
+    <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    {% block js_base_dependency %}
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+    {% endblock %}
+
+    {% block head %}
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}v2/images/immap_favicon.png">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/font-awesome.min.css">
+        <!-- DateRangePicker -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/daterangepicker.css">
+        <!-- Datatables -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/buttons.bootstrap.min.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/select2.min.css">
+        <!-- Date time Picker -->
+        <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css"> -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css">
+        <!-- <link rel="stylesheet" type="text/css" href="css/select2-bootstrap.min.css"> -->
+        <!-- Printing -->
+        <!-- <link rel="stylesheet" type="text/css" href="css/gistfile1.css"> -->
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css">
+
+        <!-- If you'd like to support IE8 -->
+        <!-- <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
+        <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
+        <!-- <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" /> -->
+        <!-- <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" /> -->
+
+        {% if LANGUAGE_BIDI %}
+        <link href="{{ STATIC_URL }}geonode/css/font-awesome-rtl.css" rel="stylesheet" />
+        {% endif %}
+
+        <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}
+        </style>
+
+
+        {% block extra_head %}
+        {% endblock %}
+    {% endblock %}
+
+  </head>
+
+  <body class="{% block body_class %}{% endblock %}" {% block body_extra_attr %}{% endblock %}>
+    {% block header %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-fixed-top navbar-upper" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a id="logo" class="pull-left" href="{% url 'v2:home' %}"></a>
+                <a id="logo2" class="pull-left navbar-brand-immap" href="{% url 'v2:home' %}"><h1 class="webTitle" style="height:50px">{% trans "AFGHANISTAN SPATIAL DATA CENTER" %}</h1></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
+                <div class="row">
+                  {% if csrf_token != "NOTPROVIDED" %}
+                  {% get_current_language as LANGUAGE %}
+                  <form action="/i18n/setlang/" method="post">
+                    {% csrf_token %}
+                    <select class="language" name="language" onchange="javascript:form.submit()">
+                        <!-- <option>Language</option> -->
+                        {% for lang in LANGUAGES %}
+                        <option value="{{ lang.0 }}" {% ifequal LANGUAGE_CODE lang.0 %} selected="selected"{% endifequal %}>{{ lang.1 }}</option>
+                        {% endfor %}
+                    </select>
+                  </form>
+                  {% endif %}
+                </div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{% url 'v2:home' %}">{% trans "Home" %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'v2:dashboard_detail' %}?page=baseline">{% trans "Dashboard" %}</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'v2:layer_browse' %}">{% trans "Layers" %}</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">MAPS&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{% url 'v2:document_browse' %}">{% trans "Static Maps" %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'v2:maps_browse' %}">{% trans "Interactive Maps" %}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Documentation" %}&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{% url 'v2:partners' %}">{% trans "Partner" %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'v2:documentation' %}">{% trans "Documentation & Videos" %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'v2:training' %}">{% trans "Training" %}</a>
+                            </li>
+                            <!-- <li>
+                                <a href="404.html">404</a>
+                            </li> -->
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url 'v2:about' %}">{% trans "About" %}</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'v2:disclaimer' %}">{% trans "Disclaimer" %}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% if not user.is_authenticated and REGISTRATION_OPEN %}
+                    <!-- Showed when not logged in -->
+                    <li class="login">
+                        <a data-toggle="modal" href="#loginForm"><i class="fa fa-lock" aria-hidden="true"></i></a>
+                    </li>
+                    {% endif %}
+                    <!-- Showed when logged in -->
+                    {% if user.is_authenticated %}
+                    <li class="login">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            {% avatar user 30 %}{{ user.username }}
+                            <span class=" fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                            <!-- <li><a href="javascript:;"> Profile</a></li> -->
+                            <li><a href="{% url "v2:layer_upload" %}"><i class="fa fa-cloud-upload"></i> {% trans "Upload Layers" %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/v2{{ user.get_absolute_url }}"><i class="fa fa-user pull-right"></i> {% trans "Profile" %}</a></li>
+                            <li><a href="{% url 'messages_inbox' %}"><i class="fa fa-inbox pull-right"></i> {% trans "Inbox" %}</a></li>
+                            <li><a href="{% url 'recent-activity' %}"><i class="fa fa-clock-o pull-right"></i> {% trans "Recent Activity" %}</a></li>
+                            <li><a href="{% url 'notification_notice_settings' %}"><i class="fa fa-cog pull-right"></i> {% trans 'Settings' %}</a></li>
+                            <!-- Need to be checked Later -->
+                            {% if USE_NOTIFICATIONS %}
+                              <li><a href="{% url "notification_notice_settings" %}"><i class="fa fa-bell"></i> {% trans "Notifications" %}</a></li>
+                            {% endif %}
+                            {% if perms.announcements.can_manage %}
+                            <li><a href="{% url "announcements_list" %}"><i class="fa fa-bullhorn"></i> {% trans "Announcements" %}</a></li>
+                            {% endif %}
+                            {% if user.is_superuser %}
+                            <li><a href="{% url "services" %}"><i class="fa fa-globe"></i> {% trans "Remote Services" %}</a></li>
+                            <li><a href="{% url "account_invite_user" %}"><i class="fa fa-edit"></i> {% trans "Invite User" %}</a></li>
+                            <li><a href="{% url "userstatistics" %}"><i class="fa fa-bar-chart-o"></i> {% trans "User Statistics" %}</a></li>
+                            <li class="modal-divider"></li>
+                            <li><a href="{{ GEOSERVER_BASE_URL }}"><i class="fa fa-gears"></i> {% trans "GeoServer" %}</a></li>
+                            {% endif %}
+                            {% if user.is_staff %}
+                            <li><a href="{% url "admin:index" %}"><i class="fa fa-cog"></i> {% trans "Admin" %}</a></li>
+                            {% endif %}
+                            {% block extra_user_menu %}
+                            {% endblock %}
+                            <!-- /Need to be checked later -->
+                            <li><a href="/help/"><i class="fa fa-question pull-right"></i> {% trans "Help" %}</a></li>
+                            <li>
+                              <form action="{% url 'account_logout' %}" id="logout_form" method="post">
+                                {% csrf_token %}
+                                <a href="javascript:{}" onclick="document.getElementById('logout_form').submit();"><i class="fa fa-sign-out pull-right"></i> {% trans "Log out" %}</a>
+                              </form>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    {% endblock header %}
+
+    <div class="alert alert-danger alert-dismissible" role="alert" id="ieflag" style="display:none">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h1>You are using an outdated browser that is not supported by GeoNode.</h1>
+      <p>Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari.</p>
+    </div>
+
+    {% block middle %}
+        {% block body_outer %}
+          {% block body %}{% endblock %}
+          {% block sidebar %}{% endblock %}
+        {% endblock %}
+    {% endblock middle %}
+
+    {% block footer %}
+    <!-- Bottom -->
+    <section id="bottom" class="main">
+        <!--Container-->
+        <div class="container">
+            <!--row-fluids-->
+            <div class="row">
+                <!--Contact Form-->
+                <div class="col-md-3">
+                    <h4>{% trans 'CONTACT' %}</h4>
+                    <ul class="list-unstyled address">
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            <strong>Email: </strong> afghanistan@immap.org
+                        </li>
+                        <li>
+                            <i class="fa fa-globe"></i>
+                            <strong>Website:</strong> www.immap.org
+                        </li>
+                    </ul>
+                </div>
+                <!--End Contact Form-->
+            </div>
+            <!--/row-fluid-->
+        </div>
+        <!--/container-->
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 cp">
+                    &copy; 2016
+                    <a target="_blank" href="http://immap.org/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">iMMAP</a>. All Rights Reserved.
+                </div>
+                <!--/Copyright-->
+                <div class="col-md-6">
+                    <ul class="social pull-right">
+                        <li>
+                            <a href="#"><i class="fa fa-envelope"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-youtube"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-1">
+                    <a id="gototop" class="gototop pull-right" href="#"><i class="fa fa-angle-up"></i></a>
+                </div>
+                <!--/Goto Top-->
+            </div>
+        </div>
+    </footer>
+    {% endblock footer %}
+
+    <!-- Modal must stay outside the navbar -->
+    {% if not user.is_authenticated %}
+    <!-- Login Form -->
+    <div class="modal fade in" id="loginForm" aria-hidden="false" role="dialog">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!-- <i class="fa fa-remove" data-dismiss="modal" aria-hidden="true"></i> -->
+                    <h4>{% trans "Login" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="center" action="{% url "account_login" %}?next={{ request.path }}" method="post" id="form-login">
+                        {% csrf_token %}
+                        <fieldset class="login-form">
+                            <!-- Username -->
+                            <div class="form-group group-login">
+                                <input type="text" id="id_username" name="username" placeholder="{% trans 'Username' %}" class="input-xlarge login-input">
+                                <div class="login-forgot">
+                                    <a href="{% url 'forgot_username' %}">{% trans "Forgot?" %}</a>
+                                </div>
+                            </div>
+                            <!-- Password-->
+                            <div class="form-group group-login">
+                                <input type="password" id="id_password" name="password" placeholder="{% trans 'Password' %}" class="input-xlarge login-input">
+                                <div class="login-forgot">
+                                    <a href="{% url 'account_password_reset' %}">{% trans "Forgot?" %}</a>
+                                </div>
+                            </div>
+                            <div class="form-group" style="text-align: left;">
+                                <div class="checkbox">
+                                    <label><input type="checkbox"> {% trans "Remember Me" %}</label>
+
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-large btn-block" type="submit" >{% trans "Login" %}</button>
+                            </div>
+                            <div >
+                                <a href="{% url 'account_signup' %}">{% trans "Not Registered? Create an account" %}</a>
+                            </div>
+                        </fieldset>
+                        <!-- <div class="form-group"> -->
+                            <!-- Username -->
+                            <!-- <div class="controls"> -->
+                                <!-- <input id="id_username" type="text" class="input-sm" placeholder="{% trans 'Username' %}">
+                                <input id="id_password" type="password" class="input-sm" placeholder="{% trans 'Password' %}"> -->
+                            <!-- </div> -->
+                        <!-- </div> -->
+                        <!-- <br>
+                        <label class="checkbox">
+                            <input type="checkbox"> {% trans "Remember Me" %}
+                        </label>
+                        <br> -->
+                        <!-- <div class="form-group"> -->
+                            <!-- Sign in Button -->
+                            <!-- <div class="controls"> -->
+                                <!-- <button type="submit" class="btn btn-default btn-primary">{% trans "Sign in" %}</button> -->
+                            <!-- </div> -->
+                        <!-- </div> -->
+                    </form>
+                    <!-- <a href="{% url 'account_password_reset' %}">{% trans "Forgot your password?" %}</a>
+                    <br>
+                    <a href="{% url 'account_signup' %}">{% trans "Not Registered? Create an account" %}</a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- End of Modal -->
+
+    <!-- jQuery -->
+    <script src="{{ STATIC_URL }}v2/js/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="{{ STATIC_URL }}v2/js/bootstrap.min.js"></script>
+
+    <!-- Time Ago -->
+    <script src="{{ STATIC_URL }}v2/js/jquery.timeago.js"></script>
+
+    <!-- jQuery Marquee -->
+    <script src="{{ STATIC_URL }}v2/js/jquery.marquee.min.js"></script>
+
+    <!-- Select2 -->
+    <script src="{{ STATIC_URL }}v2/js/select2.min.js"></script>
+
+    <!-- DateRangePicker -->
+    <script src="{{ STATIC_URL }}v2/js/moment.min.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/daterangepicker.js"></script>
+
+    <!-- Datatables -->
+    <script src="{{ STATIC_URL }}v2/js/jquery.dataTables.min.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/dataTables.buttons.min.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/buttons.flash.min.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/jszip.min.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/pdfmake.min.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/vfs_fonts.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/buttons.html5.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/buttons.print.min.js"></script>
+    <!-- <script type="js/buttons.colVis.min.js"></script> -->
+
+    <!-- ECharts -->
+    <script src="{{ STATIC_URL }}v2/js/echarts.min.js"></script>
+
+    <!-- Angular -->
+    <script src="{{ STATIC_URL }}v2/js/angular.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.9/angular.min.js"></script> -->
+
+    <!-- Raty -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raty/2.7.1/jquery.raty.js"></script>
+
+    <!-- Date Time Picker -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" ></script> -->
+    <script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js"></script>
+
+    <!-- Custom -->
+    <script src="{{ STATIC_URL }}v2/js/custom.js"></script>
+
+    <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
+    <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
+    {% include 'autocomplete_light/static.html' %}
+    {% block extra_script %}
+    {% endblock extra_script %}
+    <script type="text/javascript">
+        var autocomplete = $('#search_input').yourlabsAutocomplete({
+            url: '{% url "autocomplete_light_autocomplete" "ResourceBaseAutocomplete" %}',
+            choiceSelector: 'span',
+            hideAfter: 200,
+            minimumCharacters: 1,
+            placeholder: '{% trans 'Type your search here ...' %}',
+            appendAutocomplete: $('#search_input')
+        });
+        $('#search_input').bind('selectChoice', function(e, choice, autocomplete) {
+            if(choice[0].children[0] == undefined) {
+                $('#search_input').val(choice[0].innerHTML);
+                $('#search').submit();
+            }
+        });
+    </script>
+    <script>
+        // Workaround to fix the autocomplete box positions
+        yourlabs.Autocomplete.prototype.fixPosition = function(html) {
+            this.input.parents().filter(function() {
+                return $(this).css('overflow') === 'hidden';
+            }).first().css('overflow', 'visible');
+            if(this.input.attr('name') !== 'resource-keywords'){
+              this.box.insertAfter(this.input).css({top: 0, left: 0});
+            }else{
+              var pos = $.extend({}, this.input.position(), {
+                height: this.input.outerHeight()
+              });
+              this.box.insertAfter(this.input).css({top: pos.top + pos.height, left: pos.left});
+            }
+        };
+
+        // LANGUAGE_CODE js global var
+        {% get_current_language as LANGUAGE_CODE %}
+        LANGUAGE_CODE = "{{ LANGUAGE_CODE }}";
+    </script>
+
+    <script type="text/javascript" src="{% url "lang" %}"></script>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+{% load i18n %}
+
+<div id="info" class="tab-pane fade in active">
+    <div class="tab-inner" style="">
+      <table class="table">
+        <!-- <thead></thead> -->
+        <tbody>
+            {% if resource.title %}
+            <tr class="">
+                <td>{% trans "Title" %}</td>
+                <td>{{ resource.title|truncatechars:80 }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.subtitle %}
+            <tr>
+                <td>{% trans "Subtitle" %}</td>
+                <td>{{ resource.subtitle|truncatechars:80 }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.srid and SRID_DETAIL == 'above' %}
+            <tr>
+                <td>{% trans "SRID" %}</td>
+                <td>{{ resource.srid }}</td>
+            </tr>
+            {% endif %}
+
+            <!-- need editing for more details -->
+            {% if LICENSES_ENABLED and LICENSES_DETAIL == 'above' and resource.license %}
+            <tr>
+                <td>{% trans "License" %}</td>
+                <td>{{ resource.license.name_long }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.abstract %}
+            <tr>
+                <td>{% trans "Abstract" %}</td>
+                <td>{{ resource.abstract|escape|urlize|linebreaks|safe }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.date %}
+            <tr>
+                <td>{% trans resource.date_type|title %} {% trans "Date" %}</td>
+                <td>{{ resource.date | date:'d M Y'}}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.display_type %}
+            <tr>
+                <td>{% trans "Type" %}</td>
+                <td>{{ resource.display_type }}</td>
+            </tr>
+            {% endif %}
+
+
+            {% if resource.keywords.count > 0 %}
+            <tr>
+                <td>{% trans "Keywords" %}</td>
+                <td>
+                    {% for keyword in resource.keywords.all %}
+                    <a href="{% url 'search' %}?keywords__slug__in={{ keyword.slug }}" >{{ keyword.name }}</a>
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
+
+            <!-- need editing for more details -->
+            {% if resource.category %}
+            <tr>
+                <td>{% trans "Category" %}</td>
+                <td>
+                    <a href="{% url 'search' %}?category__identifier__in={{ resource.category.identifier }}" {% if resource.category.description %} data-toggle="popover" data-trigger="hover" data-placement="auto" data-content="{{ resource.category.description }}" {% endif %}>{{ resource.category }} <sup><i class="fa fa-question-circle"></i></sup></a>
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if resource.regions.all %}
+            <tr>
+                <td>{% trans "Regions" %}</td>
+                <td>
+                    {% for region in resource.regions.all %}
+                    <a href="{% url 'search' %}?regions__name__in={{ region.name }}">{{ region.name }}</a>
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if resource.datasource %}
+            <tr>
+                <td>{% trans "Source" %}</td>
+                <td>{{ resource.datasource }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.papersize %}
+            <tr>
+                <td>{% trans "Paper Size" %}</td>
+                <td>{{ resource.papersize }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.poc.user %}
+            <tr>
+                <td>{% trans "Point of Contact" %}</td>
+                <td>
+                    <a href="{{ resource.poc.user.get_absolute_url }}">{{ resource.poc.user.username }}</a>
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if resource.owner %}
+            <tr class="hid-row">
+                <td>{% trans "Owner" %}</td>
+                <td>
+                    <a href="{{ resource.owner.get_absolute_url }}">{{ resource.owner.username }}</a>
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if resource.srid and SRID_DETAIL == 'below' %}
+            <tr class="hid-row">
+                <td>{% trans "SRID" %}</td>
+                <td>{{ resource.srid }}</td>
+            </tr>
+            {% endif %}
+
+            <!-- need editing for more details -->
+            {% if LICENSES_ENABLED and LICENSES_DETAIL == 'below' and resource.license %}
+            <tr class="hid-row">
+                <td>{% trans "License" %}</td>
+                <td>{{ resource.license.name_long }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.maintenance_frequency %}
+            <tr class="hid-row">
+                <td>{% trans "Maintenance Frequency" %}</td>
+                <td>{{ resource.maintenance_frequency_title }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.restriction_code_type or resource.constraints_other %}
+            <tr class="hid-row">
+                <td>{% trans "Restrictions" %}</td>
+                <td>
+                    {% if resource.constraints_other %}
+                        {{ resource.constraints_other }}
+                    {% else %}
+                        {{ resource.restriction_code_type }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+
+            {% if resource.edition %}
+            <tr class="hid-row">
+                <td>{% trans "Edition" %}</td>
+                <td>{{ resource.edition}}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.purpose %}
+            <tr class="hid-row">
+                <td>{% trans "Purpose" %}</td>
+                <td>{{ resource.purpose|escape|urlize|linebreaks|safe|truncatechars:160 }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.language %}
+            <tr class="hid-row">
+                <td>{% trans "Language" %}</td>
+                <td>{{ resource.language_title }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.temporal_extent_start and resource.temporal_extent_end %}
+            <tr class="hid-row">
+                <td>{% trans "Temporal Extent" %}</td>
+                <td>{{ resource.temporal_extent_start }} - {{ resource.temporal_extent_end }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.data_quality_statement %}
+            <tr class="hid-row">
+                <td>{% trans "Data Quality" %}</td>
+                <td>{{ resource.data_quality_statement }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.supplemental_information %}
+            <tr class="hid-row">
+                <td>{% trans "Supplemental Information" %}</td>
+                <td>{{ resource.supplemental_information|truncatechars:160|escape|urlize|linebreaks|safe }}</td>
+            </tr>
+            {% endif %}
+
+            {% if resource.spatial_representation_type %}
+            <tr class="hid-row">
+                <td>{% trans "Spatial Representation Type" %}</td>
+                <td>{{ resource.spatial_representation_type }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+      </table>
+      <div class="btn btn-primary btn-toggle expand pull-right" onClick="toggleRow('hid-row');"><span class="sign"></span></div>
+    </div>
+</div>
+<!-- <div id="attribute" class="tab-pane fade">
+    <h3>Menu 1</h3>
+    <p>Some content in menu 1.</p>
+</div>
+<div id="rate" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+</div>
+<div id="comment" class="tab-pane fade">
+    <h3>Menu 2</h3>
+    <p>Some content in menu 2.</p>
+</div>
+<div id="geogig" class="tab-pane fade">
+    <h3>Menu 3</h3>
+    <p>Some content in menu 2.</p>
+</div> -->

@@ -1,0 +1,65 @@
+{% extends "v2/site_base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block head_title %}{% trans "Log in" %}{% endblock %}
+
+{% block body_outer %}
+    <!-- Title -->
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{% trans 'Login' %}</h1>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li>
+                            <a href="">Home</a> 
+                            <span class="divider">/</span>
+                        </li>
+                        <li class="active">{% trans 'Login' %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="login-page" class="container">
+        <form class="center" action='' method="POST">
+            <fieldset class="login-form">
+                <!-- Username -->
+                <div class="form-group group-login">
+                    <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge login-input">
+                    <div class="login-forgot">
+                        <a href="{% url 'forgot_username' %}">Forgot?</a>
+                    </div>
+                </div>
+                <!-- Password-->
+                <div class="form-group group-login">
+                    <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge login-input">
+                    <div class="login-forgot">
+                        <a href="{% url 'account_password_reset' %}">Forgot?</a>
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <div class="checkbox">
+                        <label><input type="checkbox" value="">Remember me</label>
+                        
+                    </div>
+                </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-large btn-block">{% trans "Login" %}</button>
+                </div>
+                <div >
+                    <a href="{% url 'account_signup' %}">Not Registered? Create an account</a>
+                </div>
+            </fieldset>
+        </form>
+    </section>
+    <!-- /login-page -->
+
+{% endblock %}

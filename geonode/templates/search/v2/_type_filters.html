@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load base_tags %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+  <div class="panel panel-default">
+    <div class="panel-heading" id="headingType">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapseType" aria-expanded="false" aria-controls="collapseType" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans 'Type' %}</a>
+      </h4>
+    </div>
+    <div id="collapseType" class="panel-collapse collapse in" aria-labelledby="headingType" aria-expanded="true">
+      <div class="panel-body">
+        <ul class="list-unstyled"> 
+          {% facets as facets %}
+
+          {% for facet, count in facets.items %}
+            {% if count > 0 %}
+          <li> 
+            <div class="checkbox checkbox-red"> 
+              <label><input type="checkbox" id="{{ facet }}" data-value="{{ facet }}" data-filter="{{ filter }}" ng-click="multiple_choice_listener($event)">{{ facet|capfirst }}
+              </label> 
+              <span class="badge {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">{{ count }}</span>
+            </div> 
+          </li> 
+            {% endif %}
+          {% endfor %}
+        </ul> 
+      </div> 
+    </div>
+  </div>

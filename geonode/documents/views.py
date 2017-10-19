@@ -105,9 +105,17 @@ def document_detail(request, docid):
         if settings.SOCIAL_ORIGINS:
             context_dict["social_links"] = build_social_links(request, document)
 
-        return render_to_response(
-            "documents/document_detail.html",
-            RequestContext(request, context_dict))
+        # ubah
+        if 'v2' in request.path:
+            return render_to_response(
+                    "v2/document_detail.html",
+                    RequestContext(request, context_dict))
+        else:
+        # /ubah
+            return render_to_response(
+                "documents/document_detail.html",
+                RequestContext(request, context_dict))
+
 
 
 def document_download(request, docid):

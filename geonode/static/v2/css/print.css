@@ -1,0 +1,215 @@
+/*Printing CSS*/
+/*@media print {*/
+    /*@page{
+        size: A4;
+    }*/
+
+    .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+      float: left;
+    }
+    .col-md-12 {
+      width: 100%;
+    }
+    .col-md-11 {
+      width: 91.66666667%;
+    }
+    .col-md-10 {
+      width: 83.33333333%;
+    }
+    .col-md-9 {
+      width: 75%;
+    }
+    .col-md-8 {
+      width: 66.66666667%;
+    }
+    .col-md-7 {
+      width: 58.33333333%;
+    }
+    .col-md-6 {
+      width: 50%;
+    }
+    .col-md-5 {
+      width: 41.66666667%;
+    }
+    .col-md-4 {
+      width: 33.33333333%;
+    }
+    .col-md-3 {
+      width: 25%;
+    }
+    .col-md-2 {
+      width: 16.66666667%;
+    }
+    .col-md-1 {
+      width: 8.33333333%;
+    }
+
+    *,
+    *:before,
+    *:after {
+      color: #000;
+      text-shadow: none;
+      background: transparent !important;
+      -webkit-box-shadow: none;
+              box-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+      text-decoration: underline;
+    }
+    a[href]:after {
+      content: " (" attr(href) ")";
+    }
+    /*abbr[title]:after {
+      content: " (" attr(title) ")";
+    }*/
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+      content: "";
+    }
+    pre,
+    blockquote {
+      border: 1px solid #999;
+
+      page-break-inside: avoid;
+    }
+    thead {
+      display: table-header-group;
+    }
+    tr,
+    /*img {
+      page-break-inside: avoid;
+    }*/
+    img {
+      max-width: 100% !important;
+    }
+    p,
+    h2,
+    h3 {
+      orphans: 3;
+      widows: 3;
+    }
+    h2,
+    h3 {
+      page-break-after: avoid;
+    }
+    .navbar {
+      display: none;
+    }
+    .btn > .caret,
+    .dropup > .btn > .caret {
+      border-top-color: #000 !important;
+    }
+    .label {
+      border: 1px solid #000;
+    }
+    .table {
+      border-collapse: collapse !important;
+      width: 100% !important;
+    }
+    /*.table td,
+    .table th {
+      background-color: #fff !important;
+    }*/
+    .table-bordered th,
+    .table-bordered td {
+      border: 1px solid #000;
+    }
+    
+    .hidden-print {
+      display: none !important;
+    }
+    .visible-print-block {
+      display: block !important;
+    }
+
+    body{
+      padding-top: 0;
+    }
+
+    .table {
+        text-align: right;
+    }
+
+    .table thead {
+        background-color: #ddd !important;
+        border: 1px solid #fff !important;
+    }
+
+    tr td:nth-child(1), #incident_list_p {
+        text-align: left;
+    }
+
+    table.dataTable.table-condensed>thead>tr>th.sorting_disabled{
+      padding-right: 5px;
+    }
+
+    thead, tfoot { 
+      display: table-row-group 
+    }
+
+    /*Printing table*/
+    table.road_network {
+        font-size: 11px;
+    }
+
+    table#pop_area_overview_p, table#frisk_p{
+        font-size: 12px;
+    }
+
+    .print-no-pad{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    div.ch-size{
+        height: 370px !important;
+        /*width: 250px !important;*/
+        width: 344px !important;
+    }
+
+    div.ch-size-fforecast{
+        height: 370px !important;
+        width: 410px !important;
+    }
+
+    div.ch-size-pie{
+      height: 370px !important;
+      width: 344px !important;
+      /*height: 350px !important;
+      width: 240px !important;*/
+    }
+
+    div.ch-size-pie-mercalli{
+      height: 500px;
+      width: 1100px;
+    }
+
+    div.ch-size-radar{
+        height: 200px !important;
+        width: 300px !important;
+    }
+
+    div.ch-size-haccessBar{
+        height: 480px !important;
+        width: 270px !important;
+    }
+    /*table, th, td {
+        border: 0.1px solid black !important;
+    }
+
+    table {
+        width: 500px !important;
+    }
+
+    th {
+        text-align: center;
+    }
+
+    td {
+        padding: 5px;
+        text-align: left;
+    }*/
+
+/*}*/

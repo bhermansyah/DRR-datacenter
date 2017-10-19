@@ -1,0 +1,9 @@
+{% load i18n %}
+{% load base_tags %}
+
+<div class="input-group">
+  <input type="search" name="text_search_input" id="text_search_input" ng-model="text_query" placeholder={% trans "Search by text" %} class="form-control input-sm">
+  <span class="input-group-btn">
+    <button class="btn btn-primary" type="submit" id="text_search_btn"><i class="fa fa-search"></i></button>
+  </span>
+</div>

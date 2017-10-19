@@ -1,0 +1,305 @@
+{% extends "v2/document_base.html" %}
+{% load i18n %}
+{% load dialogos_tags %}
+{% load agon_ratings_tags %}
+{% load bootstrap_tags %}
+{% load url from future %}
+{% load base_tags %}
+{% load guardian_tags %}
+
+{% block title %}{{ resource.title }} — {{ block.super }}{% endblock %}
+
+{% block head %}
+
+{{ block.super }}
+{% endblock %}
+
+{% block body_class %}documents{% endblock %}
+
+{% block body_outer %}
+
+<div class="container" style="">
+  <div class="row">
+    <div class="container-fill" style="">
+      <div>
+        <ul class="breadcrumb breadcrumb-info">
+            <li>{% trans 'Maps' %}</li>
+            <li><a href="{% url 'v2:document_browse' %}">{% trans "Static Maps" %}</a></li> 
+            <li class="active">{{ resource.title }}</li> 
+        </ul>
+      </div>
+      <div class="col-md-12">
+        <div class="" style="margin: 0 -15px 15px; padding: 15px 15px 0px; background-color: #fff;">
+          <h3>{{ resource.title }}</h3>
+          <div class="product-title-block">
+            {% overall_rating resource "document" as document_rating %}
+            <div class="overall_rating" style="float:left" data-score="{{ document_rating }}"></div>
+            <!-- <div class="rating" style="display: inline-block; margin-right:10px;">
+              <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+              <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+              <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+              <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+              <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+              <span>from 1 user</span>
+            </div> -->
+            <!-- <div class="category" style="display: inline-block;">
+              <span>Category</span>
+              <span>Health Facilities</span>
+            </div> -->
+            <div class="owner" style="display: inline-block;">
+              {% include "v2/_resourcebase_contact_snippet.html" %}
+              <!-- <a href="#" class="user-profile">
+                <img src="/static/v2/images/user.png" alt="">Admin
+              </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+          {% get_obj_perms request.user for resource.get_self_resource as "perms" %}
+          {% if "download_resourcebase" in perms %}
+          <div style="margin: 0 -15px 20px; background-color: #fff;">
+              {% if resource.extension|lower in imgtypes and resource.doc_file %}
+              <div class="image-preview">
+                <a href="{% url 'document_download' resource.id %}" target="_blank">
+                  <img src="{% url 'document_download' resource.id %}" class="img-responsive" style="width: 100%; height: 100%;">
+              </div>
+              {% elif resource.doc_file %}
+              <div class="image-preview">
+                <a href="{% url 'document_download' resource.id %}" target="_blank">
+                  <img src="{{ preview_url }}" style="width: 100%; height: 100%;">
+                </a>
+              </div>
+              {% elif resource.doc_url %}
+              <p>
+                <a href="{{ resource.doc_url }}" target="_blank">Download the {{ resource }} document.</a> <small>({% trans 'External Resource' %})</small>
+              </p>
+              {%  endif %}
+          </div>
+          {%  endif %}
+
+          <div class="product-info-panel" style="margin: 0 -15px;">
+            {% include "v2/_actions.html" %}
+            <!-- <ul class="nav nav-tabs" style="">
+                <li class="active"><a data-toggle="tab" href="#info">Home</a></li>
+                <li><a data-toggle="tab" href="#attribute">Attribute</a></li>
+                <li><a data-toggle="tab" href="#rate">Rate</a></li>
+                <li><a data-toggle="tab" href="#comment">Comment</a></li>
+            </ul> -->
+            <div class="tab-content" style="background-color: #fff; border-top: 4px solid #a72b1f;">
+              {% include "v2/resourcebase_info_panel.html" %}
+              <div id="rate" class="tab-pane fade">
+                  <table class="table">
+                      {% if request.user.is_authenticated %}
+                      <tr>
+                          <td><h4>{% trans "Rate this document" %}</h4></td>
+                          {% user_rating request.user resource "document" as user_document_rating %}
+                          <td><div id="user_rating" class="category-layer" data-score="{{user_document_rating}}"></div></td>
+                      </tr>
+                      {% endif %}
+                      <tr>
+                          <td><h4>{% trans 'Average Rating' %}</h4></td>
+                          {% overall_rating resource "document" as document_rating %}
+                          {% num_ratings resource as num_votes %}
+                          <td><div class="overall_rating" style="float:left" data-score="{{ document_rating }}"></div>{% trans 'From' %} {{num_votes}} {% trans 'votes' %}</td>
+                      </tr>
+                  </table>
+              </div>
+              {% include "v2/_comments.html" %}
+            </div>
+          </div>
+      </div>
+      <div class="col-md-4"> 
+          <div class="product-details-side" style="margin-right: -15px;">
+            <div class="product-info" style="padding: 0;">
+              <div class="product-map-editor">
+                <ul class="nav nav-tabs" style="text-align: center; background-color: #f5f5f5;">
+                    <li class="active"><a data-toggle="tab" href="#legend">{% trans "Related Resource" %}</a></li>
+                </ul>
+                <div class="tab-content" style="height: 250px; padding: 10px 15px; background-color: #fff; overflow-y: auto; border-top: 4px solid #a72b1f;">
+                    <div id="legend" class="tab-pane fade in active" style="margin-top: 15px;">
+                      {% if layer.maps %}
+                      <p>{% trans "List of resources using this document:" %}</p>
+                      {% endif %}
+                      <ul class="list-unstyled">
+                        {% if related.title %}
+                        <p>{% trans "This document is related to a " %} {{ resource.content_type.name }}</p>
+                        <a href='{{ related.get_absolute_url }}'>{{ related.title }}</a>
+                        {% else %}
+                        <p>{% trans "This document is not related to any maps or layers" %}</p>
+                        {% endif %}
+                      </ul>
+                    </div>
+                  <div id="style" class="tab-pane fade">
+                    <p>The following styles are associated with this layer. Choose a style to view it in the preview map.</p>
+                    <ul class="list-unstyled">
+                          <li>
+                              <input type="radio" name="style" id="afg_hltfac_tier3" value="">
+                              <a href="http://asdc.immap.org/geoserver/styles/afg_hltfac_tier3.sld">Hospitals Others</a>
+                          </li>
+                          <li>
+                              <input type="radio" name="style" id="afg_hltfac_0d5a9a45" value="">
+                              <a href="http://asdc.immap.org/geoserver/styles/afg_hltfac_0d5a9a45.sld">Hospitals Tier 2</a>
+                          </li>
+                          <li>
+                              <input type="radio" name="style" id="afg_hltfac_tier3_bhc" value="">
+                              <a href="http://asdc.immap.org/geoserver/styles/afg_hltfac_tier3_bhc.sld">Hospitals Tier 3</a>
+                          </li>
+                          <li>
+                              <input type="radio" name="style" id="afg_hltfac_efb04a60" value="">
+                              <a href="http://asdc.immap.org/geoserver/styles/afg_hltfac_efb04a60.sld">Hospitals Default</a>
+                          </li>
+                          <li>
+                              <input type="radio" checked="" name="style" id="afg_hltfac_hospitals" value="">(default style)
+                              <a href="http://asdc.immap.org/geoserver/styles/afg_hltfac_hospitals.sld">Hospitals Tier 1</a>
+                          </li>
+                          <li>
+                            <input type="radio" name="style" id="afg_hltfac_t2" value="">
+                            <a href="http://asdc.immap.org/geoserver/styles/afg_hltfac_t2.sld">Hospitals CHC-MCH-BHC-SBHC</a>
+                          </li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-btn"> 
+              <div class="product-btn-group"> 
+                {% get_obj_perms request.user for resource.get_self_resource as "perms" %}
+                  {% if "download_resourcebase" in perms %}
+                    {% if resource.extension|lower in imgtypes and resource.doc_file %}
+                <a href="{% url 'document_download' resource.id %}" class="btn btn-primary">{% trans "Download" %}</a>
+                    {% elif resource.doc_file %}
+                <a href="{% url 'document_download' resource.id %}" class="btn btn-primary">{% trans "Download" %}</a>
+                    {% elif  resource.doc_url %}
+                <a href="{{ resource.doc_url }}" class="btn btn-primary">{% trans "Download" %}</a>
+                    {%  endif %}
+                  {% else %}
+                    {% if request.user.is_authenticated %}
+                <button class="btn btn-primary" id="request-download">{% trans "Request Download" %}</button>
+                    {%  endif %}
+                  {%  endif %}
+                <button class="btn btn-primary" data-toggle="modal" data-target="#download-metadata">{% trans "Download Metadata" %}</button>
+                <!-- Modal Download Metadata -->
+                <div class="modal fade" id="download-metadata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
+                      </div>
+                      <div class="modal-body">
+                        <ul>
+                          {% for link in metadata %}
+                          <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Modal Download Metadata -->
+                <button class="btn btn-primary" data-toggle="modal" data-target="#edit-document" title="Edit Document"><i class="fa fa-pencil-square-o"></i></button>
+                <!-- Modal Edit Document -->
+                <div class="modal fade" id="edit-document" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">{% trans "Edit Document" %}</h4>
+                      </div>
+                      <div class="modal-body">
+
+                        <div class="row edit-modal">
+                          {% if "change_resourcebase_metadata" in perms %}
+                          <div class="col-sm-3">
+                            <i class="fa fa-list-alt fa-3x"></i>
+                            <h4>{% trans "Metadata" %}</h4>
+                            <a class="btn btn-default btn-block btn-xs" href="{% url "document_metadata" resource.id %}">{% trans "Edit" %}</a>
+                          </div>
+                          {% endif %}
+                          {% if "change_resourcebase" in perms or "delete_resourcebase" in perms %}
+                          <div class="col-sm-3">
+                            <i class="fa fa-file-text-o fa-3x"></i>
+                            <h4>{% trans "Document" %}</h4>
+                            {% if "change_resourcebase" in perms %}
+                            <a class="btn btn-default btn-block btn-xs" href="{% url "document_replace" resource.id %}">{% trans "Replace" %}</a>
+                            {% endif %}
+                            {% if "delete_resourcebase" in perms %}
+                            <a class="btn btn-danger btn-block btn-xs" href="{% url "document_remove" resource.id %}">{% trans "Remove" %}</a>
+                            {% endif %}
+                          </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /Modal Edit Document -->
+              </div> 
+            </div>
+            {% if "change_resourcebase_permissions" in perms %}
+            <div>
+              <p>{% trans "Click the button below to change the permissions of this document." %}</p>
+              <p><a href="#modal_perms" data-toggle="modal" class="btn btn-primary btn-block" data-target="#_permissions">{% trans "Change Document Permissions" %}</a></p>
+                {% include "_permissions_form.html" %}
+            </div>
+            {% endif %}
+            <div class="share" style="">
+              {% include "v2/social_links.html" %}
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+  <script type="text/javascript">
+    // toggle table
+    function toggleRow(thisname) {
+
+            if ($('.hid-row').is(":visible")==true) {
+              $('.hid-row').css('display','none');
+              $('.btn-toggle').addClass("expand");
+            }else{
+              $('.hid-row').css('display','table-row');
+              $('.btn-toggle').removeClass("expand");
+            }
+    }
+  </script>
+
+{% if SOCIAL_BUTTONS %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+{% endif %}
+    {% if request.user.is_authenticated %}
+        {% user_rating_js request.user resource "document" %}
+    {% else %}
+        {% overall_rating resource "document" as the_doc_rating %}
+    {% endif %}
+    {% include 'rating.html' %}
+    {% include 'request_download.html' %}
+    <script type="text/javascript">
+        {% if SOCIAL_BUTTONS %}
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/plusone.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+        {% endif %}
+    </script>
+    {% include "_permissions_form_js.html" %}
+{% endblock extra_script %}

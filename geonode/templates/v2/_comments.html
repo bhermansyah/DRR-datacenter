@@ -1,0 +1,63 @@
+{% load dialogos_tags %}
+{% load bootstrap_tags %}
+{% load pagination_tags %}
+{% load url from future %}
+{% load friendly_loader %}
+{% load i18n %}
+{% friendly_load avatar_tags %}
+
+{% load i18n %}
+
+  <div id="comment" class="tab-pane fade">
+    <div id="comments" class="comments">
+        <!-- {#% if comment_count > 0 %} -->
+        <h4>{% comment_count resource %} {% trans 'Comments' %}</h4>
+        <!-- {#% else %} -->
+        <!-- <h4>{#% trans 'No Comments' %}</h4> -->
+        <!-- {#% endif %} -->
+        <div class="comments-list" style="margin-bottom: 30px;">
+            {% comments resource as comment_list %}
+              {% for comment in comment_list %}
+            <div class="comment media">
+                <div class="avatar_comment pull-left">
+                    <a href="{{ comment.author.get_absolute_url }}">{% avatar comment.author 40 %}</a>
+                    <!-- <img class="avatar" src="images/sample/cAvatar2.jpg" alt="" />      -->
+                </div>
+                <div class="media-body">
+                    <div>
+                        <strong>{% trans 'Posted by' %}<a href="{{ comment.author.get_absolute_url }}" rel="author"> {{ comment.author }}</a></strong>
+                        <small> on <time>{{ comment.submit_date|date:"M j, Y" }}</time></small>
+                        {% if comment|can_delete_comment:request.user %}
+                        <div class="pull-right" style="display: inline-block; padding: 0;">
+                            <form method="POST" action="{% url 'delete_comment' comment.id %}">
+                              {% csrf_token %}
+                                <button type="submit" class="btn btn-transparent"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <p>{{ comment.comment }}</p>
+                </div>
+            </div>
+              {% endfor %}
+        </div>
+
+        <!-- Start Comment Form -->
+        {% if user.is_authenticated %}
+          {% comment_form resource as form %}
+        <div class="comment-form">
+            <h4>Leave a Comment</h4>
+            <p class="muted">Make sure you enter the (*) required information where indicated. HTML code is not allowed.</p>
+            <form action="{% comment_target resource %}" method="POST" id="form_post_comment">
+              {% csrf_token %}
+              {{ form|as_bootstrap }}
+                <button id="comment_submit_btn" class="pull-right btn btn-primary">{% trans 'Submit Comment' %}</button>
+            </form>
+        </div>
+        {% else %}
+        {% endif %}
+        <!-- End Comment Form -->
+    </div>
+  </div>
+
+

@@ -1,0 +1,52 @@
+{% extends "v2/site_base.html" %}
+{% load i18n %}
+
+{% block body_outer %}
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>{% trans "Forgot Username" %}</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="index.html">Home</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">Forgot Username</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<!-- Forgot Username -->
+	<section id="forgot-usr" class="container">
+	    <form class="center" action='' method="POST">
+	        <fieldset class="login-form">
+	        	<div class="alert alert-info">
+	        		{% trans "Submit your email linked to ASDC and we will send your username to you." %}
+	        	</div>
+	        	{% if message %}
+	        	<div class="alert alert-danger">{{ message }}</div>
+	        	{% endif %}
+	        	<form method="post" action="">
+	        	{% csrf_token %}
+	        	{{ form.as_p }}
+                <!-- Email -->
+                <div class="form-group">
+                    <input type="text" id="email" name="email" placeholder="E-mail" class="input-xlarge form-control">
+                </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <button class="btn btn-primary btn-large btn-block" type="submit" value="{% trans 'Submit' %}"></button>
+                </div>
+                </form>
+	        </fieldset>
+	    </form>
+	</section>
+	
+{% endblock %}

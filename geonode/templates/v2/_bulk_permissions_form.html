@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<!-- Permission -->
+<div id="set_permissions" class="modal fade" role="dialog">
+  <form id="permission_form" accept-charset="UTF-8" method="post" class="modal-form" action="{% url "bulk_permissions" %}">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4>{% trans "Set permissions on selected resources" %}</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert hidden" id="bulk_perms_message">
+            <p class="message">}</p>
+            <p class="extra_content"></p>
+          </div>
+          <!-- <div class="container-fluid"> -->
+            {% include "v2/_permissions.html" %}
+          <!-- </div> -->
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="bulk_perms_submit">{% trans "Apply" %}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

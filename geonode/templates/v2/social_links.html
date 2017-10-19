@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% block social_links %}
+  <ul class="list-unstyled">
+    {% for social_link in social_links %}
+      {% if social_link.url %}
+    <li>
+      <a href="{{ social_link.url }}" class="btn {{ social_link.css_class }}"><i class="fa "></i></a>
+    </li>
+      {% endif %}
+    {% endfor %}
+{% endblock %}

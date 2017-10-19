@@ -1,0 +1,84 @@
+{% extends "v2/site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Disclaimer" %} — {{ block.super }} {% endblock %}
+{% block body_class %}about{% endblock %}
+{% block body_outer %}
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>{% trans "Disclaimer" %}</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="#">{% trans "Documentation" %}</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">{% trans "Disclaimer" %}</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<!-- Disclaimer -->
+	<section id="disclaimer" class="container">
+	    <h3>{% trans "Introduction" %}</h3>
+	    <p>{% trans "iMMAP in Afghanistan is funded by The United States Agency for International Development (USAID)/ Office of U.S. Foreign Disaster Assistance (OFDA)." %}
+	    <br>
+	    {% trans "The Afghanistan Spatial Data Center is part of the iMMAP Disaster Risk Reduction (DRR) Program, which is a USAID/OFDA funded project to provide DRR relevant information and information management services to the humanitarian community in Afghanistan." %}</p>
+	    <p>&nbsp;</p>
+	    <ul class="disclaimer">
+	        <li>
+	            <span class="number">01</span>
+	            <div>
+	                <h4>{% trans "Data Disclaimer" %}</h4>
+	                <p>{% trans "The Afghanistan Spatial Data Center Data/Maps were created by the iMMAP DRR program. Some flaws and limitations of the data are described in this document. However, a degree of error is inherent in all datasets, especially modelled maps and maps of dynamic events such as floods. Accordingly, the information is distributed &quot;AS-IS&quot; without warranties of any kind, either express or implied. iMMAP shall not accept any liability or warranties for damages incurring from the use of this data, including but not limited to warranties of suitability to a particular purpose or use. No attempt has been made in either the design or production of the data to define the limits or jurisdiction of any federal, state, or local government. The map is intended for use only at the published scale." %}</p>
+	            </div>
+	        </li>
+	        <li>
+	            <span class="number">02</span>
+	            <div>
+	                <h4>{% trans "Limitation of Warranties and Liability" %}</h4>
+	                <p>{% trans "The information, maps and documentation is provided &quot;AS IS&quot; without any other warranties or conditions, express or implied, including, but not limited to, warranties for product quality, or suitability to a particular purpose or use. The risk or liability resulting from the use of this product rests solely on the user. iMMAP accepts no liability for any direct, incidental, special, consequential or any other damages whatsoever, including, but not limited to, loss of revenue or profit, lost or damaged data, or other commercial or economic loss. iMMAP shall not be responsible for claims by third parties." %}</p>
+	                <p>
+	                {% trans "The data, boundaries and names and the designations used on this map do not imply official endorsement or acceptance by iMMAP or USAID/OFDA." %}</p>
+	                <p>
+	                {% trans "Though all efforts have been made to ensure the accuracy of the data and maps, the same should not be construed as a statement of law or used for any legal purposes. iMMAP accepts no responsibility in relation to the accuracy, completeness, usefulness or otherwise, of the content. Users are advised to verify/check any information with the relevant Government Department(s) and/or other source(s), and to obtain any appropriate professional advice before acting on the information provided." %}</p>
+	            </div>
+	        </li>
+	        <li>
+	            <span class="number">03</span>
+	            <div>
+	                <h4>{% trans "Distribution/Redistribution Policy" %}</h4>
+	                <p>{% trans "Any hardcopy or softcopy maps or published data derived from this map shall clearly indicate their source with the citation in formation found within this document or relevant datasets. The data/maps is copyrighted material. The recipients are free to use and duplicate the map for their personal, organisation’ or business’ internal use and to use this map as a source for which to create electronic data, digital maps, or other paper maps. iMMAP reserves all other right on the maps." %}</p>
+	                <p>
+	                {% trans "Any replication, transfer, sale, lease, or transmittal of the original map to any third party without value added, with no mention of the source or without the prior written authorization of iMMAP is a violation of this copyright. If the recipient has modified the information contained within the data in any way, the recipient is obligated to note the types of modifications that have been performed. The recipient specifically agrees not to misrepresent the information contained within the map, nor to imply that iMMAP has approved any changes made by the recipient. The conditions for use of the map may vary from time to time and users are therefore invited to verify with the disclosing authority whether any changes have been brought to them." %}</p>
+	            </div>
+	        </li>
+	        <li>
+	            <span class="number">04</span>
+	            <div>
+	                <h4>{% trans "Citing and Reference" %}</h4>
+	                <p>{% trans "When using the data/maps or referring to it, the Afghanistan Spatial Data Center should be referred to as following:" %}
+	                <br>
+	                {% trans "ASDC iMMAP (2016). Afghanistan Spatial Data Center. iMMAP 1300 Pennsylvania Avenue NW Suite 470 Washington, DC 20004 USA." %}
+	                </p>
+	                <p>{% trans "When using a particular data source(s), use the source reference of each one source, see data layers for more information. E.g." %}
+	                <br>
+	                {% trans "Mohadjer, S., Strube, T., Ehlers, T.A., Bendick, R., (2015). Central Asia Fault Database." %}
+	                <br>
+	                {% trans "Emlyn Hagen, NC3A (2008). Afghanistan Flood Hazard Map v.2. 1:100 000. From NATO Consultation, Command and Control Agency, CAT-6, Geo Team.  NATO C3 Agency, The Hague, November 2008." %}
+	                <br>
+	                {% trans "Emlyn Hagen, iMMAP and IMS NSIDC 2006-2015 (2015). Afghanistan average snow and ice cover Jan-Dec 2006-2015." %}</p>
+	            </div>
+	        </li>
+	    </ul>
+	    <p>&nbsp;</p>
+	</section>
+
+{% endblock %}

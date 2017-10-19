@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<!-- note: make an angular pagination rule in search.js for last & first page
+look at http://plnkr.co/edit/6PFCPuFrN6lfGHjHVwGf?p=preview
+http://jasonwatmore.com/post/2016/01/31/angularjs-pagination-example-with-logic-like-google
+-->
+
+<nav class="page-section">
+  <ul class="pagination">
+  	<!-- <li>
+  	  <a href="#" class="prev" aria-label="First">
+  	    <span aria-hidden="true"><i class="fa fa-angle-double-left"></i></span>
+  	  </a>
+  	</li> -->
+    <li ng-click="paginate_down()">
+      <a class="prev" aria-label="Previous">
+        <span aria-hidden="true"><i class="fa fa-angle-left"></i></span>
+      </a>
+    </li>
+    <li class="active">
+      <a href>{% trans "Page" %} <span ng-model="page" ng-bind="page"></span> {% trans "of" %} <span ng-bind="numpages"></span></a>
+    </li>
+    <!-- <li>
+      <span>...</span>
+    </li>
+    <li>
+      <a href="#"><span ng-bind="numpages"></span></a>
+    </li> -->
+    <li ng-click="paginate_up()">
+      <a href="#" class="next" aria-label="Next">
+        <span aria-hidden="true"><i class="fa fa-angle-right"></i></span>
+      </a>
+    </li>
+    <!-- <li>
+      <a href="#" class="next" aria-label="Last">
+        <span aria-hidden="true"><i class="fa fa-angle-double-right"></i></span>
+      </a>
+    </li> -->
+  </ul>
+</nav>

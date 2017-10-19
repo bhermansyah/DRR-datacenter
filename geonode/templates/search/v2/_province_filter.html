@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load base_tags %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" id="headingRegion">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapseProv" aria-expanded="false" aria-controls="collapseRegion" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans "Provinces/District" %}</a>
+      </h4>
+    </div>
+    <div id="collapseProv" class="panel-collapse collapse in" aria-labelledby="headingRegion" aria-expanded="true">
+      <div class="panel-body">
+        <div class="side-menu-search hidden">
+          <input type="search" class="form-control input-sm input-sm" name="" placeholder="Search...">
+        </div>
+        <div class="side-menu-list">
+          <ul class="list-unstyled"> 
+            {% verbatim %}
+            <div ng-repeat="region in regions" ng-if="region.children.length > 0" >
+              <li ng-repeat="item in region.children" ng-if="item.count > 0 || item.children.length > 0">
+                <div class="checkbox checkbox-red"> 
+                  <label>
+                    <input type="checkbox" data-value="{{ item.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)">{{ item.name }}
+                    <span style="margin-left: 20px;" class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{item.count }}</span>
+                  </label> 
+                  <a class="pull-right">
+                    <span>
+                      <i ng-if="!item.show" class="glyphicon glyphicon-plus" ng-click="test($event)"></i>
+                      <i ng-if="item.show" class="glyphicon glyphicon-minus" ng-click="test($event)"></i>
+                    </span>
+                  </a>
+                  <div ng-show="item.show" ng-if="item.children.length > 0">
+                    <ul class="list-unstyled" style="padding-left: 15px;">
+                      <li ng-repeat="entity in item.children" ng-if="entity.count > 0">
+                        <div class="checkbox checkbox-red"> 
+                          <label><input type="checkbox" data-value="{{ entity.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)">{{ entity.name }}
+                          </label> 
+                          <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ entity.count }}</span>
+                        </div> 
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- <a data-toggle="collapse" href="#collapseCountry" aria-expanded="false" aria-controls="collapseCountry"><i class="more-less glyphicon glyphicon-minus"></i>Afghanistan</a> -->
+                </div> 
+                
+                {% endverbatim %}
+              </li>
+            </div>
+          </ul> 
+        </div>
+      </div> 
+    </div>
+  </div>

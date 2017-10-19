@@ -1,0 +1,18 @@
+{% extends "v2/site_base.html" %}
+{% load i18n %}
+
+{% block body %}
+
+	<!-- 404 error -->
+	<section id="error" class="container">
+	    <h1>{% trans "404, Page not found" %}</h1>
+	    <p>
+	    	{% blocktrans %}
+      			The page you requested does not exist. Perhaps you are using an outdated bookmark?
+  			{% endblocktrans %}
+  		</p>
+	    <a class="btn btn-success" href="{% url 'home' %}">{% trans GO BACK TO THE HOMEPAGE %}</a>
+	</section>
+	<!-- /404 error -->
+
+{% endblock %}

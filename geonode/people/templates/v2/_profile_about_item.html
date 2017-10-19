@@ -1,0 +1,12 @@
+{% load friendly_loader %}
+{% friendly_load avatar_tags %}
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% with 40 as avatar_size %}
+<a href="{% url 'profile_detail' profile.username %}" class="user-profile">
+  {% avatar profile avatar_size %}
+  {{ profile.username }}
+  <!-- <img src="/static/v2/images/user.png" alt="">Admin -->
+</a>
+{% endwith %}

@@ -1,0 +1,164 @@
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+<div class="row">
+  <div class="col-md-3 col-sm-12 sidebar">
+    <div class="side-menu">
+      <div class="panel-group" role="tablist" aria-multiselectable="true">
+        <div class="section-title">
+          <a href="." id="clear-search" class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">{% trans "Clear all" %}</a>
+          <h3>Filter</h3>
+        </div>
+        {% include "search/v2/_text_filter.html" %}
+        {% if include_type_filter == 'true' %}
+          {% include "search/v2/_type_filters.html" %}
+        {% endif %}
+        {% include "search/v2/_region_filter.html" %}
+        {% include "search/v2/_province_filter.html" %}
+        <!-- <div class="panel panel-default">
+          <div class="panel-heading" id="headingRegion">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapseRegion" aria-expanded="false" aria-controls="collapseRegion" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>Region</a>
+            </h4>
+          </div>
+          <div id="collapseRegion" class="panel-collapse collapse in" aria-labelledby="headingRegion" aria-expanded="true">
+            <div class="panel-body">
+
+              <div id="accord">
+                <div>
+                  <div id="country1">
+                    <a href="prov1" data-parent="#accord"></a>
+                  </div>
+                  <div id="prov1">
+                    <div>
+                      <div id="district1">
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div id="country2">
+                    <a href="prov2" data-parent="#accord"></a>
+                  </div>
+                  <div id="prov2">
+                    
+                  </div>
+                </div>
+              </div>
+
+              <ul class="list-unstyled"> 
+                <div id="collapse_Country">
+                  <li>
+                    <a data-toggle="collapse" href="#collapseCountry" aria-expanded="false" aria-controls="collapseCountry"><i class="more-less glyphicon glyphicon-minus"></i>Afghanistan</a>
+                    <div class="collapse" id="collapseCountry">
+                      <ul class="list-unstyled">
+                        <li>
+                          <a data-toggle="collapse" href="#collapseProv1" aria-expanded="false" aria-controls="collapseProv1" data-parent="#collapse_Country"><i class="more-less glyphicon glyphicon-minus"></i>Province</a>
+                          <div class="collapse" id="collapseProv1">
+                            <ul class="list-unstyled">
+                              <li>
+                                <div class="checkbox"> 
+                                  <label><input type="checkbox">District<span class="badge">2</span>
+                                  </label> 
+                                </div> 
+                              </li>
+                            </ul>
+                          </div>
+                        </li>
+                        <li>
+                          <a data-toggle="collapse" href="#collapseProv2" aria-expanded="false" aria-controls="collapseProv2" data-parent="#collapse_Country"><i class="more-less glyphicon glyphicon-minus"></i>Province</a>
+                          <div class="collapse" id="collapseProv2">
+                            <ul class="list-unstyled">
+                              <li>
+                                <div class="checkbox"> 
+                                  <label><input type="checkbox">District<span class="badge">2</span>
+                                  </label> 
+                                </div> 
+                              </li>
+                            </ul>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li> 
+                    <div class="checkbox"> 
+                      <label><input type="checkbox">Province <span class="badge">12</span>
+                      </label> 
+                    </div> 
+                  </li> 
+                  <li>
+                    <div class="checkbox">
+                      <label><input type="checkbox">North Region (120)</label> 
+                    </div> 
+                  </li> 
+                </div>
+              </ul> 
+            </div> 
+          </div>
+        </div> -->
+        {% include "search/v2/_general_filters.html" %}
+        {% include "search/v2/_extent_filter.html" %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 col-sm-12 outer-bottom-sm outer-left">
+    <div class="controls-product-top outer-top-vs">
+      <div class="controls-product-item row">
+        <div class="col-md-2 col-sm-3 col-xs-12">
+          <div class="product-item-view">
+            <ul class="nav nav-tabs">
+              <li><span>View as:</span></li>
+              <li class="active">
+                <a data-toggle="tab" href="#grid-container"><i class="icon fa fa-th"></i></a>
+              </li>
+              <li>
+                <a data-toggle="tab" href="#list-container"><i class="icon fa fa-th-list"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-4 col-xs-12">
+          <div class="custom-select">
+            <ul class="list-unstyled">
+              <li class="short-by">
+                {% include "search/v2/_sort_filters.html" %}
+              </li>
+              <li class="show-page">
+                <label>Showing 20</label>
+                <!-- <select>
+                  <option>20</option>
+                  <option>50</option>
+                  <option>All</option>
+                </select> -->
+                <span>
+                  of 
+                  <label ng-bind="total_counts"></label> Docs.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-5 col-xs-12">
+          {% include 'search/v2/_pagination.html' %}
+        </div>
+      </div>
+    </div>
+    <div class="product-setting">
+      <div class="pull-right">
+        {% block bulk_perms_button %}
+          {% if request.user.is_authenticated %}
+        <button data-toggle="modal" class="btn btn-primary" data-target="#set_permissions">{% trans "Set permissions" %}</button>
+          {% endif %}
+        {% endblock %}
+        <a href="{% url 'document_upload' %}" class="btn btn-primary" target="_self">{% trans "Upload Document" %}</a>
+      </div>
+    </div>
+    <div class="search-result-container">
+      <div id="myTabContent" class="tab-content">
+        {% include 'v2/_resourcebase_snippet.html' %}
+      </div>
+    </div>
+  </div>
+</div>

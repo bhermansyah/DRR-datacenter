@@ -1,0 +1,245 @@
+{% load i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% verbatim %}
+
+  <!-- note : change the angular used in search.js for feature_select
+  after selected keep the background-color of the button red and erase the deselect text. -->
+
+  <div class="tab-pane active" id="grid-container">
+    <div class="category-product inner-top-xs">
+      <div class="row row-map">
+        <div class="product-item-grid col-md-3 col-sm-3" ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+          <!-- <figure> -->
+          {% endverbatim %}
+          {% if request.user.is_authenticated %}
+          <button class="btn btn-checkbox" ng-click="feature_select($event)"><i class="fa fa-check"></i></button>
+          {% endif %}
+          {% verbatim %}
+          <div class="product">
+            <div class="mediaholder">
+              <a href="/v2{{ item.detail_url }}">
+                <img ng-src="{{ item.thumbnail_url }}">
+              </a>
+            </div>
+            <!-- <a href="#"> -->
+              <!-- <figcaption class="item-description"> -->
+              <div class="item-description">
+                <div class="desc-date">
+                  <span ng-if="item.detail_url.indexOf('/documents/') > -1">
+                    {{ item.date | date:'d MMMM yyyy'}}
+                  </span>
+                  <span ng-if="item.detail_url.indexOf('/layers/') > -1">
+                    {{ item.owner__username }},
+                    {{ item.date | timeAgo }}
+                  </span>
+                  <span ng-if="item.detail_url.indexOf('/maps/') > -1">
+                    {{ item.owner__username }},
+                    {{ item.date | timeAgo }}
+                  </span>
+                  {% endverbatim %}
+                    <i class="fa fa-eye pull-right"> {% verbatim %}{{ item.popular_count }}{% endverbatim %}</i>
+                </div>
+                <div class="desc-title">
+                  {% verbatim %}
+                  <h3 ng-if="item.detail_url.indexOf('/maps/') > -1"><a href="/v2/maps/{{item.id}}/view">{{ item.title }}</a></h3>
+                  <h3 ng-if="item.detail_url.indexOf('/documents/') > -1"><a href="/v2{{ item.detail_url }}">{{ item.title }}</a></h3>
+                  <h3 ng-if="item.detail_url.indexOf('/layers/') > -1"><a href="/v2{{ item.detail_url }}">{{ item.title }}</a></h3>
+                  {% endverbatim %}
+                </div>
+                <!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
+                <div class="rating">
+                  <a href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}#rate">
+                      <div class="star-rating">
+                          <div class="full-star" style="width: {% verbatim %}{{item.rating * 20 || 0}}{% endverbatim %}%"></div>
+                          <div class="empty-star"> </div>
+                      </div>
+                  </a>
+                  <!-- <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                  <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                  <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                  <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                  <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span> -->
+                </div>
+                <div class="cart">
+                  <div class="action">
+                    <ul class="list-unstyled">
+                      <li ng-if="item.detail_url.indexOf('/documents/') > -1">
+                        <a class="btn btn-primary" href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}">{% trans "View" %}</a>
+                      </li>
+                      <!-- <li ng-if="item.detail_url.indexOf('/documents/') > -1">
+                        <a class="btn" href="#" style="color: #fff;">Apa aja</a>
+                      </li>  -->
+                      <li ng-if="item.detail_url.indexOf('/maps/') > -1">
+                        <a class="btn btn-primary" href="/v2/maps/{% verbatim %}{{item.id}}{% endverbatim %}/view">{% trans "View" %}</a>
+                      </li>
+                      <li ng-if="item.detail_url.indexOf('/layers/') > -1">
+                        <a class="btn btn-primary" href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}">{% trans "View" %}</a>
+                      </li>
+                      <li ng-if="item.detail_url.indexOf('/maps/') > -1">
+                        <a class="btn btn-primary" href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}" data-toggle="tooltip" data-placement="auto" title="Details"><i class="fa fa-info"></i></a>
+                      </li>
+                      <li ng-if="item.detail_url.indexOf('/layers/') > -1">
+                        <a class="btn btn-primary" href="/v2{% url 'new_map' %}?layer={% verbatim %}{{ item.detail_url.substring(8) }}{% endverbatim %}" title="Create Map"><i class="fa fa-pencil-square-o"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- </figcaption> -->
+            <!-- </a> -->
+          </div>
+          <!-- </figure> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="list-container">
+    <div class="category-product">
+      <div class="category-product-inner wow fadeInUp animated">
+        <div class="products product-item-list-v1" ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+          <div class="row product-item-list">
+            <div class="col-md-3 col-sm-4 col-xs-12">
+
+              {% if request.user.is_authenticated %}
+              <button class="btn btn-checkbox" ng-click="feature_select($event)"><i class="fa fa-check"></i></button>
+              {% endif %}
+              <div class="product-image">
+                <div class="image">
+                  {% verbatim %}
+                  <a href="{{ item.detail_url }}">
+                    <img ng-src="{{ item.thumbnail_url }}" class="img-responsive">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-12">
+              <div class="product-info">
+                <h3 class="name" ng-if="item.detail_url.indexOf('/maps/') > -1">
+                  <a href="/v2/maps/{{item.id}}/view">{{ item.title }}</a>
+                </h3>
+                <h3 class="name" ng-if="item.detail_url.indexOf('/documents/') > -1">
+                  <a href="/v2{{ item.detail_url }}">{{ item.title }}</a>
+                </h3>
+                <h3 class="name" ng-if="item.detail_url.indexOf('/layers/') > -1">
+                  <a href="/v2{{ item.detail_url }}">{{ item.title }}</a>
+                </h3>
+                <div >
+                  <span ng-if="item.detail_url.indexOf('/documents/') > -1 && item.subtitle">{{ item.subtitle }}</span>
+                </div>
+                {% endverbatim %}
+                <div>
+                  <span ng-if="item.detail_url.indexOf('/documents/') > -1"><i class="fa fa-calendar"></i>
+                    {% trans "Published" %}
+                    {% verbatim %}
+                      {{ item.date | date:'d MMMM yyyy'}}
+                    {% endverbatim %}
+                  </span>
+                  {% verbatim %}
+                  <span ng-if="item.detail_url.indexOf('/layers/') > -1">
+                    <a href="/people/profile/{% verbatim %}{{ item.owner__username }}"><i class="fa fa-user"></i> {{ item.owner__username }} | </a>
+                  </span>
+                  {% endverbatim %}
+                  <span ng-if="item.detail_url.indexOf('/layers/') > -1"><i class="fa fa-calendar"></i>
+                    {% trans "Published" %}
+                    {% verbatim %}
+                      {{ item.date | timeAgo }}
+                    {% endverbatim %}
+                  </span>
+                  {% verbatim %}
+                  <span ng-if="item.detail_url.indexOf('/maps/') > -1">
+                    <a href="/people/profile/{% verbatim %}{{ item.owner__username }}"><i class="fa fa-user"></i> {{ item.owner__username }} | </a>
+                  </span>
+                  {% endverbatim %}
+                  <span ng-if="item.detail_url.indexOf('/maps/') > -1"><i class="fa fa-calendar"></i>
+                    {% trans "Published" %}
+                    {% verbatim %}
+                      {{ item.date | timeAgo }}
+                    {% endverbatim %}
+                  </span>
+                </div>
+                <div class="row product_stat center">
+                  <div class="col-md-2">
+                    <div class="rating" style="line-height: 20px;">
+                      <a href="{% verbatim %}{{ item.detail_url }}{% endverbatim %}#rate">
+                          <div class="star-rating">
+                              <!-- The '|| 0' would prevent an undefined or null value on the Rating property -->
+                              <div class="full-star" style="width: {% verbatim %}{{item.rating * 20 || 0}}{% endverbatim %}%"></div>
+                              <div class="empty-star"> </div>
+                          </div>
+                      </a>
+                      <!-- <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                      <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                      <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                      <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                      <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span> -->
+                    </div>
+                    <span>{% verbatim %}({{item.rating}}){% endverbatim %} votes</span>
+                  </div>
+                  <div class="col-md-1">
+                    {% verbatim %}
+                    <div class="list_stat_view" style=""><span>{{ item.popular_count }}</span>
+                    </div>
+                    {% endverbatim %}
+                    <span>{% trans "Views" %}</span>
+                  </div>
+                  <div class="col-md-1" ng-if="item.detail_url.indexOf('/documents/') > -1 && item.papersize">
+                    <div>
+                      <i class="fa fa-file paper_size_symbol"><span class="paper_size_val">{% verbatim %}{{ item.papersize }}{% endverbatim %}</span></i>
+                    </div>
+                  </div>
+                  <div class="col-md-3" ng-if="item.detail_url.indexOf('/documents/') > -1 && item.datasource">
+                    <div>
+                      <span>{% trans "Data Sources" %}</span>
+                      <div>{% verbatim %}{{ item.datasource }}{% endverbatim %}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-2" ng-if="item.detail_url.indexOf('/documents/') > -1 && item.version">
+                    <div>
+                      <span>{% trans "Version" %}</span>
+                      <div>{% verbatim %}{{ item.version }}{% endverbatim %}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-3" ng-if="item.detail_url.indexOf('/documents/') > -1 && item.region_description">
+                    <div>
+                      <span>{% trans "Region" %}</span>
+                      <div>{% verbatim %}{{ item.region_description }}{% endverbatim %}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="product-short-desc">
+                  <p class="desc-more">{% verbatim %}{{ item.abstract }}{% endverbatim %}</p>
+                  <div class="tag" ng-if="item.detail_url.indexOf('/documents/') > -1 && item.keyword_description"> {% trans "Keywords :" %}
+                    <a href="#">
+                      <span class="label label-danger">{% verbatim %}{{ item.keyword_description }}{% endverbatim %}</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="cart animate-effect">
+                <div class="action">
+                  <ul class="list-unstyled">
+                    <li ng-if="item.detail_url.indexOf('/documents/') > -1">
+                      <a class="btn btn-primary" href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}">{% trans "View" %}</a>
+                    </li>
+                    <li ng-if="item.detail_url.indexOf('/maps/') > -1">
+                      <a class="btn btn-primary" href="/v2/maps/{% verbatim %}{{item.id}}{% endverbatim %}/view">{% trans "View" %}</a>
+                    </li>
+                    <li ng-if="item.detail_url.indexOf('/maps/') > -1">
+                      <a class="btn btn-primary" href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}">{% trans "Details" %}</a>
+                    </li>
+                    <li ng-if="item.detail_url.indexOf('/layers/') > -1">
+                      <a class="btn btn-primary" href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}">{% trans "View" %}</a>
+                    </li>
+                    <li ng-if="item.detail_url.indexOf('/layers/') > -1">
+                      <a class="btn btn-primary" href="{% url 'new_map' %}?layer={% verbatim %}{{ item.detail_url.substring(8) }}{% endverbatim %}">{% trans "Create Map" %}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

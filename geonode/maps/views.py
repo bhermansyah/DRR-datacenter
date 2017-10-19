@@ -102,6 +102,9 @@ def map_detail(request, mapid, snapshot=None, template='maps/map_detail.html'):
     '''
     The view that show details of each map
     '''
+    # ubah
+    if ('v2' in request.path): template = 'v2/map_detail.html'
+    # /ubah
 
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
 
@@ -281,6 +284,10 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
     The view that returns the map composer opened to
     the map with the given map ID.
     """
+    # ubah
+    if ('v2' in request.path): template = 'v2/map_view.html'
+    # /ubah
+
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
     if request.user != map_obj.owner and not request.user.is_superuser:
         Map.objects.filter(id=map_obj.id).update(popular_count=F('popular_count') + 1)

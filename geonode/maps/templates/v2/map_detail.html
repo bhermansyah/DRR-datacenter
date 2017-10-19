@@ -1,0 +1,346 @@
+{% extends "v2/map_base.html" %}
+{% load i18n %}
+{% load dialogos_tags %}
+{% load agon_ratings_tags %}
+{% load url from future %}
+{% load base_tags %}
+{% load guardian_tags %}
+
+{% block title %}{{ resource.title }} — {{ block.super }}{% endblock %}
+
+{% block head %}
+{% include "v2/map_include.html" %}
+{{ block.super }}
+{% endblock %}
+
+{% block body_class %}maps{% endblock %}
+
+{% block body_outer %}
+  {% overall_rating resource "map" as map_rating %}
+
+  <div class="container" style="">
+    <div class="row">
+      <div class="container-fill" style="">
+        <div>
+          <ul class="breadcrumb breadcrumb-info">
+              <li>Maps</li>
+              <li><a href="{% url 'v2:maps_browse' %}">Interactive Maps</a></li> 
+              <li class="active">{{ resource.title }}</li> 
+          </ul>
+        </div>
+        <div class="col-md-12">
+          <div class="" style="margin: 0 -15px 15px; padding: 15px 15px 0px; background-color: #fff;">
+            <h3>{{ resource.title }}</h3>
+            <div class="product-title-block">
+              {% overall_rating resource "map" as map_rating %}
+              {% num_ratings resource as num_votes %}
+              <div class="overall_rating" data-score="{{ map_rating }}"></div>
+              <!-- <div class="rating" style="display: inline-block; margin-right:10px;">
+                <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
+                <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
+                <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
+                <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+                <span>from 1 user</span>
+              </div> -->
+              <div class="owner" style="display: inline-block;">
+                {% include "v2/_resourcebase_contact_snippet.html" %}
+                <!-- <a href="#" class="user-profile">
+                  <img src="/static/v2/images/user.png" alt="">Admin
+                </a> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div style="margin: 0 -15px 20px; background-color: #fff;">
+            <div id="embedded_map">
+              <div id="the_map"></div>
+            </div>
+          </div>
+          <div class="product-info-panel" style="margin: 0 -15px;">
+            {% include "v2/_actions.html" %}
+            <div class="tab-content" style="background-color: #fff; border-top: 4px solid #a72b1f;">
+              {% include "v2/resourcebase_info_panel.html" %}
+              <div id="rate" class="tab-pane fade">
+                  <table class="table">
+                      {% if request.user.is_authenticated %}
+                      <tr>
+                          <td><h4>{% trans "Rate this Map" %}</h4></td>
+                          {% user_rating request.user resource "map" as user_map_rating %}
+                          <td><div id="user_rating" class="category-map" data-score="{{ user_map_rating }}"></div></td>
+                      </tr>
+                      {% endif %}
+                      <tr>
+                          <td><h4>{% trans 'Average Rating' %}</h4></td>
+                          {% overall_rating resource "map" as map_rating %}
+                          {% num_ratings resource as num_votes %}
+                          <td><div class="overall_rating" style="float:left" data-score="{{ map_rating }}"></div>{% trans 'From' %} {{num_votes}} {% trans 'votes' %}</td>
+                      </tr>
+                  </table>
+              </div>
+              {% include "v2/_comments.html" %}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"> 
+            <div class="product-details-side" style="margin-right: -15px;">
+              <div class="product-info" style="padding: 0;">
+                <div class="product-map-editor">
+                  <ul class="nav nav-tabs" style="text-align: center; background-color: #f5f5f5;">
+                      <li class="active"><a data-toggle="tab" href="#rel_layers">{% trans "Map Layers" %}</a></li>
+                      {% if documents.count > 0 %}
+                      <li class="active"><a data-toggle="tab" href="#rel_docs">{% trans "Related Document" %}</a></li>
+                      {% endif %}
+                  </ul>
+                  <div class="tab-content" style="height: 250px; padding: 10px 15px; background-color: #fff; overflow-y: auto; border-top: 4px solid #a72b1f;">
+                      <div id="rel_layers" class="tab-pane fade in active" style="margin-top: 15px;">
+                        <p>{% trans "List of layers used by this map:" %}</p>
+                        <ul class="list-unstyled">
+                          {% for layer in resource.layer_set.all %}
+                            {% ifnotequal layer.group 'background' %}
+                              {% if layer.local %}
+                          <li>
+                            <a href="{% url 'layer_detail' layer.name %}">{{ layer.layer_title }}</a>
+                          </li>
+                              {% else %}
+                          <li>{{ layer.layer_title }}</li>
+                              {% endif %}
+                            {% endifnotequal %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    <div id="rel_docs" class="tab-pane fade">
+                      <p>{% trans "List of documents related to this map:" %}</p>
+                      <ul class="list-unstyled">
+                        {% for document in documents %} 
+                        <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="product-btn"> 
+                <div class="product-btn-group"> 
+                  <!-- Need to be checked later -->
+                  {% get_obj_perms request.user for resource.get_self_resource as "perms" %}
+                    {% if "download_resourcebase" in perms %}
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#download-map">{% trans "Download" %}</button>
+                  <div class="modal fade" id="download-map" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title" id="myModalLabel">{% trans "Download Map" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                          <ul>
+                            <li><a href="{% url "map_download" resource.pk %}">{% trans "Download Data Layers" %}</a></li>
+                            <li><a href="{% url "map_wmc" resource.pk %}" target="_new">{% trans "Download Web Map Context" %}</a></li>
+                          <ul>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    {% endif %}
+                  {% get_obj_perms request.user for resource.get_self_resource as "perms" %}
+                    {% if "change_resourcebase" in perms  or "change_resourcebase_metadata" in perms %}
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#edit-map" title="{% trans 'Edit Map' %}"><i class="fa fa-pencil-square-o"></i></button>
+                  <div class="modal fade" id="edit-map" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title" id="myModalLabel">{% trans "Edit Map" %}</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row edit-modal">
+                            {% if "change_resourcebase_metadata" in perms %}
+                            <div class="col-sm-3">
+                              <i class="fa fa-list-alt fa-3x"></i>
+                              <h4>{% trans "Metadata" %}</h4>
+                              <a class="btn btn-default btn-block btn-xs" href="{% url "map_metadata" resource.id %}">{% trans "Edit" %}</a>
+                            </div>
+                            {% endif %}
+                            {% if "change_resourcebase" in perms %}
+                            <div class="col-sm-3">
+                              <i class="fa fa-photo fa-3x"></i>
+                              <h4>{% trans "Thumbnail" %}</h4>
+                              <a class="btn btn-default btn-block btn-xs" href="#" id="set_thumbnail">{% trans "Set" %}</a>
+                            </div>
+                            {% endif %}
+                            {% if "change_resourcebase" in perms %}
+                            <div class="col-sm-3">
+                              <i class="fa fa-map-marker fa-3x"></i>
+                              <h4>{% trans "Map" %}</h4>
+                              <a class="btn btn-default btn-block btn-xs" href="{% url "map_view" resource.id %}">{% trans "Edit" %}</a>
+                              <a class="btn btn-danger btn-block btn-xs" href="{% url "map_remove" resource.id %}">{% trans "Remove" %}</a>
+                            </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    {% endif %}
+                  <!-- /Need to be checked later -->
+                  <a href="{% url 'map_view' resource.id %}" class="btn btn-primary" class="btn btn-primary">{% trans "View Map" %}</a>
+                  {% comment %}
+                  <a href="#" class="btn btn-primary">{% trans "Print Map" %}</a>
+                  {% endcomment %}
+                </div> 
+              </div>
+              <!-- Need to be checked later -->
+              {% if "change_resourcebase_permissions" in perms %}
+              <div>
+                <h4>{% trans "Permissions" %}</h4>
+                <p>{% trans "Specify which users can view or modify this map" %}</p>
+                <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#_permissions">{% trans "Change Permissions of this Map" %}</button>
+                {% include "_permissions_form.html" %}
+              </div>
+              {% endif %}
+              {% if user.is_superuser %}
+              <div>
+                <h4>{% trans "Copy this map" %}</h4>
+                <p>{% trans "Duplicate this map and modify it for your own purposes" %}</p>
+                <a href="{% url "new_map" %}?copy={{ resource.id }}" class="btn btn-primary btn-md btn-block">{% trans "Create a New Map" %}</a>
+              </div>
+              {% endif %}
+              {% if resource.is_public and "change_resourcebase" in perms or resource.layer_group %}
+              <div>
+                <h4>{% trans "Map WMS" %}</h4>
+                <dl>{% if resource.layer_group %}
+                  <dt>{% trans "WMS layer group for local map layers" %}:</dt>
+                  <dd><em>{{ resource.layer_group.name }}</em> ({% trans "on" %} <a href="{{ ows }}?service=WMS&request=GetCapabilities">{% trans "local OWS" %}</a>)</dd>
+                  {% endif %}
+                </dl>
+                {% if "change_resourcebase" in perms %}
+                <p>{% trans "Publish local map layers as WMS layer group" %}</p>
+                <a href="{%url "map_wms" resource.id %}" class="btn btn-primary btn-md btn-block">{% trans "Publish Map WMS" %}</a>
+                {% endif %}
+              </div>
+              {% endif %}
+              <!-- /Need to be checked later -->
+              <div class="share" style="">
+                {% include "v2/social_links.html" %}
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+{% block extra_script %}
+  <script type="text/javascript">
+    // toggle table
+    function toggleRow(thisname) {
+
+            if ($('.hid-row').is(":visible")==true) {
+              $('.hid-row').css('display','none');
+              $('.btn-toggle').addClass("expand");
+            }else{
+              $('.hid-row').css('display','table-row');
+              $('.btn-toggle').removeClass("expand");
+            }
+    }
+  </script>
+
+{% if SOCIAL_BUTTONS %}
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+{% endif %}
+{% if request.user.is_authenticated %}
+      {% user_rating_js request.user resource "map" %}
+{% else %}
+      {% overall_rating resource "map" as the_map_rating %}
+{% endif %}
+{% include 'rating.html' %}
+<script type="text/javascript">
+ $(function() {
+
+  {% verbatim %}
+  // Publish layer group
+  // TODO: this should really not be inside a script tag...
+  var $wmsBtn = $(".layer-group .btn"),
+      layerGroupElTpl;
+
+  if ($wmsBtn.length > 0) {
+
+    $wmsBtn.on("click", function(event) {
+      event.preventDefault();
+
+      $.ajax({
+        type: "PUT",
+        url: $wmsBtn.attr("href")
+      })
+
+        .done(function(data) {
+          layerGroupElTpl = "<dt>WMS layer group for local map layers:</dt> \
+            <dd><em>{{layerGroupName}}</em> (on <a href='{{ows}}?request=GetCapabilities'>local OWS</a>)</dd>";
+          $.each(data, function(key, value) {
+            // client-side template hack
+            layerGroupElTpl = layerGroupElTpl.replace("{{"+ key + "}}", value);
+          });
+        })
+
+        .fail(function(){
+          layerGroupElTpl = "<dt>Error:</dt> \
+            <dd>Layer group could not be created.</dd>";
+        })
+
+        .always(function(){
+          $(".layer-group dl").html(layerGroupElTpl);
+        });
+
+    });
+  };
+  {% endverbatim %}
+
+
+ });
+{% if SOCIAL_BUTTONS %}
+ (function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+ })();
+{% endif %}
+  $("#comment_submit_btn").click(function(event) {
+    $.ajax({
+      type: "POST",
+      url: $("#form_post_comment").attr('action'),
+      data: $("#form_post_comment").serialize(),
+      success: function() {
+        $('#form_post_comment_div').modal('hide');
+        $('#comments_section').load(window.location.pathname + ' #comments_section', 
+        		function(){$(this).children().unwrap()})
+      }
+    });
+    return false;
+  });
+ 
+</script>
+{% include "_permissions_form_js.html" %}
+<script type="text/javascript" src="{{ STATIC_URL}}geonode/js/utils/thumbnail.js"></script>
+<script type="text/javascript">
+  $('#set_thumbnail').click(function(){
+    createMapThumbnail();
+    $('#edit-map').modal('toggle');
+  });
+</script>
+ 
+{% endblock %}

@@ -1,0 +1,23 @@
+        {% for label in parent_label_dash %}
+        <span class="divider">|</span>
+        <span class="{% if label.code > 0 %}qlinks{% else %}dash-links{% endif %}" {% if label.code == 0 %}
+            onclick='jump_url({{ label.code }});'
+        {% endif %}
+        {% if label.code > 0 %}
+            {% if label.code <= 34 %}
+                data-jq-dropdown='#jq-dropdown-prov'
+            {% endif %}
+            {% if label.code > 34 %}
+                data-jq-dropdown='#jq-dropdown-dist'
+            {% endif %}
+        {% endif %}>
+            {{ label.name }}
+        </span>
+        {% endfor %}
+        {% if qlinks != '' %}
+        <span class="divider">|</span>
+        <span class="qlinks print-hide" data-jq-dropdown="#jq-dropdown-1">
+            {{ qlinks }} &nbsp;
+            <!-- <i class="fa fa-angle-down" aria-hidden="true"></i> -->
+        </span>
+        {% endif %}

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body>
+
+	<!-- Navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top navbar-upper" role="navigation">
+	    <div class="container">
+	        <div class="navbar-header">
+	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+	                Menu 
+	                <i class="fa fa-bars"></i>
+	            </button>
+	            <a id="logo" class="pull-left" href="index.html"></a>
+	            <a id="logo2" class="pull-left navbar-brand-immap" href="index.html"><h1 class="webTitle" style="height:50px">AFGHANISTAN SPATIAL DATA CENTER</h1></a>
+	        </div>
+	        <!-- Collect the nav links, forms, and other content for toggling -->
+	        <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
+	            <div class="row">
+	                <!-- <ul class="language"> 
+	                    <li class="dropdown">
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+	                        <ul class="dropdown-menu">
+	                            <li>
+	                                <a href="#">English</a>
+	                            </li>
+	                            <li>
+	                                <a href="#">Dari</a>
+	                            </li>
+	                            <li>
+	                                <a href="#">Pashto</a>
+	                            </li>
+	                        </ul>
+	                    </li>                                 
+	                </ul> -->  
+	                <select class="language">
+	                  <option value="volvo">Language</option>
+	                  <option value="saab">Saab</option>
+	                  <option value="opel">Opel</option>
+	                  <option value="audi">Audi</option>
+	                </select>                           
+	            </div>
+	            <ul class="nav navbar-nav">
+	                <li class="active">
+	                    <a href="index.html">Home</a>
+	                </li>
+	                <li>
+	                    <a href="dashboard.html">dashboard</a>
+	                </li>
+	                <li>
+	                    <a href="#">LAYERS</a>
+	                </li>
+	                <li class="dropdown">
+	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">MAPS&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+	                    <ul class="dropdown-menu">
+	                        <li>
+	                            <a href="#">Static Maps</a>
+	                        </li>
+	                        <li>
+	                            <a href="#">Interactive Maps</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <li class="dropdown">
+	                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">documentation&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+	                    <ul class="dropdown-menu">
+	                        <li>
+	                            <a href="partner.html">Partner</a>
+	                        </li>
+	                        <li>
+	                            <a href="doc.html">Documentation & Videos</a>
+	                        </li>
+	                        <li>
+	                            <a href="training.html">Training</a>
+	                        </li>
+	                        <li>
+	                            <a href="404.html">404</a>
+	                        </li>
+	                        <li class="divider"></li>
+	                        <li>
+	                            <a href="about.html">About</a>
+	                        </li>
+	                        <li>
+	                            <a href="disclaimer.html">Disclaimer</a>
+	                        </li>
+	                    </ul>
+	                </li>                             
+	                <li class="login">
+	                    <a data-toggle="modal" href="#loginForm"><i class="fa fa-lock" aria-hidden="true"></i></a>
+	                </li>
+	            </ul>                         
+	        </div>
+	        <!--/.nav-collapse -->
+	    </div>                 
+	</nav>
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>Login</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="index.html">Home</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">Registration</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<section id="login-page" class="container">
+	    <form class="center" action='' method="POST">
+	        <fieldset class="login-form">
+                <!-- Username -->
+                <div class="form-group group-login">
+                    <input type="text" id="username" name="username" placeholder="Username" class="input-xlarge login-input">
+                    <div class="login-forgot">
+                    	<a href="#">Forgot?</a>
+                    </div>
+                </div>
+                <!-- Password-->
+                <div class="form-group group-login">
+                    <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge login-input">
+                    <div class="login-forgot">
+                    	<a href="#">Forgot?</a>
+                    </div>
+                </div>
+	            <div class="form-group" style="text-align: left;">
+	            	<div class="checkbox">
+	            		<label><input type="checkbox" value="">Remember me</label>
+	            		
+	            	</div>
+	            </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <button class="btn btn-primary btn-large btn-block">Login</button>
+                </div>
+            	<div >
+            		<a href="registration.html">Not Registered? Create an account</a>
+            	</div>
+	        </fieldset>
+	    </form>
+	</section>
+	<!-- /#registration-page -->
+
+	<!-- Bottom -->
+	<section id="bottom" class="main">
+	    <!--Container-->
+	    <div class="container">
+	        <!--row-fluids-->
+	        <div class="row">
+	            <!--Contact Form-->
+	            <div class="col-md-3">
+	                <h4>ADDRESS</h4>
+	                <ul class="list-unstyled address">
+	                    <li>
+	                        <i class="fa fa-home"></i>
+	                        <strong>Address:</strong> 1032 Wayback Lane, Wantagh
+	                        <br>NY 11793
+	                    </li>
+	                    <li>
+	                        <i class="fa fa-envelope"></i>
+	                        <strong>Email: </strong> support@email.com
+	                    </li>
+	                    <li>
+	                        <i class="fa fa-globe"></i>
+	                        <strong>Website:</strong> www.domain.com
+	                    </li>
+	                    <li>
+	                        <i class="fa fa-phone"></i>
+	                        <strong>Toll Free:</strong> 631-409-3105
+	                    </li>
+	                </ul>
+	            </div>
+	            <!--End Contact Form-->
+	            
+	            <!--Contact Form-->
+	            <div class="col-md-9">
+	                <h4>CONTACT FORM</h4>
+	                <div class="status alert alert-success" style="display: none"></div>
+
+	                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+	                  <div class="row">
+	                    <div class="col-md-5">
+	                        <label>First Name</label>
+	                        <input type="text" class="input-block-level" required="required" placeholder="Your First Name">
+	                        <label>Last Name</label>
+	                        <input type="text" class="input-block-level" required="required" placeholder="Your Last Name">
+	                        <label>Email Address</label>
+	                        <input type="text" class="input-block-level" required="required" placeholder="Your email address">
+	                    </div>
+	                    <div class="col-md-7">
+	                        <label>Message</label>
+	                        <textarea name="message" id="message" required="required" class="input-block-level" rows="8"></textarea>
+	                    </div>
+
+	                </div>
+	                <button type="submit" class="btn btn-primary btn-large pull-right">Send Message</button>
+	                <p> </p>
+
+	                </form>
+	            </div>
+	            <!--End Contact Form-->
+	        </div>
+	        <!--/row-fluid-->
+	    </div>
+	    <!--/container-->
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-5 cp">
+	                &copy; 2016 
+	                <a target="_blank" href="http://immap.org/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">iMMAP</a>. All Rights Reserved.
+	            </div>
+	            <!--/Copyright-->
+	            <div class="col-md-6">
+	                <ul class="social pull-right">
+	                    <li>
+	                        <a href="#"><i class="fa fa-envelope"></i></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-facebook"></i></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-twitter"></i></a>
+	                    </li>
+	                    <li>
+	                        <a href="#"><i class="fa fa-linkedin"></i></a>
+	                    </li>                             
+	                    <li>
+	                        <a href="#"><i class="fa fa-youtube"></i></a>
+	                    </li>
+	                </ul>
+	            </div>
+	            <div class="col-md-1">
+	                <a id="gototop" class="gototop pull-right" href="#"><i class="fa fa-angle-up"></i></a>
+	            </div>
+	            <!--/Goto Top-->
+	        </div>
+	    </div>
+	</footer>
+
+	<!-- Login Form -->
+	<div class="modal fade in" id="loginForm" aria-hidden="false" role="dialog">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	            	<button type="button" class="close" data-dismiss="modal">&times;</button>
+	                <!-- <i class="fa fa-remove" data-dismiss="modal" aria-hidden="true"></i> -->
+	                <h4>Login Form</h4>
+	            </div>
+	            <div class="modal-body">
+	                <form class="form-inline" action="index.html" method="post" id="form-login">
+	                    <!-- <div class="form-group"> -->
+	                        <!-- Username -->
+	                        <!-- <div class="controls"> -->
+	                            <input type="text" class="input-sm" placeholder="Email">
+	                            <input type="password" class="input-sm" placeholder="Password">
+	                        <!-- </div> -->
+	                    <!-- </div> -->
+	                    <br>
+	                    <label class="checkbox">
+	                        <input type="checkbox"> Remember me
+	                    </label>
+	                    <br>
+	                    <!-- <div class="form-group"> -->
+	                        <!-- Sign in Button -->
+	                        <!-- <div class="controls"> -->
+	                            <button type="submit" class="btn btn-default btn-primary">Sign in</button>
+	                        <!-- </div> -->
+	                    <!-- </div> -->
+	                </form>
+	                <a href="#">Forgot your password?</a>
+	                <br>
+	                <a href="registration.html">Not Registered? Create an account</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+
+	<!-- Custom -->
+	<script src="js/custom.js"></script>
+
+</body>
+</html>

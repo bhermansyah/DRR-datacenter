@@ -1,0 +1,258 @@
+{% extends "v2/site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Partners and Data Providers" %} — {{ block.super }} {% endblock %}
+{% block body_class %}about{% endblock %}
+{% block body_outer %}
+
+	<!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>Partner</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li>
+	                        <a href="#">Documentation</a> 
+	                        <span class="divider">/</span>
+	                    </li>
+	                    <li class="active">Partner</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	<!-- Partner -->
+	<section id="dataProvider">
+		<div class="container">
+			<h3>{% trans "Data Providers and Partners" %}</h3>
+			<p>{% trans "This list provides an insight in the main partners who have provided or are providing essential data." %}
+			{% trans "For each of the organisations the main contributions for the ASDC are listed." %}<br>
+			{% trans "Homepage | Photo credit to Bob McKerrow, description:  Teshkan Valley, Badakhshan" %}</p>
+			<p>&nbsp;</p>
+
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/wmo.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "World Meteorological Organization (WMO) and Hydrologic Research Center" %}</h4>
+			            <p>{% trans "Flash Flood Guidiance System (FFGS) from Hydrologic Research Center" %}</p>
+			            <p>
+			            {% trans "WMO data is used for the flash flood prediction, as well as providing snow water equivalent data used to calculate snow depth" %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/noa.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "National Oceanic and Atmospheric Administration (NOAA) - National Snow and Ice Data Center (NSIDC)" %}</h4>
+			            <p>{% trans "NSIDC data is used to calculate the daily snow coverage and avalanche risk. It was also used to calculate the historic snow average per month." %}</p>
+			            <p>
+			            {% trans "Global Flood Monitoring System (GFMS) is supported by NOAA and is an essential component of the flood prediction system" %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/usgs.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "United States Geological Survey (USGS)" %}</h4>
+			            <p>{% trans "USGS Earthquake monitoring program, provides the historical earthquake data, latest epicentre data and shakemaps." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/oak.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Oak Ridge National Laboratory" %}</h4>
+			            <p>{% trans "Provided the Landscan data, which was merged with various other datasets, to estimate population numbers at village level." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/maryland.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "University Of Maryland" %}</h4>
+			            <p>{% trans "Global Flood Monitoring System (GFMS) is maintained by the university of Maryland. The data is essential for one component of the river flood prediction in Afghanistan. NOAA and NASA are other partners which  help create this data" %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/nasa.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "National Aeronautics and Space Administration (NASA)" %}</h4>
+			            <p>{% trans "Global Flood Monitoring System (GFMS) is maintained by the university of Maryland. The data is essential for one component of the river flood prediction in Afghanistan. NOAA and NASA are other partners which  help create this data." %}</p>
+			            <p>
+			            {% trans "NASA also provided SRTM and ASTER data." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/usaid.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "United States Agency for International Development (USAID)" %}</h4>
+			            <p>{% trans "The USAID MISTI project provided the Village Settlement database, one of the core datasets." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/japan.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Japan: Ministry of Economy, Trade and Industry (METI)" %}</h4>
+			            <p>{% trans "METI/J-System (Japan) and NASA provided the ASTER DEM data. This data is used to create hillshading, model avalanche areas, calculate slope and subsequently road travel time." %}</p>
+			            <p>
+			            {% trans "The Advanced Spaceborne Thermal Emission and Reflection Radiometer (ASTER). The data is used to create detailed maps of land surface temperature, reflectance, and elevation." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/jrc.png" alt="">
+			            <h4>{% trans "Joint Research Commission (JRC) - Global Flood Awareness System (GloFAS)" %}</h4>
+			            <p>{% trans "The Global Flood Awareness System (GloFAS) data is since 2017 being used to aid with flood prediction. It has a time horizon of 30 days, of which 20 days are used for our flood prediction estimates. The Global Flood Awareness System (GloFAS), jointly developed by the European Commission and the European Centre for Medium-Range Weather Forecasts." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/nato.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "NATO Communications and Information Agency (NCI Agency)" %}</h4>
+			            <p>{% trans "Afghanistan Flood Hazard Map was provided by NATO NCI Agency (previously NC3A), it is a crucial data set without which static flood risk and flash/river flood prediction would not be possible" %}</p>
+			            <p>
+			            {% trans "Further data data provided are basin layer." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/wfp.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "World Food Program (WFP)" %}</h4>
+			            <p>{% trans "Provided one of the initial airport datasets." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/fao.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Food and Agriculture Organization of the United Nations (FAO)" %}</h4>
+			            <p>{% trans "Land cover dataset created by John Latham of FAO, were not only crucial in determining the general land cover, but also played an essential role in estimating the population. Furthermore, FAO data is used to assess the areas at risk of natural disasters." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/who.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "World Health Organisation (WHO)" %}</h4>
+			            <p>{% trans "WHO and MoPH provided the initial health facility data, which was reviewed and adjusted. This data is essential to assess accessibility." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/ocha.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Office for the Coordination of Humanitarian Affairs (OCHA)" %}</h4>
+			            <p>{% trans "Play an essential role in coordinating, relaying information and data. Both placing these online on the various OCHA maintained portals and helping organisations reach out to iMMAP." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/iom.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "International Organization for Migration (IOM)" %}</h4>
+			            <p>{% trans "Has provided historical Rapid Assessment Form (RAF) information, which is used to calibrate the prediction model." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/moia.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Ministry of Interior Affairs (MoIA)" %}</h4>
+			            <p>{% trans "Security Incident are presently mainly extracted from MoIA reports. This data is essential to assess humanitarian access. In the past there were a variety of other sources." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/moph.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Ministry of Public Health (MoPH)" %}</h4>
+			            <p>{% trans "WHO and MoPH provided the initial health facility data, which was reviewed and adjusted. This data is essential to assess accessibility." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/mrrd.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Ministry of Rural Rehabilitation and Development (MRRD)" %}</h4>
+			            <p>{% trans "MRRD plays an essential role in infrastructural data provision, especially segments of the rural road network." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/agcho.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Afghan Geodesy and Cartography Head Office (AGCHO)" %}</h4>
+			            <p>{% trans "Provision of Administrative boundaries. AGCHO and the Independent Directorate for Local Governance (IDLG) are recognised as the sole authoritative source for legal and technical issues related to the delimitation of administrative boundaries, composition, and division of the administrative units of Afghanistan." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/cso.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Central Statistics Organization (CSO)" %}</h4>
+			            <p>{% trans "Central Statistics Organization, Afghanistan (CSO) as NSO of any other country, is the driving force behind rebuilding an effective, robust and reliable. Its population estimates were essential in determining village allocated size." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/andma.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Ministry of Disaster Management and Humanitarian Affairs of Afghanistan / Afghanistan National Disaster Management Authority (ANDMA)" %}</h4>
+			            <p>{% trans "Plays an essential role in coordinating and relaying information." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<div class="row">
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/dacaar.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "Danish Committee for Aid to Afghan Refugees (DACAAR)" %}</h4>
+			            <p>{% trans "Has collected the most extensive water well data in Afghanistan." %}</p>
+			        </div>
+			    </div>
+			    <div class="col-md-4">
+			        <div class="center">
+			            <img src="{{ STATIC_URL }}v2/images/partner/osm.png" alt="">
+			            <p> </p>
+			            <h4>{% trans "OpenStreetMap (OSM)" %}</h4>
+			            <p>{% trans "OSM provided the road network coverage in highly populated cities of Afghanistan." %}</p>
+			        </div>
+			    </div>
+			</div>
+			<hr>
+			<p>&nbsp;</p>
+		</div>
+	</section>
+
+{% endblock %}

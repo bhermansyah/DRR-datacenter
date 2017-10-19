@@ -1,0 +1,709 @@
+{% extends "v2/site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load base_tags %}
+
+{% block title %} {% trans "Afghanistan Spatial Data Center" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}home{% endblock %}
+{% block body_extra_attr %}ng-app="featured"{% endblock %}
+
+{% block middle %}
+	{{ block.super }}
+	{% block hero %}
+	<section id="slide-show">
+		<!-- <div class="banner">
+			<div class="container">
+				<div class="move-text">
+					<div class="marquee"><a href="#">Put any notification here...</a></div>
+				</div>
+			</div>
+		</div> -->
+		<div id="slideCarousel" class="carousel slide" data-ride="carousel">
+		  <!-- Indicators -->
+		  <ol class="carousel-indicators">
+		      <li data-target="#slideCarousel" data-slide-to="0" class="active"></li>
+		      <li data-target="#slideCarousel" data-slide-to="1"></li>
+		      <li data-target="#slideCarousel" data-slide-to="2"></li>
+		  </ol>
+		  <!-- Wrapper for slides -->
+		  <div class="carousel-inner carousel-fill" role="listbox">
+		      <div class="item active">
+		          <!-- <img src="images/ASDC_FrontPage_Full_Size.jpg" alt="static"> -->
+		          <div class="carousel-caption">
+		              <h2>{% trans "Static Maps" %}</h2>
+		              <h3>{% trans "Browse the static maps, adjust the filter to easily find the static maps" %}</h3>
+		              <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:document_browse' %}">{% trans "Browse Static maps" %}</a>
+		          </div>
+		      </div>
+		      <div class="item">
+		          <!-- <img src="images/blog1.jpg" alt="interactive"> -->
+		          <div class="carousel-caption">
+		              <h2>{% trans "Interactive Maps" %}</h2>
+		              <h3>{% trans "Explore map on the interactive mode, style and export to pdf functionality enabled" %}</h3>
+		              <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:maps_browse' %}">{% trans "Browse Interactive Maps" %}</a>
+		          </div>
+		      </div>
+		      <div class="item">
+		          <div class="carousel-caption">
+		              <h2>{% trans "Analysis tools" %}</h2>
+		              <h3>{% trans "Populate analysis figure and export map pdf using geoexplorer" %}</h3>
+		              <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:maps_browse' %}656/view">{% trans "Open DRR Interactive Map" %}</a>
+		          </div>
+		      </div>
+		  </div>
+
+		  <!-- Left and right controls -->
+		  <a class="left carousel-control" href="#slideCarousel" role="button" data-slide="prev">
+		      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		      <span class="sr-only">{% trans "Previous" %}</span>
+		  </a>
+		  <a class="right carousel-control" href="#slideCarousel" role="button" data-slide="next">
+		      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		      <span class="sr-only">{% trans "Next" %}</span>
+		  </a>
+		</div>
+	</section>
+	{% endblock %}
+
+	{% block mainbody %}
+	<section class="count-prop">
+	    <div class="container">
+	    	{% with facet_type='home' %}
+	    	{% facets as facets %}
+	        <div class="row">
+	            <div class="col-md-3 col-xs-3 text-center">
+                    <a href="{% url 'layer_browse' %}"><h3 class="counting">{{ facets.layer|default:_("0") }}</h3></a>
+                    <h4>{% trans "Layers" %}</h4>
+	            </div>
+	            <div class="col-md-3 col-xs-3 text-center">
+                    <a href="{% url 'maps_browse' %}"><h3 class="counting">{{ facets.map|default:_("0") }}</h3></a>
+                    <h4>{% trans "Interactive Maps" %}</h4>
+	            </div>
+	            <div class="col-md-3 col-xs-3 text-center">
+	                <a href="{% url 'document_browse' %}"><h3 class="counting">{{ facets.document|default:_("0") }}</h3></a>
+	                <h4>{% trans "Static Maps" %}</h4>
+	            </div>
+	            <div class="col-md-3 col-xs-3 text-center">
+	                <a href="{% url 'profile_browse' %}"><h3 class="counting">{{ facets.user|default:_("0") }}</h3></a>
+	                <h4>{% blocktrans count counter=facets.user %}User{% plural %}Users{% endblocktrans %}</h4>
+	            </div>
+	        </div>
+	        {% endwith %}
+	    </div>
+	</section>
+
+	<section id="recent-info">
+	    <div class="container">
+	        <div class="center gap">
+	            <h3>Current Information</h3>
+	            <p class="lead">Look at some of the recent information we have</p>
+	        </div>
+	        <div class="row">
+	            <div class="col-md-4 col-sm-6 col-xs-12 grid">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>{% trans "Current Flood Prediction" %}{% verbatim %}
+                            	<small>
+                            		{{ lastupdatedvalues.flood_forecast_last_updated | timeAgo }}
+                            		{% endverbatim %}
+                            		<a href="" data-toggle="popover" data-trigger="hover" data-placement="auto" data-content="{% trans 'River flood prediction are valid for 4 days and updated every 6 hours, whereas the flash floods are valid for 6 hours and updated hourly.' %}{% trans 'The map and statistics are updated every 6 hours.' %}"><sup><i class="fa fa-question-circle"></i></sup></a>
+                            	</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                    		<a href="./maps/700/view">
+                    			<img id="floodSnapshot" src="{{ STATIC_URL }}lib/img/hex-loader2.gif">
+                    			<img class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_flood_forecasted_villages_basin&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                    			<div class="overlay">
+                    				<div class="detail">
+                    					<h3>Flood Prediction</h3>
+                    					<span>Click to explore the prediction of the number of people potentially affected by Flood</span>
+                    				</div>
+                    			</div>
+                    		</a>
+                        </div>
+                    </div>
+
+	            </div>
+	            <div class="col-md-4 col-sm-6 col-xs-12 grid">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>{% trans "Current Avalanche" %}
+                            	<small>
+                            		{% verbatim %}{{ lastupdatedvalues.avalanche_forecast_last_updated | timeAgo }}{% endverbatim %}
+                            		<a href="" data-toggle="popover" data-trigger="hover" data-placement="auto" data-content="{% trans 'The map and statistics are updated every ... hours.' %}"><sup><i class="fa fa-question-circle"></i></sup></a>
+                            	</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                    		<a href="./maps/707/view">
+                    			<img id="avaSnapshot" src="{{ STATIC_URL }}lib/img/hex-loader2.gif" class="img-responsive">
+                    			<img class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_avalanche_forecast_villages&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                    			<div class="overlay">
+                    				<div class="detail">
+                    					<h3>{% trans "Avalanches Prediction" %}</h3>
+                    					<span>{% trans "Click to explore the number of people potentially affected by avalanches" %}</span>
+                    				</div>
+                    			</div>
+                    		</a>
+
+                            <!-- <div id="echart_world_map" style="height:370px;"></div> -->
+                        </div>
+                    </div>
+
+	            </div>
+	            <div class="col-md-4 col-sm-6 col-xs-12 grid">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>{% trans "Current Snow Cover" %}{% verbatim %}
+                            	<small>
+                            		{{ lastupdatedvalues.snow_cover_forecast_last_updated | timeAgo }}
+                            		{% endverbatim %}
+                            		<a href="" data-toggle="popover" data-trigger="hover" data-placement="auto" data-content="{% trans 'The map and statistics are updated every ... hours.' %}"><sup><i class="fa fa-question-circle"></i></sup></a>
+                            	</small>
+                            </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                    		<a href="./maps/704/view">
+                    			<img id="scSnapshot" src="{{ STATIC_URL }}lib/img/hex-loader2.gif" class="img-responsive">
+                    			<img id="SnowLegend" class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_snow_depth&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                    			<div class="overlay">
+                    				<div class="detail">
+                    					<h3>{% trans "Snow Cover" %}</h3>
+                    					<span>{% trans "Click to explore the current snow cover and depth" %}</span>
+                    				</div>
+                    			</div>
+                    		</a>
+
+                            <!-- <div id="echart_world_map" style="height:370px;"></div> -->
+                        </div>
+                    </div>
+
+	            </div>
+	        </div>
+	        <!-- Using panel -->
+	        <!-- <div class="row">
+	            <div class="grid cs-style-3 col-md-4">
+	                <figure>
+	                    <div class="panel panel-default">
+	                        <div class="panel-heading">
+	                            Default Panel
+	                        </div>
+	                        <div class="panel-body">
+	                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+	                        </div>
+	                        <div class="panel-footer">
+	                            Panel Footer
+	                        </div>
+	                    </div>
+	                    <figcaption>
+	                        <h3>Settings</h3>
+	                        <span>Jacob Cummings</span>
+	                        <a href="portfolio-item.html">Take a look</a>
+	                    </figcaption>
+	                </figure>
+	            </div>
+	            <div class="col-md-4">
+	                <div class="panel panel-default">
+	                    <div class="panel-heading">
+	                        Default Panel
+	                    </div>
+	                    <div class="panel-body">
+	                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+	                    </div>
+	                    <div class="panel-footer">
+	                        Panel Footer
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-4">
+	                <div class="panel panel-default">
+	                    <div class="panel-heading">
+	                        Default Panel
+	                    </div>
+	                    <div class="panel-body">
+	                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+	                    </div>
+	                    <div class="panel-footer">
+	                        Panel Footer
+	                    </div>
+	                </div>
+	            </div>
+	        </div> -->
+	    </div>
+	</section>
+
+	<section id="latest-map">
+	    <div class="container">
+	        <div class="center">
+	            <h3>Our Latest Maps</h3>
+	            <p class="lead">Look at some of the recent projects we have completed for our valuble clients</p>
+	        </div>
+	        <div class="gap"></div>
+	        <div class="row">
+	            <div class="col-md-5 col-sm-12 col-xs-12 grid">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2>{% trans "Static Maps" %}</h2>
+	                        <h2 class="pull-right"><small><a href="{% url 'v2:document_browse' %}"> Show All</a></small></h2>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	{% verbatim %}
+	                    	<div ng-repeat="item in latestdocs.objects">
+	                    		<div class="portfolio-item col-md-6 col-sm-6">
+	                    			<figure>
+	                    				<div class="mediaholder">
+	                    					<a href="{{ item.detail_url }}">
+	                    						<img src="{{ item.thumbnail_url }}">
+	                    						<div class="hovercover">
+	                    							<div class="hovericon">
+	                    								<i class="fa fa-link hoverlink"></i>
+	                    							</div>
+	                    						</div>
+	                    					</a>
+	                    				</div>
+	                    				<a href="{{ item.detail_url }}">
+	                    					<figcaption class="item-description">
+	                    						<span class="author">
+	                    							{{ item.owner__username }}, {{ item.date|date:"d MMM y" }}
+	                    							<i class="fa fa-eye pull-right"> {{ item.popular_count }}</i>
+
+	                    						</span>
+	                    						<h3>{{ item.title }}</h3>
+	                    						<span>{{ item.abstract }}</span>
+	                    					</figcaption>
+	                    				</a>
+	                    			</figure>
+	                    		</div>
+	                    	</div>
+	                    	{% endverbatim %}
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="col-md-7 col-sm-12 col-xs-12 grid">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2>Flood Maps</h2>
+	                        <h2 class="pull-right"><small><a href="#"> Show All</a></small></h2>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	{% verbatim %}
+	                    	<div ng-repeat="item in latestflood.objects">
+	                    		<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
+	                    			<figure>
+	                    				<div class="mediaholder">
+	                    					<a href="{{ item.detail_url }}">
+	                    						<img src="{{ item.thumbnail_url }}">
+	                    						<div class="hovercover">
+	                    							<div class="hovericon">
+	                    								<i class="fa fa-link hoverlink"></i>
+	                    							</div>
+	                    						</div>
+	                    					</a>
+	                    				</div>
+	                    				<a href="#">
+	                    					<figcaption class="item-description">
+	                    						<span class="author">
+	                    							{{ item.owner__username }}, {{ item.date|date:"d MMM y" }}
+	                    							<i class="fa fa-eye pull-right">{% endverbatim %} {% verbatim %}{{ item.popular_count }}</i>
+	                    						</span>
+	                    						<h3>{{ item.title }}</h3>
+	                    						<span>{{ item.abstract }}</span>
+	                    					</figcaption>
+	                    				</a>
+	                    			</figure>
+	                    		</div>
+	                    	</div>
+	                    	{% endverbatim %}
+	                    	<!-- <div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
+	                    		<figure>
+	                    			<div class="mediaholder">
+	                    				<a href="#">
+	                    					<img src="images/map2.png">
+	                    					<div class="hovercover">
+	                    						<div class="hovericon">
+	                    							<i class="fa fa-link hoverlink"></i>
+	                    						</div>
+	                    					</div>
+	                    				</a>
+	                    			</div>
+	                    			<a href="#">
+	                    				<figcaption class="item-description">
+	                    					<span>
+	                    						Admin, 3 May 2016
+	                    						<i class="fa fa-eye pull-right"> 50</i>
+	                    					</span>
+	                    					<h3>Province Flood Risk Forecast</h3>
+	                    					<span>No abstract provided</span>
+	                    				</figcaption>
+	                    			</a>
+	                    		</figure>
+	                    	</div>
+	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
+	                    		<figure>
+	                    			<div class="mediaholder">
+	                    				<a href="#">
+	                    					<img src="images/map2.png">
+	                    					<div class="hovercover">
+	                    						<div class="hovericon">
+	                    							<i class="fa fa-link hoverlink"></i>
+	                    						</div>
+	                    					</div>
+	                    				</a>
+	                    			</div>
+	                    			<a href="#">
+	                    				<figcaption class="item-description">
+	                    					<span>
+	                    						Admin, 6 Dec 2015
+	                    						<i class="fa fa-eye pull-right"> 34</i>
+	                    					</span>
+	                    					<h3>Rabat Bala Village Flood Risk Exposure</h3>
+	                    					<span>No abstract provided</span>
+	                    				</figcaption>
+	                    			</a>
+	                    		</figure>
+	                    	</div>
+	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
+	                    		<figure>
+	                    			<div class="mediaholder">
+	                    				<a href="#">
+	                    					<img src="images/map2.png">
+	                    					<div class="hovercover">
+	                    						<div class="hovericon">
+	                    							<i class="fa fa-link hoverlink"></i>
+	                    						</div>
+	                    					</div>
+	                    				</a>
+	                    			</div>
+	                    			<a href="#">
+	                    				<figcaption class="item-description">
+	                    					<span>
+	                    						Admin, 6 Dec 2015
+	                    						<i class="fa fa-eye pull-right"> 52</i>
+	                    					</span>
+	                    					<h3>Khwaja Do Koh-Jawzjan Flood Risk Exposure</h3>
+	                    					<span>No abstract provided</span>
+	                    				</figcaption>
+	                    			</a>
+	                    		</figure>
+	                    	</div>
+	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
+	                    		<figure>
+	                    			<div class="mediaholder">
+	                    				<a href="#">
+	                    					<img src="images/map2.png">
+	                    					<div class="hovercover">
+	                    						<div class="hovericon">
+	                    							<i class="fa fa-link hoverlink"></i>
+	                    						</div>
+	                    					</div>
+	                    				</a>
+	                    			</div>
+	                    			<a href="#">
+	                    				<figcaption class="item-description">
+	                    					<span>
+	                    						Admin, 25 Oct 2015
+	                    						<i class="fa fa-eye pull-right"> 36</i>
+	                    					</span>
+	                    					<h3>Province Flood Risk Exposure</h3>
+	                    					<span>No abstract provided</span>
+	                    				</figcaption>
+	                    			</a>
+	                    		</figure>
+	                    	</div>
+	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
+	                    		<figure>
+	                    			<div class="mediaholder">
+	                    				<a href="#">
+	                    					<img src="images/map2.png">
+	                    					<div class="hovercover">
+	                    						<div class="hovericon">
+	                    							<i class="fa fa-link hoverlink"></i>
+	                    						</div>
+	                    					</div>
+	                    				</a>
+	                    			</div>
+	                    			<a href="#">
+	                    				<figcaption class="item-description">
+	                    					<span>
+	                    						Admin, 25 Oct 2015
+	                    						<i class="fa fa-eye pull-right"> 22</i>
+	                    					</span>
+	                    					<h3>Province Flood Risk Exposure</h3>
+	                    					<span>No abstract provided</span>
+	                    				</figcaption>
+	                    			</a>
+	                    		</figure>
+	                    	</div> -->
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+
+	<section id="doc">
+		<div class="container">
+			<div class="row">
+				<div class="center">
+					<h3>New to ASDC? Check our documentation for having a better understanding how useful our tools are.</h3>
+					<a href="{% url 'v2:documentation' %}" class="btn btn-primary">Watch Tutorial</a>
+					<a href="{% url 'v2:documentation' %}" class="btn btn-primary">See Documentation</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="partner" class="main">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-2">
+	                <div class="clearfix">
+	                    <h4 class="pull-left">OUR PARTNERS</h4>
+	                    <div class="pull-right">
+	                        <a class="prev" href="#partnerCarousel" data-slide="prev"><i class="fa fa-angle-left icon-large"></i></a>
+	                        <a class="next" href="#partnerCarousel" data-slide="next"><i class="fa fa-angle-right icon-large"></i></a>
+	                    </div>
+	                </div>
+	                <p>List of partner who provides either data or financial contribution.</p>
+	            </div>
+	            <div class="col-md-10">
+	                <div id="partnerCarousel" class="carousel slide clients">
+	                    <!-- Carousel items -->
+	                    <div class="carousel-inner">
+	                        <div class="active item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/usaid.png">
+	                                        </a>
+	                                    </li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/usgs.png">
+	                                        </a>
+	                                    </li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/maryland.png">
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-6 col-sm-6 col-xs-6">
+	                                    	<div class="col-md-12">
+	                                    		<a href="#">
+	                                    		    <img src="/static/v2/images/partner/oak.png">
+	                                    		</a>
+	                                    	</div>
+	                                    </li>
+	                                    <li class="col-md-6 col-sm-6 col-xs-6">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/noa.png">
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-6 col-sm-6 col-xs-6">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/wmo.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-6 col-sm-6 col-xs-6">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/jrc.png">
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/nato.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/wfp.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/fao.png">
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/who.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/ocha.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/iom.png">
+	                                	    </a>
+	                                	</li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/moia.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/moph.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/mrrd.png">
+	                                	    </a>
+	                                	</li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                	    <a href="#">
+	                                	        <img src="/static/v2/images/partner/agcho.png">
+	                                	    </a>
+	                                	</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/cso.png">
+	                                        </a>
+	                                    </li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/andma.png">
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+                                		    <a href="#">
+                                		        <img src="/static/v2/images/partner/dacaar.png">
+                                		    </a>
+                                		</li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+                                	        <a href="#">
+                                	            <img src="/static/v2/images/partner/osm.png">
+                                	        </a>
+                                	    </li>
+                                	    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/japan.png">
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                        <div class="item">
+	                            <div class="row">
+	                                <ul class="thumbnails list-unstyled">
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="#">
+	                                            <img src="/static/v2/images/partner/nasa.png">
+	                                        </a>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <!-- /Carousel items -->
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	{% endblock %}
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
+	{% if DEBUG_STATIC %}
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script> -->
+	{% endif %}
+	<script src="{{ STATIC_URL }}lib/js/timeAgo.js"></script>
+	<script type="text/javascript">
+		// window.onload = function() {};
+
+		FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}';
+		LATESTDOCS_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='lastestdocument' %}?category__identifier__in=agr-01,agr-02,agr-03,av-01,av-02,bnd-01,bnd-02,bnd-03,bnd-04,bnd-int,dr-01,dr-02,edu-01,edu-02,eq-01,erm-01,erm-02,erm-03,erm-04,erm-05,erm-06,erm-07,erm-08,geo-01,geo-02,geo-03,geo-04,geo-05,geo-06,geo-07,geo-08,geo-09,geo-10,hlt-01,hlt-02,hlt-03,hlt-04,hydro-01,hydro-02,hydro-03,hydro-04,hz-01,hz-03,idp-01,idp-02,idp-03,idp-04,img-01,img-02,infr-01,infr-02,infr-03,infr-04,infr-05,infr-06,met-01,met-02,met-03,met-04,met-05,met-06,ot-01,ot-02,ppl-01,ppl-02,ppl-03,sec-01,sec-02,sos-01,sos-02,sos-03,sos-04&limit=6&offset=0&order_by=-date';
+		LATESTFLOOD_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents' %}?category__identifier__in=fl-01,fl-02,fl-03&limit=6&offset=0&order_by=-date';
+		LAST_UPDATED_URL = '{% url 'api_dispatch_list' api_name='geoapi' resource_name='lastUpdated' %}';
+		'use strict';
+		(function(){
+			var module = angular.module('featured', ['yaru22.angular-timeago']);
+			module.run(function($http, $rootScope){
+				$http.get(FEATURED_URL).success(function(data){
+					$rootScope.featured = data;
+				});
+				$http.get(LATESTDOCS_URL).success(function(data){
+					$rootScope.latestdocs = data;
+				});
+				$http.get(LATESTFLOOD_URL).success(function(data){
+					$rootScope.latestflood = data;
+				});
+				$http.get(LAST_UPDATED_URL).success(function(data){
+					$rootScope.lastupdatedvalues = data;
+				});
+			});
+			var random = Math.floor((Math.random() * 1000) + 1);
+			var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1;
+			var yyyy = today.getFullYear();
+
+			$( "#floodSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:glofas_gfms_merge,afg_admbnda_adm1&styles=,snapshot_admin1&VIEWPARAMS=year:'+yyyy+';month:'+mm+';day:'+dd+';&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+			$( "#avaSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+			$( "#scSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_snow_depth,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+
+		})();
+
+	</script>
+	<script>
+	  $('.marquee').marquee({ pauseOnHover: true });
+	</script>
+{% endblock extra_script %}

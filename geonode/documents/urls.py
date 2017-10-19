@@ -31,6 +31,9 @@ js_info_dict = {
 urlpatterns = patterns('geonode.documents.views',
                        url(r'^$', TemplateView.as_view(template_name='documents/document_list.html'),
                            name='document_browse'),
+                       # ubah
+                       # url(r'^v2/$', TemplateView.as_view(template_name='v2/document_list.html'), name='document_browse'),
+                       # /ubah
                        url(r'^(?P<docid>\d+)/?$', 'document_detail', name='document_detail'),
                        url(r'^(?P<docid>\d+)/download/?$', 'document_download', name='document_download'),
                        url(r'^(?P<docid>\d+)/replace$', login_required(DocumentUpdateView.as_view()),

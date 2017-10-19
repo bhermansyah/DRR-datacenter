@@ -1,0 +1,47 @@
+{% extends "v2/map_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block body_class %}maps explore{% endblock %}
+
+{% block body %}
+
+  <!-- Breadcrumb -->
+    <section class="breadcrumb-section" style="padding: 0;">
+      <div class="container" style="padding: 0;">
+        <div class="">
+          <ul class="breadcrumb breadcrumb-info" style="padding: 8px 0;">
+              <li><a href="#" style="color: #000;">Maps</a></li>
+              <li class="active" style="color: #000;">Interactive Maps</li> 
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+  <section id="static" style="padding: 0;">
+    <div class="container">
+      {% include "search/v2/_search_content.html" %}
+    </div>
+  </section>
+
+  {% include "v2/_bulk_permissions_form.html" %}
+
+{% endblock %}
+
+{% block extra_script %}
+  {% if GEONODE_SECURITY_ENABLED %}
+    {% include "_permissions_form_js.html" %}
+  {% endif %}
+  <script type="text/javascript">
+      {% if HAYSTACK_SEARCH %}
+          SEARCH_URL = '{% url 'api_get_search' api_name='api' resource_name='base' %}?type__in=map'
+      {% else %}
+          SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='maps' %}';
+      {% endif %}
+      FILTER_TYPE = 'map';
+  </script>
+  {% with include_spatial='true' %}
+  {% include 'search/v2/search_scripts.html' %}
+  {% endwith %}
+{% endblock extra_script %}
