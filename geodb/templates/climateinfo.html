@@ -1,0 +1,158 @@
+{% load i18n mathfilters %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
+<head>
+
+<link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" />
+<style>
+table#info {
+	width:90%;
+	border-top:1px solid #e5eff8;
+	/*border-right:1px solid #e5eff8;*/
+	margin:1em auto;
+	border-collapse:collapse;
+}
+
+table#info td{
+	color:#0D63AD;
+	border-bottom:1px solid #e5eff8;
+	/*border-left:1px solid #e5eff8;*/
+	padding:.3em 1em;
+}
+
+table#info tr.odd td {
+	background:#f7fbff
+}
+
+/*#line_chart1{
+	width: 500 !important;
+	height:250 !important;
+}*/
+
+</style>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+</script>
+
+</head>
+<body>
+
+<table id='info'>
+	<tr>
+		<td>{% trans "Settlement" %}</td>
+		<td><strong>{{name_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Language" %}</td>
+		<td><strong>{{language_field}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "District" %}</td>
+		<td><strong>{{dist_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Province" %}</td>
+		<td><strong>{{prov_na_en}}</strong></td>
+	</tr>
+</table>
+
+<div style='width:90%;margin:1em auto;align=left'>
+	{{ temperature_line_chart.as_html }}
+</div>	
+
+<!-- <div style='width:90%;margin:1em auto;align=left'>
+	{{ climatechange_line_chart.as_html }}
+</div> -->
+
+<script type="text/javascript">
+  google.setOnLoadCallback(drawChartline_chart2_default);
+  function drawChartline_chart2_default() {
+  	drawChartline_chart2(1);
+  }
+
+  function drawChartline_chart2(tt) {
+    var data = google.visualization.arrayToDataTable({{ climatechange_temp_data | safe }});
+	var options = {"title": "Climate Change (Temperature)", "curveType": "function", "height": 500, "width": 500, "legend": "bottom", "vAxes": { 
+                0:{'format': '# \u00b0C'},
+            }}
+	var chart = new google.visualization.LineChart(document.getElementById('line_chart2'));
+
+	view = new google.visualization.DataView(data);
+	for (var i=1;i<=11;i++){
+		if (i!=tt){
+			view.hideColumns([i]);
+		}
+	}
+    chart.draw(view, options);
+  }
+
+  function select1(a){
+  	drawChartline_chart2(a.value);
+  }
+
+
+  google.setOnLoadCallback(drawChartline_chart3_default);
+  function drawChartline_chart3_default() {
+  	drawChartline_chart3(1);
+  }
+
+  function drawChartline_chart3(tt) {
+    var data1 = google.visualization.arrayToDataTable({{ climatechange_prec_data | safe }});
+	var options1 = {"title": "Climate Change (Precipitation)", "curveType": "function", "height": 500, "width": 500, "legend": "bottom", "vAxes": { 
+                0:{'format':"# mm"} 
+            }}
+	var chart1 = new google.visualization.LineChart(document.getElementById('line_chart3'));
+
+	view1 = new google.visualization.DataView(data1);
+	for (var i=1;i<=8;i++){
+		if (i!=tt){
+			view1.hideColumns([i]);
+		}
+	}
+    chart1.draw(view1, options1);
+  }
+
+  function select2(a){
+  	drawChartline_chart3(a.value);
+  } 
+</script>
+
+	
+<div id="line_chart2" style='width:90%;margin:1em auto;align=left'></div>
+<div style='width:90%;margin:1em auto;align=left'>
+	<select style='width:90%;margin:1em auto;align=left' onChange="select1(this)">
+		<option value="1" selected="selected">Annual Mean Temperature </option>
+		<option value="2">Mean Diurnal Range</option>
+		<option value="3">Isothermality</option>
+		<option value="4">Temperature Seasonality</option>
+		<option value="5">Max Temperature of Warmest Month</option>
+		<option value="6">Min Temperature of Coldest Month</option>
+		<option value="7">Temperature Annual Range</option>
+		<option value="8">Mean Temperature of Wettest Quarter</option>
+		<option value="9">Mean Temperature of Driest Quarter</option>
+		<option value="10">Mean Temperature of Warmest Quarter</option>
+		<option value="11">Mean Temperature of Coldest Quarter</option>
+	</select>
+</div>
+
+<div id="line_chart3" style='width:90%;margin:1em auto;align=left'></div>
+<div style='width:90%;margin:1em auto;align=left'>
+	<select style='width:90%;margin:1em auto;align=left' onChange="select2(this)">
+		<option value="1" selected="selected">Annual Precipitation</option>
+		<option value="2">Precipitation of Wettest Month</option>
+		<option value="3">Precipitation of Driest Month</option>
+		<option value="4">Precipitation Seasonality</option>
+		<option value="5">Precipitation of Wettest Quarter</option>
+		<option value="6">Precipitation of Driest Quarter</option>
+		<option value="7">Precipitation of Warmest Quarter</option>
+		<option value="8">Precipitation of Coldest Quarter</option>
+	</select>
+</div>
+
+
+</body>
+</html>

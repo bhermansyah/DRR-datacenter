@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import csv, os
-from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd, Glofasintegrated, AfgBasinLvl4GlofasPoint, AfgPpltDemographics, AfgLspAffpplp
+from geodb.models import AfgFldzonea100KRiskLandcoverPop, AfgLndcrva, AfgAdmbndaAdm1, AfgAdmbndaAdm2, AfgFldzonea100KRiskMitigatedAreas, AfgAvsa, Forcastedvalue, AfgShedaLvl4, districtsummary, provincesummary, basinsummary, AfgPpla, tempCurrentSC, earthquake_events, earthquake_shakemap, villagesummaryEQ, AfgPplp, AfgSnowaAverageExtent, AfgCaptPpl, AfgAirdrmp, AfgHltfac, forecastedLastUpdate, AfgCaptGmscvr, AfgEqtUnkPplEqHzd, Glofasintegrated, AfgBasinLvl4GlofasPoint, AfgPpltDemographics, AfgLspAffpplp, AfgMettClim1KmChelsaBioclim, AfgMettClim1KmWorldclimBioclim2050Rpc26, AfgMettClim1KmWorldclimBioclim2050Rpc45, AfgMettClim1KmWorldclimBioclim2050Rpc85, AfgMettClim1KmWorldclimBioclim2070Rpc26, AfgMettClim1KmWorldclimBioclim2070Rpc45, AfgMettClim1KmWorldclimBioclim2070Rpc85, AfgMettClimperc1KmChelsaPrec, AfgMettClimtemp1KmChelsaTempavg, AfgMettClimtemp1KmChelsaTempmax, AfgMettClimtemp1KmChelsaTempmin
 import requests
 from django.core.files.base import ContentFile
 import urllib2, base64
@@ -1119,6 +1119,278 @@ def getKeyCustom(dt, idx):
     if len(dt)>0:
         result = round(dt[0][idx] or 0,0)
     return result
+
+def getClimateVillage(request):
+    template = './climateinfo.html'
+    village = request.GET["v"]
+    context_dict = getCommonVillageData(village)
+    currentdate = datetime.datetime.utcnow()
+    year = currentdate.strftime("%Y")
+    month = currentdate.strftime("%m")
+    day = currentdate.strftime("%d")
+
+    climatePrec = get_object_or_404(AfgMettClimperc1KmChelsaPrec, vuid=village)
+    climateTempAVG = get_object_or_404(AfgMettClimtemp1KmChelsaTempavg, vuid=village)
+    climateTempMAX = get_object_or_404(AfgMettClimtemp1KmChelsaTempmax, vuid=village)
+    climateTempMIN = get_object_or_404(AfgMettClimtemp1KmChelsaTempmin, vuid=village)
+
+    tempData = []
+    tempData.append([_('Month'),_('Precipitation'),_('Max Temp'),_('Avg Temp'),_('Min Temp')])
+    tempData.append([_('Jan'),climatePrec.january,climateTempMAX.january,climateTempAVG.january,climateTempMIN.january])
+    tempData.append([_('Feb'),climatePrec.february,climateTempMAX.february,climateTempAVG.february,climateTempMIN.february])
+    tempData.append([_('Mar'),climatePrec.march,climateTempMAX.march,climateTempAVG.march,climateTempMIN.march])
+    tempData.append([_('Apr'),climatePrec.april,climateTempMAX.april,climateTempAVG.april,climateTempMIN.april])
+    tempData.append([_('May'),climatePrec.may,climateTempMAX.may,climateTempAVG.may,climateTempMIN.may])
+    tempData.append([_('Jun'),climatePrec.june,climateTempMAX.june,climateTempAVG.june,climateTempMIN.june])
+    tempData.append([_('Jul'),climatePrec.july,climateTempMAX.july,climateTempAVG.july,climateTempMIN.july])
+    tempData.append([_('Aug'),climatePrec.august,climateTempMAX.august,climateTempAVG.august,climateTempMIN.august])
+    tempData.append([_('Sep'),climatePrec.september,climateTempMAX.september,climateTempAVG.september,climateTempMIN.september])
+    tempData.append([_('Oct'),climatePrec.october,climateTempMAX.october,climateTempAVG.october,climateTempMIN.october])
+    tempData.append([_('Nov'),climatePrec.november,climateTempMAX.november,climateTempAVG.november,climateTempMIN.november])
+    tempData.append([_('Dec'),climatePrec.december,climateTempMAX.december,climateTempAVG.december,climateTempMIN.december])
+
+    context_dict['temperature_line_chart'] = gchart.LineChart(
+        SimpleDataSource(data=tempData), 
+        html_id="line_chart1", 
+        options={
+            'title': _("Current Climate"), 
+            'width': 500,
+            'height': 400, 
+            'legend': 'bottom', 
+            'curveType': 'function', 
+            'vAxes': { 
+                0:{'format': u'# \u00b0C'},
+                1:{'format':"# mm"} 
+            },
+            'series': {
+                0: {'targetAxisIndex':1},
+                1: {'targetAxisIndex':0},
+                2: {'targetAxisIndex':0},
+                3: {'targetAxisIndex':0},
+            },
+        })
+
+    climateBioClim = get_object_or_404(AfgMettClim1KmChelsaBioclim, vuid=village)
+    climateBioClim2050Rpc26 = get_object_or_404(AfgMettClim1KmWorldclimBioclim2050Rpc26, vuid=village)
+    climateBioClim2050Rpc45 = get_object_or_404(AfgMettClim1KmWorldclimBioclim2050Rpc45, vuid=village)
+    climateBioClim2050Rpc85 = get_object_or_404(AfgMettClim1KmWorldclimBioclim2050Rpc85, vuid=village)
+    climateBioClim2070Rpc26 = get_object_or_404(AfgMettClim1KmWorldclimBioclim2070Rpc26, vuid=village)
+    climateBioClim2070Rpc45 = get_object_or_404(AfgMettClim1KmWorldclimBioclim2070Rpc45, vuid=village)
+    climateBioClim2070Rpc85 = get_object_or_404(AfgMettClim1KmWorldclimBioclim2070Rpc85, vuid=village)
+
+    climDataTemp = []
+    climDataTemp.append([
+        'State',
+        'Annual Mean Temperature',
+        'Mean Diurnal Range',
+        'Isothermality',
+        'Temperature Seasonality',
+        'Max Temperature of Warmest Month',
+        'Min Temperature of Coldest Month',
+        'Temperature Annual Range',
+        'Mean Temperature of Wettest Quarter',
+        'Mean Temperature of Driest Quarter',
+        'Mean Temperature of Warmest Quarter',
+        'Mean Temperature of Coldest Quarter'
+    ])
+
+    climDataTemp.append([
+        _('Current Climate'),
+        climateBioClim.bio1,
+        climateBioClim.bio2,
+        climateBioClim.bio3,
+        climateBioClim.bio4,
+        climateBioClim.bio5,
+        climateBioClim.bio6,
+        climateBioClim.bio7,
+        climateBioClim.bio8,
+        climateBioClim.bio9,
+        climateBioClim.bio10,
+        climateBioClim.bio11
+    ])
+    climDataTemp.append([
+        _('2050 RPC 26'),
+        climateBioClim2050Rpc26.bio1,
+        climateBioClim2050Rpc26.bio2,
+        climateBioClim2050Rpc26.bio3,
+        climateBioClim2050Rpc26.bio4,
+        climateBioClim2050Rpc26.bio5,
+        climateBioClim2050Rpc26.bio6,
+        climateBioClim2050Rpc26.bio7,
+        climateBioClim2050Rpc26.bio8,
+        climateBioClim2050Rpc26.bio9,
+        climateBioClim2050Rpc26.bio10,
+        climateBioClim2050Rpc26.bio11
+    ])
+    climDataTemp.append([
+        _('2050 RPC 45'),
+        climateBioClim2050Rpc45.bio1,
+        climateBioClim2050Rpc45.bio2,
+        climateBioClim2050Rpc45.bio3,
+        climateBioClim2050Rpc45.bio4,
+        climateBioClim2050Rpc45.bio5,
+        climateBioClim2050Rpc45.bio6,
+        climateBioClim2050Rpc45.bio7,
+        climateBioClim2050Rpc45.bio8,
+        climateBioClim2050Rpc45.bio9,
+        climateBioClim2050Rpc45.bio10,
+        climateBioClim2050Rpc45.bio11
+    ])
+    climDataTemp.append([
+        _('2050 RPC 85'),
+        climateBioClim2050Rpc85.bio1,
+        climateBioClim2050Rpc85.bio2,
+        climateBioClim2050Rpc85.bio3,
+        climateBioClim2050Rpc85.bio4,
+        climateBioClim2050Rpc85.bio5,
+        climateBioClim2050Rpc85.bio6,
+        climateBioClim2050Rpc85.bio7,
+        climateBioClim2050Rpc85.bio8,
+        climateBioClim2050Rpc85.bio9,
+        climateBioClim2050Rpc85.bio10,
+        climateBioClim2050Rpc85.bio11
+    ])
+    climDataTemp.append([
+        _('2070 RPC 26'),
+        climateBioClim2070Rpc26.bio1,
+        climateBioClim2070Rpc26.bio2,
+        climateBioClim2070Rpc26.bio3,
+        climateBioClim2070Rpc26.bio4,
+        climateBioClim2070Rpc26.bio5,
+        climateBioClim2070Rpc26.bio6,
+        climateBioClim2070Rpc26.bio7,
+        climateBioClim2070Rpc26.bio8,
+        climateBioClim2070Rpc26.bio9,
+        climateBioClim2070Rpc26.bio10,
+        climateBioClim2070Rpc26.bio11
+    ])
+    climDataTemp.append([
+        _('2070 RPC 45'),
+        climateBioClim2070Rpc45.bio1,
+        climateBioClim2070Rpc45.bio2,
+        climateBioClim2070Rpc45.bio3,
+        climateBioClim2070Rpc45.bio4,
+        climateBioClim2070Rpc45.bio5,
+        climateBioClim2070Rpc45.bio6,
+        climateBioClim2070Rpc45.bio7,
+        climateBioClim2070Rpc45.bio8,
+        climateBioClim2070Rpc45.bio9,
+        climateBioClim2070Rpc45.bio10,
+        climateBioClim2070Rpc45.bio11
+    ])
+    climDataTemp.append([
+        _('2070 RPC 85'),
+        climateBioClim2070Rpc85.bio1,
+        climateBioClim2070Rpc85.bio2,
+        climateBioClim2070Rpc85.bio3,
+        climateBioClim2070Rpc85.bio4,
+        climateBioClim2070Rpc85.bio5,
+        climateBioClim2070Rpc85.bio6,
+        climateBioClim2070Rpc85.bio7,
+        climateBioClim2070Rpc85.bio8,
+        climateBioClim2070Rpc85.bio9,
+        climateBioClim2070Rpc85.bio10,
+        climateBioClim2070Rpc85.bio11
+    ])
+    context_dict['climatechange_temp_data'] = json.dumps(climDataTemp)
+
+
+    climDataPrec = []
+    climDataPrec.append([
+        'State',
+        'Annual Precipitation',
+        'Precipitation of Wettest Month',
+        'Precipitation of Driest Month',
+        'Precipitation Seasonality',
+        'Precipitation of Wettest Quarter',
+        'Precipitation of Driest Quarter',
+        'Precipitation of Warmest Quarter',
+        'Precipitation of Coldest Quarter'
+    ])
+
+    climDataPrec.append([
+        _('Current Climate'),
+        climateBioClim.bio12,
+        climateBioClim.bio13,
+        climateBioClim.bio14,
+        climateBioClim.bio15,
+        climateBioClim.bio16,
+        climateBioClim.bio17,
+        climateBioClim.bio18,
+        climateBioClim.bio19
+    ])
+    climDataPrec.append([
+        _('2050 RPC 26'),
+        climateBioClim2050Rpc26.bio12,
+        climateBioClim2050Rpc26.bio13,
+        climateBioClim2050Rpc26.bio14,
+        climateBioClim2050Rpc26.bio15,
+        climateBioClim2050Rpc26.bio16,
+        climateBioClim2050Rpc26.bio17,
+        climateBioClim2050Rpc26.bio18,
+        climateBioClim2050Rpc26.bio19
+    ])
+    climDataPrec.append([
+        _('2050 RPC 45'),
+        climateBioClim2050Rpc45.bio12,
+        climateBioClim2050Rpc45.bio13,
+        climateBioClim2050Rpc45.bio14,
+        climateBioClim2050Rpc45.bio15,
+        climateBioClim2050Rpc45.bio16,
+        climateBioClim2050Rpc45.bio17,
+        climateBioClim2050Rpc45.bio18,
+        climateBioClim2050Rpc45.bio19
+    ])
+    climDataPrec.append([
+        _('2050 RPC 85'),
+        climateBioClim2050Rpc85.bio12,
+        climateBioClim2050Rpc85.bio13,
+        climateBioClim2050Rpc85.bio14,
+        climateBioClim2050Rpc85.bio15,
+        climateBioClim2050Rpc85.bio16,
+        climateBioClim2050Rpc85.bio17,
+        climateBioClim2050Rpc85.bio18,
+        climateBioClim2050Rpc85.bio19
+    ])
+    climDataPrec.append([
+        _('2070 RPC 26'),
+        climateBioClim2070Rpc26.bio12,
+        climateBioClim2070Rpc26.bio13,
+        climateBioClim2070Rpc26.bio14,
+        climateBioClim2070Rpc26.bio15,
+        climateBioClim2070Rpc26.bio16,
+        climateBioClim2070Rpc26.bio17,
+        climateBioClim2070Rpc26.bio18,
+        climateBioClim2070Rpc26.bio19
+    ])
+    climDataPrec.append([
+        _('2070 RPC 45'),
+        climateBioClim2070Rpc45.bio12,
+        climateBioClim2070Rpc45.bio13,
+        climateBioClim2070Rpc45.bio14,
+        climateBioClim2070Rpc45.bio15,
+        climateBioClim2070Rpc45.bio16,
+        climateBioClim2070Rpc45.bio17,
+        climateBioClim2070Rpc45.bio18,
+        climateBioClim2070Rpc45.bio19
+    ])
+    climDataPrec.append([
+        _('2070 RPC 85'),
+        climateBioClim2070Rpc85.bio12,
+        climateBioClim2070Rpc85.bio13,
+        climateBioClim2070Rpc85.bio14,
+        climateBioClim2070Rpc85.bio15,
+        climateBioClim2070Rpc85.bio16,
+        climateBioClim2070Rpc85.bio17,
+        climateBioClim2070Rpc85.bio18,
+        climateBioClim2070Rpc85.bio19
+    ])
+
+    context_dict['climatechange_prec_data'] = json.dumps(climDataPrec)
+
+    context_dict.pop('position')
+    return render_to_response(template,
+                                  RequestContext(request, context_dict))
 
 def getSnowVillage(request):
     template = './snowInfo.html'

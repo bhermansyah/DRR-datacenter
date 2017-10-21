@@ -35071,7 +35071,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
         var tempMapId = window.location.pathname;
         tempMapId = tempMapId.split("/");
-        tempMapId = tempMapId[2];
+        if (tempMapId.indexOf("v2") > -1){
+            tempMapId = tempMapId[3];
+        } else {
+            tempMapId = tempMapId[2];
+        }        
         jsonData.mapID = tempMapId;
 
         if(this.method === "GET") {

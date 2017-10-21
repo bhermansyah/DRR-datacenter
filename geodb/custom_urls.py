@@ -15,4 +15,6 @@ urlpatterns = patterns(
     url(r'^weatherinfo$', 'getWeatherInfoVillages', name='getWeatherInfoVillages'),
     url(r'^demographic$', 'getDemographicInfo', name='getDemographicInfo'),
     url(r'^landslideinfo$', 'getLandSlideInfoVillages', name='getLandSlideInfoVillages'),
+    url(r'^climateinfo$', 'getClimateVillage', name='getClimateVillage'),
+    
 )

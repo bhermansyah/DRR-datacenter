@@ -1927,6 +1927,12 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             height : 2100,
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/landslideinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
+                        },{
+                            title: gettext('Climate'),
+                            // defaults: {autoScroll: true},
+                            height : 2100,
+                            style:"height:2100px;",
+                            html: '<iframe src="../../getOverviewMaps/climateinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         }]
                     }],
                     listeners: {
