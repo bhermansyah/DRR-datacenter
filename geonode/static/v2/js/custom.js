@@ -12495,7 +12495,7 @@ jQuery(function($){
 	  					name: aforecast_cat[2]
 	  					// name: 'High Risk'
 	  				  }, {
-	  					value: pop - tot_ava_build,
+	  					value: build - tot_ava_build,
 	  					// value: jsondata['Population'] - jsondata['total_ava_forecast_pop'],
 	  					name: aforecast_cat[3],
 	  					// name: 'Not at Risk',
