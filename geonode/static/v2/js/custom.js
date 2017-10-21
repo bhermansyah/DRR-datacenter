@@ -103,13 +103,13 @@ jQuery(function($){
 
 	// Tooltip
 	$(document).ready(function(){
-	    $('[data-toggle="tooltip"]').tooltip();   
+	    $('[data-toggle="tooltip"]').tooltip();
 	});
 	// /Tooltip
 
 	// Popover
 	$(document).ready(function(){
-	    $('[data-toggle="popover"]').popover();   
+	    $('[data-toggle="popover"]').popover();
 	});
 	// /Popover
 
@@ -160,8 +160,8 @@ jQuery(function($){
 	});
 
 	// Dropdown like Select
-	$('.sorting-menu a').on('click', function(){    
-	    $(this).parent().parent().prev().html($(this).html() + ' <i class="fa fa-angle-down"></i>');    
+	$('.sorting-menu a').on('click', function(){
+	    $(this).parent().parent().prev().html($(this).html() + ' <i class="fa fa-angle-down"></i>');
 	})
 	// /Dropdown like Select
 
@@ -224,7 +224,7 @@ jQuery(function($){
 	// 	});
 	// 	console.log(Object.values(tcTemp));
 	// });
-	
+
 	// $('button.ply-trget').on('click', function(event) {
 	//  var chart6dataselected = {};
 	//   chart6dataselected.incident = [];
@@ -232,7 +232,7 @@ jQuery(function($){
 	//   chart6dataselected.injured = [];
 	//   chart6dataselected.violent = [];
 	//   var indicatorselected = [];
-	  
+
 	//   $('#indicatorTarget .checkTarget').each(function(index, item) {
 	//     if ($(item).checked == true) {
 	//       chart6dataselected.incident.push(jsondata.chart6data.incident[index]);
@@ -242,7 +242,7 @@ jQuery(function($){
 	//       indicatorselected.push($(item).text());
 	//     }
 	//   });
-	  
+
 	//   var option = echartRadar6.getOption();
 	//   option.series[0].data[0].value = chart6dataselected.incident;
 	//   option.series[1].data[0].value = chart6dataselected.dead;
@@ -282,7 +282,7 @@ jQuery(function($){
 	// 		});
 	// 	});
 	// });
-	
+
 	// $('#indicatorTarget :checkbox').each(function(index){
 	// 	$(this).on("change", function(){
 	// 		if ($(this).is(':checked')) {
@@ -8415,31 +8415,31 @@ jQuery(function($){
 				var base_lcChild =[];
 				var base_lcParent =[];
 
-				base_lcParent = 
-					[[jsondata['parent_label'], 
-					jsondata['Buildings'], 
-					jsondata['settlement'], 
-					jsondata['built_up_pop'], 
-					jsondata['built_up_area'], 
-					jsondata['cultivated_pop'], 
-					jsondata['cultivated_area'], 
-					jsondata['barren_pop'], 
-					jsondata['barren_area'], 
-					jsondata['Population'], 
+				base_lcParent =
+					[[jsondata['parent_label'],
+					jsondata['Buildings'],
+					jsondata['settlement'],
+					jsondata['built_up_pop'],
+					jsondata['built_up_area'],
+					jsondata['cultivated_pop'],
+					jsondata['cultivated_area'],
+					jsondata['barren_pop'],
+					jsondata['barren_area'],
+					jsondata['Population'],
 					jsondata['Area']]];
 
 				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					base_lcChild[i] = 
-						[jsondata['lc_child'][i]['na_en'], 
-						jsondata['lc_child'][i]['total_buildings'], 
-						jsondata['lc_child'][i]['settlements'], 
-						jsondata['lc_child'][i]['built_up_pop'], 
-						jsondata['lc_child'][i]['built_up_area'], 
-						jsondata['lc_child'][i]['cultivated_pop'], 
-						jsondata['lc_child'][i]['cultivated_area'], 
-						jsondata['lc_child'][i]['barren_land_pop'], 
-						jsondata['lc_child'][i]['barren_land_area'], 
-						jsondata['lc_child'][i]['Population'], 
+					base_lcChild[i] =
+						[jsondata['lc_child'][i]['na_en'],
+						jsondata['lc_child'][i]['total_buildings'],
+						jsondata['lc_child'][i]['settlements'],
+						jsondata['lc_child'][i]['built_up_pop'],
+						jsondata['lc_child'][i]['built_up_area'],
+						jsondata['lc_child'][i]['cultivated_pop'],
+						jsondata['lc_child'][i]['cultivated_area'],
+						jsondata['lc_child'][i]['barren_land_pop'],
+						jsondata['lc_child'][i]['barren_land_area'],
+						jsondata['lc_child'][i]['Population'],
 						jsondata['lc_child'][i]['Area']];
 				}
 				base_lcAll = (base_lcParent).concat(base_lcChild);
@@ -8448,27 +8448,27 @@ jQuery(function($){
 				var hfParent =[];
 				var hfChild =[];
 
-				hfParent = 
-					[[jsondata['parent_label'], 
-					jsondata['hlt_h1'], 
-					jsondata['hlt_h2'], 
-					jsondata['hlt_h3'], 
-					jsondata['hlt_chc'], 
-					jsondata['hlt_bhc'], 
-					jsondata['hlt_shc'], 
-					jsondata['hlt_others'], 
+				hfParent =
+					[[jsondata['parent_label'],
+					jsondata['hlt_h1'],
+					jsondata['hlt_h2'],
+					jsondata['hlt_h3'],
+					jsondata['hlt_chc'],
+					jsondata['hlt_bhc'],
+					jsondata['hlt_shc'],
+					jsondata['hlt_others'],
 					jsondata['hltfac']]];
 
 				for (var i = 0; i < jsondata['additional_child'].length; i++) {
-					hfChild[i] = 
-						[jsondata['additional_child'][i]['na_en'], 
-						jsondata['additional_child'][i]['hlt_h1'], 
-						jsondata['additional_child'][i]['hlt_h2'], 
-						jsondata['additional_child'][i]['hlt_h3'], 
-						jsondata['additional_child'][i]['hlt_chc'], 
-						jsondata['additional_child'][i]['hlt_bhc'], 
-						jsondata['additional_child'][i]['hlt_shc'], 
-						jsondata['additional_child'][i]['hlt_others'], 
+					hfChild[i] =
+						[jsondata['additional_child'][i]['na_en'],
+						jsondata['additional_child'][i]['hlt_h1'],
+						jsondata['additional_child'][i]['hlt_h2'],
+						jsondata['additional_child'][i]['hlt_h3'],
+						jsondata['additional_child'][i]['hlt_chc'],
+						jsondata['additional_child'][i]['hlt_bhc'],
+						jsondata['additional_child'][i]['hlt_shc'],
+						jsondata['additional_child'][i]['hlt_others'],
 						jsondata['additional_child'][i]['hlt_total']];
 				}
 				hfAll = (hfParent).concat(hfChild);
@@ -8477,31 +8477,31 @@ jQuery(function($){
 				var rnParent =[];
 				var rnChild =[];
 
-				rnParent = 
-					[[jsondata['parent_label'], 
-					jsondata['road_highway'], 
-					jsondata['road_primary'], 
-					jsondata['road_secondary'], 
-					jsondata['road_tertiary'], 
-					jsondata['road_residential'], 
-					jsondata['road_track'], 
-					jsondata['road_path'], 
-					jsondata['road_river_crossing'], 
-					jsondata['road_bridge'], 
+				rnParent =
+					[[jsondata['parent_label'],
+					jsondata['road_highway'],
+					jsondata['road_primary'],
+					jsondata['road_secondary'],
+					jsondata['road_tertiary'],
+					jsondata['road_residential'],
+					jsondata['road_track'],
+					jsondata['road_path'],
+					jsondata['road_river_crossing'],
+					jsondata['road_bridge'],
 					jsondata['roadnetwork']]];
 
 				for (var i = 0; i < jsondata['additional_child'].length; i++) {
-					rnChild[i] = 
-						[jsondata['additional_child'][i]['na_en'], 
-						jsondata['additional_child'][i]['road_highway'], 
-						jsondata['additional_child'][i]['road_primary'], 
-						jsondata['additional_child'][i]['road_secondary'], 
-						jsondata['additional_child'][i]['road_tertiary'], 
-						jsondata['additional_child'][i]['road_residential'], 
-						jsondata['additional_child'][i]['road_track'], 
-						jsondata['additional_child'][i]['road_path'], 
+					rnChild[i] =
+						[jsondata['additional_child'][i]['na_en'],
+						jsondata['additional_child'][i]['road_highway'],
+						jsondata['additional_child'][i]['road_primary'],
+						jsondata['additional_child'][i]['road_secondary'],
+						jsondata['additional_child'][i]['road_tertiary'],
+						jsondata['additional_child'][i]['road_residential'],
+						jsondata['additional_child'][i]['road_track'],
+						jsondata['additional_child'][i]['road_path'],
 						jsondata['additional_child'][i]['road_river_crossing'],
-						jsondata['additional_child'][i]['road_bridge'], 
+						jsondata['additional_child'][i]['road_bridge'],
 						jsondata['additional_child'][i]['road_total']];
 				}
 				rnAll = (rnParent).concat(rnChild);
@@ -8514,51 +8514,51 @@ jQuery(function($){
 				var rgffoverviewChild = [];
 				var rgffoverviewAll=[];
 
-				rgffoverviewParent = 
-					[[jsondata['parent_label'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_veryhigh_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_high_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_med_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_low_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['riverflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['riverflood_forecast_veryhigh_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['riverflood_forecast_high_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['riverflood_forecast_med_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['riverflood_forecast_low_pop'], 
+				rgffoverviewParent =
+					[[jsondata['parent_label'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_veryhigh_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_high_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_med_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_low_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['riverflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['riverflood_forecast_veryhigh_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['riverflood_forecast_high_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['riverflood_forecast_med_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['riverflood_forecast_low_pop'],
 					jsondata['flashflood_forecast_extreme_pop']]];
 
 				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					rgffoverviewChild[i] = 
-						[jsondata['lc_child'][i]['na_en'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_veryhigh_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_high_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_med_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_low_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['riverflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['riverflood_forecast_veryhigh_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['riverflood_forecast_high_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['riverflood_forecast_med_pop'], 
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['lc_child'][i]['riverflood_forecast_low_pop'], 
+					rgffoverviewChild[i] =
+						[jsondata['lc_child'][i]['na_en'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_veryhigh_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_high_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_med_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_low_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['riverflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['riverflood_forecast_veryhigh_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['riverflood_forecast_high_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['riverflood_forecast_med_pop'],
+						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['lc_child'][i]['riverflood_forecast_low_pop'],
 						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop']];
 				}
 				rgffoverviewAll = (rgffoverviewParent).concat(rgffoverviewChild);
@@ -8566,49 +8566,49 @@ jQuery(function($){
 				var rggfoverviewParent = [];
 				var rggfoverviewChild = [];
 				var rggfoverviewAll=[];
-				rggfoverviewParent = 
-					[[jsondata['parent_label'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_veryhigh_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_high_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_med_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_low_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['gfms_glofas_riverflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['gfms_glofas_riverflood_forecast_veryhigh_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['gfms_glofas_riverflood_forecast_high_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['gfms_glofas_riverflood_forecast_med_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
+				rggfoverviewParent =
+					[[jsondata['parent_label'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_veryhigh_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_high_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_med_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_low_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['gfms_glofas_riverflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['gfms_glofas_riverflood_forecast_veryhigh_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['gfms_glofas_riverflood_forecast_high_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['gfms_glofas_riverflood_forecast_med_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
 					jsondata['gfms_glofas_riverflood_forecast_low_pop'],
 					jsondata['flashflood_forecast_extreme_pop']]];
 				for (var i = 0; i < jsondata['glofas_gfms_child'].length; i++) {
-					rggfoverviewChild[i] = 
-						[jsondata['glofas_gfms_child'][i]['na_en'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
+					rggfoverviewChild[i] =
+						[jsondata['glofas_gfms_child'][i]['na_en'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
 						jsondata['glofas_gfms_child'][i]['flashflood_forecast_veryhigh_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],  
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_high_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_med_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_low_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_extreme_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_high_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_med_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_low_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['riverflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
 						jsondata['glofas_gfms_child'][i]['riverflood_forecast_veryhigh_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],  
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_high_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_med_pop'], 
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'], 
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['riverflood_forecast_high_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+						jsondata['glofas_gfms_child'][i]['riverflood_forecast_med_pop'],
+						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
 						jsondata['glofas_gfms_child'][i]['riverflood_forecast_low_pop'],
 						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop']];
 				}
@@ -8617,50 +8617,50 @@ jQuery(function($){
 				var rglfoverviewParent = [];
 				var rglfoverviewChild = [];
 				var rglfoverviewAll=[];
-				rglfoverviewParent = 
-					[[jsondata['parent_label'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
+				rglfoverviewParent =
+					[[jsondata['parent_label'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
 					jsondata['flashflood_forecast_veryhigh_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],  
-					jsondata['flashflood_forecast_high_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_med_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_low_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_riverflood_forecast_extreme_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_riverflood_forecast_veryhigh_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_riverflood_forecast_high_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_riverflood_forecast_med_pop'], 
-					jsondata['flashflood_forecast_extreme_pop'], 
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_high_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_med_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_low_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_riverflood_forecast_extreme_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_riverflood_forecast_veryhigh_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_riverflood_forecast_high_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_riverflood_forecast_med_pop'],
+					jsondata['flashflood_forecast_extreme_pop'],
 					jsondata['glofas_riverflood_forecast_low_pop'],
 					jsondata['flashflood_forecast_extreme_pop']]];
-				
+
 				for (var i = 0; i < jsondata['glofas_child'].length; i++) {
-					rglfoverviewChild[i] = 
-					[jsondata['glofas_child'][i]['na_en'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
+					rglfoverviewChild[i] =
+					[jsondata['glofas_child'][i]['na_en'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
 					jsondata['glofas_child'][i]['flashflood_forecast_veryhigh_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],  
-					jsondata['glofas_child'][i]['flashflood_forecast_high_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_med_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_low_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_child'][i]['riverflood_forecast_extreme_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_high_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_med_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_low_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['riverflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
 					jsondata['glofas_child'][i]['riverflood_forecast_veryhigh_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],  
-					jsondata['glofas_child'][i]['riverflood_forecast_high_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
-					jsondata['glofas_child'][i]['riverflood_forecast_med_pop'], 
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'], 
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['riverflood_forecast_high_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+					jsondata['glofas_child'][i]['riverflood_forecast_med_pop'],
+					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
 					jsondata['glofas_child'][i]['riverflood_forecast_low_pop'],
 					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop']];
 				}
@@ -8670,39 +8670,39 @@ jQuery(function($){
 				var fRiskParent = [];
 				var fRiskChild = [];
 				var fRiskAll=[];
-				fRiskParent = 
-					[[jsondata['parent_label'], 
-					jsondata['settlement_at_floodrisk'], 
-					jsondata['settlement_at_floodrisk'], 
-					jsondata['built_up_pop_risk'], 
-					jsondata['built_up_area_risk'], 
-					// jsondata['settlement_at_floodrisk'], 
-					jsondata['cultivated_pop_risk'], 
-					jsondata['cultivated_area_risk'], 
-					// jsondata['settlement_at_floodrisk'], 
-					jsondata['barren_pop_risk'], 
-					jsondata['barren_area_risk'], 
-					// jsondata['settlement_at_floodrisk'], 
-					jsondata['total_risk_population'], 
-					jsondata['total_risk_area'], 
+				fRiskParent =
+					[[jsondata['parent_label'],
+					jsondata['settlement_at_floodrisk'],
+					jsondata['settlement_at_floodrisk'],
+					jsondata['built_up_pop_risk'],
+					jsondata['built_up_area_risk'],
+					// jsondata['settlement_at_floodrisk'],
+					jsondata['cultivated_pop_risk'],
+					jsondata['cultivated_area_risk'],
+					// jsondata['settlement_at_floodrisk'],
+					jsondata['barren_pop_risk'],
+					jsondata['barren_area_risk'],
+					// jsondata['settlement_at_floodrisk'],
+					jsondata['total_risk_population'],
+					jsondata['total_risk_area'],
 					// jsondata['settlement_at_floodrisk']
 					]];
 				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					fRiskChild[i] = 
-					[jsondata['lc_child'][i]['na_en'], 
+					fRiskChild[i] =
+					[jsondata['lc_child'][i]['na_en'],
 					jsondata['lc_child'][i]['total_risk_buildings'],
-					jsondata['lc_child'][i]['settlements_at_risk'], 
-					jsondata['lc_child'][i]['built_up_pop_risk'], 
-					jsondata['lc_child'][i]['built_up_area_risk'], 
-					// jsondata['lc_child'][i]['settlements_at_risk'], 
-					jsondata['lc_child'][i]['cultivated_pop_risk'], 
-					jsondata['lc_child'][i]['cultivated_area_risk'], 
-					// jsondata['lc_child'][i]['settlements_at_risk'], 
-					jsondata['lc_child'][i]['barren_pop_risk'], 
-					jsondata['lc_child'][i]['barren_area_risk'], 
-					// jsondata['lc_child'][i]['settlements_at_risk'], 
-					jsondata['lc_child'][i]['total_risk_population'], 
-					jsondata['lc_child'][i]['total_risk_area'], 
+					jsondata['lc_child'][i]['settlements_at_risk'],
+					jsondata['lc_child'][i]['built_up_pop_risk'],
+					jsondata['lc_child'][i]['built_up_area_risk'],
+					// jsondata['lc_child'][i]['settlements_at_risk'],
+					jsondata['lc_child'][i]['cultivated_pop_risk'],
+					jsondata['lc_child'][i]['cultivated_area_risk'],
+					// jsondata['lc_child'][i]['settlements_at_risk'],
+					jsondata['lc_child'][i]['barren_pop_risk'],
+					jsondata['lc_child'][i]['barren_area_risk'],
+					// jsondata['lc_child'][i]['settlements_at_risk'],
+					jsondata['lc_child'][i]['total_risk_population'],
+					jsondata['lc_child'][i]['total_risk_area'],
 					// jsondata['lc_child'][i]['total_risk_buildings']
 					];
 				}
@@ -8712,26 +8712,26 @@ jQuery(function($){
 				var aForecastParent = [];
 				var aForecastChild = [];
 				var aForecastAll=[];
-				aForecastParent = 
-					[[jsondata['parent_label'], 
-					jsondata['ava_forecast_high_pop'], 
-					jsondata['ava_forecast_high_pop'], 
-					jsondata['ava_forecast_med_pop'], 
-					jsondata['ava_forecast_high_pop'], 
-					jsondata['ava_forecast_low_pop'], 
-					jsondata['ava_forecast_high_pop'], 
+				aForecastParent =
+					[[jsondata['parent_label'],
+					jsondata['ava_forecast_high_pop'],
+					jsondata['ava_forecast_high_pop'],
+					jsondata['ava_forecast_med_pop'],
+					jsondata['ava_forecast_high_pop'],
+					jsondata['ava_forecast_low_pop'],
+					jsondata['ava_forecast_high_pop'],
 					jsondata['total_ava_forecast_pop'],
 					jsondata['ava_forecast_high_pop']]];
 
 				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					aForecastChild[i] = 
-					[jsondata['lc_child'][i]['na_en'], 
-					jsondata['lc_child'][i]['ava_forecast_high_pop'], 
-					jsondata['lc_child'][i]['high_ava_buildings'], 
-					jsondata['lc_child'][i]['ava_forecast_med_pop'], 
-					jsondata['lc_child'][i]['med_ava_buildings'], 
-					jsondata['lc_child'][i]['ava_forecast_low_pop'], 
-					jsondata['lc_child'][i]['ava_forecast_high_pop'], 
+					aForecastChild[i] =
+					[jsondata['lc_child'][i]['na_en'],
+					jsondata['lc_child'][i]['ava_forecast_high_pop'],
+					jsondata['lc_child'][i]['high_ava_buildings'],
+					jsondata['lc_child'][i]['ava_forecast_med_pop'],
+					jsondata['lc_child'][i]['med_ava_buildings'],
+					jsondata['lc_child'][i]['ava_forecast_low_pop'],
+					jsondata['lc_child'][i]['ava_forecast_high_pop'],
 					jsondata['lc_child'][i]['total_ava_forecast_pop'],
 					jsondata['lc_child'][i]['total_ava_buildings']];
 				}
@@ -8741,29 +8741,29 @@ jQuery(function($){
 				var aRiskParent = [];
 				var aRiskChild = [];
 				var aRiskAll=[];
-				aRiskParent = 
-					[[jsondata['parent_label'], 
-					jsondata['high_ava_population'], 
-					jsondata['high_ava_population'], 
-					jsondata['high_ava_area'], 
-					jsondata['med_ava_population'], 
-					jsondata['high_ava_population'], 
-					jsondata['med_ava_area'], 
-					jsondata['total_ava_population'], 
-					jsondata['high_ava_population'], 
+				aRiskParent =
+					[[jsondata['parent_label'],
+					jsondata['high_ava_population'],
+					jsondata['high_ava_population'],
+					jsondata['high_ava_area'],
+					jsondata['med_ava_population'],
+					jsondata['high_ava_population'],
+					jsondata['med_ava_area'],
+					jsondata['total_ava_population'],
+					jsondata['high_ava_population'],
 					jsondata['total_ava_area']]];
-				
+
 				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					aRiskChild[i] = 
-						[jsondata['lc_child'][i]['na_en'], 
-						jsondata['lc_child'][i]['high_ava_population'], 
-						jsondata['lc_child'][i]['high_ava_buildings'], 
-						jsondata['lc_child'][i]['high_ava_area'], 
-						jsondata['lc_child'][i]['med_ava_population'], 
-						jsondata['lc_child'][i]['med_ava_buildings'], 
-						jsondata['lc_child'][i]['med_ava_area'], 
-						jsondata['lc_child'][i]['total_ava_population'], 
-						jsondata['lc_child'][i]['total_ava_buildings'], 
+					aRiskChild[i] =
+						[jsondata['lc_child'][i]['na_en'],
+						jsondata['lc_child'][i]['high_ava_population'],
+						jsondata['lc_child'][i]['high_ava_buildings'],
+						jsondata['lc_child'][i]['high_ava_area'],
+						jsondata['lc_child'][i]['med_ava_population'],
+						jsondata['lc_child'][i]['med_ava_buildings'],
+						jsondata['lc_child'][i]['med_ava_area'],
+						jsondata['lc_child'][i]['total_ava_population'],
+						jsondata['lc_child'][i]['total_ava_buildings'],
 						jsondata['lc_child'][i]['total_ava_area']];
 				}
 				aRiskAll = (aRiskParent).concat(aRiskChild);
@@ -8772,59 +8772,59 @@ jQuery(function($){
 				var erthqkParent = [];
 				var erthqkChild = [];
 				var erthqkAll=[];
-				erthqkParent = 
-					[[jsondata['parent_label'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['settlement_shake_weak'], 
-					jsondata['pop_shake_light'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['settlement_shake_light'], 
-					jsondata['pop_shake_moderate'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['settlement_shake_moderate'], 
-					jsondata['pop_shake_strong'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['settlement_shake_strong'], 
-					jsondata['pop_shake_verystrong'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['settlement_shake_verystrong'], 
-					jsondata['pop_shake_severe'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['settlement_shake_severe'], 
-					jsondata['pop_shake_violent'], 
-					jsondata['pop_shake_weak'], 
-					jsondata['settlement_shake_violent'], 
-					jsondata['pop_shake_extreme'], 
-					jsondata['pop_shake_weak'], 
+				erthqkParent =
+					[[jsondata['parent_label'],
+					jsondata['pop_shake_weak'],
+					jsondata['pop_shake_weak'],
+					jsondata['settlement_shake_weak'],
+					jsondata['pop_shake_light'],
+					jsondata['pop_shake_weak'],
+					jsondata['settlement_shake_light'],
+					jsondata['pop_shake_moderate'],
+					jsondata['pop_shake_weak'],
+					jsondata['settlement_shake_moderate'],
+					jsondata['pop_shake_strong'],
+					jsondata['pop_shake_weak'],
+					jsondata['settlement_shake_strong'],
+					jsondata['pop_shake_verystrong'],
+					jsondata['pop_shake_weak'],
+					jsondata['settlement_shake_verystrong'],
+					jsondata['pop_shake_severe'],
+					jsondata['pop_shake_weak'],
+					jsondata['settlement_shake_severe'],
+					jsondata['pop_shake_violent'],
+					jsondata['pop_shake_weak'],
+					jsondata['settlement_shake_violent'],
+					jsondata['pop_shake_extreme'],
+					jsondata['pop_shake_weak'],
 					jsondata['settlement_shake_extreme']]];
 
 				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					erthqkChild[i] = 
-						[jsondata['lc_child'][i]['na_en'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['settlement_shake_weak'], 
-						jsondata['lc_child'][i]['pop_shake_light'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['settlement_shake_light'], 
-						jsondata['lc_child'][i]['pop_shake_moderate'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['settlement_shake_moderate'], 
-						jsondata['lc_child'][i]['pop_shake_strong'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['settlement_shake_strong'], 
-						jsondata['lc_child'][i]['pop_shake_verystrong'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['settlement_shake_verystrong'], 
-						jsondata['lc_child'][i]['pop_shake_severe'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['settlement_shake_severe'], 
-						jsondata['lc_child'][i]['pop_shake_violent'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
-						jsondata['lc_child'][i]['settlement_shake_violent'], 
-						jsondata['lc_child'][i]['pop_shake_extreme'], 
-						jsondata['lc_child'][i]['pop_shake_weak'], 
+					erthqkChild[i] =
+						[jsondata['lc_child'][i]['na_en'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['settlement_shake_weak'],
+						jsondata['lc_child'][i]['pop_shake_light'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['settlement_shake_light'],
+						jsondata['lc_child'][i]['pop_shake_moderate'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['settlement_shake_moderate'],
+						jsondata['lc_child'][i]['pop_shake_strong'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['settlement_shake_strong'],
+						jsondata['lc_child'][i]['pop_shake_verystrong'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['settlement_shake_verystrong'],
+						jsondata['lc_child'][i]['pop_shake_severe'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['settlement_shake_severe'],
+						jsondata['lc_child'][i]['pop_shake_violent'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
+						jsondata['lc_child'][i]['settlement_shake_violent'],
+						jsondata['lc_child'][i]['pop_shake_extreme'],
+						jsondata['lc_child'][i]['pop_shake_weak'],
 						jsondata['lc_child'][i]['settlement_shake_extreme']];
 				}
 				erthqkAll = (erthqkParent).concat(erthqkChild);
@@ -8839,11 +8839,11 @@ jQuery(function($){
 				var incidentDead = [];
 
 				for (var i = 0; i < jsondata['incident_type_group'].length; i++) {
-					incidentParent[i] = 
+					incidentParent[i] =
 					[jsondata['incident_type_group'][i]['main_type'],
-					jsondata['incident_type_group'][i]['count'], 
-					jsondata['incident_type_group'][i]['violent'], 
-					jsondata['incident_type_group'][i]['injured'], 
+					jsondata['incident_type_group'][i]['count'],
+					jsondata['incident_type_group'][i]['violent'],
+					jsondata['incident_type_group'][i]['injured'],
 					jsondata['incident_type_group'][i]['dead']];
 
 					incidentCount[i] = jsondata['incident_type_group'][i]['count'];
@@ -8851,17 +8851,17 @@ jQuery(function($){
 					incidentInjured[i] = jsondata['incident_type_group'][i]['injured'];
 					incidentDead[i] = jsondata['incident_type_group'][i]['dead'];
 
-					incidentAll[k] = 
+					incidentAll[k] =
 					[jsondata['incident_type_group'][i]['main_type'],
-					jsondata['incident_type_group'][i]['count'], 
-					jsondata['incident_type_group'][i]['violent'], 
-					jsondata['incident_type_group'][i]['injured'], 
+					jsondata['incident_type_group'][i]['count'],
+					jsondata['incident_type_group'][i]['violent'],
+					jsondata['incident_type_group'][i]['injured'],
 					jsondata['incident_type_group'][i]['dead']];
 					k++;
 
 					if (jsondata['incident_type_group'][i]['child'].length > 1) {
 						for (var j = 0; j < jsondata['incident_type_group'][i]['child'].length; j++) {
-							incidentAll[k] = 
+							incidentAll[k] =
 							[jsondata['incident_type_group'][i]['child'][j]['type'],
 							jsondata['incident_type_group'][i]['child'][j]['count'],
 							jsondata['incident_type_group'][i]['child'][j]['violent'],
@@ -8882,11 +8882,11 @@ jQuery(function($){
 				var targetDead = [];
 
 				for (var i = 0; i < jsondata['incident_target_group'].length; i++) {
-					targetParent[i] = 
+					targetParent[i] =
 					[jsondata['incident_target_group'][i]['main_target'],
-					jsondata['incident_target_group'][i]['count'], 
-					jsondata['incident_target_group'][i]['violent'], 
-					jsondata['incident_target_group'][i]['injured'], 
+					jsondata['incident_target_group'][i]['count'],
+					jsondata['incident_target_group'][i]['violent'],
+					jsondata['incident_target_group'][i]['injured'],
 					jsondata['incident_target_group'][i]['dead']];
 
 					targetCount[i] = jsondata['incident_target_group'][i]['count'];
@@ -8894,17 +8894,17 @@ jQuery(function($){
 					targetInjured[i] = jsondata['incident_target_group'][i]['injured'];
 					targetDead[i] = jsondata['incident_target_group'][i]['dead'];
 
-					targetAll[k] = 
+					targetAll[k] =
 					[jsondata['incident_target_group'][i]['main_target'],
-					jsondata['incident_target_group'][i]['count'], 
-					jsondata['incident_target_group'][i]['violent'], 
-					jsondata['incident_target_group'][i]['injured'], 
+					jsondata['incident_target_group'][i]['count'],
+					jsondata['incident_target_group'][i]['violent'],
+					jsondata['incident_target_group'][i]['injured'],
 					jsondata['incident_target_group'][i]['dead']];
 					k++;
 
 					if (jsondata['incident_target_group'][i]['child'].length > 1) {
 						for (var j = 0; j < jsondata['incident_target_group'][i]['child'].length; j++) {
-							targetAll[k] = 
+							targetAll[k] =
 							[jsondata['incident_target_group'][i]['child'][j]['target'],
 							jsondata['incident_target_group'][i]['child'][j]['count'],
 							jsondata['incident_target_group'][i]['child'][j]['violent'],
@@ -8928,7 +8928,7 @@ jQuery(function($){
 				var incident_list = [];
 
 				for (var i = 0; i < jsondata['incident_list_100'].length; i++) {
-					incident_list[i] = 
+					incident_list[i] =
 					[jsondata['incident_list_100'][i]['incident_date'],
 					jsondata['incident_list_100'][i]['description']];
 				}*/
@@ -8992,7 +8992,7 @@ jQuery(function($){
 
 			// 	break;
 			// }
-			
+
 		}
 
 		function init_echarts2(tabSelect) {
@@ -9004,7 +9004,7 @@ jQuery(function($){
 			// console.log('init_echarts2');
 
 			var humTooltipPie = function(params){
-			    console.log(params)
+			    // console.log(params)
 			    var v= params.data.value;
 			    var p= params.percent;
 			    var n= params.data.name;
@@ -9020,7 +9020,7 @@ jQuery(function($){
 			};
 
 			var humanizePie = function(params){
-				console.log(params)
+				// console.log(params)
 
 				var v= params.data.value;
 				var p= params.percent;
@@ -9061,7 +9061,7 @@ jQuery(function($){
 
 			    var s = '';
 			    params.forEach(function(item, index) {
-			    	console.log('item', item);
+			    	// console.log('item', item);
 			    	if(item.value>=1000 && item.value<1000000){
 			    		vN1=((item.value/1000).toFixed(2))+' K'
 			    	    // return n1+' '+((item.value/1000).toFixed(2))+' K'+'</br>'
@@ -9078,13 +9078,13 @@ jQuery(function($){
 			    	// item.seriesName;
 			    	// item.color; //munculin kode warna grafik
 			    });
-			    console.log('s', s);
+			    // console.log('s', s);
 			    return(params[0].name+'</br>'+ s);
 
 			};
 
 			var humTooltipRadar = function(params){
-			    console.log(params)
+			    // console.log(params)
 
 			    var s = '';
 			    params.data.value.forEach(function(item, index){
@@ -9101,7 +9101,7 @@ jQuery(function($){
 			    	s += vN1+'</br>';
 			    });
 
-			    console.log('s', s);
+			    // console.log('s', s);
 			    return(params.name+'</br>'+ s);
 			    // var v= params.data.value;
 			    // var n= params.data.name;
@@ -9133,7 +9133,7 @@ jQuery(function($){
 			};
 
 			var humTooltipPolar = function(params){
-			    console.log(params)
+			    // console.log(params)
 			    var v= params.value;
 			    var n= params.name;
 			    var s= params.seriesName;
@@ -9407,11 +9407,11 @@ jQuery(function($){
 		  		]
 		  	}
 
-		  	var colorBar = 
-		  		function(params){	
+		  	var colorBar =
+		  		function(params){
 		  			return color[params.dataIndex]
 		  		}
-		  	
+
 
 		  	var checkIndicator2 = tc1;
 		  	// [
@@ -9492,13 +9492,13 @@ jQuery(function($){
 	  		// case "accessibility":
 	  			// accessibility tab
 	  			//echart Donut
-	  			  
-	  			if ($('#echart_donut').length ){  
+
+	  			if ($('#echart_donut').length ){
 
 	  				// console.log('init_echart_donut');
-	  			  
+
 	  			  var echartDonut = echarts.init(document.getElementById('echart_donut'), theme, humTooltipPie, humanizePie, pieNull);
-	  			  
+
 	  			  echartDonut.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -9540,7 +9540,7 @@ jQuery(function($){
 	  				  name: 'Population',
 	  				  type: 'pie',
 	  				  radius: ['35%', '55%'],
-	  				  itemStyle: 
+	  				  itemStyle:
 	  				  {
 	  					normal: {
 	  					  label: {
@@ -9583,10 +9583,10 @@ jQuery(function($){
 
 	  			// echart Donut 2
 
-	  			if ($('#echart_donut_2').length ){  
-	  			  
+	  			if ($('#echart_donut_2').length ){
+
 	  			  var echartDonut2 = echarts.init(document.getElementById('echart_donut_2'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonut2.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -9665,14 +9665,14 @@ jQuery(function($){
 	  			  		echartDonut2.resize();
 	  			  	});
 
-	  			} 
+	  			}
 
 	  			// echart Donut 3
 
-	  			if ($('#echart_donut_gsm_building').length ){  
-	  			  
+	  			if ($('#echart_donut_gsm_building').length ){
+
 	  			  var echartDonutGSMBuild = echarts.init(document.getElementById('echart_donut_gsm_building'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonutGSMBuild.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -9736,11 +9736,11 @@ jQuery(function($){
 	  					}
 	  				  },
 	  				  data: [{
-	  					value: gsm_area,
+	  					value: gsm_bld,
 	  					name: gsm_legend[0],
 	  					itemStyle: colorReversed
 	  				  }, {
-	  					value: tot_area - gsm_area,
+	  					value: tot_bld - gsm_bld,
 	  					name: gsm_legend[1],
 	  					itemStyle: pieNull
 	  				  }]
@@ -9751,12 +9751,12 @@ jQuery(function($){
 	  			  		echartDonutGSMBuild.resize();
 	  			  	});
 
-	  			} 
+	  			}
 
 	  			//echart Bar Horizontal 4
-					  
-				if ($('#echart_bar_horizontal_4').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_4').length ){
+
 				  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_4'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar.setOption({
@@ -9848,9 +9848,9 @@ jQuery(function($){
 				}
 
 				//echart Bar Horizontal 5
-				  
-				if ($('#echart_bar_horizontal_5').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_5').length ){
+
 				  var echartBar5 = echarts.init(document.getElementById('echart_bar_horizontal_5'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar5.setOption({
@@ -9942,9 +9942,9 @@ jQuery(function($){
 				}
 
 				//echart Bar Horizontal 6
-				  
-				if ($('#echart_bar_horizontal_6').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_6').length ){
+
 				  var echartBar6 = echarts.init(document.getElementById('echart_bar_horizontal_6'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar6.setOption({
@@ -10036,9 +10036,9 @@ jQuery(function($){
 				}
 
 				//echart Bar Horizontal 7
-				  
-				if ($('#echart_bar_horizontal_7').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_7').length ){
+
 				  var echartBar7 = echarts.init(document.getElementById('echart_bar_horizontal_7'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar7.setOption({
@@ -10130,9 +10130,9 @@ jQuery(function($){
 				}
 
 				//echart Bar Horizontal 8
-				  
-				if ($('#echart_bar_horizontal_8').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_8').length ){
+
 				  var echartBar8 = echarts.init(document.getElementById('echart_bar_horizontal_8'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar8.setOption({
@@ -10224,9 +10224,9 @@ jQuery(function($){
 				}
 
 				//echart Bar Horizontal 9
-				  
-				if ($('#echart_bar_horizontal_9').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_9').length ){
+
 				  var echartBar9 = echarts.init(document.getElementById('echart_bar_horizontal_9'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar9.setOption({
@@ -10318,9 +10318,9 @@ jQuery(function($){
 				}
 
 				//echart Bar Horizontal 10
-				  
-				if ($('#echart_bar_horizontal_10').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_10').length ){
+
 				  var echartBar10 = echarts.init(document.getElementById('echart_bar_horizontal_10'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar10.setOption({
@@ -10412,9 +10412,9 @@ jQuery(function($){
 				}
 
 				//echart Bar Horizontal 11
-				  
-				if ($('#echart_bar_horizontal_11').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal_11').length ){
+
 				  var echartBar11 = echarts.init(document.getElementById('echart_bar_horizontal_11'), colorTime, humTooltipBar, humanizeBar);
 
 				  echartBar11.setOption({
@@ -10506,9 +10506,9 @@ jQuery(function($){
 				}
 
 	  			// //echart Pie
-	  			  
-	  			// if ($('#echart_pie').length ){  
-	  			  
+
+	  			// if ($('#echart_pie').length ){
+
 	  			//   var echartPie1 = echarts.init(document.getElementById('echart_pie'), colorTime, humTooltipPie, humanizePie);
 
 	  			//   echartPie1.setOption({
@@ -10640,12 +10640,12 @@ jQuery(function($){
 	  			//   	// 	echartPie.resize();
 	  			//   	// }
 
-	  			// } 
+	  			// }
 
 	  			// // echart Pie 2
 
-	  			// if ($('#echart_pie_2').length ){  
-	  			  
+	  			// if ($('#echart_pie_2').length ){
+
 	  			//   var echartPie2 = echarts.init(document.getElementById('echart_pie_2'), colorTime);
 
 	  			//   echartPie2.setOption({
@@ -10746,12 +10746,12 @@ jQuery(function($){
 	  			//   		echartPie2.resize();
 	  			//   	});
 
-	  			// } 
+	  			// }
 
 	  			// // echart Pie 3
 
-	  			// if ($('#echart_pie_3').length ){  
-	  			  
+	  			// if ($('#echart_pie_3').length ){
+
 	  			//   var echartPie3 = echarts.init(document.getElementById('echart_pie_3'), colorTime);
 
 	  			//   echartPie3.setOption({
@@ -10852,12 +10852,12 @@ jQuery(function($){
 	  			//   		echartPie3.resize();
 	  			//   	});
 
-	  			// } 
+	  			// }
 
 	  			// // echart Pie 4
 
-	  			// if ($('#echart_pie_4').length ){  
-	  			  
+	  			// if ($('#echart_pie_4').length ){
+
 	  			//   var echartPie4 = echarts.init(document.getElementById('echart_pie_4'), colorTime);
 
 	  			//   echartPie4.setOption({
@@ -10958,12 +10958,12 @@ jQuery(function($){
 	  			//   		echartPie4.resize();
 	  			//   	});
 
-	  			// } 
+	  			// }
 
 	  			// // echart Pie 5
 
-	  			// if ($('#echart_pie_5').length ){  
-	  			  
+	  			// if ($('#echart_pie_5').length ){
+
 	  			//   var echartPie5 = echarts.init(document.getElementById('echart_pie_5'), colorTime);
 
 	  			//   echartPie5.setOption({
@@ -11064,12 +11064,12 @@ jQuery(function($){
 	  			//   		echartPie5.resize();
 	  			//   	});
 
-	  			// } 
+	  			// }
 
 	  			// // echart Pie 6
 
-	  			// if ($('#echart_pie_6').length ){  
-	  			  
+	  			// if ($('#echart_pie_6').length ){
+
 	  			//   var echartPie6 = echarts.init(document.getElementById('echart_pie_6'), colorTime);
 
 	  			//   echartPie6.setOption({
@@ -11170,12 +11170,12 @@ jQuery(function($){
 	  			//   		echartPie6.resize();
 	  			//   	});
 
-	  			// } 
+	  			// }
 
 	  			// // echart Pie 7
 
-	  			// if ($('#echart_pie_7').length ){  
-	  			  
+	  			// if ($('#echart_pie_7').length ){
+
 	  			//   var echartPie7 = echarts.init(document.getElementById('echart_pie_7'), colorTime);
 
 	  			//   echartPie7.setOption({
@@ -11276,12 +11276,12 @@ jQuery(function($){
 	  			//   		echartPie7.resize();
 	  			//   	});
 
-	  			// } 
+	  			// }
 
 	  			// // echart Pie 10
 
-	  			// if ($('#echart_pie_10').length ){  
-	  			  
+	  			// if ($('#echart_pie_10').length ){
+
 	  			//   var echartPie8 = echarts.init(document.getElementById('echart_pie_10'), colorTime);
 
 	  			//   echartPie8.setOption({
@@ -11382,7 +11382,7 @@ jQuery(function($){
 	  			//   		echartPie8.resize();
 	  			//   	});
 
-	  			// } 
+	  			// }
 	  		// break;
 
 	  		// case "fforecast":
@@ -11392,7 +11392,7 @@ jQuery(function($){
 	  			if ($('#echart_bar_stack').length ){
 
 	  				// console.log('init_echarts_bar_stack');
-	  			  
+
 	  				var echartBar1 = echarts.init(document.getElementById('echart_bar_stack'), colorBlue, humanizeBar);
 
 	  				echartBar1.setOption({
@@ -11551,7 +11551,7 @@ jQuery(function($){
 	  			if ($('#echart_bar_stack_2').length ){
 
 	  				// console.log('init_echarts_bar_stack_2');
-	  			  
+
 	  				var echartBar2 = echarts.init(document.getElementById('echart_bar_stack_2'), colorBlue, humanizeBar);
 
 	  				echartBar2.setOption({
@@ -11709,7 +11709,7 @@ jQuery(function($){
 	  			if ($('#echart_bar_stack_3').length ){
 
 	  				// console.log('init_echarts_bar_stack_3');
-	  			  
+
 	  				var echartBar3 = echarts.init(document.getElementById('echart_bar_stack_3'), colorBlue, humanizeBar);
 
 	  				echartBar3.setOption({
@@ -11864,7 +11864,7 @@ jQuery(function($){
 	  			// echart Bar Stack 4
 
 	  			if ($('#echart_bar_stack_4').length ){
-	  			  
+
 	  				var echartBar4 = echarts.init(document.getElementById('echart_bar_stack_4'), colorBlue, humanizeBar);
 
 	  				echartBar4.setOption({
@@ -12021,10 +12021,10 @@ jQuery(function($){
 	  			// frisk tab
 	  			// echart Donut 3
 
-	  			if ($('#echart_donut_3').length ){  
-	  			  
+	  			if ($('#echart_donut_3').length ){
+
 		  			var echartDonut = echarts.init(document.getElementById('echart_donut_3'), theme, humTooltipPie, humanizePie);
-		  			  
+
 		  			echartDonut.setOption({
 		  				tooltip: {
 		  				  trigger: 'item',
@@ -12113,14 +12113,14 @@ jQuery(function($){
 	  			  		echartDonut.resize();
 	  			  	}
 
-	  			} 
+	  			}
 
-	  			// echart Donut 
+	  			// echart Donut
 
-	  			if ($('#echart_donut_frisk_build').length ){  
-	  			  
+	  			if ($('#echart_donut_frisk_build').length ){
+
 	  			  var echartDonutFRiskBuild = echarts.init(document.getElementById('echart_donut_frisk_build'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonutFRiskBuild.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12199,7 +12199,7 @@ jQuery(function($){
 	  					name: frisk_cat[2]
 	  					// name: 'High Risk'
 	  				  }, {
-	  				  	value: pop - tot_risk_build,
+	  				  	value: build - tot_risk_build,
 	  					// value: jsondata['Population'] - jsondata['total_risk_buildings'],
 	  					name: frisk_cat[3],
 	  					// name: 'Not at Risk',
@@ -12212,14 +12212,14 @@ jQuery(function($){
 	  			  		echartDonutFRiskBuild.resize();
 	  			  	}
 
-	  			} 
+	  			}
 
 	  			// echart Donut 3
 
-	  			if ($('#echart_donut_frisk_area').length ){  
-	  			  
+	  			if ($('#echart_donut_frisk_area').length ){
+
 	  			  var echartDonutFRiskArea = echarts.init(document.getElementById('echart_donut_frisk_area'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonutFRiskArea.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12298,7 +12298,7 @@ jQuery(function($){
 	  					name: frisk_cat[2]
 	  					// name: 'High Risk'
 	  				  }, {
-	  					value: pop - tot_risk_area,
+	  					value: area - tot_risk_area,
 	  					// value: jsondata['Area'] - jsondata['total_risk_area'],
 	  					name: frisk_cat[3],
 	  					// name: 'Not at Risk',
@@ -12311,17 +12311,17 @@ jQuery(function($){
 	  			  		echartDonutFRiskArea.resize();
 	  			  	}
 
-	  			} 
+	  			}
 	  		// break;
 
 	  		// case "aforecast":
 	  			// aforecast tab
 	  			// echart Donut 4
 
-	  			if ($('#echart_donut_4').length ){  
-	  			  
+	  			if ($('#echart_donut_4').length ){
+
 	  			  var echartDonut = echarts.init(document.getElementById('echart_donut_4'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonut.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12409,14 +12409,14 @@ jQuery(function($){
 	  			  		echartDonut.resize();
 	  			  	}
 
-	  			} 
+	  			}
 
 	  			// echart Donut
 
-	  			if ($('#echart_donut_ava_building_prediction').length ){  
-	  			  
+	  			if ($('#echart_donut_ava_building_prediction').length ){
+
 	  			  var echartDonutAvaBuildingPredict = echarts.init(document.getElementById('echart_donut_ava_building_prediction'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonutAvaBuildingPredict.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12508,17 +12508,17 @@ jQuery(function($){
 	  			  		echartDonutAvaBuildingPredict.resize();
 	  			  	}
 
-	  			} 
+	  			}
 	  		// break;
 
 	  		// case "arisk":
 	  			// arisk tab
 	  			// echart Donut 5
 
-	  			if ($('#echart_donut_5').length ){  
-	  			  
-	  			  var echartDonut1 = echarts.init(document.getElementById('echart_donut_5'), theme, humTooltipPie ,humanizePie);
-	  			  
+	  			if ($('#echart_donut_6').length ){
+
+	  			  var echartDonut1 = echarts.init(document.getElementById('echart_donut_6'), theme, humTooltipPie ,humanizePie);
+
 	  			  echartDonut1.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12610,106 +12610,14 @@ jQuery(function($){
 	  			  		echartDonut1.resize();
 	  			  	});
 
-	  			} 
-
-	  			 // echart Donut 6
-
-	  			if ($('#echart_donut_6').length ){  
-	  			  
-	  			  var echartDonut2 = echarts.init(document.getElementById('echart_donut_6'), theme, humTooltipPie, humanizePie);
-	  			  
-	  			  echartDonut2.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: arisk_cat
-	  				  // data: ['Moderate Risk', 'High Risk', 'Not at Risk']
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: arisk_med_area,
-	  					// value: jsondata['med_ava_area'],
-	  					name: arisk_cat[0]
-	  				  }, {
-	  					value: arisk_hi_area,
-	  					// value: jsondata['high_ava_area'],
-	  					name: arisk_cat[1]
-	  				  }, {
-	  					value: pop - tot_risk_area,
-	  					// value: jsondata['Area'] - jsondata['total_ava_area'],
-	  					name: arisk_cat[2],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
-
-	  			  	window.addEventListener("resize", function(){
-	  			  		echartDonut2.resize();
-	  			  	});
-
 	  			}
 
 	  			// echart Donut
 
-	  			if ($('#echart_donut_ava_building').length ){  
-	  			  
+	  			if ($('#echart_donut_ava_building').length ){
+
 	  			  var echartDonutAvaBuildingRisk = echarts.init(document.getElementById('echart_donut_ava_building'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonutAvaBuildingRisk.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12782,7 +12690,7 @@ jQuery(function($){
 	  					// value: jsondata['high_ava_area'],
 	  					name: arisk_cat[1]
 	  				  }, {
-	  					value: pop - tot_risk_build,
+	  					value: build - tot_risk_build,
 	  					// value: jsondata['Area'] - jsondata['total_ava_area'],
 	  					name: arisk_cat[2],
 	  					itemStyle: pieNull
@@ -12795,14 +12703,107 @@ jQuery(function($){
 	  			  	});
 
 	  			}
+
+	  			// echart Donut 6
+
+	  			if ($('#echart_donut_5').length ){
+
+		  			var echartDonut2 = echarts.init(document.getElementById('echart_donut_5'), theme, humTooltipPie, humanizePie);
+
+		  			echartDonut2.setOption({
+		  				tooltip: {
+		  				  trigger: 'item',
+		  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
+		  				},
+		  				calculable: true,
+		  				legend: {
+		  				  x: 'left',
+		  				  y: 'top',
+		  				  orient: 'vertical',
+		  				  data: arisk_cat
+		  				  // data: ['Moderate Risk', 'High Risk', 'Not at Risk']
+		  				},
+		  				toolbox: {
+		  				  show: true,
+		  				  feature: {
+		  					magicType: {
+		  					  show: true,
+		  					  type: ['pie', 'funnel'],
+		  					  option: {
+		  						funnel: {
+		  						  x: '25%',
+		  						  width: '50%',
+		  						  funnelAlign: 'center',
+		  						  max: 1548
+		  						}
+		  					  }
+		  					},
+		  					restore: {
+		  					  show: true,
+		  					  title: "Restore"
+		  					},
+		  					saveAsImage: {
+		  					  show: true,
+		  					  title: "Save Image"
+		  					}
+		  				  }
+		  				},
+		  				series: [{
+		  				  name: 'Area',
+		  				  type: 'pie',
+		  				  radius: ['35%', '55%'],
+		  				  itemStyle: {
+		  					normal: {
+		  					  label: {
+		  						show: true,
+		  						formatter: humanizePie //"{b} \n{c} ({d}%)"
+		  					  },
+		  					  labelLine: {
+		  						show: true
+		  					  }
+		  					},
+		  					emphasis: {
+		  					  label: {
+		  						show: true,
+		  						position: 'center',
+		  						textStyle: {
+		  						  fontSize: '14',
+		  						  fontWeight: 'normal'
+		  						}
+		  					  }
+		  					}
+		  				  },
+		  				  data: [{
+		  					value: arisk_med_area,
+		  					// value: jsondata['med_ava_area'],
+		  					name: arisk_cat[0]
+		  				  }, {
+		  					value: arisk_hi_area,
+		  					// value: jsondata['high_ava_area'],
+		  					name: arisk_cat[1]
+		  				  }, {
+		  					value: area - tot_risk_area,
+		  					// value: jsondata['Area'] - jsondata['total_ava_area'],
+		  					name: arisk_cat[2],
+		  					itemStyle: pieNull
+		  				  }]
+		  				}]
+		  			});
+
+	  			  	window.addEventListener("resize", function(){
+	  			  		echartDonut2.resize();
+	  			  	});
+
+	  			}
+
 	  		// break;
 
 	  		// case "lndslide" :
 	  			// Landslide tab
-	  			if ($('#echart_donut_lsi').length ){  
-	  			  
+	  			if ($('#echart_donut_lsi').length ){
+
 	  			  var echartDonutLSI = echarts.init(document.getElementById('echart_donut_lsi'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonutLSI.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12890,12 +12891,12 @@ jQuery(function($){
 	  			  		echartDonutLSI.resize();
 	  			  	}
 
-	  			} 
+	  			}
 
-	  			if ($('#echart_donut_ku').length ){  
-	  			  
+	  			if ($('#echart_donut_ku').length ){
+
 	  			  var echartDonutKU = echarts.init(document.getElementById('echart_donut_ku'), theme, humTooltipPie, humanizePie);
-	  			  
+
 	  			  echartDonutKU.setOption({
 	  				tooltip: {
 	  				  trigger: 'item',
@@ -12985,8 +12986,8 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_donut_S1').length ){  
-	  			  
+	  			if ($('#echart_donut_S1').length ){
+
 					var echartDonutS1 = echarts.init(document.getElementById('echart_donut_S1'), theme, humTooltipPie, humanizePie);
 
 					echartDonutS1.setOption({
@@ -13078,10 +13079,10 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_donut_S2').length ){  
-	  			  
+	  			if ($('#echart_donut_S2').length ){
+
 		  			var echartDonutS2 = echarts.init(document.getElementById('echart_donut_S2'), theme, humTooltipPie, humanizePie);
-		  			  
+
 		  			echartDonutS2.setOption({
 		  				tooltip: {
 		  				  trigger: 'item',
@@ -13171,10 +13172,10 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_donut_S3').length ){  
-	  			  
+	  			if ($('#echart_donut_S3').length ){
+
 		  			var echartDonutS3 = echarts.init(document.getElementById('echart_donut_S3'), theme, humTooltipPie, humanizePie);
-		  			  
+
 		  			echartDonutS3.setOption({
 		  				tooltip: {
 		  				  trigger: 'item',
@@ -13264,8 +13265,8 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_bar_horizontal_lsi').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_lsi').length ){
+
 	  			  var echartBarLSI = echarts.init(document.getElementById('echart_bar_horizontal_lsi'), humTooltipBar, humanizeBar);
 
 	  			  echartBarLSI.setOption({
@@ -13350,8 +13351,8 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_bar_horizontal_ku').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_ku').length ){
+
 	  			  var echartBarKU = echarts.init(document.getElementById('echart_bar_horizontal_ku'), humTooltipBar, humanizeBar);
 
 	  			  echartBarKU.setOption({
@@ -13436,8 +13437,8 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_bar_horizontal_s1').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_s1').length ){
+
 	  			  var echartBarS1 = echarts.init(document.getElementById('echart_bar_horizontal_s1'), humTooltipBar, humanizeBar);
 
 	  			  echartBarS1.setOption({
@@ -13522,8 +13523,8 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_bar_horizontal_s2').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_s2').length ){
+
 	  			  var echartBarS2 = echarts.init(document.getElementById('echart_bar_horizontal_s2'), humTooltipBar, humanizeBar);
 
 	  			  echartBarS2.setOption({
@@ -13608,8 +13609,8 @@ jQuery(function($){
 
 	  			}
 
-	  			if ($('#echart_bar_horizontal_s3').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_s3').length ){
+
 	  			  var echartBarS3 = echarts.init(document.getElementById('echart_bar_horizontal_s3'), humTooltipBar, humanizeBar);
 
 	  			  echartBarS3.setOption({
@@ -13699,8 +13700,8 @@ jQuery(function($){
 	  			// earthquake tab
 	  			// echart Pie 8
 
-	  			if ($('#echart_pie_8').length ){  
-	  			  
+	  			if ($('#echart_pie_8').length ){
+
 	  			  var echartPie1 = echarts.init(document.getElementById('echart_pie_8'), theme);
 
 	  			  echartPie1.setOption({
@@ -13810,12 +13811,12 @@ jQuery(function($){
 	  			  		echartPie1.resize();
 	  			  	});
 
-	  			} 
+	  			}
 
 	  			// echart Pie 8
 
-	  			if ($('#echart_pie_erthqk_building').length ){  
-	  			  
+	  			if ($('#echart_pie_erthqk_building').length ){
+
 	  			  var echartPieErthqkBuilding = echarts.init(document.getElementById('echart_pie_erthqk_building'), theme);
 
 	  			  echartPieErthqkBuilding.setOption({
@@ -13887,7 +13888,7 @@ jQuery(function($){
 	  					name: erthqk_cat[0],
 	  					itemStyle: colorReversed
 	  				  },{
-	  					value: pop - erthqk_pop,
+	  					value: build - erthqk_build,
 	  					// value: jsondata['Population']-jsondata['total_eq_pop'],
 	  					name: erthqk_cat[1],
 	  					itemStyle: pieNull
@@ -13925,12 +13926,12 @@ jQuery(function($){
 	  			  		echartPieErthqkBuilding.resize();
 	  			  	});
 
-	  			} 
+	  			}
 
 	  			// echart Pie 9
 
-	  			if ($('#echart_pie_9').length ){  
-	  			  
+	  			if ($('#echart_pie_9').length ){
+
 	  			  var echartPie2 = echarts.init(document.getElementById('echart_pie_9'), theme);
 
 	  			  echartPie2.setOption({
@@ -14003,7 +14004,7 @@ jQuery(function($){
 	  					name: erthqk_cat[0],
 	  					itemStyle: colorReversed
 	  				  }, {
-	  					value: pop - erthqk_settl,
+	  					value: settl - erthqk_settl,
 	  					// value: jsondata['settlement']-jsondata['total_eq_settlements'],
 	  					name: erthqk_cat[1],
 	  					itemStyle: pieNull
@@ -14041,12 +14042,12 @@ jQuery(function($){
 	  			  		echartPie2.resize();
 	  			  	});
 
-	  			} 
+	  			}
 
 	  			// echart Pie 11
 
-	  			if ($('#echart_pie_11').length ){  
-	  			  
+	  			if ($('#echart_pie_11').length ){
+
 	  			  var echartPie3 = echarts.init(document.getElementById('echart_pie_11'), colorMercalli);
 
 	  			  echartPie3.setOption({
@@ -14057,7 +14058,7 @@ jQuery(function($){
 	  				},
 	  				legend: {
 	  				  x: 'left',
-	  				  y: 'top',
+	  				  y: 'bottom',
 	  				  orient: 'vertical',
 	  				  data: mercalli_cat
 	  				},
@@ -14179,13 +14180,289 @@ jQuery(function($){
 	  			  		echartPie3.resize();
 	  			  	});
 
-	  			} 
+	  			}
+
+	  			// echart Pie 11
+
+	  			if ($('#echart_pie_mercalli_build').length ){
+
+	  			  var echartPieMercallBuild = echarts.init(document.getElementById('echart_pie_mercalli_build'), colorMercalli);
+
+	  			  echartPieMercallBuild.setOption({
+	  			  	animation: animate,
+	  				tooltip: {
+	  				  trigger: 'item',
+	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
+	  				},
+	  				legend: {
+	  				  x: 'left',
+	  				  y: 'bottom',
+	  				  orient: 'vertical',
+	  				  data: mercalli_cat
+	  				},
+	  				toolbox: {
+	  				  show: true,
+	  				  feature: {
+	  					magicType: {
+	  					  show: true,
+	  					  type: ['pie', 'funnel'],
+	  					  option: {
+	  						funnel: {
+	  						  x: '25%',
+	  						  width: '50%',
+	  						  funnelAlign: 'left',
+	  						  max: 1548
+	  						}
+	  					  }
+	  					},
+	  					restore: {
+	  					  show: true,
+	  					  title: "Restore"
+	  					},
+	  					saveAsImage: {
+	  					  show: true,
+	  					  title: "Save Image"
+	  					}
+	  				  }
+	  				},
+	  				calculable: true,
+	  				series: [{
+	  				  name: 'Earthquake Impact',
+	  				  type: 'pie',
+	  				  radius: '55%',
+	  				  center: ['50%', '48%'],
+	  				  itemStyle: {
+	  					normal: {
+	  					  label: {
+	  						show: true,
+	  						formatter: humanizePie //"{b} \n{d}%"
+	  					  },
+	  					  labelLine: {
+	  						show: true
+	  					  }
+	  					},
+	  					emphasis: {
+	  					  label: {
+	  						show: true,
+	  						position: 'center',
+	  						textStyle: {
+	  						  fontSize: '14',
+	  						  fontWeight: 'normal'
+	  						}
+	  					  }
+	  					}
+	  				  },
+	  				  data: [{
+	  				    value: buildings_weak,
+	  				    // value: jsondata['buildings_shake_weak'],
+	  				    name: mercalli_cat[0]
+	  				    }, {
+	  				    value: buildings_light,
+	  				    // value: jsondata['buildings_shake_light'],
+	  				    name: mercalli_cat[1]
+	  				    }, {
+	  				    value: buildings_mod,
+	  				    // value: jsondata['buildings_shake_moderate'],
+	  				    name: mercalli_cat[2]
+	  				    }, {
+	  				    value: buildings_strong,
+	  				    // value: jsondata['buildings_shake_strong'],
+	  				    name: mercalli_cat[3]
+	  				    }, {
+	  				    value: buildings_vstrong,
+	  				    // value: jsondata['buildings_shake_verystrong'],
+	  				    name: mercalli_cat[4]
+	  				    }, {
+	  				    value: buildings_severe,
+	  				    // value: jsondata['buildings_shake_severe'],
+	  				    name: mercalli_cat[5]
+	  				    }, {
+	  				    value: buildings_violent,
+	  				    // value: jsondata['buildings_shake_violent'],
+	  				    name: mercalli_cat[6]
+	  				    }, {
+	  				    value: buildings_ext,
+	  				    // value: jsondata['buildings_shake_extreme'],
+	  				    name: mercalli_cat[7]
+	  				  }]
+	  				}]
+	  			  });
+
+	  			  var dataStyle = {
+	  				normal: {
+	  				  label: {
+	  					show: false
+	  				  },
+	  				  labelLine: {
+	  					show: false
+	  				  }
+	  				}
+	  			  };
+
+	  			  var placeHolderStyle = {
+	  				normal: {
+	  				  color: 'rgba(0,0,0,0)',
+	  				  label: {
+	  					show: false
+	  				  },
+	  				  labelLine: {
+	  					show: false
+	  				  }
+	  				},
+	  				emphasis: {
+	  				  color: 'rgba(0,0,0,0)'
+	  				}
+	  			  };
+
+	  			  	window.addEventListener("resize", function(){
+	  			  		echartPieMercallBuild.resize();
+	  			  	});
+
+	  			}
+
+	  			// echart Pie 11
+
+	  			if ($('#echart_pie_mercalli_settl').length ){
+
+	  			  var echartPieMercallSettl = echarts.init(document.getElementById('echart_pie_mercalli_settl'), colorMercalli);
+
+	  			  echartPieMercallSettl.setOption({
+	  			  	animation: animate,
+	  				tooltip: {
+	  				  trigger: 'item',
+	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
+	  				},
+	  				legend: {
+	  				  x: 'left',
+	  				  y: 'bottom',
+	  				  orient: 'vertical',
+	  				  data: mercalli_cat
+	  				},
+	  				toolbox: {
+	  				  show: true,
+	  				  feature: {
+	  					magicType: {
+	  					  show: true,
+	  					  type: ['pie', 'funnel'],
+	  					  option: {
+	  						funnel: {
+	  						  x: '25%',
+	  						  width: '50%',
+	  						  funnelAlign: 'left',
+	  						  max: 1548
+	  						}
+	  					  }
+	  					},
+	  					restore: {
+	  					  show: true,
+	  					  title: "Restore"
+	  					},
+	  					saveAsImage: {
+	  					  show: true,
+	  					  title: "Save Image"
+	  					}
+	  				  }
+	  				},
+	  				calculable: true,
+	  				series: [{
+	  				  name: 'Earthquake Impact',
+	  				  type: 'pie',
+	  				  radius: '55%',
+	  				  center: ['50%', '48%'],
+	  				  itemStyle: {
+	  					normal: {
+	  					  label: {
+	  						show: true,
+	  						formatter: humanizePie //"{b} \n{d}%"
+	  					  },
+	  					  labelLine: {
+	  						show: true
+	  					  }
+	  					},
+	  					emphasis: {
+	  					  label: {
+	  						show: true,
+	  						position: 'center',
+	  						textStyle: {
+	  						  fontSize: '14',
+	  						  fontWeight: 'normal'
+	  						}
+	  					  }
+	  					}
+	  				  },
+	  				  data: [{
+	  				    value: settlement_weak,
+	  				    // value: jsondata['settlement_shake_weak'],
+	  				    name: mercalli_cat[0]
+	  				  }, {
+	  				    value: settlement_light,
+	  				    // value: jsondata['settlement_shake_light'],
+	  				    name: mercalli_cat[1]
+	  				  }, {
+	  				    value: settlement_mod,
+	  				    // value: jsondata['settlement_shake_moderate'],
+	  				    name: mercalli_cat[2]
+	  				  }, {
+	  				    value: settlement_strong,
+	  				    // value: jsondata['settlement_shake_strong'],
+	  				    name: mercalli_cat[3]
+	  				  }, {
+	  				    value: settlement_vstrong,
+	  				    // value: jsondata['settlement_shake_verystrong'],
+	  				    name: mercalli_cat[4]
+	  				  }, {
+	  				    value: settlement_severe,
+	  				    // value: jsondata['settlement_shake_severe'],
+	  				    name: mercalli_cat[5]
+	  				  }, {
+	  				    value: settlement_violent,
+	  				    // value: jsondata['settlement_shake_violent'],
+	  				    name: mercalli_cat[6]
+	  				  }, {
+	  				    value: settlement_ext,
+	  				    // value: jsondata['settlement_shake_extreme'],
+	  				    name: mercalli_cat[7]
+	  				  }]
+	  				}]
+	  			  });
+
+	  			  var dataStyle = {
+	  				normal: {
+	  				  label: {
+	  					show: false
+	  				  },
+	  				  labelLine: {
+	  					show: false
+	  				  }
+	  				}
+	  			  };
+
+	  			  var placeHolderStyle = {
+	  				normal: {
+	  				  color: 'rgba(0,0,0,0)',
+	  				  label: {
+	  					show: false
+	  				  },
+	  				  labelLine: {
+	  					show: false
+	  				  }
+	  				},
+	  				emphasis: {
+	  				  color: 'rgba(0,0,0,0)'
+	  				}
+	  			  };
+
+	  			  	window.addEventListener("resize", function(){
+	  			  		echartPieMercallSettl.resize();
+	  			  	});
+
+	  			}
 	  		// break;
 
 	  		// case "haccess":
 	  			// haccess tab
 	  			// echart Radar masing2
-	  		// 	if ($('#echart_sonar').length ){ 
+	  		// 	if ($('#echart_sonar').length ){
 	  		// 		  var echartRadar3 = echarts.init(document.getElementById('echart_sonar'), theme);
 
 	  		// 		  echartRadar3.setOption({
@@ -14236,7 +14513,7 @@ jQuery(function($){
 	  		// 	}
 
 	  		// 	// echart Radar 2
-	  		// 	if ($('#echart_sonar_2').length ){ 
+	  		// 	if ($('#echart_sonar_2').length ){
 	  		// 		  var echartRadar2 = echarts.init(document.getElementById('echart_sonar_2'), theme);
 
 	  		// 		  echartRadar2.setOption({
@@ -14287,7 +14564,7 @@ jQuery(function($){
 	  		// 	}
 
 	  		// 	// echart Radar 4
-	  		// 	if ($('#echart_sonar_4').length ){ 
+	  		// 	if ($('#echart_sonar_4').length ){
 	  		// 		  var echartRadar4 = echarts.init(document.getElementById('echart_sonar_4'), theme);
 
 	  		// 		  echartRadar4.setOption({
@@ -14338,7 +14615,7 @@ jQuery(function($){
 	  		// 	}
 
 	  		// 	// echart Radar 5
-	  		// 	if ($('#echart_sonar_5').length ){ 
+	  		// 	if ($('#echart_sonar_5').length ){
 	  		// 		  var echartRadar5 = echarts.init(document.getElementById('echart_sonar_5'), theme);
 
 	  		// 		  echartRadar5.setOption({
@@ -14390,8 +14667,8 @@ jQuery(function($){
 
 	  		// 	// echart Radar 3
 
-	  		// 	if ($('#echart_sonar_3').length ){ 
-	  			  
+	  		// 	if ($('#echart_sonar_3').length ){
+
 	  		// 	  var echartRadar1 = echarts.init(document.getElementById('echart_sonar_3'), theme);
 
 	  		// 	  echartRadar1.setOption({
@@ -14513,8 +14790,8 @@ jQuery(function($){
 
 	  		// 	// echart Radar 6
 
-	  		// 	if ($('#echart_sonar_6').length ){ 
-	  			  
+	  		// 	if ($('#echart_sonar_6').length ){
+
 	  		// 	  var echartRadar6 = echarts.init(document.getElementById('echart_sonar_6'), theme);
 
 	  		// 	  echartRadar6.setOption({
@@ -14621,7 +14898,7 @@ jQuery(function($){
 	  		// 	}
 
 	  		// 	// echart Radar 7
-	  		// 	if ($('#echart_sonar_7').length ){ 
+	  		// 	if ($('#echart_sonar_7').length ){
 	  		// 		  var echartRadar7 = echarts.init(document.getElementById('echart_sonar_7'), theme);
 
 	  		// 		  echartRadar7.setOption({
@@ -14672,7 +14949,7 @@ jQuery(function($){
 	  		// 	}
 
 	  		// 	// echart Radar 8
-	  		// 	if ($('#echart_sonar_8').length ){ 
+	  		// 	if ($('#echart_sonar_8').length ){
 	  		// 		  var echartRadar8 = echarts.init(document.getElementById('echart_sonar_8'), theme);
 
 	  		// 		  echartRadar8.setOption({
@@ -14723,7 +15000,7 @@ jQuery(function($){
 	  		// 	}
 
 	  		// 	// echart Radar 9
-	  		// 	if ($('#echart_sonar_9').length ){ 
+	  		// 	if ($('#echart_sonar_9').length ){
 	  		// 		  var echartRadar9 = echarts.init(document.getElementById('echart_sonar_9'), theme);
 
 	  		// 		  echartRadar9.setOption({
@@ -14774,7 +15051,7 @@ jQuery(function($){
 	  		// 	}
 
 	  		// 	// echart Radar 10
-	  		// 	if ($('#echart_sonar_10').length ){ 
+	  		// 	if ($('#echart_sonar_10').length ){
 	  		// 		  var echartRadar10 = echarts.init(document.getElementById('echart_sonar_10'), theme);
 
 	  		// 		  echartRadar10.setOption({
@@ -14825,7 +15102,7 @@ jQuery(function($){
 	  		// 	}
 
 	  			// echart Polar
-	  			if ($('#echart_polar_1').length ){ 
+	  			if ($('#echart_polar_1').length ){
 	  				var echartPolar1 = echarts.init(document.getElementById('echart_polar_1'), theme);
 
 	  				// var hours = tc2;
@@ -14981,7 +15258,7 @@ jQuery(function($){
 	  			}
 
 	  			// echart Polar
-	  			if ($('#echart_polar_2').length ){ 
+	  			if ($('#echart_polar_2').length ){
 	  				var echartPolar2 = echarts.init(document.getElementById('echart_polar_2'), theme);
 
 	  				// var hours = ic2;
@@ -14989,7 +15266,7 @@ jQuery(function($){
 	  				// var data1 = [193, 2232, 9, 35, 420, 5, 505, 341, 15, 1310, 5, 41, 163];
 	  				// var data2 = [208, 3099, 1, 144, 52, 0, 1686, 839, 31, 2910, 2, 62, 339];
 	  				// var data3 = [710, 1816, 111, 69, 7, 61, 3136, 104, 154, 162, 93, 1, 43];
-	  				
+
 	  				echartPolar2.setOption({
 	  					legend: {
 					        data: polar_cat,
@@ -15100,8 +15377,8 @@ jQuery(function($){
 
 	  			// echart Bar Horizontal Casualties
 
-	  			if ($('#echart_bar_horizontal_12').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_12').length ){
+
 	  			  var echartBar12 = echarts.init(document.getElementById('echart_bar_horizontal_12'), theme);
 
 	  			  echartBar12.setOption({
@@ -15208,8 +15485,8 @@ jQuery(function($){
 
 	  			// echart Bar Horizontal Incident
 
-	  			if ($('#echart_bar_horizontal_13').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_13').length ){
+
 	  			  var echartBar13 = echarts.init(document.getElementById('echart_bar_horizontal_13'), theme);
 
 	  			  echartBar13.setOption({
@@ -15318,8 +15595,8 @@ jQuery(function($){
 
 	  			// echart Bar Horizontal Casualties by Target
 
-	  			if ($('#echart_bar_horizontal_14').length ){ 
-	  			  
+	  			if ($('#echart_bar_horizontal_14').length ){
+
 	  			  var echartBar14 = echarts.init(document.getElementById('echart_bar_horizontal_14'), theme);
 
 	  			  echartBar14.setOption({
@@ -15426,7 +15703,7 @@ jQuery(function($){
 
 	  			// echart Bar Horizontal Incident by Target
 
-	  			if ($('#echart_bar_horizontal_15').length ){ 
+	  			if ($('#echart_bar_horizontal_15').length ){
 		  			  var echartBar15 = echarts.init(document.getElementById('echart_bar_horizontal_15'), theme);
 
 		  			  echartBar15.setOption({
@@ -15534,9 +15811,9 @@ jQuery(function($){
 		  	// default:
 			  	// baseline tab
 			  	//echart Bar Horizontal
-				  
-				if ($('#echart_bar_horizontal').length ){ 
-				  
+
+				if ($('#echart_bar_horizontal').length ){
+
 				  var echartBar16 = echarts.init(document.getElementById('echart_bar_horizontal'), theme, humTooltipBar, humanizeBar);
 
 				  echartBar16.setOption({
@@ -15551,12 +15828,12 @@ jQuery(function($){
 					  },
 					  formatter: humTooltipBar
 					},
-					legend: {
-					  x: 'left',
-					  y: 'top',
-					  orient: 'vertical',
-					  data: overview_legend
-					},
+					// legend: {
+					//   x: 'center',
+					//   y: 345,
+					//   // orient: 'vertical',
+					//   data: overview_legend
+					// },
 					toolbox: {
 					  show: true,
 					  feature: {
@@ -15565,8 +15842,8 @@ jQuery(function($){
 				    	  title: {
 				    		line: 'Line',
 				    		bar: 'Bar',
-				    		/*stack: 'Stack',*/
-				    		// tiled: 'Tiled'
+				    		stack: 'Stack',
+				    		tiled: 'Tiled'
 				    	  },
 				    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
 				    	},
@@ -15613,31 +15890,7 @@ jQuery(function($){
 					  data: pop
 					  // data: [jsondata['built_up_pop'], jsondata['cultivated_pop'], jsondata['barren_pop']]
 					  // data: jsondata['jsondata']['landcover_echart_hbar']['population']
-					}, {
-					  name: overview_legend[1],
-					  type: 'bar',
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: area
-					  // data: [jsondata['built_up_area'], jsondata['cultivated_area'], jsondata['barren_area']]
-					}, {
-					  name: overview_legend[2],
-					  type: 'bar',
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: building
-					  // data: [jsondata['built_up_buildings'], jsondata['cultivated_buildings'], jsondata['barren_buildings']]
-					},]
+					}]
 				  });
 
 				  	window.addEventListener("resize", function(){
@@ -15646,10 +15899,186 @@ jQuery(function($){
 
 				}
 
+			  	//echart Bar Horizontal
+
+				if ($('#echart_bar_horizontal_build').length ){
+
+					var echartBarBuild = echarts.init(document.getElementById('echart_bar_horizontal_build'), theme, humTooltipBar, humanizeBar);
+
+					echartBarBuild.setOption({
+						// title: {
+						//   text: 'Overview 1',
+						//   subtext: 'Graph subtitle'
+						// },
+						tooltip: {
+						  trigger: 'axis',
+						  axisPointer:{
+						  	type: 'shadow',
+						  },
+						  formatter: humTooltipBar
+						},
+						// legend: {
+						//   x: 'center',
+						//   y: 345,
+						//   // orient: 'vertical',
+						//   data: overview_legend
+						// },
+						toolbox: {
+						  show: true,
+						  feature: {
+						  	magicType: {
+					    	  show: true,
+					    	  title: {
+					    		line: 'Line',
+					    		bar: 'Bar',
+					    		stack: 'Stack',
+					    		tiled: 'Tiled'
+					    	  },
+					    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
+					    	},
+					    	restore: {
+					    	  show: true,
+					    	  title: "Restore"
+					    	},
+							saveAsImage: {
+							  show: true,
+							  title: "Save Image"
+							}
+						  }
+						},
+						grid: {
+					        left: '0%',
+					        right: '15%',
+					        bottom: '8%',
+					        top: '10%',
+					        containLabel: true
+					    },
+						calculable: true,
+						xAxis: [{
+						  type: 'value',
+						  boundaryGap: [0, 0.01],
+						  axisLabel:{
+						  	rotate: 30,
+						  	formatter: humanizeFormatter
+						  }
+						}],
+						yAxis: [{
+						  type: 'category',
+						  data: category_ov
+						}],
+						series: [{
+						  name: overview_legend[2],
+						  type: 'bar',
+						  label:{
+						  	normal:{
+						  		formatter: humanizeBar,
+						  		position: 'right',
+						  		show: true
+						  	}
+						  },
+						  data: building
+						  // data: [jsondata['built_up_buildings'], jsondata['cultivated_buildings'], jsondata['barren_buildings']]
+						},]
+					});
+
+				  	window.addEventListener("resize", function(){
+				  		echartBarBuild.resize();
+				  	});
+
+				}
+
+			  	//echart Bar Horizontal
+
+				if ($('#echart_bar_horizontal_area').length ){
+
+					var echartBarArea = echarts.init(document.getElementById('echart_bar_horizontal_area'), theme, humTooltipBar, humanizeBar);
+
+					echartBarArea.setOption({
+						// title: {
+						//   text: 'Overview 1',
+						//   subtext: 'Graph subtitle'
+						// },
+						tooltip: {
+						  trigger: 'axis',
+						  axisPointer:{
+						  	type: 'shadow',
+						  },
+						  formatter: humTooltipBar
+						},
+						// legend: {
+						//   x: 'center',
+						//   y: 345,
+						//   // orient: 'vertical',
+						//   data: overview_legend
+						// },
+						toolbox: {
+						  show: true,
+						  feature: {
+						  	magicType: {
+					    	  show: true,
+					    	  title: {
+					    		line: 'Line',
+					    		bar: 'Bar',
+					    		stack: 'Stack',
+					    		tiled: 'Tiled'
+					    	  },
+					    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
+					    	},
+					    	restore: {
+					    	  show: true,
+					    	  title: "Restore"
+					    	},
+							saveAsImage: {
+							  show: true,
+							  title: "Save Image"
+							}
+						  }
+						},
+						grid: {
+					        left: '0%',
+					        right: '15%',
+					        bottom: '8%',
+					        top: '10%',
+					        containLabel: true
+					    },
+						calculable: true,
+						xAxis: [{
+						  type: 'value',
+						  boundaryGap: [0, 0.01],
+						  axisLabel:{
+						  	rotate: 30,
+						  	formatter: humanizeFormatter
+						  }
+						}],
+						yAxis: [{
+						  type: 'category',
+						  data: category_ov
+						}],
+						series: [{
+						  name: overview_legend[1],
+						  type: 'bar',
+						  label:{
+						  	normal:{
+						  		formatter: humanizeBar,
+						  		position: 'right',
+						  		show: true
+						  	}
+						  },
+						  data: area
+						  // data: [jsondata['built_up_area'], jsondata['cultivated_area'], jsondata['barren_area']]
+						}]
+					});
+
+				  	window.addEventListener("resize", function(){
+				  		echartBarArea.resize();
+				  	});
+
+				}
+
 				// echart Bar Horizontal 2
 
-				if ($('#echart_bar_horizontal_2').length ){ 
-				  
+				if ($('#echart_bar_horizontal_2').length ){
+
 				  var echartBar17 = echarts.init(document.getElementById('echart_bar_horizontal_2'), theme);
 
 				  echartBar17.setOption({
@@ -15733,8 +16162,8 @@ jQuery(function($){
 
 				// echart Bar Horizontal 3
 
-				if ($('#echart_bar_horizontal_3').length ){ 
-				  
+				if ($('#echart_bar_horizontal_3').length ){
+
 				  var echartBar3 = echarts.init(document.getElementById('echart_bar_horizontal_3'), theme);
 
 				  echartBar3.setOption({
@@ -15819,11 +16248,11 @@ jQuery(function($){
 				}
 
 					//echart Map
-					  
-					// if ($('#echart_baseline_map').length ){ 
-					  
+
+					// if ($('#echart_baseline_map').length ){
+
 					// 	var echartMap = echarts.init(document.getElementById('echart_baseline_map'), theme);
-						
+
 					// 	var provinces = ['Kabul', 'Badakhshan'];
 
 					// 	function showProvince() {
@@ -16605,10 +17034,12 @@ jQuery(function($){
 			var v= value;
 			// var n= params.name;
 			if(v>=1000 && v<1000000){
-				return (parseFloat((v/1000).toFixed(1)))+' K'
+				return (parseFloat((v/1000).toPrecision(3)))+' K'
+				// return (parseFloat((v/1000).toFixed(1)))+' K'
 			}
 			else if (v>=1000000 && v<1000000000) {
-				return (parseFloat((v/1000000).toFixed(1)))+' M'
+				return (parseFloat((v/1000000).toPrecision(3)))+' M'
+				// return (parseFloat((v/1000000).toFixed(1)))+' M'
 			}else{
 				if (v==null || isNaN(parseFloat(v))) {
 					v=0;
@@ -16623,7 +17054,7 @@ jQuery(function($){
 		$(document).ready(function(){
 			// var xxx = {{ Buildings }};
 			// console.log(xxx);
-			
+
 			// console.log('run_datatables');
 
 			// if( typeof ($.fn.DataTable) === 'undefined'){
@@ -18888,7 +19319,7 @@ jQuery(function($){
 	// 	]
 	// });
 
-	
+
 
 	// Coba complex header
 	// $(document).ready(function(){

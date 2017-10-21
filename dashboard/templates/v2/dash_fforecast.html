@@ -7,7 +7,7 @@
 	    <section id="ff">
 	        <div class="row">
 	            <div class="breadcrumb breadcrumb-custom">
-	            	<span>Flood Prediction</span>
+	            	<span>{% trans "Flood Prediction" %}</span>
 	            	{% include "v2/breadcrumb.html" %}
 	            </div>
 	        </div>
@@ -27,7 +27,7 @@
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
-	                        <p class="text-muted font-13 m-b-30">Updated everyday every ... hour</p>
+	                        <p class="text-muted font-13 m-b-30">Updated every hour</p>
 	                      	<div class="table-responsive">
               		      		<table id="ffforecast" class="table table-condensed">
               						<thead>
@@ -37,103 +37,103 @@
               							</tr>
               							<tr>
               								<th>Level</th>
-              								<th><i class="fa fa-male"></i></th>
-              								<th><i class="fa fa-building"></i></th>
+              								<th title="Population"><i class="fa fa-male"></i></th>
+              								<th title="Buildings"><i class="fa fa-building"></i></th>
               								<th>Level</th>
-              								<th><i class="fa fa-male"></i></th>
-              								<th><i class="fa fa-building"></i></th>
+              								<th title="Population"><i class="fa fa-male"></i></th>
+              								<th title="Buildings"><i class="fa fa-building"></i></th>
               							</tr>
               						</thead>
               						<tbody>
               							<tr>
               								<td class="ext" rowspan="3">{% trans "Extreme" %}</td>
               								<td rowspan="3">{% readable flashflood_forecast_extreme_pop %}</td>
-              								<td rowspan="3">0</td>
+              								<td rowspan="3">{% readable flashflood_forecast_extreme_buildings %}</td>
               								<td class="hi">{% trans "High" %}</td>
               								<td class="hi_fill">{% readable flashflood_forecast_extreme_risk_high_pop %}</td>
-              								<td class="hi_fill">0</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_extreme_risk_high_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="med">{% trans "Med" %}</td>
               								<td class="med_fill">{% readable flashflood_forecast_extreme_risk_med_pop %}</td>
-              								<td class="med_fill">0</td>
+              								<td class="med_fill">{% readable flashflood_forecast_extreme_risk_med_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="lo">{% trans "Low" %}</td>
               								<td class="lo_fill">{% readable flashflood_forecast_extreme_risk_low_pop %}</td>
-              								<td class="lo_fill">0</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_extreme_risk_low_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
               								<td rowspan="3">{% readable flashflood_forecast_veryhigh_pop %}</td>
-              								<td rowspan="3">0</td>
+              								<td rowspan="3">{% readable flashflood_forecast_veryhigh_buildings %}</td>
               								<td class="hi">{% trans "High" %}</td>
               								<td class="hi_fill">{% readable flashflood_forecast_veryhigh_risk_high_pop %}</td>
-              								<td class="hi_fill">0</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_veryhigh_risk_high_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="med">{% trans "Med" %}</td>
               								<td class="med_fill">{% readable flashflood_forecast_veryhigh_risk_med_pop %}</td>
-              								<td class="med_fill">0</td>
+              								<td class="med_fill">{% readable flashflood_forecast_veryhigh_risk_med_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="lo">{% trans "Low" %}</td>
               								<td class="lo_fill">{% readable flashflood_forecast_veryhigh_risk_low_pop %}</td>
-              								<td class="lo_fill">0</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_veryhigh_risk_low_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="high" rowspan="3">{% trans "High" %}</td>
               								<td rowspan="3">{% readable flashflood_forecast_high_pop %}</td>
-              								<td rowspan="3">0</td>
+              								<td rowspan="3">{% readable flashflood_forecast_high_buildings %}</td>
               								<td class="hi">{% trans "High" %}</td>
               								<td class="hi_fill">{% readable flashflood_forecast_high_risk_high_pop %}</td>
-              								<td class="hi_fill">0</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_high_risk_high_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="med">{% trans "Med" %}</td>
               								<td class="med_fill">{% readable flashflood_forecast_high_risk_med_pop %}</td>
-              								<td class="med_fill">0</td>
+              								<td class="med_fill">{% readable flashflood_forecast_high_risk_med_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="lo">{% trans "Low" %}</td>
               								<td class="lo_fill">{% readable flashflood_forecast_high_risk_low_pop %}</td>
-              								<td class="lo_fill">0</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_high_risk_low_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
               								<td rowspan="3">{% readable flashflood_forecast_med_pop %}</td>
-              								<td rowspan="3">0</td>
+              								<td rowspan="3">{% readable flashflood_forecast_med_buildings %}</td>
               								<td class="hi">{% trans "High" %}</td>
               								<td class="hi_fill">{% readable flashflood_forecast_med_risk_high_pop %}</td>
-              								<td class="hi_fill">0</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_med_risk_high_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="med">{% trans "Med" %}</td>
               								<td class="med_fill">{% readable flashflood_forecast_med_risk_med_pop %}</td>
-              								<td class="med_fill">0</td>
+              								<td class="med_fill">{% readable flashflood_forecast_med_risk_med_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="lo">{% trans "Low" %}</td>
               								<td class="lo_fill">{% readable flashflood_forecast_med_risk_low_pop %}</td>
-              								<td class="lo_fill">0</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_med_risk_low_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="low" rowspan="3">{% trans "Low" %}</td>
               								<td rowspan="3">{% readable flashflood_forecast_low_pop %}</td>
-              								<td rowspan="3">0</td>
+              								<td rowspan="3">{% readable flashflood_forecast_low_buildings %}</td>
               								<td class="hi">{% trans "High" %}</td>
               								<td class="hi_fill">{% readable flashflood_forecast_low_risk_high_pop %}</td>
-              								<td class="hi_fill">0</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_low_risk_high_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="med">{% trans "Med" %}</td>
               								<td class="med_fill">{% readable flashflood_forecast_low_risk_med_pop %}</td>
-              								<td class="med_fill">0</td>
+              								<td class="med_fill">{% readable flashflood_forecast_low_risk_med_buildings %}</td>
               							</tr>
               							<tr>
               								<td class="lo">{% trans "Low" %}</td>
               								<td class="lo_fill">{% readable flashflood_forecast_low_risk_low_pop %}</td>
-              								<td class="lo_fill">0</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_low_risk_low_buildings %}</td>
               							</tr>
               						</tbody>
               					</table>
@@ -223,103 +223,103 @@
 		              							</tr>
 		              							<tr>
 		              								<th>Level</th>
-		              								<th><i class="fa fa-male"></i></th>
-		              								<th><i class="fa fa-building"></i></th>
+		              								<th title="Population"><i class="fa fa-male"></i></th>
+		              								<th title="Buildings"><i class="fa fa-building"></i></th>
 		              								<th>Level</th>
-		              								<th><i class="fa fa-male"></i></th>
-		              								<th><i class="fa fa-building"></i></th>
+		              								<th title="Population"><i class="fa fa-male"></i></th>
+		              								<th title="Buildings"><i class="fa fa-building"></i></th>
 		              							</tr>
 		              						</thead>
 		              						<tbody>
 		              							<tr>
 		              								<td rowspan="3" class="ext">{% trans "Extreme" %}</td>
 		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_extreme_pop %}</td>
-		              								<td rowspan="3" class="ext_fill">0</td>
+		              								<td rowspan="3" class="ext_fill">{% readable gfms_glofas_riverflood_forecast_extreme_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
 		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_veryhigh_pop %}</td>
-		              								<td rowspan="3" class="vhigh_fill">0</td>
+		              								<td rowspan="3" class="vhigh_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="high" rowspan="3">{% trans "High" %}</td>
 		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_high_pop %}</td>
-		              								<td rowspan="3" class="high_fill">0</td>
+		              								<td rowspan="3" class="high_fill">{% readable gfms_glofas_riverflood_forecast_high_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
 		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_med_pop %}</td>
-		              								<td rowspan="3" class="mod_fill">0</td>
+		              								<td rowspan="3" class="mod_fill">{% readable gfms_glofas_riverflood_forecast_med_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="low" rowspan="3">{% trans "Low" %}</td>
 		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_low_pop %}</td>
-		              								<td rowspan="3" class="low_fill">0</td>
+		              								<td rowspan="3" class="low_fill">{% readable gfms_glofas_riverflood_forecast_low_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_low_buildings %}</td>
 		              							</tr>
 		              						</tbody>
 		              					</table>
@@ -373,7 +373,7 @@
 			            <div class="col-md-12 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>Flood Likelihood Overview <small>GFMS + GLOFAS</small></h2>
+			                        <h2>{% trans 'Flood Likelihood Overview' %} <small>GFMS + GLOFAS</small></h2>
 			                        <ul class="nav navbar-right panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -387,196 +387,112 @@
 			                    <div class="x_content">
 			                        <p class="text-muted font-13 m-b-30">
 			                      River Flood in GFMS + GLOFAS Method.</p>
-			                      	<div class="table-responsive hidden-print">
-			                      		<table class="table table-hover online">
-			                      			<thead>
-			                      				<tr>
-			                      					<th rowspan="3">{% trans 'Region' %}</th>
-			                      					<th colspan="10">{% trans 'Flash Flood' %}</th>
-			                      					<th colspan="10">{% trans 'River Flood' %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      				</tr>
-			                      			</thead>
-			                      			<tbody>
-			                      				<tr>
-			                      					<td class="boldRow">{{parent_label}}</td>
-			                      					<td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      					<td class="ext boldRow">{{ gfms_glofas_riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ gfms_glofas_riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ gfms_glofas_riverflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ gfms_glofas_riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ gfms_glofas_riverflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      				</tr>
-			                      				{% for data in glofas_gfms_child %}
-			                      				<tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-			                      					<td>{{data.na_en}}</td>
-			                      					<td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      					<td class="ext">{{ data.extreme }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.veryhigh }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.high }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.moderate }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.low }}</td>
-			                      					<td class="low">0</td>
-			                      				</tr>
-			                      				{% endfor %}
-			                      			</tbody>
-			                      		</table>
-			                      	</div>
-			                      	<div class="table-responsive visible-print-block">
-			                      		<table class="table table-condensed print">
-			                      			<thead>
-			                      				<tr>
-			                      					<th rowspan="3">{% trans 'Region' %}</th>
-			                      					<th colspan="10">{% trans 'Flash Flood' %}</th>
-			                      					<th colspan="10">{% trans 'River Flood' %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      				</tr>
-			                      			</thead>
-			                      			<tbody>
-			                      				<tr>
-			                      					<td class="boldRow">{{parent_label}}</td>
-			                      					<td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      					<td class="ext boldRow">{{ gfms_glofas_riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ gfms_glofas_riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ gfms_glofas_riverflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ gfms_glofas_riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ gfms_glofas_riverflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      				</tr>
-			                      				{% for data in glofas_gfms_child %}
-			                      				<tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-			                      					<td>{{data.na_en}}</td>
-			                      					<td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      					<td class="ext">{{ data.extreme }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.veryhigh }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.high }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.moderate }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.low }}</td>
-			                      					<td class="low">0</td>
-			                      				</tr>
-			                      				{% endfor %}
-			                      			</tbody>
-			                      		</table>
-			                      	</div>
+			                        <div class="table-responsive hidden-print">
+			                            <table class="table table-hover online">
+			                                <thead>
+			                                    <tr>
+			                                        <th rowspan="2">{% trans 'Region' %}</th>
+			                                        <th colspan="5">{% trans 'Flash Flood' %}</th>
+			                                        <th colspan="5">{% trans 'River Flood' %}</th>
+			                                    </tr>
+			                                    <tr>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td class="boldRow">{{parent_label}}</td>
+			                                        <td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext boldRow">{{ gfms_glofas_riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ gfms_glofas_riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ gfms_glofas_riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ gfms_glofas_riverflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ gfms_glofas_riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% for data in glofas_gfms_child %}
+			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+			                                        <td>{{data.na_en}}</td>
+			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext">{{ data.extreme }}</td>
+			                                        <td class="vhigh">{{ data.veryhigh }}</td>
+			                                        <td class="high">{{ data.high }}</td>
+			                                        <td class="mod">{{ data.moderate }}</td>
+			                                        <td class="low">{{ data.low }}</td>
+			                                    </tr>
+			                                    {% endfor %}
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                        <div class="table-responsive visible-print-block">
+			                            <table class="table table-condensed print">
+			                                <thead>
+			                                    <tr>
+			                                        <th rowspan="2">{% trans 'Region' %}</th>
+			                                        <th colspan="5">{% trans 'Flash Flood' %}</th>
+			                                        <th colspan="5">{% trans 'River Flood' %}</th>
+			                                    </tr>
+			                                    <tr>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td class="boldRow">{{parent_label}}</td>
+			                                        <td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext boldRow">{{ gfms_glofas_riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ gfms_glofas_riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ gfms_glofas_riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ gfms_glofas_riverflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ gfms_glofas_riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% for data in glofas_gfms_child %}
+			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+			                                        <td>{{data.na_en}}</td>
+			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext">{{ data.extreme }}</td>
+			                                        <td class="vhigh">{{ data.veryhigh }}</td>
+			                                        <td class="high">{{ data.high }}</td>
+			                                        <td class="mod">{{ data.moderate }}</td>
+			                                        <td class="low">{{ data.low }}</td>
+			                                    </tr>
+			                                    {% endfor %}
+			                                </tbody>
+			                            </table>
+			                        </div>
 			                    </div>
 			                </div>
 			            </div>
@@ -608,103 +524,103 @@
 		              							</tr>
 		              							<tr>
 		              								<th>Level</th>
-		              								<th><i class="fa fa-male"></i></th>
-		              								<th><i class="fa fa-building"></i></th>
+		              								<th title="Population"><i class="fa fa-male"></i></th>
+		              								<th title="Buildings"><i class="fa fa-building"></i></th>
 		              								<th>Level</th>
-		              								<th><i class="fa fa-male"></i></th>
-		              								<th><i class="fa fa-building"></i></th>
+		              								<th title="Population"><i class="fa fa-male"></i></th>
+		              								<th title="Buildings"><i class="fa fa-building"></i></th>
 		              							</tr>
 		              						</thead>
 		              						<tbody>
 		              							<tr>
 		              								<td class="ext" rowspan="3">{% trans "Extreme" %}</td>
 		              								<td rowspan="3">{% readable glofas_riverflood_forecast_extreme_pop %}</td>
-		              								<td rowspan="3" class="ext_fill">0</td>
+		              								<td rowspan="3" class="ext_fill">{% readable glofas_riverflood_forecast_extreme_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_extreme_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_extreme_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable glofas_riverflood_forecast_extreme_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_extreme_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_extreme_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_extreme_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
 		              								<td rowspan="3">{% readable glofas_riverflood_forecast_veryhigh_pop %}</td>
-		              								<td rowspan="3" class="vhigh_fill">0</td>
+		              								<td rowspan="3" class="vhigh_fill">{% readable glofas_riverflood_forecast_veryhigh_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="high" rowspan="3">{% trans "High" %}</td>
 		              								<td rowspan="3">{% readable glofas_riverflood_forecast_high_pop %}</td>
-		              								<td rowspan="3" class="high_fill">0</td>
+		              								<td rowspan="3" class="high_fill">{% readable glofas_riverflood_forecast_high_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_high_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_high_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable glofas_riverflood_forecast_high_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_high_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_high_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_high_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
 		              								<td rowspan="3">{% readable glofas_riverflood_forecast_med_pop %}</td>
-		              								<td rowspan="3" class="mod_fill">0</td>
+		              								<td rowspan="3" class="mod_fill">{% readable glofas_riverflood_forecast_med_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_med_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_med_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable glofas_riverflood_forecast_med_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_med_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_med_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_med_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="low" rowspan="3">{% trans "Low" %}</td>
 		              								<td rowspan="3" class="low_fill">{% readable glofas_riverflood_forecast_low_pop %}</td>
-		              								<td rowspan="3" class="low_fill">0</td>
+		              								<td rowspan="3" class="low_fill">{% readable glofas_riverflood_forecast_low_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_low_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_low_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable glofas_riverflood_forecast_low_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_low_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_low_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_low_risk_low_buildings %}</td>
 		              							</tr>
 		              						</tbody>
 		              					</table>
@@ -772,196 +688,112 @@
 			                    <div class="x_content">
 			                        <p class="text-muted font-13 m-b-30">
 			                      River Flood in GLOFAS Method.</p>
-			                      	<div class="table-responsive hidden-print">
-			                      		<table id="rglfoverview" class="table table-bordered table-hover online">
-			                      			<thead>
-			                      				<tr>
-			                      					<th rowspan="3">{% trans 'Region' %}</th>
-			                      					<th colspan="10">{% trans 'Flash Flood' %}</th>
-			                      					<th colspan="10">{% trans 'River Flood' %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      				</tr>
-			                      			</thead>
-			                      			<tbody>
-			                      				<tr>
-			                      					<td class="boldRow">{{parent_label}}</td>
-			                      					<td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      					<td class="ext boldRow">{{ glofas_riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ glofas_riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ glofas_riverflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ glofas_riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ glofas_riverflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      				</tr>
-			                      				{% for data in glofas_child %}
-			                      				<tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-			                      					<td>{{data.na_en}}</td>
-			                      					<td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      					<td class="ext">{{ data.extreme }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.veryhigh }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.high }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.moderate }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.low }}</td>
-			                      					<td class="low">0</td>
-			                      				</tr>
-			                      				{% endfor %}
-			                      			</tbody>
-			                      		</table>
-			                      	</div>
-			                      	<div class="table-responsive visible-print-block">
-			                      		<table class="table table-bordered table-condensed print">
-			                      			<thead>
-			                      				<tr>
-			                      					<th rowspan="3">{% trans 'Region' %}</th>
-			                      					<th colspan="10">{% trans 'Flash Flood' %}</th>
-			                      					<th colspan="10">{% trans 'River Flood' %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      				</tr>
-			                      			</thead>
-			                      			<tbody>
-			                      				<tr>
-			                      					<td class="boldRow">{{parent_label}}</td>
-			                      					<td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      					<td class="ext boldRow">{{ glofas_riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ glofas_riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ glofas_riverflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ glofas_riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ glofas_riverflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      				</tr>
-			                      				{% for data in glofas_child %}
-			                      				<tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-			                      					<td>{{data.na_en}}</td>
-			                      					<td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      					<td class="ext">{{ data.extreme }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.veryhigh }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.high }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.moderate }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.low }}</td>
-			                      					<td class="low">0</td>
-			                      				</tr>
-			                      				{% endfor %}
-			                      			</tbody>
-			                      		</table>
-			                      	</div>
+			                        <div class="table-responsive hidden-print">
+			                            <table class="table table-bordered table-hover online">
+			                                <thead>
+			                                    <tr>
+			                                        <th rowspan="2">{% trans 'Region' %}</th>
+			                                        <th colspan="5">{% trans 'Flash Flood' %}</th>
+			                                        <th colspan="5">{% trans 'River Flood' %}</th>
+			                                    </tr>
+			                                    <tr>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td class="boldRow">{{parent_label}}</td>
+			                                        <td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext boldRow">{{ glofas_riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ glofas_riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ glofas_riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ glofas_riverflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ glofas_riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% for data in glofas_child %}
+			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+			                                        <td>{{data.na_en}}</td>
+			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext">{{ data.extreme }}</td>
+			                                        <td class="vhigh">{{ data.veryhigh }}</td>
+			                                        <td class="high">{{ data.high }}</td>
+			                                        <td class="mod">{{ data.moderate }}</td>
+			                                        <td class="low">{{ data.low }}</td>
+			                                    </tr>
+			                                    {% endfor %}
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                        <div class="table-responsive visible-print-block">
+			                            <table class="table table-bordered table-condensed print">
+			                                <thead>
+			                                    <tr>
+			                                        <th rowspan="2">{% trans 'Region' %}</th>
+			                                        <th colspan="5">{% trans 'Flash Flood' %}</th>
+			                                        <th colspan="5">{% trans 'River Flood' %}</th>
+			                                    </tr>
+			                                    <tr>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td class="boldRow">{{parent_label}}</td>
+			                                        <td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext boldRow">{{ glofas_riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ glofas_riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ glofas_riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ glofas_riverflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ glofas_riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% for data in glofas_child %}
+			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+			                                        <td>{{data.na_en}}</td>
+			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext">{{ data.extreme }}</td>
+			                                        <td class="vhigh">{{ data.veryhigh }}</td>
+			                                        <td class="high">{{ data.high }}</td>
+			                                        <td class="mod">{{ data.moderate }}</td>
+			                                        <td class="low">{{ data.low }}</td>
+			                                    </tr>
+			                                    {% endfor %}
+			                                </tbody>
+			                            </table>
+			                        </div>
 			                    </div>
 			                </div>
 			            </div>
@@ -993,103 +825,103 @@
 		              							</tr>
 		              							<tr>
 		              								<th>Level</th>
-		              								<th><i class="fa fa-male"></i></th>
-		              								<th><i class="fa fa-building"></i></th>
+		              								<th title="Population"><i class="fa fa-male"></i></th>
+		              								<th title="Buildings"><i class="fa fa-building"></i></th>
 		              								<th>Level</th>
-		              								<th><i class="fa fa-male"></i></th>
-		              								<th><i class="fa fa-building"></i></th>
+		              								<th title="Population"><i class="fa fa-male"></i></th>
+		              								<th title="Buildings"><i class="fa fa-building"></i></th>
 		              							</tr>
 		              						</thead>
 		              						<tbody>
 		              							<tr>
 		              								<td class="ext" rowspan="3">{% trans "Extreme" %}</td>
 		              								<td rowspan="3">{% readable riverflood_forecast_extreme_pop %}</td>
-		              								<td rowspan="3" class="ext_fill">0</td>
+		              								<td rowspan="3" class="ext_fill">{% readable riverflood_forecast_extreme_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable riverflood_forecast_extreme_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_extreme_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable riverflood_forecast_extreme_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_extreme_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable riverflood_forecast_extreme_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_extreme_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
 		              								<td rowspan="3">{% readable riverflood_forecast_veryhigh_pop %}</td>
-		              								<td rowspan="3" class="vhigh_fill">0</td>
+		              								<td rowspan="3" class="vhigh_fill">{% readable riverflood_forecast_veryhigh_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable riverflood_forecast_veryhigh_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_veryhigh_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable riverflood_forecast_veryhigh_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_veryhigh_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable riverflood_forecast_veryhigh_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_veryhigh_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="high" rowspan="3">{% trans "High" %}</td>
 		              								<td rowspan="3">{% readable riverflood_forecast_high_pop %}</td>
-		              								<td rowspan="3" class="high_fill">0</td>
+		              								<td rowspan="3" class="high_fill">{% readable riverflood_forecast_high_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable riverflood_forecast_high_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_high_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable riverflood_forecast_high_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_high_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable riverflood_forecast_high_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_high_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
 		              								<td rowspan="3">{% readable riverflood_forecast_med_pop %}</td>
-		              								<td rowspan="3" class="mod_fill">0</td>
+		              								<td rowspan="3" class="mod_fill">{% readable riverflood_forecast_med_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable riverflood_forecast_med_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_med_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable riverflood_forecast_med_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_med_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable riverflood_forecast_med_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_med_risk_low_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="low" rowspan="3">{% trans "Low" %}</td>
 		              								<td rowspan="3" class="low_fill">{% readable riverflood_forecast_low_pop %}</td>
-		              								<td rowspan="3" class="low_fill">0</td>
+		              								<td rowspan="3" class="low_fill">{% readable riverflood_forecast_low_buildings %}</td>
 		              								<td class="hi">{% trans "High" %}</td>
 		              								<td class="hi_fill">{% readable riverflood_forecast_low_risk_high_pop %}</td>
-		              								<td class="hi_fill">0</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_low_risk_high_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="med">{% trans "Med" %}</td>
 		              								<td class="med_fill">{% readable riverflood_forecast_low_risk_med_pop %}</td>
-		              								<td class="med_fill">0</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_low_risk_med_buildings %}</td>
 		              							</tr>
 		              							<tr>
 		              								<td class="lo">{% trans "Low" %}</td>
 		              								<td class="lo_fill">{% readable riverflood_forecast_low_risk_low_pop %}</td>
-		              								<td class="lo_fill">0</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_low_risk_low_buildings %}</td>
 		              							</tr>
 		              						</tbody>
 		              					</table>
@@ -1159,196 +991,112 @@
 			                    <div class="x_content">
 			                        <p class="text-muted font-13 m-b-30">
 			                      GFMS Method</p>
-			                      	<div class="table-responsive hidden-print">
-			                      		<table class="table table-hover table-bordered online">
-			                      			<thead>
-			                      				<tr>
-			                      					<th rowspan="3">{% trans 'Region' %}</th>
-			                      					<th colspan="10">{% trans 'Flash Flood' %}</th>
-			                      					<th colspan="10">{% trans 'River Flood' %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      				</tr>
-			                      			</thead>
-			                      			<tbody>
-			                      				<tr>
-			                      					<td class="boldRow">{{parent_label}}</td>
-			                      					<td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      					<td class="ext boldRow">{{ riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ riverflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ riverflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      				</tr>
-			                      				{% for data in lc_child %}
-			                      				<tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-			                      					<td>{{data.na_en}}</td>
-			                      					<td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      					<td class="ext">{{ data.riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.riverflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.riverflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      				</tr>
-			                      				{% endfor %}
-			                      			</tbody>
-			                      		</table>
-			                      	</div>
-			                      	<div class="table-responsive visible-print-block">
-			                      		<table class="table table-bordered table-condensed print">
-			                      			<thead>
-			                      				<tr>
-			                      					<th rowspan="3">{% trans 'Region' %}</th>
-			                      					<th colspan="10">{% trans 'Flash Flood' %}</th>
-			                      					<th colspan="10">{% trans 'River Flood' %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      					<th colspan="2" class="ext">{% trans "Extreme" %}</th>
-			                      					<th colspan="2" class="vhigh">{% trans "Very High" %}</th>
-			                      					<th colspan="2" class="high">{% trans "High" %}</th>
-			                      					<th colspan="2" class="mod">{% trans "Moderate" %}</th>
-			                      					<th colspan="2" class="low">{% trans "Low" %}</th>
-			                      				</tr>
-			                      				<tr>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-male"></i></th>
-			                      					<th class="ext hum"><i class="fa fa-building"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-male"></i></th>
-			                      					<th class="vhigh hum"><i class="fa fa-building"></i></th>
-			                      					<th class="high hum"><i class="fa fa-male"></i></th>
-			                      					<th class="high hum"><i class="fa fa-building"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-male"></i></th>
-			                      					<th class="mod hum"><i class="fa fa-building"></i></th>
-			                      					<th class="low hum"><i class="fa fa-male"></i></th>
-			                      					<th class="low hum"><i class="fa fa-building"></i></th>
-			                      				</tr>
-			                      			</thead>
-			                      			<tbody>
-			                      				<tr>
-			                      					<td class="boldRow">{{parent_label}}</td>
-			                      					<td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      					<td class="ext boldRow">{{ riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext boldRow">0</td>
-			                      					<td class="vhigh boldRow">{{ riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh boldRow">0</td>
-			                      					<td class="high boldRow">{{ riverflood_forecast_high_pop }}</td>
-			                      					<td class="high boldRow">0</td>
-			                      					<td class="mod boldRow">{{ riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod boldRow">0</td>
-			                      					<td class="low boldRow">{{ riverflood_forecast_low_pop }}</td>
-			                      					<td class="low boldRow">0</td>
-			                      				</tr>
-			                      				{% for data in lc_child %}
-			                      				<tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
-			                      					<td>{{data.na_en}}</td>
-			                      					<td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      					<td class="ext">{{ data.riverflood_forecast_extreme_pop }}</td>
-			                      					<td class="ext">0</td>
-			                      					<td class="vhigh">{{ data.riverflood_forecast_veryhigh_pop }}</td>
-			                      					<td class="vhigh">0</td>
-			                      					<td class="high">{{ data.riverflood_forecast_high_pop }}</td>
-			                      					<td class="high">0</td>
-			                      					<td class="mod">{{ data.riverflood_forecast_med_pop }}</td>
-			                      					<td class="mod">0</td>
-			                      					<td class="low">{{ data.riverflood_forecast_low_pop }}</td>
-			                      					<td class="low">0</td>
-			                      				</tr>
-			                      				{% endfor %}
-			                      			</tbody>
-			                      		</table>
-			                      	</div>
+			                        <div class="table-responsive hidden-print">
+			                            <table class="table table-hover table-bordered online">
+			                                <thead>
+			                                    <tr>
+			                                        <th rowspan="2">{% trans 'Region' %}</th>
+			                                        <th colspan="5">{% trans 'Flash Flood' %}</th>
+			                                        <th colspan="5">{% trans 'River Flood' %}</th>
+			                                    </tr>
+			                                    <tr>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td class="boldRow">{{parent_label}}</td>
+			                                        <td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext boldRow">{{ riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ riverflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% for data in lc_child %}
+			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+			                                        <td>{{data.na_en}}</td>
+			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext">{{ data.riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.riverflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% endfor %}
+			                                </tbody>
+			                            </table>
+			                        </div>
+			                        <div class="table-responsive visible-print-block">
+			                            <table class="table table-bordered table-condensed print">
+			                                <thead>
+			                                    <tr>
+			                                        <th rowspan="2">{% trans 'Region' %}</th>
+			                                        <th colspan="5">{% trans 'Flash Flood' %}</th>
+			                                        <th colspan="5">{% trans 'River Flood' %}</th>
+			                                    </tr>
+			                                    <tr>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                        <th class="ext hum">{% trans "Extreme" %}</th>
+			                                        <th class="vhigh hum">{% trans "Very High" %}</th>
+			                                        <th class="high hum">{% trans "High" %}</th>
+			                                        <th class="mod hum">{% trans "Moderate" %}</th>
+			                                        <th class="low hum">{% trans "Low" %}</th>
+			                                    </tr>
+			                                </thead>
+			                                <tbody>
+			                                    <tr>
+			                                        <td class="boldRow">{{parent_label}}</td>
+			                                        <td class="ext boldRow">{{ flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ flashflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext boldRow">{{ riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh boldRow">{{ riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high boldRow">{{ riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod boldRow">{{ riverflood_forecast_med_pop }}</td>
+			                                        <td class="low boldRow">{{ riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% for data in lc_child %}
+			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
+			                                        <td>{{data.na_en}}</td>
+			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext">{{ data.riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh">{{ data.riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high">{{ data.riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod">{{ data.riverflood_forecast_med_pop }}</td>
+			                                        <td class="low">{{ data.riverflood_forecast_low_pop }}</td>
+			                                    </tr>
+			                                    {% endfor %}
+			                                </tbody>
+			                            </table>
+			                        </div>
 			                    </div>
 			                </div>
 			            </div>

@@ -64,7 +64,7 @@
 	        	    		<div class="tile_count">
 	        	    			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
 	        	    			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Total Building" %}</span>
-	        	    			    <div class="count red">{% readable total_buildings %}</div>
+	        	    			    <div class="count red">{% readable Buildings %}</div>
 	        	    			</div>
 	        	    			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
 	        	    			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Building At Risk" %}</span>
@@ -251,6 +251,9 @@
 	var frisk_cat = ['{% trans "Low Risk" %}', '{% trans "Medium Risk" %}', '{% trans "High Risk" %}', '{% trans "Not at Risk" %}' ];
 
 	var pop = {{ Population }}
+	var area = {{ Area }}
+	var build = {{ Buildings }}
+
 	var tot_risk_pop = {{ total_risk_population }}
 
 	var frisk_low_pop = {{ low_risk_population }}

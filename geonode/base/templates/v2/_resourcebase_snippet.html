@@ -17,7 +17,17 @@
           {% endif %}
           {% verbatim %}
           <div class="product">
-            <div class="mediaholder">
+            <div class="mediaholder" ng-if="item.detail_url.indexOf('/maps/') > -1">
+              <a href="{{item.id}}/view">
+                <img ng-src="{{ item.thumbnail_url }}">
+              </a>
+            </div>
+            <div class="mediaholder" ng-if="item.detail_url.indexOf('/documents/') > -1">
+              <a href="/v2{{ item.detail_url }}">
+                <img ng-src="{{ item.thumbnail_url }}">
+              </a>
+            </div>
+            <div class="mediaholder" ng-if="item.detail_url.indexOf('/layers/') > -1">
               <a href="/v2{{ item.detail_url }}">
                 <img ng-src="{{ item.thumbnail_url }}">
               </a>
@@ -38,7 +48,7 @@
                     {{ item.date | timeAgo }}
                   </span>
                   {% endverbatim %}
-                    <i class="fa fa-eye pull-right"> {% verbatim %}{{ item.popular_count }}{% endverbatim %}</i>
+                    <i class="fa fa-eye {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"> {% verbatim %}{{ item.popular_count }}{% endverbatim %}</i>
                 </div>
                 <div class="desc-title">
                   {% verbatim %}

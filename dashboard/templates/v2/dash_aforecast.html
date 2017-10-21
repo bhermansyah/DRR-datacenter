@@ -64,11 +64,11 @@
 	        	    		<div class="tile_count">
 	        	    			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
 	        	    			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Total Building" %}</span>
-	        	    			    <div class="count red">{% readable 0 %}</div>
+	        	    			    <div class="count red">{% readable Buildings %}</div>
 	        	    			</div>
 	        	    			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
 	        	    			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Building at Risk" %}</span>
-	        	    			    <div class="count red">{% readable 0 %}</div>
+	        	    			    <div class="count red">{% readable total_ava_forecast_buildings %}</div>
 	        	    			</div>
 	        	    		</div>
 	        	    	</div>
@@ -95,49 +95,31 @@
 	                      		<table class="table table-hover table-striped table-bordered online">
 	                      		    <thead>
 	                      		        <tr>
-	                      		            <th rowspan="3">{% trans "Region" %}</th>
-	                      		            <th colspan="6">{% trans 'Avalanche Risk Level' %} </th>
-	                      		            <th rowspan="2" colspan="2">{% trans "Total" %}</th>
+	                      		            <th rowspan="2">{% trans "Region" %}</th>
+	                      		            <th colspan="3">{% trans 'Avalanche Risk Level' %} </th>
+	                      		            <th rowspan="2" class="hum">{% trans "Total" %}</th>
 	                      		        </tr>
 	                      		        <tr>
-	                      		        	<th colspan="2">{% trans "High" %}</th>
-	                      		            <th colspan="2">{% trans "Moderate" %}</th>
-	                      		            <th colspan="2">{% trans "Low" %}</th>
-	                      		        </tr>
-	                      		        <tr>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
+	                      		        	<th class="hum">{% trans "High" %}</th>
+	                      		            <th class="hum">{% trans "Moderate" %}</th>
+	                      		            <th class="hum">{% trans "Low" %}</th>
 	                      		        </tr>
 	                      		    </thead>
 	                      		    <tbody>
 	                      		    	<tr>
 	                      		    		<td class="boldRow">{{parent_label}}</td>
 	                      		    		<td class="boldRow">{{ava_forecast_high_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    		<td class="boldRow">{{ava_forecast_med_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    		<td class="boldRow">{{ava_forecast_low_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    		<td class="boldRow">{{total_ava_forecast_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    	</tr>
 	                      		    	{% for data in lc_child %}
 	                      		    	<tr class="selectable" onclick="window.document.location='?page=avalcheforecast&code={{data.code}}';">
 	                      		    		<td>{{ data.na_en }}</td>
 	                      		    		<td>{{ data.ava_forecast_high_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    		<td>{{ data.ava_forecast_med_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    		<td>{{ data.ava_forecast_low_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    		<td>{{ data.total_ava_forecast_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    	</tr>
 	                      		    	{% endfor %}
 	                      		    </tbody>
@@ -147,49 +129,31 @@
 	                      		<table class="table table-condensed table-bordered print">
 	                      		    <thead>
 	                      		        <tr>
-	                      		            <th rowspan="3">{% trans "Region" %}</th>
-	                      		            <th colspan="6">{% trans 'Avalanche Risk Level' %} </th>
-	                      		            <th rowspan="2" colspan="2">{% trans "Total" %}</th>
+	                      		            <th rowspan="2">{% trans "Region" %}</th>
+	                      		            <th colspan="3">{% trans 'Avalanche Risk Level' %} </th>
+	                      		            <th rowspan="2" class="hum">{% trans "Total" %}</th>
 	                      		        </tr>
 	                      		        <tr>
-	                      		        	<th colspan="2">{% trans "High" %}</th>
-	                      		            <th colspan="2">{% trans "Moderate" %}</th>
-	                      		            <th colspan="2">{% trans "Low" %}</th>
-	                      		        </tr>
-	                      		        <tr>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="hum"><i class="fa fa-building"></i></th>
+	                      		        	<th class="hum">{% trans "High" %}</th>
+	                      		            <th class="hum">{% trans "Moderate" %}</th>
+	                      		            <th class="hum">{% trans "Low" %}</th>
 	                      		        </tr>
 	                      		    </thead>
 	                      		    <tbody>
 	                      		    	<tr>
 	                      		    		<td class="boldRow">{{parent_label}}</td>
 	                      		    		<td class="boldRow">{{ava_forecast_high_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    		<td class="boldRow">{{ava_forecast_med_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    		<td class="boldRow">{{ava_forecast_low_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    		<td class="boldRow">{{total_ava_forecast_pop}}</td>
-	                      		    		<td class="boldRow">0</td>
 	                      		    	</tr>
 	                      		    	{% for data in lc_child %}
 	                      		    	<tr class="selectable" onclick="window.document.location='?page=avalcheforecast&code={{data.code}}';">
 	                      		    		<td>{{ data.na_en }}</td>
 	                      		    		<td>{{ data.ava_forecast_high_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    		<td>{{ data.ava_forecast_med_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    		<td>{{ data.ava_forecast_low_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    		<td>{{ data.total_ava_forecast_pop }}</td>
-	                      		    		<td>0</td>
 	                      		    	</tr>
 	                      		    	{% endfor %}
 	                      		    </tbody>
@@ -211,11 +175,11 @@
 	var afo_low_pop = {{ ava_forecast_low_pop }}
 	var afo_med_pop = {{ ava_forecast_med_pop }}
 	var afo_hi_pop = {{ ava_forecast_high_pop }}
-	
-	var tot_ava_build = 0;
 
-	var afo_low_build = 0;
-	var afo_med_build = 0;
-	var afo_hi_build = 0;
+	var tot_ava_build = {{ total_ava_forecast_pop }};
+
+	var afo_low_build = {{ ava_forecast_low_buildings }};
+	var afo_med_build = {{ ava_forecast_med_buildings }};
+	var afo_hi_build = {{ ava_forecast_high_buildings }};
 
 </script>

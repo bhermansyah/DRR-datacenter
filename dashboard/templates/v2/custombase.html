@@ -10,7 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#a72b1f">
-  <title>ASDC</title>
+  <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
   <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}">
   </script>
   <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -69,7 +69,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a id="logo" class="pull-left" href="{% url 'v2:home' %}"></a>
-                <a id="logo2" class="pull-left navbar-brand-immap" href="{% url 'v2:home' %}"><h1 class="webTitle" style="height:50px">{% trans "AFGHANISTAN SPATIAL DATA CENTER" %}</h1></a>
+                <a id="logo2" class="pull-left navbar-brand-immap" href="{% url 'v2:home' %}"><h1 class="webTitle" style="height:50px">{% trans "Afghanistan Spatial Data Center" %}</h1></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
@@ -217,11 +217,11 @@
             <div class="row">
                 <!--Contact Form-->
                 <div class="col-md-3">
-                    <h4>CONTACT</h4>
+                    <h4>{% trans 'CONTACT' %}</h4>
                     <ul class="list-unstyled address">
                         <li>
                             <i class="fa fa-envelope"></i>
-                            <strong>Email: </strong> admin@immap.com
+                            <strong>Email: </strong> afghanistan@immap.org
                         </li>
                         <li>
                             <i class="fa fa-globe"></i>
@@ -248,19 +248,19 @@
                 <div class="col-md-6 hidden-print">
                     <ul class="social pull-right">
                         <li>
-                            <a href="#"><i class="fa fa-envelope"></i></a>
+                            <a href="mailto:admin.geonode@immap.org"><i class="fa fa-envelope"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.youtube.com/channel/UCkd_swrFk9vN81s9SQ3fKgg"><i class="fa fa-youtube"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/immap.org/"><i class="fa fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://twitter.com/immaper?lang=en"><i class="fa fa-twitter"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-youtube"></i></a>
+                            <a href="https://www.linkedin.com/company/527383/"><i class="fa fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -277,37 +277,67 @@
     {% if not user.is_authenticated %}
     <!-- Login Form -->
     <div class="modal fade in" id="loginForm" aria-hidden="false" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xs">
             <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <!-- <i class="fa fa-remove" data-dismiss="modal" aria-hidden="true"></i> -->
-                    <h4>Login Form</h4>
+                    <h4>{% trans "Login" %}</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-inline" action="index.html" method="post" id="form-login">
+                    <form class="center" action="{% url "account_login" %}?next={{ request.path }}" method="post" id="form-login">
+                        {% csrf_token %}
+                        <fieldset class="login-form">
+                            <!-- Username -->
+                            <div class="form-group group-login">
+                                <input type="text" id="id_username" name="username" placeholder="{% trans 'Username' %}" class="input-xlarge login-input">
+                                <div class="login-forgot">
+                                    <a href="{% url 'forgot_username' %}">{% trans "Forgot?" %}</a>
+                                </div>
+                            </div>
+                            <!-- Password-->
+                            <div class="form-group group-login">
+                                <input type="password" id="id_password" name="password" placeholder="{% trans 'Password' %}" class="input-xlarge login-input">
+                                <div class="login-forgot">
+                                    <a href="{% url 'account_password_reset' %}">{% trans "Forgot?" %}</a>
+                                </div>
+                            </div>
+                            <div class="form-group" style="text-align: left;">
+                                <div class="checkbox">
+                                    <label><input type="checkbox"> {% trans "Remember Me" %}</label>
+
+                                </div>
+                            </div>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-large btn-block" type="submit" >{% trans "Login" %}</button>
+                            </div>
+                            <div >
+                                <a href="{% url 'account_signup' %}">{% trans "Not Registered? Create an account" %}</a>
+                            </div>
+                        </fieldset>
                         <!-- <div class="form-group"> -->
                             <!-- Username -->
                             <!-- <div class="controls"> -->
-                                <input type="text" class="input-sm" placeholder="Email">
-                                <input type="password" class="input-sm" placeholder="Password">
+                                <!-- <input id="id_username" type="text" class="input-sm" placeholder="{% trans 'Username' %}">
+                                <input id="id_password" type="password" class="input-sm" placeholder="{% trans 'Password' %}"> -->
                             <!-- </div> -->
                         <!-- </div> -->
-                        <br>
+                        <!-- <br>
                         <label class="checkbox">
-                            <input type="checkbox"> Remember me
+                            <input type="checkbox"> {% trans "Remember Me" %}
                         </label>
-                        <br>
+                        <br> -->
                         <!-- <div class="form-group"> -->
                             <!-- Sign in Button -->
                             <!-- <div class="controls"> -->
-                                <button type="submit" class="btn btn-default btn-primary">Sign in</button>
+                                <!-- <button type="submit" class="btn btn-default btn-primary">{% trans "Sign in" %}</button> -->
                             <!-- </div> -->
                         <!-- </div> -->
                     </form>
-                    <a href="#">Forgot your password?</a>
+                    <!-- <a href="{% url 'account_password_reset' %}">{% trans "Forgot your password?" %}</a>
                     <br>
-                    <a href="registration.html">Not Registered? Create an account</a>
+                    <a href="{% url 'account_signup' %}">{% trans "Not Registered? Create an account" %}</a> -->
                 </div>
             </div>
         </div>

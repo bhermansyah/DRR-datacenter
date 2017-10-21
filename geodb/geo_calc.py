@@ -33,6 +33,7 @@ from geodb.radarchart import RadarChart
 from geodb.riverflood import getFloodForecastBySource
 
 from django.utils.translation import ugettext as _
+import pprint
 
 def query_to_dicts(cursor, query_string, *query_args):
     """Run a simple query and produce a generator
@@ -508,6 +509,7 @@ def getEarthquake(request, filterLock, flag, code):
 
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
 
     url = 'http://asdc.immap.org/geoapi/geteqevents/?dateofevent__gte=2015-09-08&_dc=1473243793279'
@@ -564,6 +566,7 @@ def getEarthquake(request, filterLock, flag, code):
 
     response['total_eq_pop'] = response['pop_shake_weak']+response['pop_shake_light']+response['pop_shake_moderate']+response['pop_shake_strong']+response['pop_shake_verystrong']+response['pop_shake_severe']+response['pop_shake_violent']+response['pop_shake_extreme']
     response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
+    response['total_eq_buildings'] = response['buildings_shake_weak']+response['buildings_shake_light']+response['buildings_shake_moderate']+response['buildings_shake_strong']+response['buildings_shake_verystrong']+response['buildings_shake_severe']+response['buildings_shake_violent']+response['buildings_shake_extreme']
 
     data = getListEQ(filterLock, flag, code, eq_event)
     response['lc_child']=data
@@ -606,7 +609,15 @@ def getEQData(filterLock, flag, code, event_code):
             'settlement_shake_verystrong':0,
             'settlement_shake_severe':0,
             'settlement_shake_violent':0,
-            'settlement_shake_extreme':0
+            'settlement_shake_extreme':0,
+            'buildings_shake_weak':0,
+            'buildings_shake_light':0,
+            'buildings_shake_moderate':0,
+            'buildings_shake_strong':0,
+            'buildings_shake_verystrong':0,
+            'buildings_shake_severe':0,
+            'buildings_shake_violent':0,
+            'buildings_shake_extreme':0
         }
 
     if flag=='drawArea':
@@ -708,6 +719,14 @@ def getEQData(filterLock, flag, code, event_code):
                     else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_extreme \
                 end \
             )),0) as settlement_shake_extreme     \
+            coalesce(round(sum(b.buildings_shake_weak)),0) as buildings_shake_weak,     \
+            coalesce(round(sum(b.buildings_shake_light)),0) as buildings_shake_light,     \
+            coalesce(round(sum(b.buildings_shake_moderate)),0) as buildings_shake_moderate,     \
+            coalesce(round(sum(b.buildings_shake_strong)),0) as buildings_shake_strong,     \
+            coalesce(round(sum(b.buildings_shake_verystrong)),0) as buildings_shake_verystrong,     \
+            coalesce(round(sum(b.buildings_shake_severe)),0) as buildings_shake_severe,     \
+            coalesce(round(sum(b.buildings_shake_violent)),0) as buildings_shake_violent,     \
+            coalesce(round(sum(b.buildings_shake_extreme)),0) as buildings_shake_extreme \
             from afg_ppla a, villagesummary_eq b   \
             where  a.vuid = b.village and b.event_code = '"+event_code+"'  \
             and ST_Intersects(a.wkb_geometry,"+filterLock+")    \
@@ -740,7 +759,16 @@ def getEQData(filterLock, flag, code, event_code):
                 'settlement_shake_verystrong' : 'coalesce(SUM(settlement_shake_verystrong),0)',
                 'settlement_shake_severe' : 'coalesce(SUM(settlement_shake_severe),0)',
                 'settlement_shake_violent' : 'coalesce(SUM(settlement_shake_violent),0)',
-                'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
+                'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)',
+
+                'buildings_shake_weak' : 'coalesce(SUM(buildings_shake_weak),0)',
+                'buildings_shake_light' : 'coalesce(SUM(buildings_shake_light),0)',
+                'buildings_shake_moderate' : 'coalesce(SUM(buildings_shake_moderate),0)',
+                'buildings_shake_strong' : 'coalesce(SUM(buildings_shake_strong),0)',
+                'buildings_shake_verystrong' : 'coalesce(SUM(buildings_shake_verystrong),0)',
+                'buildings_shake_severe' : 'coalesce(SUM(buildings_shake_severe),0)',
+                'buildings_shake_violent' : 'coalesce(SUM(buildings_shake_violent),0)',
+                'buildings_shake_extreme' : 'coalesce(SUM(buildings_shake_extreme),0)'
             },
             where = {
                 "event_code = '"+event_code+"'"
@@ -760,7 +788,15 @@ def getEQData(filterLock, flag, code, event_code):
                 'settlement_shake_verystrong',
                 'settlement_shake_severe',
                 'settlement_shake_violent',
-                'settlement_shake_extreme'
+                'settlement_shake_extreme',
+                'buildings_shake_weak',
+                'buildings_shake_light',
+                'buildings_shake_moderate',
+                'buildings_shake_strong',
+                'buildings_shake_verystrong',
+                'buildings_shake_severe',
+                'buildings_shake_violent',
+                'buildings_shake_extreme'
             ))
     elif flag =='currentProvince':
         if len(str(code)) > 2:
@@ -785,7 +821,16 @@ def getEQData(filterLock, flag, code, event_code):
                 'settlement_shake_verystrong' : 'coalesce(SUM(settlement_shake_verystrong),0)',
                 'settlement_shake_severe' : 'coalesce(SUM(settlement_shake_severe),0)',
                 'settlement_shake_violent' : 'coalesce(SUM(settlement_shake_violent),0)',
-                'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)'
+                'settlement_shake_extreme' : 'coalesce(SUM(settlement_shake_extreme),0)',
+
+                'buildings_shake_weak' : 'coalesce(SUM(buildings_shake_weak),0)',
+                'buildings_shake_light' : 'coalesce(SUM(buildings_shake_light),0)',
+                'buildings_shake_moderate' : 'coalesce(SUM(buildings_shake_moderate),0)',
+                'buildings_shake_strong' : 'coalesce(SUM(buildings_shake_strong),0)',
+                'buildings_shake_verystrong' : 'coalesce(SUM(buildings_shake_verystrong),0)',
+                'buildings_shake_severe' : 'coalesce(SUM(buildings_shake_severe),0)',
+                'buildings_shake_violent' : 'coalesce(SUM(buildings_shake_violent),0)',
+                'buildings_shake_extreme' : 'coalesce(SUM(buildings_shake_extreme),0)'
             },
             where = {
                 "event_code = '"+event_code+"' and "+ff0001
@@ -805,7 +850,15 @@ def getEQData(filterLock, flag, code, event_code):
                 'settlement_shake_verystrong',
                 'settlement_shake_severe',
                 'settlement_shake_violent',
-                'settlement_shake_extreme'
+                'settlement_shake_extreme',
+                'buildings_shake_weak',
+                'buildings_shake_light',
+                'buildings_shake_moderate',
+                'buildings_shake_strong',
+                'buildings_shake_verystrong',
+                'buildings_shake_severe',
+                'buildings_shake_violent',
+                'buildings_shake_extreme'
             ))
     else:
         cursor = connections['geodb'].cursor()
@@ -826,6 +879,14 @@ def getEQData(filterLock, flag, code, event_code):
             coalesce(round(sum(b.settlement_shake_severe)),0) as settlement_shake_severe,     \
             coalesce(round(sum(b.settlement_shake_violent)),0) as settlement_shake_violent,     \
             coalesce(round(sum(b.settlement_shake_extreme)),0) as settlement_shake_extreme     \
+            coalesce(round(sum(b.buildings_shake_weak)),0) as buildings_shake_weak,     \
+            coalesce(round(sum(b.buildings_shake_light)),0) as buildings_shake_light,     \
+            coalesce(round(sum(b.buildings_shake_moderate)),0) as buildings_shake_moderate,     \
+            coalesce(round(sum(b.buildings_shake_strong)),0) as buildings_shake_strong,     \
+            coalesce(round(sum(b.buildings_shake_verystrong)),0) as buildings_shake_verystrong,     \
+            coalesce(round(sum(b.buildings_shake_severe)),0) as buildings_shake_severe,     \
+            coalesce(round(sum(b.buildings_shake_violent)),0) as buildings_shake_violent,     \
+            coalesce(round(sum(b.buildings_shake_extreme)),0) as buildings_shake_extreme    \
             from afg_ppla a, villagesummary_eq b   \
             where  a.vuid = b.village and b.event_code = '"+event_code+"'  \
             and ST_Within(a.wkb_geometry,"+filterLock+")    \
@@ -892,9 +953,9 @@ def GetAccesibilityData(filterLock, flag, code):
                 ff0001
             })
         if len(str(code)) > 2:
-            gsm = AfgCapaGsmcvr.objects.filter(dist_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
+            gsm = AfgCapaGsmcvr.objects.filter(dist_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
         else :
-            gsm = AfgCapaGsmcvr.objects.filter(prov_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
+            gsm = AfgCapaGsmcvr.objects.filter(prov_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 
     elif flag =='drawArea':
         tt = AfgPplp.objects.filter(wkb_geometry__intersects=filterLock).values('vuid')
@@ -906,7 +967,7 @@ def GetAccesibilityData(filterLock, flag, code):
         q6 = AfgCaptHltfacTier2Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
         q7 = AfgCaptHltfacTier3Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
         q8 = AfgCaptHltfacTierallImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
-        gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
+        gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
     else:
         tt = AfgPplp.objects.filter(wkb_geometry__intersects=filterLock).values('vuid')
         q1 = AfgCaptAdm1ItsProvcImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
@@ -917,7 +978,7 @@ def GetAccesibilityData(filterLock, flag, code):
         q6 = AfgCaptHltfacTier2Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
         q7 = AfgCaptHltfacTier3Immap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
         q8 = AfgCaptHltfacTierallImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
-        gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'))
+        gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 
     for i in q1:
         timelabel = i['time'].replace(' ','_')
@@ -962,6 +1023,7 @@ def GetAccesibilityData(filterLock, flag, code):
 
     response['pop_on_gsm_coverage'] = round((gsm['pop'] or 0),0)
     response['area_on_gsm_coverage'] = round((gsm['area'] or 0)/1000000,0)
+    response['buildings_on_gsm_coverage'] = round((gsm['buildings'] or 0),0)
 
     return response
 
@@ -975,6 +1037,7 @@ def getAccessibility(request, filterLock, flag, code):
     response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
 
     rawAccesibility = GetAccesibilityData(rawFilterLock, flag, code)
 
@@ -985,6 +1048,7 @@ def getAccessibility(request, filterLock, flag, code):
 
     response['pop_coverage_percent'] = int(round((response['pop_on_gsm_coverage']/response['Population'])*100,0))
     response['area_coverage_percent'] = int(round((response['area_on_gsm_coverage']/response['Area'])*100,0))
+    response['buildings_coverage_percent'] = int(round((response['buildings_on_gsm_coverage']/response['Buildings'])*100,0))
 
     response['l1_h__near_airp_percent'] = int(round((response['l1_h__near_airp']/response['Population'])*100,0)) if 'l1_h__near_airp' in response else 0
     response['l2_h__near_airp_percent'] = int(round((response['l2_h__near_airp']/response['Population'])*100,0)) if 'l2_h__near_airp' in response else 0
@@ -1341,6 +1405,7 @@ def getAvalancheForecast(request, filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
     response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
     rawAvalancheRisk = getRawAvalancheRisk(filterLock, flag, code)
     for i in rawAvalancheRisk:
         response[i]=rawAvalancheRisk[i]
@@ -1409,9 +1474,10 @@ def getRawAvalancheForecast(request, filterLock, flag, code):
 
     # Avalanche Forecasted
     if flag=='entireAfg':
-        cursor = connections['geodb'].cursor()
-        cursor.execute("select forcastedvalue.riskstate, \
-            sum(afg_avsa.avalanche_pop) \
+        # cursor = connections['geodb'].cursor()
+        sql = "select forcastedvalue.riskstate, \
+            sum(afg_avsa.avalanche_pop) as pop, \
+            sum(afg_avsa.area_buildings) as buildings \
             FROM afg_avsa \
             INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
             INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
@@ -1419,17 +1485,18 @@ def getRawAvalancheForecast(request, filterLock, flag, code):
             WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
-            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY))
-        row = cursor.fetchall()
-        cursor.close()
+            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY)
+        # row = cursor.fetchall()
+        # cursor.close()
     elif flag=='currentProvince':
-        cursor = connections['geodb'].cursor()
+        # cursor = connections['geodb'].cursor()
         if len(str(code)) > 2:
             ff0001 =  "dist_code  = '"+str(code)+"'"
         else :
             ff0001 =  "prov_code  = '"+str(code)+"'"
-        cursor.execute("select forcastedvalue.riskstate, \
-            sum(afg_avsa.avalanche_pop) \
+        sql = "select forcastedvalue.riskstate, \
+            sum(afg_avsa.avalanche_pop) as pop, \
+            sum(afg_avsa.area_buildings) as buildings \
             FROM afg_avsa \
             INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
             INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
@@ -1438,16 +1505,17 @@ def getRawAvalancheForecast(request, filterLock, flag, code):
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
             and afg_avsa.%s \
-            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,ff0001))
-        row = cursor.fetchall()
-        cursor.close()
+            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,ff0001)
+        # row = cursor.fetchall()
+        # cursor.close()
     elif flag=='drawArea':
-        cursor = connections['geodb'].cursor()
-        cursor.execute("select forcastedvalue.riskstate, \
+        # cursor = connections['geodb'].cursor()
+        sql = "select forcastedvalue.riskstate, \
             sum(case \
                 when ST_CoveredBy(afg_avsa.wkb_geometry , %s) then afg_avsa.avalanche_pop \
                 else st_area(st_intersection(afg_avsa.wkb_geometry, %s)) / st_area(afg_avsa.wkb_geometry)* avalanche_pop end \
-            ) \
+            ) as pop, \
+            sum(afg_avsa.area_buildings) as buildings \
             FROM afg_avsa \
             INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
             INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
@@ -1455,13 +1523,14 @@ def getRawAvalancheForecast(request, filterLock, flag, code):
             WHERE (NOT (afg_avsa.basinmember_id IN (SELECT U1.ogc_fid FROM afg_sheda_lvl4 U1 LEFT OUTER JOIN forcastedvalue U2 ON ( U1.ogc_fid = U2.basin_id ) WHERE U2.riskstate IS NULL)) \
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
-            GROUP BY forcastedvalue.riskstate" %(filterLock,filterLock,YEAR,MONTH,DAY))
-        row = cursor.fetchall()
-        cursor.close()
+            GROUP BY forcastedvalue.riskstate" %(filterLock,filterLock,YEAR,MONTH,DAY)
+        # row = cursor.fetchall()
+        # cursor.close()
     else:
-        cursor = connections['geodb'].cursor()
-        cursor.execute("select forcastedvalue.riskstate, \
-            sum(afg_avsa.avalanche_pop) \
+        # cursor = connections['geodb'].cursor()
+        sql = "select forcastedvalue.riskstate, \
+            sum(afg_avsa.avalanche_pop) as pop, \
+            sum(afg_avsa.area_buildings) as buildings \
             FROM afg_avsa \
             INNER JOIN current_sc_basins ON (ST_WITHIN(ST_Centroid(afg_avsa.wkb_geometry), current_sc_basins.wkb_geometry)) \
             INNER JOIN afg_sheda_lvl4 ON ( afg_avsa.basinmember_id = afg_sheda_lvl4.ogc_fid ) \
@@ -1470,14 +1539,28 @@ def getRawAvalancheForecast(request, filterLock, flag, code):
             AND forcastedvalue.datadate = '%s-%s-%s' \
             AND forcastedvalue.forecasttype = 'snowwater' ) \
             AND ST_Within(afg_avsa.wkb_geometry, %s) \
-            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,filterLock))
-        row = cursor.fetchall()
-        cursor.close()
+            GROUP BY forcastedvalue.riskstate" %(YEAR,MONTH,DAY,filterLock)
+        # row = cursor.fetchall()
+        # cursor.close()
 
-    response['ava_forecast_low_pop']=round(dict(row).get(1, 0) or 0,0)
-    response['ava_forecast_med_pop']=round(dict(row).get(2, 0) or 0,0)
-    response['ava_forecast_high_pop']=round(dict(row).get(3, 0) or 0,0)
+    cursor = connections['geodb'].cursor()
+    row = query_to_dicts(cursor, sql)
+    counts = []
+    for i in row:
+        counts.append(i)
+    cursor.close()
+
+    dict_pop = dict([(c['riskstate'], c['pop']) for c in counts])
+    response['ava_forecast_low_pop']=round(dict_pop.get(1, 0) or 0,0)
+    response['ava_forecast_med_pop']=round(dict_pop.get(2, 0) or 0,0)
+    response['ava_forecast_high_pop']=round(dict_pop.get(3, 0) or 0,0)
     response['total_ava_forecast_pop']=response['ava_forecast_low_pop'] + response['ava_forecast_med_pop'] + response['ava_forecast_high_pop']
+
+    dict_buildings = dict([(c['riskstate'], c['buildings']) for c in counts])
+    response['ava_forecast_low_buildings']=round(dict_buildings.get(1, 0) or 0,0)
+    response['ava_forecast_med_buildings']=round(dict_buildings.get(2, 0) or 0,0)
+    response['ava_forecast_high_buildings']=round(dict_buildings.get(3, 0) or 0,0)
+    response['total_ava_forecast_buildings']=response['ava_forecast_low_buildings'] + response['ava_forecast_med_buildings'] + response['ava_forecast_high_buildings']
 
     return response
 
@@ -1486,6 +1569,7 @@ def getAvalancheRisk(request, filterLock, flag, code):
     response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
 
     rawAvalancheRisk = getRawAvalancheRisk(filterLock, flag, code)
@@ -1544,6 +1628,7 @@ def getFloodRisk(request, filterLock, flag, code):
     response = getCommonUse(request, flag, code)
     response['Population']=getTotalPop(filterLock, flag, code, targetBase)
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
     response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
 
     rawBaseline = getRawBaseLine(filterLock, flag, code)
@@ -1557,6 +1642,8 @@ def getFloodRisk(request, filterLock, flag, code):
 
     if response['Population']==0:
         response['Population'] = 0.000001
+    if response['Buildings']==0:
+        response['Buildings'] = 0.000001
     if response['built_up_pop']==0:
         response['built_up_pop'] = 0.000001
     if response['built_up_area']==0:
@@ -1686,6 +1773,7 @@ def getRawAvalancheRisk(filterLock, flag, code):
     response = {}
     targetAvalanche = AfgAvsa.objects.all()
     counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', 'area_buildings', flag, code, None)
+    pprint.pprint(counts)
     # pop at risk level
     temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
     response['high_ava_population']=round(temp.get('High', 0) or 0,0)
@@ -1699,6 +1787,13 @@ def getRawAvalancheRisk(filterLock, flag, code):
     response['med_ava_area']=round((temp.get('Moderate', 0) or 0)/1000000,1)
     response['low_ava_area']=0
     response['total_ava_area']=round(response['high_ava_area']+response['med_ava_area']+response['low_ava_area'],2)
+
+    # buildings at risk level
+    temp = dict([(c['avalanche_cat'], c['houseatrisk']) for c in counts])
+    response['high_ava_buildings']=round(temp.get('High', 0) or 0,0)
+    response['med_ava_buildings']=round(temp.get('Moderate', 0) or 0, 0)
+    response['low_ava_buildings']=0
+    response['total_ava_buildings']=response['high_ava_buildings']+response['med_ava_buildings']+response['low_ava_buildings']
 
     return response
 
@@ -1751,7 +1846,7 @@ def getRawBaseLine(filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
     response = {}
     parent_data = getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', 'area_buildings', flag, code, None)
-    
+
     temp = dict([(c['agg_simplified_description'], c['count']) for c in parent_data])
     response['built_up_pop'] = round(temp.get('Build Up', 0),0)
     response['cultivated_pop'] = round(temp.get('Fruit Trees', 0),0)+round(temp.get('Irrigated Agricultural Land', 0),0)+round(temp.get('Rainfed', 0),0)+round(temp.get('Vineyards', 0),0)
@@ -2476,21 +2571,30 @@ def getFloodForecastMatrix(filterLock, flag, code):
     counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
     temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
 
-    response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
-    response['flashflood_forecast_low_pop']=round(temp.get(2, 0),0)
-    response['flashflood_forecast_med_pop']=round(temp.get(3, 0),0)
-    response['flashflood_forecast_high_pop']=round(temp.get(4, 0),0)
-    response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
-    response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
+    response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0) or 0,0)
+    response['flashflood_forecast_low_pop']=round(temp.get(2, 0) or 0,0)
+    response['flashflood_forecast_med_pop']=round(temp.get(3, 0) or 0,0)
+    response['flashflood_forecast_high_pop']=round(temp.get(4, 0) or 0,0)
+    response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0) or 0,0)
+    response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0) or 0,0)
     response['total_flashflood_forecast_pop']=response['flashflood_forecast_verylow_pop'] + response['flashflood_forecast_low_pop'] + response['flashflood_forecast_med_pop'] + response['flashflood_forecast_high_pop'] + response['flashflood_forecast_veryhigh_pop'] + response['flashflood_forecast_extreme_pop']
 
+    temp = dict([(c['basinmember__basins__riskstate'], c['houseatrisk']) for c in counts])
+    response['flashflood_forecast_verylow_buildings']=round(temp.get(1, 0) or 0,0)
+    response['flashflood_forecast_low_buildings']=round(temp.get(2, 0) or 0,0)
+    response['flashflood_forecast_med_buildings']=round(temp.get(3, 0) or 0,0)
+    response['flashflood_forecast_high_buildings']=round(temp.get(4, 0) or 0,0)
+    response['flashflood_forecast_veryhigh_buildings']=round(temp.get(5, 0) or 0,0)
+    response['flashflood_forecast_extreme_buildings']=round(temp.get(6, 0) or 0,0)
+    response['total_flashflood_forecast_buildings']=response['flashflood_forecast_verylow_buildings'] + response['flashflood_forecast_low_buildings'] + response['flashflood_forecast_med_buildings'] + response['flashflood_forecast_high_buildings'] + response['flashflood_forecast_veryhigh_buildings'] + response['flashflood_forecast_extreme_buildings']
+
     temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
-    response['flashflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0)
-    response['flashflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0)
-    response['flashflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0)
-    response['flashflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0)
-    response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0)
-    response['flashflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0)
+    response['flashflood_forecast_verylow_area']=round(temp.get(1, 0) or 0/1000000,0)
+    response['flashflood_forecast_low_area']=round(temp.get(2, 0) or 0/1000000,0)
+    response['flashflood_forecast_med_area']=round(temp.get(3, 0) or 0/1000000,0)
+    response['flashflood_forecast_high_area']=round(temp.get(4, 0) or 0/1000000,0)
+    response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0) or 0/1000000,0)
+    response['flashflood_forecast_extreme_area']=round(temp.get(6, 0) or 0/1000000,0)
     response['total_flashflood_forecast_area']=response['flashflood_forecast_verylow_area'] + response['flashflood_forecast_low_area'] + response['flashflood_forecast_med_area'] + response['flashflood_forecast_high_area'] + response['flashflood_forecast_veryhigh_area'] + response['flashflood_forecast_extreme_area']
 
     response['total_flood_forecast_pop'] = response['total_riverflood_forecast_pop'] + response['total_flashflood_forecast_pop']
@@ -2505,8 +2609,9 @@ def getFloodForecastMatrix(filterLock, flag, code):
     if flag=='entireAfg':
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
-                'pop' : 'SUM(fldarea_population)'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+                'pop' : 'SUM(fldarea_population)',
+                'building' : 'SUM(area_buildings)'
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
     elif flag=='currentProvince':
         if len(str(code)) > 2:
             ff0001 =  "dist_code  = '"+str(code)+"'"
@@ -2517,10 +2622,11 @@ def getFloodForecastMatrix(filterLock, flag, code):
                 ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
-                'pop' : 'SUM(fldarea_population)'
+                'pop' : 'SUM(fldarea_population)',
+                    'building' : 'SUM(area_buildings)'
             },where={
                 ff0001
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
     elif flag=='drawArea':
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
@@ -2528,55 +2634,85 @@ def getFloodForecastMatrix(filterLock, flag, code):
                         case \
                             when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then fldarea_population \
                             else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* fldarea_population end \
+                    )',
+                'building' : 'SUM(  \
+                        case \
+                            when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then area_buildings \
+                            else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* area_buildings end \
                     )'
             },
             where = {
                 'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
     else:
         px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
             select={
-                'pop' : 'SUM(fldarea_population)'
+                'pop' : 'SUM(fldarea_population)',
+                'building' : 'SUM(area_buildings)'
             },
             where = {
                 'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
 
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['flashflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['flashflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
+    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+    response['flashflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+    response['flashflood_forecast_verylow_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_verylow_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_verylow_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['flashflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['flashflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
+    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+    response['flashflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+    response['flashflood_forecast_low_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_low_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_low_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['flashflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['flashflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
+    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+    response['flashflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+    response['flashflood_forecast_med_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_med_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_med_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['flashflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['flashflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
+    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+    response['flashflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+    response['flashflood_forecast_high_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_high_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_high_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['flashflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['flashflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
+    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+    response['flashflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+    response['flashflood_forecast_veryhigh_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_veryhigh_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_veryhigh_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['flashflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0),0)
-    response['flashflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0), 0)
-    response['flashflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0),0)
+    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
+    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+    response['flashflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+    response['flashflood_forecast_extreme_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+    response['flashflood_forecast_extreme_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+    response['flashflood_forecast_extreme_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
     return response
 
@@ -2672,7 +2808,7 @@ def getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, DAY, merge):
 
     return response
 
-def getLandslideRiskChild(filterLock, flag, code): 
+def getLandslideRiskChild(filterLock, flag, code):
     sql = ''
     if flag=='entireAfg':
         sql = "select afg_lsp_affpplp.prov_code as code, afg_pplp.prov_na_en as na_en, \
@@ -2944,7 +3080,7 @@ def getLandslideRisk(request, filterLock, flag, code):
         if len(str(code)) > 2:
             ff0001 =  "afg_pplp.dist_code  = '"+str(code)+"'"
         else :
-            ff0001 =  "afg_pplp.prov_code_1  = '"+str(code)+"'" 
+            ff0001 =  "afg_pplp.prov_code_1  = '"+str(code)+"'"
 
         sql = "select \
                 coalesce(round(sum(case \
@@ -3024,7 +3160,7 @@ def getLandslideRisk(request, filterLock, flag, code):
                 end)),0) as ls_s3_wb_very_low    \
                 from afg_lsp_affpplp \
                 inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
-                where " +  ff0001  
+                where " +  ff0001
 
     elif flag =='drawArea':
         sql = "select \

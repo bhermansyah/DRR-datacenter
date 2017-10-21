@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" id="headingCategories">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans "Categories" %}</a>
+        <a data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories" class="collapsed"><i class="more-less glyphicon glyphicon-minus {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"></i>{% trans "Categories" %}</a>
       </h4>
     </div>
     <div id="collapseCategories" class="panel-collapse collapse in" aria-labelledby="headingCategories" aria-expanded="true">
@@ -53,7 +53,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingProv">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseKeywords" aria-expanded="false" aria-controls="collapseProv" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans "Keywords" %}</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseKeywords" aria-expanded="false" aria-controls="collapseProv" class="collapsed"><i class="more-less glyphicon glyphicon-minus {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"></i>{% trans "Keywords" %}</a>
       </h4>
     </div>
     <div id="collapseKeywords" class="panel-collapse collapse in" role="tabpanel"  aria-expanded="false">
@@ -82,7 +82,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" id="headingDate">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapseDate" aria-expanded="false" aria-controls="collapseDate" class="collapsed"><i class="more-less glyphicon glyphicon-minus"></i>{% trans "Date Published" %}</a>
+        <a data-toggle="collapse" href="#collapseDate" aria-expanded="false" aria-controls="collapseDate" class="collapsed"><i class="more-less glyphicon glyphicon-minus {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"></i>{% trans "Date Published" %}</a>
       </h4>
     </div>
     <div id="collapseDate" class="panel-collapse collapse in" aria-labelledby="headingDate" aria-expanded="true">

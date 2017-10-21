@@ -29,27 +29,33 @@
 		  <!-- Wrapper for slides -->
 		  <div class="carousel-inner carousel-fill" role="listbox">
 		      <div class="item active">
+		      	<div class="container">
+		      		<div class="carousel-caption">
+		      		    <h2>{% trans "Static Maps" %}</h2>
+		      		    <h3>{% trans "Browse the static maps, adjust the filter to easily find the static maps" %}</h3>
+		      		    <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:document_browse' %}">{% trans "Browse Static maps" %}</a>
+		      		</div>
+		      	</div>
 		          <!-- <img src="images/ASDC_FrontPage_Full_Size.jpg" alt="static"> -->
-		          <div class="carousel-caption">
-		              <h2>{% trans "Static Maps" %}</h2>
-		              <h3>{% trans "Browse the static maps, adjust the filter to easily find the static maps" %}</h3>
-		              <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:document_browse' %}">{% trans "Browse Static maps" %}</a>
-		          </div>
 		      </div>
 		      <div class="item">
 		          <!-- <img src="images/blog1.jpg" alt="interactive"> -->
-		          <div class="carousel-caption">
-		              <h2>{% trans "Interactive Maps" %}</h2>
-		              <h3>{% trans "Explore map on the interactive mode, style and export to pdf functionality enabled" %}</h3>
-		              <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:maps_browse' %}">{% trans "Browse Interactive Maps" %}</a>
-		          </div>
+		        <div class="container">
+		        	<div class="carousel-caption">
+		        	    <h2>{% trans "Interactive Maps" %}</h2>
+		        	    <h3>{% trans "Explore map on the interactive mode, style and export to pdf functionality enabled" %}</h3>
+		        	    <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:maps_browse' %}">{% trans "Browse Interactive Maps" %}</a>
+		        	</div>
+		        </div>
 		      </div>
 		      <div class="item">
-		          <div class="carousel-caption">
-		              <h2>{% trans "Analysis tools" %}</h2>
-		              <h3>{% trans "Populate analysis figure and export map pdf using geoexplorer" %}</h3>
-		              <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:maps_browse' %}656/view">{% trans "Open DRR Interactive Map" %}</a>
-		          </div>
+		      	<div class="container">
+		      		<div class="carousel-caption">
+		      		    <h2>{% trans "Analysis tools" %}</h2>
+		      		    <h3>{% trans "Populate analysis figure and export map pdf using geoexplorer" %}</h3>
+		      		    <a class="btn btn-default btn-lg btn-primary" href="{% url 'v2:maps_browse' %}656/view">{% trans "Open DRR Interactive Map" %}</a>
+		      		</div>
+		      	</div>
 		      </div>
 		  </div>
 
@@ -241,7 +247,7 @@
 	    <div class="container">
 	        <div class="center">
 	            <h3>Our Latest Maps</h3>
-	            <p class="lead">Look at some of the recent projects we have completed for our valuble clients</p>
+	            <p class="lead">Look at some of the recent projects we have completed</p>
 	        </div>
 	        <div class="gap"></div>
 	        <div class="row">
@@ -249,7 +255,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2>{% trans "Static Maps" %}</h2>
-	                        <h2 class="pull-right"><small><a href="{% url 'v2:document_browse' %}"> Show All</a></small></h2>
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"><small><a href="{% url 'v2:document_browse' %}"> {% trans "Show All" %}</a></small></h2>
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
@@ -271,7 +277,8 @@
 	                    					<figcaption class="item-description">
 	                    						<span class="author">
 	                    							{{ item.owner__username }}, {{ item.date|date:"d MMM y" }}
-	                    							<i class="fa fa-eye pull-right"> {{ item.popular_count }}</i>
+	                    							{% endverbatim %}
+	                    							<i class="fa fa-eye {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">{% verbatim %} {{ item.popular_count }}</i>
 
 	                    						</span>
 	                    						<h3>{{ item.title }}</h3>
@@ -289,7 +296,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2>Flood Maps</h2>
-	                        <h2 class="pull-right"><small><a href="#"> Show All</a></small></h2>
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"><small><a href="#"> {% trans 'Show All' %}</a></small></h2>
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
@@ -311,7 +318,8 @@
 	                    					<figcaption class="item-description">
 	                    						<span class="author">
 	                    							{{ item.owner__username }}, {{ item.date|date:"d MMM y" }}
-	                    							<i class="fa fa-eye pull-right">{% endverbatim %} {% verbatim %}{{ item.popular_count }}</i>
+	                    							{% endverbatim %} 
+	                    							<i class="fa fa-eye {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"> {% verbatim %}{{ item.popular_count }}</i>
 	                    						</span>
 	                    						<h3>{{ item.title }}</h3>
 	                    						<span>{{ item.abstract }}</span>

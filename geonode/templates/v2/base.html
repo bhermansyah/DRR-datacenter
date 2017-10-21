@@ -64,11 +64,11 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    Menu
+                    {% trans 'Menu' %}
                     <i class="fa fa-bars"></i>
                 </button>
                 <a id="logo" class="pull-left" href="{% url 'v2:home' %}"></a>
-                <a id="logo2" class="pull-left navbar-brand-immap" href="{% url 'v2:home' %}"><h1 class="webTitle" style="height:50px">{% trans "AFGHANISTAN SPATIAL DATA CENTER" %}</h1></a>
+                <a id="logo2" class="pull-left navbar-brand-immap" href="{% url 'v2:home' %}"><h1 class="webTitle" style="height:50px">{% trans "Afghanistan Spatial Data Center" %}</h1></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
@@ -236,25 +236,25 @@
             <div class="row">
                 <div class="col-md-5 cp">
                     &copy; 2016
-                    <a target="_blank" href="http://immap.org/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">iMMAP</a>. All Rights Reserved.
+                    <a target="_blank" href="http://immap.org/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">{% trans "iMMAP" %}</a>. All Rights Reserved.
                 </div>
                 <!--/Copyright-->
                 <div class="col-md-6">
                     <ul class="social pull-right">
                         <li>
-                            <a href="#"><i class="fa fa-envelope"></i></a>
+                            <a href="mailto:admin.geonode@immap.org"><i class="fa fa-envelope"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.youtube.com/channel/UCkd_swrFk9vN81s9SQ3fKgg"><i class="fa fa-youtube"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/immap.org/"><i class="fa fa-facebook"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-linkedin"></i></a>
+                            <a href="https://twitter.com/immaper?lang=en"><i class="fa fa-twitter"></i></a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-youtube"></i></a>
+                            <a href="https://www.linkedin.com/company/527383/"><i class="fa fa-linkedin"></i></a>
                         </li>
                     </ul>
                 </div>

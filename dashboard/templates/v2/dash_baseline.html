@@ -67,7 +67,96 @@
             </div>
 
             <div class="row">
-                <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>{% trans 'Population Graph' %}</h2>
+                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li>
+                                    <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                                <div id="echart_bar_horizontal" class="ch-size"></div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 col-sm-4 center">
+                                <div class="tile_count">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+                                        <span class="count_top"><i class="fa fa-male"></i> Total Population</span>
+                                        <div class="count red">{% readable Population %}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>{% trans 'Building Graph' %}</h2>
+                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li>
+                                    <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                                <div id="echart_bar_horizontal_build" class="ch-size"></div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 col-sm-4 center">
+                                <div class="tile_count">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+                                        <span class="count_top"><i class="fa fa-build"></i> {% trans 'Total Buildings' %}</span>
+                                        <div class="count red">{% readable Buildings %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>{% trans 'Area Graph' %}</h2>
+                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                                <li>
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li>
+                                    <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+                                <div id="echart_bar_horizontal_area" class="ch-size"></div>
+                            </div>
+                            <div class="col-md-12 col-xs-12 col-sm-4 center">
+                                <div class="tile_count">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+                                        <span class="count_top"><i class="fa fa-tree"></i> Total Area (km<sup>2</sup>)</span>
+                                        <div class="count red">{% readable Area %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>{% trans "Overview of Population and Area" %}</h2>
@@ -82,13 +171,14 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+                            <p class="text-muted font-13 m-b-30">{% trans 'An overview of the number of buildings, settlements, populations estimates per land cover as well as the area size per land cover.' %}</p>
                           	<div class="table-responsive hidden-print">
                                 <table class="table table-striped table-hover table-bordered online">
                                       <thead>
                                           <tr>
                                               <th rowspan="2">{% trans "Region" %}</th>
-                                              <th rowspan="2" class="hum"><i class="fa fa-building"></i></th>
-                                              <th rowspan="2" class="hum"><i class="fa fa-home"></i></th>
+                                              <th rowspan="2" class="hum" title="Buildings"><i class="fa fa-building"></i></th>
+                                              <th rowspan="2" class="hum" title="Settlements"><i class="fa fa-home"></i></th>
                                               <th colspan="2">{% trans "Built-Up" %}</th>
                                               <th colspan="2">{% trans "Cultivated" %}</th>
                                               <th colspan="2">{% trans "Barren/Rangeland" %}</th>
@@ -107,17 +197,17 @@
                                       </thead>
                                       <tbody>
                                           <tr>
-                                              <td>{{parent_label}}</td>
-                                              <td>{{Buildings}}</td>
-                                              <td>{{settlement}}</td>
-                                              <td>{{built_up_pop}}</td>
-                                              <td>{{built_up_area}}</td>
-                                              <td>{{cultivated_pop}}</td>
-                                              <td>{{cultivated_area}}</td>
-                                              <td>{{barren_pop}}</td>
-                                              <td>{{barren_area}}</td>
-                                              <td>{{Population}}</td>
-                                              <td>{{Area}}</td>
+                                              <td class="boldRow">{{parent_label}}</td>
+                                              <td class="boldRow">{{Buildings}}</td>
+                                              <td class="boldRow">{{settlement}}</td>
+                                              <td class="boldRow">{{built_up_pop}}</td>
+                                              <td class="boldRow">{{built_up_area}}</td>
+                                              <td class="boldRow">{{cultivated_pop}}</td>
+                                              <td class="boldRow">{{cultivated_area}}</td>
+                                              <td class="boldRow">{{barren_pop}}</td>
+                                              <td class="boldRow">{{barren_area}}</td>
+                                              <td class="boldRow">{{Population}}</td>
+                                              <td class="boldRow">{{Area}}</td>
                                           </tr>
                                           {% for data in lc_child %}
                                           <tr class="selectable" onclick="window.document.location='?page=baseline&code={{data.code}}';">
@@ -162,17 +252,17 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>{{parent_label}}</td>
-                                                <td>{{Buildings}}</td>
-                                                <td>{{settlement}}</td>
-                                                <td>{{built_up_pop}}</td>
-                                                <td>{{built_up_area}}</td>
-                                                <td>{{cultivated_pop}}</td>
-                                                <td>{{cultivated_area}}</td>
-                                                <td>{{barren_pop}}</td>
-                                                <td>{{barren_area}}</td>
-                                                <td>{{Population}}</td>
-                                                <td>{{Area}}</td>
+                                                <td class="boldRow">{{parent_label}}</td>
+                                                <td class="boldRow">{{Buildings}}</td>
+                                                <td class="boldRow">{{settlement}}</td>
+                                                <td class="boldRow">{{built_up_pop}}</td>
+                                                <td class="boldRow">{{built_up_area}}</td>
+                                                <td class="boldRow">{{cultivated_pop}}</td>
+                                                <td class="boldRow">{{cultivated_area}}</td>
+                                                <td class="boldRow">{{barren_pop}}</td>
+                                                <td class="boldRow">{{barren_area}}</td>
+                                                <td class="boldRow">{{Population}}</td>
+                                                <td class="boldRow">{{Area}}</td>
                                             </tr>
                                             {% for data in lc_child %}
                                             <tr class="selectable" onclick="window.document.location='?page=baseline&code={{data.code}}';">
@@ -195,43 +285,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Population & Area Graph</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
-                                <li>
-                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                </li>
-                                <li>
-                                    <a class="close-link"><i class="fa fa-close"></i></a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                        	<div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
-                        		<div id="echart_bar_horizontal" class="ch-size"></div>
-                        	</div>
-                            <div class="col-md-12 col-xs-12 col-sm-4 center">
-                            	<div class="tile_count">
-                            		<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                            		    <span class="count_top"><i class="fa fa-user"></i> Total Population</span>
-                            		    <div class="count red">{% readable Population %}</div>
-                            		</div>
-                            		<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                            		    <span class="count_top"><i class="fa fa-tree"></i> Total Area (km<sup>2</sup>)</span>
-                            		    <div class="count red">{% readable Area %}
-                            		    </div>
-                            		</div>
-                            	</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- </div>
 
-            <div class="row">
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
@@ -247,8 +303,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <p class="text-muted font-13 m-b-30">
-                          Describe Health Facilities Tier 1, 2, 3. What's the meaning of that.</p>
+                            <p class="text-muted font-13 m-b-30">{% trans 'An overview of which type of health facilities are present: Hospitals: National (H1), Provincial (H2), District (H3). Comprehensive Health Center (CHC), Basic Health Center (BHC), Sub Health Center (SHC)' %}</p>
                           	<div class="table-responsive hidden-print">
                           		<table class="table table-striped table-bordered table-hover online">
                           		    <thead>
@@ -257,8 +312,8 @@
                           		            <th colspan="3">{% trans "Tier 1" %}</th>
                           		            <th>{% trans "Tier 2" %}</th>
                           		            <th colspan="2">{% trans "Tier 3" %}</th>
-                          		            <th rowspan="2">{% trans "Others" %}</th>
-                          		            <th rowspan="2">{% trans "Total" %}</th>
+                          		            <th rowspan="2" class="hum">{% trans "Others" %}</th>
+                          		            <th rowspan="2" class="hum">{% trans "Total" %}</th>
                           		        </tr>
                           		        <tr>
                                             <th class="hum">{% trans "H1" %}</th>
@@ -272,7 +327,6 @@
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
-                                            <td class="boldRow">{{hltfac}}</td>
                                             <td class="boldRow">{{hlt_h1}}</td>
                                             <td class="boldRow">{{hlt_h2}}</td>
                                             <td class="boldRow">{{hlt_h3}}</td>
@@ -280,11 +334,11 @@
                                             <td class="boldRow">{{hlt_bhc}}</td>
                                             <td class="boldRow">{{hlt_shc}}</td>
                                             <td class="boldRow">{{hlt_others}}</td>
+                                            <td class="boldRow">{{hltfac}}</td>
                                         </tr>
                                         {% for data in additional_child %}
                                         <tr class='selectable' onclick="window.document.location='?page=baseline&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
-                                            <td>{{data.hlt_total}}</td>
                                             <td>{{data.hlt_h1}}</td>
                                             <td>{{data.hlt_h2}}</td>
                                             <td>{{data.hlt_h3}}</td>
@@ -292,6 +346,7 @@
                                             <td>{{data.hlt_bhc}}</td>
                                             <td>{{data.hlt_shc}}</td>
                                             <td>{{data.hlt_others}}</td>
+                                            <td>{{data.hlt_total}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -320,7 +375,6 @@
                                   <tbody>
                                       <tr>
                                           <td class="boldRow">{{parent_label}}</td>
-                                          <td class="boldRow">{{hltfac}}</td>
                                           <td class="boldRow">{{hlt_h1}}</td>
                                           <td class="boldRow">{{hlt_h2}}</td>
                                           <td class="boldRow">{{hlt_h3}}</td>
@@ -328,11 +382,11 @@
                                           <td class="boldRow">{{hlt_bhc}}</td>
                                           <td class="boldRow">{{hlt_shc}}</td>
                                           <td class="boldRow">{{hlt_others}}</td>
+                                          <td class="boldRow">{{hltfac}}</td>
                                       </tr>
                                       {% for data in additional_child %}
                                       <tr class='selectable' onclick="window.document.location='?page=baseline&code={{data.code}}';">
                                           <td>{{data.na_en}}</td>
-                                          <td>{{data.hlt_total}}</td>
                                           <td>{{data.hlt_h1}}</td>
                                           <td>{{data.hlt_h2}}</td>
                                           <td>{{data.hlt_h3}}</td>
@@ -340,6 +394,7 @@
                                           <td>{{data.hlt_bhc}}</td>
                                           <td>{{data.hlt_shc}}</td>
                                           <td>{{data.hlt_others}}</td>
+                                          <td>{{data.hlt_total}}</td>
                                       </tr>
                                       {% endfor %}
                                   </tbody>
@@ -377,9 +432,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            <!-- </div>
 
-            <div class="row">
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
@@ -395,7 +450,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <p class="text-muted font-13 m-b-30">Any Description of Road Network</p>
+                            <p class="text-muted font-13 m-b-30">{% trans 'An overview of estimated kilometers for each type of road classification' %}</p>
                           	<div class="table-responsive hidden-print">
                           		<table class="table table-striped table-bordered table-condensed table-hover road_network online">
                           		    <thead>
@@ -408,8 +463,8 @@
                                             <th class="hum">{% trans "Residential" %}</th>
                                             <th class="hum">{% trans "Track" %}</th>
                                             <th class="hum">{% trans "Path" %}</th>
-                                            <th class="hum">{% trans "River Crossing" %}</th>
-                                            <th class="hum">{% trans "Bridge" %}</th>
+                                            <!-- <th class="hum">{% trans "River Crossing" %}</th>
+                                            <th class="hum">{% trans "Bridge" %}</th> -->
                                             <th class="hum">{% trans "Total" %}</th>
                                         </tr>
                           		    </thead>
@@ -423,8 +478,8 @@
                                             <td class="boldRow">{{road_residential}}</td>
                                             <td class="boldRow">{{road_track}}</td>
                                             <td class="boldRow">{{road_path}}</td>
-                                            <td class="boldRow">{{road_river_crossing}}</td>
-                                            <td class="boldRow">{{road_bridge}}</td>
+                                            <!-- <td class="boldRow">{{road_river_crossing}}</td>
+                                            <td class="boldRow">{{road_bridge}}</td> -->
                                             <td class="boldRow">{{roadnetwork}}</td>
                                         </tr>
                                         {% for data in additional_child %}
@@ -437,8 +492,8 @@
                                             <td>{{data.road_residential}}</td>
                                             <td>{{data.road_track}}</td>
                                             <td>{{data.road_path}}</td>
-                                            <td>{{data.road_river_crossing}}</td>
-                                            <td>{{data.road_bridge}}</td>
+                                            <!-- <td>{{data.road_river_crossing}}</td>
+                                            <td>{{data.road_bridge}}</td> -->
                                             <td>{{data.road_total}}</td>
                                         </tr>
                                         {% endfor %}
@@ -457,15 +512,14 @@
                                           <th class="hum">{% trans "Residential" %}</th>
                                           <th class="hum">{% trans "Track" %}</th>
                                           <th class="hum">{% trans "Path" %}</th>
-                                          <th class="hum">{% trans "River Crossing" %}</th>
-                                          <th class="hum">{% trans "Bridge" %}</th>
+                                          <!-- <th class="hum">{% trans "River Crossing" %}</th>
+                                          <th class="hum">{% trans "Bridge" %}</th> -->
                                           <th class="hum">{% trans "Total" %}</th>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr>
                                           <td class="boldRow">{{parent_label}}</td>
-                                          <td class="boldRow">{{roadnetwork}}</td>
                                           <td class="boldRow">{{road_highway}}</td>
                                           <td class="boldRow">{{road_primary}}</td>
                                           <td class="boldRow">{{road_secondary}}</td>
@@ -473,8 +527,9 @@
                                           <td class="boldRow">{{road_residential}}</td>
                                           <td class="boldRow">{{road_track}}</td>
                                           <td class="boldRow">{{road_path}}</td>
-                                          <td class="boldRow">{{road_river_crossing}}</td>
-                                          <td class="boldRow">{{road_bridge}}</td>
+                                          <!-- <td class="boldRow">{{road_river_crossing}}</td>
+                                          <td class="boldRow">{{road_bridge}}</td> -->
+                                          <td class="boldRow">{{roadnetwork}}</td>
                                       </tr>
                                       {% for data in additional_child %}
                                       <tr class="selectable" onclick="window.document.location='?page=baseline&code={{data.code}}';">
@@ -486,8 +541,8 @@
                                           <td>{{data.road_residential}}</td>
                                           <td>{{data.road_track}}</td>
                                           <td>{{data.road_path}}</td>
-                                          <td>{{data.road_river_crossing}}</td>
-                                          <td>{{data.road_bridge}}</td>
+                                          <!-- <td>{{data.road_river_crossing}}</td>
+                                          <td>{{data.road_bridge}}</td> -->
                                           <td>{{data.road_total}}</td>
                                       </tr>
                                       {% endfor %}

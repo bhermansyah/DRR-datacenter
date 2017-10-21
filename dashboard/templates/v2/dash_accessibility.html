@@ -65,12 +65,12 @@
                             <div class="tile_count">
                                 <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
                                     <span class="count_top"><i class="fa fa-building"></i> Total Building</span>
-                                    <div class="count red">{% readable Area %}
+                                    <div class="count red">{% readable Buildings %}
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
                                     <span class="count_top"><i class="fa fa-signal"></i> GSM Cov. Building</span>
-                                    <div class="count red">{% readable 0 %}
+                                    <div class="count red">{% readable buildings_on_gsm_coverage %}
                                     </div>
                                 </div>
                             </div>
@@ -134,84 +134,46 @@
                                 <table class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_airp}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_airp}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_airp}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_airp}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_airp}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_airp}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_airp}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_airp}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_airp}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_airp}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_airp}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_airp}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_airp}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_airp}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_airp}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_airp}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_airp}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_airp}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -221,84 +183,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_airp}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_airp}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_airp}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_airp}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_airp}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_airp}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_airp}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_airp}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_airp}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_airp}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_airp}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_airp}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_airp}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_airp}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_airp}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_airp}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_airp}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_airp}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -349,84 +273,46 @@
                                 <table class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hlt1}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hlt1}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hlt1}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hlt1}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hlt1}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hlt1}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hlt1}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hlt1}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hlt1}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hlt1}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hlt1}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hlt1}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hlt1}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hlt1}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hlt1}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hlt1}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hlt1}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hlt1}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -436,84 +322,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hlt1}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hlt1}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hlt1}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hlt1}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hlt1}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hlt1}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hlt1}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hlt1}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hlt1}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hlt1}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hlt1}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hlt1}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hlt1}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hlt1}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hlt1}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hlt1}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hlt1}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hlt1}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -564,84 +412,46 @@
                                 <table class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hlt2}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hlt2}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hlt2}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hlt2}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hlt2}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hlt2}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hlt2}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hlt2}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hlt2}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hlt2}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hlt2}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hlt2}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hlt2}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hlt2}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hlt2}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hlt2}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hlt2}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hlt2}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -651,84 +461,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h"><i class="fa fa-male"></i></th>
-                                            <th class="l1h"><i class="fa fa-building"></i></th>
-                                            <th class="l2h"><i class="fa fa-male"></i></th>
-                                            <th class="l2h"><i class="fa fa-building"></i></th>
-                                            <th class="l3h"><i class="fa fa-male"></i></th>
-                                            <th class="l3h"><i class="fa fa-building"></i></th>
-                                            <th class="l4h"><i class="fa fa-male"></i></th>
-                                            <th class="l4h"><i class="fa fa-building"></i></th>
-                                            <th class="l5h"><i class="fa fa-male"></i></th>
-                                            <th class="l5h"><i class="fa fa-building"></i></th>
-                                            <th class="l6h"><i class="fa fa-male"></i></th>
-                                            <th class="l6h"><i class="fa fa-building"></i></th>
-                                            <th class="l7h"><i class="fa fa-male"></i></th>
-                                            <th class="l7h"><i class="fa fa-building"></i></th>
-                                            <th class="l8h"><i class="fa fa-male"></i></th>
-                                            <th class="l8h"><i class="fa fa-building"></i></th>
-                                            <th class="m8h"><i class="fa fa-male"></i></th>
-                                            <th class="m8h"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hlt2}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hlt2}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hlt2}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hlt2}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hlt2}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hlt2}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hlt2}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hlt2}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hlt2}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hlt2}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hlt2}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hlt2}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hlt2}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hlt2}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hlt2}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hlt2}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hlt2}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hlt2}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -779,84 +551,46 @@
                                 <table id="nHealth3" class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hlt3}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hlt3}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hlt3}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hlt3}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hlt3}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hlt3}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hlt3}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hlt3}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hlt3}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hlt3}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hlt3}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hlt3}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hlt3}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hlt3}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hlt3}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hlt3}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hlt3}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hlt3}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -866,84 +600,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hlt3}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hlt3}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hlt3}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hlt3}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hlt3}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hlt3}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hlt3}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hlt3}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hlt3}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hlt3}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hlt3}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hlt3}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hlt3}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hlt3}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hlt3}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hlt3}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hlt3}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hlt3}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -994,84 +690,46 @@
                                 <table class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hltall}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hltall}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hltall}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hltall}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hltall}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hltall}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hltall}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hltall}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hltall}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hltall}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hltall}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hltall}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hltall}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hltall}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hltall}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hltall}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hltall}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hltall}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1081,84 +739,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_hltall}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_hltall}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_hltall}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_hltall}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_hltall}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_hltall}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_hltall}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_hltall}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_hltall}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_hltall}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_hltall}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_hltall}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_hltall}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_hltall}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_hltall}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_hltall}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_hltall}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_hltall}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1209,84 +829,46 @@
                                 <table class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__itsx_prov}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__itsx_prov}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__itsx_prov}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__itsx_prov}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__itsx_prov}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__itsx_prov}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__itsx_prov}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__itsx_prov}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__itsx_prov}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__itsx_prov}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__itsx_prov}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__itsx_prov}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__itsx_prov}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__itsx_prov}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__itsx_prov}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__itsx_prov}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__itsx_prov}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__itsx_prov}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1296,84 +878,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__itsx_prov}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__itsx_prov}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__itsx_prov}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__itsx_prov}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__itsx_prov}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__itsx_prov}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__itsx_prov}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__itsx_prov}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__itsx_prov}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__itsx_prov}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__itsx_prov}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__itsx_prov}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__itsx_prov}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__itsx_prov}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__itsx_prov}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__itsx_prov}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__itsx_prov}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__itsx_prov}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1424,84 +968,46 @@
                                 <table class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_prov}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_prov}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_prov}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_prov}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_prov}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_prov}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_prov}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_prov}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_prov}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_prov}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_prov}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_prov}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_prov}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_prov}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_prov}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_prov}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_prov}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_prov}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1511,84 +1017,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_prov}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_prov}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_prov}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_prov}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_prov}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_prov}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_prov}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_prov}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_prov}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_prov}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_prov}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_prov}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_prov}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_prov}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_prov}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_prov}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_prov}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_prov}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1637,84 +1105,46 @@
                                 <table class="table table-condensed online">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_dist}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_dist}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_dist}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_dist}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_dist}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_dist}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_dist}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_dist}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_dist}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr class="selectable" onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_dist}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_dist}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_dist}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_dist}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_dist}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_dist}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_dist}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_dist}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_dist}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1724,84 +1154,46 @@
                                 <table class="table table-condensed print">
                                     <thead>
                                         <tr>
-                                            <th rowspan="3">{% trans "Region" %}</th>
+                                            <th rowspan="2">{% trans "Region" %}</th>
                                             <th colspan="18">{% trans "Travel Time" %}</th>
                                         </tr>
                                         <tr>
-                                            <th class="l1h" colspan="2">< {% trans "1 h" %}</th>
-                                            <th class="l2h" colspan="2">< {% trans "2 h" %}</th>
-                                            <th class="l3h" colspan="2">< {% trans "3 h" %}</th>
-                                            <th class="l4h" colspan="2">< {% trans "4 h" %}</th>
-                                            <th class="l5h" colspan="2">< {% trans "5 h" %}</th>
-                                            <th class="l6h" colspan="2">< {% trans "6 h" %}</th>
-                                            <th class="l7h" colspan="2">< {% trans "7 h" %}</th>
-                                            <th class="l8h" colspan="2">< {% trans "8 h" %}</th>
-                                            <th class="m8h" colspan="2">> {% trans "8 h" %}</th>
-                                        </tr>
-                                        <tr>
-                                            <th class="l1h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l1h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l2h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l3h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l4h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l5h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l6h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l7h hum"><i class="fa fa-building"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="l8h hum"><i class="fa fa-building"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-male"></i></th>
-                                            <th class="m8h hum"><i class="fa fa-building"></i></th>
+                                            <th class="l1h hum">&lt; {% trans "1 h" %}</th>
+                                            <th class="l2h hum">&lt; {% trans "2 h" %}</th>
+                                            <th class="l3h hum">&lt; {% trans "3 h" %}</th>
+                                            <th class="l4h hum">&lt; {% trans "4 h" %}</th>
+                                            <th class="l5h hum">&lt; {% trans "5 h" %}</th>
+                                            <th class="l6h hum">&lt; {% trans "6 h" %}</th>
+                                            <th class="l7h hum">&lt; {% trans "7 h" %}</th>
+                                            <th class="l8h hum">&lt; {% trans "8 h" %}</th>
+                                            <th class="m8h hum">&gt; {% trans "8 h" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td class="boldRow">{{parent_label}}</td>
                                             <td class="boldRow l1h">{{l1_h__near_dist}}</td>
-                                            <td class="boldRow l1h">0</td>
                                             <td class="boldRow l2h">{{l2_h__near_dist}}</td>
-                                            <td class="boldRow l2h">0</td>
                                             <td class="boldRow l3h">{{l3_h__near_dist}}</td>
-                                            <td class="boldRow l3h">0</td>
                                             <td class="boldRow l4h">{{l4_h__near_dist}}</td>
-                                            <td class="boldRow l4h">0</td>
                                             <td class="boldRow l5h">{{l5_h__near_dist}}</td>
-                                            <td class="boldRow l5h">0</td>
                                             <td class="boldRow l6h">{{l6_h__near_dist}}</td>
-                                            <td class="boldRow l6h">0</td>
                                             <td class="boldRow l7h">{{l7_h__near_dist}}</td>
-                                            <td class="boldRow l7h">0</td>
                                             <td class="boldRow l8h">{{l8_h__near_dist}}</td>
-                                            <td class="boldRow l8h">0</td>
                                             <td class="boldRow m8h">{{g8_h__near_dist}}</td>
-                                            <td class="boldRow m8h">0</td>
                                         </tr>
                                         {% for data in lc_child %}
                                         <tr onclick="window.document.location='?page=accessibility&code={{data.code}}';">
                                             <td>{{data.na_en}}</td>
                                             <td class="l1h">{{data.l1_h__near_dist}}</td>
-                                            <td class="l1h">0</td>
                                             <td class="l2h">{{data.l2_h__near_dist}}</td>
-                                            <td class="l2h">0</td>
                                             <td class="l3h">{{data.l3_h__near_dist}}</td>
-                                            <td class="l3h">0</td>
                                             <td class="l4h">{{data.l4_h__near_dist}}</td>
-                                            <td class="l4h">0</td>
                                             <td class="l5h">{{data.l5_h__near_dist}}</td>
-                                            <td class="l5h">0</td>
                                             <td class="l6h">{{data.l6_h__near_dist}}</td>
-                                            <td class="l6h">0</td>
                                             <td class="l7h">{{data.l7_h__near_dist}}</td>
-                                            <td class="l7h">0</td>
                                             <td class="l8h">{{data.l8_h__near_dist}}</td>
-                                            <td class="l8h">0</td>
                                             <td class="m8h">{{data.g8_h__near_dist}}</td>
-                                            <td class="m8h">0</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -1839,6 +1231,8 @@
     var tot_area = {{ Area }};
     var gsm_pop = {{ pop_on_gsm_coverage }};
     var tot_pop = {{ Population }};
+    var gsm_bld = {{ buildings_on_gsm_coverage }};
+    var tot_bld = {{ Buildings }};
 
     var near_airport = [{{ l1_h__near_airp }}, {{ l2_h__near_airp }}, {{ l3_h__near_airp }}, {{ l4_h__near_airp }}, {{ l5_h__near_airp }}, {{ l6_h__near_airp }}, {{ l7_h__near_airp }}, {{ l8_h__near_airp }}, {{ g8_h__near_airp }}];
 

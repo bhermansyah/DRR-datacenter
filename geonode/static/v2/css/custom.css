@@ -174,23 +174,33 @@ tr td:nth-child(1), .list_incident tr td:nth-child(2) {
     cursor: pointer;
 }
 
-.table thead {
+.x_content .table thead>tr>th{
     background-color: #ddd;
+    border: 1px solid #d3d3d3;
+}
+
+#access .x_content .table thead>tr>th,
+#landslide .x_content .table thead>tr>th,
+#erthqk .x_content .table thead>tr>th{
     border: 1px solid #fff !important;
 }
 
-table.road_network{
-    font-size: 11px;
-    width: 100% !important;
+.x_content table.table {
+    border-collapse: collapse;
 }
 
-th.l1h, th.l2h, th.l3h, th.l4h, th.l5h, th.l6h, th.l7h, th.l8h, th.m8h, 
+/*table.road_network{
+    font-size: 11px;
+    width: 100% !important;
+}*/
+
+th.l1h, th.l2h, th.l3h, th.l4h, th.l5h, th.l6h, th.l7h, th.l8h, th.m8h,
 th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low {
     border-bottom: 2px solid #fff !important;
 }
 
 #access table{
-    font-size: 10px;
+    /*font-size: 10px;*/
     border-collapse: collapse;
     border: 1px solid #ddd;
 }
@@ -216,52 +226,61 @@ th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low {
 }
 
 #nHealth1.table, #nHealth2.table, #nHealth3.table, #nHealth4.table, #ProvC.table, #nProv.table, #nAirport.table, #nDist.table {
-    
+
 }
 
-th.l1h, td.l1h/*, 
+th.l1h, td.l1h/*,
 #nAirport tr td:nth-child(2), #nHealth1 tr td:nth-child(2), #nHealth2 tr td:nth-child(2), #nHealth3 tr td:nth-child(2), #nHealth4 tr td:nth-child(2), #ProvC tr td:nth-child(2), #nProv tr td:nth-child(2), #nDist tr td:nth-child(2)*/{
     background-color: #c0fee5 !important;
+    border: 1px solid #fff !important;
 }
 
-th.l2h, td.l2h/*, 
+th.l2h, td.l2h/*,
 #nAirport tr td:nth-child(3), #nHealth1 tr td:nth-child(3), #nHealth2 tr td:nth-child(3), #nHealth3 tr td:nth-child(3), #nHealth4 tr td:nth-child(3), #ProvC tr td:nth-child(3), #nProv tr td:nth-child(3), #nDist tr td:nth-child(3)*/{
     background-color: #94fdd5 !important;
+    border: 1px solid #fff !important;
 }
 
-th.l3h, td.l3h/*, 
+th.l3h, td.l3h/*,
 #nAirport tr td:nth-child(4), #nHealth1 tr td:nth-child(4), #nHealth2 tr td:nth-child(4), #nHealth3 tr td:nth-child(4), #nHealth4 tr td:nth-child(4), #ProvC tr td:nth-child(4), #nProv tr td:nth-child(4), #nDist tr td:nth-child(4)*/{
     background-color: #75fcc9 !important;
+    border: 1px solid #fff !important;
 }
 
-th.l4h, td.l4h/*, 
+th.l4h, td.l4h/*,
 #nAirport tr td:nth-child(5), #nHealth1 tr td:nth-child(5), #nHealth2 tr td:nth-child(5), #nHealth3 tr td:nth-child(5), #nHealth4 tr td:nth-child(5), #ProvC tr td:nth-child(5), #nProv tr td:nth-child(5), #nDist tr td:nth-child(5)*/{
     background-color: #fffe7f !important;
+    border: 1px solid #fff !important;
 }
 
-th.l5h, td.l5h/*, 
+th.l5h, td.l5h/*,
 #nAirport tr td:nth-child(6), #nHealth1 tr td:nth-child(6), #nHealth2 tr td:nth-child(6), #nHealth3 tr td:nth-child(6), #nHealth4 tr td:nth-child(6), #ProvC tr td:nth-child(6), #nProv tr td:nth-child(6), #nDist tr td:nth-child(6)*/{
     background-color: #feb24c !important;
+    border: 1px solid #fff !important;
 }
 
-th.l6h, td.l6h/*, 
+th.l6h, td.l6h/*,
 #nAirport tr td:nth-child(7), #nHealth1 tr td:nth-child(7), #nHealth2 tr td:nth-child(7), #nHealth3 tr td:nth-child(7), #nHealth4 tr td:nth-child(7), #ProvC tr td:nth-child(7), #nProv tr td:nth-child(7), #nDist tr td:nth-child(7)*/{
     background-color: #fd8d3c !important;
+    border: 1px solid #fff !important;
 }
 
-th.l7h, td.l7h/*, 
+th.l7h, td.l7h/*,
 #nAirport tr td:nth-child(8), #nHealth1 tr td:nth-child(8), #nHealth2 tr td:nth-child(8), #nHealth3 tr td:nth-child(8), #nHealth4 tr td:nth-child(8), #ProvC tr td:nth-child(8), #nProv tr td:nth-child(8), #nDist tr td:nth-child(8)*/{
     background-color: #ffc9c7 !important;
+    border: 1px solid #fff !important;
 }
 
-th.l8h, td.l8h/*, 
+th.l8h, td.l8h/*,
 #nAirport tr td:nth-child(9), #nHealth1 tr td:nth-child(9), #nHealth2 tr td:nth-child(9), #nHealth3 tr td:nth-child(9), #nHealth4 tr td:nth-child(9), #ProvC tr td:nth-child(9), #nProv tr td:nth-child(9), #nDist tr td:nth-child(9)*/{
     background-color: #ffa8a4 !important;
+    border: 1px solid #fff !important;
 }
 
-th.m8h, td.m8h/*, 
+th.m8h, td.m8h/*,
 #nAirport tr td:nth-child(10), #nHealth1 tr td:nth-child(10), #nHealth2 tr td:nth-child(10), #nHealth3 tr td:nth-child(10), #nHealth4 tr td:nth-child(10), #ProvC tr td:nth-child(10), #nProv tr td:nth-child(10), #nDist tr td:nth-child(10)*/{
     background-color: #ff9d99 !important;
+    border: 1px solid #fff !important;
 }
 
 #ffforecast.table>tbody>tr>td,
@@ -289,8 +308,8 @@ td.ext, td.ext_fill, #ffforecast tr:nth-child(1) td:nth-child(2),
 #ggfforecast tr:nth-child(1) td:nth-child(2),
 #glfforecast tr:nth-child(1) td:nth-child(2),
 #gffforecast tr:nth-child(1) td:nth-child(2),
-th.ext, 
-#rfforecast tr td:nth-child(1), 
+th.ext,
+#rfforecast tr td:nth-child(1),
 #rggfoverview tr td:nth-child(2), #rggfoverview tr td:nth-child(3), #rggfoverview tr td:nth-child(12), #rggfoverview tr td:nth-child(13),
 #rglfoverview tr td:nth-child(2), #rglfoverview tr td:nth-child(3), #rglfoverview tr td:nth-child(12), #rglfoverview tr td:nth-child(13),
 #rgffoverview tr td:nth-child(2), #rgffoverview tr td:nth-child(3), #rgffoverview tr td:nth-child(12), #rgffoverview tr td:nth-child(13){
@@ -303,8 +322,8 @@ td.vhigh, td.vhigh_fill, #ffforecast tr:nth-child(4) td:nth-child(2),
 #ggfforecast tr:nth-child(4) td:nth-child(2),
 #glfforecast tr:nth-child(4) td:nth-child(2),
 #gffforecast tr:nth-child(4) td:nth-child(2),
-th.vhigh, 
-#rfforecast tr td:nth-child(2), 
+th.vhigh,
+#rfforecast tr td:nth-child(2),
 #rggfoverview tr td:nth-child(4), #rggfoverview tr td:nth-child(5), #rggfoverview tr td:nth-child(14), #rggfoverview tr td:nth-child(15),
 #rglfoverview tr td:nth-child(4), #rglfoverview tr td:nth-child(5), #rglfoverview tr td:nth-child(14), #rglfoverview tr td:nth-child(15),
 #rgffoverview tr td:nth-child(4), #rgffoverview tr td:nth-child(5), #rgffoverview tr td:nth-child(14), #rgffoverview tr td:nth-child(15){
@@ -317,8 +336,8 @@ td.high, td.high_fill, #ffforecast tr:nth-child(7) td:nth-child(2),
 #ggfforecast tr:nth-child(7) td:nth-child(2),
 #glfforecast tr:nth-child(7) td:nth-child(2),
 #gffforecast tr:nth-child(7) td:nth-child(2),
-th.high, 
-#rfforecast tr td:nth-child(3), 
+th.high,
+#rfforecast tr td:nth-child(3),
 #rggfoverview tr td:nth-child(6), #rggfoverview tr td:nth-child(7), #rggfoverview tr td:nth-child(16), #rggfoverview tr td:nth-child(17),
 #rglfoverview tr td:nth-child(6), #rglfoverview tr td:nth-child(7), #rglfoverview tr td:nth-child(16), #rglfoverview tr td:nth-child(17),
 #rgffoverview tr td:nth-child(6), #rgffoverview tr td:nth-child(7), #rgffoverview tr td:nth-child(16), #rgffoverview tr td:nth-child(17){
@@ -331,8 +350,8 @@ td.mod, td.mod_fill, #ffforecast tr:nth-child(10) td:nth-child(2),
 #ggfforecast tr:nth-child(10) td:nth-child(2),
 #glfforecast tr:nth-child(10) td:nth-child(2),
 #gffforecast tr:nth-child(10) td:nth-child(2),
-th.mod, 
-#rfforecast tr td:nth-child(4), 
+th.mod,
+#rfforecast tr td:nth-child(4),
 #rggfoverview tr td:nth-child(8), #rggfoverview tr td:nth-child(9), #rggfoverview tr td:nth-child(18), #rggfoverview tr td:nth-child(19),
 #rglfoverview tr td:nth-child(8), #rglfoverview tr td:nth-child(9), #rglfoverview tr td:nth-child(18), #rglfoverview tr td:nth-child(19),
 #rgffoverview tr td:nth-child(8), #rgffoverview tr td:nth-child(9), #rgffoverview tr td:nth-child(18), #rgffoverview tr td:nth-child(19){
@@ -345,8 +364,8 @@ td.low, td.low_fill, #ffforecast tr:nth-child(13) td:nth-child(2),
 #ggfforecast tr:nth-child(13) td:nth-child(2),
 #glfforecast tr:nth-child(13) td:nth-child(2),
 #gffforecast tr:nth-child(13) td:nth-child(2),
-th.low, 
-#rfforecast tr td:nth-child(5), 
+th.low,
+#rfforecast tr td:nth-child(5),
 #rggfoverview tr td:nth-child(10), #rggfoverview tr td:nth-child(11), #rggfoverview tr td:nth-child(20), #rggfoverview tr td:nth-child(21),
 #rglfoverview tr td:nth-child(10), #rglfoverview tr td:nth-child(11), #rglfoverview tr td:nth-child(20), #rglfoverview tr td:nth-child(21),
 #rgffoverview tr td:nth-child(10), #rgffoverview tr td:nth-child(11), #rgffoverview tr td:nth-child(20), #rgffoverview tr td:nth-child(21){
@@ -386,57 +405,69 @@ th.lo
 
 th.landslide_vhigh, td.landslide_vhigh {
     background-color: #e84c3d !important;
+    border: 1px solid #fff !important;
 }
 
 th.landslide_high, td.landslide_high {
     background-color: #FB8C00 !important;
+    border: 1px solid #fff !important;
 }
 
 th.landslide_mod, td.landslide_mod {
     background-color: #FDD835 !important;
+    border: 1px solid #fff !important;
 }
 
 th.landslide_low, td.landslide_low {
     background-color: #43A047 !important;
+    border: 1px solid #fff !important;
 }
 
 th.weak, td.weak/*,
 #erthqkTable tr td:nth-child(2), #erthqkTable tr td:nth-child(3)*/ {
     background-color: #d4e6f1 !important;
+    border: 1px solid #fff !important;
 }
 th.light, td.light/*,
 #erthqkTable tr td:nth-child(4), #erthqkTable tr td:nth-child(5)*/ {
     background-color: #c2fcf7 !important;
+    border: 1px solid #fff !important;
 }
 
 th.modrt, td.modrt/*,
 #erthqkTable tr td:nth-child(6), #erthqkTable tr td:nth-child(7)*/{
     background-color: #6dffb6 !important;
+    border: 1px solid #fff !important;
 }
 
 th.strong, td.strong/*,
 #erthqkTable tr td:nth-child(8), #erthqkTable tr td:nth-child(9)*/{
     background-color: #ffff5c !important;
+    border: 1px solid #fff !important;
 }
 
 th.vstrong, td.vstrong/*,
 #erthqkTable tr td:nth-child(10), #erthqkTable tr td:nth-child(11)*/{
     background-color: #ffe74c !important;
+    border: 1px solid #fff !important;
 }
 
 th.severe, td.severe/*,
 #erthqkTable tr td:nth-child(12), #erthqkTable tr td:nth-child(13)*/{
     background-color: #ffc600 !important;
+    border: 1px solid #fff !important;
 }
 
 th.violent, td.violent/*,
 #erthqkTable tr td:nth-child(14), #erthqkTable tr td:nth-child(15)*/{
     background-color: #ff5751 !important;
+    border: 1px solid #fff !important;
 }
 
 th.extrme, td.extrme/*,
 #erthqkTable tr td:nth-child(16), #erthqkTable tr td:nth-child(17)*/{
     background-color: #e84c3d !important;
+    border: 1px solid #fff !important;
 }
 
 
@@ -683,7 +714,7 @@ img#SnowLegend.snapshot-legend{
 
 .detail {
   padding: 20px;
-  /*white-space: nowrap; 
+  /*white-space: nowrap;
   color: white;
   font-size: 20px;
   position: absolute;
@@ -933,6 +964,16 @@ div#partnerCarousel {
     max-height: 125px;
 }
 
+/*Section About*/
+
+#about .author .x_panel {
+    height: 350px;
+}
+
+#about .author .x_panel h5{
+    height: 40px;
+}
+
 /*Section Bottom*/
 
 #bottom
@@ -1141,7 +1182,7 @@ ul.breadcrumb-custom>li>a,ul.breadcrumb-custom>li .divider
 
 .breadcrumb-custom{
     background-color: #fff;
-    margin-left: 15px; 
+    margin-left: 15px;
     margin-right: 15px;
     margin-bottom: 0;
 }
@@ -1308,7 +1349,7 @@ nav #logo {
     width: 220px;
     height: 80px;
     background: url(../images/usaid-logo.png) no-repeat 0 50%;
-    
+
     height: 59px;
     margin-right: 0px;
     margin-left: 0px;
@@ -1334,14 +1375,14 @@ nav #logo {
 nav #logo2 {
     width: 280px;
     height: 80px;
-    background: url(../images/immap.png) no-repeat 0 50%;
-    
+    background: url(../images/iMMAP.png) no-repeat 0 50%;
+
     height: 55px;
     margin-right: 0px;
     margin-left: -16px;
     margin-top: 10px;
     float: left;
-    font-size: 18px;  
+    font-size: 18px;
     text-indent: 64px;
     background-size: 60px 65px;
 }
@@ -1349,9 +1390,9 @@ nav #logo2 {
 .navbar-brand-immap h1
 {
     color: #535353;
-    font: normal 100 10px/40px "futura-pt", sans-serif;
+    font: normal 600 12px/40px "futura-pt", sans-serif;
     letter-spacing: 0.5px;
-    text-align: left;
+    /*text-align: left;*/
     margin-top: 8px;
     margin-bottom: 10px;
 }
@@ -1366,7 +1407,7 @@ nav #logo2 {
 @media only screen and (max-width: 1020px){
     nav #logo2{
         width: 60px;
-    }    
+    }
 
     .navbar-brand-immap h1{
         overflow: hidden;
@@ -1806,17 +1847,17 @@ nav.navbar-lower .nav>li>a:hover {
     overflow-y: auto;
     overflow-x: hidden;
 }
- 
+
 .project-jquerytypeahead.page-demo .typeahead__list li a {
     position: relative;
 }
- 
+
 .project-jquerytypeahead.page-demo .result-container {
     position: absolute;
     color: #777;
     top: -1.5em;
 }
- 
+
 .project-jquerytypeahead.page-demo .typeahead-search li a .flag-chart {
     position: absolute;
     right: 16px;
@@ -1873,7 +1914,7 @@ nav .navbar-upper .dropdown-menu:before
 }*/
 
 .container-search input.search{
-    
+
     /*height: 50px;*/
     /*background: #2b303b;*/
     /*float: left;*/
@@ -1883,7 +1924,7 @@ nav .navbar-upper .dropdown-menu:before
     border: none;
     font-size: 10pt;
     padding-left: 15px;*/
-    
+
     /*-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;*/
@@ -1896,7 +1937,7 @@ nav .navbar-upper .dropdown-menu:before
 }
 
 .container-search .search-icon{
-    
+
     /*top: 50%;*/
     /*margin-left: 17px;*/
     /*margin-top: 17px;*/
@@ -1908,10 +1949,10 @@ nav .navbar-upper .dropdown-menu:before
     /*position: absolute;
     z-index: 2;
     border: none;
-    
+
     top: 3px;
     width: 25px;
-    
+
     margin-left: -35px;
     opacity: 1;
     font-size: 10pt;
@@ -2063,7 +2104,7 @@ div.sample button.btn-search, div.sample button.btn-reset {
     /*-webkit-filter: grayscale(90%);*/
     /*filter: grayscale(90%);*/ /* make all photos black and white */
     background-position: center;
-    background-repeat: no-repeat; 
+    background-repeat: no-repeat;
     background-size: cover;
     height: 593px;
     max-height: 593px;
@@ -2081,7 +2122,7 @@ div.sample button.btn-search, div.sample button.btn-reset {
 /*.carousel-inner > .item >img,
 .carousel-inner > .item > a > img{
     -webkit-filter: grayscale(90%);
-    filter: grayscale(90%);  make all photos black and white  
+    filter: grayscale(90%);  make all photos black and white
 	height: 593px;
     width: 100%;
 	margin: auto;
@@ -2092,8 +2133,14 @@ div.sample button.btn-search, div.sample button.btn-reset {
     width: 100%;
     height: 100%;
     top: 0;
-    left: 15%;
+    /*left: 15%;*/
     text-align: left;
+}
+
+@media(max-width: 1240px){
+    .item, .carousel-caption{
+        left: 15%;
+    }
 }
 
 .carousel-caption h2{
@@ -2376,14 +2423,14 @@ select#select_evt{
 }
 
 /*.checkbox {
-    padding-left: 20px; 
+    padding-left: 20px;
 }
 
 .checkbox label {
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    padding-left: 5px; 
+    padding-left: 5px;
 }
 
 .checkbox label::before {
@@ -2399,7 +2446,7 @@ select#select_evt{
     background-color: #fff;
     -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
     -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
-    transition: border 0.15s ease-in-out, color 0.15s ease-in-out; 
+    transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
 .checkbox label::after {
@@ -2413,7 +2460,7 @@ select#select_evt{
     padding-left: 3px;
     padding-top: 1px;
     font-size: 11px;
-    color: #555555; 
+    color: #555555;
 }
 
 .checkbox input[type="checkbox"],
@@ -2427,7 +2474,7 @@ select#select_evt{
 .checkbox input[type="radio"]:focus + label::before {
     outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px; 
+    outline-offset: -2px;
 }
 
 .checkbox input[type="checkbox"]:checked + label::after,
@@ -2451,12 +2498,12 @@ select#select_evt{
 .checkbox-red input[type="checkbox"]:checked + label::before,
 .checkbox-red input[type="radio"]:checked + label::before {
     background-color: #d9534f;
-    border-color: #d9534f; 
+    border-color: #d9534f;
 }
 
 .checkbox-red input[type="checkbox"]:checked + label::after,
 .checkbox-red input[type="radio"]:checked + label::after {
-    color: #fff; 
+    color: #fff;
 }
 
 .checkbox-red input[type="checkbox"]:indeterminate + label::before,
@@ -2473,17 +2520,17 @@ select#select_evt{
 input[type="checkbox"].styled:checked + label:after,
 input[type="radio"].styled:checked + label:after {
   font-family: 'FontAwesome';
-  content: "\f00c"; 
+  content: "\f00c";
 }
 
 input[type="checkbox"] .styled:checked + label::before,
 input[type="radio"] .styled:checked + label::before {
-  color: #fff; 
+  color: #fff;
 }
 
 input[type="checkbox"] .styled:checked + label::after,
 input[type="radio"] .styled:checked + label::after {
-  color: #fff; 
+  color: #fff;
 }*/
 
 
@@ -2633,8 +2680,8 @@ ul.disclaimer li>div
     flex-direction: row;
     align-items: center;
     position: absolute;
-    right: 15px; 
-    height: 100%; 
+    right: 15px;
+    height: 100%;
     top: 0;
 }
 
@@ -2798,7 +2845,7 @@ button#compose{
 }
 .current-chat-footer {
     position: absolute;
-    bottom: 0;   
+    bottom: 0;
 }
 .mail_content {
     background: none repeat scroll 0 0 #FFFFFF;
@@ -2956,7 +3003,7 @@ button#compose{
 
 /*Loading animation CSS*/
 /* Paste this css to your style sheet file or under head tag */
-/* This only works with JavaScript, 
+/* This only works with JavaScript,
 if it's not present, don't show loader */
 .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
@@ -2999,7 +3046,7 @@ if it's not present, don't show loader */
 }
 
 .section-title{
-  padding: 12px 0; 
+  padding: 12px 0;
 }
 
 .section-title h3{
@@ -3007,19 +3054,19 @@ if it's not present, don't show loader */
 }
 
 .side-menu .panel-default{
-  box-sizing: border-box; 
+  box-sizing: border-box;
   border: 0;
 }
 
 .side-menu .panel-default>.panel-heading{
-  background-color: transparent; 
-  border-bottom: 1px solid #ddd; 
+  background-color: transparent;
+  border-bottom: 1px solid #ddd;
   padding: 10px 0;
   color: inherit;
 }
 
 .side-menu .panel-default .panel-body{
-    max-height: 330px; 
+    max-height: 330px;
 }
 
 .side-menu .panel-default .panel-body .side-menu-search{
@@ -3031,9 +3078,9 @@ if it's not present, don't show loader */
     overflow-y: auto;
 }
 
-.side-menu .more-less{
+/*.side-menu .more-less{
   float: right;
-}
+}*/
 
 /*.side-menu .panel-body{
   overflow-y: auto;
@@ -3156,7 +3203,7 @@ min-width: 120px;
 }
 
 .btn-sort .btn-default:hover, .btn-sort .btn-default:focus, .btn-sort .btn-default:active, .btn-sort .btn-default.active, .btn-sort.open .dropdown-toggle.btn-default {
-  background-color: #FFF;    
+  background-color: #FFF;
 }
 
 .btn-sort .open .dropdown-toggle {
@@ -3387,7 +3434,7 @@ min-width: 120px;
   .category-product .product-item-list-v1{
     /*margin-bottom: 40px;*/
     padding: 40px 15px;
-    border-bottom: 1px dashed #bbb!important; 
+    border-bottom: 1px dashed #bbb!important;
   }
 
   @media (max-width: 425px){
@@ -3404,7 +3451,7 @@ min-width: 120px;
     border: 2px solid #f6f6f6;
     border-radius: 8px;
   }
-  
+
   .category-product .product-item-list-v1 .product-info .product-short-desc{
     font-size:13px;
     line-height:22px;
@@ -3522,9 +3569,9 @@ min-width: 120px;
       /*padding-right: 10px;*/
       /*border-right: 1px solid #bbb;*/
   }
-  .rating span { 
-    float:right; 
-    position:relative; 
+  .rating span {
+    float:right;
+    position:relative;
   }
   .rating span input {
       position:absolute;
@@ -3592,10 +3639,10 @@ min-width: 120px;
   }
 
   .product_stat .list_stat_view{
-    font-weight: 600; 
-    font-size: 15px; 
-    line-height: 10px; 
-    font-family: 'Arial',sans-serif; 
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 10px;
+    font-family: 'Arial',sans-serif;
     color: #a72b1f;
   }
 
@@ -3851,7 +3898,7 @@ min-width: 120px;
 
 .btn-toggle.expand .sign:after{
     content:"+ More";
-    display:inline-block;      
+    display:inline-block;
 }
 
 .btn-toggle .sign:after{
@@ -4544,3 +4591,12 @@ input#districtSelection_c{
       width: 8.33333333%;
     }*/
 }
+
+/*BEGIN Rtl Section*/
+html[dir=rtl] .side-menu .checkbox-red input[type="checkbox"] {
+  margin-right: -20px;
+  margin-left: 6px;
+  position: absolute;
+  bottom: 4px;
+}
+/*END Rtl Section*/

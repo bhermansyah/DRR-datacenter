@@ -63,11 +63,11 @@
 	                		<div class="tile_count">
 	                			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
 	                			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Total Building" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
-	                			    <div class="count red">{% readable 0 %}</div>
+	                			    <div class="count red">{% readable Buildings %}</div>
 	                			</div>
 	                			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
 	                			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Building at risk" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
-	                			    <div class="count red">{% readable 0 %}</div>
+	                			    <div class="count red">{% readable total_ava_buildings %}</div>
 	                			</div>
 	                		</div>
 	                	</div>
@@ -93,11 +93,11 @@
 	                	<div class="col-md-12 col-xs-12 col-sm-4 center">
 	                		<div class="tile_count">
 	                			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-	                			    <span class="count_top"><i class="fa fa-user"></i> {% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	                			    <span class="count_top"><i class="fa fa-tree"></i> {% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
 	                			    <div class="count red">{% readable Area %}</div>
 	                			</div>
 	                			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-	                			    <span class="count_top"><i class="fa fa-user"></i> {% trans "Area at risk" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	                			    <span class="count_top"><i class="fa fa-tree"></i> {% trans "Area at risk" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
 	                			    <div class="count red">{% readable total_ava_area %}</div>
 	                			</div>
 	                		</div>
@@ -151,26 +151,26 @@
 	                      				<tr>
 	                      					<td class="boldRow">{{ parent_label }}</td>
 	                      					<td class="boldRow">{{ high_ava_population }}</td>
-	                      					<td class="boldRow">0</td>
+	                      					<td class="boldRow">{{  high_ava_buildings  }}</td>
 	                      					<td class="boldRow">{{ high_ava_area }}</td>
 	                      					<td class="boldRow">{{ med_ava_population }}</td>
-	                      					<td class="boldRow">0</td>
+	                      					<td class="boldRow">{{  med_ava_buildings  }}</td>
 	                      					<td class="boldRow">{{ med_ava_area }}</td>
 	                      					<td class="boldRow">{{ total_ava_population }}</td>
-	                      					<td class="boldRow">0</td>
+	                      					<td class="boldRow">{{ total_ava_buildings }}</td>
 	                      					<td class="boldRow">{{ total_ava_area }}</td>
 	                      				</tr>
 	                      				{% for data in lc_child %}
 	                      				<tr class="selectable" onclick="window.document.location='?page=avalancherisk&code={{data.code}}';">
 	                      					<td>{{ data.na_en }}</td>
 	                      					<td>{{ data.high_ava_population }}</td>
-	                      					<td>0</td>
+	                      					<td>{{ data.high_ava_buildings  }}</td>
 	                      					<td>{{ data.high_ava_area }}</td>
 	                      					<td>{{ data.med_ava_population }}</td>
-	                      					<td>0</td>
+	                      					<td>{{ data.med_ava_buildings  }}</td>
 	                      					<td>{{ data.med_ava_area }}</td>
 	                      					<td>{{ data.total_ava_population }}</td>
-	                      					<td>0</td>
+	                      					<td>{{ data.total_ava_buildings }}</td>
 	                      					<td>{{ data.total_ava_area }}</td>
 	                      				</tr>
 	                      				{% endfor %}
@@ -205,26 +205,26 @@
 	                      				<tr>
 	                      					<td class="boldRow">{{ parent_label }}</td>
 	                      					<td class="boldRow">{{ high_ava_population }}</td>
-	                      					<td class="boldRow">0</td>
+	                      					<td class="boldRow">{{ high_ava_buildings }}</td>
 	                      					<td class="boldRow">{{ high_ava_area }}</td>
 	                      					<td class="boldRow">{{ med_ava_population }}</td>
-	                      					<td class="boldRow">0</td>
+	                      					<td class="boldRow">{{ med_ava_buildings }}</td>
 	                      					<td class="boldRow">{{ med_ava_area }}</td>
 	                      					<td class="boldRow">{{ total_ava_population }}</td>
-	                      					<td class="boldRow">0</td>
+	                      					<td class="boldRow">{{ total_ava_buildings }}</td>
 	                      					<td class="boldRow">{{ total_ava_area }}</td>
 	                      				</tr>
 	                      				{% for data in lc_child %}
 	                      				<tr class="selectable" onclick="window.document.location='?page=avalancherisk&code={{data.code}}';">
 	                      					<td>{{ data.na_en }}</td>
 	                      					<td>{{ data.high_ava_population }}</td>
-	                      					<td>0</td>
+	                      					<td>{{ data.high_ava_buildings  }}</td>
 	                      					<td>{{ data.high_ava_area }}</td>
 	                      					<td>{{ data.med_ava_population }}</td>
-	                      					<td>0</td>
+	                      					<td>{{ data.med_ava_buildings  }}</td>
 	                      					<td>{{ data.med_ava_area }}</td>
 	                      					<td>{{ data.total_ava_population }}</td>
-	                      					<td>0</td>
+	                      					<td>{{ data.total_ava_buildings }}</td>
 	                      					<td>{{ data.total_ava_area }}</td>
 	                      				</tr>
 	                      				{% endfor %}
@@ -239,7 +239,7 @@
 	</div>
 
 <script type="text/javascript">
-	var arisk_cat = ['{% trans "Low Risk" %}', '{% trans "Moderate Risk" %}', '{% trans "High Risk" %}', '{% trans "Not at Risk" %}' ];
+	var arisk_cat = ['{% trans "Moderate Risk" %}', '{% trans "High Risk" %}', '{% trans "Not at Risk" %}' ];
 
 	var pop = {{ Population }}
 	var tot_risk_pop = {{ total_ava_population }}
@@ -248,12 +248,14 @@
 	var arisk_med_pop = {{ med_ava_population }}
 	var arisk_hi_pop = {{ high_ava_population }}
 
-	var tot_risk_build = 0;
+	var build = {{Buildings}}
+	var tot_risk_build = {{ total_ava_buildings }};
 
 	// var arisk_low_build = {{ low_risk_buildings }}
-	var arisk_med_build = 0;
-	var arisk_hi_build = 0;
+	var arisk_med_build = {{  med_ava_buildings  }};
+	var arisk_hi_build = {{  high_ava_buildings  }};
 
+	var area = {{ Area }}
 	var tot_risk_area = {{ total_ava_area }}
 
 	// var arisk_low_area = {{ low_risk_area }}

@@ -9,7 +9,7 @@
 	            <div class="breadcrumb breadcrumb-custom">
 	            	<span>{% trans "Earthquake" %}</span>
 	            	{% include "v2/breadcrumb.html" %}
-	            	<div class="pull-right">
+	            	<div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
 	            		<select id="select_evt" class="right" onchange="location = '?page=earthquake&eq_event='+this.value+'{{add_link}}';">
 	            			{% for list in eq_list %}
 	            			  <option {% if list.selected %} selected {% endif %} value="{{ list.event_code }}">{{ list.detail_title }}</option>
@@ -70,11 +70,11 @@
 	                    	<div class="tile_count">
 	                    		<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
 	                    		    <span class="count_top"><i class="fa fa-building"></i> {% trans "Total Building" %}</span>
-	                    		    <div class="count red">{% readable 0 %}</div>
+	                    		    <div class="count red">{% readable Buildings %}</div>
 	                    		</div>
 	                    		<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
 	                    		    <span class="count_top"><i class="fa fa-building"></i> {% trans "Buildings Affected" %}</span>
-	                    		    <div class="count red">{% readable 0 %}</div>
+	                    		    <div class="count red">{% readable total_eq_buildings %}</div>
 	                    		</div>
 	                    	</div>
 	                    </div>
@@ -112,7 +112,7 @@
 	                </div>
 	              </div>
 	            </div>
-	            <div class="col-md-12 col-sm-12 col-xs-12">
+	            <div class="col-md-4 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2>Mercalli Intensity Scale population</h2>
@@ -127,6 +127,44 @@
 	                <div class="x_content">
 
 	                  <div id="echart_pie_11" class="ch-size-pie-mercalli"></div>
+
+	                </div>
+	              </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>Mercalli Intensity Scale Buildings</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+
+	                  <div id="echart_pie_mercalli_build" class="ch-size-pie-mercalli"></div>
+
+	                </div>
+	              </div>
+	            </div>
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                  <h2>Mercalli Intensity Scale Settlements</h2>
+	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                    </li>
+	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+	                    </li>
+	                  </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+
+	                  <div id="echart_pie_mercalli_settl" class="ch-size-pie-mercalli"></div>
 
 	                </div>
 	              </div>
@@ -154,96 +192,72 @@
 	                      		    <thead>
 	                      		        <tr>
 	                      		            <th rowspan="2">{% trans "Region" %}</th>
-	                      		            <th class="weak" colspan="3">{% trans "II-III: Weak" %}</th>
-	                      		            <th class="light" colspan="3">{% trans "IV: Light" %}</th>
-	                      		            <th class="modrt" colspan="3">{% trans "V: Moderate" %}</th>
-	                      		            <th class="strong" colspan="3">{% trans "VI: Strong" %}</th>
-	                      		            <th class="vstrong" colspan="3">{% trans "VII: Very-strong" %}</th>
-	                      		            <th class="severe" colspan="3">{% trans "VIII: Severe" %}</th>
-	                      		            <th class="violent" colspan="3">{% trans "IX: Violent" %}</th>
-	                      		            <th class="extrme" colspan="3">{% trans "X+: Extreme" %}</th>
+	                      		            <th class="weak" colspan="2">{% trans "II-III: Weak" %}</th>
+	                      		            <th class="light" colspan="2">{% trans "IV: Light" %}</th>
+	                      		            <th class="modrt" colspan="2">{% trans "V: Moderate" %}</th>
+	                      		            <th class="strong" colspan="2">{% trans "VI: Strong" %}</th>
+	                      		            <th class="vstrong" colspan="2">{% trans "VII: Very-strong" %}</th>
+	                      		            <th class="severe" colspan="2">{% trans "VIII: Severe" %}</th>
+	                      		            <th class="violent" colspan="2">{% trans "IX: Violent" %}</th>
+	                      		            <th class="extrme" colspan="2">{% trans "X+: Extreme" %}</th>
 	                      		        </tr>
 	                      		        <tr>
-	                      		            <th class="weak hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="weak hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="weak hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="light hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="light hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="light hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="modrt hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="modrt hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="modrt hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="strong hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="strong hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="strong hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="vstrong hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="vstrong hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="vstrong hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="severe hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="severe hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="severe hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="violent hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="violent hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="violent hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="extrme hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="extrme hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="extrme hum"><i class="fa fa-home"></i></th>
+	                      		            <th class="weak hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="weak hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="light hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="light hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="modrt hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="modrt hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="strong hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="strong hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="vstrong hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="vstrong hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="severe hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="severe hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="violent hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="violent hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="extrme hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="extrme hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
 	                      		        </tr>
 	                      		    </thead>
 	                      		    <tbody>
 	                      		    	<tr>
 	                      		    		<td class=" boldRow">{{parent_label}}</td>
 	                      		    		<td class="weak boldRow">{{pop_shake_weak}} </td>
-	                      		    		<td class="weak boldRow"></td>
 	                      		    		<td class="weak boldRow">{{settlement_shake_weak}}</td>
 	                      		    		<td class="light boldRow">{{pop_shake_light}}</td>
-	                      		    		<td class="light boldRow"></td>
 	                      		    		<td class="light boldRow">{{settlement_shake_light}}</td>
 	                      		    		<td class="modrt boldRow">{{pop_shake_moderate}}</td>
-	                      		    		<td class="modrt boldRow"></td>
 	                      		    		<td class="modrt boldRow">{{settlement_shake_moderate}}</td>
 	                      		    		<td class="strong boldRow">{{pop_shake_strong}}</td>
-	                      		    		<td class="strong boldRow"></td>
 	                      		    		<td class="strong boldRow">{{settlement_shake_strong}}</td>
 	                      		    		<td class="vstrong boldRow">{{pop_shake_verystrong}}</td>
-	                      		    		<td class="vstrong boldRow"></td>
 	                      		    		<td class="vstrong boldRow">{{settlement_shake_verystrong}}</td>
 	                      		    		<td class="severe boldRow">{{pop_shake_severe}}</td>
-	                      		    		<td class="severe boldRow"></td>
 	                      		    		<td class="severe boldRow">{{settlement_shake_severe}}</td>
 	                      		    		<td class="violent boldRow">{{pop_shake_violent}}</td>
-	                      		    		<td class="violent boldRow"></td>
 	                      		    		<td class="violent boldRow">{{settlement_shake_violent}}</td>
 	                      		    		<td class="extrme boldRow">{{pop_shake_extreme}}</td>
-	                      		    		<td class="extrme boldRow"></td>
 	                      		    		<td class="extrme boldRow">{{settlement_shake_extreme}}</td>
 	                      		    	</tr>
 	                      		    	{% for data in lc_child %}
 	                      		    	<tr class="selectable" onclick="window.document.location='?page=earthquake&code={{data.code}}{{ eq_link }}';">
 	                      		    		<td>{{data.na_en}}</td>
 	                      		    		<td class="weak">{{data.pop_shake_weak}} </td>
-	                      		    		<td class="weak"></td>
 	                      		    		<td class="weak">{{data.settlement_shake_weak}}</td>
 	                      		    		<td class="light">{{data.pop_shake_light}}</td>
-	                      		    		<td class="light"></td>
 	                      		    		<td class="light">{{data.settlement_shake_light}}</td>
 	                      		    		<td class="modrt">{{data.pop_shake_moderate}}</td>
-	                      		    		<td class="modrt"></td>
 	                      		    		<td class="modrt">{{data.settlement_shake_moderate}}</td>
 	                      		    		<td class="strong">{{data.pop_shake_strong}}</td>
-	                      		    		<td class="strong"></td>
 	                      		    		<td class="strong">{{data.settlement_shake_strong}}</td>
 	                      		    		<td class="vstrong">{{data.pop_shake_verystrong}}</td>
-	                      		    		<td class="vstrong"></td>
 	                      		    		<td class="vstrong">{{data.settlement_shake_verystrong}}</td>
 	                      		    		<td class="severe">{{data.pop_shake_severe}}</td>
-	                      		    		<td class="severe"></td>
 	                      		    		<td class="severe">{{data.settlement_shake_severe}}</td>
 	                      		    		<td class="violent">{{data.pop_shake_violent}}</td>
-	                      		    		<td class="violent"></td>
 	                      		    		<td class="violent">{{data.settlement_shake_violent}}</td>
 	                      		    		<td class="extrme">{{data.pop_shake_extreme}}</td>
-	                      		    		<td class="extrme"></td>
 	                      		    		<td class="extrme">{{data.settlement_shake_extreme}}</td>
 	                      		    	</tr>
 	                      		    	{% endfor %}
@@ -255,96 +269,72 @@
 	                      		    <thead>
 	                      		        <tr>
 	                      		            <th rowspan="2">{% trans "Region" %}</th>
-	                      		            <th class="weak" colspan="3">{% trans "II-III: Weak" %}</th>
-	                      		            <th class="light" colspan="3">{% trans "IV: Light" %}</th>
-	                      		            <th class="modrt" colspan="3">{% trans "V: Moderate" %}</th>
-	                      		            <th class="strong" colspan="3">{% trans "VI: Strong" %}</th>
-	                      		            <th class="vstrong" colspan="3">{% trans "VII: Very-strong" %}</th>
-	                      		            <th class="severe" colspan="3">{% trans "VIII: Severe" %}</th>
-	                      		            <th class="violent" colspan="3">{% trans "IX: Violent" %}</th>
-	                      		            <th class="extrme" colspan="3">{% trans "X+: Extreme" %}</th>
+	                      		            <th class="weak" colspan="2">{% trans "II-III: Weak" %}</th>
+	                      		            <th class="light" colspan="2">{% trans "IV: Light" %}</th>
+	                      		            <th class="modrt" colspan="2">{% trans "V: Moderate" %}</th>
+	                      		            <th class="strong" colspan="2">{% trans "VI: Strong" %}</th>
+	                      		            <th class="vstrong" colspan="2">{% trans "VII: Very-strong" %}</th>
+	                      		            <th class="severe" colspan="2">{% trans "VIII: Severe" %}</th>
+	                      		            <th class="violent" colspan="2">{% trans "IX: Violent" %}</th>
+	                      		            <th class="extrme" colspan="2">{% trans "X+: Extreme" %}</th>
 	                      		        </tr>
 	                      		        <tr>
-	                      		            <th class="weak hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="weak hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="weak hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="light hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="light hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="light hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="modrt hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="modrt hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="modrt hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="strong hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="strong hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="strong hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="vstrong hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="vstrong hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="vstrong hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="severe hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="severe hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="severe hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="violent hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="violent hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="violent hum"><i class="fa fa-home"></i></th>
-	                      		            <th class="extrme hum"><i class="fa fa-male"></i></th>
-	                      		            <th class="extrme hum"><i class="fa fa-building"></i></th>
-	                      		            <th class="extrme hum"><i class="fa fa-home"></i></th>
+	                      		            <th class="weak hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="weak hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="light hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="light hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="modrt hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="modrt hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="strong hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="strong hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="vstrong hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="vstrong hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="severe hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="severe hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="violent hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="violent hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
+	                      		            <th class="extrme hum" title='{% trans "Population" %}'><i class="fa fa-male"></i></th>
+	                      		            <th class="extrme hum" title='{% trans "Settlements" %}'><i class="fa fa-home"></i></th>
 	                      		        </tr>
 	                      		    </thead>
 	                      		    <tbody>
 	                      		    	<tr>
 	                      		    		<td class=" boldRow">{{parent_label}}</td>
 	                      		    		<td class="weak boldRow">{{pop_shake_weak}} </td>
-	                      		    		<td class="weak boldRow"></td>
 	                      		    		<td class="weak boldRow">{{settlement_shake_weak}}</td>
 	                      		    		<td class="light boldRow">{{pop_shake_light}}</td>
-	                      		    		<td class="light boldRow"></td>
 	                      		    		<td class="light boldRow">{{settlement_shake_light}}</td>
 	                      		    		<td class="modrt boldRow">{{pop_shake_moderate}}</td>
-	                      		    		<td class="modrt boldRow"></td>
 	                      		    		<td class="modrt boldRow">{{settlement_shake_moderate}}</td>
 	                      		    		<td class="strong boldRow">{{pop_shake_strong}}</td>
-	                      		    		<td class="strong boldRow"></td>
 	                      		    		<td class="strong boldRow">{{settlement_shake_strong}}</td>
 	                      		    		<td class="vstrong boldRow">{{pop_shake_verystrong}}</td>
-	                      		    		<td class="vstrong boldRow"></td>
 	                      		    		<td class="vstrong boldRow">{{settlement_shake_verystrong}}</td>
 	                      		    		<td class="severe boldRow">{{pop_shake_severe}}</td>
-	                      		    		<td class="severe boldRow"></td>
 	                      		    		<td class="severe boldRow">{{settlement_shake_severe}}</td>
 	                      		    		<td class="violent boldRow">{{pop_shake_violent}}</td>
-	                      		    		<td class="violent boldRow"></td>
 	                      		    		<td class="violent boldRow">{{settlement_shake_violent}}</td>
 	                      		    		<td class="extrme boldRow">{{pop_shake_extreme}}</td>
-	                      		    		<td class="extrme boldRow"></td>
 	                      		    		<td class="extrme boldRow">{{settlement_shake_extreme}}</td>
 	                      		    	</tr>
 	                      		    	{% for data in lc_child %}
 	                      		    	<tr class="selectable" onclick="window.document.location='?page=earthquake&code={{data.code}}{{ eq_link }}';">
 	                      		    		<td>{{data.na_en}}</td>
 	                      		    		<td class="weak">{{data.pop_shake_weak}} </td>
-	                      		    		<td class="weak"></td>
 	                      		    		<td class="weak">{{data.settlement_shake_weak}}</td>
 	                      		    		<td class="light">{{data.pop_shake_light}}</td>
-	                      		    		<td class="light"></td>
 	                      		    		<td class="light">{{data.settlement_shake_light}}</td>
 	                      		    		<td class="modrt">{{data.pop_shake_moderate}}</td>
-	                      		    		<td class="modrt"></td>
 	                      		    		<td class="modrt">{{data.settlement_shake_moderate}}</td>
 	                      		    		<td class="strong">{{data.pop_shake_strong}}</td>
-	                      		    		<td class="strong"></td>
 	                      		    		<td class="strong">{{data.settlement_shake_strong}}</td>
 	                      		    		<td class="vstrong">{{data.pop_shake_verystrong}}</td>
-	                      		    		<td class="vstrong"></td>
 	                      		    		<td class="vstrong">{{data.settlement_shake_verystrong}}</td>
 	                      		    		<td class="severe">{{data.pop_shake_severe}}</td>
-	                      		    		<td class="severe"></td>
 	                      		    		<td class="severe">{{data.settlement_shake_severe}}</td>
 	                      		    		<td class="violent">{{data.pop_shake_violent}}</td>
-	                      		    		<td class="violent"></td>
 	                      		    		<td class="violent">{{data.settlement_shake_violent}}</td>
 	                      		    		<td class="extrme">{{data.pop_shake_extreme}}</td>
-	                      		    		<td class="extrme"></td>
 	                      		    		<td class="extrme">{{data.settlement_shake_extreme}}</td>
 	                      		    	</tr>
 	                      		    	{% endfor %}
@@ -359,14 +349,16 @@
 	</div>
 
 <script type="text/javascript">
-	var erthqk_cat = ["{% trans 'Affected Population' %}", "{% trans 'Not Affected Population' %}"]
+	var erthqk_cat = ["{% trans 'Affected' %}", "{% trans 'Not Affected' %}"]
 	var mercalli_cat = ["{% trans 'Weak' %}", "{% trans 'Light' %}", "{% trans 'Moderate' %}", "{% trans 'Strong' %}", "{% trans 'Very Strong' %}", "{% trans 'Severe' %}", "{% trans 'Violent' %}", "{% trans 'Extreme' %}"]
 
 	var pop = {{ Population }}
+	var settl = {{settlement}}
+	var build = {{Buildings}}
 	var erthqk_pop = {{ total_eq_pop }}
-	var erthqk_build = 0
-	var erthqk_settl = 0
-	
+	var erthqk_build = {{total_eq_buildings}}
+	var erthqk_settl = {{total_eq_settlements}}
+
 	var pop_weak = {{ pop_shake_weak }}
 	var pop_light = {{ pop_shake_light }}
 	var pop_mod = {{ pop_shake_moderate }}
@@ -375,5 +367,23 @@
 	var pop_severe = {{ pop_shake_severe }}
 	var pop_violent = {{ pop_shake_violent }}
 	var pop_ext = {{ pop_shake_extreme }}
+
+	var buildings_weak = {{ buildings_shake_weak }}
+	var buildings_light = {{ buildings_shake_light }}
+	var buildings_mod = {{ buildings_shake_moderate }}
+	var buildings_strong = {{ buildings_shake_strong }}
+	var buildings_vstrong = {{ buildings_shake_verystrong }}
+	var buildings_severe = {{ buildings_shake_severe }}
+	var buildings_violent = {{ buildings_shake_violent }}
+	var buildings_ext = {{ buildings_shake_extreme }}
+
+	var settlement_weak = {{ settlement_shake_weak }}
+	var settlement_light = {{ settlement_shake_light }}
+	var settlement_mod = {{ settlement_shake_moderate }}
+	var settlement_strong = {{ settlement_shake_strong }}
+	var settlement_vstrong = {{ settlement_shake_verystrong }}
+	var settlement_severe = {{ settlement_shake_severe }}
+	var settlement_violent = {{ settlement_shake_violent }}
+	var settlement_ext = {{ settlement_shake_extreme }}
 
 </script>
