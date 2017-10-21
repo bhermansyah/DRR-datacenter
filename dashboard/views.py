@@ -221,7 +221,7 @@ def dashboard_multiple(request):
 	a = request.META.get('HTTP_HOST')
 
 	try:
-		a = 'asdc.immap.org'
+		a = 'asdc.immap.org/v2' if re.match('^/v2', request.path) else 'asdc.immap.org'
 		print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
 		date_string = dateformat.format(datetime.now(), "Y-m-d")
 
