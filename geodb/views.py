@@ -1149,7 +1149,7 @@ def getClimateVillage(request):
     tempData.append([_('Nov'),climatePrec.november,climateTempMAX.november,climateTempAVG.november,climateTempMIN.november])
     tempData.append([_('Dec'),climatePrec.december,climateTempMAX.december,climateTempAVG.december,climateTempMIN.december])
 
-    context_dict['temperature_line_chart'] = gchart.LineChart(
+    context_dict['temperature_line_chart'] = gchart.ComboChart(
         SimpleDataSource(data=tempData), 
         html_id="line_chart1", 
         options={
@@ -1157,16 +1157,19 @@ def getClimateVillage(request):
             'width': 500,
             'height': 400, 
             'legend': 'bottom', 
-            'curveType': 'function', 
+            # 'curveType': 'function', 
+            'seriesType': 'bars',
+            'colors': ['#3366cc', 'red', 'black', 'blue'],
+            'chartArea': {'top':10, 'bottom':90, 'left':50, 'right':50},
             'vAxes': { 
                 0:{'format': u'# \u00b0C'},
-                1:{'format':"# mm"} 
+                1:{'format':"# mm", 'viewWindow':{'min':0}} 
             },
             'series': {
-                0: {'targetAxisIndex':1},
-                1: {'targetAxisIndex':0},
-                2: {'targetAxisIndex':0},
-                3: {'targetAxisIndex':0},
+                0: {'targetAxisIndex':1,'type':'bars'},
+                1: {'targetAxisIndex':0,'type':'line'},
+                2: {'targetAxisIndex':0,'type':'line'},
+                3: {'targetAxisIndex':0,'type':'line'},
             },
         })
 
@@ -1191,7 +1194,8 @@ def getClimateVillage(request):
         'Mean Temperature of Wettest Quarter',
         'Mean Temperature of Driest Quarter',
         'Mean Temperature of Warmest Quarter',
-        'Mean Temperature of Coldest Quarter'
+        'Mean Temperature of Coldest Quarter',
+        {'type': 'string', 'role': 'style'}
     ])
 
     climDataTemp.append([
@@ -1206,10 +1210,11 @@ def getClimateVillage(request):
         climateBioClim.bio8,
         climateBioClim.bio9,
         climateBioClim.bio10,
-        climateBioClim.bio11
+        climateBioClim.bio11,
+        'color: #3366cc'
     ])
     climDataTemp.append([
-        _('2050 RPC 26'),
+        _('RPC 26\n'),
         climateBioClim2050Rpc26.bio1,
         climateBioClim2050Rpc26.bio2,
         climateBioClim2050Rpc26.bio3,
@@ -1220,10 +1225,11 @@ def getClimateVillage(request):
         climateBioClim2050Rpc26.bio8,
         climateBioClim2050Rpc26.bio9,
         climateBioClim2050Rpc26.bio10,
-        climateBioClim2050Rpc26.bio11
+        climateBioClim2050Rpc26.bio11,
+        'color: #ffff03'
     ])
     climDataTemp.append([
-        _('2050 RPC 45'),
+        _('RPC 45\n2050'),
         climateBioClim2050Rpc45.bio1,
         climateBioClim2050Rpc45.bio2,
         climateBioClim2050Rpc45.bio3,
@@ -1234,10 +1240,11 @@ def getClimateVillage(request):
         climateBioClim2050Rpc45.bio8,
         climateBioClim2050Rpc45.bio9,
         climateBioClim2050Rpc45.bio10,
-        climateBioClim2050Rpc45.bio11
+        climateBioClim2050Rpc45.bio11,
+        'color: #ffc003'
     ])
     climDataTemp.append([
-        _('2050 RPC 85'),
+        _('RPC 85\n'),
         climateBioClim2050Rpc85.bio1,
         climateBioClim2050Rpc85.bio2,
         climateBioClim2050Rpc85.bio3,
@@ -1248,10 +1255,11 @@ def getClimateVillage(request):
         climateBioClim2050Rpc85.bio8,
         climateBioClim2050Rpc85.bio9,
         climateBioClim2050Rpc85.bio10,
-        climateBioClim2050Rpc85.bio11
+        climateBioClim2050Rpc85.bio11,
+        'color: #ff0303'
     ])
     climDataTemp.append([
-        _('2070 RPC 26'),
+        _('RPC 26\n'),
         climateBioClim2070Rpc26.bio1,
         climateBioClim2070Rpc26.bio2,
         climateBioClim2070Rpc26.bio3,
@@ -1262,10 +1270,11 @@ def getClimateVillage(request):
         climateBioClim2070Rpc26.bio8,
         climateBioClim2070Rpc26.bio9,
         climateBioClim2070Rpc26.bio10,
-        climateBioClim2070Rpc26.bio11
+        climateBioClim2070Rpc26.bio11,
+        'color: #ffff03'
     ])
     climDataTemp.append([
-        _('2070 RPC 45'),
+        _('RPC 45\n2070'),
         climateBioClim2070Rpc45.bio1,
         climateBioClim2070Rpc45.bio2,
         climateBioClim2070Rpc45.bio3,
@@ -1276,10 +1285,11 @@ def getClimateVillage(request):
         climateBioClim2070Rpc45.bio8,
         climateBioClim2070Rpc45.bio9,
         climateBioClim2070Rpc45.bio10,
-        climateBioClim2070Rpc45.bio11
+        climateBioClim2070Rpc45.bio11,
+        'color: #ffc003'
     ])
     climDataTemp.append([
-        _('2070 RPC 85'),
+        _('RPC 85\n'),
         climateBioClim2070Rpc85.bio1,
         climateBioClim2070Rpc85.bio2,
         climateBioClim2070Rpc85.bio3,
@@ -1290,7 +1300,8 @@ def getClimateVillage(request):
         climateBioClim2070Rpc85.bio8,
         climateBioClim2070Rpc85.bio9,
         climateBioClim2070Rpc85.bio10,
-        climateBioClim2070Rpc85.bio11
+        climateBioClim2070Rpc85.bio11,
+        'color: #ff0303'
     ])
     context_dict['climatechange_temp_data'] = json.dumps(climDataTemp)
 
@@ -1305,7 +1316,8 @@ def getClimateVillage(request):
         'Precipitation of Wettest Quarter',
         'Precipitation of Driest Quarter',
         'Precipitation of Warmest Quarter',
-        'Precipitation of Coldest Quarter'
+        'Precipitation of Coldest Quarter',
+        {'type': 'string', 'role': 'style'}
     ])
 
     climDataPrec.append([
@@ -1317,10 +1329,11 @@ def getClimateVillage(request):
         climateBioClim.bio16,
         climateBioClim.bio17,
         climateBioClim.bio18,
-        climateBioClim.bio19
+        climateBioClim.bio19,
+        'color: #3366cc'
     ])
     climDataPrec.append([
-        _('2050 RPC 26'),
+        _('RPC 26\n'),
         climateBioClim2050Rpc26.bio12,
         climateBioClim2050Rpc26.bio13,
         climateBioClim2050Rpc26.bio14,
@@ -1328,10 +1341,11 @@ def getClimateVillage(request):
         climateBioClim2050Rpc26.bio16,
         climateBioClim2050Rpc26.bio17,
         climateBioClim2050Rpc26.bio18,
-        climateBioClim2050Rpc26.bio19
+        climateBioClim2050Rpc26.bio19,
+        'color: #ffff03'
     ])
     climDataPrec.append([
-        _('2050 RPC 45'),
+        _('RPC 45\n2050'),
         climateBioClim2050Rpc45.bio12,
         climateBioClim2050Rpc45.bio13,
         climateBioClim2050Rpc45.bio14,
@@ -1339,10 +1353,11 @@ def getClimateVillage(request):
         climateBioClim2050Rpc45.bio16,
         climateBioClim2050Rpc45.bio17,
         climateBioClim2050Rpc45.bio18,
-        climateBioClim2050Rpc45.bio19
+        climateBioClim2050Rpc45.bio19,
+        'color: #ffc003'
     ])
     climDataPrec.append([
-        _('2050 RPC 85'),
+        _('RPC 85\n'),
         climateBioClim2050Rpc85.bio12,
         climateBioClim2050Rpc85.bio13,
         climateBioClim2050Rpc85.bio14,
@@ -1350,10 +1365,11 @@ def getClimateVillage(request):
         climateBioClim2050Rpc85.bio16,
         climateBioClim2050Rpc85.bio17,
         climateBioClim2050Rpc85.bio18,
-        climateBioClim2050Rpc85.bio19
+        climateBioClim2050Rpc85.bio19,
+        'color: #ff0303'
     ])
     climDataPrec.append([
-        _('2070 RPC 26'),
+        _('RPC 26\n'),
         climateBioClim2070Rpc26.bio12,
         climateBioClim2070Rpc26.bio13,
         climateBioClim2070Rpc26.bio14,
@@ -1361,10 +1377,11 @@ def getClimateVillage(request):
         climateBioClim2070Rpc26.bio16,
         climateBioClim2070Rpc26.bio17,
         climateBioClim2070Rpc26.bio18,
-        climateBioClim2070Rpc26.bio19
+        climateBioClim2070Rpc26.bio19,
+        'color: #ffff03'
     ])
     climDataPrec.append([
-        _('2070 RPC 45'),
+        _('RPC 45\n2070'),
         climateBioClim2070Rpc45.bio12,
         climateBioClim2070Rpc45.bio13,
         climateBioClim2070Rpc45.bio14,
@@ -1372,10 +1389,11 @@ def getClimateVillage(request):
         climateBioClim2070Rpc45.bio16,
         climateBioClim2070Rpc45.bio17,
         climateBioClim2070Rpc45.bio18,
-        climateBioClim2070Rpc45.bio19
+        climateBioClim2070Rpc45.bio19,
+        'color: #ffc003'
     ])
     climDataPrec.append([
-        _('2070 RPC 85'),
+        _('RPC 85\n'),
         climateBioClim2070Rpc85.bio12,
         climateBioClim2070Rpc85.bio13,
         climateBioClim2070Rpc85.bio14,
@@ -1383,7 +1401,8 @@ def getClimateVillage(request):
         climateBioClim2070Rpc85.bio16,
         climateBioClim2070Rpc85.bio17,
         climateBioClim2070Rpc85.bio18,
-        climateBioClim2070Rpc85.bio19
+        climateBioClim2070Rpc85.bio19,
+        'color: #ff0303'
     ])
 
     context_dict['climatechange_prec_data'] = json.dumps(climDataPrec)

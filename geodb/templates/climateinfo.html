@@ -76,10 +76,20 @@ table#info tr.odd td {
 
   function drawChartline_chart2(tt) {
     var data = google.visualization.arrayToDataTable({{ climatechange_temp_data | safe }});
-	var options = {"title": "Climate Change (Temperature)", "curveType": "function", "height": 500, "width": 500, "legend": "bottom", "vAxes": { 
+	var options = {
+			// "title": "Climate Change (Temperature)", 
+			"curveType": "function", 
+			"height": 350, 
+			"width": 500, 
+			"legend": "bottom", 
+			'seriesType': 'bars',
+			'chartArea': {'top':10, 'bottom':90, 'left':50, 'right':25},
+			"bar": {"groupWidth": "95%"},
+			"vAxes": { 
                 0:{'format': '# \u00b0C'},
-            }}
-	var chart = new google.visualization.LineChart(document.getElementById('line_chart2'));
+            },
+        }
+	var chart = new google.visualization.ComboChart(document.getElementById('line_chart2'));
 
 	view = new google.visualization.DataView(data);
 	for (var i=1;i<=11;i++){
@@ -102,10 +112,20 @@ table#info tr.odd td {
 
   function drawChartline_chart3(tt) {
     var data1 = google.visualization.arrayToDataTable({{ climatechange_prec_data | safe }});
-	var options1 = {"title": "Climate Change (Precipitation)", "curveType": "function", "height": 500, "width": 500, "legend": "bottom", "vAxes": { 
+	var options1 = {
+			// "title": "Climate Change (Precipitation)", 
+			"curveType": "function", 
+			"height": 350, 
+			"width": 500, 
+			"legend": "bottom", 
+			'seriesType': 'bars',
+			'chartArea': {'top':10, 'bottom':90, 'left':50, 'right':25},
+			"bar": {"groupWidth": "95%"},
+			"vAxes": { 
                 0:{'format':"# mm"} 
-            }}
-	var chart1 = new google.visualization.LineChart(document.getElementById('line_chart3'));
+            }
+        }
+	var chart1 = new google.visualization.ComboChart(document.getElementById('line_chart3'));
 
 	view1 = new google.visualization.DataView(data1);
 	for (var i=1;i<=8;i++){
@@ -121,8 +141,6 @@ table#info tr.odd td {
   } 
 </script>
 
-	
-<div id="line_chart2" style='width:90%;margin:1em auto;align=left'></div>
 <div style='width:90%;margin:1em auto;align=left'>
 	<select style='width:90%;margin:1em auto;align=left' onChange="select1(this)">
 		<option value="1" selected="selected">Annual Mean Temperature </option>
@@ -137,9 +155,9 @@ table#info tr.odd td {
 		<option value="10">Mean Temperature of Warmest Quarter</option>
 		<option value="11">Mean Temperature of Coldest Quarter</option>
 	</select>
-</div>
+</div>	
+<div id="line_chart2" style='width:90%;margin:1em auto;align=left'></div>
 
-<div id="line_chart3" style='width:90%;margin:1em auto;align=left'></div>
 <div style='width:90%;margin:1em auto;align=left'>
 	<select style='width:90%;margin:1em auto;align=left' onChange="select2(this)">
 		<option value="1" selected="selected">Annual Precipitation</option>
@@ -152,6 +170,8 @@ table#info tr.odd td {
 		<option value="8">Precipitation of Coldest Quarter</option>
 	</select>
 </div>
+<div id="line_chart3" style='width:90%;margin:1em auto;align=left'></div>
+
 
 
 </body>
