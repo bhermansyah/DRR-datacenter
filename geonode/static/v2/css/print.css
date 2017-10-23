@@ -151,7 +151,7 @@
 
     /*Printing table*/
     table.road_network {
-        font-size: 11px;
+        /*font-size: 11px;*/
     }
 
     table#pop_area_overview_p, table#frisk_p{
@@ -163,6 +163,10 @@
         padding-right: 0px;
     }
 
+    .x_content .table thead>tr>th>i{
+        font-size: 20px;
+    }
+
     div.ch-size{
         height: 370px !important;
         /*width: 250px !important;*/
@@ -171,7 +175,7 @@
 
     div.ch-size-fforecast{
         height: 370px !important;
-        width: 410px !important;
+        width: 544px !important;
     }
 
     div.ch-size-pie{
@@ -182,8 +186,8 @@
     }
 
     div.ch-size-pie-mercalli{
-      height: 500px;
-      width: 1100px;
+      height: 370px !important;
+      width: 344px !important;
     }
 
     div.ch-size-radar{
@@ -193,8 +197,60 @@
 
     div.ch-size-haccessBar{
         height: 480px !important;
-        width: 270px !important;
+        width: 544px !important;
     }
+
+    .checkbox input[type="checkbox"] {
+        /*width: 17px;*/
+        /*height: 17px;*/
+        position: relative;
+        appearance: none;
+        border-radius: 0.25em;
+    }
+
+    .checkbox input[type="checkbox"]::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        z-index: 1;
+        background-color: #fff;
+    }
+
+    .checkbox input[type="checkbox"]::before {
+        content: '\f00c';
+        /*color: #fff;*/
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        font-size: 8px;
+        line-height: 1.65em;
+        font-family: FontAwesome;
+        /*background: #d9534f;*/
+        z-index: 2;
+        border-radius: 3px;
+        transition: opacity .2s;
+        opacity: 0;
+    }
+
+    .checkbox-red input[type="checkbox"]::before{
+        color: #fff;
+        background: #d9534f !important;
+    }
+
+    .checkbox-white input[type="checkbox"]::before{
+        color: #a72b1f;
+        background: #fff !important;
+    }
+
     /*table, th, td {
         border: 0.1px solid black !important;
     }

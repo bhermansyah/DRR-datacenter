@@ -9030,7 +9030,8 @@ jQuery(function($){
 				}
 				else if (v>=1000000 && v<1000000000) {
 					return '\n'+((v/1000000).toFixed(2))+' M'+'\n(' + p+'%)'
-				}else{
+				}
+				else{
 					return '\n'+ v+ '\n('+ p+'%)'
 				}
 
@@ -9053,7 +9054,7 @@ jQuery(function($){
 			};
 
 			var humTooltipBar = function(params){
-			    console.log('params', params)
+			    // console.log('params', params)
 			    p = params;
 			    if (!Array.isArray(params)) {
 			    	params = [params];
@@ -12385,15 +12386,15 @@ jQuery(function($){
 	  					}
 	  				  },
 	  				  data: [{
-	  					value: afo_low_pop,
+	  					value: (afo_low_pop || '-'),
 	  					// value: jsondata['ava_forecast_low_pop'],
 	  					name: aforecast_cat[0]
 	  				  }, {
-	  					value: afo_med_pop,
+	  					value: (afo_med_pop || '-'),
 	  					// value: jsondata['ava_forecast_med_pop'],
 	  					name: aforecast_cat[1]
 	  				  }, {
-	  					value: afo_hi_pop,
+	  					value: (afo_hi_pop || '-'),
 	  					// value: jsondata['ava_forecast_high_pop'],
 	  					name: aforecast_cat[2]
 	  				  }, {
@@ -12480,17 +12481,17 @@ jQuery(function($){
 	  					}
 	  				  },
 	  				  data: [{
-	  					value: afo_low_build,
+	  					value: (afo_low_build || '-'),
 	  					// value: jsondata['ava_forecast_low_pop'],
 	  					name: aforecast_cat[0]
 	  					// name: 'Low Risk'
 	  				  }, {
-	  					value: afo_med_build,
+	  					value: (afo_med_build || '-'),
 	  					// value: jsondata['ava_forecast_low_pop'],
 	  					name: aforecast_cat[1]
 	  					// name: 'Medium Risk'
 	  				  }, {
-	  					value: afo_hi_build,
+	  					value: (afo_hi_build || '-'),
 	  					// value: jsondata['ava_forecast_low_pop'],
 	  					name: aforecast_cat[2]
 	  					// name: 'High Risk'
@@ -14057,9 +14058,9 @@ jQuery(function($){
 	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
 	  				},
 	  				legend: {
-	  				  x: 'left',
+	  				  x: 'center',
 	  				  y: 'bottom',
-	  				  orient: 'vertical',
+	  				  // orient: 'vertical',
 	  				  data: mercalli_cat
 	  				},
 	  				toolbox: {
@@ -14115,35 +14116,35 @@ jQuery(function($){
 	  					}
 	  				  },
 	  				  data: [{
-	  					value: pop_weak,
+	  					value: (pop_weak || '-'),
 	  					// value: jsondata['pop_shake_weak'],
 	  					name: mercalli_cat[0]
 	  				  }, {
-	  					value: pop_light,
+	  					value: (pop_light || '-'),
 	  					// value: jsondata['pop_shake_light'],
 	  					name: mercalli_cat[1]
 	  				  }, {
-	  					value: pop_mod,
+	  					value: (pop_mod || '-'),
 	  					// value: jsondata['pop_shake_moderate'],
 	  					name: mercalli_cat[2]
 	  				  }, {
-	  					value: pop_strong,
+	  					value: (pop_strong || '-'),
 	  					// value: jsondata['pop_shake_strong'],
 	  					name: mercalli_cat[3]
 	  				  }, {
-	  					value: pop_vstrong,
+	  					value: (pop_vstrong || '-'),
 	  					// value: jsondata['pop_shake_verystrong'],
 	  					name: mercalli_cat[4]
 	  				  }, {
-	  					value: pop_severe,
+	  					value: (pop_severe || '-'),
 	  					// value: jsondata['pop_shake_severe'],
 	  					name: mercalli_cat[5]
 	  				  }, {
-	  					value: pop_violent,
+	  					value: (pop_violent || '-'),
 	  					// value: jsondata['pop_shake_violent'],
 	  					name: mercalli_cat[6]
 	  				  }, {
-	  					value: pop_ext,
+	  					value: (pop_ext || '-'),
 	  					// value: jsondata['pop_shake_extreme'],
 	  					name: mercalli_cat[7]
 	  				  }]
@@ -14195,9 +14196,9 @@ jQuery(function($){
 	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
 	  				},
 	  				legend: {
-	  				  x: 'left',
+	  				  x: 'center',
 	  				  y: 'bottom',
-	  				  orient: 'vertical',
+	  				  // orient: 'vertical',
 	  				  data: mercalli_cat
 	  				},
 	  				toolbox: {
@@ -14253,35 +14254,35 @@ jQuery(function($){
 	  					}
 	  				  },
 	  				  data: [{
-	  				    value: buildings_weak,
+	  				    value: (buildings_weak || '-'),
 	  				    // value: jsondata['buildings_shake_weak'],
 	  				    name: mercalli_cat[0]
 	  				    }, {
-	  				    value: buildings_light,
+	  				    value: (buildings_light || '-'),
 	  				    // value: jsondata['buildings_shake_light'],
 	  				    name: mercalli_cat[1]
 	  				    }, {
-	  				    value: buildings_mod,
+	  				    value: (buildings_mod || '-'),
 	  				    // value: jsondata['buildings_shake_moderate'],
 	  				    name: mercalli_cat[2]
 	  				    }, {
-	  				    value: buildings_strong,
+	  				    value: (buildings_strong || '-'),
 	  				    // value: jsondata['buildings_shake_strong'],
 	  				    name: mercalli_cat[3]
 	  				    }, {
-	  				    value: buildings_vstrong,
+	  				    value: (buildings_vstrong || '-'),
 	  				    // value: jsondata['buildings_shake_verystrong'],
 	  				    name: mercalli_cat[4]
 	  				    }, {
-	  				    value: buildings_severe,
+	  				    value: (buildings_severe || '-'),
 	  				    // value: jsondata['buildings_shake_severe'],
 	  				    name: mercalli_cat[5]
 	  				    }, {
-	  				    value: buildings_violent,
+	  				    value: (buildings_violent || '-'),
 	  				    // value: jsondata['buildings_shake_violent'],
 	  				    name: mercalli_cat[6]
 	  				    }, {
-	  				    value: buildings_ext,
+	  				    value: (buildings_ext || '-'),
 	  				    // value: jsondata['buildings_shake_extreme'],
 	  				    name: mercalli_cat[7]
 	  				  }]
@@ -14333,9 +14334,9 @@ jQuery(function($){
 	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
 	  				},
 	  				legend: {
-	  				  x: 'left',
+	  				  x: 'center',
 	  				  y: 'bottom',
-	  				  orient: 'vertical',
+	  				  // orient: 'vertical',
 	  				  data: mercalli_cat
 	  				},
 	  				toolbox: {
@@ -14391,35 +14392,35 @@ jQuery(function($){
 	  					}
 	  				  },
 	  				  data: [{
-	  				    value: settlement_weak,
+	  				    value: (settlement_weak || '-'),
 	  				    // value: jsondata['settlement_shake_weak'],
 	  				    name: mercalli_cat[0]
 	  				  }, {
-	  				    value: settlement_light,
+	  				    value: (settlement_light || '-'),
 	  				    // value: jsondata['settlement_shake_light'],
 	  				    name: mercalli_cat[1]
 	  				  }, {
-	  				    value: settlement_mod,
+	  				    value: (settlement_mod || '-'),
 	  				    // value: jsondata['settlement_shake_moderate'],
 	  				    name: mercalli_cat[2]
 	  				  }, {
-	  				    value: settlement_strong,
+	  				    value: (settlement_strong || '-'),
 	  				    // value: jsondata['settlement_shake_strong'],
 	  				    name: mercalli_cat[3]
 	  				  }, {
-	  				    value: settlement_vstrong,
+	  				    value: (settlement_vstrong || '-'),
 	  				    // value: jsondata['settlement_shake_verystrong'],
 	  				    name: mercalli_cat[4]
 	  				  }, {
-	  				    value: settlement_severe,
+	  				    value: (settlement_severe || '-'),
 	  				    // value: jsondata['settlement_shake_severe'],
 	  				    name: mercalli_cat[5]
 	  				  }, {
-	  				    value: settlement_violent,
+	  				    value: (settlement_violent || '-'),
 	  				    // value: jsondata['settlement_shake_violent'],
 	  				    name: mercalli_cat[6]
 	  				  }, {
-	  				    value: settlement_ext,
+	  				    value: (settlement_ext || '-'),
 	  				    // value: jsondata['settlement_shake_extreme'],
 	  				    name: mercalli_cat[7]
 	  				  }]
@@ -14462,644 +14463,644 @@ jQuery(function($){
 	  		// case "haccess":
 	  			// haccess tab
 	  			// echart Radar masing2
-	  		// 	if ($('#echart_sonar').length ){
-	  		// 		  var echartRadar3 = echarts.init(document.getElementById('echart_sonar'), theme);
+			  		// 	if ($('#echart_sonar').length ){
+			  		// 		  var echartRadar3 = echarts.init(document.getElementById('echart_sonar'), theme);
 
-	  		// 		  echartRadar3.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator1,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar3.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar3.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator1,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar3.resize();
+			  		// 			});
+			  		// 	}
 
-	  		// 	// echart Radar 2
-	  		// 	if ($('#echart_sonar_2').length ){
-	  		// 		  var echartRadar2 = echarts.init(document.getElementById('echart_sonar_2'), theme);
+			  		// 	// echart Radar 2
+			  		// 	if ($('#echart_sonar_2').length ){
+			  		// 		  var echartRadar2 = echarts.init(document.getElementById('echart_sonar_2'), theme);
 
-	  		// 		  echartRadar2.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator1,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar2.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar2.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator1,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar2.resize();
+			  		// 			});
+			  		// 	}
 
-	  		// 	// echart Radar 4
-	  		// 	if ($('#echart_sonar_4').length ){
-	  		// 		  var echartRadar4 = echarts.init(document.getElementById('echart_sonar_4'), theme);
+			  		// 	// echart Radar 4
+			  		// 	if ($('#echart_sonar_4').length ){
+			  		// 		  var echartRadar4 = echarts.init(document.getElementById('echart_sonar_4'), theme);
 
-	  		// 		  echartRadar4.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator1,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar4.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar4.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator1,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar4.resize();
+			  		// 			});
+			  		// 	}
 
-	  		// 	// echart Radar 5
-	  		// 	if ($('#echart_sonar_5').length ){
-	  		// 		  var echartRadar5 = echarts.init(document.getElementById('echart_sonar_5'), theme);
+			  		// 	// echart Radar 5
+			  		// 	if ($('#echart_sonar_5').length ){
+			  		// 		  var echartRadar5 = echarts.init(document.getElementById('echart_sonar_5'), theme);
 
-	  		// 		  echartRadar5.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator1,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar5.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar5.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator1,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar5.resize();
+			  		// 			});
+			  		// 	}
 
-	  		// 	// echart Radar 3
+			  		// 	// echart Radar 3
 
-	  		// 	if ($('#echart_sonar_3').length ){
+			  		// 	if ($('#echart_sonar_3').length ){
 
-	  		// 	  var echartRadar1 = echarts.init(document.getElementById('echart_sonar_3'), theme);
+			  		// 	  var echartRadar1 = echarts.init(document.getElementById('echart_sonar_3'), theme);
 
-	  		// 	  echartRadar1.setOption({
-	  		// 		// title: {
-	  		// 		//   text: 'Number of Incident and Casualties by Incident Type',
-	  		// 		//   subtext: 'Subtitle'
-	  		// 		// },
-	  		// 		 tooltip: {
-	  		// 			trigger: 'item'
-	  		// 			// formatter: humTooltipRadar
-	  		// 		},
-	  		// 		legend: {
-	  		// 		  // orient: 'vertical',
-	  		// 		  x: 'center',
-	  		// 		  y: 'bottom',
-	  		// 		  data: ['Incident', 'Dead', 'Injured', 'Violent'],
-	  		// 		  selectedMode: 'single'
-	  		// 		},
-	  		// 		toolbox: {
-	  		// 		  show: true,
-	  		// 		  feature: {
-	  		// 			restore: {
-	  		// 			  show: true,
-	  		// 			  title: "Restore"
-	  		// 			},
-	  		// 			saveAsImage: {
-	  		// 			  show: true,
-	  		// 			  title: "Save Image"
-	  		// 			}
-	  		// 		  }
-	  		// 		},
-	  		// 		radar: [{
-				 //  	  	indicator: checkIndicator1,
-				 //  	  	// axisLine:{
-				 //  	  	// 	lineStyle:{
-				 //  	  	// 		type: 'dotted'
-				 //  	  	// 	}
-				 //  	  	// },
-				 //  	  	splitNumber: 3,
-				 //  	  	nameGap: 20,
-				 //  	  	name: {
-		  	//   	            textStyle: {
-		  	//   	                fontWeight: 'bold'
-		  	//   	            }
-				 //  	  	},
-				 //  	  	axisTick:{
-				 //  	  		// show: true,
-				 //  	  		alignWithLabel: true
-				 //  	  	},
-				 //  	  	axisLabel:{
-				 //  	  		show: true,
-				 //  	  		margin: 5,
-				 //  	  		// rotate: 60,
-				 //  	  		showMinLabel: false,
-				 //  	  		formatter: humanizeFormatter
-				 //  	  		// showMinLabel: true,
-				 //  	  		// showMaxLabel: true
+			  		// 	  echartRadar1.setOption({
+			  		// 		// title: {
+			  		// 		//   text: 'Number of Incident and Casualties by Incident Type',
+			  		// 		//   subtext: 'Subtitle'
+			  		// 		// },
+			  		// 		 tooltip: {
+			  		// 			trigger: 'item'
+			  		// 			// formatter: humTooltipRadar
+			  		// 		},
+			  		// 		legend: {
+			  		// 		  // orient: 'vertical',
+			  		// 		  x: 'center',
+			  		// 		  y: 'bottom',
+			  		// 		  data: ['Incident', 'Dead', 'Injured', 'Violent'],
+			  		// 		  selectedMode: 'single'
+			  		// 		},
+			  		// 		toolbox: {
+			  		// 		  show: true,
+			  		// 		  feature: {
+			  		// 			restore: {
+			  		// 			  show: true,
+			  		// 			  title: "Restore"
+			  		// 			},
+			  		// 			saveAsImage: {
+			  		// 			  show: true,
+			  		// 			  title: "Save Image"
+			  		// 			}
+			  		// 		  }
+			  		// 		},
+			  		// 		radar: [{
+						 //  	  	indicator: checkIndicator1,
+						 //  	  	// axisLine:{
+						 //  	  	// 	lineStyle:{
+						 //  	  	// 		type: 'dotted'
+						 //  	  	// 	}
+						 //  	  	// },
+						 //  	  	splitNumber: 3,
+						 //  	  	nameGap: 20,
+						 //  	  	name: {
+				  	//   	            textStyle: {
+				  	//   	                fontWeight: 'bold'
+				  	//   	            }
+						 //  	  	},
+						 //  	  	axisTick:{
+						 //  	  		// show: true,
+						 //  	  		alignWithLabel: true
+						 //  	  	},
+						 //  	  	axisLabel:{
+						 //  	  		show: true,
+						 //  	  		margin: 5,
+						 //  	  		// rotate: 60,
+						 //  	  		showMinLabel: false,
+						 //  	  		formatter: humanizeFormatter
+						 //  	  		// showMinLabel: true,
+						 //  	  		// showMaxLabel: true
 
-				 //  	  	},
-				 //  	  	splitLine: false,
-				 //  	  	splitArea: false,
-				 //  	  	scale: true,
-		  	// 			center:['50%', '45%'],
-		  	// 			radius: '75%'
-	  		// 		}],
-	  		// 		calculable: true,
-	  		// 		series: [{
-	  		// 		  name: 'Incident Type',
-	  		// 		  type: 'radar',
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 			name: 'Incident',
-	  		// 			label:{
-	  		// 				normal: {
-	  		// 					// show: true,
-	  		// 					showMaxLabel: true,
-	  		// 					// formatter: function(params){
-	  		// 					// 	return params.value;
-	  		// 					// }
-	  		// 				}
-	  		// 			}
-	  		// 		  }]
-	  		// 		}, {
-	  		// 		  name: 'Casualties',
-	  		// 		  type: 'radar',
-	  		// 		  // polarIndex: 1,
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 			name: 'Dead'
-	  		// 		  }]
-	  		// 		}, {
-	  		// 		  name: 'Casualties',
-	  		// 		  type: 'radar',
-	  		// 		  // polarIndex: 2,
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 			name: 'Injured'
-	  		// 		  }]
-	  		// 		}, {
-	  		// 		  name: 'Casualties',
-	  		// 		  type: 'radar',
-	  		// 		  // polarIndex: 3,
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	  		// 			name: 'Violent'
-	  		// 		  }]
-	  		// 		}]
-	  		// 	  });
+						 //  	  	},
+						 //  	  	splitLine: false,
+						 //  	  	splitArea: false,
+						 //  	  	scale: true,
+				  	// 			center:['50%', '45%'],
+				  	// 			radius: '75%'
+			  		// 		}],
+			  		// 		calculable: true,
+			  		// 		series: [{
+			  		// 		  name: 'Incident Type',
+			  		// 		  type: 'radar',
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 			name: 'Incident',
+			  		// 			label:{
+			  		// 				normal: {
+			  		// 					// show: true,
+			  		// 					showMaxLabel: true,
+			  		// 					// formatter: function(params){
+			  		// 					// 	return params.value;
+			  		// 					// }
+			  		// 				}
+			  		// 			}
+			  		// 		  }]
+			  		// 		}, {
+			  		// 		  name: 'Casualties',
+			  		// 		  type: 'radar',
+			  		// 		  // polarIndex: 1,
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 			name: 'Dead'
+			  		// 		  }]
+			  		// 		}, {
+			  		// 		  name: 'Casualties',
+			  		// 		  type: 'radar',
+			  		// 		  // polarIndex: 2,
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 			name: 'Injured'
+			  		// 		  }]
+			  		// 		}, {
+			  		// 		  name: 'Casualties',
+			  		// 		  type: 'radar',
+			  		// 		  // polarIndex: 3,
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
+			  		// 			name: 'Violent'
+			  		// 		  }]
+			  		// 		}]
+			  		// 	  });
 
-					// window.addEventListener("resize", function(){
-					// 	echartRadar1.resize();
-					// });
+							// window.addEventListener("resize", function(){
+							// 	echartRadar1.resize();
+							// });
 
-	  		// 	}
+			  		// 	}
 
-	  		// 	// echart Radar 6
+			  		// 	// echart Radar 6
 
-	  		// 	if ($('#echart_sonar_6').length ){
+			  		// 	if ($('#echart_sonar_6').length ){
 
-	  		// 	  var echartRadar6 = echarts.init(document.getElementById('echart_sonar_6'), theme);
+			  		// 	  var echartRadar6 = echarts.init(document.getElementById('echart_sonar_6'), theme);
 
-	  		// 	  echartRadar6.setOption({
-	  		// 		// title: {
-	  		// 		//   text: 'Number of Incident and Casualties by Incident Type',
-	  		// 		//   subtext: 'Subtitle'
-	  		// 		// },
-	  		// 		 tooltip: {
-	  		// 			trigger: 'item'
-	  		// 		},
-	  		// 		legend: {
-	  		// 		  // orient: 'vertical',
-	  		// 		  x: 'center',
-	  		// 		  y: 'bottom',
-	  		// 		  data: ['Incident', 'Dead', 'Injured', 'Violent'],
-	  		// 		  selectedMode: 'single'
-	  		// 		},
-	  		// 		toolbox: {
-	  		// 		  show: true,
-	  		// 		  feature: {
-	  		// 			restore: {
-	  		// 			  show: true,
-	  		// 			  title: "Restore"
-	  		// 			},
-	  		// 			saveAsImage: {
-	  		// 			  show: true,
-	  		// 			  title: "Save Image"
-	  		// 			}
-	  		// 		  }
-	  		// 		},
-	  		// 		radar: [{
-				 //  	  	indicator: checkIndicator2,
-				 //  	  	// axisLine:{
-				 //  	  	// 	lineStyle:{
-				 //  	  	// 		type: 'dotted'
-				 //  	  	// 	}
-				 //  	  	// },
-				 //  	  	axisTick:{
-				 //  	  		show: true
-				 //  	  	},
-				 //  	  	axisLabel:{
-				 //  	  		show: true,
-				 //  	  		// showMinLabel: true,
-				 //  	  		// showMaxLabel: true
+			  		// 	  echartRadar6.setOption({
+			  		// 		// title: {
+			  		// 		//   text: 'Number of Incident and Casualties by Incident Type',
+			  		// 		//   subtext: 'Subtitle'
+			  		// 		// },
+			  		// 		 tooltip: {
+			  		// 			trigger: 'item'
+			  		// 		},
+			  		// 		legend: {
+			  		// 		  // orient: 'vertical',
+			  		// 		  x: 'center',
+			  		// 		  y: 'bottom',
+			  		// 		  data: ['Incident', 'Dead', 'Injured', 'Violent'],
+			  		// 		  selectedMode: 'single'
+			  		// 		},
+			  		// 		toolbox: {
+			  		// 		  show: true,
+			  		// 		  feature: {
+			  		// 			restore: {
+			  		// 			  show: true,
+			  		// 			  title: "Restore"
+			  		// 			},
+			  		// 			saveAsImage: {
+			  		// 			  show: true,
+			  		// 			  title: "Save Image"
+			  		// 			}
+			  		// 		  }
+			  		// 		},
+			  		// 		radar: [{
+						 //  	  	indicator: checkIndicator2,
+						 //  	  	// axisLine:{
+						 //  	  	// 	lineStyle:{
+						 //  	  	// 		type: 'dotted'
+						 //  	  	// 	}
+						 //  	  	// },
+						 //  	  	axisTick:{
+						 //  	  		show: true
+						 //  	  	},
+						 //  	  	axisLabel:{
+						 //  	  		show: true,
+						 //  	  		// showMinLabel: true,
+						 //  	  		// showMaxLabel: true
 
-				 //  	  	},
-				 //  	  	splitLine: false,
-				 //  	  	// splitArea: true,
-		  	// 			center:['50%', '45%'],
-		  	// 			radius: '65%'
-	  		// 		}],
-	  		// 		calculable: true,
-	  		// 		series: [{
-	  		// 		  name: 'Incident Type',
-	  		// 		  type: 'radar',
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [1, 5, 7, 4, 9, 2, 8, 2, 3],
-	  		// 			name: 'Incident',
-	  		// 			label:{
-	  		// 				normal: {
-	  		// 					// show: true,
-	  		// 					showMaxLabel: true,
-	  		// 					// formatter: function(params){
-	  		// 					// 	return params.value;
-	  		// 					// }
-	  		// 				}
-	  		// 			}
-	  		// 		  }]
-	  		// 		}, {
-	  		// 		  name: 'Casualties',
-	  		// 		  type: 'radar',
-	  		// 		  // polarIndex: 1,
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [5, 4, 10, 2, 6, 9, 1, 9, 3],
-	  		// 			name: 'Dead'
-	  		// 		  }]
-	  		// 		}, {
-	  		// 		  name: 'Casualties',
-	  		// 		  type: 'radar',
-	  		// 		  // polarIndex: 2,
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [0, 4, 7, 3, 9, 8, 2, 1, 2],
-	  		// 			name: 'Injured'
-	  		// 		  }]
-	  		// 		}, {
-	  		// 		  name: 'Casualties',
-	  		// 		  type: 'radar',
-	  		// 		  // polarIndex: 3,
-	  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	  		// 		  data: [{
-	  		// 			value: [10, 1, 5, 8, 2, 3, 6, 8, 7],
-	  		// 			name: 'Violent'
-	  		// 		  }]
-	  		// 		}]
-	  		// 	  });
+						 //  	  	},
+						 //  	  	splitLine: false,
+						 //  	  	// splitArea: true,
+				  	// 			center:['50%', '45%'],
+				  	// 			radius: '65%'
+			  		// 		}],
+			  		// 		calculable: true,
+			  		// 		series: [{
+			  		// 		  name: 'Incident Type',
+			  		// 		  type: 'radar',
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [1, 5, 7, 4, 9, 2, 8, 2, 3],
+			  		// 			name: 'Incident',
+			  		// 			label:{
+			  		// 				normal: {
+			  		// 					// show: true,
+			  		// 					showMaxLabel: true,
+			  		// 					// formatter: function(params){
+			  		// 					// 	return params.value;
+			  		// 					// }
+			  		// 				}
+			  		// 			}
+			  		// 		  }]
+			  		// 		}, {
+			  		// 		  name: 'Casualties',
+			  		// 		  type: 'radar',
+			  		// 		  // polarIndex: 1,
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [5, 4, 10, 2, 6, 9, 1, 9, 3],
+			  		// 			name: 'Dead'
+			  		// 		  }]
+			  		// 		}, {
+			  		// 		  name: 'Casualties',
+			  		// 		  type: 'radar',
+			  		// 		  // polarIndex: 2,
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [0, 4, 7, 3, 9, 8, 2, 1, 2],
+			  		// 			name: 'Injured'
+			  		// 		  }]
+			  		// 		}, {
+			  		// 		  name: 'Casualties',
+			  		// 		  type: 'radar',
+			  		// 		  // polarIndex: 3,
+			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			  		// 		  data: [{
+			  		// 			value: [10, 1, 5, 8, 2, 3, 6, 8, 7],
+			  		// 			name: 'Violent'
+			  		// 		  }]
+			  		// 		}]
+			  		// 	  });
 
-					// window.addEventListener("resize", function(){
-					// 	echartRadar6.resize();
-					// });
+							// window.addEventListener("resize", function(){
+							// 	echartRadar6.resize();
+							// });
 
-	  		// 	}
+			  		// 	}
 
-	  		// 	// echart Radar 7
-	  		// 	if ($('#echart_sonar_7').length ){
-	  		// 		  var echartRadar7 = echarts.init(document.getElementById('echart_sonar_7'), theme);
+			  		// 	// echart Radar 7
+			  		// 	if ($('#echart_sonar_7').length ){
+			  		// 		  var echartRadar7 = echarts.init(document.getElementById('echart_sonar_7'), theme);
 
-	  		// 		  echartRadar7.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator2,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [5, 4, 10, 2, 6, 9, 1, 9, 3],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar7.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar7.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator2,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [5, 4, 10, 2, 6, 9, 1, 9, 3],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar7.resize();
+			  		// 			});
+			  		// 	}
 
-	  		// 	// echart Radar 8
-	  		// 	if ($('#echart_sonar_8').length ){
-	  		// 		  var echartRadar8 = echarts.init(document.getElementById('echart_sonar_8'), theme);
+			  		// 	// echart Radar 8
+			  		// 	if ($('#echart_sonar_8').length ){
+			  		// 		  var echartRadar8 = echarts.init(document.getElementById('echart_sonar_8'), theme);
 
-	  		// 		  echartRadar8.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator2,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [0, 4, 7, 3, 9, 8, 2, 1, 2],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar8.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar8.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator2,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [0, 4, 7, 3, 9, 8, 2, 1, 2],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar8.resize();
+			  		// 			});
+			  		// 	}
 
-	  		// 	// echart Radar 9
-	  		// 	if ($('#echart_sonar_9').length ){
-	  		// 		  var echartRadar9 = echarts.init(document.getElementById('echart_sonar_9'), theme);
+			  		// 	// echart Radar 9
+			  		// 	if ($('#echart_sonar_9').length ){
+			  		// 		  var echartRadar9 = echarts.init(document.getElementById('echart_sonar_9'), theme);
 
-	  		// 		  echartRadar9.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator2,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [1, 5, 7, 4, 9, 2, 8, 2, 3],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar9.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar9.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator2,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [1, 5, 7, 4, 9, 2, 8, 2, 3],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar9.resize();
+			  		// 			});
+			  		// 	}
 
-	  		// 	// echart Radar 10
-	  		// 	if ($('#echart_sonar_10').length ){
-	  		// 		  var echartRadar10 = echarts.init(document.getElementById('echart_sonar_10'), theme);
+			  		// 	// echart Radar 10
+			  		// 	if ($('#echart_sonar_10').length ){
+			  		// 		  var echartRadar10 = echarts.init(document.getElementById('echart_sonar_10'), theme);
 
-	  		// 		  echartRadar10.setOption({
-	  		// 			// title: {
-	  		// 			//   text: 'Incident Type',
-	  		// 			//   subtext: 'Subtitle'
-	  		// 			// },
-	  		// 			 tooltip: {
-	  		// 				trigger: 'item'
-	  		// 			},
-	  		// 			legend: {
-	  		// 			  // orient: 'vertical',
-	  		// 			  x: 'left',
-	  		// 			  y: 'top',
-	  		// 			  data: ['Incident']
-	  		// 			},
-	  		// 			toolbox: {
-	  		// 			  show: true,
-	  		// 			  feature: {
-	  		// 				restore: {
-	  		// 				  show: true,
-	  		// 				  title: "Restore"
-	  		// 				},
-	  		// 				saveAsImage: {
-	  		// 				  show: true,
-	  		// 				  title: "Save Image"
-	  		// 				}
-	  		// 			  }
-	  		// 			},
-	  		// 			polar: [{
-	  		// 			  indicator: checkIndicator2,
-	  		// 			  center:['50%', '55%'],
-	  		// 			  radius: 60
-	  		// 			}],
-	  		// 			calculable: true,
-	  		// 			series: [{
-	  		// 			  name: 'Incident Type',
-	  		// 			  type: 'radar',
-	  		// 			  data: [{
-	  		// 				value: [10, 1, 5, 8, 2, 3, 6, 8, 7],
-	  		// 				name: 'Incident'
-	  		// 			  }]
-	  		// 			}]
-	  		// 		  });
-	  		// 			window.addEventListener("resize", function(){
-	  		// 				echartRadar10.resize();
-	  		// 			});
-	  		// 	}
+			  		// 		  echartRadar10.setOption({
+			  		// 			// title: {
+			  		// 			//   text: 'Incident Type',
+			  		// 			//   subtext: 'Subtitle'
+			  		// 			// },
+			  		// 			 tooltip: {
+			  		// 				trigger: 'item'
+			  		// 			},
+			  		// 			legend: {
+			  		// 			  // orient: 'vertical',
+			  		// 			  x: 'left',
+			  		// 			  y: 'top',
+			  		// 			  data: ['Incident']
+			  		// 			},
+			  		// 			toolbox: {
+			  		// 			  show: true,
+			  		// 			  feature: {
+			  		// 				restore: {
+			  		// 				  show: true,
+			  		// 				  title: "Restore"
+			  		// 				},
+			  		// 				saveAsImage: {
+			  		// 				  show: true,
+			  		// 				  title: "Save Image"
+			  		// 				}
+			  		// 			  }
+			  		// 			},
+			  		// 			polar: [{
+			  		// 			  indicator: checkIndicator2,
+			  		// 			  center:['50%', '55%'],
+			  		// 			  radius: 60
+			  		// 			}],
+			  		// 			calculable: true,
+			  		// 			series: [{
+			  		// 			  name: 'Incident Type',
+			  		// 			  type: 'radar',
+			  		// 			  data: [{
+			  		// 				value: [10, 1, 5, 8, 2, 3, 6, 8, 7],
+			  		// 				name: 'Incident'
+			  		// 			  }]
+			  		// 			}]
+			  		// 		  });
+			  		// 			window.addEventListener("resize", function(){
+			  		// 				echartRadar10.resize();
+			  		// 			});
+			  		// 	}
 
 	  			// echart Polar
 	  			if ($('#echart_polar_1').length ){
@@ -15808,6 +15809,7 @@ jQuery(function($){
 
 		  		}
 		  	// break;
+
 		  	// default:
 			  	// baseline tab
 			  	//echart Bar Horizontal
@@ -17088,14 +17090,31 @@ jQuery(function($){
 	    			},
 	    			{
 	    				extend: "csv",
+	    				filename: 'ASDC Data',
 	    				className: "btn-sm"
 	    			},
 	    			{
 	    				extend: "excel",
+	    				filename: 'ASDC Data',
 	    				className: "btn-sm"
 	    			},
 	    			{
 	    				extend: "print",
+	    				filename: 'ASDC Data',
+	    				// customize: 
+	    				// 	function ( win ) {
+			      //               $(win.document.body)
+			      //                   .css( 'font-size', '10pt' )
+			      //                   .prepend(
+			      //                   	'<img src="static/v2/images/usaid-logo.png" style="position:absolute; top:0; left:0;" />')
+			      //                   .prepend(
+			      //                       '<img src="static/v2/images/iMMAP.png" style="position:absolute; top:0; left:220px;" />'
+			      //                   );
+			 
+			      //               $(win.document.body).find( 'table' )
+			      //                   .addClass( 'compact' )
+			      //                   .css( 'font-size', 'inherit' );
+			      //           },
 	    				className: "btn-sm"
 	    			},
 	    			// {

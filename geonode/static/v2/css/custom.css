@@ -179,6 +179,10 @@ tr td:nth-child(1), .list_incident tr td:nth-child(2) {
     border: 1px solid #d3d3d3;
 }
 
+.x_content .table thead>tr>th>i{
+    font-size: 20px;
+}
+
 #access .x_content .table thead>tr>th,
 #landslide .x_content .table thead>tr>th,
 #erthqk .x_content .table thead>tr>th{
@@ -616,7 +620,7 @@ input[type="search"]:focus{
 }
 
 .ch-size-pie-mercalli{
-      height: 500px;
+      height: 370px;
 }
 
 @media (max-width: 425px), (min-width: 1024px) {
@@ -2610,6 +2614,22 @@ section#nd,section#weather {
     /*padding: 0px 15px;*/
 }
 
+#weather div.embed-responsive {
+    padding-bottom: 40%;
+}
+
+@media(max-width: 768px){
+    #weather div.embed-responsive {
+        padding-bottom: 100%;
+    }
+}
+
+@media(min-width: 768px){
+    #weather div.embed-responsive {
+        padding-bottom: 60%;
+    }
+}
+
 #nd iframe{
     padding-left: 3%;
 }
@@ -4522,6 +4542,248 @@ input#districtSelection_c{
     }
     .col-md-1 {
       width: 8.33333333%;
+    }
+
+    /*Printing Table Coloring*/
+    th.l1h, td.l1h/*,
+    #nAirport tr td:nth-child(2), #nHealth1 tr td:nth-child(2), #nHealth2 tr td:nth-child(2), #nHealth3 tr td:nth-child(2), #nHealth4 tr td:nth-child(2), #ProvC tr td:nth-child(2), #nProv tr td:nth-child(2), #nDist tr td:nth-child(2)*/{
+        background-color: #c0fee5 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.l2h, td.l2h/*,
+    #nAirport tr td:nth-child(3), #nHealth1 tr td:nth-child(3), #nHealth2 tr td:nth-child(3), #nHealth3 tr td:nth-child(3), #nHealth4 tr td:nth-child(3), #ProvC tr td:nth-child(3), #nProv tr td:nth-child(3), #nDist tr td:nth-child(3)*/{
+        background-color: #94fdd5 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.l3h, td.l3h/*,
+    #nAirport tr td:nth-child(4), #nHealth1 tr td:nth-child(4), #nHealth2 tr td:nth-child(4), #nHealth3 tr td:nth-child(4), #nHealth4 tr td:nth-child(4), #ProvC tr td:nth-child(4), #nProv tr td:nth-child(4), #nDist tr td:nth-child(4)*/{
+        background-color: #75fcc9 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.l4h, td.l4h/*,
+    #nAirport tr td:nth-child(5), #nHealth1 tr td:nth-child(5), #nHealth2 tr td:nth-child(5), #nHealth3 tr td:nth-child(5), #nHealth4 tr td:nth-child(5), #ProvC tr td:nth-child(5), #nProv tr td:nth-child(5), #nDist tr td:nth-child(5)*/{
+        background-color: #fffe7f !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.l5h, td.l5h/*,
+    #nAirport tr td:nth-child(6), #nHealth1 tr td:nth-child(6), #nHealth2 tr td:nth-child(6), #nHealth3 tr td:nth-child(6), #nHealth4 tr td:nth-child(6), #ProvC tr td:nth-child(6), #nProv tr td:nth-child(6), #nDist tr td:nth-child(6)*/{
+        background-color: #feb24c !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.l6h, td.l6h/*,
+    #nAirport tr td:nth-child(7), #nHealth1 tr td:nth-child(7), #nHealth2 tr td:nth-child(7), #nHealth3 tr td:nth-child(7), #nHealth4 tr td:nth-child(7), #ProvC tr td:nth-child(7), #nProv tr td:nth-child(7), #nDist tr td:nth-child(7)*/{
+        background-color: #fd8d3c !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.l7h, td.l7h/*,
+    #nAirport tr td:nth-child(8), #nHealth1 tr td:nth-child(8), #nHealth2 tr td:nth-child(8), #nHealth3 tr td:nth-child(8), #nHealth4 tr td:nth-child(8), #ProvC tr td:nth-child(8), #nProv tr td:nth-child(8), #nDist tr td:nth-child(8)*/{
+        background-color: #ffc9c7 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.l8h, td.l8h/*,
+    #nAirport tr td:nth-child(9), #nHealth1 tr td:nth-child(9), #nHealth2 tr td:nth-child(9), #nHealth3 tr td:nth-child(9), #nHealth4 tr td:nth-child(9), #ProvC tr td:nth-child(9), #nProv tr td:nth-child(9), #nDist tr td:nth-child(9)*/{
+        background-color: #ffa8a4 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.m8h, td.m8h/*,
+    #nAirport tr td:nth-child(10), #nHealth1 tr td:nth-child(10), #nHealth2 tr td:nth-child(10), #nHealth3 tr td:nth-child(10), #nHealth4 tr td:nth-child(10), #ProvC tr td:nth-child(10), #nProv tr td:nth-child(10), #nDist tr td:nth-child(10)*/{
+        background-color: #ff9d99 !important;
+        border: 1px solid #fff !important;
+    }
+
+    #ffforecast.table>tbody>tr>td,
+    #ggfforecast.table>tbody>tr>td,
+    #glfforecast.table>tbody>tr>td,
+    #gffforecast.table>tbody>tr>td {
+        padding: 1px 8px;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #fff !important;
+    }
+
+    td.ext, td.vhigh, td.high, td.mod, td.low, td.hi, td.med, td.lo{
+        font-weight: bold;
+        width: 20%;
+        border: 1px solid #fff !important;
+    }
+
+    table#ffforecast, table#ggfforecast, table#glfforecast, table#gffforecast{
+        border: 1px solid #fff !important;
+    }
+
+    td.ext, td.ext_fill, #ffforecast tr:nth-child(1) td:nth-child(2),
+    #ffforecast tr:nth-child(1) td:nth-child(3),
+    #ggfforecast tr:nth-child(1) td:nth-child(2),
+    #glfforecast tr:nth-child(1) td:nth-child(2),
+    #gffforecast tr:nth-child(1) td:nth-child(2),
+    th.ext,
+    #rfforecast tr td:nth-child(1),
+    #rggfoverview tr td:nth-child(2), #rggfoverview tr td:nth-child(3), #rggfoverview tr td:nth-child(12), #rggfoverview tr td:nth-child(13),
+    #rglfoverview tr td:nth-child(2), #rglfoverview tr td:nth-child(3), #rglfoverview tr td:nth-child(12), #rglfoverview tr td:nth-child(13),
+    #rgffoverview tr td:nth-child(2), #rgffoverview tr td:nth-child(3), #rgffoverview tr td:nth-child(12), #rgffoverview tr td:nth-child(13){
+        background-color: rgba(226, 7, 14, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    td.vhigh, td.vhigh_fill, #ffforecast tr:nth-child(4) td:nth-child(2),
+    #ffforecast tr:nth-child(4) td:nth-child(3),
+    #ggfforecast tr:nth-child(4) td:nth-child(2),
+    #glfforecast tr:nth-child(4) td:nth-child(2),
+    #gffforecast tr:nth-child(4) td:nth-child(2),
+    th.vhigh,
+    #rfforecast tr td:nth-child(2),
+    #rggfoverview tr td:nth-child(4), #rggfoverview tr td:nth-child(5), #rggfoverview tr td:nth-child(14), #rggfoverview tr td:nth-child(15),
+    #rglfoverview tr td:nth-child(4), #rglfoverview tr td:nth-child(5), #rglfoverview tr td:nth-child(14), #rglfoverview tr td:nth-child(15),
+    #rgffoverview tr td:nth-child(4), #rgffoverview tr td:nth-child(5), #rgffoverview tr td:nth-child(14), #rgffoverview tr td:nth-child(15){
+        background-color: rgba(249, 109, 9, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    td.high, td.high_fill, #ffforecast tr:nth-child(7) td:nth-child(2),
+    #ffforecast tr:nth-child(7) td:nth-child(3),
+    #ggfforecast tr:nth-child(7) td:nth-child(2),
+    #glfforecast tr:nth-child(7) td:nth-child(2),
+    #gffforecast tr:nth-child(7) td:nth-child(2),
+    th.high,
+    #rfforecast tr td:nth-child(3),
+    #rggfoverview tr td:nth-child(6), #rggfoverview tr td:nth-child(7), #rggfoverview tr td:nth-child(16), #rggfoverview tr td:nth-child(17),
+    #rglfoverview tr td:nth-child(6), #rglfoverview tr td:nth-child(7), #rglfoverview tr td:nth-child(16), #rglfoverview tr td:nth-child(17),
+    #rgffoverview tr td:nth-child(6), #rgffoverview tr td:nth-child(7), #rgffoverview tr td:nth-child(16), #rgffoverview tr td:nth-child(17){
+        background-color: rgba(252, 237, 21, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    td.mod, td.mod_fill, #ffforecast tr:nth-child(10) td:nth-child(2),
+    #ffforecast tr:nth-child(10) td:nth-child(3),
+    #ggfforecast tr:nth-child(10) td:nth-child(2),
+    #glfforecast tr:nth-child(10) td:nth-child(2),
+    #gffforecast tr:nth-child(10) td:nth-child(2),
+    th.mod,
+    #rfforecast tr td:nth-child(4),
+    #rggfoverview tr td:nth-child(8), #rggfoverview tr td:nth-child(9), #rggfoverview tr td:nth-child(18), #rggfoverview tr td:nth-child(19),
+    #rglfoverview tr td:nth-child(8), #rglfoverview tr td:nth-child(9), #rglfoverview tr td:nth-child(18), #rglfoverview tr td:nth-child(19),
+    #rgffoverview tr td:nth-child(8), #rgffoverview tr td:nth-child(9), #rgffoverview tr td:nth-child(18), #rgffoverview tr td:nth-child(19){
+        background-color: rgba(15, 200, 123, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    td.low, td.low_fill, #ffforecast tr:nth-child(13) td:nth-child(2),
+    #ffforecast tr:nth-child(13) td:nth-child(3),
+    #ggfforecast tr:nth-child(13) td:nth-child(2),
+    #glfforecast tr:nth-child(13) td:nth-child(2),
+    #gffforecast tr:nth-child(13) td:nth-child(2),
+    th.low,
+    #rfforecast tr td:nth-child(5),
+    #rggfoverview tr td:nth-child(10), #rggfoverview tr td:nth-child(11), #rggfoverview tr td:nth-child(20), #rggfoverview tr td:nth-child(21),
+    #rglfoverview tr td:nth-child(10), #rglfoverview tr td:nth-child(11), #rglfoverview tr td:nth-child(20), #rglfoverview tr td:nth-child(21),
+    #rgffoverview tr td:nth-child(10), #rgffoverview tr td:nth-child(11), #rgffoverview tr td:nth-child(20), #rgffoverview tr td:nth-child(21){
+        background-color: rgba(146, 231, 253, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    td.hi, td.hi_fill, #ffforecast tr:nth-child(1) td:nth-child(4), #ffforecast tr:nth-child(4) td:nth-child(4), #ffforecast tr:nth-child(7) td:nth-child(4), #ffforecast tr:nth-child(10) td:nth-child(4), #ffforecast tr:nth-child(13) td:nth-child(4),
+    #ggfforecast tr:nth-child(1) td:nth-child(4), #ggfforecast tr:nth-child(4) td:nth-child(4), #ggfforecast tr:nth-child(7) td:nth-child(4), #ggfforecast tr:nth-child(10) td:nth-child(4), #ggfforecast tr:nth-child(13) td:nth-child(4),
+    #glfforecast tr:nth-child(1) td:nth-child(4), #glfforecast tr:nth-child(4) td:nth-child(4), #glfforecast tr:nth-child(7) td:nth-child(4), #glfforecast tr:nth-child(10) td:nth-child(4), #glfforecast tr:nth-child(13) td:nth-child(4),
+    #gffforecast tr:nth-child(1) td:nth-child(4), #gffforecast tr:nth-child(4) td:nth-child(4), #gffforecast tr:nth-child(7) td:nth-child(4), #gffforecast tr:nth-child(10) td:nth-child(4), #gffforecast tr:nth-child(13) td:nth-child(4),
+    th.hi
+    {
+        background-color: rgba(21, 101, 192, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    td.med, td.med_fill, #ffforecast tr:nth-child(2) td:nth-child(2), #ffforecast tr:nth-child(5) td:nth-child(2), #ffforecast tr:nth-child(8) td:nth-child(2), #ffforecast tr:nth-child(11) td:nth-child(2), #ffforecast tr:nth-child(14) td:nth-child(2),
+    #ggfforecast tr:nth-child(2) td:nth-child(2), #ggfforecast tr:nth-child(5) td:nth-child(2), #ggfforecast tr:nth-child(8) td:nth-child(2), #ggfforecast tr:nth-child(11) td:nth-child(2), #ggfforecast tr:nth-child(14) td:nth-child(2),
+    #glfforecast tr:nth-child(2) td:nth-child(2), #glfforecast tr:nth-child(5) td:nth-child(2), #glfforecast tr:nth-child(8) td:nth-child(2), #glfforecast tr:nth-child(11) td:nth-child(2), #glfforecast tr:nth-child(14) td:nth-child(2),
+    #gffforecast tr:nth-child(2) td:nth-child(2), #gffforecast tr:nth-child(5) td:nth-child(2), #gffforecast tr:nth-child(8) td:nth-child(2), #gffforecast tr:nth-child(11) td:nth-child(2), #gffforecast tr:nth-child(14) td:nth-child(2),
+    th.med
+    {
+        background-color: rgba(100, 181, 246, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    td.lo, td.lo_fill, #ffforecast tr:nth-child(3) td:nth-child(2), #ffforecast tr:nth-child(6) td:nth-child(2), #ffforecast tr:nth-child(9) td:nth-child(2), #ffforecast tr:nth-child(12) td:nth-child(2), #ffforecast tr:nth-child(15) td:nth-child(2),
+    #ggfforecast tr:nth-child(3) td:nth-child(2), #ggfforecast tr:nth-child(6) td:nth-child(2), #ggfforecast tr:nth-child(9) td:nth-child(2), #ggfforecast tr:nth-child(12) td:nth-child(2), #ggfforecast tr:nth-child(15) td:nth-child(2),
+    #glfforecast tr:nth-child(3) td:nth-child(2), #glfforecast tr:nth-child(6) td:nth-child(2), #glfforecast tr:nth-child(9) td:nth-child(2), #glfforecast tr:nth-child(12) td:nth-child(2), #glfforecast tr:nth-child(15) td:nth-child(2),
+    #gffforecast tr:nth-child(3) td:nth-child(2), #gffforecast tr:nth-child(6) td:nth-child(2), #gffforecast tr:nth-child(9) td:nth-child(2), #gffforecast tr:nth-child(12) td:nth-child(2), #gffforecast tr:nth-child(15) td:nth-child(2),
+    th.lo
+    {
+        background-color: rgba(187, 222, 251, 0.5) !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.landslide_vhigh, td.landslide_vhigh {
+        background-color: #e84c3d !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.landslide_high, td.landslide_high {
+        background-color: #FB8C00 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.landslide_mod, td.landslide_mod {
+        background-color: #FDD835 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.landslide_low, td.landslide_low {
+        background-color: #43A047 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.weak, td.weak/*,
+    #erthqkTable tr td:nth-child(2), #erthqkTable tr td:nth-child(3)*/ {
+        background-color: #d4e6f1 !important;
+        border: 1px solid #fff !important;
+    }
+    th.light, td.light/*,
+    #erthqkTable tr td:nth-child(4), #erthqkTable tr td:nth-child(5)*/ {
+        background-color: #c2fcf7 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.modrt, td.modrt/*,
+    #erthqkTable tr td:nth-child(6), #erthqkTable tr td:nth-child(7)*/{
+        background-color: #6dffb6 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.strong, td.strong/*,
+    #erthqkTable tr td:nth-child(8), #erthqkTable tr td:nth-child(9)*/{
+        background-color: #ffff5c !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.vstrong, td.vstrong/*,
+    #erthqkTable tr td:nth-child(10), #erthqkTable tr td:nth-child(11)*/{
+        background-color: #ffe74c !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.severe, td.severe/*,
+    #erthqkTable tr td:nth-child(12), #erthqkTable tr td:nth-child(13)*/{
+        background-color: #ffc600 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.violent, td.violent/*,
+    #erthqkTable tr td:nth-child(14), #erthqkTable tr td:nth-child(15)*/{
+        background-color: #ff5751 !important;
+        border: 1px solid #fff !important;
+    }
+
+    th.extrme, td.extrme/*,
+    #erthqkTable tr td:nth-child(16), #erthqkTable tr td:nth-child(17)*/{
+        background-color: #e84c3d !important;
+        border: 1px solid #fff !important;
     }
 
     /*Printing table*/

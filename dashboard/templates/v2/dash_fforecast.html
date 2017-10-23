@@ -27,7 +27,7 @@
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
-	                        <p class="text-muted font-13 m-b-30">Updated every hour</p>
+	                        <p class="text-muted font-13 m-b-30">{% trans 'Flash Flood Prediction is updated every hour and valid for the next 6 hours' %}.</p>
 	                      	<div class="table-responsive">
               		      		<table id="ffforecast" class="table table-condensed">
               						<thead>
@@ -189,14 +189,14 @@
 	        	<div class="col-md-2">
 	        		<div class="x_panel">
 	        			<ul class="nav nav-pills nav-stacked navbar-forecast">
-	        				<li class='{% if "GFMS + GLOFAS" in checked or "GFMS + GLOFAS" not in checked and "GLOFAS only" not in checked and "GFMS only" not in checked %} active {% endif %} release_lock'><a href="#ggMenu" class="tab_toggle" data-toggle="pill">GLOFAS + GFMS</a></li>
-	        				<li class='{% if "GLOFAS only" in checked %} active {% endif %} release_lock'><a href="#glMenu" class="tab_toggle" data-toggle="pill">GLOFAS</a></li>
-	        				<li class='{% if "GFMS only" in checked %} active {% endif %} release_lock'><a href="#gfMenu" class="tab_toggle" data-toggle="pill">GFMS</a></li>
+	        				<li class='{% if "GLOFAS + GFMS" in checked or "GLOFAS + GFMS" not in checked and "GLOFAS" not in checked and "GFMS" not in checked %} active {% endif %} release_lock'><a href="#ggMenu" class="tab_toggle" data-toggle="pill"> GLOFAS + GFMS</a></li>
+	        				<li class='{% if "GLOFAS" in checked %} active {% endif %} release_lock'><a href="#glMenu" class="tab_toggle" data-toggle="pill">GLOFAS</a></li>
+	        				<li class='{% if "GFMS" in checked %} active {% endif %} release_lock'><a href="#gfMenu" class="tab_toggle" data-toggle="pill">GFMS</a></li>
 	        			</ul>
 	        		</div>
 	        	</div>
 	        	<div class="tab-content">
-	        		<div id="ggMenu" class="tab-pane fade in active">
+	        		<div id="ggMenu" class="tab-pane fade {% if 'GFMS + GLOFAS' in checked or 'GFMS + GLOFAS' not in checked and 'GLOFAS' not in checked and 'GFMS' not in checked %} in active {% endif %}">
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
@@ -212,8 +212,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">
-			                      What is GFMS + GLOFAS Method. Updated every?</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days' %}</p>
 			                      	<div class="table-responsive">
 		              		      		<table id="ggfforecast" class="table table-bordered">
 		              						<thead>
@@ -330,7 +329,7 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2>River Flood Likelihood</h2>
+			                  <h2>{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
 			                  <ul class="nav navbar-right panel_toolbox hidden-print">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
@@ -385,8 +384,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">
-			                      River Flood in GFMS + GLOFAS Method.</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The summary of Flash Flood Prediction and River Flood Prediction occured in Afghanistan. The riverflood prediction is based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS) method. Flash Flood is updated every hour and valid for the next 6 hours while River Flood is updated every 6 hours and valid for the next 4 days' %}.</p>
 			                        <div class="table-responsive hidden-print">
 			                            <table class="table table-hover online">
 			                                <thead>
@@ -497,7 +495,7 @@
 			                </div>
 			            </div>
 	        		</div>
-	        		<div id="glMenu" class="tab-pane fade">
+	        		<div id="glMenu" class="tab-pane fade {% if 'GLOFAS' in checked %} in active {% endif %}">
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
@@ -513,8 +511,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">
-			                      What is GLOFAS Method? Updated Every?</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Awareness Sytem (GLOFAS). River Flood is updated every 6 hours and valid for the next 4 days' %}.</p>
 			                      	<div class="table-responsive">
 		              		      		<table id="glfforecast" class="table table-bordered">
 		              						<thead>
@@ -674,7 +671,7 @@
 			            <div class="col-md-12 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>Flood Likelihood Overview <small>GLOFAS</small></h2>
+			                        <h2>{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
 			                        <ul class="nav navbar-right panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -686,8 +683,8 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">
-			                      River Flood in GLOFAS Method.</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The summary of Flash Flood Prediction and River Flood Prediction occured in Afghanistan. The riverflood prediction is based Global Flood Awareness Sytem (GLOFAS) method. Flash Flood is updated every hour and valid for the next 6 hours while River Flood is updated every 6 hours and valid for the next 4 days.' %}
+			                        </p>
 			                        <div class="table-responsive hidden-print">
 			                            <table class="table table-bordered table-hover online">
 			                                <thead>
@@ -798,7 +795,7 @@
 			                </div>
 			            </div>
 	        		</div>
-	        		<div id="gfMenu" class="tab-pane fade">
+	        		<div id="gfMenu" class="tab-pane fade {% if 'GFMS' in checked %} in active {% endif %}">
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
@@ -814,8 +811,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">
-			                      What is GFMS Flood Forecast? Updated every?</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days' %}.</p>
 			                      	<div class="table-responsive">
 		              		      		<table id="gffforecast" class="table table-bordered">
 		              						<thead>
@@ -932,7 +928,7 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2>River Flood Likelihood</h2>
+			                  <h2>{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
 			                  <ul class="nav navbar-right panel_toolbox hidden-print">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
@@ -989,8 +985,8 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">
-			                      GFMS Method</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The summary of Flash Flood Prediction and River Flood Prediction occured in Afghanistan. The riverflood prediction is based on the Global Flood Monitoring Sytem (GFMS) method. Flash Flood is updated every hour and valid for the next 6 hours while River Flood is updated every 6 hours and valid for the next 4 days.' %}
+			                        </p>
 			                        <div class="table-responsive hidden-print">
 			                            <table class="table table-hover table-bordered online">
 			                                <thead>

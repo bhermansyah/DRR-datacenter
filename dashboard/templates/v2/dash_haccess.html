@@ -10,7 +10,7 @@
 	            	<div class="pull-right">
 	            	  <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 0px 10px; border: 0px">
 	            	    <i class="fa fa-calendar"></i>&nbsp; {% trans "Incident between" %} :
-	            	    <span></span> <b class="caret"></b>
+	            	    <span></span> <b class="caret hidden-print"></b>
 	            	  </div>
 	            	</div>
 	            </div>
@@ -43,7 +43,7 @@
 		                    	    			     <input type="checkbox" id="selecctall1" class="styled" checked=""/> Select All
 		                    	    			</label>
 		                    	    		</div>
-		                    	    		<button class="btn btn-xs btn-default ply-trget">{% trans "Apply" %}</button>
+		                    	    		<button class="btn btn-xs btn-default hidden-print ply-trget">{% trans "Apply" %}</button>
 		                    	    	</form>
 	                    	    	</div>
 	                    	    </div>
@@ -256,8 +256,7 @@
 	        	            <div class="clearfix"></div>
 	        	        </div>
 	        	        <div class="x_content">
-	        	            <p class="text-muted font-13 m-b-30">
-	        	          Grouped by Incident Type</p>
+	        	            <p class="text-muted font-13 m-b-30">{% trans "List of Incidents and Casualties grouped by Incident Type. The data is updated each working day." %}</p>
 	        	          	<div class="table-responsive hidden-print">
 	        	          		<table id="" class=" table table-striped table-bordered table-condensed online_security">
 	        	          			<thead>
@@ -390,7 +389,9 @@
 	                    <div class="col-md-4">
 	                    	<div class="panel panel-default checkbox-group">
 	                    	    <div class="panel-heading parents-checkbox">
-	                    	    	Select Incident Target
+	                    	    	<span>
+	                    	    		{% trans ' Select Incident Target' %}
+	                    	    	</span>
 	                    	    	<div class="pull-right">
 	                    	    		<form class="form-inline">
 	                    	    			<div class="checkbox checkbox-white">
@@ -398,7 +399,7 @@
 	                    	    				     <input type="checkbox" id="selecctall2" checked=""/>&nbsp;Select All
 	                    	    				</label>
 	                    	    			</div>
-	                    	    			<button type="button" class="btn btn-xs btn-default ply-trget">Apply</button>
+	                    	    			<button type="button" class="btn btn-xs btn-default hidden-print  ply-trget">{% trans 'Apply' %}</button>
 	                    	    		</form>
 	                    	    	</div>
 	                    	    </div>
@@ -502,7 +503,7 @@
 	                </div>
 	              </div>
 	            </div> -->
-	            <div class="col-md-6 col-sm-12 col-xs-12 hidden-print">
+	            <div class="col-md-6 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2>{% trans "Incidents and Casualties by Target Type" %}</h2>
@@ -517,7 +518,7 @@
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
-	                        <p class="text-muted font-13 m-b-30">by Target Type</p>
+	                        <p class="text-muted font-13 m-b-30">{% trans "List of Incidents and Casualties grouped by Target Type. The data is updated each working day." %}</p>
 	                      	<div class="table-responsive hidden-print">
 	        	          		<table id="" class=" table table-striped table-bordered table-condensed online_security">
 	        	          			<thead>
@@ -650,7 +651,7 @@
 	        	            <div class="clearfix"></div>
 	        	        </div>
 	        	        <div class="x_content">
-	        	            <p class="text-muted font-13 m-b-30">Summary of All</p>
+	        	            <p class="text-muted font-13 m-b-30">{% trans "Summary of Incidents and Casualties occured in Afghanistan. The data is updated each working day." %}</p>
 	        	          	<div class="table-responsive hidden-print">
 	        	          		<table id="" class="table table-striped table-bordered online">
 	        	          			<thead>
@@ -739,8 +740,7 @@
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
-	                        <p class="text-muted font-13 m-b-30">
-	                      Detail of the Incidents.</p>
+	                        <p class="text-muted font-13 m-b-30">{% trans 'This table gives the details of the incidents occured in Afghanistan. It is restricted to show 100 latest incidents only.' %}</p>
 	                      	<div class="table-responsive hidden-print">
 	                      		<table id="" class="table table-striped table-bordered table-condensed list_incident online">
 	                      			<thead>

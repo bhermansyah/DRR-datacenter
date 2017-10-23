@@ -117,7 +117,7 @@
                             <div class="col-md-12 col-xs-12 col-sm-4 center">
                                 <div class="tile_count">
                                     <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
-                                        <span class="count_top"><i class="fa fa-build"></i> {% trans 'Total Buildings' %}</span>
+                                        <span class="count_top"><i class="fa fa-building"></i> {% trans 'Total Buildings' %}</span>
                                         <div class="count red">{% readable Buildings %}
                                         </div>
                                     </div>
@@ -597,8 +597,8 @@
     var hlt_category = ['{% trans "H1" %}', '{% trans "H2" %}', '{% trans "H3" %}', '{% trans "CHC" %}', '{% trans "BHC" %}', '{% trans "SHC" %}', '{% trans "Others" %}']
     var hlt_val = [{{hlt_h1}}, {{hlt_h2}}, {{hlt_h3}}, {{hlt_chc}}, {{hlt_bhc}}, {{hlt_shc}}, {{hlt_others}}];
 
-    var roadnetwork_category = ['{% trans "Highway" %}', '{% trans "Primary" %}', '{% trans "Secondary" %}', '{% trans "Tertiary" %}', '{% trans "Residential" %}', '{% trans "Track" %}', '{% trans "Path" %}', '{% trans "River Crossing" %}', '{% trans "Bridge" %}'];
+    var roadnetwork_category = ['{% trans "Highway" %}', '{% trans "Primary" %}', '{% trans "Secondary" %}', '{% trans "Tertiary" %}', '{% trans "Residential" %}', '{% trans "Track" %}', '{% trans "Path" %}'/*, '{% trans "River Crossing" %}', '{% trans "Bridge" %}'*/];
 
-    var roadnetwork = [{{road_highway}}, {{road_primary}}, {{road_secondary}}, {{road_tertiary}}, {{road_residential}}, {{road_track}}, {{road_path}}, {{road_river_crossing}}, {{road_bridge}}];
+    var roadnetwork = [{{road_highway}}, {{road_primary}}, {{road_secondary}}, {{road_tertiary}}, {{road_residential}}, {{road_track}}, {{road_path}}/*, {{road_river_crossing}}, {{road_bridge}}*/];
 </script>
 
