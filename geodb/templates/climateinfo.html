@@ -81,7 +81,7 @@ table#info tr.odd td {
 			"curveType": "function", 
 			"height": 350, 
 			"width": 500, 
-			"legend": "bottom", 
+			"legend": "none", 
 			'seriesType': 'bars',
 			'chartArea': {'top':10, 'bottom':90, 'left':50, 'right':25},
 			"bar": {"groupWidth": "95%"},
@@ -98,6 +98,26 @@ table#info tr.odd td {
 		}
 	}
     chart.draw(view, options);
+
+    var line = document.createElement("div");
+    line.style.background = "rgb(68, 189, 241)";
+    line.style.width = "2px";
+    line.style.position = "absolute";
+    line.style.left = 110 + "px";
+    line.style.top = 0 + "px";
+    line.style.height = 296 + "px";
+    document.getElementById('line_chart2').childNodes[0].appendChild(line);
+
+    var line = document.createElement("div");
+    line.style.background = "rgb(68, 189, 241)";
+    line.style.width = "2px";
+    line.style.position = "absolute";
+    line.style.left = 292 + "px";
+    line.style.top = 0 + "px";
+    line.style.height = 296 + "px";
+
+    document.getElementById('line_chart2').childNodes[0].appendChild(line);
+
   }
 
   function select1(a){
@@ -117,7 +137,7 @@ table#info tr.odd td {
 			"curveType": "function", 
 			"height": 350, 
 			"width": 500, 
-			"legend": "bottom", 
+			"legend": "none", 
 			'seriesType': 'bars',
 			'chartArea': {'top':10, 'bottom':90, 'left':50, 'right':25},
 			"bar": {"groupWidth": "95%"},
@@ -134,6 +154,26 @@ table#info tr.odd td {
 		}
 	}
     chart1.draw(view1, options1);
+
+    var line = document.createElement("div");
+    line.style.background = "rgb(68, 189, 241)";
+    line.style.width = "2px";
+    line.style.position = "absolute";
+    line.style.left = 110 + "px";
+    line.style.top = 0 + "px";
+    line.style.height = 296 + "px";
+    document.getElementById('line_chart3').childNodes[0].appendChild(line);
+
+    var line = document.createElement("div");
+    line.style.background = "rgb(68, 189, 241)";
+    line.style.width = "2px";
+    line.style.position = "absolute";
+    line.style.left = 292 + "px";
+    line.style.top = 0 + "px";
+    line.style.height = 296 + "px";
+
+    document.getElementById('line_chart3').childNodes[0].appendChild(line);
+
   }
 
   function select2(a){
@@ -172,7 +212,38 @@ table#info tr.odd td {
 </div>
 <div id="line_chart3" style='width:90%;margin:1em auto;align=left'></div>
 
+<div class="disc_text">{% blocktrans %}Data from "Current Climate" and "Climate Change" originate from different sources, hence there might be a higher/lower than expected value in 2050 compared to the current climate (e.g. a small reduction in temperature), this is due to the difference in modelling. {% endblocktrans %}</div>
+<div class="disc_text">{% blocktrans %}Current Climate data used originates from the CHELSA project, which modeled climate for the period 1979-2013 at a resolution of 1km. CHELSA is using the ERA interim global circulation model from ECMWF.{% endblocktrans %}</div>
+<div class="disc_text">{% blocktrans %}Climate Change data originates from the WorldClim project, which modelled climate change for the period time periods: 2050 (average for 2041-2060) and 2070 (average for 2061-2080) at a resolution of 1km.It is a downscaled model based upon IPPC5 using the global climate model CCSM4 data.{% endblocktrans %}</div>
+<div class="disc_text">{% blocktrans %}For each period (2050 and 2070) we provide 3 potential climate change scenarios, using so called RCPs (Representative Concentration Pathways). These predict global average temperature change by 2100 in the range of:{% endblocktrans %}</div>
+<ul class="disc_text">
+  <li>RCP2.6: 0.3 to 1.7 C°</li>
+  <li>RCP4.5  : 1.1 to 2.6 C°</li>
+  <li>RCP8.5: 2.6 to 4.8 C°</li>
+</ul>
 
-
+<div class="disc_text">{% blocktrans %}The range of variables contain monthly precipitation averages, monthly minimum-maximum and avergage temperature.{% endblocktrans %}</div>
+<div class="disc_text">{% blocktrans %}Furthermore 19 bioclimatic variables are also available, which are for useful for operational planning, agriculture programs and DRR programs focusing on resilience.{% endblocktrans %}</div>
+<ul class="disc_text">
+	<li>Annual Mean Temperature [°C*10]</li>
+	<li>Mean Diurnal Range [°C]</li>
+	<li>Isothermality [°C]</li>
+	<li>Temperature Seasonality [standard deviation]</li>
+  	<li>Max Temperature of Warmest Month [°C]</li>
+	<li>Min Temperature of Coldest Month [°C]</li>
+	<li>Temperature Annual Range [°C]</li>
+	<li>Mean Temperature of Wettest Quarter [°C]</li>
+	<li>Mean Temperature of Driest Quarter [°C]</li>
+	<li>Mean Temperature of Warmest Quarter [°C]</li>
+	<li>Mean Temperature of Coldest Quarter [°C]</li>
+	<li>Annual Precipitation [mm/year]</li>
+	<li>Precipitation of Wettest Month [mm/month]</li>
+	<li>Precipitation of Driest Month [mm/month]</li>
+	<li>Precipitation Seasonality [coefficient of variation]</li>
+	<li>Precipitation of Wettest Quarter [mm/quarter]</li>
+	<li>Precipitation of Driest Quarter [mm/quarter]</li>
+	<li>Precipitation of Warmest Quarter [mm/quarter]</li>
+	<li>Precipitation of Coldest Quarter [mm/quarter]</li>
+</ul>
 </body>
 </html>
