@@ -14,8 +14,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>GSM Coverage Population</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'GSM Coverage Population' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -31,11 +31,11 @@
                             <div class="col-md-12 col-sm-4 col-xs-12 center">
                                 <div class="tile_count">
                                     <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                                        <span class="count_top"><i class="fa fa-male"></i> Total Population</span>
+                                        <span class="count_top"><i class="fa fa-male"></i>&nbsp;{% trans 'Total Population' %}</span>
                                         <div class="count red">{% readable Population %}</div>
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                                        <span class="count_top"><i class="fa fa-signal"></i> GSM Coverage Pop</span>
+                                        <span class="count_top"><i class="fa fa-signal"></i>&nbsp;{% trans 'GSM Coverage Pop' %}</span>
                                         <div class="count red">{% readable pop_on_gsm_coverage %}</div>
                                     </div>
                                 </div>
@@ -48,8 +48,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>GSM Coverage Building</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'GSM Coverage Building' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -64,12 +64,12 @@
                         <div class="col-md-12 col-sm-4 col-xs-12 center">
                             <div class="tile_count">
                                 <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                                    <span class="count_top"><i class="fa fa-building"></i> Total Building</span>
+                                    <span class="count_top"><i class="fa fa-building"></i>&nbsp;{% trans 'Total Building' %}</span>
                                     <div class="count red">{% readable Buildings %}
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                                    <span class="count_top"><i class="fa fa-signal"></i> GSM Cov. Building</span>
+                                    <span class="count_top"><i class="fa fa-signal"></i>&nbsp;{% trans 'GSM Cov. Building' %}</span>
                                     <div class="count red">{% readable buildings_on_gsm_coverage %}
                                     </div>
                                 </div>
@@ -81,8 +81,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>GSM Coverage Area</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'GSM Coverage Area' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -97,12 +97,12 @@
                         <div class="col-md-12 col-sm-4 col-xs-12 center">
                             <div class="tile_count">
                                 <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                                    <span class="count_top"><i class="fa fa-tree"></i> Total Area (km<sup>2</sup>)</span>
+                                    <span class="count_top"><i class="fa fa-tree"></i>&nbsp;{% trans 'Total Area (km)' %}</span>
                                     <div class="count red">{% readable Area %}
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-                                    <span class="count_top"><i class="fa fa-signal"></i> GSM Cov. Area (km<sup>2</sup>)</span>
+                                    <span class="count_top"><i class="fa fa-signal"></i>&nbsp;{% trans 'GSM Cov. Area (km)' %}</span>
                                     <div class="count red">{% readable area_on_gsm_coverage %}
                                     </div>
                                 </div>
@@ -116,8 +116,8 @@
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans "Travel Time to Nearest Airport" %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Travel Time to Nearest Airport" %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -234,8 +234,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Travel Time to Nearest Airport</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest Airport' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -250,13 +250,13 @@
                     </div>
                   </div>
                 </div>
-            </div>
-            <div class="row">
+            <!-- </div>
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Travel Time to Nearest Health Facilities Tier 1</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest Health Facilities Tier 1' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -373,8 +373,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Nearest Health Facilities Tier 1</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Nearest Health Facilities Tier 1' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -389,13 +389,13 @@
                     </div>
                   </div>
                 </div>
-            </div>
-            <div class="row">
+            <!-- </div>
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Travel Time to Nearest Health Facilities Tier 2</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest Health Facilities Tier 2' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -512,8 +512,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Nearest Health Facilities Tier 2</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Nearest Health Facilities Tier 2' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -528,13 +528,13 @@
                     </div>
                   </div>
                 </div>
-            </div>
-            <div class="row">
+            <!-- </div>
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Travel Time to Nearest Health Facilities Tier 3</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest Health Facilities Tier 3' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -651,8 +651,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Nearest Health Facilities Tier 3</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Nearest Health Facilities Tier 3' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -667,13 +667,13 @@
                     </div>
                   </div>
                 </div>
-            </div>
-            <div class="row">
+            <!-- </div>
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Travel Time to Nearest Health Facilities Tier All</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest Health Facilities Tier All' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -790,8 +790,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Nearest Health Facilities All Tier</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Nearest Health Facilities All Tier' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -806,13 +806,13 @@
                     </div>
                   </div>
                 </div>
-            </div>
-            <div class="row">
+            <!-- </div>
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Travel Time to Its Province Capital</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Its Province Capital' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -929,8 +929,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Travel Time to Its Province Capital</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Its Province Capital' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -945,13 +945,13 @@
                     </div>
                   </div>
                 </div>
-            </div>
-            <div class="row">
+            <!-- </div>
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Travel Time to Nearest Province Capital</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest Province Capital' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -1068,8 +1068,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Travel Time to Nearest Province Capital</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest Province Capital' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -1082,13 +1082,13 @@
                     </div>
                   </div>
                 </div>
-            </div>
-            <div class="row">
+            <!-- </div>
+            <div class="row"> -->
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Travel Time to Nearest District Capital</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest District Capital' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -1205,8 +1205,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="x_panel">
                     <div class="x_title">
-                      <h2>Travel Time to Nearest District Capital</h2>
-                      <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Travel Time to Nearest District Capital' %}</h2>
+                      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
                         <li><a class="close-link"><i class="fa fa-close"></i></a>

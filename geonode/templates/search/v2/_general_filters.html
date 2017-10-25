@@ -28,7 +28,7 @@
                     <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ category.count }}</span>
                   </a>
                   
-                  <div ng-show="category.show">
+                  <div ng-show="category.show" class="parentCat">
                     <ul class="list-unstyled" style="padding-left: 15px;">
                       <li ng-repeat="item in category.children" ng-if="item.count > 0">
                         <div class="checkbox checkbox-red"> 

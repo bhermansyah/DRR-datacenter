@@ -135,6 +135,7 @@
     .table thead {
         background-color: #ddd !important;
         border: 1px solid #fff !important;
+        display: table-header-group;
     }
 
     tr td:nth-child(1), #incident_list_p {

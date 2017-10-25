@@ -18,28 +18,28 @@
 
             <div class="row tile_count center">
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-male"></i> Total Population</span>
+                    <span class="count_top"><i class="fa fa-male"></i>&nbsp;{% trans 'Total Population' %}</span>
                     <div class="count red">{% readable Population %}</div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-building"></i> Total Building</span>
+                    <span class="count_top"><i class="fa fa-building"></i>&nbsp;{% trans 'Total Buildings' %}</span>
                     <div class="count red">{% readable Buildings %}</div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-tree"></i> Total Area (km<sup>2</sup>)</span>
+                    <span class="count_top"><i class="fa fa-tree"></i>&nbsp;{% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
                     <div class="count red">{% readable Area %}
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-home"></i> Number of Settlement</span>
+                    <span class="count_top"><i class="fa fa-home"></i>&nbsp;{% trans 'Number of Settlements' %}</span>
                     <div class="count red">{% readable settlement %}</div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-hospital-o"></i> Health Facilities</span>
+                    <span class="count_top"><i class="fa fa-hospital-o"></i>&nbsp;{% trans 'Health Facilities' %}</span>
                     <div class="count red">{% readable hltfac %}</div>
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-                    <span class="count_top"><i class="fa fa-road"></i> Total Length of Road (km<sup>2</sup>)</span>
+                    <span class="count_top"><i class="fa fa-road"></i>&nbsp;{% trans "Total Length of Road (km)" %}</span>
                     <div class="count red">{% readable roadnetwork %}</div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>Map</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -70,8 +70,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans 'Population Graph' %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Population Graph' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -88,7 +88,7 @@
                             <div class="col-md-12 col-xs-12 col-sm-4 center">
                                 <div class="tile_count">
                                     <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
-                                        <span class="count_top"><i class="fa fa-male"></i> Total Population</span>
+                                        <span class="count_top"><i class="fa fa-male"></i>&nbsp;{% trans 'Total Population' %}</span>
                                         <div class="count red">{% readable Population %}</div>
                                     </div>
                                 </div>
@@ -99,8 +99,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans 'Building Graph' %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Building Graph' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -129,8 +129,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans 'Area Graph' %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Area Graph' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -147,7 +147,7 @@
                             <div class="col-md-12 col-xs-12 col-sm-4 center">
                                 <div class="tile_count">
                                     <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
-                                        <span class="count_top"><i class="fa fa-tree"></i> Total Area (km<sup>2</sup>)</span>
+                                        <span class="count_top"><i class="fa fa-tree"></i>&nbsp;{% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
                                         <div class="count red">{% readable Area %}
                                         </div>
                                     </div>
@@ -159,8 +159,8 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans "Overview of Population and Area" %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Overview of Population and Area" %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -177,8 +177,8 @@
                                       <thead>
                                           <tr>
                                               <th rowspan="2">{% trans "Region" %}</th>
-                                              <th rowspan="2" class="hum" title="Buildings"><i class="fa fa-building"></i></th>
-                                              <th rowspan="2" class="hum" title="Settlements"><i class="fa fa-home"></i></th>
+                                              <th rowspan="2" class="hum" title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+                                              <th rowspan="2" class="hum" title="{% trans 'Settlements' %}"><i class="fa fa-home"></i></th>
                                               <th colspan="2">{% trans "Built-Up" %}</th>
                                               <th colspan="2">{% trans "Cultivated" %}</th>
                                               <th colspan="2">{% trans "Barren/Rangeland" %}</th>
@@ -291,8 +291,8 @@
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans "Health Facilities" %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Health Facilities" %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -406,8 +406,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans 'Health Facilities Graph' %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Health Facilities Graph' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -424,7 +424,7 @@
                             <div class="col-md-12 col-sm-4 col-xs-12 center">
                             	<div class="tile_count">
                             		<div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
-                            		    <span class="count_top"><i class="fa fa-hospital-o"></i> Total Health Facilities</span>
+                            		    <span class="count_top"><i class="fa fa-hospital-o"></i>&nbsp;{% trans "Total Health Facilities" %}</span>
                             		    <div class="count red">{% readable hltfac %}</div>
                             		</div>
                             	</div>
@@ -438,8 +438,8 @@
                 <div class="col-md-8 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans "Road Network" %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Road Network" %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -555,8 +555,8 @@
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans 'Road Network Graph' %}</h2>
-                            <ul class="nav navbar-right panel_toolbox hidden-print">
+                            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Road Network Graph' %}</h2>
+                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -573,7 +573,7 @@
                             <div class="col-md-12 col-sm-4 col-xs-12 center">
                             	<div class="tile_count">
                             		<div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
-                            		    <span class="count_top"><i class="fa fa-road"></i> Total Length of Road</span>
+                            		    <span class="count_top"><i class="fa fa-road"></i>&nbsp;{% trans "Total Length of Road (km)" %}</span>
                             		    <div class="count red">{% readable roadnetwork %} km</div>
                             		</div>
                             	</div>
@@ -586,13 +586,48 @@
     </div>
 
 <script type="text/javascript">
-    var category_ov = ['{% trans "Built-Up" %}', '{% trans "Cultivated" %}', '{% trans "Barren/Rangeland" %}'];
+    var category_ov = ['{% trans "Build-Up" %}', '{% trans "Fruit Trees" %}', '{% trans "Irrigated Agricultural Land" %}', '{% trans "Rainfed" %}', '{% trans "Vineyards" %}', '{% trans "Water Body & Marshland" %}', '{% trans "Barren land" %}', '{% trans "Snow" %}', '{% trans "Rangeland" %}', '{% trans "Sand Covered Areas" %}', '{% trans "Forest & Shrub" %}', '{% trans "Sand Dunes" %}'];
 
     var overview_legend = ['{% trans "Population" %}', '{% trans "Area" %}', '{% trans "Building" %}'];
 
-    var pop = [{{built_up_pop}}, {{cultivated_pop}}, {{barren_pop}}]
-    var area = [{{built_up_area}}, {{cultivated_area}}, {{barren_area}}]
-    var building = [{{built_up_buildings}}, {{cultivated_buildings}}, {{barren_buildings}}];
+    var pop = [{{built_up_pop_build_up}}, 
+    {{cultivated_pop_fruit_trees}}, 
+    {{cultivated_pop_irrigated_agricultural_land}}, 
+    {{cultivated_pop_rainfed}}, 
+    {{cultivated_pop_vineyards}}, 
+    {{barren_pop_water_body_and_marshland}}, 
+    {{barren_pop_barren_land}}, 
+    {{barren_pop_snow}}, 
+    {{barren_pop_rangeland}}, 
+    {{barren_pop_sand_covered_areas}}, 
+    {{barren_pop_forest_shrub}}, 
+    {{barren_pop_sand_dunes}}];
+
+    var area = [{{built_up_area_build_up}}, 
+    {{cultivated_area_fruit_trees}}, 
+    {{cultivated_area_irrigated_agricultural_land}}, 
+    {{cultivated_area_rainfed}}, 
+    {{cultivated_area_vineyards}}, 
+    {{barren_area_water_body_and_marshland}}, 
+    {{barren_area_barren_land}}, 
+    {{barren_area_snow}}, 
+    {{barren_area_rangeland}}, 
+    {{barren_area_sand_covered_areas}}, 
+    {{barren_area_forest_shrub}}, 
+    {{barren_area_sand_dunes}}];
+
+    var building = [{{built_up_buildings_build_up}}, 
+    {{cultivated_buildings_fruit_trees}}, 
+    {{cultivated_buildings_irrigated_agricultural_land}}, 
+    {{cultivated_buildings_rainfed}}, 
+    {{cultivated_buildings_vineyards}}, 
+    {{barren_buildings_water_body_and_marshland}}, 
+    {{barren_buildings_barren_land}}, 
+    {{barren_buildings_snow}}, 
+    {{barren_buildings_rangeland}}, 
+    {{barren_buildings_sand_covered_areas}}, 
+    {{barren_buildings_forest_shrub}}, 
+    {{barren_buildings_sand_dunes}}];
 
     var hlt_category = ['{% trans "H1" %}', '{% trans "H2" %}', '{% trans "H3" %}', '{% trans "CHC" %}', '{% trans "BHC" %}', '{% trans "SHC" %}', '{% trans "Others" %}']
     var hlt_val = [{{hlt_h1}}, {{hlt_h2}}, {{hlt_h3}}, {{hlt_chc}}, {{hlt_bhc}}, {{hlt_shc}}, {{hlt_others}}];

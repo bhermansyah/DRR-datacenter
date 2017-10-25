@@ -21,16 +21,18 @@
                 <div class="checkbox checkbox-red"> 
                   <label>
                     <input type="checkbox" data-value="{{ item.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)">{{ item.name }}
-                    <span style="margin-left: 20px;" class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{item.count }}</span>
                   </label> 
-                  <a class="pull-right">
+                  <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{item.count }}</span>
+                  {% endverbatim %}
+                  <a class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
+                  {% verbatim %}
                     <span>
                       <i ng-if="!item.show" class="glyphicon glyphicon-plus" ng-click="test($event)"></i>
                       <i ng-if="item.show" class="glyphicon glyphicon-minus" ng-click="test($event)"></i>
                     </span>
                   </a>
-                  <div ng-show="item.show" ng-if="item.children.length > 0">
-                    <ul class="list-unstyled" style="padding-left: 15px;">
+                  <div ng-show="item.show" ng-if="item.children.length > 0" class="childProv">
+                    <ul class="list-unstyled">
                       <li ng-repeat="entity in item.children" ng-if="entity.count > 0">
                         <div class="checkbox checkbox-red"> 
                           <label><input type="checkbox" data-value="{{ entity.name }}" data-filter="regions__name__in" ng-click="multiple_choice_listener($event)">{{ entity.name }}

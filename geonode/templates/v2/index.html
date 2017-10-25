@@ -102,8 +102,8 @@
 	<section id="recent-info">
 	    <div class="container">
 	        <div class="center gap">
-	            <h3>Current Information</h3>
-	            <p class="lead">Look at some of the recent information we have</p>
+	            <h3>{% trans "Current Information" %}</h3>
+	            <p class="lead">{% trans "Look at some of the recent information we have" %}</p>
 	        </div>
 	        <div class="row">
 	            <div class="col-md-4 col-sm-6 col-xs-12 grid">
@@ -124,8 +124,8 @@
                     			<img class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_flood_forecasted_villages_basin&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
                     			<div class="overlay">
                     				<div class="detail">
-                    					<h3>Flood Prediction</h3>
-                    					<span>Click to explore the prediction of the number of people potentially affected by Flood</span>
+                    					<h3>{% trans "Flood Prediction" %}</h3>
+                    					<span>{% trans "Click to explore the prediction of the number of people potentially affected by Flood" %}</span>
                     				</div>
                     			</div>
                     		</a>
@@ -184,77 +184,25 @@
                     				</div>
                     			</div>
                     		</a>
-
-                            <!-- <div id="echart_world_map" style="height:370px;"></div> -->
                         </div>
                     </div>
-
 	            </div>
 	        </div>
-	        <!-- Using panel -->
-	        <!-- <div class="row">
-	            <div class="grid cs-style-3 col-md-4">
-	                <figure>
-	                    <div class="panel panel-default">
-	                        <div class="panel-heading">
-	                            Default Panel
-	                        </div>
-	                        <div class="panel-body">
-	                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-	                        </div>
-	                        <div class="panel-footer">
-	                            Panel Footer
-	                        </div>
-	                    </div>
-	                    <figcaption>
-	                        <h3>Settings</h3>
-	                        <span>Jacob Cummings</span>
-	                        <a href="portfolio-item.html">Take a look</a>
-	                    </figcaption>
-	                </figure>
-	            </div>
-	            <div class="col-md-4">
-	                <div class="panel panel-default">
-	                    <div class="panel-heading">
-	                        Default Panel
-	                    </div>
-	                    <div class="panel-body">
-	                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-	                    </div>
-	                    <div class="panel-footer">
-	                        Panel Footer
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="col-md-4">
-	                <div class="panel panel-default">
-	                    <div class="panel-heading">
-	                        Default Panel
-	                    </div>
-	                    <div class="panel-body">
-	                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
-	                    </div>
-	                    <div class="panel-footer">
-	                        Panel Footer
-	                    </div>
-	                </div>
-	            </div>
-	        </div> -->
 	    </div>
 	</section>
 
 	<section id="latest-map">
 	    <div class="container">
 	        <div class="center">
-	            <h3>Our Latest Maps</h3>
-	            <p class="lead">Look at some of the recent projects we have completed</p>
+	            <h3>{% trans "Our Latest Maps" %}</h3>
+	            <p class="lead">{% trans "Look at some of the recent projects we have completed" %}</p>
 	        </div>
 	        <div class="gap"></div>
 	        <div class="row">
 	            <div class="col-md-5 col-sm-12 col-xs-12 grid">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2>{% trans "Static Maps" %}</h2>
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Static Maps" %}</h2>
 	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"><small><a href="{% url 'v2:document_browse' %}"> {% trans "Show All" %}</a></small></h2>
 	                        <div class="clearfix"></div>
 	                    </div>
@@ -295,7 +243,7 @@
 	            <div class="col-md-7 col-sm-12 col-xs-12 grid">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2>Flood Maps</h2>
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flood Maps" %}</h2>
 	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"><small><a href="#"> {% trans 'Show All' %}</a></small></h2>
 	                        <div class="clearfix"></div>
 	                    </div>
@@ -329,126 +277,6 @@
 	                    		</div>
 	                    	</div>
 	                    	{% endverbatim %}
-	                    	<!-- <div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
-	                    		<figure>
-	                    			<div class="mediaholder">
-	                    				<a href="#">
-	                    					<img src="images/map2.png">
-	                    					<div class="hovercover">
-	                    						<div class="hovericon">
-	                    							<i class="fa fa-link hoverlink"></i>
-	                    						</div>
-	                    					</div>
-	                    				</a>
-	                    			</div>
-	                    			<a href="#">
-	                    				<figcaption class="item-description">
-	                    					<span>
-	                    						Admin, 3 May 2016
-	                    						<i class="fa fa-eye pull-right"> 50</i>
-	                    					</span>
-	                    					<h3>Province Flood Risk Forecast</h3>
-	                    					<span>No abstract provided</span>
-	                    				</figcaption>
-	                    			</a>
-	                    		</figure>
-	                    	</div>
-	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
-	                    		<figure>
-	                    			<div class="mediaholder">
-	                    				<a href="#">
-	                    					<img src="images/map2.png">
-	                    					<div class="hovercover">
-	                    						<div class="hovericon">
-	                    							<i class="fa fa-link hoverlink"></i>
-	                    						</div>
-	                    					</div>
-	                    				</a>
-	                    			</div>
-	                    			<a href="#">
-	                    				<figcaption class="item-description">
-	                    					<span>
-	                    						Admin, 6 Dec 2015
-	                    						<i class="fa fa-eye pull-right"> 34</i>
-	                    					</span>
-	                    					<h3>Rabat Bala Village Flood Risk Exposure</h3>
-	                    					<span>No abstract provided</span>
-	                    				</figcaption>
-	                    			</a>
-	                    		</figure>
-	                    	</div>
-	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
-	                    		<figure>
-	                    			<div class="mediaholder">
-	                    				<a href="#">
-	                    					<img src="images/map2.png">
-	                    					<div class="hovercover">
-	                    						<div class="hovericon">
-	                    							<i class="fa fa-link hoverlink"></i>
-	                    						</div>
-	                    					</div>
-	                    				</a>
-	                    			</div>
-	                    			<a href="#">
-	                    				<figcaption class="item-description">
-	                    					<span>
-	                    						Admin, 6 Dec 2015
-	                    						<i class="fa fa-eye pull-right"> 52</i>
-	                    					</span>
-	                    					<h3>Khwaja Do Koh-Jawzjan Flood Risk Exposure</h3>
-	                    					<span>No abstract provided</span>
-	                    				</figcaption>
-	                    			</a>
-	                    		</figure>
-	                    	</div>
-	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
-	                    		<figure>
-	                    			<div class="mediaholder">
-	                    				<a href="#">
-	                    					<img src="images/map2.png">
-	                    					<div class="hovercover">
-	                    						<div class="hovericon">
-	                    							<i class="fa fa-link hoverlink"></i>
-	                    						</div>
-	                    					</div>
-	                    				</a>
-	                    			</div>
-	                    			<a href="#">
-	                    				<figcaption class="item-description">
-	                    					<span>
-	                    						Admin, 25 Oct 2015
-	                    						<i class="fa fa-eye pull-right"> 36</i>
-	                    					</span>
-	                    					<h3>Province Flood Risk Exposure</h3>
-	                    					<span>No abstract provided</span>
-	                    				</figcaption>
-	                    			</a>
-	                    		</figure>
-	                    	</div>
-	                    	<div class="portfolio-item col-md-4 col-sm-6 col-xs-12">
-	                    		<figure>
-	                    			<div class="mediaholder">
-	                    				<a href="#">
-	                    					<img src="images/map2.png">
-	                    					<div class="hovercover">
-	                    						<div class="hovericon">
-	                    							<i class="fa fa-link hoverlink"></i>
-	                    						</div>
-	                    					</div>
-	                    				</a>
-	                    			</div>
-	                    			<a href="#">
-	                    				<figcaption class="item-description">
-	                    					<span>
-	                    						Admin, 25 Oct 2015
-	                    						<i class="fa fa-eye pull-right"> 22</i>
-	                    					</span>
-	                    					<h3>Province Flood Risk Exposure</h3>
-	                    					<span>No abstract provided</span>
-	                    				</figcaption>
-	                    			</a>
-	                    		</figure>
-	                    	</div> -->
 	                    </div>
 	                </div>
 	            </div>
@@ -461,9 +289,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="center">
-					<h3>New to ASDC? Check our documentation for having a better understanding how useful our tools are.</h3>
-					<a href="{% url 'v2:documentation' %}" class="btn btn-primary">Watch Tutorial</a>
-					<a href="{% url 'v2:documentation' %}" class="btn btn-primary">See Documentation</a>
+					<h3>{% trans "New to ASDC? Check our documentation for having a better understanding how useful our tools are." %}</h3>
+					<a href="{% url 'v2:documentation' %}" class="btn btn-primary">{% trans "Watch Tutorial" %}</a>
+					<a href="{% url 'v2:documentation' %}" class="btn btn-primary">{% trans "See Documentation" %}</a>
 				</div>
 			</div>
 		</div>
@@ -474,13 +302,13 @@
 	        <div class="row">
 	            <div class="col-md-2">
 	                <div class="clearfix">
-	                    <h4 class="pull-left">OUR PARTNERS</h4>
-	                    <div class="pull-right">
+	                    <h4 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "OUR PARTNERS" %}</h4>
+	                    <div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
 	                        <a class="prev" href="#partnerCarousel" data-slide="prev"><i class="fa fa-angle-left icon-large"></i></a>
 	                        <a class="next" href="#partnerCarousel" data-slide="next"><i class="fa fa-angle-right icon-large"></i></a>
 	                    </div>
 	                </div>
-	                <p>List of partner who provides either data or financial contribution.</p>
+	                <p>{% trans "List of partner who provides either data or financial contribution." %}</p>
 	            </div>
 	            <div class="col-md-10">
 	                <div id="partnerCarousel" class="carousel slide clients">
