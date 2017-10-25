@@ -1898,12 +1898,6 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/accessibilityinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
-                            title: gettext('Snow Cover'),
-                            // defaults: {autoScroll: true},
-                            height : 2100,
-                            style:"height:2100px;",
-                            html: '<iframe src="../../getOverviewMaps/snowinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
-                        },{
                             title: gettext('Flooding'),
                             // defaults: {autoScroll: true},
                             height : 2100,
@@ -1916,23 +1910,29 @@ gxp.plugins.villageInspector = Ext.extend(gxp.plugins.Tool, {
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/earthquakeinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
-                            title: gettext('Weather'),
-                            // defaults: {autoScroll: true},
-                            height : 2100,
-                            style:"height:2100px;",
-                            html: '<iframe src="../../getOverviewMaps/weatherinfo?x='+feature.data.pplp_point_y+'&y='+feature.data.pplp_point_x+'" width="100%" height="100%"></iframe>'
-                        },{
                             title: gettext('Landslide'),
                             // defaults: {autoScroll: true},
                             height : 2100,
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/landslideinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         },{
+                            title: gettext('Weather'),
+                            // defaults: {autoScroll: true},
+                            height : 2100,
+                            style:"height:2100px;",
+                            html: '<iframe src="../../getOverviewMaps/weatherinfo?x='+feature.data.pplp_point_y+'&y='+feature.data.pplp_point_x+'" width="100%" height="100%"></iframe>'
+                        },{
                             title: gettext('Climate'),
                             // defaults: {autoScroll: true},
                             height : 2100,
                             style:"height:2100px;",
                             html: '<iframe src="../../getOverviewMaps/climateinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
+                        },{
+                            title: gettext('Snow Cover'),
+                            // defaults: {autoScroll: true},
+                            height : 2100,
+                            style:"height:2100px;",
+                            html: '<iframe src="../../getOverviewMaps/snowinfo?v='+feature.data.vuid+'" width="100%" height="100%"></iframe>'
                         }]
                     }],
                     listeners: {
