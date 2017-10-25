@@ -15,8 +15,8 @@
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2>{% trans "Flash Flood Likelihood" %}</h2>
-	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flash Flood Likelihood" %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -33,15 +33,15 @@
               						<thead>
               							<tr>
               								<th colspan="3">{% trans "Likelihood" %}</th>
-              								<th colspan="3">Flood Risk</th>
+              								<th colspan="3">{% trans 'Flood Risk' %}</th>
               							</tr>
               							<tr>
-              								<th>Level</th>
-              								<th title="Population"><i class="fa fa-male"></i></th>
-              								<th title="Buildings"><i class="fa fa-building"></i></th>
-              								<th>Level</th>
-              								<th title="Population"><i class="fa fa-male"></i></th>
-              								<th title="Buildings"><i class="fa fa-building"></i></th>
+              								<th>{% trans 'Level' %}</th>
+              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+              								<th>{% trans 'Level' %}</th>
+              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
               							</tr>
               						</thead>
               						<tbody>
@@ -144,8 +144,8 @@
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                  <h2>Flash Flood Likelihood</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flash Flood Likelihood" %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -200,8 +200,8 @@
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
-			                        <ul class="nav navbar-right panel_toolbox hidden-print">
+			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -218,15 +218,15 @@
 		              						<thead>
 		              							<tr>
 		              								<th colspan="3">{% trans "Likelihood" %}</th>
-		              								<th colspan="3">Flood Risk</th>
+		              								<th colspan="3">{% trans 'Flood Risk' %}</th>
 		              							</tr>
 		              							<tr>
-		              								<th>Level</th>
-		              								<th title="Population"><i class="fa fa-male"></i></th>
-		              								<th title="Buildings"><i class="fa fa-building"></i></th>
-		              								<th>Level</th>
-		              								<th title="Population"><i class="fa fa-male"></i></th>
-		              								<th title="Buildings"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
 		              							</tr>
 		              						</thead>
 		              						<tbody>
@@ -329,8 +329,8 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2>{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
-			                  <ul class="nav navbar-right panel_toolbox hidden-print">
+			                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
+			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -372,8 +372,8 @@
 			            <div class="col-md-12 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>{% trans 'Flood Likelihood Overview' %} <small>GFMS + GLOFAS</small></h2>
-			                        <ul class="nav navbar-right panel_toolbox hidden-print">
+			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Flood Likelihood Overview' %} <small>GFMS + GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -499,8 +499,8 @@
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
-			                        <ul class="nav navbar-right panel_toolbox hidden-print">
+			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -517,15 +517,15 @@
 		              						<thead>
 		              							<tr>
 		              								<th colspan="3">{% trans "Likelihood" %}</th>
-		              								<th colspan="3">Flood Risk</th>
+		              								<th colspan="3">{% trans 'Flood Risk' %}</th>
 		              							</tr>
 		              							<tr>
-		              								<th>Level</th>
-		              								<th title="Population"><i class="fa fa-male"></i></th>
-		              								<th title="Buildings"><i class="fa fa-building"></i></th>
-		              								<th>Level</th>
-		              								<th title="Population"><i class="fa fa-male"></i></th>
-		              								<th title="Buildings"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
 		              							</tr>
 		              						</thead>
 		              						<tbody>
@@ -628,8 +628,8 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2>River Flood Likelihood</h2>
-			                  <ul class="nav navbar-right panel_toolbox hidden-print">
+			                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
+			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -671,8 +671,8 @@
 			            <div class="col-md-12 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
-			                        <ul class="nav navbar-right panel_toolbox hidden-print">
+			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flood Likelihood Overview" %}<small>GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -799,8 +799,8 @@
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
-			                        <ul class="nav navbar-right panel_toolbox hidden-print">
+			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -817,15 +817,15 @@
 		              						<thead>
 		              							<tr>
 		              								<th colspan="3">{% trans "Likelihood" %}</th>
-		              								<th colspan="3">Flood Risk</th>
+		              								<th colspan="3">{% trans 'Flood Risk' %}</th>
 		              							</tr>
 		              							<tr>
-		              								<th>Level</th>
-		              								<th title="Population"><i class="fa fa-male"></i></th>
-		              								<th title="Buildings"><i class="fa fa-building"></i></th>
-		              								<th>Level</th>
-		              								<th title="Population"><i class="fa fa-male"></i></th>
-		              								<th title="Buildings"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
 		              							</tr>
 		              						</thead>
 		              						<tbody>
@@ -928,8 +928,8 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2>{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
-			                  <ul class="nav navbar-right panel_toolbox hidden-print">
+			                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
+			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -974,7 +974,7 @@
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2>Flood Likelihood Overview<small>GFMS</small></h2>
-			                        <ul class="nav navbar-right panel_toolbox hidden-print">
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>

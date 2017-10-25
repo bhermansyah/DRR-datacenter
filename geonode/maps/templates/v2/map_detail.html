@@ -23,8 +23,8 @@
       <div class="container-fill" style="">
         <div>
           <ul class="breadcrumb breadcrumb-info">
-              <li>Maps</li>
-              <li><a href="{% url 'v2:maps_browse' %}">Interactive Maps</a></li> 
+              <li>{% trans "Maps" %}</li>
+              <li><a href="{% url 'v2:maps_browse' %}">{% trans "Interactive Maps" %}</a></li> 
               <li class="active">{{ resource.title }}</li> 
           </ul>
         </div>
@@ -269,6 +269,7 @@
       {% overall_rating resource "map" as the_map_rating %}
 {% endif %}
 {% include 'rating.html' %}
+
 <script type="text/javascript">
  $(function() {
 

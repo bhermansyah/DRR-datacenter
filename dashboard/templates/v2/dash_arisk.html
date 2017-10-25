@@ -15,8 +15,8 @@
 	        	<div class="col-md-4 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                  <h2>Avalanche Risk Population</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Avalanche Risk Population' %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -46,8 +46,8 @@
 	            <div class="col-md-4 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                  <h2>Avalanche Risk Building</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Avalanche Risk Building' %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -62,11 +62,11 @@
 	                	<div class="col-md-12 col-xs-12 col-sm-4 center">
 	                		<div class="tile_count">
 	                			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-	                			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Total Building" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	                			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Total Building (km)" %}</span>
 	                			    <div class="count red">{% readable Buildings %}</div>
 	                			</div>
 	                			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-	                			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Building at risk" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	                			    <span class="count_top"><i class="fa fa-building"></i> {% trans "Building at Risk (km)" %}</span>
 	                			    <div class="count red">{% readable total_ava_buildings %}</div>
 	                			</div>
 	                		</div>
@@ -77,8 +77,8 @@
 	            <div class="col-md-4 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                  <h2>Avalanche Risk Area</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Avalanche Risk Area' %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -97,7 +97,7 @@
 	                			    <div class="count red">{% readable Area %}</div>
 	                			</div>
 	                			<div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
-	                			    <span class="count_top"><i class="fa fa-tree"></i> {% trans "Area at risk" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	                			    <span class="count_top"><i class="fa fa-tree"></i> {% trans "Area at Risk" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
 	                			    <div class="count red">{% readable total_ava_area %}</div>
 	                			</div>
 	                		</div>
@@ -110,8 +110,8 @@
 	            <div class="col-md-12 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2>{% trans 'Population and Area of Avalanche Risk' %}</h2>
-	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Population and Area of Avalanche Risk' %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -138,13 +138,13 @@
 	                      				<tr>
 	                      					<th class="hum">{% trans "Pop" %}</th>
 	                      					<th class="hum">{% trans "Building" %}</th>
-	                      					<th class="hum">{% trans "Area" %} (km<sup>2</sup>)</th>
+	                      					<th class="hum">{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</th>
 	                      					<th class="hum">{% trans "Pop" %}</th>
 	                      					<th class="hum">{% trans "Building" %}</th>
-	                      					<th class="hum">{% trans "Area" %} (km<sup>2</sup>)</th>
+	                      					<th class="hum">{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</th>
 	                      					<th class="hum">{% trans "Pop" %}</th>
 	                      					<th class="hum">{% trans "Building" %}</th>
-	                      					<th class="hum">{% trans "Area" %} (km<sup>2</sup>)</th>
+	                      					<th class="hum">{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</th>
 	                      				</tr>
 	                      			</thead>
 	                      			<tbody>
@@ -192,13 +192,13 @@
 	                      				<tr>
 	                      					<th class="hum">{% trans "Pop" %}</th>
 	                      					<th class="hum">{% trans "Building" %}</th>
-	                      					<th class="hum">{% trans "Area" %} (km<sup>2</sup>)</th>
+	                      					<th class="hum">{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</th>
 	                      					<th class="hum">{% trans "Pop" %}</th>
 	                      					<th class="hum">{% trans "Building" %}</th>
-	                      					<th class="hum">{% trans "Area" %} (km<sup>2</sup>)</th>
+	                      					<th class="hum">{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</th>
 	                      					<th class="hum">{% trans "Pop" %}</th>
 	                      					<th class="hum">{% trans "Building" %}</th>
-	                      					<th class="hum">{% trans "Area" %} (km<sup>2</sup>)</th>
+	                      					<th class="hum">{% trans "Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</th>
 	                      				</tr>
 	                      			</thead>
 	                      			<tbody>

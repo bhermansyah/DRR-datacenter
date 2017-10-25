@@ -48,16 +48,25 @@
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/print.css">
   {% endif %}
 
+  {% if LANGUAGE_BIDI %}
+    <!-- <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.rtl.full.min.css" media="all"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.rtl.min.css" media="all"> -->
+  {% endif %}
+
       {% block extra_head %}
       {% endblock %}
     {% endblock %}
 </head>
 
   <body class="{% block body_class %}{% endblock %}">
-
     {% block header %}
     <div class="se-pre-con hidden-print">
-      <span>{% trans "Loading ..." %}</span>
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>
+        <span>{% trans "Loading ..." %}</span>
     </div>
 
     <!-- Navbar -->
@@ -149,7 +158,8 @@
                             <!-- <li><a href="javascript:;"> Profile</a></li> -->
                             <li><a href="{% url "v2:layer_upload" %}"><i class="fa fa-cloud-upload"></i> {% trans "Upload Layers" %}</a></li>
                             <li class="divider"></li>
-                            <li><a href="/v2{{ user.get_absolute_url }}"><i class="fa fa-user pull-right"></i> {% trans "Profile" %}</a></li>
+                            <!-- <li><a href="/v2{{ user.get_absolute_url }}"><i class="fa fa-user pull-right"></i> {% trans "Profile" %}</a></li> -->
+                            <li><a href="{{ user.get_absolute_url }}"><i class="fa fa-user pull-right"></i> {% trans "Profile" %}</a></li>
                             <li><a href="{% url 'messages_inbox' %}"><i class="fa fa-inbox pull-right"></i> {% trans "Inbox" %}</a></li>
                             <li><a href="{% url 'recent-activity' %}"><i class="fa fa-clock-o pull-right"></i> {% trans "Recent Activity" %}</a></li>
                             <li><a href="{% url 'notification_notice_settings' %}"><i class="fa fa-cog pull-right"></i> {% trans 'Settings' %}</a></li>

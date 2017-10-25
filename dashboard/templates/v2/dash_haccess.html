@@ -7,8 +7,8 @@
 	            <div class="breadcrumb breadcrumb-custom">
 	            	<span>{% trans "Humanitarian Access" %}</span>
 	            	{% include "v2/breadcrumb.html" %}
-	            	<div class="pull-right">
-	            	  <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 0px 10px; border: 0px">
+	            	<div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
+	            	  <div id="reportrange" class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}" style="background: #fff; cursor: pointer; padding: 0px 10px; border: 0px">
 	            	    <i class="fa fa-calendar"></i>&nbsp; {% trans "Incident between" %} :
 	            	    <span></span> <b class="caret hidden-print"></b>
 	            	  </div>
@@ -19,8 +19,8 @@
 	        	<div class="col-md-12 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                	<h2>Graph of Incident and Casualties Trend by Incident Type</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                	<h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Graph of Incident and Casualties Trend by Incident Type' %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -35,12 +35,12 @@
 	                    <div class="col-md-4">
 	                    	<div class="panel panel-default checkbox-group">
 	                    	    <div class="panel-heading parents-checkbox">
-	                    	    	<span>Select Incident Type</span>
-	                    	    	<div class="pull-right">
+	                    	    	<span>{% trans 'Select Incident Type' %}</span>
+	                    	    	<div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
 		                    	    	<form class="form-inline">
 		                    	    		<div class="checkbox checkbox-white">
 		                    	    			<label class="panel-select-all">
-		                    	    			     <input type="checkbox" id="selecctall1" class="styled" checked=""/> Select All
+		                    	    			     <input type="checkbox" id="selecctall1" class="styled" checked=""/>&nbsp;{% trans 'Select All' %}
 		                    	    			</label>
 		                    	    		</div>
 		                    	    		<button class="btn btn-xs btn-default hidden-print ply-trget">{% trans "Apply" %}</button>
@@ -134,7 +134,7 @@
 	            <!-- <div class="col-md-12 col-sm-12 col-xs-12 visible-print-block">
 	              <div class="x_panel">
 	                <div class="x_title">
-                      <h2>Graph of Incident and Casualties Trend by Incident Type</h2>
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Graph of Incident and Casualties Trend by Incident Type' %}</h2>
 	                  <div class="clearfix"></div>
 	                </div>
 	                <div class="x_content">
@@ -156,7 +156,7 @@
 	                    	<div class="panel panel-default checkbox-group">
 	                    	    <div class="panel-heading parents-checkbox">
 	                    	    	Select Incident Type
-	                    	    	<div class="pull-right">
+	                    	    	<div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
 	                    	    		<label class="panel-select-all">
 	                    	    		     <input type="checkbox" id="selecctall1" value="2" checked=""/>&nbsp;&nbsp;Select All
 	                    	    		</label>
@@ -244,8 +244,8 @@
 	        	<div class="col-md-6 col-sm-12 col-xs-12">
 	        	    <div class="x_panel">
 	        	        <div class="x_title">
-	        	            <h2>{% trans "Incidents and Casualties by Incident Type" %}</h2>
-	        	            <ul class="nav navbar-right panel_toolbox hidden-print">
+	        	            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Incidents and Casualties by Incident Type" %}</h2>
+	        	            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	        	                <li>
 	        	                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	                </li>
@@ -337,8 +337,8 @@
 	        	<div class="col-md-6 col-sm-12 col-xs-12">
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
-	        	        <h2>{% trans "Number of Casualties by Incident Type" %}</h2>
-		        	    <ul class="nav navbar-right panel_toolbox hidden-print">
+	        	        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Number of Casualties by Incident Type" %}</h2>
+		        	    <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 		        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 		        	        </li>
 		        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -354,8 +354,8 @@
 	        	<div class="col-md-6 col-sm-12 col-xs-12">
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
-        	          	<h2>{% trans "Number of Incidents by Incident Type" %}</h2>
-		        	    <ul class="nav navbar-right panel_toolbox hidden-print">
+        	          	<h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Number of Incidents by Incident Type" %}</h2>
+		        	    <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 		        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 		        	        </li>
 		        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -373,8 +373,8 @@
 	            <div class="col-md-12 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-                      <h2>Graph of Incident and Casualties Trend by Target Type</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+                      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Graph of Incident and Casualties Trend by Target Type' %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -392,11 +392,11 @@
 	                    	    	<span>
 	                    	    		{% trans ' Select Incident Target' %}
 	                    	    	</span>
-	                    	    	<div class="pull-right">
+	                    	    	<div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
 	                    	    		<form class="form-inline">
 	                    	    			<div class="checkbox checkbox-white">
 	                    	    				<label class="panel-select-all">
-	                    	    				     <input type="checkbox" id="selecctall2" checked=""/>&nbsp;Select All
+	                    	    				     <input type="checkbox" id="selecctall2" checked=""/>&nbsp;{% trans "Select All" %}
 	                    	    				</label>
 	                    	    			</div>
 	                    	    			<button type="button" class="btn btn-xs btn-default hidden-print  ply-trget">{% trans 'Apply' %}</button>
@@ -468,7 +468,7 @@
 	            <!-- <div class="col-md-12 col-sm-12 col-xs-12 visible-print-block">
 	              <div class="x_panel">
 	                <div class="x_title">
-                      	<h2>Graph of Incident and Casualties Trend by Target Type</h2>
+                      	<h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Graph of Incident and Casualties Trend by Target Type' %}</h2>
 	                  	<div class="clearfix"></div>
 	                </div>
 	                <div class="x_content">
@@ -490,7 +490,7 @@
 	                    	<div class="panel panel-default checkbox-group">
 	                    	    <div class="panel-heading parents-checkbox">
 	                    	    	Select Incident Target
-	                    	    	<div class="pull-right">
+	                    	    	<div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
 	                    	    		<label class="panel-select-all">
 	                    	    		     <input type="checkbox" id="selecctall1" value="2" checked=""/>&nbsp;&nbsp;Select All
 	                    	    		</label>
@@ -506,8 +506,8 @@
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2>{% trans "Incidents and Casualties by Target Type" %}</h2>
-	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Incidents and Casualties by Target Type" %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -599,8 +599,8 @@
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                  <h2>{% trans "Number of Casualties by Target Type" %}</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Number of Casualties by Target Type" %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -618,8 +618,8 @@
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                  <h2>{% trans "Number of Incidents by Target Type" %}</h2>
-	                  <ul class="nav navbar-right panel_toolbox hidden-print">
+	                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Number of Incidents by Target Type" %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -639,8 +639,8 @@
 	        	<div class="col-md-5 col-sm-12 col-xs-12">
 	        	    <div class="x_panel">
 	        	        <div class="x_title">
-	        	            <h2>{% trans "Number of Incident and Casualties Overview" %}</h2>
-	        	            <ul class="nav navbar-right panel_toolbox hidden-print">
+	        	            <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Number of Incident and Casualties Overview" %}</h2>
+	        	            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	        	                <li>
 	        	                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	                </li>
@@ -728,8 +728,8 @@
 	            <div class="col-md-7 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2>{% trans "List of Latest Incidents" %}</h2>
-	                        <ul class="nav navbar-right panel_toolbox hidden-print">
+	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "List of Latest Incidents" %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -804,7 +804,7 @@
 		targetViolent.push({{data.violent}});
 	{% endfor %}
 
-	console.log(targetDead);
+	// console.log(targetDead);
 
 	var incidentCount = [];
 	var incidentViolent = [];
@@ -819,17 +819,7 @@
 		incidentViolent.push({{data.violent}});
 	{% endfor %}
 
-	console.log(incident_cat);
-
-	// targetCount[i] = jsondata['incident_target_group'][i]['count'];
-	// targetViolent[i] = jsondata['incident_target_group'][i]['violent'];
-	// targetInjured[i] = jsondata['incident_target_group'][i]['injured'];
-	// targetDead[i] = jsondata['incident_target_group'][i]['dead'];
-
-	// incidentCount[i] = jsondata['incident_type_group'][i]['count'];
-	// incidentViolent[i] = jsondata['incident_type_group'][i]['violent'];
-	// incidentInjured[i] = jsondata['incident_type_group'][i]['injured'];
-	// incidentDead[i] = jsondata['incident_type_group'][i]['dead'];
+	// console.log(incident_cat);
 
 </script>
 

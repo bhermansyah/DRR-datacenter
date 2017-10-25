@@ -1,4 +1,10 @@
 jQuery(function($){
+	// Loader
+	// setTimeout(function(){
+	//         $('body').addClass('loaded');
+	//         // $('h1').css('color','#222222');
+	//     }, 3000);
+
 	// Go to Top
 	$('.gototop').click(function(event) {
 		 event.preventDefault();
@@ -15106,29 +15112,6 @@ jQuery(function($){
 	  			if ($('#echart_polar_1').length ){
 	  				var echartPolar1 = echarts.init(document.getElementById('echart_polar_1'), theme);
 
-	  				// var hours = tc2;
-	  				// var data = [1744, 563, 373, 22, 11, 16, 29, 871, 8385];
-	  				// var data1 = [204, 220, 11, 23, 2, 121, 26, 975, 3759];
-	  				// var data2 = [221, 555, 7, 40, 12, 531, 55, 1646, 6532];
-	  				// var data3 = [1026, 413, 347, 9, 3, 6, 17, 129, 4645];
-	  				// var links = data.map(function (item, idx) {
-			        //     if (idx == data.length-1) {
-			        //     	coba = 0
-			        //     }else{
-			        //     	coba = idx + 1
-			        //     }
-			        //     return {
-			        //         source: idx,
-			        //         target: coba
-			        //     };
-			        // });
-			        // var datas=[];
-			        // for (var i = 0; i < data.length; i++) {
-			        //     datas.push({
-			        //         nodes: data[i],
-			        //         edges: createEdges(i + 2)
-			        //     });
-			        // }
 	  				echartPolar1.setOption({
 	  					legend: {
 					        data: polar_cat,
@@ -15261,12 +15244,6 @@ jQuery(function($){
 	  			// echart Polar
 	  			if ($('#echart_polar_2').length ){
 	  				var echartPolar2 = echarts.init(document.getElementById('echart_polar_2'), theme);
-
-	  				// var hours = ic2;
-	  				// var data = [1306, 3405, 124, 130, 328, 68, 4315, 411, 162, 1192, 100, 35, 244];
-	  				// var data1 = [193, 2232, 9, 35, 420, 5, 505, 341, 15, 1310, 5, 41, 163];
-	  				// var data2 = [208, 3099, 1, 144, 52, 0, 1686, 839, 31, 2910, 2, 62, 339];
-	  				// var data3 = [710, 1816, 111, 69, 7, 61, 3136, 104, 154, 162, 93, 1, 43];
 
 	  				echartPolar2.setOption({
 	  					legend: {
@@ -15608,9 +15585,9 @@ jQuery(function($){
 	  				tooltip: {
 	  				  trigger: 'axis',
 	  				  axisPointer:{
-	  				  	type:'shadow',
-	  				  	formatter: humTooltipBar
-	  				  }
+	  				  	type:'shadow'
+	  				  },
+	  				  formatter: humTooltipBar
 	  				},
 	  				legend: {
 	  				  x: 'center',
@@ -15705,9 +15682,9 @@ jQuery(function($){
 	  			// echart Bar Horizontal Incident by Target
 
 	  			if ($('#echart_bar_horizontal_15').length ){
-		  			  var echartBar15 = echarts.init(document.getElementById('echart_bar_horizontal_15'), theme);
+		  			var echartBar15 = echarts.init(document.getElementById('echart_bar_horizontal_15'), theme);
 
-		  			  echartBar15.setOption({
+		  			echartBar15.setOption({
 		  				// title: {
 		  				//   text: 'Overview 1',
 		  				//   subtext: 'Graph subtitle'
@@ -15715,9 +15692,9 @@ jQuery(function($){
 		  				tooltip: {
 		  				  trigger: 'axis',
 		  				  axisPointer:{
-		  				  	type:'shadow',
-		  				  	formatter: humTooltipBar,
-		  				  }
+		  				  	type:'shadow'
+		  				  },
+		  				  formatter: humTooltipBar
 		  				},
 		  				legend: {
 		  				  x: 'center',
@@ -15801,11 +15778,11 @@ jQuery(function($){
 		  				  },
 		  				  data: targetViolent
 		  				}]
-		  			  });
+		  			});
 
-		  			  	window.addEventListener("resize", function(){
-		  			  		echartBar15.resize();
-		  			  	});
+	  			  	window.addEventListener("resize", function(){
+	  			  		echartBar15.resize();
+	  			  	});
 
 		  		}
 		  	// break;
@@ -15868,7 +15845,7 @@ jQuery(function($){
 				    },
 					calculable: true,
 					xAxis: [{
-					  type: 'value',
+					  type: 'log',
 					  boundaryGap: [0, 0.01],
 					  axisLabel:{
 					  	rotate: 30,
@@ -15957,7 +15934,7 @@ jQuery(function($){
 					    },
 						calculable: true,
 						xAxis: [{
-						  type: 'value',
+						  type: 'log',
 						  boundaryGap: [0, 0.01],
 						  axisLabel:{
 						  	rotate: 30,

@@ -26,6 +26,7 @@ from StringIO import StringIO
 import urllib2, urllib
 from urlparse import parse_qs, urlsplit, urlunsplit
 import re
+from requests.utils import quote
 
 def common(request):
 	response = {}
@@ -232,7 +233,7 @@ def dashboard_multiple(request):
 		# client.setPageMargins('1in', '1in', '1in', '1in')
 		client.setVerticalMargin("0.75in")
 		client.setHorizontalMargin("0.25in")
-		client.setHeaderUrl('http://'+a+'/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization+'&isodate='+date_string)
+		client.setHeaderUrl('http://'+a+'/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&isodate='+date_string)
 		# convert a web page and store the generated PDF to a variable
 
 		# get map pdf
@@ -272,7 +273,7 @@ def dashboard_multiple(request):
 		    'margin-bottom':10,
 		    'margin-top':25,
 		    # 'viewport-size':'800x600',
-		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+data['mapTitle']+'&organization='+request.user.organization,
+		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization,
 			# 'lowquality':'-',
 		    # 'disable-smart-shrinking':'-',
 		    # 'print-media-type':'-',

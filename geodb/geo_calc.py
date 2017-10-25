@@ -1848,19 +1848,58 @@ def getRawBaseLine(filterLock, flag, code):
     parent_data = getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', 'area_buildings', flag, code, None)
 
     temp = dict([(c['agg_simplified_description'], c['count']) for c in parent_data])
-    response['built_up_pop'] = round(temp.get('Build Up', 0),0)
-    response['cultivated_pop'] = round(temp.get('Fruit Trees', 0),0)+round(temp.get('Irrigated Agricultural Land', 0),0)+round(temp.get('Rainfed', 0),0)+round(temp.get('Vineyards', 0),0)
-    response['barren_pop'] = round(temp.get('Water body and Marshland', 0),0)+round(temp.get('Barren land', 0),0)+round(temp.get('Snow', 0),0)+round(temp.get('Rangeland', 0),0)+round(temp.get('Sand Covered Areas', 0),0)+round(temp.get('Forest & Shrub', 0),0)+round(temp.get('Sand Dunes', 0),0)
+    response['built_up_pop'] = round(temp.get('Build Up', 0) or 0,0)
+    response['cultivated_pop'] = round(temp.get('Fruit Trees', 0) or 0,0)+round(temp.get('Irrigated Agricultural Land', 0) or 0,0)+round(temp.get('Rainfed', 0) or 0,0)+round(temp.get('Vineyards', 0) or 0,0)
+    response['barren_pop'] = round(temp.get('Water body and Marshland', 0) or 0,0)+round(temp.get('Barren land', 0) or 0,0)+round(temp.get('Snow', 0) or 0,0)+round(temp.get('Rangeland', 0) or 0,0)+round(temp.get('Sand Covered Areas', 0) or 0,0)+round(temp.get('Forest & Shrub', 0) or 0,0)+round(temp.get('Sand Dunes', 0) or 0,0)
+
+    response['built_up_pop_build_up'] = round(temp.get('Build Up', 0) or 0,0)
+    response['cultivated_pop_fruit_trees'] = round(temp.get('Fruit Trees', 0) or 0,0)
+    response['cultivated_pop_irrigated_agricultural_land'] = round(temp.get('Irrigated Agricultural Land', 0) or 0,0)
+    response['cultivated_pop_rainfed'] = round(temp.get('Rainfed', 0) or 0,0)
+    response['cultivated_pop_vineyards'] = round(temp.get('Vineyards', 0) or 0,0)
+    response['barren_pop_water_body_and_marshland'] = round(temp.get('Water body and Marshland', 0) or 0,0)
+    response['barren_pop_barren_land'] = round(temp.get('Barren land', 0) or 0,0)
+    response['barren_pop_snow'] = round(temp.get('Snow', 0) or 0,0)
+    response['barren_pop_rangeland'] = round(temp.get('Rangeland', 0) or 0,0)
+    response['barren_pop_sand_covered_areas'] = round(temp.get('Sand Covered Areas', 0) or 0,0)
+    response['barren_pop_forest_shrub'] = round(temp.get('Forest & Shrub', 0) or 0,0)
+    response['barren_pop_sand_dunes'] = round(temp.get('Sand Dunes', 0) or 0,0)
 
     temp = dict([(c['agg_simplified_description'], c['houseatrisk']) for c in parent_data])
     response['built_up_buildings'] = temp.get('Build Up', 0) or 0
     response['cultivated_buildings'] = temp.get('Fruit Trees', 0) or 0+temp.get('Irrigated Agricultural Land', 0) or 0+temp.get('Rainfed', 0) or 0+temp.get('Vineyards', 0) or 0
     response['barren_buildings'] = temp.get('Water body and Marshland', 0) or 0+temp.get('Barren land', 0) or 0+temp.get('Snow', 0) or 0+temp.get('Rangeland', 0) or 0+temp.get('Sand Covered Areas', 0) or 0+temp.get('Forest & Shrub', 0) or 0+temp.get('Sand Dunes', 0) or 0
 
+    response['built_up_buildings_build_up'] = round(temp.get('Build Up', 0) or 0,0)
+    response['cultivated_buildings_fruit_trees'] = round(temp.get('Fruit Trees', 0) or 0,0)
+    response['cultivated_buildings_irrigated_agricultural_land'] = round(temp.get('Irrigated Agricultural Land', 0) or 0,0)
+    response['cultivated_buildings_rainfed'] = round(temp.get('Rainfed', 0) or 0,0)
+    response['cultivated_buildings_vineyards'] = round(temp.get('Vineyards', 0) or 0,0)
+    response['barren_buildings_water_body_and_marshland'] = round(temp.get('Water body and Marshland', 0) or 0,0)
+    response['barren_buildings_barren_land'] = round(temp.get('Barren land', 0) or 0,0)
+    response['barren_buildings_snow'] = round(temp.get('Snow', 0) or 0,0)
+    response['barren_buildings_rangeland'] = round(temp.get('Rangeland', 0) or 0,0)
+    response['barren_buildings_sand_covered_areas'] = round(temp.get('Sand Covered Areas', 0) or 0,0)
+    response['barren_buildings_forest_shrub'] = round(temp.get('Forest & Shrub', 0) or 0,0)
+    response['barren_buildings_sand_dunes'] = round(temp.get('Sand Dunes', 0) or 0,0)
+
     temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in parent_data])
-    response['built_up_area'] = round(temp.get('Build Up', 0)/1000000,1)
-    response['cultivated_area'] = round(temp.get('Fruit Trees', 0)/1000000,1)+round(temp.get('Irrigated Agricultural Land', 0)/1000000,1)+round(temp.get('Rainfed', 0)/1000000,1)+round(temp.get('Vineyards', 0)/1000000,1)
-    response['barren_area'] = round(temp.get('Water body and Marshland', 0)/1000000,1)+round(temp.get('Barren land', 0)/1000000,1)+round(temp.get('Snow', 0)/1000000,1)+round(temp.get('Rangeland', 0)/1000000,1)+round(temp.get('Sand Covered Areas', 0)/1000000,1)+round(temp.get('Forest & Shrub', 0)/1000000,1)+round(temp.get('Sand Dunes', 0)/1000000,1)
+    response['built_up_area'] = round((temp.get('Build Up', 0) or 1)/1000000,1)
+    response['cultivated_area'] = round((temp.get('Fruit Trees', 0) or 1)/1000000,1)+round((temp.get('Irrigated Agricultural Land', 0) or 1)/1000000,1)+round((temp.get('Rainfed', 0) or 1)/1000000,1)+round((temp.get('Vineyards', 0) or 1)/1000000,1)
+    response['barren_area'] = round((temp.get('Water body and Marshland', 0) or 1)/1000000,1)+round((temp.get('Barren land', 0) or 1)/1000000,1)+round((temp.get('Snow', 0) or 1)/1000000,1)+round((temp.get('Rangeland', 0) or 1)/1000000,1)+round((temp.get('Sand Covered Areas', 0) or 1)/1000000,1)+round((temp.get('Forest & Shrub', 0) or 1)/1000000,1)+round((temp.get('Sand Dunes', 0) or 1)/1000000,1)
+
+    response['built_up_area_build_up'] = round((temp.get('Build Up', 0) or 1)/1000000,1)
+    response['cultivated_area_fruit_trees'] = round((temp.get('Fruit Trees', 0) or 1)/1000000,1)
+    response['cultivated_area_irrigated_agricultural_land'] = round((temp.get('Irrigated Agricultural Land', 0) or 1)/1000000,1)
+    response['cultivated_area_rainfed'] = round((temp.get('Rainfed', 0) or 1)/1000000,1)
+    response['cultivated_area_vineyards'] = round((temp.get('Vineyards', 0) or 1)/1000000,1)
+    response['barren_area_water_body_and_marshland'] = round((temp.get('Water body and Marshland', 0) or 1)/1000000,1)
+    response['barren_area_barren_land'] = round((temp.get('Barren land', 0) or 1)/1000000,1)
+    response['barren_area_snow'] = round((temp.get('Snow', 0) or 1)/1000000,1)
+    response['barren_area_rangeland'] = round((temp.get('Rangeland', 0) or 1)/1000000,1)
+    response['barren_area_sand_covered_areas'] = round((temp.get('Sand Covered Areas', 0) or 1)/1000000,1)
+    response['barren_area_forest_shrub'] = round((temp.get('Forest & Shrub', 0) or 1)/1000000,1)
+    response['barren_area_sand_dunes'] = round((temp.get('Sand Dunes', 0) or 1)/1000000,1)
 
     return response
 

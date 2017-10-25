@@ -114,13 +114,28 @@
               {% if request.user.is_authenticated %}
               <button class="btn btn-checkbox" ng-click="feature_select($event)"><i class="fa fa-check"></i></button>
               {% endif %}
+              {% verbatim %}
               <div class="product-image">
-                <div class="image">
-                  {% verbatim %}
-                  <a href="{{ item.detail_url }}">
+                <div class="image" ng-if="item.detail_url.indexOf('/maps/') > -1">
+                  <a href="{{item.id}}/view">
                     <img ng-src="{{ item.thumbnail_url }}" class="img-responsive">
                   </a>
                 </div>
+                <div class="image" ng-if="item.detail_url.indexOf('/documents/') > -1">
+                  <a href="/v2{{ item.detail_url }}">
+                    <img ng-src="{{ item.thumbnail_url }}" class="img-responsive">
+                  </a>
+                </div>
+                <div class="image" ng-if="item.detail_url.indexOf('/layers/') > -1">
+                  <a href="/v2{{ item.detail_url }}">
+                    <img ng-src="{{ item.thumbnail_url }}" class="img-responsive">
+                  </a>
+                </div>
+                <!-- <div class="image">
+                  <a href="{{ item.detail_url }}">
+                    <img ng-src="{{ item.thumbnail_url }}" class="img-responsive">
+                  </a>
+                </div> -->
               </div>
             </div>
             <div class="col-md-9 col-sm-8 col-xs-12">

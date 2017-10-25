@@ -32,6 +32,192 @@ body h3,body h4
     }
 }
 
+/*Loading animation CSS*/
+/* Paste this css to your style sheet file or under head tag */
+/* This only works with JavaScript,
+if it's not present, don't show loader */
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  /*background: url(../../lib/img/Preloader_2.gif) center no-repeat #fff;*/
+}
+.se-pre-con span{
+  position: fixed;
+  left: 0px;
+  top: 62%;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  text-align: center;
+  font-size: 26pt;
+  color: #808080;
+}
+
+.mycluster {
+    width: 25px;
+    height: 25px;
+    border: 1px solid;
+    border-width: thin;
+    border-color: #f5f5f5;
+    background-color: rgba(66, 139, 202, 0.25);
+    text-align: center;
+    font-size: 9px;
+    vertical-align: center;
+    border-radius: 9px;
+}
+
+/*Loader CSS*/
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    /*border-top-color: #3498db;*/
+    border-top-color: #808080;
+    -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+    animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+    z-index: 1001;
+}
+ 
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    /*border-top-color: #e74c3c;*/
+    border-top-color: #a72b1f; 
+    -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+      animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+ 
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    /*border-top-color: #f9c922;*/
+    border-top-color: #fff;
+    -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
+      animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
+}
+ 
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(0deg);  /* IE 9 */
+        transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+    100% {
+        -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+        -ms-transform: rotate(360deg);  /* IE 9 */
+        transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+    }
+}
+
+#loader-wrapper .loader-section {
+    position: fixed;
+    top: 0;
+    width: 51%;
+    height: 100%;
+    background: #222222;
+    z-index: 1000;
+}
+ 
+#loader-wrapper .loader-section.section-left {
+    left: 0;
+}
+ 
+#loader-wrapper .loader-section.section-right {
+    right: 0;
+}
+
+/* Loaded */
+.loaded #loader-wrapper .loader-section.section-left {
+    -webkit-transform: translateX(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(-100%);  /* IE 9 */
+    transform: translateX(-100%);  /* Firefox 16+, IE 10+, Opera */
+}
+ 
+.loaded #loader-wrapper .loader-section.section-right {
+    -webkit-transform: translateX(100%);  /* Chrome, Opera 15+, Safari 3.1+ */
+    -ms-transform: translateX(100%);  /* IE 9 */
+    transform: translateX(100%);  /* Firefox 16+, IE 10+, Opera */
+}
+
+.loaded #loader {
+    opacity: 0;
+}
+
+.loaded #loader-wrapper {
+    visibility: hidden;
+}
+
+.loaded #loader {
+    opacity: 0;
+    -webkit-transition: all 0.3s ease-out; 
+            transition: all 0.3s ease-out;
+}
+
+.loaded #loader-wrapper .loader-section.section-right,
+.loaded #loader-wrapper .loader-section.section-left {
+ 
+    -webkit-transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000); 
+    transition: all 0.7s 0.3s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+}
+
+.loaded #loader-wrapper {
+        -webkit-transform: translateY(-100%);
+            -ms-transform: translateY(-100%);
+                transform: translateY(-100%);
+ 
+        -webkit-transition: all 0.3s 1s ease-out; 
+                transition: all 0.3s 1s ease-out;
+}
+
+.no-js #loader-wrapper {
+    display: none;
+}
+
+/*Main CSS*/
 .tab-content{
     padding-left: 0px;
     padding-right: 0px;
@@ -65,7 +251,7 @@ body h3,body h4
 .x_title h2 {
     font-size: 18px;
     margin: 5px 0 6px;
-    float: left;
+    /*float: left;*/
     display: block;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -74,6 +260,10 @@ body h3,body h4
 
 .x_title h2 small {
     margin-left: 10px
+}
+
+html[dir=rtl] .x_title h2 small{
+    unicode-bidi: plaintext;
 }
 
 .x_title span {
@@ -156,8 +346,20 @@ body h3,body h4
     text-align: right;
 }
 
+html[dir=rtl] .hidden-print .table {
+    text-align: left;
+}
+
+html[dir=rtl] .hidden-print .table tr>td{
+    unicode-bidi: plaintext;
+}
+
 tr td:nth-child(1), .list_incident tr td:nth-child(2) {
     text-align: left;
+}
+
+html[dir=rtl] tr td:nth-child(1), html[dir=rtl] .list_incident tr td:nth-child(2) {
+    text-align: right;
 }
 
 .list_incident tr td:nth-child(1){
@@ -503,7 +705,7 @@ input[type="search"]{
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    padding: 0 15px;
+    /*padding: 0 15px;*/
     border: 3px solid #ededed;
 }
 
@@ -627,6 +829,10 @@ input[type="search"]:focus{
     .print-no-pad{
         padding: 0;
     }
+}
+
+html[dir=rtl] .ch-size, html[dir=rtl] .ch-size-fforecast, html[dir=rtl] .ch-size-pie, html[dir=rtl] .ch-size-pie-mercalli{
+    unicode-bidi: plaintext;
 }
 
 /*.ch-size-pie{
@@ -882,7 +1088,8 @@ figure{
 }
 
 .author{
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
+    text-align: justify;
     font-size: 12px;
 }
 
@@ -975,6 +1182,7 @@ div#partnerCarousel {
 }
 
 #about .author .x_panel h5{
+    margin-top: 20px;
     height: 40px;
 }
 
@@ -1625,7 +1833,11 @@ a.user-profile {
     width: 29px;
     height: 29px;
     border-radius: 50%;
-    margin-right: 10px
+    margin-right: 10px;
+}
+
+html[dir=rtl] .user-profile img {
+    margin-left: 10px;
 }
 
 .owner p {
@@ -2251,6 +2463,7 @@ div.sample button.btn-search, div.sample button.btn-reset {
     font-size: 30px;
     line-height: 47px;
     font-weight: 600;
+    unicode-bidi: plaintext;
 }
 
 @media (min-width: 768px) {
@@ -2424,6 +2637,10 @@ select#select_evt{
     /*height: 58px;*/
     background-color: #a72b1f;
     color: #fff;
+}
+
+html[dir=rtl] .child-checkbox input{
+    margin-left: 10px;
 }
 
 /*.checkbox {
@@ -2609,6 +2826,10 @@ section#nd,section#weather {
     padding: 0;
 }
 
+#nd div.embed-responsive {
+    padding-bottom: 1360px;
+}
+
 #weather .container.center.frame-color{
     /*padding: 40px 15px;*/
     /*padding: 0px 15px;*/
@@ -2624,7 +2845,7 @@ section#nd,section#weather {
     }
 }
 
-@media(min-width: 768px){
+@media(max-width: 1024px){
     #weather div.embed-responsive {
         padding-bottom: 60%;
     }
@@ -3021,46 +3242,7 @@ button#compose{
     padding: 10px
 }
 
-/*Loading animation CSS*/
-/* Paste this css to your style sheet file or under head tag */
-/* This only works with JavaScript,
-if it's not present, don't show loader */
-.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
-.se-pre-con {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background: url(../../lib/img/Preloader_2.gif) center no-repeat #fff;
-}
-.se-pre-con span{
-  position: fixed;
-  left: 0px;
-  top: 62%;
-  width: 100%;
-  height: 100%;
-  z-index: 10000;
-  text-align: center;
-  font-size: 26pt;
-}
-
-.mycluster {
-    width: 25px;
-    height: 25px;
-    border: 1px solid;
-    border-width: thin;
-    border-color: #f5f5f5;
-    background-color: rgba(66, 139, 202, 0.25);
-    text-align: center;
-    font-size: 9px;
-    vertical-align: center;
-    border-radius: 9px;
-}
-
-  /*Layer*/
+/*Layer*/
 .sidebar{
   background-color: #fff;
 }
@@ -3106,6 +3288,34 @@ if it's not present, don't show loader */
   overflow-y: auto;
 }*/
 
+html[dir=ltr] .side-menu #collapseProv span.badge{
+    margin-right: 30px;
+}
+
+html[dir=ltr] .side-menu #collapseProv .checkbox a{
+    margin-right: -50px;
+}
+
+html[dir=rtl] .side-menu #collapseProv span.badge{
+    margin-left: 30px;
+}
+
+html[dir=rtl] .side-menu #collapseProv .checkbox a{
+    margin-left: -50px;
+}
+
+.side-menu #collapseProv .childProv ul{
+    padding-left: 15px;
+}
+
+html[dir=rtl] .side-menu #collapseProv .childProv ul{
+    padding-right: 15px;
+}
+
+html[dir=rtl] .side-menu #collapseCategories .side-menu-list ul{
+    
+}
+
 .side-menu #collapseCategories li {
     cursor: pointer;
     margin: 10px 0;
@@ -3117,6 +3327,13 @@ if it's not present, don't show loader */
 
 .side-menu .checkbox-red input[type="checkbox"]{
     margin-right: 5px;
+}
+
+html[dir=rtl] .side-menu .checkbox-red input[type="checkbox"] {
+  margin-right: -40px;
+  margin-left: 10px;
+  /*position: absolute;*/
+  /*bottom: 4px;*/
 }
 
 .outer-left{
@@ -4854,11 +5071,4 @@ input#districtSelection_c{
     }*/
 }
 
-/*BEGIN Rtl Section*/
-html[dir=rtl] .side-menu .checkbox-red input[type="checkbox"] {
-  margin-right: -20px;
-  margin-left: 6px;
-  position: absolute;
-  bottom: 4px;
-}
-/*END Rtl Section*/
+
