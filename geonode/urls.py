@@ -83,7 +83,7 @@ v2urlpatterns = patterns('',
                        )
 
 urlpatterns = patterns('',
-                    #    (r'^', include(v2urlpatterns, namespace='v2')),
+                       (r'^', include(v2urlpatterns, namespace='v2')),
 
                        # Static pages
                        url(r'^/?$', TemplateView.as_view(template_name='index.html'), name='home'),
