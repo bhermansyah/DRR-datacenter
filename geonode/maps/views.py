@@ -103,7 +103,7 @@ def map_detail(request, mapid, snapshot=None, template='maps/map_detail.html'):
     The view that show details of each map
     '''
     # ubah
-    if ('v2' in request.path): template = 'v2/map_detail.html'
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/map_detail.html'
     # /ubah
 
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
@@ -285,7 +285,7 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
     the map with the given map ID.
     """
     # ubah
-    if ('v2' in request.path): template = 'v2/map_view.html'
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/map_view.html'
     # /ubah
 
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)

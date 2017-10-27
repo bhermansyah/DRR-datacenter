@@ -6,6 +6,12 @@
 
 {% block head %}
 {{ block.super }}
+<style>
+body {
+  /* keep direction ltr for interactive maps*/
+  direction: ltr;
+}
+</style>
 {% include 'maps/map_geoexplorer.js' %}
 
 {% endblock %}

@@ -27,6 +27,7 @@ import urllib2, urllib
 from urlparse import parse_qs, urlsplit, urlunsplit
 import re
 from requests.utils import quote
+from django.utils import translation
 
 def common(request):
 	response = {}
@@ -133,6 +134,8 @@ def dashboard_detail(request):
 	    return redirect(set_query_parameter(currenturl, 'page', 'baseline'))
 
 	if 'pdf' in request.GET:
+		v2_folder = ''
+		# v2_folder = 'v2/' if request.resolver_match.namespace == 'v2' else ''
 
 		try:
 			a = 'asdc.immap.org'+request.META.get('PATH_INFO')
@@ -146,9 +149,9 @@ def dashboard_detail(request):
 			# client.setPageMargins('1in', '1in', '1in', '1in')
 			client.setVerticalMargin("0.75in")
 			client.setHorizontalMargin("0.25in")
-			client.setHeaderUrl('http://asdc.immap.org/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string)
+			client.setHeaderUrl('http://asdc.immap.org/static/'+v2_folder+'rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
 			# convert a web page and store the generated PDF to a variable
-			pdf = client.convertURI('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id))
+			pdf = client.convertURI('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&lang='+str(translation.get_language()))
 			 # set HTTP response headers
 			response = HttpResponse(mimetype="application/pdf")
 			response["Cache-Control"] = "no-cache"
@@ -168,7 +171,7 @@ def dashboard_detail(request):
 			    'margin-bottom':10,
 			    'margin-top':25,
 			    # 'viewport-size':'800x600',
-			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization,
+			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&lang='+str(translation.get_language()),
 			    # 'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header(v2).html?name='+request.user.first_name+'-'+request.user.last_name+'&cust_title=&organization='+request.user.organization,
 			    # 'lowquality':'-'
 			    # 'disable-smart-shrinking':'-',
@@ -181,7 +184,7 @@ def dashboard_detail(request):
 			if re.match('^/v2', request.path):
 			    options['viewport-size'] = '1240x800'
 			a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
-			pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id), False, options=options)
+			pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&lang='+str(translation.get_language()), False, options=options)
 			date_string = dateformat.format(datetime.now(), "Y-m-d")
 			response = HttpResponse(pdf,content_type='application/pdf')
 			response['Content-Disposition'] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
@@ -189,19 +192,22 @@ def dashboard_detail(request):
 		return response
 	else:
 		response = common(request)
-		if 'v2' in request.path:
-		    return render_to_response(
-		            "v2/dashboard_base.html",
-		            RequestContext(request, response))
-		else:
-		    return render_to_response(
-		            "dashboard_base.html",
-		            RequestContext(request, response))
+		template = 'dashboard_base.html'
+		if request.resolver_match.namespace == 'v2':
+			template = 'v2/dashboard_base.html'
+		return render_to_response(
+			template,
+			RequestContext(request, response))
 
 def dashboard_print(request):
+	template = 'dashboard_base.html'
+	if request.resolver_match.namespace == 'v2':
+		template = 'v2/dashboard_base.html'
+	if request.GET.get('lang'):
+		translation.activate(request.GET.get('lang'))
 	return render_to_response(
-	            "v2/dashboard_base.html" if re.match('^/v2', request.path) else "dashboard_base.html",
-	            RequestContext(request, common(request)))
+		template,
+		RequestContext(request, common(request)))
 
 def get_provinces(request):
 	resource = AfgAdmbndaAdm1.objects.all().values('prov_code','prov_na_en').order_by('prov_na_en')
@@ -220,9 +226,11 @@ def dashboard_multiple(request):
 	# data = request.POST
 	data = json.loads(request.body)
 	a = request.META.get('HTTP_HOST')
+	a += '/v2' if re.match('^/v2', request.path) else ''
+	v2_folder = ''
+	# v2_folder = 'v2/' if request.resolver_match.namespace == 'v2' else ''
 
 	try:
-		a = 'asdc.immap.org/v2' if re.match('^/v2', request.path) else 'asdc.immap.org'
 		print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
 		date_string = dateformat.format(datetime.now(), "Y-m-d")
 
@@ -233,7 +241,7 @@ def dashboard_multiple(request):
 		# client.setPageMargins('1in', '1in', '1in', '1in')
 		client.setVerticalMargin("0.75in")
 		client.setHorizontalMargin("0.25in")
-		client.setHeaderUrl('http://'+a+'/static/rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&isodate='+date_string)
+		client.setHeaderUrl('http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
 		# convert a web page and store the generated PDF to a variable
 
 		# get map pdf
@@ -249,7 +257,7 @@ def dashboard_multiple(request):
 		for i in data['urls']:
 			if i is not None and i != '':
 				# urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
-				pdf = client.convertURI(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
+				pdf = client.convertURI(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)+'&lang='+str(translation.get_language())))
 				merger.append(StringIO(pdf))
 
 		 # set HTTP response headers
@@ -273,7 +281,7 @@ def dashboard_multiple(request):
 		    'margin-bottom':10,
 		    'margin-top':25,
 		    # 'viewport-size':'800x600',
-		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization,
+		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&lang='+str(translation.get_language()),
 			# 'lowquality':'-',
 		    # 'disable-smart-shrinking':'-',
 		    # 'print-media-type':'-',
@@ -295,7 +303,7 @@ def dashboard_multiple(request):
 
 		for i in data['urls']:
 			if i is not None and i != '':
-				urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
+				urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)+'&lang='+str(translation.get_language())))
 
 		pdf = pdfkit.from_url(urls, False, options=options)
 		merger.append(StringIO(pdf))
@@ -313,7 +321,7 @@ def dashboard_multiple(request):
 def downloadPDFFile(request):
 	with open(getattr(settings, 'PRINT_CACHE_PATH')+request.GET['filename'], 'r') as pdf:
 		response = HttpResponse(pdf.read(),content_type='application/pdf')
-		response['Content-Disposition'] = 'attachment; filename="'+request.GET['filenameoutput']+'.pdf"'
+		response['Content-Disposition'] = 'attachment; filename="'+quote(request.GET['filenameoutput'].encode('utf-8'))+'.pdf"'
         return response
 
 def classmarkerRedirect(request):

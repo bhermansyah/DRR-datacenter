@@ -106,15 +106,13 @@ def document_detail(request, docid):
             context_dict["social_links"] = build_social_links(request, document)
 
         # ubah
-        if 'v2' in request.path:
-            return render_to_response(
-                    "v2/document_detail.html",
-                    RequestContext(request, context_dict))
-        else:
+        template = 'document_detail.html'
+        if request.resolver_match.namespace == 'v2':
+            template = 'v2/document_detail.html'
+        return render_to_response(
+            template,
+            RequestContext(request, context_dict))
         # /ubah
-            return render_to_response(
-                "documents/document_detail.html",
-                RequestContext(request, context_dict))
 
 
 

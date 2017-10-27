@@ -219,7 +219,7 @@ def layer_upload(request, template='upload/layer_upload.html'):
 
 def layer_detail(request, layername, template='layers/layer_detail.html'):
     # ubah
-    if ('v2' in request.path): template = 'v2/layer_detail.html'
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/layer_detail.html'
     # /ubah
 
     layer = _resolve_layer(
