@@ -76,6 +76,23 @@ table#info tr.odd td {
 
   function drawChartline_chart2(tt) {
     var data = google.visualization.arrayToDataTable({{ climatechange_temp_data | safe }});
+    
+    var unit = {
+        'format': '# \u00b0C'
+    };
+
+    if (tt==4) {
+     	unit = {
+	        'format': "#'%'",
+	        // 'minValue': 0,
+	        // 'maxValue': 100,
+	    };
+	} else {
+		unit = {
+	        'format': '# \u00b0C'
+	    };
+	}  
+
 	var options = {
 			// "title": "Climate Change (Temperature)", 
 			"curveType": "function", 
@@ -86,9 +103,9 @@ table#info tr.odd td {
 			'chartArea': {'top':10, 'bottom':90, 'left':50, 'right':25},
 			"bar": {"groupWidth": "95%"},
 			"vAxes": { 
-                0:{'format': '# \u00b0C'},
+                0:unit,
             },
-        }
+    }
 	var chart = new google.visualization.ComboChart(document.getElementById('line_chart2'));
 
 	view = new google.visualization.DataView(data);
