@@ -81,7 +81,7 @@ table#info tr.odd td {
         'format': '# \u00b0C'
     };
 
-    if (tt==4) {
+    if (tt==4 || tt==3) {
      	unit = {
 	        'format': "#'%'",
 	        // 'minValue': 0,
@@ -149,6 +149,23 @@ table#info tr.odd td {
 
   function drawChartline_chart3(tt) {
     var data1 = google.visualization.arrayToDataTable({{ climatechange_prec_data | safe }});
+
+    var unit = {
+        'format':"# mm"
+    };
+
+    if (tt==4) {
+     	unit = {
+	        'format': "#'%'",
+	        // 'minValue': 0,
+	        // 'maxValue': 100,
+	    };
+	} else {
+		unit = {
+	        'format':"# mm"
+	    };
+	} 
+
 	var options1 = {
 			// "title": "Climate Change (Precipitation)", 
 			"curveType": "function", 
@@ -159,7 +176,7 @@ table#info tr.odd td {
 			'chartArea': {'top':10, 'bottom':90, 'left':50, 'right':25},
 			"bar": {"groupWidth": "95%"},
 			"vAxes": { 
-                0:{'format':"# mm"} 
+                0:unit
             }
         }
 	var chart1 = new google.visualization.ComboChart(document.getElementById('line_chart3'));
@@ -229,9 +246,8 @@ table#info tr.odd td {
 </div>
 <div id="line_chart3" style='width:90%;margin:1em auto;align=left'></div>
 
-<div class="disc_text">{% blocktrans %}Data from "Current Climate" and "Climate Change" originate from different sources, hence there might be a higher/lower than expected value in 2050 compared to the current climate (e.g. a small reduction in temperature), this is due to the difference in modelling. {% endblocktrans %}</div>
 <div class="disc_text">{% blocktrans %}Current Climate data used originates from the CHELSA project, which modeled climate for the period 1979-2013 at a resolution of 1km. CHELSA is using the ERA interim global circulation model from ECMWF.{% endblocktrans %}</div>
-<div class="disc_text">{% blocktrans %}Climate Change data originates from the WorldClim project, which modelled climate change for the period time periods: 2050 (average for 2041-2060) and 2070 (average for 2061-2080) at a resolution of 1km.It is a downscaled model based upon IPPC5 using the global climate model CCSM4 data.{% endblocktrans %}</div>
+<div class="disc_text">{% blocktrans %}Climate Change data also originates from the CHELSA project, which modelled climate change for the period time periods: 2050 (average for 2041-2060) and 2070 (average for 2061-2080) at a resolution of 1km.It is a downscaled model based upon IPPC5 using the global climate model CM5A-MR (mid resolution version of the IPSL-CM5A Earth system model){% endblocktrans %}</div>
 <div class="disc_text">{% blocktrans %}For each period (2050 and 2070) we provide 3 potential climate change scenarios, using so called RCPs (Representative Concentration Pathways). These predict global average temperature change by 2100 in the range of:{% endblocktrans %}</div>
 <ul class="disc_text">
   <li>RCP2.6: 0.3 to 1.7 C°</li>
