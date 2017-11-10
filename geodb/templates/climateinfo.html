@@ -71,10 +71,10 @@ table#info tr.odd td {
 <script type="text/javascript">
   google.setOnLoadCallback(drawChartline_chart2_default);
   function drawChartline_chart2_default() {
-  	drawChartline_chart2(1);
+  	drawChartline_chart2(1, 'The annual mean temperature');
   }
 
-  function drawChartline_chart2(tt) {
+  function drawChartline_chart2(tt, text) {
     var data = google.visualization.arrayToDataTable({{ climatechange_temp_data | safe }});
     
     var unit = {
@@ -105,6 +105,7 @@ table#info tr.odd td {
 			"vAxes": { 
                 0:unit,
             },
+            'hAxis': {'title': text},
     }
 	var chart = new google.visualization.ComboChart(document.getElementById('line_chart2'));
 
@@ -138,16 +139,16 @@ table#info tr.odd td {
   }
 
   function select1(a){
-  	drawChartline_chart2(a.value);
+  	drawChartline_chart2(a.value, a.options[a.selectedIndex].getAttribute("data-text"));
   }
 
 
   google.setOnLoadCallback(drawChartline_chart3_default);
   function drawChartline_chart3_default() {
-  	drawChartline_chart3(1);
+  	drawChartline_chart3(1, 'This is the sum of all total monthly precipitation values');
   }
 
-  function drawChartline_chart3(tt) {
+  function drawChartline_chart3(tt, text) {
     var data1 = google.visualization.arrayToDataTable({{ climatechange_prec_data | safe }});
 
     var unit = {
@@ -177,7 +178,8 @@ table#info tr.odd td {
 			"bar": {"groupWidth": "95%"},
 			"vAxes": { 
                 0:unit
-            }
+            },
+            'hAxis': {'title': text},
         }
 	var chart1 = new google.visualization.ComboChart(document.getElementById('line_chart3'));
 
@@ -211,37 +213,37 @@ table#info tr.odd td {
   }
 
   function select2(a){
-  	drawChartline_chart3(a.value);
+  	drawChartline_chart3(a.value, a.options[a.selectedIndex].getAttribute("data-text"));
   } 
 </script>
 
 <div style='width:90%;margin:1em auto;align=left'>
 	<select style='width:90%;margin:1em auto;align=left' onChange="select1(this)">
-		<option value="1" selected="selected">Annual Mean Temperature </option>
-		<option value="2">Mean Diurnal Range</option>
-		<option value="3">Isothermality</option>
-		<option value="4">Temperature Seasonality</option>
-		<option value="5">Max Temperature of Warmest Month</option>
-		<option value="6">Min Temperature of Coldest Month</option>
-		<option value="7">Temperature Annual Range</option>
-		<option value="8">Mean Temperature of Wettest Quarter</option>
-		<option value="9">Mean Temperature of Driest Quarter</option>
-		<option value="10">Mean Temperature of Warmest Quarter</option>
-		<option value="11">Mean Temperature of Coldest Quarter</option>
+		<option value="1" selected="selected" data-text="The annual mean temperature">Annual Mean Temperature</option>
+		<option value="2" data-text="The mean of the monthly temperature ranges (monthly maximum minus monthly minimum). Since the climate data inputs are monthly or averaged months across multiple years, this calculation uses recorded temperature fluctuation within a month to capture diurnal temperature range">Mean Diurnal Range</option>
+		<option value="3" data-text="Isothermality quantifies how large the dayto-night temperatures oscillate relative to the summerto-winter (annual) oscillations">Isothermality</option>
+		<option value="4" data-text="The amount of temperature variation over a given period based on the ratio of the standard deviation of the monthly mean temperatures to the mean monthly temperature">Temperature Seasonality</option>
+		<option value="5" data-text="The maximum monthly temperature occurrence over a given year (time-series) or averaged span of years (normal)">Max Temperature of Warmest Month</option>
+		<option value="6" data-text="The minimum monthly temperature occurrence over a given year (time-series) or averaged span of years (normal)">Min Temperature of Coldest Month</option>
+		<option value="7" data-text="A measure of temperature variation over a given period">Temperature Annual Range</option>
+		<option value="8" data-text="This quarterly index approximates mean temperatures that prevail during the wettest season">Mean Temperature of Wettest Quarter</option>
+		<option value="9" data-text="This quarterly index approximates mean temperatures that prevail during the driest quarter">Mean Temperature of Driest Quarter</option>
+		<option value="10" data-text="This quarterly index approximates mean temperatures that prevail during the warmest quarter">Mean Temperature of Warmest Quarter</option>
+		<option value="11" data-text="This quarterly index approximates mean temperatures that prevail during the coldest quarter">Mean Temperature of Coldest Quarter</option>
 	</select>
 </div>	
 <div id="line_chart2" style='width:90%;margin:1em auto;align=left'></div>
 
 <div style='width:90%;margin:1em auto;align=left'>
 	<select style='width:90%;margin:1em auto;align=left' onChange="select2(this)">
-		<option value="1" selected="selected">Annual Precipitation</option>
-		<option value="2">Precipitation of Wettest Month</option>
-		<option value="3">Precipitation of Driest Month</option>
-		<option value="4">Precipitation Seasonality</option>
-		<option value="5">Precipitation of Wettest Quarter</option>
-		<option value="6">Precipitation of Driest Quarter</option>
-		<option value="7">Precipitation of Warmest Quarter</option>
-		<option value="8">Precipitation of Coldest Quarter</option>
+		<option value="1" selected="selected" data-text="This is the sum of all total monthly precipitation values">Annual Precipitation</option>
+		<option value="2" data-text="This index identifies the total precipitation that prevails during the wettest month">Precipitation of Wettest Month</option>
+		<option value="3" data-text="This index identifies the total precipitation that prevails during the driest month">Precipitation of Driest Month</option>
+		<option value="4" data-text="This is a measure of the variation in monthly precipitation totals over the course of the year. This index is the ratio of the standard deviation of the monthly total precipitation to the mean monthly total precipitation (also known as the coefficient of variation) and is expressed as a percentage">Precipitation Seasonality</option>
+		<option value="5" data-text="This quarterly index approximates total precipitation that prevails during the wettest quarter">Precipitation of Wettest Quarter</option>
+		<option value="6" data-text="This quarterly index approximates total precipitation that prevails during the driest quarter">Precipitation of Driest Quarter</option>
+		<option value="7" data-text="This quarterly index approximates total precipitation that prevails during the warmest quarter">Precipitation of Warmest Quarter</option>
+		<option value="8" data-text="This quarterly index approximates total precipitation that prevails during the coldest quarter">Precipitation of Coldest Quarter</option>
 	</select>
 </div>
 <div id="line_chart3" style='width:90%;margin:1em auto;align=left'></div>
