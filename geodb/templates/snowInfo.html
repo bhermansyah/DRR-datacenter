@@ -46,10 +46,10 @@ table#info tr.odd td {
 		<td>{% trans "Settlement" %}</td>
 		<td><strong>{{name_en}}</strong></td>
 	</tr>
-	<tr>
+<!-- 	<tr>
 		<td>{% trans "Language" %}</td>
 		<td><strong>{{language_field}}</strong></td>
-	</tr>
+	</tr> -->
 	<tr>
 		<td>{% trans "District" %}</td>
 		<td><strong>{{dist_na_en}}</strong></td>
@@ -57,6 +57,10 @@ table#info tr.odd td {
 	<tr>
 		<td>{% trans "Province" %}</td>
 		<td><strong>{{prov_na_en}}</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Elevation" %}</td>
+		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Approx. Current Snow Depth" %}</td>
