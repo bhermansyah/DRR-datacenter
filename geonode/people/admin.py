@@ -79,6 +79,32 @@ class ProfileAdmin(admin.ModelAdmin):
     def get_fieldsets(self, request, obj=None):
         if not obj:
             return self.add_fieldsets
+        if request.user.is_superuser :
+            self.fieldsets = (
+                (None, {'fields': ('username', 'password')}),
+                (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+                (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                               'groups')}),
+                (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+                (_('Extended profile'), {'fields': ('organization', 'org_acronym', 'org_type', 'org_name_status', 'profile',
+                                                    'position', 'voice', 'fax',
+                                                    'delivery', 'city', 'area',
+                                                    'zipcode', 'country',
+                                                    'keywords')}),
+            )
+        else:
+            self.fieldsets = (
+                (None, {'fields': ('username', 'password')}),
+                (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
+                (_('Permissions'), {'fields': ('is_active', 
+                                               )}),
+                (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+                (_('Extended profile'), {'fields': ('organization', 'org_acronym', 'org_type', 'org_name_status', 'profile',
+                                                    'position', 'voice', 'fax',
+                                                    'delivery', 'city', 'area',
+                                                    'zipcode', 'country',
+                                                    'keywords')}),
+            )
         return super(ProfileAdmin, self).get_fieldsets(request, obj)
 
     def get_form(self, request, obj=None, **kwargs):
