@@ -17,7 +17,7 @@ import time
 
 from django.contrib.auth.decorators import user_passes_test
 
-@user_passes_test(lambda u: u.is_superuser, login_url='/')
+@user_passes_test(lambda u: u.is_staff, login_url='/')
 def userstatistics(request):
     # has_access = ('geodb.delete_afgincidentoasis' in request.user.get_all_permissions())
     # if not has_access:
