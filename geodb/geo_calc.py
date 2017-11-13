@@ -1658,23 +1658,23 @@ def getFloodRisk(request, filterLock, flag, code):
         response['barren_area'] = 0.000001
 
     response['settlement_at_floodrisk'] = getSettlementAtFloodRisk(filterLock, flag, code)
-    response['settlement_at_floodrisk_percent'] = int(round((response['settlement_at_floodrisk']/response['settlement'])*100,0))
+    response['settlement_at_floodrisk_percent'] = int(round(((response['settlement_at_floodrisk'] or 0)/(response['settlement'] or 0))*100,0))
 
-    response['total_pop_atrisk_percent'] = int(round((response['total_risk_population']/response['Population'])*100,0))
-    response['total_area_atrisk_percent'] = int(round((response['total_risk_area']/response['Area'])*100,0))
+    response['total_pop_atrisk_percent'] = int(round(((response['total_risk_population'] or 0)/(response['Population'] or 0))*100,0))
+    response['total_area_atrisk_percent'] = int(round(((response['total_risk_area'] or 0)/(response['Area'] or 0))*100,0))
 
-    response['total_pop_high_atrisk_percent'] = int(round((response['high_risk_population']/response['Population'])*100,0))
-    response['total_pop_med_atrisk_percent'] = int(round((response['med_risk_population']/response['Population'])*100,0))
-    response['total_pop_low_atrisk_percent'] = int(round((response['low_risk_population']/response['Population'])*100,0))
+    response['total_pop_high_atrisk_percent'] = int(round(((response['high_risk_population'] or 0)/(response['Population'] or 0))*100,0))
+    response['total_pop_med_atrisk_percent'] = int(round(((response['med_risk_population'] or 0)/(response['Population'] or 0))*100,0))
+    response['total_pop_low_atrisk_percent'] = int(round(((response['low_risk_population'] or 0)/(response['Population'] or 0))*100,0))
 
-    response['built_up_pop_risk_percent'] = int(round((response['built_up_pop_risk']/response['built_up_pop'])*100,0))
-    response['built_up_area_risk_percent'] = int(round((response['built_up_area_risk']/response['built_up_area'])*100,0))
+    response['built_up_pop_risk_percent'] = int(round(((response['built_up_pop_risk'] or 0)/(response['built_up_pop'] or 0))*100,0))
+    response['built_up_area_risk_percent'] = int(round(((response['built_up_area_risk'] or 0)/(response['built_up_area'] or 0))*100,0))
 
-    response['cultivated_pop_risk_percent'] = int(round((response['cultivated_pop_risk']/response['cultivated_pop'])*100,0))
-    response['cultivated_area_risk_percent'] = int(round((response['cultivated_area_risk']/response['cultivated_area'])*100,0))
+    response['cultivated_pop_risk_percent'] = int(round(((response['cultivated_pop_risk'] or 0)/(response['cultivated_pop'] or 0))*100,0))
+    response['cultivated_area_risk_percent'] = int(round(((response['cultivated_area_risk'] or 0)/(response['cultivated_area'] or 0))*100,0))
 
-    response['barren_pop_risk_percent'] = int(round((response['barren_pop_risk']/response['barren_pop'])*100,0))
-    response['barren_area_risk_percent'] = int(round((response['barren_area_risk']/response['barren_area'])*100,0))
+    response['barren_pop_risk_percent'] = int(round(((response['barren_pop_risk'] or 0)/(response['barren_pop'] or 0))*100,0))
+    response['barren_area_risk_percent'] = int(round(((response['barren_area_risk'] or 0)/(response['barren_area'] or 0))*100,0))
 
     data1 = []
     data1.append(['agg_simplified_description','area_population'])
@@ -1950,9 +1950,9 @@ def getBaseline(request, filterLock, flag, code):
 
     dataLC = []
     dataLC.append([_('landcover type'),_('population'), { 'role': 'annotation' },_('buildings'), { 'role': 'annotation' },_('area (km2)'), { 'role': 'annotation' }])
-    dataLC.append([_('Built-up'),round(response['built_up_pop']/response['Population']*100,0), response['built_up_pop'],round(response['built_up_buildings']/response['Buildings']*100,0), response['built_up_buildings'], round(response['built_up_area']/response['Area']*100,0), response['built_up_area'] ])
-    dataLC.append([_('Cultivated'),round(response['cultivated_pop']/response['Population']*100,0), response['cultivated_pop'],round(response['cultivated_buildings']/response['Buildings']*100,0), response['cultivated_buildings'], round(response['cultivated_area']/response['Area']*100,0), response['cultivated_area'] ])
-    dataLC.append([_('Barren/Rangeland'),round(response['barren_pop']/response['Population']*100,0), response['barren_pop'],round(response['barren_buildings']/response['Buildings']*100,0), response['barren_buildings'], round(response['barren_area']/response['Area']*100,0), response['barren_area'] ])
+    dataLC.append([_('Built-up'),round((response['built_up_pop'] or 0)/(response['Population'] or 0)*100,0), response['built_up_pop'],round((response['built_up_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['built_up_buildings'], round((response['built_up_area'] or 0)/(response['Area'] or 0)*100,0), response['built_up_area'] ])
+    dataLC.append([_('Cultivated'),round((response['cultivated_pop'] or 0)/(response['Population'] or 0)*100,0), response['cultivated_pop'],round((response['cultivated_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['cultivated_buildings'], round((response['cultivated_area'] or 0)/(response['Area']*100 or 0),0), response['cultivated_area'] ])
+    dataLC.append([_('Barren/Rangeland'),round((response['barren_pop'] or 0)/(response['Population'] or 0)*100,0), response['barren_pop'],round((response['barren_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['barren_buildings'], round((response['barren_area'] or 0)/(response['Area'] or 0)*100,0), response['barren_area'] ])
     response['landcover_chart'] = gchart.BarChart(
         SimpleDataSource(data=dataLC),
         html_id="pie_chart1",
