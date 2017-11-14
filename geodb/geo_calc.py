@@ -1658,23 +1658,23 @@ def getFloodRisk(request, filterLock, flag, code):
         response['barren_area'] = 0.000001
 
     response['settlement_at_floodrisk'] = getSettlementAtFloodRisk(filterLock, flag, code)
-    response['settlement_at_floodrisk_percent'] = int(round(((response['settlement_at_floodrisk'] or 0)/(response['settlement'] or 0))*100,0))
+    response['settlement_at_floodrisk_percent'] = int(round(((response['settlement_at_floodrisk'] or 0)/(response['settlement'] or 1))*100,0))
 
-    response['total_pop_atrisk_percent'] = int(round(((response['total_risk_population'] or 0)/(response['Population'] or 0))*100,0))
-    response['total_area_atrisk_percent'] = int(round(((response['total_risk_area'] or 0)/(response['Area'] or 0))*100,0))
+    response['total_pop_atrisk_percent'] = int(round(((response['total_risk_population'] or 0)/(response['Population'] or 1))*100,0))
+    response['total_area_atrisk_percent'] = int(round(((response['total_risk_area'] or 0)/(response['Area'] or 1))*100,0))
 
-    response['total_pop_high_atrisk_percent'] = int(round(((response['high_risk_population'] or 0)/(response['Population'] or 0))*100,0))
-    response['total_pop_med_atrisk_percent'] = int(round(((response['med_risk_population'] or 0)/(response['Population'] or 0))*100,0))
-    response['total_pop_low_atrisk_percent'] = int(round(((response['low_risk_population'] or 0)/(response['Population'] or 0))*100,0))
+    response['total_pop_high_atrisk_percent'] = int(round(((response['high_risk_population'] or 0)/(response['Population'] or 1))*100,0))
+    response['total_pop_med_atrisk_percent'] = int(round(((response['med_risk_population'] or 0)/(response['Population'] or 1))*100,0))
+    response['total_pop_low_atrisk_percent'] = int(round(((response['low_risk_population'] or 0)/(response['Population'] or 1))*100,0))
 
-    response['built_up_pop_risk_percent'] = int(round(((response['built_up_pop_risk'] or 0)/(response['built_up_pop'] or 0))*100,0))
-    response['built_up_area_risk_percent'] = int(round(((response['built_up_area_risk'] or 0)/(response['built_up_area'] or 0))*100,0))
+    response['built_up_pop_risk_percent'] = int(round(((response['built_up_pop_risk'] or 0)/(response['built_up_pop'] or 1))*100,0))
+    response['built_up_area_risk_percent'] = int(round(((response['built_up_area_risk'] or 0)/(response['built_up_area'] or 1))*100,0))
 
-    response['cultivated_pop_risk_percent'] = int(round(((response['cultivated_pop_risk'] or 0)/(response['cultivated_pop'] or 0))*100,0))
+    response['cultivated_pop_risk_percent'] = int(round(((response['cultivated_pop_risk'] or 0)/(response['cultivated_pop'] or 1))*100,0))
     response['cultivated_area_risk_percent'] = int(round(((response['cultivated_area_risk'] or 0)/(response['cultivated_area'] or 0))*100,0))
 
-    response['barren_pop_risk_percent'] = int(round(((response['barren_pop_risk'] or 0)/(response['barren_pop'] or 0))*100,0))
-    response['barren_area_risk_percent'] = int(round(((response['barren_area_risk'] or 0)/(response['barren_area'] or 0))*100,0))
+    response['barren_pop_risk_percent'] = int(round(((response['barren_pop_risk'] or 0)/(response['barren_pop'] or 1))*100,0))
+    response['barren_area_risk_percent'] = int(round(((response['barren_area_risk'] or 0)/(response['barren_area'] or 1))*100,0))
 
     data1 = []
     data1.append(['agg_simplified_description','area_population'])
@@ -1718,15 +1718,15 @@ def getFloodRisk(request, filterLock, flag, code):
         if i['barren_area']==0:
             i['barren_area'] = 0.000001
 
-        i['settlement_at_floodrisk_percent'] = int(round((i['settlements_at_risk'] or 0)/(i['settlements'] or 0)*100,0))
-        i['total_pop_atrisk_percent'] = int(round((i['total_risk_population'] or 0)/(i['Population'] or 0)*100,0))
-        i['total_area_atrisk_percent'] = int(round((i['total_risk_area'] or 0)/(i['Area'] or 0)*100,0))
-        i['built_up_pop_risk_percent'] = int(round((i['built_up_pop_risk'] or 0)/(i['built_up_pop'] or 0)*100,0))
-        i['built_up_area_risk_percent'] = int(round((i['built_up_area_risk'] or 0)/(i['built_up_area'] or 0)*100,0))
-        i['cultivated_pop_risk_percent'] = int(round((i['cultivated_pop_risk'] or 0)/(i['cultivated_pop'] or 0)*100,0))
-        i['cultivated_area_risk_percent'] = int(round((i['cultivated_area_risk'] or 0)/(i['cultivated_area'] or 0)*100,0))
-        i['barren_pop_risk_percent'] = int(round((i['barren_pop_risk'] or 0)/(i['barren_pop'] or 0)*100,0))
-        i['barren_area_risk_percent'] = int(round((i['barren_area_risk'] or 0)/(i['barren_area'] or 0)*100,0))
+        i['settlement_at_floodrisk_percent'] = int(round((i['settlements_at_risk'] or 0)/(i['settlements'] or 1)*100,0))
+        i['total_pop_atrisk_percent'] = int(round((i['total_risk_population'] or 0)/(i['Population'] or 1)*100,0))
+        i['total_area_atrisk_percent'] = int(round((i['total_risk_area'] or 0)/(i['Area'] or 1)*100,0))
+        i['built_up_pop_risk_percent'] = int(round((i['built_up_pop_risk'] or 0)/(i['built_up_pop'] or 1)*100,0))
+        i['built_up_area_risk_percent'] = int(round((i['built_up_area_risk'] or 0)/(i['built_up_area'] or 1)*100,0))
+        i['cultivated_pop_risk_percent'] = int(round((i['cultivated_pop_risk'] or 0)/(i['cultivated_pop'] or 1)*100,0))
+        i['cultivated_area_risk_percent'] = int(round((i['cultivated_area_risk'] or 0)/(i['cultivated_area'] or 1)*100,0))
+        i['barren_pop_risk_percent'] = int(round((i['barren_pop_risk'] or 0)/(i['barren_pop'] or 1)*100,0))
+        i['barren_area_risk_percent'] = int(round((i['barren_area_risk'] or 0)/(i['barren_area'] or 1)*100,0))
 
     response['lc_child']=data
 
