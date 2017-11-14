@@ -1576,14 +1576,14 @@ def getAvalancheRisk(request, filterLock, flag, code):
     for i in rawAvalancheRisk:
         response[i]=rawAvalancheRisk[i]
 
-    response['total_pop_atrisk_percent'] = int(round(((response['total_ava_population'] or 0)/(response['Population'] or 0))*100,0))
-    response['total_area_atrisk_percent'] = int(round(((response['total_ava_area'] or 0)/(response['Area'] or 0))*100,0))
+    response['total_pop_atrisk_percent'] = int(round(((response['total_ava_population'] or 0)/(response['Population'] or 1))*100,0))
+    response['total_area_atrisk_percent'] = int(round(((response['total_ava_area'] or 0)/(response['Area'] or 1))*100,0))
 
-    response['total_pop_high_atrisk_percent'] = int(round(((response['high_ava_population'] or 0)/(response['Population'] or 0))*100,0))
-    response['total_area_high_atrisk_percent'] = int(round(((response['high_ava_area'] or 0)/(response['Area'] or 0))*100,0))
+    response['total_pop_high_atrisk_percent'] = int(round(((response['high_ava_population'] or 0)/(response['Population'] or 1))*100,0))
+    response['total_area_high_atrisk_percent'] = int(round(((response['high_ava_area'] or 0)/(response['Area'] or 1))*100,0))
 
-    response['total_pop_med_atrisk_percent'] = int(round(((response['med_ava_population'] or 0)/(response['Population'] or 0))*100,0))
-    response['total_area_med_atrisk_percent'] = int(round(((response['med_ava_area'] or 0)/(response['Area'] or 0))*100,0))
+    response['total_pop_med_atrisk_percent'] = int(round(((response['med_ava_population'] or 0)/(response['Population'] or 1))*100,0))
+    response['total_area_med_atrisk_percent'] = int(round(((response['med_ava_area'] or 0)/(response['Area'] or 1))*100,0))
 
     data1 = []
     data1.append(['agg_simplified_description','area_population'])
@@ -1612,12 +1612,12 @@ def getAvalancheRisk(request, filterLock, flag, code):
     data = getProvinceSummary(filterLock, flag, code)
 
     for i in data:
-        i['total_pop_atrisk_percent'] = int(round((i['total_ava_population'] or 0)/(i['Population'] or 0)*100,0))
-        i['total_area_atrisk_percent'] = int(round((i['total_ava_area'] or 0)/(i['Area'] or 0)*100,0))
-        i['total_pop_high_atrisk_percent'] = int(round((i['high_ava_population'] or 0)/(i['Population'] or 0)*100,0))
-        i['total_area_high_atrisk_percent'] = int(round((i['high_ava_area'] or 0)/(i['Area'] or 0)*100,0))
-        i['total_pop_med_atrisk_percent'] = int(round((i['med_ava_population'] or 0)/(i['Population'] or 0)*100,0))
-        i['total_area_med_atrisk_percent'] = int(round((i['med_ava_area'] or 0)/(i['Area'] or 0)*100,0))
+        i['total_pop_atrisk_percent'] = int(round((i['total_ava_population'] or 0)/(i['Population'] or 1)*100,0))
+        i['total_area_atrisk_percent'] = int(round((i['total_ava_area'] or 0)/(i['Area'] or 1)*100,0))
+        i['total_pop_high_atrisk_percent'] = int(round((i['high_ava_population'] or 0)/(i['Population'] or 1)*100,0))
+        i['total_area_high_atrisk_percent'] = int(round((i['high_ava_area'] or 0)/(i['Area'] or 1)*100,0))
+        i['total_pop_med_atrisk_percent'] = int(round((i['med_ava_population'] or 0)/(i['Population'] or 1)*100,0))
+        i['total_area_med_atrisk_percent'] = int(round((i['med_ava_area'] or 0)/(i['Area'] or 1)*100,0))
 
     response['lc_child']=data
 
