@@ -1046,9 +1046,9 @@ def getAccessibility(request, filterLock, flag, code):
     for i in rawAccesibility:
         response[i]=rawAccesibility[i]
 
-    response['pop_coverage_percent'] = int(round(((response['pop_on_gsm_coverage'] or 0)/(response['Population'] or 0))*100,0))
-    response['area_coverage_percent'] = int(round(((response['area_on_gsm_coverage'] or 0)/(response['Area'] or 0))*100,0))
-    response['buildings_coverage_percent'] = int(round(((response['buildings_on_gsm_coverage'] or 0)/(response['Buildings'] or 0))*100,0))
+    response['pop_coverage_percent'] = int(round(((response['pop_on_gsm_coverage'] or 0)/(response['Population'] or 1))*100,0))
+    response['area_coverage_percent'] = int(round(((response['area_on_gsm_coverage'] or 0)/(response['Area'] or 1))*100,0))
+    response['buildings_coverage_percent'] = int(round(((response['buildings_on_gsm_coverage'] or 0)/(response['Buildings'] or 1))*100,0))
 
     response['l1_h__near_airp_percent'] = int(round((response['l1_h__near_airp']/response['Population'])*100,0)) if 'l1_h__near_airp' in response else 0
     response['l2_h__near_airp_percent'] = int(round((response['l2_h__near_airp']/response['Population'])*100,0)) if 'l2_h__near_airp' in response else 0
