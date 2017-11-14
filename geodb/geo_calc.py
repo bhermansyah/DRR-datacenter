@@ -1950,9 +1950,9 @@ def getBaseline(request, filterLock, flag, code):
 
     dataLC = []
     dataLC.append([_('landcover type'),_('population'), { 'role': 'annotation' },_('buildings'), { 'role': 'annotation' },_('area (km2)'), { 'role': 'annotation' }])
-    dataLC.append([_('Built-up'),round((response['built_up_pop'] or 0)/(response['Population'] or 0)*100,0), response['built_up_pop'],round((response['built_up_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['built_up_buildings'], round((response['built_up_area'] or 0)/(response['Area'] or 0)*100,0), response['built_up_area'] ])
-    dataLC.append([_('Cultivated'),round((response['cultivated_pop'] or 0)/(response['Population'] or 0)*100,0), response['cultivated_pop'],round((response['cultivated_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['cultivated_buildings'], round((response['cultivated_area'] or 0)/(response['Area']*100 or 0),0), response['cultivated_area'] ])
-    dataLC.append([_('Barren/Rangeland'),round((response['barren_pop'] or 0)/(response['Population'] or 0)*100,0), response['barren_pop'],round((response['barren_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['barren_buildings'], round((response['barren_area'] or 0)/(response['Area'] or 0)*100,0), response['barren_area'] ])
+    # dataLC.append([_('Built-up'),round((response['built_up_pop'] or 0)/(response['Population'] or 0)*100,0), response['built_up_pop'],round((response['built_up_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['built_up_buildings'], round((response['built_up_area'] or 0)/(response['Area'] or 0)*100,0), response['built_up_area'] ])
+    # dataLC.append([_('Cultivated'),round((response['cultivated_pop'] or 0)/(response['Population'] or 0)*100,0), response['cultivated_pop'],round((response['cultivated_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['cultivated_buildings'], round((response['cultivated_area'] or 0)/(response['Area']*100 or 0),0), response['cultivated_area'] ])
+    # dataLC.append([_('Barren/Rangeland'),round((response['barren_pop'] or 0)/(response['Population'] or 0)*100,0), response['barren_pop'],round((response['barren_buildings'] or 0)/(response['Buildings'] or 0)*100,0), response['barren_buildings'], round((response['barren_area'] or 0)/(response['Area'] or 0)*100,0), response['barren_area'] ])
     response['landcover_chart'] = gchart.BarChart(
         SimpleDataSource(data=dataLC),
         html_id="pie_chart1",
