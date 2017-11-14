@@ -718,7 +718,7 @@ def getEQData(filterLock, flag, code, event_code):
                     when ST_CoveredBy(a.wkb_geometry,"+filterLock+") then b.settlement_shake_extreme \
                     else st_area(st_intersection(a.wkb_geometry,"+filterLock+"))/st_area(a.wkb_geometry)*b.settlement_shake_extreme \
                 end \
-            )),0) as settlement_shake_extreme     \
+            )),0) as settlement_shake_extreme,     \
             coalesce(round(sum(b.buildings_shake_weak)),0) as buildings_shake_weak,     \
             coalesce(round(sum(b.buildings_shake_light)),0) as buildings_shake_light,     \
             coalesce(round(sum(b.buildings_shake_moderate)),0) as buildings_shake_moderate,     \
@@ -878,7 +878,7 @@ def getEQData(filterLock, flag, code, event_code):
             coalesce(round(sum(b.settlement_shake_verystrong)),0) as settlement_shake_verystrong,     \
             coalesce(round(sum(b.settlement_shake_severe)),0) as settlement_shake_severe,     \
             coalesce(round(sum(b.settlement_shake_violent)),0) as settlement_shake_violent,     \
-            coalesce(round(sum(b.settlement_shake_extreme)),0) as settlement_shake_extreme     \
+            coalesce(round(sum(b.settlement_shake_extreme)),0) as settlement_shake_extreme,     \
             coalesce(round(sum(b.buildings_shake_weak)),0) as buildings_shake_weak,     \
             coalesce(round(sum(b.buildings_shake_light)),0) as buildings_shake_light,     \
             coalesce(round(sum(b.buildings_shake_moderate)),0) as buildings_shake_moderate,     \
@@ -1046,9 +1046,9 @@ def getAccessibility(request, filterLock, flag, code):
     for i in rawAccesibility:
         response[i]=rawAccesibility[i]
 
-    response['pop_coverage_percent'] = int(round((response['pop_on_gsm_coverage']/response['Population'])*100,0))
-    response['area_coverage_percent'] = int(round((response['area_on_gsm_coverage']/response['Area'])*100,0))
-    response['buildings_coverage_percent'] = int(round((response['buildings_on_gsm_coverage']/response['Buildings'])*100,0))
+    response['pop_coverage_percent'] = int(round(((response['pop_on_gsm_coverage'] or 0)/(response['Population'] or 0))*100,0))
+    response['area_coverage_percent'] = int(round(((response['area_on_gsm_coverage'] or 0)/(response['Area'] or 0))*100,0))
+    response['buildings_coverage_percent'] = int(round(((response['buildings_on_gsm_coverage'] or 0)/(response['Buildings'] or 0))*100,0))
 
     response['l1_h__near_airp_percent'] = int(round((response['l1_h__near_airp']/response['Population'])*100,0)) if 'l1_h__near_airp' in response else 0
     response['l2_h__near_airp_percent'] = int(round((response['l2_h__near_airp']/response['Population'])*100,0)) if 'l2_h__near_airp' in response else 0
@@ -1415,10 +1415,10 @@ def getAvalancheForecast(request, filterLock, flag, code):
     for i in rawAvalancheForecast:
         response[i]=rawAvalancheForecast[i]
 
-    response['total_pop_forecast_percent'] = int(round((response['total_ava_forecast_pop']/response['Population'])*100,0))
-    response['high_pop_forecast_percent'] = int(round((response['ava_forecast_high_pop']/response['Population'])*100,0))
-    response['med_pop_forecast_percent'] = int(round((response['ava_forecast_med_pop']/response['Population'])*100,0))
-    response['low_pop_forecast_percent'] = int(round((response['ava_forecast_low_pop']/response['Population'])*100,0))
+    response['total_pop_forecast_percent'] = int(round(((response['total_ava_forecast_pop'] or 0)/(response['Population'] or 0))*100,0))
+    response['high_pop_forecast_percent'] = int(round(((response['ava_forecast_high_pop'] or 0)/(response['Population'] or 0))*100,0))
+    response['med_pop_forecast_percent'] = int(round(((response['ava_forecast_med_pop'] or 0)/(response['Population'] or 0))*100,0))
+    response['low_pop_forecast_percent'] = int(round(((response['ava_forecast_low_pop'] or 0)/(response['Population'] or 0))*100,0))
 
     data1 = []
     data1.append(['agg_simplified_description','area_population'])
@@ -1576,14 +1576,14 @@ def getAvalancheRisk(request, filterLock, flag, code):
     for i in rawAvalancheRisk:
         response[i]=rawAvalancheRisk[i]
 
-    response['total_pop_atrisk_percent'] = int(round((response['total_ava_population']/response['Population'])*100,0))
-    response['total_area_atrisk_percent'] = int(round((response['total_ava_area']/response['Area'])*100,0))
+    response['total_pop_atrisk_percent'] = int(round(((response['total_ava_population'] or 0)/(response['Population'] or 0))*100,0))
+    response['total_area_atrisk_percent'] = int(round(((response['total_ava_area'] or 0)/(response['Area'] or 0))*100,0))
 
-    response['total_pop_high_atrisk_percent'] = int(round((response['high_ava_population']/response['Population'])*100,0))
-    response['total_area_high_atrisk_percent'] = int(round((response['high_ava_area']/response['Area'])*100,0))
+    response['total_pop_high_atrisk_percent'] = int(round(((response['high_ava_population'] or 0)/(response['Population'] or 0))*100,0))
+    response['total_area_high_atrisk_percent'] = int(round(((response['high_ava_area'] or 0)/(response['Area'] or 0))*100,0))
 
-    response['total_pop_med_atrisk_percent'] = int(round((response['med_ava_population']/response['Population'])*100,0))
-    response['total_area_med_atrisk_percent'] = int(round((response['med_ava_area']/response['Area'])*100,0))
+    response['total_pop_med_atrisk_percent'] = int(round(((response['med_ava_population'] or 0)/(response['Population'] or 0))*100,0))
+    response['total_area_med_atrisk_percent'] = int(round(((response['med_ava_area'] or 0)/(response['Area'] or 0))*100,0))
 
     data1 = []
     data1.append(['agg_simplified_description','area_population'])
@@ -1612,12 +1612,12 @@ def getAvalancheRisk(request, filterLock, flag, code):
     data = getProvinceSummary(filterLock, flag, code)
 
     for i in data:
-        i['total_pop_atrisk_percent'] = int(round(i['total_ava_population']/i['Population']*100,0))
-        i['total_area_atrisk_percent'] = int(round(i['total_ava_area']/i['Area']*100,0))
-        i['total_pop_high_atrisk_percent'] = int(round(i['high_ava_population']/i['Population']*100,0))
-        i['total_area_high_atrisk_percent'] = int(round(i['high_ava_area']/i['Area']*100,0))
-        i['total_pop_med_atrisk_percent'] = int(round(i['med_ava_population']/i['Population']*100,0))
-        i['total_area_med_atrisk_percent'] = int(round(i['med_ava_area']/i['Area']*100,0))
+        i['total_pop_atrisk_percent'] = int(round((i['total_ava_population'] or 0)/(i['Population'] or 0)*100,0))
+        i['total_area_atrisk_percent'] = int(round((i['total_ava_area'] or 0)/(i['Area'] or 0)*100,0))
+        i['total_pop_high_atrisk_percent'] = int(round((i['high_ava_population'] or 0)/(i['Population'] or 0)*100,0))
+        i['total_area_high_atrisk_percent'] = int(round((i['high_ava_area'] or 0)/(i['Area'] or 0)*100,0))
+        i['total_pop_med_atrisk_percent'] = int(round((i['med_ava_population'] or 0)/(i['Population'] or 0)*100,0))
+        i['total_area_med_atrisk_percent'] = int(round((i['med_ava_area'] or 0)/(i['Area'] or 0)*100,0))
 
     response['lc_child']=data
 
@@ -1718,15 +1718,15 @@ def getFloodRisk(request, filterLock, flag, code):
         if i['barren_area']==0:
             i['barren_area'] = 0.000001
 
-        i['settlement_at_floodrisk_percent'] = int(round(i['settlements_at_risk']/i['settlements']*100,0))
-        i['total_pop_atrisk_percent'] = int(round(i['total_risk_population']/i['Population']*100,0))
-        i['total_area_atrisk_percent'] = int(round(i['total_risk_area']/i['Area']*100,0))
-        i['built_up_pop_risk_percent'] = int(round(i['built_up_pop_risk']/i['built_up_pop']*100,0))
-        i['built_up_area_risk_percent'] = int(round(i['built_up_area_risk']/i['built_up_area']*100,0))
-        i['cultivated_pop_risk_percent'] = int(round(i['cultivated_pop_risk']/i['cultivated_pop']*100,0))
-        i['cultivated_area_risk_percent'] = int(round(i['cultivated_area_risk']/i['cultivated_area']*100,0))
-        i['barren_pop_risk_percent'] = int(round(i['barren_pop_risk']/i['barren_pop']*100,0))
-        i['barren_area_risk_percent'] = int(round(i['barren_area_risk']/i['barren_area']*100,0))
+        i['settlement_at_floodrisk_percent'] = int(round((i['settlements_at_risk'] or 0)/(i['settlements'] or 0)*100,0))
+        i['total_pop_atrisk_percent'] = int(round((i['total_risk_population'] or 0)/(i['Population'] or 0)*100,0))
+        i['total_area_atrisk_percent'] = int(round((i['total_risk_area'] or 0)/(i['Area'] or 0)*100,0))
+        i['built_up_pop_risk_percent'] = int(round((i['built_up_pop_risk'] or 0)/(i['built_up_pop'] or 0)*100,0))
+        i['built_up_area_risk_percent'] = int(round((i['built_up_area_risk'] or 0)/(i['built_up_area'] or 0)*100,0))
+        i['cultivated_pop_risk_percent'] = int(round((i['cultivated_pop_risk'] or 0)/(i['cultivated_pop'] or 0)*100,0))
+        i['cultivated_area_risk_percent'] = int(round((i['cultivated_area_risk'] or 0)/(i['cultivated_area'] or 0)*100,0))
+        i['barren_pop_risk_percent'] = int(round((i['barren_pop_risk'] or 0)/(i['barren_pop'] or 0)*100,0))
+        i['barren_area_risk_percent'] = int(round((i['barren_area_risk'] or 0)/(i['barren_area'] or 0)*100,0))
 
     response['lc_child']=data
 
@@ -1767,7 +1767,7 @@ def getSettlementAtFloodRisk(filterLock, flag, code):
                 'numbersettlementsatrisk': 'count(distinct vuid)'},
             where = {'ST_Within(wkb_geometry, '+filterLock+')'}).values('numbersettlementsatrisk')
 
-    return round(countsBase[0]['numbersettlementsatrisk'],0)
+    return round((countsBase[0]['numbersettlementsatrisk'] or 0),0)
 
 def getRawAvalancheRisk(filterLock, flag, code):
     response = {}
