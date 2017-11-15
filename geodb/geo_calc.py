@@ -2669,7 +2669,7 @@ def getFloodForecastMatrix(filterLock, flag, code, includes=[], excludes=[]):
                 }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
 
         response['px'] = list(px)
-        response['px_sql'] = str(px.query)
+        # response['px_sql'] = str(px.query)
         tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
         temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
         response['riverflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
