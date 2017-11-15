@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader
-from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity, getLandslideRisk
+from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity, getLandslideRisk, getQuickOverview
 from geodb.models import AfgAdmbndaAdm1, AfgAdmbndaAdm2
 from django.shortcuts import HttpResponse
 from matrix.models import matrix
@@ -83,6 +83,8 @@ def common(request):
 		response = getSecurity(request, rawFilterLock, flag, code)
 	elif request.GET['page'] == 'landslide':
 		response = getLandslideRisk(request, filterLock, flag, code)
+	elif request.GET['page'] == 'main':
+		response = getQuickOverview(request, filterLock, flag, code)
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)
@@ -129,9 +131,9 @@ def dashboard_detail(request):
 	    return urlunsplit((scheme, netloc, path, new_query_string, fragment))
 
 	# add '?page=baseline' to url if none exist
-	if ('page' not in request.GET) or (not request.GET.get('page')):
+	if not request.GET.get('page'):
 	    currenturl = request.build_absolute_uri()
-	    return redirect(set_query_parameter(currenturl, 'page', 'baseline'))
+	    return redirect(set_query_parameter(currenturl, 'page', 'main'))
 
 	if 'pdf' in request.GET:
 		v2_folder = ''

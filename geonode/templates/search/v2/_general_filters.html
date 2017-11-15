@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" id="headingCategories">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories" class="collapsed"><i class="more-less glyphicon glyphicon-minus {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"></i>{% trans "Categories" %}</a>
+        <a data-toggle="collapse" href="#collapseCategories" aria-expanded="false" aria-controls="collapseCategories" class="collapsed"><i class="more-less glyphicon glyphicon-minus pull-right"></i>{% trans "Categories" %}</a>
       </h4>
     </div>
     <div id="collapseCategories" class="panel-collapse collapse in" aria-labelledby="headingCategories" aria-expanded="true">
@@ -25,7 +25,7 @@
                       <i ng-if="category.show" class="glyphicon glyphicon-minus" ng-click="test($event)"></i>
                     {{ category.gn_description | limitTo: 25 }}{{ category.gn_description.length > 25 ? '...' : ''}}
                     </span>
-                    <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ category.count }}</span>
+                    <span class="badge {% endverbatim %}pull-right{% verbatim %}">{{ category.count }}</span>
                   </a>
                   
                   <div ng-show="category.show" class="parentCat">
@@ -34,7 +34,7 @@
                         <div class="checkbox checkbox-red"> 
                           <label><input type="checkbox" data-value="{{ item.identifier }}" data-filter="category__identifier__in" ng-click="multiple_choice_listener($event)">{{ item.gn_description | limitTo: 25 }}{{ item.gn_description.length > 25 ? '...' : ''}}
                           </label> 
-                          <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ item.count }}</span>
+                          <span class="badge {% endverbatim %}pull-right{% verbatim %}">{{ item.count }}</span>
                         </div> 
                       </li>
                     </ul>
@@ -53,7 +53,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingProv">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseKeywords" aria-expanded="false" aria-controls="collapseProv" class="collapsed"><i class="more-less glyphicon glyphicon-minus {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"></i>{% trans "Keywords" %}</a>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseKeywords" aria-expanded="false" aria-controls="collapseProv" class="collapsed"><i class="more-less glyphicon glyphicon-minus pull-right"></i>{% trans "Keywords" %}</a>
       </h4>
     </div>
     <div id="collapseKeywords" class="panel-collapse collapse in" role="tabpanel"  aria-expanded="false">
@@ -68,7 +68,7 @@
               <div class="checkbox checkbox-red"> 
                 <label><input type="checkbox" data-value="{{ keyword.slug }}" data-filter="keywords__slug__in" ng-click="multiple_choice_listener($event)">{{ keyword.name }}
                 </label> 
-                <span class="badge {% endverbatim %}{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}{% verbatim %}">{{ keyword.count }}</span>
+                <span class="badge {% endverbatim %}pull-right{% verbatim %}">{{ keyword.count }}</span>
               </div> 
             </li> 
             {% endverbatim %}
@@ -82,7 +82,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" id="headingDate">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapseDate" aria-expanded="false" aria-controls="collapseDate" class="collapsed"><i class="more-less glyphicon glyphicon-minus {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"></i>{% trans "Date Published" %}</a>
+        <a data-toggle="collapse" href="#collapseDate" aria-expanded="false" aria-controls="collapseDate" class="collapsed"><i class="more-less glyphicon glyphicon-minus pull-right"></i>{% trans "Date Published" %}</a>
       </h4>
     </div>
     <div id="collapseDate" class="panel-collapse collapse in" aria-labelledby="headingDate" aria-expanded="true">

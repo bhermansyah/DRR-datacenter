@@ -34,7 +34,9 @@
     </div>
   </section>
 
-  {% include "v2/_bulk_permissions_form.html" %}
+  {% with is_layer='true' %}
+    {% include "v2/_bulk_permissions_form.html" %}
+  {% endwith %}
 
 {% endblock %}
 

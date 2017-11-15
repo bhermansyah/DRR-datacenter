@@ -124,6 +124,10 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 
 @login_required
 def layer_upload(request, template='upload/layer_upload.html'):
+    # ubah
+    # if (request.resolver_match.namespace == 'v2'): template = 'v2/upload/layer_upload.html'
+    # /ubah
+    
     if request.method == 'GET':
         ctx = {
             'charsets': CHARSETS,

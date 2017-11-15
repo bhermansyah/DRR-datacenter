@@ -37,7 +37,7 @@
             <h3>{{ resource.title|default:resource.typename }}</h3>
             <div class="product-title-block">
                 {% overall_rating resource "layer" as layer_rating %}
-                <div class="overall_rating" style="float:left" data-score="{{ layer_rating }}"></div>
+                <div class="overall_rating pull-left" data-score="{{ layer_rating }}"></div>
               <!-- <div class="rating" style="display: inline-block; margin-right:10px;">
                 <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
                 <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
@@ -122,7 +122,7 @@
                           <td><h4>{% trans 'Average Rating' %}</h4></td>
                           {% overall_rating resource "layer" as layer_rating %}
                           {% num_ratings resource as num_votes %}
-                          <td><div class="overall_rating" data-score="{{ layer_rating }}"></div>{% trans 'From' %} {{num_votes}} {% trans 'votes' %}</td>
+                          <td><div class="overall_rating pull-left" data-score="{{ layer_rating }}"></div>{% trans 'From' %} {{num_votes}} {% trans 'votes' %}</td>
                       </tr>
                   </table>
               </div>
@@ -133,7 +133,7 @@
           </div>
         </div>
         <div class="col-md-4"> 
-            <div class="product-details-side" style="margin-right: -15px;">
+            <div class="product-details-side">
               <div class="product-info" style="padding: 0;">
                 <div class="product-map-editor">
                   <ul class="nav nav-tabs" style="text-align: center; background-color: #f5f5f5;">
@@ -337,7 +337,7 @@
                 <h4>{% trans "Permissions" %}</h4>
                 <p>{% trans "Specify which users can view or modify this map" %}</p>
                 <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#_permissions">{% trans "Change Permissions of this Map" %}</button>
-                {% include "_permissions_form.html" %}
+                {% include "v2/_permissions_form.html" %}
               </div>
               {% endif %}
               {% if user.is_superuser %}

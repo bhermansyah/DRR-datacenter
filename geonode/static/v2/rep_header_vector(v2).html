@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Lato');
+
+		body {
+			margin: 0 8px;
+		}
+
+		.head {
+			height: 70px;
+			padding: 0 15px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		#logo {
+			background: url(lib/img/USAID-Identity_reduce.png) no-repeat 0 50%;
+			width: 165px;
+			height: 59px;
+			margin-right: 0px;
+			margin-left: 0px;
+			margin-top: 10px;
+			float: left;
+			font-size: 18px;
+			line-height: 20px;
+			text-indent: 80px;
+			background-size: 140px 45px;
+		}
+
+		#logo2 {
+			width: 280px;
+			height: 55px;
+			background: url(v2/images/immap.png) no-repeat 0 50%;
+			margin-right: 0px;
+			margin-left: -16px;
+			margin-top: 10px;
+			float: left;
+			font-size: 18px;  
+			text-indent: 64px;
+			background-size: 60px 65px;
+		}
+
+		.navbar-brand-immap h1{
+			color: #535353;
+			font: normal 100 8px/40px "futura-pt", sans-serif;
+			letter-spacing: 0.5px;
+			text-align: left;
+			margin-top: 8px;
+			margin-bottom: 10px;
+		}
+
+		.detail{
+			font-family: Lato, sans-serif;
+			font-size: 11px;
+			margin-top: 10px;
+			float:right;
+			text-align:right;
+			color: #6f6f6f;
+		}
+	</style>
+
+	<script>
+	    function dynvar() {
+	        var vars = {};
+	        var x = document.location.search.substring(1).split('&');
+	
+	        for (var i in x) {
+	            var z = x[i].split('=',2);
+	
+	            if (!vars[z[0]]) {
+	                vars[z[0]] = unescape(z[1]);
+	            }
+	        }
+	        document.getElementById('title').innerHTML = vars.cust_title;
+	        document.getElementById('name').innerHTML = vars.name + ' | ';
+	        document.getElementById('organization').innerHTML = vars.organization;
+	        document.getElementById('isodate').innerHTML = vars.isodate;
+	        // document.getElementById('paginate').innerHTML = 'page ' + vars.page + ' of ' + vars.topage;
+	    }
+	</script>
+</head>
+<body onload="dynvar();">
+	<div class="head">
+	    <div class="navbar-header">
+	        <a id="logo"></a>
+	        <a id="logo2" class="navbar-brand-immap" ><h1>AFGHANISTAN SPATIAL DATA CENTER</h1></a>
+	    </div>
+	    <div class="detail">
+	    	<strong id="title">{cust_title}</strong><br />  
+	    	<span id="name">{name}</span>
+	    	<span id="organization">{organization}</span><br />
+	    	<span id="isodate">{isodate}</span><br />
+	    	<span id="paginate">page %p of %n</span>
+	    </div>
+	</div>
+</body>
+</html>

@@ -1,12 +1,13 @@
 {% load i18n %}
 
-  <nav class="navbar navbar-lower" data-spy="affix" data-offset-top="20">
+  <nav class="navbar navbar-lower" data-spy="affix" data-offset-top="70">
     <div class="container">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-lower-collapse">
           <i class="fa fa-chevron-down center"></i>
       </button>
       <div class="collapse navbar-collapse collapse-buttons navbar-lower-collapse">
         <ul class="nav navbar-nav">
+          <li><a href="{% url 'v2:dashboard_detail' %}?page=main"><span>{% trans 'Quick Overview' %}</span></a></li>
           <li><a href="{% url 'v2:dashboard_detail' %}?page=baseline"><span>{% trans 'Baseline' %}</span></a></li>
           <li><a href="{% url 'v2:dashboard_detail' %}?page=accessibility"><span>{% trans 'Accessibility' %}</span></a></li>
           <li class="dropdown">

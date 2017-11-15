@@ -5,7 +5,7 @@
   <div class="panel panel-default">
     <div class="panel-heading" id="headingType">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapseType" aria-expanded="false" aria-controls="collapseType" class="collapsed"><i class="more-less glyphicon glyphicon-minus {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"></i>{% trans 'Type' %}</a>
+        <a data-toggle="collapse" href="#collapseType" aria-expanded="false" aria-controls="collapseType" class="collapsed"><i class="more-less glyphicon glyphicon-minus pull-right"></i>{% trans 'Type' %}</a>
       </h4>
     </div>
     <div id="collapseType" class="panel-collapse collapse in" aria-labelledby="headingType" aria-expanded="true">
@@ -19,7 +19,7 @@
             <div class="checkbox checkbox-red"> 
               <label><input type="checkbox" id="{{ facet }}" data-value="{{ facet }}" data-filter="{{ filter }}" ng-click="multiple_choice_listener($event)">{{ facet|capfirst }}
               </label> 
-              <span class="badge {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">{{ count }}</span>
+              <span class="badge pull-right">{{ count }}</span>
             </div> 
           </li> 
             {% endif %}

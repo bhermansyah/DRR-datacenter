@@ -18,7 +18,7 @@ http://jasonwatmore.com/post/2016/01/31/angularjs-pagination-example-with-logic-
       </a>
     </li>
     <li class="active">
-      <a href>{% trans "Page" %} <span ng-model="page" ng-bind="page"></span> {% trans "of" %} <span ng-bind="numpages"></span></a>
+      <a href>{% trans "Page" %}&nbsp;{% blocktrans %}<span ng-model="page" ng-bind="page"></span>&nbsp;of&nbsp;<span ng-bind="numpages"></span>{% endblocktrans %}</a>
     </li>
     <!-- <li>
       <span>...</span>

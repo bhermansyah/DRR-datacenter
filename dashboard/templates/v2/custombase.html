@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
-<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl, ltr' }}">
+<html lang="{{ LANGUAGE_CODE }}" dir="{{ LANGUAGE_BIDI | yesno:'rtl,ltr' }}">
 <head>
     {% block head %}
   <meta charset="utf-8">
@@ -42,16 +42,17 @@
   <!-- Printing -->
   <!-- <link rel="stylesheet" type="text/css" href="css/gistfile1.css"> -->
 
+  {% if LANGUAGE_BIDI %}
+    <!-- <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.rtl.full.min.css" media="all"> -->
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.rtl.min.css" media="all">
+  {% endif %}
+
   <!-- Custom CSS -->
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css">
   {% if 'print' in request.build_absolute_uri %}
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/print.css">
   {% endif %}
 
-  {% if LANGUAGE_BIDI %}
-    <!-- <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.rtl.full.min.css" media="all"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.rtl.min.css" media="all"> -->
-  {% endif %}
 
       {% block extra_head %}
       {% endblock %}
@@ -70,24 +71,31 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-fixed-top navbar-upper" role="navigation">
+    <nav class="navbar navbar-fixed-top navbar-upper">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    Menu
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_upper">
+                    {% trans "Menu" %}
                     <i class="fa fa-bars"></i>
                 </button>
-                <a id="logo" class="pull-left" href="{% url 'v2:home' %}"></a>
-                <a id="logo2" class="pull-left navbar-brand-immap" href="{% url 'v2:home' %}"><h1 class="webTitle" style="height:50px">{% trans "Afghanistan Spatial Data Center" %}</h1></a>
+                <div class="logo">
+                  <a id="logo" class="brand-usaid" href="{% url 'v2:home' %}">
+                    <img src="{{ STATIC_URL }}v2/images/USAID-Identity_reduce.png">
+                  </a>
+                  <a id="logo2" class="navbar-brand-immap" href="{% url 'v2:home' %}">
+                    <img src="{{ STATIC_URL }}v2/images/iMMAP.png">
+                    <h1 class="webTitle">{% trans "Afghanistan Spatial Data Center" %}</h1>
+                  </a>
+                </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-main-collapse navbar-right">
-                <div class="row">
+            <div id="nav_upper" class="collapse navbar-collapse navbar-main-collapse">
+                <div class="row" style="max-height: 25px;">
                   {% if csrf_token != "NOTPROVIDED" %}
                   {% get_current_language as LANGUAGE %}
                   <form action="/i18n/setlang/" method="post">
                     {% csrf_token %}
-                    <select class="language" name="language" onchange="javascript:form.submit()">
+                    <select class="language pull-right" name="language" onchange="javascript:form.submit()">
                       <!-- <option>Language</option> -->
                       {% for lang in LANGUAGES %}
                       <option value="{{ lang.0 }}" {% ifequal LANGUAGE_CODE lang.0 %} selected="selected"{% endifequal %}>{{ lang.1 }}</option>
@@ -96,18 +104,18 @@
                   </form>
                   {% endif %}
                 </div>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="{% url 'v2:home' %}">{% trans "Home" %}</a>
                     </li>
                     <li>
-                        <a href="{% url 'v2:dashboard_detail' %}?page=baseline">{% trans "Dashboard" %}</a>
+                        <a href="{% url 'v2:dashboard_detail' %}?page=main">{% trans "Dashboard" %}</a>
                     </li>
                     <li>
                         <a href="{% url 'v2:layer_browse' %}">{% trans "Layers" %}</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">MAPS&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans "Maps" %}&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{% url 'v2:document_browse' %}">{% trans "Static Maps" %}</a>
@@ -391,7 +399,9 @@
   <script src="{{ STATIC_URL }}v2/js/dataTables.responsive.min.js"></script>
 
   <!-- ECharts -->
-  <script src="{{ STATIC_URL }}v2/js/echarts.min(1).js"></script>
+  <!-- <script src="{{ STATIC_URL }}v2/js/echarts.min.js"></script> --> <!-- versi 3.8.4 -->
+  <!-- <script src="{{ STATIC_URL }}v2/js/echarts.min(1).js"></script> --> <!-- versi agak baru -->
+  <script src="{{ STATIC_URL }}v2/js/echarts.min(2).js"></script> <!-- versi 3.6.2 -->
   <script src="{{ STATIC_URL }}v2/js/afg.js"></script>
 
   <!-- Custom -->
@@ -489,6 +499,15 @@
         var regex = new RegExp('([?|&]'+param+'=)[^\&]+');
         return url.replace( regex , '$1' + value);
     }
+
+    function addUpdateUrlParameter(url, param, value) {
+			if (url.indexOf(param) == -1) {
+				return url+'&'+param+'='+value;
+			}
+			else {
+				return updateUrlParameter(url, param, value);
+			}
+		}
 
   </script>
 

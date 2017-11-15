@@ -1,0 +1,1447 @@
+{% load i18n %}
+{% load humanize %}
+{% load leaflet_tags %}
+{% load app_filters %}
+
+	<div class="tab-content container">
+	    <!-- Baseline -->
+	    <section id="main">
+	        <div class="row">
+	            <!-- <div class="col-md-6"> -->
+	        	<div class="breadcrumb breadcrumb-custom">
+	        		<span>{% trans "Quick Overview" %}</span>
+	                {% include "v2/breadcrumb.html" %}
+	        	</div>
+
+	            <!-- </div> -->
+	        </div>
+
+	        <div class="row tile_count center">
+	            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	                <span class="count_top"><i class="fa fa-male"></i>&nbsp;{% trans 'Total Population' %}</span>
+	                <div class="count red">{% readable Population %}</div>
+	            </div>
+	            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	                <span class="count_top"><i class="fa fa-building"></i>&nbsp;{% trans 'Total Buildings' %}</span>
+	                <div class="count red">{% readable Buildings %}</div>
+	            </div>
+	            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	                <span class="count_top"><i class="fa fa-tree"></i>&nbsp;{% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	                <div class="count red">{% readable Area %}
+	                </div>
+	            </div>
+	            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	                <span class="count_top"><i class="fa fa-home"></i>&nbsp;{% trans 'Number of Settlements' %}</span>
+	                <div class="count red">{% readable settlement %}</div>
+	            </div>
+	            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	                <span class="count_top"><i class="fa fa-hospital-o"></i>&nbsp;{% trans 'Health Facilities' %}</span>
+	                <div class="count red">{% readable hltfac %}</div>
+	            </div>
+	            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	                <span class="count_top"><i class="fa fa-road"></i>&nbsp;{% trans "Total Length of Road (km)" %}</span>
+	                <div class="count red">{% readable roadnetwork %}</div>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans 'Area Graph' %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <div class="col-md-12 col-xs-12 col-sm-8 print-no-pad">
+	                            <div id="echart_bar_horizontal_area" class="ch-size"></div>
+	                        </div>
+	                        <div class="col-md-12 col-xs-12 col-sm-4 center">
+	                            <div class="tile_count">
+	                                <div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+	                                    <span class="count_top"><i class="fa fa-tree"></i>&nbsp;{% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	                                    <div class="count red">{% readable Area %}
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans 'Health Facilities Graph' %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
+	                    		<div id="echart_bar_horizontal_2" class="ch-size"></div>
+	                    	</div>
+	                        <div class="col-md-12 col-sm-4 col-xs-12 center">
+	                        	<div class="tile_count">
+	                        		<div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+	                        		    <span class="count_top"><i class="fa fa-hospital-o"></i>&nbsp;{% trans "Total Health Facilities" %}</span>
+	                        		    <div class="count red">{% readable hltfac %}</div>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <div class="col-md-4 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans 'Road Network Graph' %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
+	                    		<div id="echart_bar_horizontal_3" class="ch-size"></div>
+	                    	</div>
+	                        <div class="col-md-12 col-sm-4 col-xs-12 center">
+	                        	<div class="tile_count">
+	                        		<div class="col-md-12 col-sm-12 col-xs-12 tile_stats_count">
+	                        		    <span class="count_top"><i class="fa fa-road"></i>&nbsp;{% trans "Total Length of Road (km)" %}</span>
+	                        		    <div class="count red">{% readable roadnetwork %} km</div>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="col-md-4 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans 'GSM Coverage Population' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+	        	        <!-- <div class="row"> -->
+	        	            <div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
+	        	                <div id="echart_donut" class="ch-size-pie"></div>
+	        	            </div>
+	        	            <div class="col-md-12 col-sm-4 col-xs-12 center">
+	        	                <div class="tile_count">
+	        	                    <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
+	        	                        <span class="count_top"><i class="fa fa-male"></i>&nbsp;{% trans 'Total Population' %}</span>
+	        	                        <div class="count red">{% readable Population %}</div>
+	        	                    </div>
+	        	                    <div class="col-md-6 col-sm-12 col-xs-6 tile_stats_count">
+	        	                        <span class="count_top"><i class="fa fa-signal"></i>&nbsp;{% trans 'GSM Coverage Pop' %}</span>
+	        	                        <div class="count red">{% readable pop_on_gsm_coverage %}</div>
+	        	                    </div>
+	        	                </div>
+	        	            </div>
+	        	      <!-- </div> -->
+
+	        	    </div>
+	        	  </div>
+	        	</div>
+
+	        	<div class="col-md-4 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans 'Travel Time to Nearest Airport' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+
+	        	      <div id="echart_bar_horizontal_4" class="ch-size"></div>
+
+	        	    </div>
+	        	  </div>
+	        	</div>
+
+	        	<div class="col-md-4 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans 'Nearest Health Facilities Tier 1' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+
+	        	      <div id="echart_bar_horizontal_5" class="ch-size"></div>
+
+	        	    </div>
+	        	  </div>
+	        	</div>
+
+	        	<div class="col-md-4 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans 'Nearest Health Facilities Tier 2' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+
+	        	      <div id="echart_bar_horizontal_6" class="ch-size"></div>
+
+	        	    </div>
+	        	  </div>
+	        	</div>
+
+	        	<div class="col-md-4 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans 'Travel Time to Nearest Provincial Capital' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+	        	      <div id="echart_bar_horizontal_10" class="ch-size"></div>
+	        	    </div>
+	        	  </div>
+	        	</div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="col-md-6 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans 'Flood Risk Population' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+	        	    	<div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
+	        	    		<div id="echart_donut_3" class="ch-size-pie"></div>
+	        	    	</div>
+	        	    	<div class="col-md-4 col-xs-12 col-sm-4 center">
+	        	    		<div class="tile_count">
+	        	    			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+	        	    			    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+	        	    			    <div class="count red">{% readable Population %}</div>
+	        	    			</div>
+	        	    			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+	        	    			    <span class="count_top"><i class="fa fa-male"></i> {% trans "Population At Risk" %}</span>
+	        	    			    <div class="count red">{% readable total_risk_population %}</div>
+	        	    			</div>
+	        	    		</div>
+	        	    	</div>
+	        	    </div>
+	        	  </div>
+	        	</div>
+
+	        	<div class="col-md-6 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans 'Flood Risk Area' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+	        	    	<div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
+	        	    		<div id="echart_donut_frisk_area" class="ch-size-pie"></div>
+	        	    	</div>
+	        	    	<div class="col-md-4 col-xs-12 col-sm-4 center">
+	        	    		<div class="tile_count">
+	        	    			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+	        	    			    <span class="count_top"><i class="fa fa-tree"></i> {% trans "Total Area" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	        	    			    <div class="count red">{% readable Area %}</div>
+	        	    			</div>
+	        	    			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+	        	    			    <span class="count_top"><i class="fa fa-tree"></i> {% trans "Area At Risk" %} ({% blocktrans %}km<sup>2</sup>{% endblocktrans %})</span>
+	        	    			    <div class="count red">{% readable total_risk_area %}</div>
+	        	    			</div>
+	        	    		</div>
+	        	    	</div>
+	        	    </div>
+	        	  </div>
+	        	</div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="col-md-2">
+	        		<div class="x_panel">
+	        			<ul class="nav nav-pills nav-stacked navbar-forecast">
+	        				<li class='{% if "GLOFAS + GFMS" in checked or "GLOFAS + GFMS" not in checked and "GLOFAS" not in checked and "GFMS" not in checked %} active {% endif %} release_lock'><a href="#ggMenuMain" class="tab_toggle" data-toggle="pill"> GLOFAS + GFMS</a></li>
+	        				<li class='{% if "GLOFAS" in checked %} active {% endif %} release_lock'><a href="#glMenuMain" class="tab_toggle" data-toggle="pill">GLOFAS</a></li>
+	        				<li class='{% if "GFMS" in checked %} active {% endif %} release_lock'><a href="#gfMenuMain" class="tab_toggle" data-toggle="pill">GFMS</a></li>
+	        			</ul>
+	        		</div>
+	        	</div>
+	        	<div class="tab-content">
+	        		<div id="ggMenuMain" class="tab-pane fade {% if 'GFMS + GLOFAS' in checked or 'GFMS + GLOFAS' not in checked and 'GLOFAS' not in checked and 'GFMS' not in checked %} in active {% endif %}">
+			            <div class="col-md-4 col-sm-12 col-xs-12">
+			                <div class="x_panel">
+			                    <div class="x_title">
+			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                            <li>
+			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			                            </li>
+			                            <li>
+			                                <a class="close-link"><i class="fa fa-close"></i></a>
+			                            </li>
+			                        </ul>
+			                        <div class="clearfix"></div>
+			                    </div>
+			                    <div class="x_content">
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days (GFMS) and 20 days (GLOFAS). GLOFAS supersedes GFMS. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
+			                      	<div class="table-responsive">
+		              		      		<table id="ggfforecast" class="table table-bordered">
+		              						<thead>
+		              							<tr>
+		              								<th colspan="3">{% trans "Likelihood" %}</th>
+		              								<th colspan="3">{% trans 'Flood Risk' %}</th>
+		              							</tr>
+		              							<tr>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              							</tr>
+		              						</thead>
+		              						<tbody>
+		              							<tr>
+		              								<td rowspan="3" class="ext">{% trans "Extreme" %}</td>
+		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_extreme_pop %}</td>
+		              								<td rowspan="3" class="ext_fill">{% readable gfms_glofas_riverflood_forecast_extreme_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
+		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_veryhigh_pop %}</td>
+		              								<td rowspan="3" class="vhigh_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="high" rowspan="3">{% trans "High" %}</td>
+		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_high_pop %}</td>
+		              								<td rowspan="3" class="high_fill">{% readable gfms_glofas_riverflood_forecast_high_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
+		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_med_pop %}</td>
+		              								<td rowspan="3" class="mod_fill">{% readable gfms_glofas_riverflood_forecast_med_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="low" rowspan="3">{% trans "Low" %}</td>
+		              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_low_pop %}</td>
+		              								<td rowspan="3" class="low_fill">{% readable gfms_glofas_riverflood_forecast_low_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_low_buildings %}</td>
+		              							</tr>
+		              						</tbody>
+		              					</table>
+			                      	</div>
+			                    </div>
+			                </div>
+			            </div>
+	        		</div>
+	        		<div id="glMenuMain" class="tab-pane fade {% if 'GLOFAS' in checked %} in active {% endif %}">
+			            <div class="col-md-4 col-sm-12 col-xs-12">
+			                <div class="x_panel">
+			                    <div class="x_title">
+			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                            <li>
+			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			                            </li>
+			                            <li>
+			                                <a class="close-link"><i class="fa fa-close"></i></a>
+			                            </li>
+			                        </ul>
+			                        <div class="clearfix"></div>
+			                    </div>
+			                    <div class="x_content">
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Awareness Sytem (GLOFAS). River Flood is updated every 6 hours and valid for the next 20 days. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
+			                      	<div class="table-responsive">
+		              		      		<table id="glfforecast" class="table table-bordered">
+		              						<thead>
+		              							<tr>
+		              								<th colspan="3">{% trans "Likelihood" %}</th>
+		              								<th colspan="3">{% trans 'Flood Risk' %}</th>
+		              							</tr>
+		              							<tr>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              							</tr>
+		              						</thead>
+		              						<tbody>
+		              							<tr>
+		              								<td class="ext" rowspan="3">{% trans "Extreme" %}</td>
+		              								<td rowspan="3">{% readable glofas_riverflood_forecast_extreme_pop %}</td>
+		              								<td rowspan="3" class="ext_fill">{% readable glofas_riverflood_forecast_extreme_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_extreme_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_extreme_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_extreme_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_extreme_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_extreme_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_extreme_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
+		              								<td rowspan="3">{% readable glofas_riverflood_forecast_veryhigh_pop %}</td>
+		              								<td rowspan="3" class="vhigh_fill">{% readable glofas_riverflood_forecast_veryhigh_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_veryhigh_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="high" rowspan="3">{% trans "High" %}</td>
+		              								<td rowspan="3">{% readable glofas_riverflood_forecast_high_pop %}</td>
+		              								<td rowspan="3" class="high_fill">{% readable glofas_riverflood_forecast_high_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_high_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_high_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_high_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_high_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_high_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_high_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
+		              								<td rowspan="3">{% readable glofas_riverflood_forecast_med_pop %}</td>
+		              								<td rowspan="3" class="mod_fill">{% readable glofas_riverflood_forecast_med_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_med_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_med_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_med_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_med_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_med_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_med_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="low" rowspan="3">{% trans "Low" %}</td>
+		              								<td rowspan="3" class="low_fill">{% readable glofas_riverflood_forecast_low_pop %}</td>
+		              								<td rowspan="3" class="low_fill">{% readable glofas_riverflood_forecast_low_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_low_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable glofas_riverflood_forecast_low_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_low_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable glofas_riverflood_forecast_low_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_low_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable glofas_riverflood_forecast_low_risk_low_buildings %}</td>
+		              							</tr>
+		              						</tbody>
+		              					</table>
+			                      	</div>
+			                    </div>
+			                </div>
+			            </div>
+	        		</div>
+	        		<div id="gfMenuMain" class="tab-pane fade {% if 'GFMS' in checked %} in active {% endif %}">
+			            <div class="col-md-4 col-sm-12 col-xs-12">
+			                <div class="x_panel">
+			                    <div class="x_title">
+			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                            <li>
+			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			                            </li>
+			                            <li>
+			                                <a class="close-link"><i class="fa fa-close"></i></a>
+			                            </li>
+			                        </ul>
+			                        <div class="clearfix"></div>
+			                    </div>
+			                    <div class="x_content">
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
+			                      	<div class="table-responsive">
+		              		      		<table id="gffforecast" class="table table-bordered">
+		              						<thead>
+		              							<tr>
+		              								<th colspan="3">{% trans "Likelihood" %}</th>
+		              								<th colspan="3">{% trans 'Flood Risk' %}</th>
+		              							</tr>
+		              							<tr>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              								<th>{% trans 'Level' %}</th>
+		              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+		              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+		              							</tr>
+		              						</thead>
+		              						<tbody>
+		              							<tr>
+		              								<td class="ext" rowspan="3">{% trans "Extreme" %}</td>
+		              								<td rowspan="3">{% readable riverflood_forecast_extreme_pop %}</td>
+		              								<td rowspan="3" class="ext_fill">{% readable riverflood_forecast_extreme_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_extreme_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_extreme_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_extreme_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_extreme_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_extreme_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_extreme_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
+		              								<td rowspan="3">{% readable riverflood_forecast_veryhigh_pop %}</td>
+		              								<td rowspan="3" class="vhigh_fill">{% readable riverflood_forecast_veryhigh_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_veryhigh_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_veryhigh_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_veryhigh_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_veryhigh_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_veryhigh_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_veryhigh_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="high" rowspan="3">{% trans "High" %}</td>
+		              								<td rowspan="3">{% readable riverflood_forecast_high_pop %}</td>
+		              								<td rowspan="3" class="high_fill">{% readable riverflood_forecast_high_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_high_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_high_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_high_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_high_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_high_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_high_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
+		              								<td rowspan="3">{% readable riverflood_forecast_med_pop %}</td>
+		              								<td rowspan="3" class="mod_fill">{% readable riverflood_forecast_med_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_med_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_med_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_med_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_med_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_med_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_med_risk_low_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="low" rowspan="3">{% trans "Low" %}</td>
+		              								<td rowspan="3" class="low_fill">{% readable riverflood_forecast_low_pop %}</td>
+		              								<td rowspan="3" class="low_fill">{% readable riverflood_forecast_low_buildings %}</td>
+		              								<td class="hi">{% trans "High" %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_low_risk_high_pop %}</td>
+		              								<td class="hi_fill">{% readable riverflood_forecast_low_risk_high_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="med">{% trans "Med" %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_low_risk_med_pop %}</td>
+		              								<td class="med_fill">{% readable riverflood_forecast_low_risk_med_buildings %}</td>
+		              							</tr>
+		              							<tr>
+		              								<td class="lo">{% trans "Low" %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_low_risk_low_pop %}</td>
+		              								<td class="lo_fill">{% readable riverflood_forecast_low_risk_low_buildings %}</td>
+		              							</tr>
+		              						</tbody>
+		              					</table>
+			                      	</div>
+			                    </div>
+			                </div>
+			            </div>
+	        		</div>
+	        	</div>
+	            <div class="col-md-6 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "Flash Flood Likelihood" %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <p class="text-muted font-13 m-b-30">{% trans 'Flash Flood Prediction is updated every hour and valid for the next 6 hours' %}.</p>
+	                      	<div class="table-responsive">
+              		      		<table id="ffforecast" class="table table-condensed">
+              						<thead>
+              							<tr>
+              								<th colspan="3">{% trans "Likelihood" %}</th>
+              								<th colspan="3">{% trans 'Flood Risk' %}</th>
+              							</tr>
+              							<tr>
+              								<th>{% trans 'Level' %}</th>
+              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+              								<th>{% trans 'Level' %}</th>
+              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+              							</tr>
+              						</thead>
+              						<tbody>
+              							<tr>
+              								<td class="ext" rowspan="3">{% trans "Extreme" %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_extreme_pop %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_extreme_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_extreme_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_extreme_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_extreme_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_extreme_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_extreme_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_extreme_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_veryhigh_pop %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_veryhigh_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_veryhigh_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_veryhigh_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_veryhigh_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_veryhigh_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_veryhigh_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_veryhigh_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="high" rowspan="3">{% trans "High" %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_high_pop %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_high_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_high_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_high_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_high_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_high_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_high_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_high_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_med_pop %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_med_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_med_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_med_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_med_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_med_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_med_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_med_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="low" rowspan="3">{% trans "Low" %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_low_pop %}</td>
+              								<td rowspan="3">{% readable flashflood_forecast_low_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_low_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable flashflood_forecast_low_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_low_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable flashflood_forecast_low_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_low_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable flashflood_forecast_low_risk_low_buildings %}</td>
+              							</tr>
+              						</tbody>
+              					</table>
+	                      	</div>
+	                    </div>
+	                </div>
+	            </div>
+
+	            <!-- <div class="col-md-6 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                            <li>
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li>
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days (GFMS) and 20 days (GLOFAS). GLOFAS supersedes GFMS. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
+	                      	<div class="table-responsive">
+              		      		<table id="ggfforecast" class="table table-bordered">
+              						<thead>
+              							<tr>
+              								<th colspan="3">{% trans "Likelihood" %}</th>
+              								<th colspan="3">{% trans 'Flood Risk' %}</th>
+              							</tr>
+              							<tr>
+              								<th>{% trans 'Level' %}</th>
+              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+              								<th>{% trans 'Level' %}</th>
+              								<th title="{% trans 'Population' %}"><i class="fa fa-male"></i></th>
+              								<th title="{% trans 'Buildings' %}"><i class="fa fa-building"></i></th>
+              							</tr>
+              						</thead>
+              						<tbody>
+              							<tr>
+              								<td rowspan="3" class="ext">{% trans "Extreme" %}</td>
+              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_extreme_pop %}</td>
+              								<td rowspan="3" class="ext_fill">{% readable gfms_glofas_riverflood_forecast_extreme_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_extreme_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="vhigh" rowspan="3">{% trans "Very High" %}</td>
+              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_veryhigh_pop %}</td>
+              								<td rowspan="3" class="vhigh_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_veryhigh_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="high" rowspan="3">{% trans "High" %}</td>
+              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_high_pop %}</td>
+              								<td rowspan="3" class="high_fill">{% readable gfms_glofas_riverflood_forecast_high_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_high_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="mod" rowspan="3">{% trans "Moderate" %}</td>
+              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_med_pop %}</td>
+              								<td rowspan="3" class="mod_fill">{% readable gfms_glofas_riverflood_forecast_med_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_med_risk_low_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="low" rowspan="3">{% trans "Low" %}</td>
+              								<td rowspan="3">{% readable gfms_glofas_riverflood_forecast_low_pop %}</td>
+              								<td rowspan="3" class="low_fill">{% readable gfms_glofas_riverflood_forecast_low_buildings %}</td>
+              								<td class="hi">{% trans "High" %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_high_pop %}</td>
+              								<td class="hi_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_high_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="med">{% trans "Med" %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_med_pop %}</td>
+              								<td class="med_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_med_buildings %}</td>
+              							</tr>
+              							<tr>
+              								<td class="lo">{% trans "Low" %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_low_pop %}</td>
+              								<td class="lo_fill">{% readable gfms_glofas_riverflood_forecast_low_risk_low_buildings %}</td>
+              							</tr>
+              						</tbody>
+              					</table>
+	                      	</div>
+	                    </div>
+	                </div>
+	            </div> -->
+	        </div>
+
+	        <div class="row">
+        		<div class="col-md-6 col-sm-12 col-xs-12">
+        	      <div class="x_panel">
+        	        <div class="x_title">
+        	          <h2 class="pull-left">{% trans 'Avalanche Risk Population' %}</h2>
+        	          <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+        	            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        	            </li>
+        	            <li><a class="close-link"><i class="fa fa-close"></i></a>
+        	            </li>
+        	          </ul>
+        	          <div class="clearfix"></div>
+        	        </div>
+        	        <div class="x_content">
+        	        	<div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
+        	        		<div id="echart_donut_6" class="ch-size-pie"></div>
+        	        	</div>
+        	        	<div class="col-md-4 col-xs-12 col-sm-4 center">
+        	        		<div class="tile_count">
+        	        			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+        	        			    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+        	        			    <div class="count red">{% readable Population %}</div>
+        	        			</div>
+        	        			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+        	        			    <span class="count_top"><i class="fa fa-male"></i> {% trans "Population at Risk" %}</span>
+        	        			    <div class="count red">{% readable total_ava_population %}</div>
+        	        			</div>
+        	        		</div>
+        	        	</div>
+        	        </div>
+        	      </div>
+        	    </div>
+
+        	    <div class="col-md-6 col-sm-12 col-xs-12">
+        	      <div class="x_panel">
+        	        <div class="x_title">
+        	          <h2 class="pull-left">{% trans 'Avalanche Prediction Population Graph' %}</h2>
+        	          <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+        	            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        	            </li>
+        	            <li><a class="close-link"><i class="fa fa-close"></i></a>
+        	            </li>
+        	          </ul>
+        	          <div class="clearfix"></div>
+        	        </div>
+        	        <div class="x_content">
+        	        	<div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
+        	        		<div id="echart_donut_4" class="ch-size-pie"></div>
+        	        	</div>
+        	        	<div class="col-md-4 col-xs-12 col-sm-4 center">
+        	        		<div class="tile_count">
+        	        			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+        	        			    <span class="count_top"><i class="fa fa-male"></i> {% trans "Total Population" %}</span>
+        	        			    <div class="count red">{% readable Population %}</div>
+        	        			</div>
+        	        			<div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
+        	        			    <span class="count_top"><i class="fa fa-male"></i> {% trans "Population at Risk" %}</span>
+        	        			    <div class="count red">{% readable total_ava_forecast_pop %}</div>
+        	        			</div>
+        	        		</div>
+        	        	</div>
+        	        </div>
+        	      </div>
+        	    </div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="col-md-4 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+	        	      <h2 class="pull-left">{% trans "Landslide Indexes (iMMAP 2017)" %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	        	        </li>
+	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+	        	        </li>
+	        	      </ul>
+	        	      <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+	        	        <div class="row">
+	        	            <div class="col-md-12 col-sm-12 col-xs-12">
+	        	                <div id="echart_donut_lsi" class="ch-size-pie"></div>
+	        	            </div>
+	        	      </div>
+	        	    </div>
+	        	  </div>
+	        	</div>
+	        <!-- </div>
+
+	        <div class="row"> -->
+	        	<div class="col-md-8 col-sm-12 col-xs-12">
+	        	  <div class="x_panel">
+	        	    <div class="x_title">
+		        	    <h2 class="pull-left">{% trans 'Mercalli Intensity Scale Buildings' %}</h2>
+		        	    <div class="pull-right">
+		        	    	<!-- <select id="select_evt" class="right" onchange="location = '?page=main&eq_event='+this.value+'{{add_link}}';"> -->
+										<select id="select_evt" class="right">
+		        	    		{% for list in eq_list %}
+		        	    		  <option {% if list.selected %} selected {% endif %} value="{{ list.event_code }}">{{ list.detail_title }}</option>
+		        	    		{% endfor %}
+		        	    	</select>
+		        	    </div>
+		        	    <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+		        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+		        	        </li>
+		        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+		        	        </li>
+		        	    </ul>
+		        	    <div class="clearfix"></div>
+	        	    </div>
+	        	    <div class="x_content">
+
+	        	      <div id="echart_pie_mercalli_build" class="ch-size-pie-mercalli"></div>
+
+	        	    </div>
+	        	  </div>
+	        	</div>
+	        </div>
+
+	        <div class="row">
+	        	<div class="col-md-12 col-sm-12 col-xs-12">
+	              <div class="x_panel">
+	                <div class="x_title">
+	                	<h2 class="pull-left">{% trans 'Graph of Incident and Casualties Trend by Incident Type' %}</h2>
+	                	<div class="pull-right">
+	                	  <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 0px 10px; border: 0px">
+	                	    <i class="fa fa-calendar"></i>&nbsp; {% trans "Incident between" %} :
+	                	    <span></span> <b class="caret hidden-print"></b>
+	                	  </div>
+	                	</div>
+		                <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+		                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+		                    </li>
+		                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+		                    </li>
+		                </ul>
+	                  <div class="clearfix"></div>
+	                </div>
+	                <div class="x_content">
+	                    <div class="col-md-8">
+	                        <div id="echart_polar_2" style="height:420px;"></div>
+	                    </div>
+	                    <div class="col-md-4">
+	                    	<div class="panel panel-default checkbox-group">
+	                    	    <div class="panel-heading parents-checkbox">
+	                    	    	<span>{% trans 'Select Incident Type' %}</span>
+	                    	    	<div class="pull-right">
+		                    	    	<form class="form-inline">
+		                    	    		<div class="checkbox checkbox-white">
+		                    	    			<label class="panel-select-all">
+		                    	    			     <input type="checkbox" id="selecctall1" class="styled" checked=""/>&nbsp;{% trans 'Select All' %}
+		                    	    			</label>
+		                    	    		</div>
+		                    	    		<button class="btn btn-xs btn-default hidden-print ply-trget">{% trans "Apply" %}</button>
+		                    	    	</form>
+	                    	    	</div>
+	                    	    </div>
+	                    	    <div id="indicatorType" class="panel-body child-checkbox">
+	                    	    	{% get_current_language_bidi as LANGUAGE_BIDI %}
+	                    	    		{% for item in main_type_child %}
+	                    	    		<div class="checkbox checkbox-red {{ LANGUAGE_BIDI | yesno:'rtl, ltr' }}">
+	                    	    			<label>
+	                    	    				<input id="type{{ forloop.counter0 }}" name="main_type_select[]" type="checkbox" class="checkIncident" value="{{ item.main_type }}" {% if item.main_type in incident_type %}checked=true{% endif %}>
+	                    	    				 {{ item.main_type }} ({{item.count}} incidents)
+	                    	    			</label>
+	                    	    		</div>
+	                    	    		{% endfor %}
+	                    	    </div>
+	                    	</div>
+	                    </div>
+	                </div>
+	              </div>
+	            </div>
+	        </div>
+	    </section>
+	</div>
+
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		 $('.tab_toggle').on("click", function() {
+		 	var dt = $(this).text();
+		 	$('.release_lock').each(function(e,l){
+
+		 		if ($(l).text() == dt){
+		 			_checked.push($(l).text());
+		 		} else {
+		 			removeA(_checked, $(l).text());
+		 		}
+		 	});
+		 	// console.log(_checked);
+		 });
+	});
+</script>
+<script type="text/javascript">
+	var pop = {{ Population }};
+	var area = {{ Area }};
+	var build = {{ Buildings }};
+
+    var category_ov = ['{% trans "Build-Up" %}', '{% trans "Fruit Trees" %}', '{% trans "Irrigated Agricultural Land" %}', '{% trans "Rainfed" %}', '{% trans "Vineyards" %}', '{% trans "Water Body & Marshland" %}', '{% trans "Barren land" %}', '{% trans "Snow" %}', '{% trans "Rangeland" %}', '{% trans "Sand Covered Areas" %}', '{% trans "Forest & Shrub" %}', '{% trans "Sand Dunes" %}'];
+
+    var overview_legend = ['{% trans "Population" %}', '{% trans "Area" %}', '{% trans "Building" %}'];
+
+    var landcover_area = [{{built_up_area_build_up}},
+    {{cultivated_area_fruit_trees}},
+    {{cultivated_area_irrigated_agricultural_land}},
+    {{cultivated_area_rainfed}},
+    {{cultivated_area_vineyards}},
+    {{barren_area_water_body_and_marshland}},
+    {{barren_area_barren_land}},
+    {{barren_area_snow}},
+    {{barren_area_rangeland}},
+    {{barren_area_sand_covered_areas}},
+    {{barren_area_forest_shrub}},
+    {{barren_area_sand_dunes}}];
+
+    var hlt_category = ['{% trans "H1" %}', '{% trans "H2" %}', '{% trans "H3" %}', '{% trans "CHC" %}', '{% trans "BHC" %}', '{% trans "SHC" %}', '{% trans "Others" %}']
+    var hlt_val = [{{hlt_h1}}, {{hlt_h2}}, {{hlt_h3}}, {{hlt_chc}}, {{hlt_bhc}}, {{hlt_shc}}, {{hlt_others}}];
+
+    var roadnetwork_category = ['{% trans "Highway" %}', '{% trans "Primary" %}', '{% trans "Secondary" %}', '{% trans "Tertiary" %}', '{% trans "Residential" %}', '{% trans "Track" %}', '{% trans "Path" %}'/*, '{% trans "River Crossing" %}', '{% trans "Bridge" %}'*/];
+
+    var roadnetwork = [{{road_highway}}, {{road_primary}}, {{road_secondary}}, {{road_tertiary}}, {{road_residential}}, {{road_track}}, {{road_path}}/*, {{road_river_crossing}}, {{road_bridge}}*/];
+
+
+
+    var gsm_legend =['{% trans "With GSM Coverage" %}','{% trans "Without GSM Coverage" %}'];
+    var gsm_pop = {{ pop_on_gsm_coverage }};
+
+    var near_airport = [{{ l1_h__near_airp }}, {{ l2_h__near_airp }}, {{ l3_h__near_airp }}, {{ l4_h__near_airp }}, {{ l5_h__near_airp }}, {{ l6_h__near_airp }}, {{ l7_h__near_airp }}, {{ l8_h__near_airp }}, {{ g8_h__near_airp }}];
+
+    var near_h1 = [{{ l1_h__near_hlt1 }}, {{ l2_h__near_hlt1 }}, {{ l3_h__near_hlt1 }}, {{ l4_h__near_hlt1 }}, {{ l5_h__near_hlt1 }}, {{ l6_h__near_hlt1 }}, {{ l7_h__near_hlt1 }}, {{ l8_h__near_hlt1 }}, {{ g8_h__near_hlt1 }}];
+
+    var near_h2 = [{{ l1_h__near_hlt2 }}, {{ l2_h__near_hlt2 }}, {{ l3_h__near_hlt2 }}, {{ l4_h__near_hlt2 }}, {{ l5_h__near_hlt2 }}, {{ l6_h__near_hlt2 }}, {{ l7_h__near_hlt2 }}, {{ l8_h__near_hlt2 }}, {{ g8_h__near_hlt2 }}];
+
+    var near_prov_cap = [{{ l1_h__near_prov }}, {{ l2_h__near_prov }}, {{ l3_h__near_prov }}, {{ l4_h__near_prov }}, {{ l5_h__near_prov }}, {{ l6_h__near_prov }}, {{ l7_h__near_prov }}, {{ l8_h__near_prov }}, {{ g8_h__near_prov }}];
+
+
+
+    var fforecast_cat = ['{% trans "Extreme" %}', '{% trans "Very High" %}', '{% trans "High" %}', '{% trans "Moderate" %}', '{% trans "Low" %}']
+    var fforecast_legend = ['{% trans "Low" %}', '{% trans "Medium" %}', '{% trans "High" %}']
+
+    var fforecast_low_val = [{{ flashflood_forecast_extreme_risk_low_pop }}, {{ flashflood_forecast_veryhigh_risk_low_pop }}, {{ flashflood_forecast_high_risk_low_pop }}, {{ flashflood_forecast_med_risk_low_pop }}, {{ flashflood_forecast_low_risk_low_pop }}]
+    var fforecast_med_val = [{{ flashflood_forecast_extreme_risk_med_pop }}, {{ flashflood_forecast_veryhigh_risk_med_pop }}, {{ flashflood_forecast_high_risk_med_pop }}, {{ flashflood_forecast_med_risk_med_pop }}, {{ flashflood_forecast_low_risk_med_pop }}]
+    var fforecast_hi_val = [{{ flashflood_forecast_extreme_risk_high_pop }}, {{ flashflood_forecast_veryhigh_risk_high_pop }}, {{ flashflood_forecast_high_risk_high_pop }}, {{ flashflood_forecast_med_risk_high_pop }}, {{ flashflood_forecast_low_risk_high_pop }}]
+
+    var ggforecast_low_val = [{{ gfms_glofas_riverflood_forecast_extreme_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_high_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_med_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_low_risk_low_pop }}]
+    var ggforecast_med_val = [{{ gfms_glofas_riverflood_forecast_extreme_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_high_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_med_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_low_risk_med_pop }}]
+    var ggforecast_hi_val = [{{ gfms_glofas_riverflood_forecast_extreme_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_high_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_med_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_low_risk_high_pop }}]
+
+    var glforecast_low_val = [{{ glofas_riverflood_forecast_extreme_risk_low_pop }}, {{ glofas_riverflood_forecast_veryhigh_risk_low_pop }}, {{ glofas_riverflood_forecast_high_risk_low_pop }}, {{ glofas_riverflood_forecast_med_risk_low_pop }}, {{ glofas_riverflood_forecast_low_risk_low_pop }}]
+    var glforecast_med_val = [{{ glofas_riverflood_forecast_extreme_risk_med_pop }}, {{ glofas_riverflood_forecast_veryhigh_risk_med_pop }}, {{ glofas_riverflood_forecast_high_risk_med_pop }}, {{ glofas_riverflood_forecast_med_risk_med_pop }}, {{ glofas_riverflood_forecast_low_risk_med_pop }}]
+    var glforecast_hi_val = [{{ glofas_riverflood_forecast_extreme_risk_high_pop }}, {{ glofas_riverflood_forecast_veryhigh_risk_high_pop }}, {{ glofas_riverflood_forecast_high_risk_high_pop }}, {{ glofas_riverflood_forecast_med_risk_high_pop }}, {{ glofas_riverflood_forecast_low_risk_high_pop }}]
+
+    var gfforecast_low_val = [{{ riverflood_forecast_extreme_risk_low_pop }}, {{ riverflood_forecast_veryhigh_risk_low_pop }}, {{ riverflood_forecast_high_risk_low_pop }}, {{ riverflood_forecast_med_risk_low_pop }}, {{ riverflood_forecast_low_risk_low_pop }}]
+    var gfforecast_med_val = [{{ riverflood_forecast_extreme_risk_med_pop }}, {{ riverflood_forecast_veryhigh_risk_med_pop }}, {{ riverflood_forecast_high_risk_med_pop }}, {{ riverflood_forecast_med_risk_med_pop }}, {{ riverflood_forecast_low_risk_med_pop }}]
+    var gfforecast_hi_val = [{{ riverflood_forecast_extreme_risk_high_pop }}, {{ riverflood_forecast_veryhigh_risk_high_pop }}, {{ riverflood_forecast_high_risk_high_pop }}, {{ riverflood_forecast_med_risk_high_pop }}, {{ riverflood_forecast_low_risk_high_pop }}]
+
+
+
+    var frisk_cat = ['{% trans "Low Risk" %}', '{% trans "Medium Risk" %}', '{% trans "High Risk" %}', '{% trans "Not at Risk" %}' ];
+
+    var tot_risk_pop = {{ total_risk_population }}
+
+    var frisk_low_pop = {{ low_risk_population }}
+    var frisk_med_pop = {{ med_risk_population }}
+    var frisk_hi_pop = {{ high_risk_population }}
+
+    var tot_risk_area = {{ total_risk_area }}
+
+    var frisk_low_area = {{ low_risk_area }}
+    var frisk_med_area = {{ med_risk_area }}
+    var frisk_hi_area = {{ high_risk_area }}
+
+
+
+    var aforecast_cat = ['{% trans "Low Risk" %}', '{% trans "Medium Risk" %}', '{% trans "High Risk" %}', '{% trans "Not at Risk" %}' ];
+
+    var tot_ava_pop = {{ total_ava_forecast_pop }}
+
+    var afo_low_pop = {{ ava_forecast_low_pop }}
+    var afo_med_pop = {{ ava_forecast_med_pop }}
+    var afo_hi_pop = {{ ava_forecast_high_pop }}
+
+
+
+    var arisk_cat = ['{% trans "Moderate Risk" %}', '{% trans "High Risk" %}', '{% trans "Not at Risk" %}' ];
+
+    var tot_risk_pop = {{ total_ava_population }}
+
+    // var arisk_low_pop = {{ low_risk_population }}
+    var arisk_med_pop = {{ med_ava_population }}
+    var arisk_hi_pop = {{ high_ava_population }}
+
+
+
+    var color = [ '#43A047', '#FDD835' , '#FB8C00', '#e84c3d' ];
+    var level_risk = ['{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}' ];
+    var level_risk_pie = ['{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}', '{% trans "Not at Risk" %}' ];
+
+    var lsi = [{{lsi_immap_low}}, {{lsi_immap_moderate}}, {{lsi_immap_high}}, {{lsi_immap_very_high}}];
+
+
+
+    var erthqk_cat = ["{% trans 'Affected' %}", "{% trans 'Not Affected' %}"]
+    var mercalli_cat = ["{% trans 'Weak' %}", "{% trans 'Light' %}", "{% trans 'Moderate' %}", "{% trans 'Strong' %}", "{% trans 'Very Strong' %}", "{% trans 'Severe' %}", "{% trans 'Violent' %}", "{% trans 'Extreme' %}"]
+
+    var erthqk_build = {{total_eq_buildings}};
+
+    var buildings_weak = {{ buildings_shake_weak }};
+    var buildings_light = {{ buildings_shake_light }};
+    var buildings_mod = {{ buildings_shake_moderate }};
+    var buildings_strong = {{ buildings_shake_strong }};
+    var buildings_vstrong = {{ buildings_shake_verystrong }};
+    var buildings_severe = {{ buildings_shake_severe }};
+    var buildings_violent = {{ buildings_shake_violent }};
+    var buildings_ext = {{ buildings_shake_extreme }};
+
+
+
+    var polar_cat = [ '{% trans "Incidents" %}', '{% trans "Dead" %}', '{% trans "Injured" %}',  '{% trans "Violent" %}']
+    var incident_cat = [];
+
+    var incidentCount = [];
+    var incidentViolent = [];
+    var incidentInjured = [];
+    var incidentDead = [];
+
+    {% for data in incident_type_group %}
+    	incident_cat.push('{{data.main_type}}');
+    	incidentCount.push({{data.count}});
+    	incidentDead.push({{data.dead}});
+    	incidentInjured.push({{data.injured}});
+    	incidentViolent.push({{data.violent}});
+    {% endfor %}
+
+	document.querySelector('#select_evt').addEventListener('change', function(){
+		location=addUpdateUrlParameter(location.href, 'eq_event', this.value+'{{add_link}}');
+	});
+
+	document.querySelector('form.form-inline').addEventListener('submit', function( event ) {
+		event.preventDefault();
+	});
+
+	document.querySelector('button.ply-trget').addEventListener('click', function(event) {
+		console.log("click");
+
+		var type_selected_param = '';
+		var target_selected_param = '';
+
+		var type_unselected = $("input[name='main_type_select[]']:checkbox:not(:checked)");
+		var type_selected = $("input[name='main_type_select[]']:checkbox:checked");
+
+		var target_unselected = $("input[name='main_target_select[]']:checkbox:not(:checked)");
+		var target_selected = $("input[name='main_target_select[]']:checkbox:checked");
+
+		// var type_unselected = $("#indicatorTarget :checkbox:not(:checked)");
+		// var type_selected = $("#indicatorTarget :checkbox:checked");
+
+		// var target_unselected = $("#indicatorType :checkbox:not(:checked)");
+		// var target_selected = $("#indicatorType :checkbox:checked");
+
+		if (type_unselected.length > 0) {
+			// var type_array = type_selected.val();
+			var type_array = [];
+			type_selected.each( function () {
+				 type_array.push($(this).val());
+			});
+			type_selected_param += type_array;
+		}
+
+
+		if (target_unselected.length > 0) {
+			// var target_array = $('#incidentTarget-select').val();
+			var target_array = [];
+			target_selected.each( function () {
+				 target_array.push($(this).val());
+			});
+			target_selected_param += target_array
+		}
+
+		if (type_selected.length == 0) {
+			type_selected_param = '';
+		}
+
+		if (target_selected.length == 0) {
+			target_selected_param = '';
+		}
+
+		var url = $(location).attr("href");
+
+		if (type_selected_param != ''){
+			if (getParameterByName("incident_type") == null){
+				url += '&incident_type='+type_selected_param;
+			} else {
+				url = updateUrlParameter(url, 'incident_type', type_selected_param);
+			}
+
+		} else {
+			url = removeParam('incident_type', url);
+		}
+
+		if (target_selected_param != ''){
+			if (getParameterByName("incident_target") == null){
+				url += '&incident_target='+target_selected_param;
+			} else {
+				url = updateUrlParameter(url, 'incident_target', target_selected_param)
+			}
+
+		} else {
+			url = removeParam('incident_target', url);
+		}
+
+		window.document.location = url;
+	});
+
+	document.addEventListener('DOMContentLoaded', function(){
+
+		// DateRangePicker
+		var daterange = getParameterByName("daterange");
+		if (daterange == null){
+			var start = moment().subtract(365, 'days');
+			var end = moment();
+		} else {
+			var dateVar = daterange.split(',');
+			var start = moment(new Date(dateVar[0].substr(0, 4), parseInt(dateVar[0].substr(5, 2))-1, dateVar[0].substr(8, 2)));
+			var end = moment(new Date(dateVar[1].substr(0, 4), parseInt(dateVar[1].substr(5, 2))-1, dateVar[1].substr(8, 2)));;
+		}
+
+		function cb(start, end) {
+			$('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+		}
+
+		$('#reportrange').daterangepicker({
+			startDate: start,
+			endDate: end,
+			ranges: {
+				'{% trans 'Today' %}': [moment(), moment()],
+				'{% trans 'Yesterday' %}': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+				'{% trans 'Last 7 Days' %}': [moment().subtract(6, 'days'), moment()],
+				'{% trans 'Last 30 Days' %}': [moment().subtract(29, 'days'), moment()],
+				'{% trans 'This Month' %}': [moment().startOf('month'), moment().endOf('month')],
+				'{% trans 'Last Month' %}': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+				'{% trans 'Last Year' %}': [moment().subtract(365, 'days'), moment()]
+			}
+		}, cb);
+
+		cb(start, end);
+
+		$('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+			var url = $(location).attr("href");
+			if (daterange == null){
+				window.document.location = url+'&daterange='+picker.startDate.format('YYYY-MM-DD')+','+picker.endDate.format('YYYY-MM-DD');
+			}  else {
+				// url = url.replace(/(daterange=).*?(&)/,'$1' + picker.startDate.format('YYYY-MM-DD')+','+picker.endDate.format('YYYY-MM-DD') + '$2');
+				url = updateUrlParameter(url, 'daterange', picker.startDate.format('YYYY-MM-DD')+','+picker.endDate.format('YYYY-MM-DD'))
+
+				window.document.location = url;
+			}
+		});
+	});
+</script>

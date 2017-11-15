@@ -121,7 +121,7 @@
                         <div class="x_content">
                     		<a href="./maps/700/view">
                     			<img id="floodSnapshot" src="{{ STATIC_URL }}lib/img/hex-loader2.gif">
-                    			<img class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_flood_forecasted_villages_basin&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                    			<img class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:glofas_gfms_merge&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
                     			<div class="overlay">
                     				<div class="detail">
                     					<h3>{% trans "Flood Prediction" %}</h3>
@@ -202,8 +202,8 @@
 	            <div class="col-md-5 col-sm-12 col-xs-12 grid">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Static Maps" %}</h2>
-	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"><small><a href="{% url 'v2:document_browse' %}"> {% trans "Show All" %}</a></small></h2>
+	                        <h2 class="pull-left">{% trans "Static Maps" %}</h2>
+	                        <h2 class="pull-right"><small><a href="{% url 'v2:document_browse' %}"> {% trans "Show All" %}</a></small></h2>
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
@@ -215,9 +215,9 @@
 	                    					<a href="{{ item.detail_url }}">
 	                    						<img src="{{ item.thumbnail_url }}">
 	                    						<div class="hovercover">
-	                    							<div class="hovericon">
+	                    							<!-- <div class="hovericon">
 	                    								<i class="fa fa-link hoverlink"></i>
-	                    							</div>
+	                    							</div> -->
 	                    						</div>
 	                    					</a>
 	                    				</div>
@@ -226,7 +226,7 @@
 	                    						<span class="author">
 	                    							{{ item.owner__username }}, {{ item.date|date:"d MMM y" }}
 	                    							{% endverbatim %}
-	                    							<i class="fa fa-eye {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">{% verbatim %} {{ item.popular_count }}</i>
+	                    							<i class="fa fa-eye pull-right">{% verbatim %} {{ item.popular_count }}</i>
 
 	                    						</span>
 	                    						<h3>{{ item.title }}</h3>
@@ -243,8 +243,8 @@
 	            <div class="col-md-7 col-sm-12 col-xs-12 grid">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flood Maps" %}</h2>
-	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"><small><a href="#"> {% trans 'Show All' %}</a></small></h2>
+	                        <h2 class="pull-left">{% trans "Flood Maps" %}</h2>
+	                        <h2 class="pull-right"><small><a href="{% url 'document_browse' %}?category__identifier__in=fl-01&category__identifier__in=fl-02&order_by=-date"> {% trans 'Show All' %}</a></small></h2>
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
@@ -256,18 +256,18 @@
 	                    					<a href="{{ item.detail_url }}">
 	                    						<img src="{{ item.thumbnail_url }}">
 	                    						<div class="hovercover">
-	                    							<div class="hovericon">
+	                    							<!-- <div class="hovericon">
 	                    								<i class="fa fa-link hoverlink"></i>
-	                    							</div>
+	                    							</div> -->
 	                    						</div>
 	                    					</a>
 	                    				</div>
-	                    				<a href="#">
+	                    				<a href="{{ item.detail_url }}">
 	                    					<figcaption class="item-description">
 	                    						<span class="author">
 	                    							{{ item.owner__username }}, {{ item.date|date:"d MMM y" }}
 	                    							{% endverbatim %} 
-	                    							<i class="fa fa-eye {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"> {% verbatim %}{{ item.popular_count }}</i>
+	                    							<i class="fa fa-eye pull-right"> {% verbatim %}{{ item.popular_count }}</i>
 	                    						</span>
 	                    						<h3>{{ item.title }}</h3>
 	                    						<span>{{ item.abstract }}</span>
@@ -299,11 +299,146 @@
 
 	<section id="partner" class="main">
 	    <div class="container">
+	    	<div class="row hidden">
+	    		<div class="col-md-2">
+	    		    <h4>{% trans "OUR PARTNERS" %}</h4>
+	    		    <p>{% trans "List of partner who provides either data or financial contribution." %}</p>
+	    		</div>
+	    	    <div class="col-md-10">
+	    	      	<div class="carousel carousel-showmanymoveone slide" id="carousel123">
+	    	        	<div class="carousel-inner">
+		    	          	<div class="item active">
+		    	            	<div class="col-md-4 col-sm-4 col-xs-4">
+		    	            		<a href="https://www.usaid.gov/"><img src="/static/v2/images/partner/usaid.png" class="img-responsive"></a>
+		    	            	</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="https://www.usgs.gov/"><img src="/static/v2/images/partner/usgs.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/maryland.png"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/oak.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="http://www.noaa.gov/"><img src="/static/v2/images/partner/noa.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/wmo.png"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/nato.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/wfp.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/fao.png"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/who.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/ocha.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/iom.png"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/moia.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/moph.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/mrrd.png"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/agcho.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/cso.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/andma.png"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/dacaar.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/osm.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/japan.png"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/nasa.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/chelsa.png" class="img-responsive"></a>
+								</div>
+							</div>
+							<div class="item">
+								<div class="col-md-4 col-sm-4 col-xs-4">
+									<a href="#"><img src="/static/v2/images/partner/ventusky.png"></a>
+								</div>
+							</div>
+		    	        	<a class="left carousel-control" href="#carousel123" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+		    	        	<a class="right carousel-control" href="#carousel123" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+	    	      		</div>
+	    	    	</div>
+	    		</div>
+	    	</div>
+	    	
 	        <div class="row">
 	            <div class="col-md-2">
 	                <div class="clearfix">
-	                    <h4 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "OUR PARTNERS" %}</h4>
-	                    <div class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">
+	                    <h4 class="pull-left">{% trans "OUR PARTNERS" %}</h4>
+	                    <div class="pull-right">
 	                        <a class="prev" href="#partnerCarousel" data-slide="prev"><i class="fa fa-angle-left icon-large"></i></a>
 	                        <a class="next" href="#partnerCarousel" data-slide="next"><i class="fa fa-angle-right icon-large"></i></a>
 	                    </div>
@@ -318,7 +453,7 @@
 	                            <div class="row">
 	                                <ul class="thumbnails list-unstyled">
 	                                    <li class="col-md-4 col-sm-4 col-xs-4">
-	                                        <a href="#">
+	                                        <a href="https://www.usaid.gov/">
 	                                            <img src="/static/v2/images/partner/usaid.png">
 	                                        </a>
 	                                    </li>
@@ -478,8 +613,18 @@
 	                            <div class="row">
 	                                <ul class="thumbnails list-unstyled">
 	                                    <li class="col-md-4 col-sm-4 col-xs-4">
-	                                        <a href="#">
+	                                        <a href="https://www.nasa.gov/">
 	                                            <img src="/static/v2/images/partner/nasa.png">
+	                                        </a>
+	                                    </li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="http://chelsa-climate.org/">
+	                                            <img src="/static/v2/images/partner/chelsa.png">
+	                                        </a>
+	                                    </li>
+	                                    <li class="col-md-4 col-sm-4 col-xs-4">
+	                                        <a href="https://www.ventusky.com">
+	                                            <img src="/static/v2/images/partner/ventusky.png">
 	                                        </a>
 	                                    </li>
 	                                </ul>

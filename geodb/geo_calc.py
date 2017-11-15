@@ -35,6 +35,19 @@ from geodb.riverflood import getFloodForecastBySource
 from django.utils.translation import ugettext as _
 import pprint
 
+def include_section(section, includes, excludes):
+    """
+    check whether section is included or not
+    defaults to include all
+    empty string is valid section name, duplicate section name is valid
+    ex: includes=[], excludes=[] == include all
+    ex: includes=[], excludes=['section1'] == include all except 'section1'
+    ex: includes=['section1'], excludes=[] == exclude all except 'section1'
+    """
+    return (not includes and not excludes) or \
+    (includes and (section in includes)) or \
+    (excludes and (section not in excludes))
+
 def query_to_dicts(cursor, query_string, *query_args):
     """Run a simple query and produce a generator
     that returns the results as a bunch of dictionaries
@@ -340,11 +353,11 @@ def getSecurity(request, filterLock, flag, code):
 
     response['incident_type_group']=[]
     for i in main_type_raw_data:
-        response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':getSAMIncident(request, daterange, rawFilterLock, flag, code, 'type', i['main_type'])})
+        response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':list(getSAMIncident(request, daterange, rawFilterLock, flag, code, 'type', i['main_type']))})
 
     response['incident_target_group']=[]
     for i in main_target_raw_data:
-        response['incident_target_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_target':i['main_target'],'child':getSAMIncident(request, daterange, rawFilterLock, flag, code, 'target', i['main_target'])})
+        response['incident_target_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_target':i['main_target'],'child':list(getSAMIncident(request, daterange, rawFilterLock, flag, code, 'target', i['main_target']))})
 
     response['incident_list_100'] = getListIncidents(request, daterange, rawFilterLock, flag, code)
 
@@ -450,10 +463,10 @@ def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilte
     if filterLock!='':
         resource = resource.filter(wkb_geometry__intersects=filterLock)
 
-    if includeFilter and 'incident_type' in request.GET:
+    if includeFilter and request.GET.get('incident_type', ''):
         resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
-    if includeFilter and 'incident_target' in request.GET:
+    if includeFilter and request.GET.get('incident_target', ''):
         resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
     resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
@@ -498,78 +511,81 @@ def getIncidentCasualties(request, daterange, filterLock, flag, code):
 
     return response
 
-def getEarthquake(request, filterLock, flag, code):
+def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
 
+    response = {}
     eq_event = ''
     if 'eq_event' in request.GET:
         eq_event = request.GET['eq_event']
 
-    response = getCommonUse(request, flag, code)
-    targetBase = AfgLndcrva.objects.all()
+    if include_section('', includes, excludes):
+        response = getCommonUse(request, flag, code)
+        targetBase = AfgLndcrva.objects.all()
 
-    response['Population']=getTotalPop(filterLock, flag, code, targetBase)
-    response['Area']=getTotalArea(filterLock, flag, code, targetBase)
-    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
-    response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+        response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+        response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+        response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
+        response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
 
-    url = 'http://asdc.immap.org/geoapi/geteqevents/?dateofevent__gte=2015-09-08&_dc=1473243793279'
-    req = urllib2.Request(url)
-    req.add_unredirected_header('User-Agent', 'Custom User-Agent')
-    fh = urllib2.urlopen(req)
-    data = fh.read()
-    fh.close()
-    jdict = json.loads(data)
+        url = 'http://asdc.immap.org/geoapi/geteqevents/?dateofevent__gte=2015-09-08&_dc=1473243793279'
+        req = urllib2.Request(url)
+        req.add_unredirected_header('User-Agent', 'Custom User-Agent')
+        fh = urllib2.urlopen(req)
+        data = fh.read()
+        fh.close()
+        jdict = json.loads(data)
 
-    response['eq_list'] = []
-    pertama = True
+        response['eq_list'] = []
+        pertama = True
 
-    response['EQ_title'] = ''
-    response['eq_link'] = ''
+        response['EQ_title'] = ''
+        response['eq_link'] = ''
 
-    for x in reversed(jdict['objects']):
-        if eq_event != '':
-            if x['event_code'] == eq_event:
-                x['selected']=True
-                response['EQ_title'] = x['detail_title']
-            else:
-                x['selected']=False
-            response['eq_link'] = '&eq_event='+eq_event
-        else:
-            if pertama:
-                x['selected']=True
-                pertama = False
-                eq_event = x['event_code']
-                response['EQ_title'] = x['detail_title']
+        for x in reversed(jdict['objects']):
+            if eq_event != '':
+                if x['event_code'] == eq_event:
+                    x['selected']=True
+                    response['EQ_title'] = x['detail_title']
+                else:
+                    x['selected']=False
                 response['eq_link'] = '&eq_event='+eq_event
             else:
-                x['selected']=False
+                if pertama:
+                    x['selected']=True
+                    pertama = False
+                    eq_event = x['event_code']
+                    response['EQ_title'] = x['detail_title']
+                    response['eq_link'] = '&eq_event='+eq_event
+                else:
+                    x['selected']=False
 
-        response['eq_list'].append(x)
+            response['eq_list'].append(x)
 
-    rawEarthquake = getEQData(filterLock, flag, code, eq_event)
+        rawEarthquake = getEQData(filterLock, flag, code, eq_event)
 
 
-    for i in rawEarthquake:
-        response[i]=rawEarthquake[i]
+        for i in rawEarthquake:
+            response[i]=rawEarthquake[i]
 
-    dataEQ = []
-    dataEQ.append(['intensity','population'])
-    dataEQ.append(['II-III : Weak',response['pop_shake_weak'] if 'pop_shake_weak' in response else 0])
-    dataEQ.append(['IV : Light',response['pop_shake_light'] if 'pop_shake_light' in response else 0])
-    dataEQ.append(['V : Moderate',response['pop_shake_moderate'] if 'pop_shake_moderate' in response else 0])
-    dataEQ.append(['VI : Strong',response['pop_shake_strong'] if 'pop_shake_strong' in response else 0])
-    dataEQ.append(['VII : Very-strong',response['pop_shake_verystrong'] if 'pop_shake_verystrong' in response else 0])
-    dataEQ.append(['VIII : Severe',response['pop_shake_severe'] if 'pop_shake_severe' in response else 0])
-    dataEQ.append(['IX : Violent',response['pop_shake_violent'] if 'pop_shake_violent' in response else 0])
-    dataEQ.append(['X+ : Extreme',response['pop_shake_extreme'] if 'pop_shake_extreme' in response else 0])
-    response['EQ_chart'] = gchart.PieChart(SimpleDataSource(data=dataEQ), html_id="pie_chart1", options={'title': response['EQ_title'], 'width': 450,'height': 300, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'right', 'maxLines':4}, 'slices':{0:{'color':'#c4ceff'},1:{'color':'#7cfddf'},2:{'color':'#b1ff55'},3:{'color':'#fcf109'},4:{'color':'#ffb700'},5:{'color':'#fd6500'},6:{'color':'#ff1f00'},7:{'color':'#d20003'}} })
+        dataEQ = []
+        dataEQ.append(['intensity','population'])
+        dataEQ.append(['II-III : Weak',response['pop_shake_weak'] if 'pop_shake_weak' in response else 0])
+        dataEQ.append(['IV : Light',response['pop_shake_light'] if 'pop_shake_light' in response else 0])
+        dataEQ.append(['V : Moderate',response['pop_shake_moderate'] if 'pop_shake_moderate' in response else 0])
+        dataEQ.append(['VI : Strong',response['pop_shake_strong'] if 'pop_shake_strong' in response else 0])
+        dataEQ.append(['VII : Very-strong',response['pop_shake_verystrong'] if 'pop_shake_verystrong' in response else 0])
+        dataEQ.append(['VIII : Severe',response['pop_shake_severe'] if 'pop_shake_severe' in response else 0])
+        dataEQ.append(['IX : Violent',response['pop_shake_violent'] if 'pop_shake_violent' in response else 0])
+        dataEQ.append(['X+ : Extreme',response['pop_shake_extreme'] if 'pop_shake_extreme' in response else 0])
+        response['EQ_chart'] = gchart.PieChart(SimpleDataSource(data=dataEQ), html_id="pie_chart1", options={'title': response['EQ_title'], 'width': 450,'height': 300, 'pieSliceTextStyle': {'color': 'black'}, 'pieSliceText': 'percentage','legend': {'position':'right', 'maxLines':4}, 'slices':{0:{'color':'#c4ceff'},1:{'color':'#7cfddf'},2:{'color':'#b1ff55'},3:{'color':'#fcf109'},4:{'color':'#ffb700'},5:{'color':'#fd6500'},6:{'color':'#ff1f00'},7:{'color':'#d20003'}} })
 
-    response['total_eq_pop'] = response['pop_shake_weak']+response['pop_shake_light']+response['pop_shake_moderate']+response['pop_shake_strong']+response['pop_shake_verystrong']+response['pop_shake_severe']+response['pop_shake_violent']+response['pop_shake_extreme']
-    response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
-    response['total_eq_buildings'] = response['buildings_shake_weak']+response['buildings_shake_light']+response['buildings_shake_moderate']+response['buildings_shake_strong']+response['buildings_shake_verystrong']+response['buildings_shake_severe']+response['buildings_shake_violent']+response['buildings_shake_extreme']
+        response['total_eq_pop'] = response['pop_shake_weak']+response['pop_shake_light']+response['pop_shake_moderate']+response['pop_shake_strong']+response['pop_shake_verystrong']+response['pop_shake_severe']+response['pop_shake_violent']+response['pop_shake_extreme']
+        response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
+        response['total_eq_buildings'] = response['buildings_shake_weak']+response['buildings_shake_light']+response['buildings_shake_moderate']+response['buildings_shake_strong']+response['buildings_shake_verystrong']+response['buildings_shake_severe']+response['buildings_shake_violent']+response['buildings_shake_extreme']
 
-    data = getListEQ(filterLock, flag, code, eq_event)
-    response['lc_child']=data
+    if include_section('getListEQ', includes, excludes):
+        data = getListEQ(filterLock, flag, code, eq_event)
+        response['lc_child']=data
 
     return response
 
@@ -902,8 +918,9 @@ def getEQData(filterLock, flag, code, event_code):
 
     return counts[0]
 
-def GetAccesibilityData(filterLock, flag, code):
+def GetAccesibilityData(filterLock, flag, code, includes=[], excludes=[]):
     response = {}
+    gsm_child = {}
     if flag=='entireAfg':
         q1 = AfgCaptAdm1ItsProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
         q2 = AfgCaptAdm1NearestProvcImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
@@ -914,6 +931,8 @@ def GetAccesibilityData(filterLock, flag, code):
         q7 = AfgCaptHltfacTier3Immap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
         q8 = AfgCaptHltfacTierallImmap.objects.all().values('time').annotate(pop=Sum('sum_area_population'),buildings=Sum('area_buildings'))
         gsm = AfgCapaGsmcvr.objects.all().aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
+        gsm_child = AfgCapaGsmcvr.objects.all().extra(select={'na_en': 'SELECT prov_na_en FROM afg_admbnda_adm1 WHERE afg_admbnda_adm1.prov_code = afg_capa_gsmcvr.prov_code'}).\
+        values('prov_code', 'na_en').annotate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 
     elif flag =='currentProvince':
         if len(str(code)) > 2:
@@ -954,8 +973,12 @@ def GetAccesibilityData(filterLock, flag, code):
             })
         if len(str(code)) > 2:
             gsm = AfgCapaGsmcvr.objects.filter(dist_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
+            gsm_child = AfgCapaGsmcvr.objects.filter(dist_code=code).extra(select={'na_en': 'SELECT dist_na_en FROM afg_admbnda_adm2 WHERE afg_admbnda_adm2.dist_code = afg_capa_gsmcvr.dist_code'}).\
+            values('dist_code', 'na_en').annotate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
         else :
             gsm = AfgCapaGsmcvr.objects.filter(prov_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
+            gsm_child = AfgCapaGsmcvr.objects.filter(prov_code=code).extra(select={'na_en': 'SELECT dist_na_en FROM afg_admbnda_adm2 WHERE afg_admbnda_adm2.dist_code = afg_capa_gsmcvr.dist_code'}).\
+            values('dist_code', 'na_en').annotate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 
     elif flag =='drawArea':
         tt = AfgPplp.objects.filter(wkb_geometry__intersects=filterLock).values('vuid')
@@ -980,54 +1003,71 @@ def GetAccesibilityData(filterLock, flag, code):
         q8 = AfgCaptHltfacTierallImmap.objects.filter(vuid__in=tt).values('time').annotate(pop=Sum('sum_area_population'))
         gsm = AfgCapaGsmcvr.objects.filter(vuid__in=tt).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 
-    for i in q1:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__itsx_prov']=round(i['pop'] or 0)
-    for i in q2:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_prov']=round(i['pop'] or 0)
-    for i in q3:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_dist']=round(i['pop'] or 0)
-    for i in q4:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_airp']=round(i['pop'] or 0)
-    for i in q5:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hlt1']=round(i['pop'] or 0)
-    for i in q6:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hlt2']=round(i['pop'] or 0)
-    for i in q7:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hlt3']=round(i['pop'] or 0)
-    for i in q8:
-        timelabel = i['time'].replace(' ','_')
-        timelabel = timelabel.replace('<','l')
-        timelabel = timelabel.replace('>','g')
-        response[timelabel+'__near_hltall']=round(i['pop'] or 0)
+    if include_section('AfgPplp', includes, excludes):
+        for i in q1:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__itsx_prov']=round(i['pop'] or 0)
+    if include_section('AfgCaptAdm1ItsProvcImmap', includes, excludes):
+        for i in q2:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_prov']=round(i['pop'] or 0)
+    if include_section('AfgCaptAdm1NearestProvcImmap', includes, excludes):
+        for i in q3:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_dist']=round(i['pop'] or 0)
+    if include_section('AfgCaptAirdrmImmap', includes, excludes):
+        for i in q4:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_airp']=round(i['pop'] or 0)
+    if include_section('AfgCaptHltfacTier1Immap', includes, excludes):
+        for i in q5:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_hlt1']=round(i['pop'] or 0)
+    if include_section('AfgCaptHltfacTier2Immap', includes, excludes):
+        for i in q6:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_hlt2']=round(i['pop'] or 0)
+    if include_section('AfgCaptHltfacTier3Immap', includes, excludes):
+        for i in q7:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_hlt3']=round(i['pop'] or 0)
+    if include_section('AfgCaptHltfacTierallImmap', includes, excludes):
+        for i in q8:
+            timelabel = i['time'].replace(' ','_')
+            timelabel = timelabel.replace('<','l')
+            timelabel = timelabel.replace('>','g')
+            response[timelabel+'__near_hltall']=round(i['pop'] or 0)
 
-    response['pop_on_gsm_coverage'] = round((gsm['pop'] or 0),0)
-    response['area_on_gsm_coverage'] = round((gsm['area'] or 0)/1000000,0)
-    response['buildings_on_gsm_coverage'] = round((gsm['buildings'] or 0),0)
+    if include_section('AfgCapaGsmcvr', includes, excludes):
+        # pprint.pprint(list(gsm_child))
+        response['pop_on_gsm_coverage'] = round((gsm['pop'] or 0),0)
+        response['area_on_gsm_coverage'] = round((gsm['area'] or 0)/1000000,0)
+        response['buildings_on_gsm_coverage'] = round((gsm['buildings'] or 0),0)
+
+    if include_section('AfgCapaGsmcvr_child', includes, excludes):
+        list_gsm_child = []
+        for i in gsm_child:
+            i['area'] = round((i['area'] or 0)/1000000,0)
+            list_gsm_child.append(i)
+        response['gsm_child'] = list_gsm_child
 
     return response
 
-def getAccessibility(request, filterLock, flag, code):
+def getAccessibility(request, filterLock, flag, code, includes=[], excludes=[]):
     rawFilterLock = None
     if 'flag' in request.GET:
         rawFilterLock = filterLock
@@ -1039,7 +1079,7 @@ def getAccessibility(request, filterLock, flag, code):
     response['Area']=getTotalArea(filterLock, flag, code, targetBase)
     response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
 
-    rawAccesibility = GetAccesibilityData(rawFilterLock, flag, code)
+    rawAccesibility = GetAccesibilityData(rawFilterLock, flag, code, includes, excludes)
 
     # print rawAccesibility
 
@@ -1354,8 +1394,10 @@ def getListAccesibility(filterLock, flag, code):
         response.append(data)
     return response
 
-def getFloodForecast(request, filterLock, flag, code):
-    response = getCommonUse(request, flag, code)
+def getFloodForecast(request, filterLock, flag, code, includes=[], excludes=[]):
+    response = {}
+    if include_section('getCommonUse', includes, excludes):
+        response = getCommonUse(request, flag, code)
 
     includeDetailState = True
     if 'date' in request.GET:
@@ -1370,7 +1412,7 @@ def getFloodForecast(request, filterLock, flag, code):
     reverse_date = curdate - datetime.timedelta(days=1)
 
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and Marshland'))
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and Marshland')
 
     flood_parent = getFloodForecastMatrix(filterLock, flag, code)
     for i in flood_parent:
@@ -1386,7 +1428,7 @@ def getFloodForecast(request, filterLock, flag, code):
 
     glofas_parent = getFloodForecastBySource('GLOFAS only', targetRisk, spt_filter, flag, code, YEAR, MONTH, DAY)
     for i in glofas_parent:
-        response['glofas_'+i]=glofas_parent[i]
+        response['glofas_'+i]=glofas_parent[i] or 0
 
 
     if includeDetailState:
@@ -1773,7 +1815,7 @@ def getRawAvalancheRisk(filterLock, flag, code):
     response = {}
     targetAvalanche = AfgAvsa.objects.all()
     counts =  getRiskNumber(targetAvalanche, filterLock, 'avalanche_cat', 'avalanche_pop', 'sum_area_sqm', 'area_buildings', flag, code, None)
-    pprint.pprint(counts)
+    # pprint.pprint(counts)
     # pop at risk level
     temp = dict([(c['avalanche_cat'], c['count']) for c in counts])
     response['high_ava_population']=round(temp.get('High', 0) or 0,0)
@@ -1842,7 +1884,7 @@ def getRawFloodRisk(filterLock, flag, code):
 
     return response
 
-def getRawBaseLine(filterLock, flag, code):
+def getRawBaseLine(filterLock, flag, code, includes=[], excludes=[]):
     targetBase = AfgLndcrva.objects.all()
     response = {}
     parent_data = getRiskNumber(targetBase, filterLock, 'agg_simplified_description', 'area_population', 'area_sqm', 'area_buildings', flag, code, None)
@@ -1903,7 +1945,43 @@ def getRawBaseLine(filterLock, flag, code):
 
     return response
 
-def getBaseline(request, filterLock, flag, code):
+def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
+    response = {}
+    if include_section('', includes, excludes):
+        response.update(getBaseline(request, filterLock, flag, code, excludes=['getProvinceSummary', 'getProvinceAdditionalSummary']))
+        response.update(getFloodForecastMatrix(filterLock, flag, code, includes=['flashflood_forecast_risk_pop']))
+        response.update(getFloodForecast(request, filterLock, flag, code, excludes=['getCommonUse']))
+        response.update(getRawFloodRisk(filterLock, flag, code))
+        response.update(getRawAvalancheForecast(request, filterLock, flag, code))
+        response.update(getRawAvalancheRisk(filterLock, flag, code))
+        response.update(getLandslideRisk(request, filterLock, flag, code, includes=['lsi_immap']))
+        response.update(getEarthquake(request, filterLock, flag, code, excludes=['getListEQ']))
+
+        response.update(GetAccesibilityData(filterLock, flag, code, includes=['AfgCaptAirdrmImmap', 'AfgCaptHltfacTier1Immap', 'AfgCaptHltfacTier2Immap', 'AfgCaptAdm1ItsProvcImmap', 'AfgCapaGsmcvr']))
+        response['pop_coverage_percent'] = int(round((response['pop_on_gsm_coverage']/response['Population'])*100,0))
+
+    if include_section('getSAMParams', includes, excludes):
+        rawFilterLock = filterLock if 'flag' in request.GET else None
+        if 'daterange' in request.GET:
+            daterange = request.GET.get('daterange')
+        elif 'daterange' in request.POST:
+            daterange = request.POST.get('daterange')
+        else:
+            enddate = datetime.date.today()
+            startdate = datetime.date.today() - datetime.timedelta(days=365)
+            daterange = startdate.strftime("%Y-%m-%d")+','+enddate.strftime("%Y-%m-%d")
+        main_type_raw_data = getSAMParams(request, daterange, rawFilterLock, flag, code, group='main_type', includeFilter=True)
+        response['incident_type'] = (i['main_type'] for i in main_type_raw_data)
+        if 'incident_type' in request.GET:
+            response['incident_type'] = request.GET['incident_type'].split(',')
+        response['incident_type_group']=[]
+        for i in main_type_raw_data:
+            response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':list(getSAMIncident(request, daterange, rawFilterLock, flag, code, 'type', i['main_type']))})
+        response['main_type_child'] = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_type', False)
+
+    return response
+
+def getBaseline(request, filterLock, flag, code, includes=[], excludes=[]):
     response = getCommonUse(request, flag, code)
     targetBase = AfgLndcrva.objects.all()
 
@@ -1942,11 +2020,13 @@ def getBaseline(request, filterLock, flag, code):
     response['road_river_crossing'] = round(tempRoadBase.get("river crossing", 0))
     response['road_bridge'] = round(tempRoadBase.get("bridge", 0))
 
-    data = getProvinceSummary(filterLock, flag, code)
-    response['lc_child']=data
+    if include_section('getProvinceSummary', includes, excludes):
+        data = getProvinceSummary(filterLock, flag, code)
+        response['lc_child']=data
 
-    data = getProvinceAdditionalSummary(filterLock, flag, code)
-    response['additional_child']=data
+    if include_section('getProvinceAdditionalSummary', includes, excludes):
+        data = getProvinceAdditionalSummary(filterLock, flag, code)
+        response['additional_child']=data
 
     dataLC = []
     dataLC.append([_('landcover type'),_('population'), { 'role': 'annotation' },_('buildings'), { 'role': 'annotation' },_('area (km2)'), { 'role': 'annotation' }])
@@ -2487,7 +2567,7 @@ def getProvinceAdditionalSummary(filterLock, flag, code):
 
     return response
 
-def getFloodForecastMatrix(filterLock, flag, code):
+def getFloodForecastMatrix(filterLock, flag, code, includes=[], excludes=[]):
     response = {}
 
     YEAR = datetime.datetime.utcnow().strftime("%Y")
@@ -2495,263 +2575,310 @@ def getFloodForecastMatrix(filterLock, flag, code):
     DAY = datetime.datetime.utcnow().strftime("%d")
 
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
-    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description=_('Water body and Marshland'))
+    targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and Marshland')
 
-    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', 'area_buildings', flag, code, None)
-    temp = dict([(c['deeperthan'], c['count']) for c in counts])
-    response['high_risk_mitigated_population']=round(temp.get('271 cm', 0) or 0,0)
-    response['med_risk_mitigated_population']=round(temp.get('121 cm', 0) or 0, 0)
-    response['low_risk_mitigated_population']=round(temp.get('029 cm', 0) or 0,0)
-    response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
+    if include_section('risk_mitigated_population', includes, excludes):
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop=0), filterLock, 'deeperthan', 'mitigated_pop', 'fldarea_sqm', 'area_buildings', flag, code, None)
+        temp = dict([(c['deeperthan'], c['count']) for c in counts])
+        response['high_risk_mitigated_population']=round(temp.get('271 cm', 0) or 0,0)
+        response['med_risk_mitigated_population']=round(temp.get('121 cm', 0) or 0, 0)
+        response['low_risk_mitigated_population']=round(temp.get('029 cm', 0) or 0,0)
+        response['total_risk_mitigated_population']=response['high_risk_mitigated_population']+response['med_risk_mitigated_population']+response['low_risk_mitigated_population']
 
     # River Flood Forecasted
-    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
-    temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
-    response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
-    response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0)
-    response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0)
-    response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0)
-    response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
-    response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
-    response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] + response['riverflood_forecast_low_pop'] + response['riverflood_forecast_med_pop'] + response['riverflood_forecast_high_pop'] + response['riverflood_forecast_veryhigh_pop'] + response['riverflood_forecast_extreme_pop']
+    if include_section('riverflood_forecast_pop', includes, excludes):
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
+        temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
+        response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
+        response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0)
+        response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0)
+        response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0)
+        response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
+        response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
+        response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] + response['riverflood_forecast_low_pop'] + response['riverflood_forecast_med_pop'] + response['riverflood_forecast_high_pop'] + response['riverflood_forecast_veryhigh_pop'] + response['riverflood_forecast_extreme_pop']
 
-    temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
-    response['riverflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0)
-    response['riverflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0)
-    response['riverflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0)
-    response['riverflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0)
-    response['riverflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0)
-    response['riverflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0)
-    response['total_riverflood_forecast_area']=response['riverflood_forecast_verylow_area'] + response['riverflood_forecast_low_area'] + response['riverflood_forecast_med_area'] + response['riverflood_forecast_high_area'] + response['riverflood_forecast_veryhigh_area'] + response['riverflood_forecast_extreme_area']
+    if include_section('riverflood_forecast_area', includes, excludes):
+        temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
+        response['riverflood_forecast_verylow_area']=round(temp.get(1, 0)/1000000,0)
+        response['riverflood_forecast_low_area']=round(temp.get(2, 0)/1000000,0)
+        response['riverflood_forecast_med_area']=round(temp.get(3, 0)/1000000,0)
+        response['riverflood_forecast_high_area']=round(temp.get(4, 0)/1000000,0)
+        response['riverflood_forecast_veryhigh_area']=round(temp.get(5, 0)/1000000,0)
+        response['riverflood_forecast_extreme_area']=round(temp.get(6, 0)/1000000,0)
+        response['total_riverflood_forecast_area']=response['riverflood_forecast_verylow_area'] + response['riverflood_forecast_low_area'] + response['riverflood_forecast_med_area'] + response['riverflood_forecast_high_area'] + response['riverflood_forecast_veryhigh_area'] + response['riverflood_forecast_extreme_area']
 
+        temp = dict([(c['basinmember__basins__riskstate'], c['houseatrisk']) for c in counts])
+        response['riverflood_forecast_verylow_buildings']=round(temp.get(1, 0),0)
+        response['riverflood_forecast_low_buildings']=round(temp.get(2, 0),0)
+        response['riverflood_forecast_med_buildings']=round(temp.get(3, 0),0)
+        response['riverflood_forecast_high_buildings']=round(temp.get(4, 0),0)
+        response['riverflood_forecast_veryhigh_buildings']=round(temp.get(5, 0),0)
+        response['riverflood_forecast_extreme_buildings']=round(temp.get(6, 0),0)
+        response['total_riverflood_forecast_buildings']=response['riverflood_forecast_verylow_buildings'] + response['riverflood_forecast_low_buildings'] + response['riverflood_forecast_med_buildings'] + response['riverflood_forecast_high_buildings'] + response['riverflood_forecast_veryhigh_buildings'] + response['riverflood_forecast_extreme_buildings']
 
     # flood risk and riverflood forecast matrix
-    px = targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
+    if include_section('riverflood_forecast_risk_pop', includes, excludes):
+        px = targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
 
-    if flag=='entireAfg':
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
-    elif flag=='currentProvince':
-        if len(str(code)) > 2:
-            ff0001 =  "dist_code  = '"+str(code)+"'"
-        else :
-            if len(str(code))==1:
-                ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
-            else:
-                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)'
-            },where={
-                ff0001
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
-    elif flag=='drawArea':
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(  \
-                        case \
-                            when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then fldarea_population \
-                            else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* fldarea_population end \
-                    )'
-            },
-            where = {
-                'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
-    else:
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)'
-            },
-            where = {
-                'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop')
-
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['riverflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['riverflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['riverflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['riverflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['riverflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['riverflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['riverflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['riverflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-
-    temp = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in temp])
-    response['riverflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['riverflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['riverflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-
-
-    # Flash Flood Forecasted
-    # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
-    counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
-    temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
-
-    response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0) or 0,0)
-    response['flashflood_forecast_low_pop']=round(temp.get(2, 0) or 0,0)
-    response['flashflood_forecast_med_pop']=round(temp.get(3, 0) or 0,0)
-    response['flashflood_forecast_high_pop']=round(temp.get(4, 0) or 0,0)
-    response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0) or 0,0)
-    response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0) or 0,0)
-    response['total_flashflood_forecast_pop']=response['flashflood_forecast_verylow_pop'] + response['flashflood_forecast_low_pop'] + response['flashflood_forecast_med_pop'] + response['flashflood_forecast_high_pop'] + response['flashflood_forecast_veryhigh_pop'] + response['flashflood_forecast_extreme_pop']
-
-    temp = dict([(c['basinmember__basins__riskstate'], c['houseatrisk']) for c in counts])
-    response['flashflood_forecast_verylow_buildings']=round(temp.get(1, 0) or 0,0)
-    response['flashflood_forecast_low_buildings']=round(temp.get(2, 0) or 0,0)
-    response['flashflood_forecast_med_buildings']=round(temp.get(3, 0) or 0,0)
-    response['flashflood_forecast_high_buildings']=round(temp.get(4, 0) or 0,0)
-    response['flashflood_forecast_veryhigh_buildings']=round(temp.get(5, 0) or 0,0)
-    response['flashflood_forecast_extreme_buildings']=round(temp.get(6, 0) or 0,0)
-    response['total_flashflood_forecast_buildings']=response['flashflood_forecast_verylow_buildings'] + response['flashflood_forecast_low_buildings'] + response['flashflood_forecast_med_buildings'] + response['flashflood_forecast_high_buildings'] + response['flashflood_forecast_veryhigh_buildings'] + response['flashflood_forecast_extreme_buildings']
-
-    temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
-    response['flashflood_forecast_verylow_area']=round(temp.get(1, 0) or 0/1000000,0)
-    response['flashflood_forecast_low_area']=round(temp.get(2, 0) or 0/1000000,0)
-    response['flashflood_forecast_med_area']=round(temp.get(3, 0) or 0/1000000,0)
-    response['flashflood_forecast_high_area']=round(temp.get(4, 0) or 0/1000000,0)
-    response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0) or 0/1000000,0)
-    response['flashflood_forecast_extreme_area']=round(temp.get(6, 0) or 0/1000000,0)
-    response['total_flashflood_forecast_area']=response['flashflood_forecast_verylow_area'] + response['flashflood_forecast_low_area'] + response['flashflood_forecast_med_area'] + response['flashflood_forecast_high_area'] + response['flashflood_forecast_veryhigh_area'] + response['flashflood_forecast_extreme_area']
-
-    response['total_flood_forecast_pop'] = response['total_riverflood_forecast_pop'] + response['total_flashflood_forecast_pop']
-    response['total_flood_forecast_area'] = response['total_riverflood_forecast_area'] + response['total_flashflood_forecast_area']
-
-    # flood risk and flashflood forecast matrix
-    px = targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
-    # px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-    #     select={
-    #         'pop' : 'SUM(fldarea_population)'
-    #     }).values('basinmember__basins__riskstate','deeperthan', 'pop')
-    if flag=='entireAfg':
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)',
-                'building' : 'SUM(area_buildings)'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
-    elif flag=='currentProvince':
-        if len(str(code)) > 2:
-            ff0001 =  "dist_code  = '"+str(code)+"'"
-        else :
-            if len(str(code))==1:
-                ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
-            else:
-                ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)',
-                    'building' : 'SUM(area_buildings)'
-            },where={
-                ff0001
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
-    elif flag=='drawArea':
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(  \
-                        case \
-                            when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then fldarea_population \
-                            else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* fldarea_population end \
+        if flag=='entireAfg':
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)',
+                	'building' : 'SUM(area_buildings)'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+        elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                if len(str(code))==1:
+                    ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
+                else:
+                    ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)',
+                	'building' : 'SUM(area_buildings)'
+                },where={
+                    ff0001
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+        elif flag=='drawArea':
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(  \
+                            case \
+                                when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then fldarea_population \
+                                else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* fldarea_population end \
                     )',
                 'building' : 'SUM(  \
                         case \
                             when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then area_buildings \
                             else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* area_buildings end \
-                    )'
-            },
-            where = {
-                'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
-    else:
-        px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
-            select={
-                'pop' : 'SUM(fldarea_population)',
-                'building' : 'SUM(area_buildings)'
-            },
-            where = {
-                'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
-            }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+                        )'
+                },
+                where = {
+                    'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+        else:
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)',
+                	'building' : 'SUM(area_buildings)'
+                },
+                where = {
+                    'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
 
-    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
-    response['flashflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
-    response['flashflood_forecast_verylow_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_verylow_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_verylow_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+        response['px'] = list(px)
+        response['px_sql'] = str(px.query)
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['riverflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['riverflood_forecast_verylow_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_verylow_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_verylow_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
-    response['flashflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
-    response['flashflood_forecast_low_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_low_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_low_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['riverflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['riverflood_forecast_low_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_low_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_low_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
-    response['flashflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
-    response['flashflood_forecast_med_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_med_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_med_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['riverflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['riverflood_forecast_med_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_med_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_med_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
-    response['flashflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
-    response['flashflood_forecast_high_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_high_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_high_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['riverflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['riverflood_forecast_high_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_high_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_high_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
-    response['flashflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
-    response['flashflood_forecast_veryhigh_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_veryhigh_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_veryhigh_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['riverflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['riverflood_forecast_veryhigh_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_veryhigh_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_veryhigh_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
-    tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
-    temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
-    response['flashflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
-    temp = dict([(c['deeperthan'], c['building']) for c in tempD])
-    response['flashflood_forecast_extreme_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
-    response['flashflood_forecast_extreme_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
-    response['flashflood_forecast_extreme_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['riverflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['riverflood_forecast_extreme_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['riverflood_forecast_extreme_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['riverflood_forecast_extreme_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+
+    # Flash Flood Forecasted
+    if include_section('flashflood_forecast_pop', includes, excludes):
+        # AfgFldzonea100KRiskLandcoverPop.objects.all().select_related("basinmembers").values_list("agg_simplified_description","basinmember__basins__riskstate")
+        counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
+        temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
+
+        response['flashflood_forecast_verylow_pop']=round(temp.get(1, 0) or 0,0)
+        response['flashflood_forecast_low_pop']=round(temp.get(2, 0) or 0,0)
+        response['flashflood_forecast_med_pop']=round(temp.get(3, 0) or 0,0)
+        response['flashflood_forecast_high_pop']=round(temp.get(4, 0) or 0,0)
+        response['flashflood_forecast_veryhigh_pop']=round(temp.get(5, 0) or 0,0)
+        response['flashflood_forecast_extreme_pop']=round(temp.get(6, 0) or 0,0)
+        response['total_flashflood_forecast_pop']=response['flashflood_forecast_verylow_pop'] + response['flashflood_forecast_low_pop'] + response['flashflood_forecast_med_pop'] + response['flashflood_forecast_high_pop'] + response['flashflood_forecast_veryhigh_pop'] + response['flashflood_forecast_extreme_pop']
+
+        temp = dict([(c['basinmember__basins__riskstate'], c['houseatrisk']) for c in counts])
+        response['flashflood_forecast_verylow_buildings']=round(temp.get(1, 0) or 0,0)
+        response['flashflood_forecast_low_buildings']=round(temp.get(2, 0) or 0,0)
+        response['flashflood_forecast_med_buildings']=round(temp.get(3, 0) or 0,0)
+        response['flashflood_forecast_high_buildings']=round(temp.get(4, 0) or 0,0)
+        response['flashflood_forecast_veryhigh_buildings']=round(temp.get(5, 0) or 0,0)
+        response['flashflood_forecast_extreme_buildings']=round(temp.get(6, 0) or 0,0)
+        response['total_flashflood_forecast_buildings']=response['flashflood_forecast_verylow_buildings'] + response['flashflood_forecast_low_buildings'] + response['flashflood_forecast_med_buildings'] + response['flashflood_forecast_high_buildings'] + response['flashflood_forecast_veryhigh_buildings'] + response['flashflood_forecast_extreme_buildings']
+
+        temp = dict([(c['basinmember__basins__riskstate'], c['areaatrisk']) for c in counts])
+        response['flashflood_forecast_verylow_area']=round(temp.get(1, 0) or 0/1000000,0)
+        response['flashflood_forecast_low_area']=round(temp.get(2, 0) or 0/1000000,0)
+        response['flashflood_forecast_med_area']=round(temp.get(3, 0) or 0/1000000,0)
+        response['flashflood_forecast_high_area']=round(temp.get(4, 0) or 0/1000000,0)
+        response['flashflood_forecast_veryhigh_area']=round(temp.get(5, 0) or 0/1000000,0)
+        response['flashflood_forecast_extreme_area']=round(temp.get(6, 0) or 0/1000000,0)
+        response['total_flashflood_forecast_area']=response['flashflood_forecast_verylow_area'] + response['flashflood_forecast_low_area'] + response['flashflood_forecast_med_area'] + response['flashflood_forecast_high_area'] + response['flashflood_forecast_veryhigh_area'] + response['flashflood_forecast_extreme_area']
+
+        response['total_flood_forecast_pop'] = response['total_riverflood_forecast_pop'] + response['total_flashflood_forecast_pop']
+        response['total_flood_forecast_area'] = response['total_riverflood_forecast_area'] + response['total_flashflood_forecast_area']
+
+    # flood risk and flashflood forecast matrix
+    if include_section('flashflood_forecast_risk_pop', includes, excludes):
+        px = targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='flashflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY))
+        # px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+        #     select={
+        #         'pop' : 'SUM(fldarea_population)'
+        #     }).values('basinmember__basins__riskstate','deeperthan', 'pop')
+        if flag=='entireAfg':
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)',
+                    'building' : 'SUM(area_buildings)'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+        elif flag=='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "dist_code  = '"+str(code)+"'"
+            else :
+                if len(str(code))==1:
+                    ff0001 =  "left(cast(dist_code as text),1)  = '"+str(code)+"'"
+                else:
+                    ff0001 =  "left(cast(dist_code as text),2)  = '"+str(code)+"'"
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)',
+                        'building' : 'SUM(area_buildings)'
+                },where={
+                    ff0001
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+        elif flag=='drawArea':
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(  \
+                            case \
+                                when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then fldarea_population \
+                                else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* fldarea_population end \
+                        )',
+                    'building' : 'SUM(  \
+                            case \
+                                when ST_CoveredBy(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry ,'+filterLock+') then area_buildings \
+                                else st_area(st_intersection(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry,'+filterLock+')) / st_area(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry)* area_buildings end \
+                        )'
+                },
+                where = {
+                    'ST_Intersects(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+        else:
+            px = px.values('basinmember__basins__riskstate','deeperthan').annotate(counter=Count('ogc_fid')).extra(
+                select={
+                    'pop' : 'SUM(fldarea_population)',
+                    'building' : 'SUM(area_buildings)'
+                },
+                where = {
+                    'ST_Within(afg_fldzonea_100k_risk_landcover_pop.wkb_geometry, '+filterLock+')'
+                }).values('basinmember__basins__riskstate','deeperthan', 'pop', 'building')
+
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 1 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['flashflood_forecast_verylow_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_verylow_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_verylow_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['flashflood_forecast_verylow_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_verylow_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_verylow_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 2 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['flashflood_forecast_low_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_low_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_low_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['flashflood_forecast_low_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_low_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_low_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 3 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['flashflood_forecast_med_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_med_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_med_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['flashflood_forecast_med_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_med_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_med_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 4 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['flashflood_forecast_high_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_high_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_high_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['flashflood_forecast_high_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_high_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_high_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 5 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['flashflood_forecast_veryhigh_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_veryhigh_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_veryhigh_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['flashflood_forecast_veryhigh_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_veryhigh_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_veryhigh_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
+
+        tempD = [ num for num in px if num['basinmember__basins__riskstate'] == 6 ]
+        temp = dict([(c['deeperthan'], c['pop']) for c in tempD])
+        response['flashflood_forecast_extreme_risk_low_pop']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_extreme_risk_med_pop']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_extreme_risk_high_pop']=round(temp.get('271 cm', 0) or 0,0)
+        temp = dict([(c['deeperthan'], c['building']) for c in tempD])
+        response['flashflood_forecast_extreme_risk_low_buildings']=round(temp.get('029 cm', 0) or 0,0)
+        response['flashflood_forecast_extreme_risk_med_buildings']=round(temp.get('121 cm', 0) or 0, 0)
+        response['flashflood_forecast_extreme_risk_high_buildings']=round(temp.get('271 cm', 0) or 0,0)
 
     return response
 
@@ -3026,457 +3153,463 @@ def getLandslideRiskChild(filterLock, flag, code):
     return response
 
 
-def getLandslideRisk(request, filterLock, flag, code):
-    targetBase = AfgLndcrva.objects.all()
-    response = getCommonUse(request, flag, code)
-    response['Population']=getTotalPop(filterLock, flag, code, targetBase)
-    response['Area']=getTotalArea(filterLock, flag, code, targetBase)
-    response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+def getLandslideRisk(request, filterLock, flag, code, includes=[], excludes=[]):
+    response = {}
+    if include_section('getCommonUse', includes, excludes):
+        response = getCommonUse(request, flag, code)
+    if include_section('totals', includes, excludes):
+        targetBase = AfgLndcrva.objects.all()
+        response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+        response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+        response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
 
-    response['lc_child'] = getLandslideRiskChild(filterLock, flag, code)
+    if include_section('lc_child', includes, excludes):
+        response['lc_child'] = getLandslideRiskChild(filterLock, flag, code)
 
-    if flag=='entireAfg':
-        sql = "select \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_low    \
-                from afg_lsp_affpplp \
-                inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid"
+    if include_section('lsi_immap', includes, excludes):
+        if flag=='entireAfg':
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid"
 
-    elif flag =='currentProvince':
-        if len(str(code)) > 2:
-            ff0001 =  "afg_pplp.dist_code  = '"+str(code)+"'"
-        else :
-            ff0001 =  "afg_pplp.prov_code_1  = '"+str(code)+"'"
+        elif flag =='currentProvince':
+            if len(str(code)) > 2:
+                ff0001 =  "afg_pplp.dist_code  = '"+str(code)+"'"
+            else :
+                ff0001 =  "afg_pplp.prov_code_1  = '"+str(code)+"'"
 
-        sql = "select \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_low    \
-                from afg_lsp_affpplp \
-                inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
-                where " +  ff0001
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
+                    where " +  ff0001
 
-    elif flag =='drawArea':
-        sql = "select \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_low    \
-                from afg_lsp_affpplp \
-                inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
-                where ST_Intersects(afg_pplp.wkb_geometry,"+filterLock+")"
-    else:
-        sql = "select \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_immap_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
-                end)),0) as lsi_ku_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s1_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_moderate, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s2_wb_very_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_high, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_moderate, \
-                coalesce(round(sum(case  \
-                 when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_low, \
-                coalesce(round(sum(case \
-                 when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
-                end)),0) as ls_s3_wb_very_low    \
-                from afg_lsp_affpplp \
-                inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
-                where ST_Intersects(afg_pplp.wkb_geometry,"+filterLock+")"
+        elif flag =='drawArea':
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
+                    where ST_Intersects(afg_pplp.wkb_geometry,"+filterLock+")"
+        else:
+            sql = "select \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 5 and afg_lsp_affpplp.lsi_immap < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 4 and afg_lsp_affpplp.lsi_immap < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 2 and afg_lsp_affpplp.lsi_immap < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_immap >= 1 and afg_lsp_affpplp.lsi_immap < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_immap_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 5 and afg_lsp_affpplp.lsi_ku < 7 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 4 and afg_lsp_affpplp.lsi_ku < 5 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 2 and afg_lsp_affpplp.lsi_ku < 4 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.lsi_ku >= 1 and afg_lsp_affpplp.lsi_ku < 2 then afg_pplp.vuid_population \
+                    end)),0) as lsi_ku_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 5 and afg_lsp_affpplp.ls_s1_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 4 and afg_lsp_affpplp.ls_s1_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s1_wb >= 2 and afg_lsp_affpplp.ls_s1_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s1_wb >= 1 and afg_lsp_affpplp.ls_s1_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s1_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 5 and afg_lsp_affpplp.ls_s2_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 4 and afg_lsp_affpplp.ls_s2_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_moderate, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 2 and afg_lsp_affpplp.ls_s2_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s2_wb >= 1 and afg_lsp_affpplp.ls_s2_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s2_wb_very_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 5 and afg_lsp_affpplp.ls_s3_wb < 7 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_high, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 4 and afg_lsp_affpplp.ls_s3_wb < 5 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_moderate, \
+                    coalesce(round(sum(case  \
+                     when afg_lsp_affpplp.ls_s3_wb >= 2 and afg_lsp_affpplp.ls_s3_wb < 4 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_low, \
+                    coalesce(round(sum(case \
+                     when afg_lsp_affpplp.ls_s3_wb >= 1 and afg_lsp_affpplp.ls_s3_wb < 2 then afg_pplp.vuid_population \
+                    end)),0) as ls_s3_wb_very_low    \
+                    from afg_lsp_affpplp \
+                    inner join afg_pplp on afg_lsp_affpplp.vuid=afg_pplp.vuid \
+                    where ST_Intersects(afg_pplp.wkb_geometry,"+filterLock+")"
 
-    cursor = connections['geodb'].cursor()
-    row = query_to_dicts(cursor, sql)
+        cursor = connections['geodb'].cursor()
+        row = query_to_dicts(cursor, sql)
 
-    for i in row:
-        for x in i:
-            response[x] = i[x]
-    cursor.close()
+        for i in row:
+            for x in i:
+                response[x] = i[x]
+        cursor.close()
 
-    dataLC1 = []
-    dataLC1.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
-    dataLC1.append(['',  round(response['lsi_immap_very_high']), round(response['lsi_immap_very_high']), '#e31a1c', round(response['lsi_immap_high']), round(response['lsi_immap_high']), '#ff7f00', round(response['lsi_immap_moderate']), round(response['lsi_immap_moderate']), '#fff231', round(response['lsi_immap_low']), round(response['lsi_immap_low']), '#1eb263' ])
-    # dataLC.append([_('Multi-criteria Landslide Susceptibility Index'),  round(response['lsi_ku_very_high']), round(response['lsi_ku_very_high']), round(response['lsi_ku_high']), round(response['lsi_ku_high']), round(response['lsi_ku_moderate']), round(response['lsi_ku_moderate']), round(response['lsi_ku_low']), round(response['lsi_ku_low']) ])
-    # dataLC.append([_('Landslide susceptibility - bedrock landslides in slow evolution (S1)'),  round(response['ls_s1_wb_very_high']), round(response['ls_s1_wb_very_high']), round(response['ls_s1_wb_high']), round(response['ls_s1_wb_high']), round(response['ls_s1_wb_moderate']), round(response['ls_s1_wb_moderate']), round(response['ls_s1_wb_low']), round(response['ls_s1_wb_low']) ])
-    # dataLC.append([_('Landslide susceptibility - bedrock landslides in rapid evolution (S2)'),  round(response['ls_s2_wb_very_high']), round(response['ls_s2_wb_very_high']), round(response['ls_s2_wb_high']), round(response['ls_s2_wb_high']), round(response['ls_s2_wb_moderate']), round(response['ls_s2_wb_moderate']), round(response['ls_s2_wb_low']), round(response['ls_s2_wb_low']) ])
-    # dataLC.append([_('Landslide susceptibility - cover material in rapid evolution (S3)'),  round(response['ls_s3_wb_very_high']), round(response['ls_s3_wb_very_high']), round(response['ls_s3_wb_high']), round(response['ls_s3_wb_high']), round(response['ls_s3_wb_moderate']), round(response['ls_s3_wb_moderate']), round(response['ls_s3_wb_low']), round(response['ls_s3_wb_low']) ])
-    response['landslide_chart1'] = gchart.BarChart(
-        SimpleDataSource(data=dataLC1),
-        html_id="pie_chart1",
-        options={
-            'title': _('# Population by Landslide Indexes (iMMAP 2017)'),
-            'width': 300,
-            'height': 300,
-            'bars': 'horizontal',
-            # 'axes': {
-            #     'x': {
-            #       '0': { 'side': 'top', 'label': _('Percentage')}
-            #     },
+    if include_section('charts', includes, excludes):
+        dataLC1 = []
+        dataLC1.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
+        dataLC1.append(['',  round(response['lsi_immap_very_high']), round(response['lsi_immap_very_high']), '#e31a1c', round(response['lsi_immap_high']), round(response['lsi_immap_high']), '#ff7f00', round(response['lsi_immap_moderate']), round(response['lsi_immap_moderate']), '#fff231', round(response['lsi_immap_low']), round(response['lsi_immap_low']), '#1eb263' ])
+        # dataLC.append([_('Multi-criteria Landslide Susceptibility Index'),  round(response['lsi_ku_very_high']), round(response['lsi_ku_very_high']), round(response['lsi_ku_high']), round(response['lsi_ku_high']), round(response['lsi_ku_moderate']), round(response['lsi_ku_moderate']), round(response['lsi_ku_low']), round(response['lsi_ku_low']) ])
+        # dataLC.append([_('Landslide susceptibility - bedrock landslides in slow evolution (S1)'),  round(response['ls_s1_wb_very_high']), round(response['ls_s1_wb_very_high']), round(response['ls_s1_wb_high']), round(response['ls_s1_wb_high']), round(response['ls_s1_wb_moderate']), round(response['ls_s1_wb_moderate']), round(response['ls_s1_wb_low']), round(response['ls_s1_wb_low']) ])
+        # dataLC.append([_('Landslide susceptibility - bedrock landslides in rapid evolution (S2)'),  round(response['ls_s2_wb_very_high']), round(response['ls_s2_wb_very_high']), round(response['ls_s2_wb_high']), round(response['ls_s2_wb_high']), round(response['ls_s2_wb_moderate']), round(response['ls_s2_wb_moderate']), round(response['ls_s2_wb_low']), round(response['ls_s2_wb_low']) ])
+        # dataLC.append([_('Landslide susceptibility - cover material in rapid evolution (S3)'),  round(response['ls_s3_wb_very_high']), round(response['ls_s3_wb_very_high']), round(response['ls_s3_wb_high']), round(response['ls_s3_wb_high']), round(response['ls_s3_wb_moderate']), round(response['ls_s3_wb_moderate']), round(response['ls_s3_wb_low']), round(response['ls_s3_wb_low']) ])
+        response['landslide_chart1'] = gchart.BarChart(
+            SimpleDataSource(data=dataLC1),
+            html_id="pie_chart1",
+            options={
+                'title': _('# Population by Landslide Indexes (iMMAP 2017)'),
+                'width': 300,
+                'height': 300,
+                'bars': 'horizontal',
+                # 'axes': {
+                #     'x': {
+                #       '0': { 'side': 'top', 'label': _('Percentage')}
+                #     },
 
-            # },
-            'bar': { 'groupWidth': '90%' },
-            'chartArea': {'width': '100%'},
-    })
+                # },
+                'bar': { 'groupWidth': '90%' },
+                'chartArea': {'width': '100%'},
+        })
 
-    dataLC2 = []
-    dataLC2.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
-    dataLC2.append(['',  round(response['lsi_ku_very_high']), round(response['lsi_ku_very_high']), '#e31a1c', round(response['lsi_ku_high']), round(response['lsi_ku_high']), '#ff7f00', round(response['lsi_ku_moderate']), round(response['lsi_ku_moderate']), '#fff231', round(response['lsi_ku_low']), round(response['lsi_ku_low']), '#1eb263' ])
-    response['landslide_chart2'] = gchart.BarChart(
-        SimpleDataSource(data=dataLC2),
-        html_id="pie_chart2",
-        options={
-            'title': _('# Population by Multi-criteria Landslide Susceptibility Index'),
-            'width': 300,
-            'height': 300,
-            'bars': 'horizontal',
-            # 'axes': {
-            #     'x': {
-            #       '0': { 'side': 'top', 'label': _('Percentage')}
-            #     },
+        dataLC2 = []
+        dataLC2.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
+        dataLC2.append(['',  round(response['lsi_ku_very_high']), round(response['lsi_ku_very_high']), '#e31a1c', round(response['lsi_ku_high']), round(response['lsi_ku_high']), '#ff7f00', round(response['lsi_ku_moderate']), round(response['lsi_ku_moderate']), '#fff231', round(response['lsi_ku_low']), round(response['lsi_ku_low']), '#1eb263' ])
+        response['landslide_chart2'] = gchart.BarChart(
+            SimpleDataSource(data=dataLC2),
+            html_id="pie_chart2",
+            options={
+                'title': _('# Population by Multi-criteria Landslide Susceptibility Index'),
+                'width': 300,
+                'height': 300,
+                'bars': 'horizontal',
+                # 'axes': {
+                #     'x': {
+                #       '0': { 'side': 'top', 'label': _('Percentage')}
+                #     },
 
-            # },
-            'bar': { 'groupWidth': '90%' },
-            'chartArea': {'width': '100%'},
-    })
+                # },
+                'bar': { 'groupWidth': '90%' },
+                'chartArea': {'width': '100%'},
+        })
 
-    dataLC3 = []
-    dataLC3.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
-    dataLC3.append(['',  round(response['ls_s1_wb_very_high']), round(response['ls_s1_wb_very_high']), '#e31a1c', round(response['ls_s1_wb_high']), round(response['ls_s1_wb_high']), '#ff7f00', round(response['ls_s1_wb_moderate']), round(response['ls_s1_wb_moderate']), '#fff231', round(response['ls_s1_wb_low']), round(response['ls_s1_wb_low']), '#1eb263' ])
-    response['landslide_chart3'] = gchart.BarChart(
-        SimpleDataSource(data=dataLC3),
-        html_id="pie_chart3",
-        options={
-            'title': _('# Population by Landslide susceptibility - bedrock landslides in slow evolution (S1)'),
-            'width': 300,
-            'height': 300,
-            'bars': 'horizontal',
-            # 'axes': {
-            #     'x': {
-            #       '0': { 'side': 'top', 'label': _('Percentage')}
-            #     },
+        dataLC3 = []
+        dataLC3.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
+        dataLC3.append(['',  round(response['ls_s1_wb_very_high']), round(response['ls_s1_wb_very_high']), '#e31a1c', round(response['ls_s1_wb_high']), round(response['ls_s1_wb_high']), '#ff7f00', round(response['ls_s1_wb_moderate']), round(response['ls_s1_wb_moderate']), '#fff231', round(response['ls_s1_wb_low']), round(response['ls_s1_wb_low']), '#1eb263' ])
+        response['landslide_chart3'] = gchart.BarChart(
+            SimpleDataSource(data=dataLC3),
+            html_id="pie_chart3",
+            options={
+                'title': _('# Population by Landslide susceptibility - bedrock landslides in slow evolution (S1)'),
+                'width': 300,
+                'height': 300,
+                'bars': 'horizontal',
+                # 'axes': {
+                #     'x': {
+                #       '0': { 'side': 'top', 'label': _('Percentage')}
+                #     },
 
-            # },
-            'bar': { 'groupWidth': '90%' },
-            'chartArea': {'width': '100%'},
-    })
+                # },
+                'bar': { 'groupWidth': '90%' },
+                'chartArea': {'width': '100%'},
+        })
 
-    dataLC4 = []
-    dataLC4.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
-    dataLC4.append(['',  round(response['ls_s2_wb_very_high']), round(response['ls_s2_wb_very_high']), '#e31a1c', round(response['ls_s2_wb_high']), round(response['ls_s2_wb_high']), '#ff7f00', round(response['ls_s2_wb_moderate']), round(response['ls_s2_wb_moderate']), '#fff231', round(response['ls_s2_wb_low']), round(response['ls_s2_wb_low']), '#1eb263' ])
-    response['landslide_chart4'] = gchart.BarChart(
-        SimpleDataSource(data=dataLC4),
-        html_id="pie_chart4",
-        options={
-            'title': _('# Population by Landslide susceptibility - bedrock landslides in rapid evolution (S2)'),
-            'width': 300,
-            'height': 300,
-            'bars': 'horizontal',
-            # 'axes': {
-            #     'x': {
-            #       '0': { 'side': 'top', 'label': _('Percentage')}
-            #     },
+        dataLC4 = []
+        dataLC4.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
+        dataLC4.append(['',  round(response['ls_s2_wb_very_high']), round(response['ls_s2_wb_very_high']), '#e31a1c', round(response['ls_s2_wb_high']), round(response['ls_s2_wb_high']), '#ff7f00', round(response['ls_s2_wb_moderate']), round(response['ls_s2_wb_moderate']), '#fff231', round(response['ls_s2_wb_low']), round(response['ls_s2_wb_low']), '#1eb263' ])
+        response['landslide_chart4'] = gchart.BarChart(
+            SimpleDataSource(data=dataLC4),
+            html_id="pie_chart4",
+            options={
+                'title': _('# Population by Landslide susceptibility - bedrock landslides in rapid evolution (S2)'),
+                'width': 300,
+                'height': 300,
+                'bars': 'horizontal',
+                # 'axes': {
+                #     'x': {
+                #       '0': { 'side': 'top', 'label': _('Percentage')}
+                #     },
 
-            # },
-            'bar': { 'groupWidth': '90%' },
-            'chartArea': {'width': '100%'},
-    })
+                # },
+                'bar': { 'groupWidth': '90%' },
+                'chartArea': {'width': '100%'},
+        })
 
-    dataLC5 = []
-    dataLC5.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
-    dataLC5.append(['',  round(response['ls_s3_wb_very_high']), round(response['ls_s3_wb_very_high']), '#e31a1c', round(response['ls_s3_wb_high']), round(response['ls_s3_wb_high']), '#ff7f00', round(response['ls_s3_wb_moderate']), round(response['ls_s3_wb_moderate']), '#fff231', round(response['ls_s3_wb_low']), round(response['ls_s3_wb_low']), '#1eb263' ])
-    response['landslide_chart5'] = gchart.BarChart(
-        SimpleDataSource(data=dataLC5),
-        html_id="pie_chart5",
-        options={
-            'title': _('# Population by Landslide susceptibility - bedrock landslides in rapid evolution (S2)'),
-            'width': 300,
-            'height': 300,
-            'bars': 'horizontal',
-            # 'axes': {
-            #     'x': {
-            #       '0': { 'side': 'top', 'label': _('Percentage')}
-            #     },
+        dataLC5 = []
+        dataLC5.append(['',_('very high'), { 'role': 'annotation' }, { 'role': 'style' }, _('high'), { 'role': 'annotation' } , { 'role': 'style' }, _('moderate'), { 'role': 'annotation' }, { 'role': 'style' }, _('low'), { 'role': 'annotation' }, { 'role': 'style' }])
+        dataLC5.append(['',  round(response['ls_s3_wb_very_high']), round(response['ls_s3_wb_very_high']), '#e31a1c', round(response['ls_s3_wb_high']), round(response['ls_s3_wb_high']), '#ff7f00', round(response['ls_s3_wb_moderate']), round(response['ls_s3_wb_moderate']), '#fff231', round(response['ls_s3_wb_low']), round(response['ls_s3_wb_low']), '#1eb263' ])
+        response['landslide_chart5'] = gchart.BarChart(
+            SimpleDataSource(data=dataLC5),
+            html_id="pie_chart5",
+            options={
+                'title': _('# Population by Landslide susceptibility - bedrock landslides in rapid evolution (S2)'),
+                'width': 300,
+                'height': 300,
+                'bars': 'horizontal',
+                # 'axes': {
+                #     'x': {
+                #       '0': { 'side': 'top', 'label': _('Percentage')}
+                #     },
 
-            # },
-            'bar': { 'groupWidth': '90%' },
-            'chartArea': {'width': '100%'},
-    })
+                # },
+                'bar': { 'groupWidth': '90%' },
+                'chartArea': {'width': '100%'},
+        })
 
     return response

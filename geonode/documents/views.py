@@ -115,7 +115,6 @@ def document_detail(request, docid):
         # /ubah
 
 
-
 def document_download(request, docid):
     document = get_object_or_404(Document, pk=docid)
     if request.user != document.owner and not request.user.is_superuser:

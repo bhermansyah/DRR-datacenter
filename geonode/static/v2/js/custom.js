@@ -5,6 +5,27 @@ jQuery(function($){
 	//         // $('h1').css('color','#222222');
 	//     }, 3000);
 
+	$(document).ready(function(){
+	    $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+	    });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+        
+        $('#back-to-top').tooltip('show');
+
+	});
+
 	// Go to Top
 	$('.gototop').click(function(event) {
 		 event.preventDefault();
@@ -66,6 +87,23 @@ jQuery(function($){
 
 	});
 
+	// Sync control multi tab (view as)
+	$('.controls-product-item .nav-tabs li a').click(function (e) {     
+	    //get selected href
+	    var href = $(this).attr('href');    
+	    
+	    //set all nav tabs to inactive
+	    $('.controls-product-item .nav-tabs li').removeClass('active');
+	    
+	    //get all nav tabs matching the href and set to active
+	    $('.controls-product-item .nav-tabs li a[href="'+href+'"]').closest('li').addClass('active');
+
+	    //active tab
+	    $('.search-result-container .tab-pane').removeClass('active');
+	    $('.search-result-container .tab-pane'+href).addClass('active');
+	})
+	// /Sync control multi tab (view as)
+
 	// Search animation
 	$("body")
 	.on("click", "div.thirteen button.btn-search", function(event) {
@@ -119,6 +157,16 @@ jQuery(function($){
 	});
 	// /Popover
 
+	// Popover Mercalli
+	$(document).ready(function(){
+	    $('[data-toggle="popover_mercalli"]').popover({
+	          html: true,
+	          content: function() {
+	          return $("#popover_mercalli_desc").html();
+	    }});
+	});
+	// /Popover
+
 	// Accordion plus-minus
 	function toggleIcon(e) {
 	    $(e.target)
@@ -167,9 +215,39 @@ jQuery(function($){
 
 	// Dropdown like Select
 	$('.sorting-menu a').on('click', function(){
-	    $(this).parent().parent().prev().html($(this).html() + ' <i class="fa fa-angle-down"></i>');
+	    // $(this).parent().parent().prev().html($(this).html() + ' <i class="fa fa-angle-down"></i>');
+	    $('.sorting-menu a').parent().parent().prev().html($(this).html() + ' <i class="fa fa-angle-down"></i>');
 	})
 	// /Dropdown like Select
+
+	// Carousel Partner
+	// function(){
+	  // setup your carousels as you normally would using JS
+	  // or via data attributes according to the documentation
+	  // https://getbootstrap.com/javascript/#carousel
+	  $('#carousel123').carousel({ interval: 2000 });
+	  // $('#carouselABC').carousel({ interval: 3600 });
+	// };
+
+	// function(){
+	  $('.carousel-showmanymoveone .item').each(function(){
+	    var itemToClone = $(this);
+
+	    for (var i=1;i<3;i++) {
+	    	itemToClone = itemToClone.next();
+
+	    	// wrap around if at end of item collection
+	    	if (!itemToClone.length) {
+	    	  itemToClone = $(this).siblings(':first');
+	    	}
+	    	// grab item, clone, add marker class, add to collection
+	    	itemToClone.children(':first-child').clone()
+	    	  .addClass("cloneditem-"+(i))
+	    	  .appendTo($(this));
+	    }
+	});
+	// };
+	// /Carousel Partner
 
 	// // DateRangePicker
 	// var start = moment().subtract(29, 'days');
@@ -8415,591 +8493,591 @@ jQuery(function($){
 	// };
 
 	if (window.location.href.match(/\/dashboard\/*/)) {
-		if (Object.keys(jsondata).length > 0) {
-			if (window.location.href.match(/\?page=baseline&*/)) {
-				var base_lcAll=[];
-				var base_lcChild =[];
-				var base_lcParent =[];
+		// if (Object.keys(jsondata).length > 0) {
+		// 	if (window.location.href.match(/\?page=baseline&*/)) {
+		// 		var base_lcAll=[];
+		// 		var base_lcChild =[];
+		// 		var base_lcParent =[];
 
-				base_lcParent =
-					[[jsondata['parent_label'],
-					jsondata['Buildings'],
-					jsondata['settlement'],
-					jsondata['built_up_pop'],
-					jsondata['built_up_area'],
-					jsondata['cultivated_pop'],
-					jsondata['cultivated_area'],
-					jsondata['barren_pop'],
-					jsondata['barren_area'],
-					jsondata['Population'],
-					jsondata['Area']]];
+		// 		base_lcParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['Buildings'],
+		// 			jsondata['settlement'],
+		// 			jsondata['built_up_pop'],
+		// 			jsondata['built_up_area'],
+		// 			jsondata['cultivated_pop'],
+		// 			jsondata['cultivated_area'],
+		// 			jsondata['barren_pop'],
+		// 			jsondata['barren_area'],
+		// 			jsondata['Population'],
+		// 			jsondata['Area']]];
 
-				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					base_lcChild[i] =
-						[jsondata['lc_child'][i]['na_en'],
-						jsondata['lc_child'][i]['total_buildings'],
-						jsondata['lc_child'][i]['settlements'],
-						jsondata['lc_child'][i]['built_up_pop'],
-						jsondata['lc_child'][i]['built_up_area'],
-						jsondata['lc_child'][i]['cultivated_pop'],
-						jsondata['lc_child'][i]['cultivated_area'],
-						jsondata['lc_child'][i]['barren_land_pop'],
-						jsondata['lc_child'][i]['barren_land_area'],
-						jsondata['lc_child'][i]['Population'],
-						jsondata['lc_child'][i]['Area']];
-				}
-				base_lcAll = (base_lcParent).concat(base_lcChild);
+		// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 			base_lcChild[i] =
+		// 				[jsondata['lc_child'][i]['na_en'],
+		// 				jsondata['lc_child'][i]['total_buildings'],
+		// 				jsondata['lc_child'][i]['settlements'],
+		// 				jsondata['lc_child'][i]['built_up_pop'],
+		// 				jsondata['lc_child'][i]['built_up_area'],
+		// 				jsondata['lc_child'][i]['cultivated_pop'],
+		// 				jsondata['lc_child'][i]['cultivated_area'],
+		// 				jsondata['lc_child'][i]['barren_land_pop'],
+		// 				jsondata['lc_child'][i]['barren_land_area'],
+		// 				jsondata['lc_child'][i]['Population'],
+		// 				jsondata['lc_child'][i]['Area']];
+		// 		}
+		// 		base_lcAll = (base_lcParent).concat(base_lcChild);
 
-				var hfAll = [];
-				var hfParent =[];
-				var hfChild =[];
+		// 		var hfAll = [];
+		// 		var hfParent =[];
+		// 		var hfChild =[];
 
-				hfParent =
-					[[jsondata['parent_label'],
-					jsondata['hlt_h1'],
-					jsondata['hlt_h2'],
-					jsondata['hlt_h3'],
-					jsondata['hlt_chc'],
-					jsondata['hlt_bhc'],
-					jsondata['hlt_shc'],
-					jsondata['hlt_others'],
-					jsondata['hltfac']]];
+		// 		hfParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['hlt_h1'],
+		// 			jsondata['hlt_h2'],
+		// 			jsondata['hlt_h3'],
+		// 			jsondata['hlt_chc'],
+		// 			jsondata['hlt_bhc'],
+		// 			jsondata['hlt_shc'],
+		// 			jsondata['hlt_others'],
+		// 			jsondata['hltfac']]];
 
-				for (var i = 0; i < jsondata['additional_child'].length; i++) {
-					hfChild[i] =
-						[jsondata['additional_child'][i]['na_en'],
-						jsondata['additional_child'][i]['hlt_h1'],
-						jsondata['additional_child'][i]['hlt_h2'],
-						jsondata['additional_child'][i]['hlt_h3'],
-						jsondata['additional_child'][i]['hlt_chc'],
-						jsondata['additional_child'][i]['hlt_bhc'],
-						jsondata['additional_child'][i]['hlt_shc'],
-						jsondata['additional_child'][i]['hlt_others'],
-						jsondata['additional_child'][i]['hlt_total']];
-				}
-				hfAll = (hfParent).concat(hfChild);
+		// 		for (var i = 0; i < jsondata['additional_child'].length; i++) {
+		// 			hfChild[i] =
+		// 				[jsondata['additional_child'][i]['na_en'],
+		// 				jsondata['additional_child'][i]['hlt_h1'],
+		// 				jsondata['additional_child'][i]['hlt_h2'],
+		// 				jsondata['additional_child'][i]['hlt_h3'],
+		// 				jsondata['additional_child'][i]['hlt_chc'],
+		// 				jsondata['additional_child'][i]['hlt_bhc'],
+		// 				jsondata['additional_child'][i]['hlt_shc'],
+		// 				jsondata['additional_child'][i]['hlt_others'],
+		// 				jsondata['additional_child'][i]['hlt_total']];
+		// 		}
+		// 		hfAll = (hfParent).concat(hfChild);
 
-				var rnAll = [];
-				var rnParent =[];
-				var rnChild =[];
+		// 		var rnAll = [];
+		// 		var rnParent =[];
+		// 		var rnChild =[];
 
-				rnParent =
-					[[jsondata['parent_label'],
-					jsondata['road_highway'],
-					jsondata['road_primary'],
-					jsondata['road_secondary'],
-					jsondata['road_tertiary'],
-					jsondata['road_residential'],
-					jsondata['road_track'],
-					jsondata['road_path'],
-					jsondata['road_river_crossing'],
-					jsondata['road_bridge'],
-					jsondata['roadnetwork']]];
+		// 		rnParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['road_highway'],
+		// 			jsondata['road_primary'],
+		// 			jsondata['road_secondary'],
+		// 			jsondata['road_tertiary'],
+		// 			jsondata['road_residential'],
+		// 			jsondata['road_track'],
+		// 			jsondata['road_path'],
+		// 			jsondata['road_river_crossing'],
+		// 			jsondata['road_bridge'],
+		// 			jsondata['roadnetwork']]];
 
-				for (var i = 0; i < jsondata['additional_child'].length; i++) {
-					rnChild[i] =
-						[jsondata['additional_child'][i]['na_en'],
-						jsondata['additional_child'][i]['road_highway'],
-						jsondata['additional_child'][i]['road_primary'],
-						jsondata['additional_child'][i]['road_secondary'],
-						jsondata['additional_child'][i]['road_tertiary'],
-						jsondata['additional_child'][i]['road_residential'],
-						jsondata['additional_child'][i]['road_track'],
-						jsondata['additional_child'][i]['road_path'],
-						jsondata['additional_child'][i]['road_river_crossing'],
-						jsondata['additional_child'][i]['road_bridge'],
-						jsondata['additional_child'][i]['road_total']];
-				}
-				rnAll = (rnParent).concat(rnChild);
-			}
-			else if (window.location.href.match(/\?page=accessibility&*/)) {
+		// 		for (var i = 0; i < jsondata['additional_child'].length; i++) {
+		// 			rnChild[i] =
+		// 				[jsondata['additional_child'][i]['na_en'],
+		// 				jsondata['additional_child'][i]['road_highway'],
+		// 				jsondata['additional_child'][i]['road_primary'],
+		// 				jsondata['additional_child'][i]['road_secondary'],
+		// 				jsondata['additional_child'][i]['road_tertiary'],
+		// 				jsondata['additional_child'][i]['road_residential'],
+		// 				jsondata['additional_child'][i]['road_track'],
+		// 				jsondata['additional_child'][i]['road_path'],
+		// 				jsondata['additional_child'][i]['road_river_crossing'],
+		// 				jsondata['additional_child'][i]['road_bridge'],
+		// 				jsondata['additional_child'][i]['road_total']];
+		// 		}
+		// 		rnAll = (rnParent).concat(rnChild);
+		// 	}
+		// 	else if (window.location.href.match(/\?page=accessibility&*/)) {
 
-			}
-			else if (window.location.href.match(/\?page=floodforecast&*/)) {
-				var rgffoverviewParent = [];
-				var rgffoverviewChild = [];
-				var rgffoverviewAll=[];
+		// 	}
+		// 	else if (window.location.href.match(/\?page=floodforecast&*/)) {
+		// 		var rgffoverviewParent = [];
+		// 		var rgffoverviewChild = [];
+		// 		var rgffoverviewAll=[];
 
-				rgffoverviewParent =
-					[[jsondata['parent_label'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_veryhigh_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_high_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_med_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_low_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['riverflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['riverflood_forecast_veryhigh_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['riverflood_forecast_high_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['riverflood_forecast_med_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['riverflood_forecast_low_pop'],
-					jsondata['flashflood_forecast_extreme_pop']]];
+		// 		rgffoverviewParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_veryhigh_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_high_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_med_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_low_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['riverflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['riverflood_forecast_veryhigh_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['riverflood_forecast_high_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['riverflood_forecast_med_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['riverflood_forecast_low_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop']]];
 
-				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					rgffoverviewChild[i] =
-						[jsondata['lc_child'][i]['na_en'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_veryhigh_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_high_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_med_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_low_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['riverflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['riverflood_forecast_veryhigh_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['riverflood_forecast_high_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['riverflood_forecast_med_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['lc_child'][i]['riverflood_forecast_low_pop'],
-						jsondata['lc_child'][i]['flashflood_forecast_extreme_pop']];
-				}
-				rgffoverviewAll = (rgffoverviewParent).concat(rgffoverviewChild);
+		// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 			rgffoverviewChild[i] =
+		// 				[jsondata['lc_child'][i]['na_en'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_veryhigh_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_high_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_med_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_low_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['riverflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['riverflood_forecast_veryhigh_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['riverflood_forecast_high_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['riverflood_forecast_med_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['lc_child'][i]['riverflood_forecast_low_pop'],
+		// 				jsondata['lc_child'][i]['flashflood_forecast_extreme_pop']];
+		// 		}
+		// 		rgffoverviewAll = (rgffoverviewParent).concat(rgffoverviewChild);
 
-				var rggfoverviewParent = [];
-				var rggfoverviewChild = [];
-				var rggfoverviewAll=[];
-				rggfoverviewParent =
-					[[jsondata['parent_label'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_veryhigh_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_high_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_med_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_low_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['gfms_glofas_riverflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['gfms_glofas_riverflood_forecast_veryhigh_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['gfms_glofas_riverflood_forecast_high_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['gfms_glofas_riverflood_forecast_med_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['gfms_glofas_riverflood_forecast_low_pop'],
-					jsondata['flashflood_forecast_extreme_pop']]];
-				for (var i = 0; i < jsondata['glofas_gfms_child'].length; i++) {
-					rggfoverviewChild[i] =
-						[jsondata['glofas_gfms_child'][i]['na_en'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_veryhigh_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_high_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_med_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_low_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_veryhigh_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_high_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_med_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
-						jsondata['glofas_gfms_child'][i]['riverflood_forecast_low_pop'],
-						jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop']];
-				}
-				rggfoverviewAll = (rggfoverviewParent).concat(rggfoverviewChild);
+		// 		var rggfoverviewParent = [];
+		// 		var rggfoverviewChild = [];
+		// 		var rggfoverviewAll=[];
+		// 		rggfoverviewParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_veryhigh_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_high_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_med_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_low_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['gfms_glofas_riverflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['gfms_glofas_riverflood_forecast_veryhigh_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['gfms_glofas_riverflood_forecast_high_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['gfms_glofas_riverflood_forecast_med_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['gfms_glofas_riverflood_forecast_low_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop']]];
+		// 		for (var i = 0; i < jsondata['glofas_gfms_child'].length; i++) {
+		// 			rggfoverviewChild[i] =
+		// 				[jsondata['glofas_gfms_child'][i]['na_en'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_veryhigh_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_high_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_med_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_low_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['riverflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['riverflood_forecast_veryhigh_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['riverflood_forecast_high_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['riverflood_forecast_med_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['riverflood_forecast_low_pop'],
+		// 				jsondata['glofas_gfms_child'][i]['flashflood_forecast_extreme_pop']];
+		// 		}
+		// 		rggfoverviewAll = (rggfoverviewParent).concat(rggfoverviewChild);
 
-				var rglfoverviewParent = [];
-				var rglfoverviewChild = [];
-				var rglfoverviewAll=[];
-				rglfoverviewParent =
-					[[jsondata['parent_label'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_veryhigh_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_high_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_med_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_low_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_riverflood_forecast_extreme_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_riverflood_forecast_veryhigh_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_riverflood_forecast_high_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_riverflood_forecast_med_pop'],
-					jsondata['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_riverflood_forecast_low_pop'],
-					jsondata['flashflood_forecast_extreme_pop']]];
+		// 		var rglfoverviewParent = [];
+		// 		var rglfoverviewChild = [];
+		// 		var rglfoverviewAll=[];
+		// 		rglfoverviewParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_veryhigh_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_high_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_med_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_low_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_riverflood_forecast_extreme_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_riverflood_forecast_veryhigh_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_riverflood_forecast_high_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_riverflood_forecast_med_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_riverflood_forecast_low_pop'],
+		// 			jsondata['flashflood_forecast_extreme_pop']]];
 
-				for (var i = 0; i < jsondata['glofas_child'].length; i++) {
-					rglfoverviewChild[i] =
-					[jsondata['glofas_child'][i]['na_en'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_veryhigh_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_high_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_med_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_low_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['riverflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['riverflood_forecast_veryhigh_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['riverflood_forecast_high_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['riverflood_forecast_med_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
-					jsondata['glofas_child'][i]['riverflood_forecast_low_pop'],
-					jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop']];
-				}
-				rglfoverviewAll = (rglfoverviewParent).concat(rglfoverviewChild);
-			}
-			else if (window.location.href.match(/\?page=floodrisk&*/)) {
-				var fRiskParent = [];
-				var fRiskChild = [];
-				var fRiskAll=[];
-				fRiskParent =
-					[[jsondata['parent_label'],
-					jsondata['settlement_at_floodrisk'],
-					jsondata['settlement_at_floodrisk'],
-					jsondata['built_up_pop_risk'],
-					jsondata['built_up_area_risk'],
-					// jsondata['settlement_at_floodrisk'],
-					jsondata['cultivated_pop_risk'],
-					jsondata['cultivated_area_risk'],
-					// jsondata['settlement_at_floodrisk'],
-					jsondata['barren_pop_risk'],
-					jsondata['barren_area_risk'],
-					// jsondata['settlement_at_floodrisk'],
-					jsondata['total_risk_population'],
-					jsondata['total_risk_area'],
-					// jsondata['settlement_at_floodrisk']
-					]];
-				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					fRiskChild[i] =
-					[jsondata['lc_child'][i]['na_en'],
-					jsondata['lc_child'][i]['total_risk_buildings'],
-					jsondata['lc_child'][i]['settlements_at_risk'],
-					jsondata['lc_child'][i]['built_up_pop_risk'],
-					jsondata['lc_child'][i]['built_up_area_risk'],
-					// jsondata['lc_child'][i]['settlements_at_risk'],
-					jsondata['lc_child'][i]['cultivated_pop_risk'],
-					jsondata['lc_child'][i]['cultivated_area_risk'],
-					// jsondata['lc_child'][i]['settlements_at_risk'],
-					jsondata['lc_child'][i]['barren_pop_risk'],
-					jsondata['lc_child'][i]['barren_area_risk'],
-					// jsondata['lc_child'][i]['settlements_at_risk'],
-					jsondata['lc_child'][i]['total_risk_population'],
-					jsondata['lc_child'][i]['total_risk_area'],
-					// jsondata['lc_child'][i]['total_risk_buildings']
-					];
-				}
-				fRiskAll = (fRiskParent).concat(fRiskChild);
-			}
-			else if (window.location.href.match(/\?page=avalcheforecast&*/)) {
-				var aForecastParent = [];
-				var aForecastChild = [];
-				var aForecastAll=[];
-				aForecastParent =
-					[[jsondata['parent_label'],
-					jsondata['ava_forecast_high_pop'],
-					jsondata['ava_forecast_high_pop'],
-					jsondata['ava_forecast_med_pop'],
-					jsondata['ava_forecast_high_pop'],
-					jsondata['ava_forecast_low_pop'],
-					jsondata['ava_forecast_high_pop'],
-					jsondata['total_ava_forecast_pop'],
-					jsondata['ava_forecast_high_pop']]];
+		// 		for (var i = 0; i < jsondata['glofas_child'].length; i++) {
+		// 			rglfoverviewChild[i] =
+		// 			[jsondata['glofas_child'][i]['na_en'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_veryhigh_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_high_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_med_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_low_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['riverflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['riverflood_forecast_veryhigh_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['riverflood_forecast_high_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['riverflood_forecast_med_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop'],
+		// 			jsondata['glofas_child'][i]['riverflood_forecast_low_pop'],
+		// 			jsondata['glofas_child'][i]['flashflood_forecast_extreme_pop']];
+		// 		}
+		// 		rglfoverviewAll = (rglfoverviewParent).concat(rglfoverviewChild);
+		// 	}
+		// 	else if (window.location.href.match(/\?page=floodrisk&*/)) {
+		// 		var fRiskParent = [];
+		// 		var fRiskChild = [];
+		// 		var fRiskAll=[];
+		// 		fRiskParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['settlement_at_floodrisk'],
+		// 			jsondata['settlement_at_floodrisk'],
+		// 			jsondata['built_up_pop_risk'],
+		// 			jsondata['built_up_area_risk'],
+		// 			// jsondata['settlement_at_floodrisk'],
+		// 			jsondata['cultivated_pop_risk'],
+		// 			jsondata['cultivated_area_risk'],
+		// 			// jsondata['settlement_at_floodrisk'],
+		// 			jsondata['barren_pop_risk'],
+		// 			jsondata['barren_area_risk'],
+		// 			// jsondata['settlement_at_floodrisk'],
+		// 			jsondata['total_risk_population'],
+		// 			jsondata['total_risk_area'],
+		// 			// jsondata['settlement_at_floodrisk']
+		// 			]];
+		// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 			fRiskChild[i] =
+		// 			[jsondata['lc_child'][i]['na_en'],
+		// 			jsondata['lc_child'][i]['total_risk_buildings'],
+		// 			jsondata['lc_child'][i]['settlements_at_risk'],
+		// 			jsondata['lc_child'][i]['built_up_pop_risk'],
+		// 			jsondata['lc_child'][i]['built_up_area_risk'],
+		// 			// jsondata['lc_child'][i]['settlements_at_risk'],
+		// 			jsondata['lc_child'][i]['cultivated_pop_risk'],
+		// 			jsondata['lc_child'][i]['cultivated_area_risk'],
+		// 			// jsondata['lc_child'][i]['settlements_at_risk'],
+		// 			jsondata['lc_child'][i]['barren_pop_risk'],
+		// 			jsondata['lc_child'][i]['barren_area_risk'],
+		// 			// jsondata['lc_child'][i]['settlements_at_risk'],
+		// 			jsondata['lc_child'][i]['total_risk_population'],
+		// 			jsondata['lc_child'][i]['total_risk_area'],
+		// 			// jsondata['lc_child'][i]['total_risk_buildings']
+		// 			];
+		// 		}
+		// 		fRiskAll = (fRiskParent).concat(fRiskChild);
+		// 	}
+		// 	else if (window.location.href.match(/\?page=avalcheforecast&*/)) {
+		// 		var aForecastParent = [];
+		// 		var aForecastChild = [];
+		// 		var aForecastAll=[];
+		// 		aForecastParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['ava_forecast_high_pop'],
+		// 			jsondata['ava_forecast_high_pop'],
+		// 			jsondata['ava_forecast_med_pop'],
+		// 			jsondata['ava_forecast_high_pop'],
+		// 			jsondata['ava_forecast_low_pop'],
+		// 			jsondata['ava_forecast_high_pop'],
+		// 			jsondata['total_ava_forecast_pop'],
+		// 			jsondata['ava_forecast_high_pop']]];
 
-				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					aForecastChild[i] =
-					[jsondata['lc_child'][i]['na_en'],
-					jsondata['lc_child'][i]['ava_forecast_high_pop'],
-					jsondata['lc_child'][i]['high_ava_buildings'],
-					jsondata['lc_child'][i]['ava_forecast_med_pop'],
-					jsondata['lc_child'][i]['med_ava_buildings'],
-					jsondata['lc_child'][i]['ava_forecast_low_pop'],
-					jsondata['lc_child'][i]['ava_forecast_high_pop'],
-					jsondata['lc_child'][i]['total_ava_forecast_pop'],
-					jsondata['lc_child'][i]['total_ava_buildings']];
-				}
-				aForecastAll = (aForecastParent).concat(aForecastChild);
-			}
-			else if (window.location.href.match(/\?page=avalancherisk&*/)) {
-				var aRiskParent = [];
-				var aRiskChild = [];
-				var aRiskAll=[];
-				aRiskParent =
-					[[jsondata['parent_label'],
-					jsondata['high_ava_population'],
-					jsondata['high_ava_population'],
-					jsondata['high_ava_area'],
-					jsondata['med_ava_population'],
-					jsondata['high_ava_population'],
-					jsondata['med_ava_area'],
-					jsondata['total_ava_population'],
-					jsondata['high_ava_population'],
-					jsondata['total_ava_area']]];
+		// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 			aForecastChild[i] =
+		// 			[jsondata['lc_child'][i]['na_en'],
+		// 			jsondata['lc_child'][i]['ava_forecast_high_pop'],
+		// 			jsondata['lc_child'][i]['high_ava_buildings'],
+		// 			jsondata['lc_child'][i]['ava_forecast_med_pop'],
+		// 			jsondata['lc_child'][i]['med_ava_buildings'],
+		// 			jsondata['lc_child'][i]['ava_forecast_low_pop'],
+		// 			jsondata['lc_child'][i]['ava_forecast_high_pop'],
+		// 			jsondata['lc_child'][i]['total_ava_forecast_pop'],
+		// 			jsondata['lc_child'][i]['total_ava_buildings']];
+		// 		}
+		// 		aForecastAll = (aForecastParent).concat(aForecastChild);
+		// 	}
+		// 	else if (window.location.href.match(/\?page=avalancherisk&*/)) {
+		// 		var aRiskParent = [];
+		// 		var aRiskChild = [];
+		// 		var aRiskAll=[];
+		// 		aRiskParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['high_ava_population'],
+		// 			jsondata['high_ava_population'],
+		// 			jsondata['high_ava_area'],
+		// 			jsondata['med_ava_population'],
+		// 			jsondata['high_ava_population'],
+		// 			jsondata['med_ava_area'],
+		// 			jsondata['total_ava_population'],
+		// 			jsondata['high_ava_population'],
+		// 			jsondata['total_ava_area']]];
 
-				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					aRiskChild[i] =
-						[jsondata['lc_child'][i]['na_en'],
-						jsondata['lc_child'][i]['high_ava_population'],
-						jsondata['lc_child'][i]['high_ava_buildings'],
-						jsondata['lc_child'][i]['high_ava_area'],
-						jsondata['lc_child'][i]['med_ava_population'],
-						jsondata['lc_child'][i]['med_ava_buildings'],
-						jsondata['lc_child'][i]['med_ava_area'],
-						jsondata['lc_child'][i]['total_ava_population'],
-						jsondata['lc_child'][i]['total_ava_buildings'],
-						jsondata['lc_child'][i]['total_ava_area']];
-				}
-				aRiskAll = (aRiskParent).concat(aRiskChild);
-			}
-			else if (window.location.href.match(/\?page=earthquake&*/)) {
-				var erthqkParent = [];
-				var erthqkChild = [];
-				var erthqkAll=[];
-				erthqkParent =
-					[[jsondata['parent_label'],
-					jsondata['pop_shake_weak'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_weak'],
-					jsondata['pop_shake_light'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_light'],
-					jsondata['pop_shake_moderate'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_moderate'],
-					jsondata['pop_shake_strong'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_strong'],
-					jsondata['pop_shake_verystrong'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_verystrong'],
-					jsondata['pop_shake_severe'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_severe'],
-					jsondata['pop_shake_violent'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_violent'],
-					jsondata['pop_shake_extreme'],
-					jsondata['pop_shake_weak'],
-					jsondata['settlement_shake_extreme']]];
+		// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 			aRiskChild[i] =
+		// 				[jsondata['lc_child'][i]['na_en'],
+		// 				jsondata['lc_child'][i]['high_ava_population'],
+		// 				jsondata['lc_child'][i]['high_ava_buildings'],
+		// 				jsondata['lc_child'][i]['high_ava_area'],
+		// 				jsondata['lc_child'][i]['med_ava_population'],
+		// 				jsondata['lc_child'][i]['med_ava_buildings'],
+		// 				jsondata['lc_child'][i]['med_ava_area'],
+		// 				jsondata['lc_child'][i]['total_ava_population'],
+		// 				jsondata['lc_child'][i]['total_ava_buildings'],
+		// 				jsondata['lc_child'][i]['total_ava_area']];
+		// 		}
+		// 		aRiskAll = (aRiskParent).concat(aRiskChild);
+		// 	}
+		// 	else if (window.location.href.match(/\?page=earthquake&*/)) {
+		// 		var erthqkParent = [];
+		// 		var erthqkChild = [];
+		// 		var erthqkAll=[];
+		// 		erthqkParent =
+		// 			[[jsondata['parent_label'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_weak'],
+		// 			jsondata['pop_shake_light'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_light'],
+		// 			jsondata['pop_shake_moderate'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_moderate'],
+		// 			jsondata['pop_shake_strong'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_strong'],
+		// 			jsondata['pop_shake_verystrong'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_verystrong'],
+		// 			jsondata['pop_shake_severe'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_severe'],
+		// 			jsondata['pop_shake_violent'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_violent'],
+		// 			jsondata['pop_shake_extreme'],
+		// 			jsondata['pop_shake_weak'],
+		// 			jsondata['settlement_shake_extreme']]];
 
-				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					erthqkChild[i] =
-						[jsondata['lc_child'][i]['na_en'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_weak'],
-						jsondata['lc_child'][i]['pop_shake_light'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_light'],
-						jsondata['lc_child'][i]['pop_shake_moderate'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_moderate'],
-						jsondata['lc_child'][i]['pop_shake_strong'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_strong'],
-						jsondata['lc_child'][i]['pop_shake_verystrong'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_verystrong'],
-						jsondata['lc_child'][i]['pop_shake_severe'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_severe'],
-						jsondata['lc_child'][i]['pop_shake_violent'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_violent'],
-						jsondata['lc_child'][i]['pop_shake_extreme'],
-						jsondata['lc_child'][i]['pop_shake_weak'],
-						jsondata['lc_child'][i]['settlement_shake_extreme']];
-				}
-				erthqkAll = (erthqkParent).concat(erthqkChild);
-			}
-			else if (window.location.href.match(/\?page=security&*/)) {
-				/*var incidentParent = [];
-				var incidentAll=[];
-				var k = 0;
-				var incidentCount = [];
-				var incidentViolent = [];
-				var incidentInjured = [];
-				var incidentDead = [];
+		// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 			erthqkChild[i] =
+		// 				[jsondata['lc_child'][i]['na_en'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_weak'],
+		// 				jsondata['lc_child'][i]['pop_shake_light'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_light'],
+		// 				jsondata['lc_child'][i]['pop_shake_moderate'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_moderate'],
+		// 				jsondata['lc_child'][i]['pop_shake_strong'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_strong'],
+		// 				jsondata['lc_child'][i]['pop_shake_verystrong'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_verystrong'],
+		// 				jsondata['lc_child'][i]['pop_shake_severe'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_severe'],
+		// 				jsondata['lc_child'][i]['pop_shake_violent'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_violent'],
+		// 				jsondata['lc_child'][i]['pop_shake_extreme'],
+		// 				jsondata['lc_child'][i]['pop_shake_weak'],
+		// 				jsondata['lc_child'][i]['settlement_shake_extreme']];
+		// 		}
+		// 		erthqkAll = (erthqkParent).concat(erthqkChild);
+		// 	}
+		// 	else if (window.location.href.match(/\?page=security&*/)) {
+		// 		/*var incidentParent = [];
+		// 		var incidentAll=[];
+		// 		var k = 0;
+		// 		var incidentCount = [];
+		// 		var incidentViolent = [];
+		// 		var incidentInjured = [];
+		// 		var incidentDead = [];
 
-				for (var i = 0; i < jsondata['incident_type_group'].length; i++) {
-					incidentParent[i] =
-					[jsondata['incident_type_group'][i]['main_type'],
-					jsondata['incident_type_group'][i]['count'],
-					jsondata['incident_type_group'][i]['violent'],
-					jsondata['incident_type_group'][i]['injured'],
-					jsondata['incident_type_group'][i]['dead']];
+		// 		for (var i = 0; i < jsondata['incident_type_group'].length; i++) {
+		// 			incidentParent[i] =
+		// 			[jsondata['incident_type_group'][i]['main_type'],
+		// 			jsondata['incident_type_group'][i]['count'],
+		// 			jsondata['incident_type_group'][i]['violent'],
+		// 			jsondata['incident_type_group'][i]['injured'],
+		// 			jsondata['incident_type_group'][i]['dead']];
 
-					incidentCount[i] = jsondata['incident_type_group'][i]['count'];
-					incidentViolent[i] = jsondata['incident_type_group'][i]['violent'];
-					incidentInjured[i] = jsondata['incident_type_group'][i]['injured'];
-					incidentDead[i] = jsondata['incident_type_group'][i]['dead'];
+		// 			incidentCount[i] = jsondata['incident_type_group'][i]['count'];
+		// 			incidentViolent[i] = jsondata['incident_type_group'][i]['violent'];
+		// 			incidentInjured[i] = jsondata['incident_type_group'][i]['injured'];
+		// 			incidentDead[i] = jsondata['incident_type_group'][i]['dead'];
 
-					incidentAll[k] =
-					[jsondata['incident_type_group'][i]['main_type'],
-					jsondata['incident_type_group'][i]['count'],
-					jsondata['incident_type_group'][i]['violent'],
-					jsondata['incident_type_group'][i]['injured'],
-					jsondata['incident_type_group'][i]['dead']];
-					k++;
+		// 			incidentAll[k] =
+		// 			[jsondata['incident_type_group'][i]['main_type'],
+		// 			jsondata['incident_type_group'][i]['count'],
+		// 			jsondata['incident_type_group'][i]['violent'],
+		// 			jsondata['incident_type_group'][i]['injured'],
+		// 			jsondata['incident_type_group'][i]['dead']];
+		// 			k++;
 
-					if (jsondata['incident_type_group'][i]['child'].length > 1) {
-						for (var j = 0; j < jsondata['incident_type_group'][i]['child'].length; j++) {
-							incidentAll[k] =
-							[jsondata['incident_type_group'][i]['child'][j]['type'],
-							jsondata['incident_type_group'][i]['child'][j]['count'],
-							jsondata['incident_type_group'][i]['child'][j]['violent'],
-							jsondata['incident_type_group'][i]['child'][j]['injured'],
-							jsondata['incident_type_group'][i]['child'][j]['dead']
-							];
-							k++;
-						}
-					}
-				}
+		// 			if (jsondata['incident_type_group'][i]['child'].length > 1) {
+		// 				for (var j = 0; j < jsondata['incident_type_group'][i]['child'].length; j++) {
+		// 					incidentAll[k] =
+		// 					[jsondata['incident_type_group'][i]['child'][j]['type'],
+		// 					jsondata['incident_type_group'][i]['child'][j]['count'],
+		// 					jsondata['incident_type_group'][i]['child'][j]['violent'],
+		// 					jsondata['incident_type_group'][i]['child'][j]['injured'],
+		// 					jsondata['incident_type_group'][i]['child'][j]['dead']
+		// 					];
+		// 					k++;
+		// 				}
+		// 			}
+		// 		}
 
-				var targetParent = [];
-				var targetAll=[];
-				var k = 0;
-				var targetCount = [];
-				var targetViolent = [];
-				var targetInjured = [];
-				var targetDead = [];
+		// 		var targetParent = [];
+		// 		var targetAll=[];
+		// 		var k = 0;
+		// 		var targetCount = [];
+		// 		var targetViolent = [];
+		// 		var targetInjured = [];
+		// 		var targetDead = [];
 
-				for (var i = 0; i < jsondata['incident_target_group'].length; i++) {
-					targetParent[i] =
-					[jsondata['incident_target_group'][i]['main_target'],
-					jsondata['incident_target_group'][i]['count'],
-					jsondata['incident_target_group'][i]['violent'],
-					jsondata['incident_target_group'][i]['injured'],
-					jsondata['incident_target_group'][i]['dead']];
+		// 		for (var i = 0; i < jsondata['incident_target_group'].length; i++) {
+		// 			targetParent[i] =
+		// 			[jsondata['incident_target_group'][i]['main_target'],
+		// 			jsondata['incident_target_group'][i]['count'],
+		// 			jsondata['incident_target_group'][i]['violent'],
+		// 			jsondata['incident_target_group'][i]['injured'],
+		// 			jsondata['incident_target_group'][i]['dead']];
 
-					targetCount[i] = jsondata['incident_target_group'][i]['count'];
-					targetViolent[i] = jsondata['incident_target_group'][i]['violent'];
-					targetInjured[i] = jsondata['incident_target_group'][i]['injured'];
-					targetDead[i] = jsondata['incident_target_group'][i]['dead'];
+		// 			targetCount[i] = jsondata['incident_target_group'][i]['count'];
+		// 			targetViolent[i] = jsondata['incident_target_group'][i]['violent'];
+		// 			targetInjured[i] = jsondata['incident_target_group'][i]['injured'];
+		// 			targetDead[i] = jsondata['incident_target_group'][i]['dead'];
 
-					targetAll[k] =
-					[jsondata['incident_target_group'][i]['main_target'],
-					jsondata['incident_target_group'][i]['count'],
-					jsondata['incident_target_group'][i]['violent'],
-					jsondata['incident_target_group'][i]['injured'],
-					jsondata['incident_target_group'][i]['dead']];
-					k++;
+		// 			targetAll[k] =
+		// 			[jsondata['incident_target_group'][i]['main_target'],
+		// 			jsondata['incident_target_group'][i]['count'],
+		// 			jsondata['incident_target_group'][i]['violent'],
+		// 			jsondata['incident_target_group'][i]['injured'],
+		// 			jsondata['incident_target_group'][i]['dead']];
+		// 			k++;
 
-					if (jsondata['incident_target_group'][i]['child'].length > 1) {
-						for (var j = 0; j < jsondata['incident_target_group'][i]['child'].length; j++) {
-							targetAll[k] =
-							[jsondata['incident_target_group'][i]['child'][j]['target'],
-							jsondata['incident_target_group'][i]['child'][j]['count'],
-							jsondata['incident_target_group'][i]['child'][j]['violent'],
-							jsondata['incident_target_group'][i]['child'][j]['injured'],
-							jsondata['incident_target_group'][i]['child'][j]['dead']
-							];
-							k++;
-						}
-					}
-				}
+		// 			if (jsondata['incident_target_group'][i]['child'].length > 1) {
+		// 				for (var j = 0; j < jsondata['incident_target_group'][i]['child'].length; j++) {
+		// 					targetAll[k] =
+		// 					[jsondata['incident_target_group'][i]['child'][j]['target'],
+		// 					jsondata['incident_target_group'][i]['child'][j]['count'],
+		// 					jsondata['incident_target_group'][i]['child'][j]['violent'],
+		// 					jsondata['incident_target_group'][i]['child'][j]['injured'],
+		// 					jsondata['incident_target_group'][i]['child'][j]['dead']
+		// 					];
+		// 					k++;
+		// 				}
+		// 			}
+		// 		}
 
-				var incident_overviewParent = [];
-				var incident_overviewChild = [];
-				var incident_overviewAll=[];
-				incident_overviewParent = [[jsondata['parent_label'], jsondata['total_incident'], jsondata['total_violent'], jsondata['total_injured'], jsondata['total_dead']]];
-				for (var i = 0; i < jsondata['lc_child'].length; i++) {
-					incident_overviewChild[i] = [jsondata['lc_child'][i]['na_en'], jsondata['lc_child'][i]['total_incident'], jsondata['lc_child'][i]['total_violent'], jsondata['lc_child'][i]['total_injured'], jsondata['lc_child'][i]['total_dead']];
-				}
-				incident_overviewAll = (incident_overviewParent).concat(incident_overviewChild);
+		// 		var incident_overviewParent = [];
+		// 		var incident_overviewChild = [];
+		// 		var incident_overviewAll=[];
+		// 		incident_overviewParent = [[jsondata['parent_label'], jsondata['total_incident'], jsondata['total_violent'], jsondata['total_injured'], jsondata['total_dead']]];
+		// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 			incident_overviewChild[i] = [jsondata['lc_child'][i]['na_en'], jsondata['lc_child'][i]['total_incident'], jsondata['lc_child'][i]['total_violent'], jsondata['lc_child'][i]['total_injured'], jsondata['lc_child'][i]['total_dead']];
+		// 		}
+		// 		incident_overviewAll = (incident_overviewParent).concat(incident_overviewChild);
 
-				var incident_list = [];
+		// 		var incident_list = [];
 
-				for (var i = 0; i < jsondata['incident_list_100'].length; i++) {
-					incident_list[i] =
-					[jsondata['incident_list_100'][i]['incident_date'],
-					jsondata['incident_list_100'][i]['description']];
-				}*/
-			}
+		// 		for (var i = 0; i < jsondata['incident_list_100'].length; i++) {
+		// 			incident_list[i] =
+		// 			[jsondata['incident_list_100'][i]['incident_date'],
+		// 			jsondata['incident_list_100'][i]['description']];
+		// 		}*/
+		// 	}
 
-			// switch(window.location.search){
-			// 	case "?page=baseline":
-			// 		lcChild = jsondata['jsondata']['lc_child'];
-			// 		lcParent = jsondata['jsondata']['lc_afg'];
-			// 		hfParent = jsondata['jsondata']['hf_afg'];
-			// 		rnParent = jsondata['jsondata']['rn_afg'];
+		// 	// switch(window.location.search){
+		// 	// 	case "?page=baseline":
+		// 	// 		lcChild = jsondata['jsondata']['lc_child'];
+		// 	// 		lcParent = jsondata['jsondata']['lc_afg'];
+		// 	// 		hfParent = jsondata['jsondata']['hf_afg'];
+		// 	// 		rnParent = jsondata['jsondata']['rn_afg'];
 
-			// 		lcAll = (lcParent).concat(lcChild);
-			// 		hfAll = (hfParent).concat(jsondata['jsondata']['hf_child']);
-			// 		rnAll = (rnParent).concat(jsondata['jsondata']['rn_child']);
-			// 	break;
+		// 	// 		lcAll = (lcParent).concat(lcChild);
+		// 	// 		hfAll = (hfParent).concat(jsondata['jsondata']['hf_child']);
+		// 	// 		rnAll = (rnParent).concat(jsondata['jsondata']['rn_child']);
+		// 	// 	break;
 
-			// 	case "?page=accessibility":
+		// 	// 	case "?page=accessibility":
 
-			// 	break;
+		// 	// 	break;
 
-			// 	case "?page=floodforecast":
+		// 	// 	case "?page=floodforecast":
 
-			// 	break;
+		// 	// 	break;
 
-			// 	case (/\?page=floodrisk&*/):
-			// 		// fRiskParent.push(jsondata['parent_label']);
-			// 		// fRiskParent.push(jsondata['settlement_at_floodrisk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
-			// 		fRiskParent = [[jsondata['parent_label'], jsondata['settlement_at_floodrisk'], jsondata['built_up_pop_risk'], jsondata['built_up_area_risk'], jsondata['settlement_at_floodrisk'], jsondata['cultivated_pop_risk'], jsondata['cultivated_area_risk'], jsondata['settlement_at_floodrisk'], jsondata['barren_pop_risk'], jsondata['barren_area_risk'], jsondata['settlement_at_floodrisk'], jsondata['total_risk_population'], jsondata['total_risk_area'], jsondata['settlement_at_floodrisk']]];
-			// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
-			// 			fRiskChild[i] = [jsondata['lc_child'][i]['na_en'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['built_up_pop_risk'], jsondata['lc_child'][i]['built_up_area_risk'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['cultivated_pop_risk'], jsondata['lc_child'][i]['cultivated_area_risk'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['barren_pop_risk'], jsondata['lc_child'][i]['barren_area_risk'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['total_risk_population'], jsondata['lc_child'][i]['total_risk_area'], jsondata['lc_child'][i]['total_risk_buildings']];
-			// 		}
-			// 		fRiskAll = (fRiskParent).concat(fRiskChild);
-			// 	break;
+		// 	// 	case (/\?page=floodrisk&*/):
+		// 	// 		// fRiskParent.push(jsondata['parent_label']);
+		// 	// 		// fRiskParent.push(jsondata['settlement_at_floodrisk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		// fRiskParent.push(jsondata['built_up_pop_risk']);
+		// 	// 		fRiskParent = [[jsondata['parent_label'], jsondata['settlement_at_floodrisk'], jsondata['built_up_pop_risk'], jsondata['built_up_area_risk'], jsondata['settlement_at_floodrisk'], jsondata['cultivated_pop_risk'], jsondata['cultivated_area_risk'], jsondata['settlement_at_floodrisk'], jsondata['barren_pop_risk'], jsondata['barren_area_risk'], jsondata['settlement_at_floodrisk'], jsondata['total_risk_population'], jsondata['total_risk_area'], jsondata['settlement_at_floodrisk']]];
+		// 	// 		for (var i = 0; i < jsondata['lc_child'].length; i++) {
+		// 	// 			fRiskChild[i] = [jsondata['lc_child'][i]['na_en'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['built_up_pop_risk'], jsondata['lc_child'][i]['built_up_area_risk'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['cultivated_pop_risk'], jsondata['lc_child'][i]['cultivated_area_risk'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['barren_pop_risk'], jsondata['lc_child'][i]['barren_area_risk'], jsondata['lc_child'][i]['settlements_at_risk'], jsondata['lc_child'][i]['total_risk_population'], jsondata['lc_child'][i]['total_risk_area'], jsondata['lc_child'][i]['total_risk_buildings']];
+		// 	// 		}
+		// 	// 		fRiskAll = (fRiskParent).concat(fRiskChild);
+		// 	// 	break;
 
-			// 	case "?page=avalcheforecast":
+		// 	// 	case "?page=avalcheforecast":
 
-			// 	break;
+		// 	// 	break;
 
-			// 	case "?page=avalancherisk":
+		// 	// 	case "?page=avalancherisk":
 
-			// 	break;
+		// 	// 	break;
 
-			// 	case "?page=earthquake":
+		// 	// 	case "?page=earthquake":
 
-			// 	break;
+		// 	// 	break;
 
-			// 	case "?page=security":
+		// 	// 	case "?page=security":
 
-			// 	break;
-			// }
+		// 	// 	break;
+		// 	// }
 
-		}
+		// }
 
 		function init_echarts2(tabSelect) {
 
@@ -9575,7 +9653,7 @@ jQuery(function($){
 	  					name: gsm_legend[0],
 	  					itemStyle: colorReversed
 	  				  }, {
-	  					value: tot_pop - gsm_pop,
+	  					value: pop - gsm_pop,
 	  					name: gsm_legend[1],
 	  					itemStyle: pieNull
 	  				  }]
@@ -9661,7 +9739,7 @@ jQuery(function($){
 	  					name: gsm_legend[0],
 	  					itemStyle: colorReversed
 	  				  }, {
-	  					value: tot_area - gsm_area,
+	  					value: area - gsm_area,
 	  					name: gsm_legend[1],
 	  					itemStyle: pieNull
 	  				  }]
@@ -9747,7 +9825,7 @@ jQuery(function($){
 	  					name: gsm_legend[0],
 	  					itemStyle: colorReversed
 	  				  }, {
-	  					value: tot_bld - gsm_bld,
+	  					value: build - gsm_bld,
 	  					name: gsm_legend[1],
 	  					itemStyle: pieNull
 	  				  }]
@@ -15796,6 +15874,7 @@ jQuery(function($){
 				  var echartBar16 = echarts.init(document.getElementById('echart_bar_horizontal'), theme, humTooltipBar, humanizeBar);
 
 				  echartBar16.setOption({
+				  	renderer: 'svg',
 					// title: {
 					//   text: 'Overview 1',
 					//   subtext: 'Graph subtitle'
@@ -15866,7 +15945,7 @@ jQuery(function($){
 					  		show: true
 					  	}
 					  },
-					  data: pop
+					  data: landcover_pop
 					  // data: [jsondata['built_up_pop'], jsondata['cultivated_pop'], jsondata['barren_pop']]
 					  // data: jsondata['jsondata']['landcover_echart_hbar']['population']
 					}]
@@ -15955,7 +16034,7 @@ jQuery(function($){
 						  		show: true
 						  	}
 						  },
-						  data: building
+						  data: landcover_building
 						  // data: [jsondata['built_up_buildings'], jsondata['cultivated_buildings'], jsondata['barren_buildings']]
 						},]
 					});
@@ -16043,7 +16122,7 @@ jQuery(function($){
 						  		show: true
 						  	}
 						  },
-						  data: area
+						  data: landcover_area
 						  // data: [jsondata['built_up_area'], jsondata['cultivated_area'], jsondata['barren_area']]
 						}]
 					});

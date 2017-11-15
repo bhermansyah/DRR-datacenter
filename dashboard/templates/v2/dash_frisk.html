@@ -16,8 +16,8 @@
 	        	<div class="col-md-4 col-sm-12 col-xs-12">
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
-	        	      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Flood Risk Population' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+	        	      <h2 class="pull-left">{% trans 'Flood Risk Population' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -47,8 +47,8 @@
 	        	<div class="col-md-4 col-sm-12 col-xs-12">
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
-	        	      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Flood Risk Building' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+	        	      <h2 class="pull-left">{% trans 'Flood Risk Building' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -78,8 +78,8 @@
 	        	<div class="col-md-4 col-sm-12 col-xs-12">
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
-	        	      <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Flood Risk Area' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+	        	      <h2 class="pull-left">{% trans 'Flood Risk Area' %}</h2>
+	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -109,8 +109,8 @@
 	            <div class="col-md-12 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Population Living in Flood Risk Areas" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+	                        <h2 class="pull-left">{% trans "Population Living in Flood Risk Areas" %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -121,7 +121,7 @@
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
-	                        <p class="text-muted font-13 m-b-30 hidden">Flood Risk.</p>
+	                        <p class="text-muted font-13 m-b-30">{% trans "Population, buildings and area within 100-year inundation flood zone (source: NATO Flood Map). Flood risk category is estimated based upon potential flood depth: Low flood risk relates to inundation more than 29cm, moderate to 1.21m and high flood risk more than 2.7m. The 100-year inundation interval, implies that every year there is a 1% chance of such a flood event occurring. Most flood events will be in 5,10, 20-year inundation interval." %}</p>
 	                      	<div class="table-responsive hidden-print">
 	                      		<table class="table table-striped table-hover table-bordered online">
 	                      		    <thead>

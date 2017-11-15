@@ -48,29 +48,32 @@
                     {{ item.date | timeAgo }}
                   </span>
                   {% endverbatim %}
-                    <i class="fa fa-eye {{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}"> {% verbatim %}{{ item.popular_count }}{% endverbatim %}</i>
+                    <i class="fa fa-eye pull-right"> {% verbatim %}{{ item.popular_count }}{% endverbatim %}</i>
                 </div>
                 <div class="desc-title">
                   {% verbatim %}
                   <h3 ng-if="item.detail_url.indexOf('/maps/') > -1"><a href="/v2/maps/{{item.id}}/view">{{ item.title }}</a></h3>
                   <h3 ng-if="item.detail_url.indexOf('/documents/') > -1"><a href="/v2{{ item.detail_url }}">{{ item.title }}</a></h3>
                   <h3 ng-if="item.detail_url.indexOf('/layers/') > -1"><a href="/v2{{ item.detail_url }}">{{ item.title }}</a></h3>
+                </div>
+                <div class="desc-subtitle">
+                  <p ng-if="item.detail_url.indexOf('/documents/') > -1 && item.subtitle">{{ item.subtitle }}</p>
                   {% endverbatim %}
                 </div>
                 <!-- <span>Percentage of children with acute respiratory infection taken to a health facility</span> -->
-                <div class="rating">
+                <!-- <div class="rating">
                   <a href="{% verbatim %}/v2{{ item.detail_url }}{% endverbatim %}#rate">
                       <div class="star-rating">
                           <div class="full-star" style="width: {% verbatim %}{{item.rating * 20 || 0}}{% endverbatim %}%"></div>
                           <div class="empty-star"> </div>
                       </div>
                   </a>
-                  <!-- <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
+                  <span><input type="radio" name="rating" id="str5" value="5"><label for="str5"></label></span>
                   <span><input type="radio" name="rating" id="str4" value="4"><label for="str4"></label></span>
                   <span><input type="radio" name="rating" id="str3" value="3"><label for="str3"></label></span>
                   <span><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
-                  <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span> -->
-                </div>
+                  <span><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
+                </div> -->
                 <div class="cart">
                   <div class="action">
                     <ul class="list-unstyled">
@@ -106,9 +109,9 @@
   </div>
   <div class="tab-pane" id="list-container">
     <div class="category-product">
-      <div class="category-product-inner wow fadeInUp animated">
-        <div class="products product-item-list-v1" ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
-          <div class="row product-item-list">
+      <div class="category-product-inner">
+        <div class="product-item-list" ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+          <div class="row">
             <div class="col-md-3 col-sm-4 col-xs-12">
 
               {% if request.user.is_authenticated %}

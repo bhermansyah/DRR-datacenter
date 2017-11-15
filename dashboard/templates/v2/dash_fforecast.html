@@ -15,8 +15,8 @@
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
-	                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flash Flood Likelihood" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+	                        <h2 class="pull-left">{% trans "Flash Flood Likelihood" %}</h2>
+	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -27,7 +27,7 @@
 	                        <div class="clearfix"></div>
 	                    </div>
 	                    <div class="x_content">
-	                        <p class="text-muted font-13 m-b-30">{% trans 'Flash Flood Prediction is updated every hour and valid for the next 6 hours' %}.</p>
+	                        <p class="text-muted font-13 m-b-30">{% trans 'Flash Flood Prediction is updated every hour and valid for the next 6 hours. This data is not calibrated and can only be used for rudimentary flood likelihood prediction.' %}</p>
 	                      	<div class="table-responsive">
               		      		<table id="ffforecast" class="table table-condensed">
               						<thead>
@@ -144,8 +144,8 @@
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
-	                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flash Flood Likelihood" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+	                  <h2 class="pull-left">{% trans "Flash Flood Likelihood" %}</h2>
+	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -200,8 +200,8 @@
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -212,7 +212,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days' %}</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days (GFMS) and 20 days (GLOFAS). GLOFAS supersedes GFMS. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
 			                      	<div class="table-responsive">
 		              		      		<table id="ggfforecast" class="table table-bordered">
 		              						<thead>
@@ -329,8 +329,8 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
-			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                  <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
+			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -372,8 +372,8 @@
 			            <div class="col-md-12 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans 'Flood Likelihood Overview' %} <small>GFMS + GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                        <h2 class="pull-left">{% trans 'Flood Likelihood Overview' %} <small>GFMS + GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -384,7 +384,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">{% trans 'The summary of Flash Flood Prediction and River Flood Prediction occured in Afghanistan. The riverflood prediction is based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS) method. Flash Flood is updated every hour and valid for the next 6 hours while River Flood is updated every 6 hours and valid for the next 4 days' %}.</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The summary of Flash Flood Prediction and River Flood Prediction occured in Afghanistan. The riverflood prediction is based on the combination of Global Flood Awareness Sytem (GLOFAS) and Global Flood Monitoring Sytem (GFMS) method. Flash Flood is updated every hour and valid for the next 6 hours while River Flood is updated every 6 hours and valid for the next 4 days (GFMS) and 20 days (GLOFAS). GLOFAS supersedes GFMS. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
 			                        <div class="table-responsive hidden-print">
 			                            <table class="table table-hover online">
 			                                <thead>
@@ -499,8 +499,8 @@
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -511,7 +511,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Awareness Sytem (GLOFAS). River Flood is updated every 6 hours and valid for the next 4 days' %}.</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Awareness Sytem (GLOFAS). River Flood is updated every 6 hours and valid for the next 20 days. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
 			                      	<div class="table-responsive">
 		              		      		<table id="glfforecast" class="table table-bordered">
 		              						<thead>
@@ -628,8 +628,8 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
-			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                  <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
+			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -671,8 +671,8 @@
 			            <div class="col-md-12 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "Flood Likelihood Overview" %}<small>GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                        <h2 class="pull-left">{% trans "Flood Likelihood Overview" %}<small>GLOFAS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -799,8 +799,8 @@
 			            <div class="col-md-4 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -811,7 +811,7 @@
 			                        <div class="clearfix"></div>
 			                    </div>
 			                    <div class="x_content">
-			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days' %}.</p>
+			                        <p class="text-muted font-13 m-b-30">{% trans 'The prediction based solely on Global Flood Monitoring Sytem (GFMS). River Flood is updated every 6 hours and valid for the next 4 days. Data is only partly calibrated and smaller mountainous tributaries not included.' %}</p>
 			                      	<div class="table-responsive">
 		              		      		<table id="gffforecast" class="table table-bordered">
 		              						<thead>
@@ -928,8 +928,8 @@
 			            <div class="col-md-6 col-sm-12 col-xs-12">
 			              <div class="x_panel">
 			                <div class="x_title">
-			                  <h2 class="{{ LANGUAGE_BIDI | yesno:'pull-right, pull-left' }}">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
-			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                  <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
+			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -973,8 +973,8 @@
 			            <div class="col-md-12 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
-			                        <h2>Flood Likelihood Overview<small>GFMS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden-print">
+			                        <h2>{% trans "Flood Likelihood Overview" %}<small>GFMS</small></h2>
+			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>

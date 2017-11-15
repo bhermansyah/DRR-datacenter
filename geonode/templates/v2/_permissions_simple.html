@@ -1,0 +1,162 @@
+{% load i18n %}
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#perm_view">
+        {% trans "Who can view it?" %}</a>
+      </h4>
+    </div>
+    <div id="perm_view" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <div class="checkbox checkbox-red">
+          <label>
+            <input type="checkbox" name="view_anonymous" id="perms_view_anyone" value="AnonymousUser" {% if DEFAULT_ANONYMOUS_VIEW_PERMISSION %}checked{% endif %}>{% trans "Anyone" %}
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="view_resourcebase_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+          <div class="col-md-8">
+            <input class="user-select form-control" type="text" name="view_resourcebase" id="view_resourcebase_users" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="view_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+          <div class="col-md-8">
+            <input class="group-select form-control" type="text" name="view_resourcebase" id="view_resourcebase_groups" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#perm_download">
+        {% trans "Who can download it?" %}</a>
+      </h4>
+    </div>
+    <div id="perm_download" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="checkbox checkbox-red">
+          <label>
+            <input type="checkbox" name="download_anonymous" id="perms_download_resourcebase_anyone" value="AnonymousUser" {% if DEFAULT_ANONYMOUS_DOWNLOAD_PERMISSION %}checked{% endif %}>{% trans "Anyone" %}
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="download_resourcebase_users" class="control-label col-md-4">{% trans "Following Users " %}</label>
+          <div class="col-md-8">
+            <input class="user-select form-control" type="text" name="download_resourcebase" id="download_resourcebase_users" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="download_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups " %}</label>
+          <div class="col-md-8">
+            <input class="group-select form-control" type="text" name="download_resourcebase" id="download_resourcebase_groups" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#perm_change">
+        {% trans "Who can change metadata for it?" %}</a>
+      </h4>
+    </div>
+    <div id="perm_change" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="change_resourcebase_metadata_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+          <div class="col-md-8">
+            <input class="user-select form-control" type="text" name="change_resourcebase_metadata" id="change_resourcebase_metadata_users" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="view_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+          <div class="col-md-8">
+            <input class="group-select form-control" type="text" name="view_resourcebase" id="view_resourcebase_groups" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if is_layer %}
+  <!-- change layer data -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#perm_data_edit">
+        {% trans "Who can edit data for this layer?" %}</a>
+      </h4>
+    </div>
+    <div id="perm_data_edit" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="change_layer_data_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+          <div class="col-md-8">
+            <input class="user-select form-control" type="text" name="change_layer_data" id="change_layer_data_users" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="change_layer_data_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+          <div class="col-md-8">
+            <input class="group-select form-control" type="text" name="change_layer_data" id="change_layer_data_groups" /> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- change layer style -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#perm_style_edit">
+        {% trans "Who can edit styles for this layer?" %}</a>
+      </h4>
+    </div>
+    <div id="perm_style_edit" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="change_layer_style_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+          <div class="col-md-8">
+            <input class="user-select form-control" type="text" name="change_layer_style" id="change_layer_style_users" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="change_layer_style_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+          <div class="col-md-8">
+            <input class="group-select form-control" type="text" name="change_layer_style" id="change_layer_style_groups" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#perm_manage">
+        {% trans "Who can manage it? (update, delete, change permissions, publish/unpublish it)" %}</a>
+      </h4>
+    </div>
+    <div id="perm_manage" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="manage_resourcebase_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+          <div class="col-md-8">
+            <input class="user-select form-control" type="text" name="manage_resourcebase" id="manage_resourcebase_users" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="manage_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+          <div class="col-md-8">
+            <input class="group-select form-control" type="text" name="manage_resourcebase" id="manage_resourcebase_groups" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

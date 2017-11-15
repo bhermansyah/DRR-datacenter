@@ -1,96 +1,158 @@
 {% load i18n %}
 
-<div class="row">
+<div class="row" id="permissions-body">
   <div class="col-xs-2 col-sm-3">
     <ul class="nav nav-pills nav-stacked">
         <li class="active">
-          <a data-toggle="pill" href="#privacy"><i class="fa fa-lock"></i><span class="hidden-xs">Privacy</span></a>
+          <a data-toggle="pill" href="#privacy"><i class="fa fa-lock"></i><span class="hidden-xs">&nbsp;{% trans "Privacy" %}</span></a>
         </li>
         <li>
-          <a data-toggle="pill" href="#edit"><i class="fa fa-pencil"></i><span class="hidden-xs">Edit</span></a>
+          <a data-toggle="pill" href="#edit"><i class="fa fa-pencil"></i><span class="hidden-xs">&nbsp;{% trans "Edit" %}</span></a>
         </li>
         <li>
-          <a data-toggle="pill" href="#manage"><i class="fa fa-users"></i><span class="hidden-xs">Manage</span></a>
+          <a data-toggle="pill" href="#manage"><i class="fa fa-users"></i><span class="hidden-xs">&nbsp;{% trans "Manage" %}</span></a>
         </li>
     </ul>
   </div>
   <div class="col-xs-10 col-sm-9">
     <div class="tab-content">
       <div id="privacy" class="tab-pane fade in active">
-        <div>
-          <div></div>
-          <div></div>
+        <!-- view layer -->
+        <div class="row">
+          <div class="col-md-3">
+            {% trans "Who can view it?" %}
+          </div>
+          <div class="col-md-9">
+            <div class="checkbox checkbox-red">
+              <label>
+                <input type="checkbox" name="view_anonymous" id="perms_view_anyone" value="AnonymousUser" {% if DEFAULT_ANONYMOUS_VIEW_PERMISSION %}checked{% endif %}>{% trans "Anyone" %}
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="view_resourcebase_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+              <div class="col-md-8">
+                <input class="user-select form-control" type="text" name="view_resourcebase" id="view_resourcebase_users" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="view_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+              <div class="col-md-8">
+                <input class="group-select form-control" type="text" name="view_resourcebase" id="view_resourcebase_groups" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <table class="table table-striped">
-            <tbody>
-              <tr>
-                <td rowspan="3">{% trans "Who can view it?" %}</td>
-                <td><input type="checkbox" name="view_anonymous" id="perms_view_anyone" value="AnonymousUser" {% if DEFAULT_ANONYMOUS_VIEW_PERMISSION %}checked{% endif %}>{% trans "Anyone" %}</td>
-              </tr>
-              <tr>
-                <td>{% trans "Following Users " %}<input class="user-select" type="text" name="view_resourcebase" id="view_resourcebase_users" /></td>
-              </tr>
-              <tr>
-                <td>{% trans "Following groups " %}<input class="group-select" type="text" name="view_resourcebase" id="view_resourcebase_groups" /></td>
-              </tr>
-              <tr>
-                <td rowspan="3">{% trans "Who can download it?" %}</td>
-                <td><input type="checkbox" name="download_anonymous" id="perms_download_resourcebase_anyone" value="AnonymousUser" {% if DEFAULT_ANONYMOUS_DOWNLOAD_PERMISSION %}checked{% endif %}>{% trans "Anyone" %}</td>
-              </tr>
-              <tr>
-                <td>{% trans "Following users " %}<input class="user-select" type="text" name="download_resourcebase" id="download_resourcebase_users" /></td>
-              </tr>
-              <tr>
-                <td>{% trans "Following groups " %}<input class="group-select" type="text" name="download_resourcebase" id="download_resourcebase_groups" /></td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- download layer -->
+        <div class="row">
+          <div class="col-md-3">
+            {% trans "Who can download it?" %}
+          </div>
+          <div class="col-md-9">
+            <div class="checkbox checkbox-red">
+              <label>
+                <input type="checkbox" name="download_anonymous" id="perms_download_resourcebase_anyone" value="AnonymousUser" {% if DEFAULT_ANONYMOUS_DOWNLOAD_PERMISSION %}checked{% endif %}>{% trans "Anyone" %}
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="download_resourcebase_users" class="control-label col-md-4">{% trans "Following Users " %}</label>
+              <div class="col-md-8">
+                <input class="user-select form-control" type="text" name="download_resourcebase" id="download_resourcebase_users" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="download_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups " %}</label>
+              <div class="col-md-8">
+                <input class="group-select form-control" type="text" name="download_resourcebase" id="download_resourcebase_groups" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div id="edit" class="tab-pane fade">
-        <div>
-          <table class="table table-striped">
-            <tbody>
-              <tr>
-                <td rowspan="2">{% trans "Who can change metadata?" %}</td>
-                <td>{% trans "Following users " %}<input class="user-select" type="text" name="change_resourcebase_metadata" id="change_resourcebase_metadata_users" /></td>
-              </tr>
-              <tr>
-                <td>{% trans "Following groups " %}<input class="group-select" type="text" name="change_resourcebase_metadata" id="change_resourcebase_metadata_groups" /> </td>
-              </tr>
-              {% if is_layer %}
-              <tr>
-                <td rowspan="2">{% trans "Who can edit data for this layer?" %}</td>
-                <td>{% trans "Following users " %}<input class="user-select" type="text" name="change_layer_data" id="change_layer_data_users" /></td>
-              </tr>
-              <tr>
-                <td>{% trans "Following groups " %}<input class="group-select" type="text" name="change_layer_data" id="change_layer_data_groups" /></td>
-              </tr>
-              <tr>
-                <td rowspan="2">{% trans "Who can edit styles?" %}</td>
-                <td>{% trans "Following users " %}<input class="user-select" type="text" name="change_layer_style" id="change_layer_style_users" /></td>
-              </tr>
-              <tr>
-                <td>{% trans "Following groups " %}<input class="group-select" type="text" name="change_layer_style" id="change_layer_style_groups" /></td>
-              </tr>
-              {% endif %}
-            </tbody>
-          </table>
+        <!-- change metadata -->
+        <div class="row">
+          <div class="col-md-3">
+            {% trans "Who can change metadata for it?" %}
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="change_resourcebase_metadata_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+              <div class="col-md-8">
+                <input class="user-select form-control" type="text" name="change_resourcebase_metadata" id="change_resourcebase_metadata_users" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="view_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+              <div class="col-md-8">
+                <input class="group-select form-control" type="text" name="view_resourcebase" id="view_resourcebase_groups" />
+              </div>
+            </div>
+          </div>
         </div>
+        {% if is_layer %}
+        <!-- change layer data -->
+        <div class="row">
+          <div class="col-md-3">
+            {% trans "Who can edit data for this layer?" %}
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="change_layer_data_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+              <div class="col-md-8">
+                <input class="user-select form-control" type="text" name="change_layer_data" id="change_layer_data_users" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="change_layer_data_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+              <div class="col-md-8">
+                <input class="group-select form-control" type="text" name="change_layer_data" id="change_layer_data_groups" /> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- change layer style -->
+        <div class="row">
+          <div class="col-md-3">
+            {% trans "Who can edit styles for this layer?" %}
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="change_layer_style_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+              <div class="col-md-8">
+                <input class="user-select form-control" type="text" name="change_layer_style" id="change_layer_style_users" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="change_layer_style_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+              <div class="col-md-8">
+                <input class="group-select form-control" type="text" name="change_layer_style" id="change_layer_style_groups" />
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
       </div>
       <div id="manage" class="tab-pane fade">
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td rowspan="2">{% trans "Who Can Manage (Update, Delete, Change Permission, Publish / Unpublish)" %}</td>
-              <td>{% trans "Following users " %}<input class="user-select" type="text" name="manage_resourcebase" id="manage_resourcebase_users" /></td>
-            </tr>
-            <tr>
-              <td>{% trans "Following groups " %}<input class="group-select" type="text" name="manage_resourcebase" id="manage_resourcebase_groups" /></td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- manage layer -->
+        <div class="row">
+          <div class="col-md-3">
+            {% trans "Who can manage it? (update, delete, change permissions, publish/unpublish it)" %}
+          </div>
+          <div class="col-md-9">
+            <div class="form-group">
+              <label for="manage_resourcebase_users" class="control-label col-md-4">{% trans "Following Users" %}</label>
+              <div class="col-md-8">
+                <input class="user-select form-control" type="text" name="manage_resourcebase" id="manage_resourcebase_users" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="manage_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+              <div class="col-md-8">
+                <input class="group-select form-control" type="text" name="manage_resourcebase" id="manage_resourcebase_groups" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

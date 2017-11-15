@@ -6,8 +6,8 @@
     <div class="side-menu">
       <div class="panel-group" role="tablist" aria-multiselectable="true">
         <div class="section-title">
-          <a href="." id="clear-search" class="{{ LANGUAGE_BIDI | yesno:'pull-left, pull-right' }}">{% trans "Clear all" %}</a>
-          <h3>Filter</h3>
+          <a href="." id="clear-search" class="pull-right">{% trans "Clear all" %}</a>
+          <h3>{% trans "Filter" %}</h3>
         </div>
         {% include "search/v2/_text_filter.html" %}
         {% if include_type_filter == 'true' %}
@@ -105,51 +105,13 @@
   </div>
   <div class="col-md-9 col-sm-12 outer-bottom-sm outer-left">
     <div class="controls-product-top outer-top-vs">
-      <div class="controls-product-item row">
-        <div class="col-md-2 col-sm-3 col-xs-12">
-          <div class="product-item-view">
-            <ul class="nav nav-tabs">
-              <li><span>View as:</span></li>
-              <li class="active">
-                <a data-toggle="tab" href="#grid-container"><i class="icon fa fa-th"></i></a>
-              </li>
-              <li>
-                <a data-toggle="tab" href="#list-container"><i class="icon fa fa-th-list"></i></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-6 col-sm-4 col-xs-12">
-          <div class="custom-select">
-            <ul class="list-unstyled">
-              <li class="short-by">
-                {% include "search/v2/_sort_filters.html" %}
-              </li>
-              <li class="show-page">
-                <label>Showing 20</label>
-                <!-- <select>
-                  <option>20</option>
-                  <option>50</option>
-                  <option>All</option>
-                </select> -->
-                <span>
-                  of 
-                  <label ng-bind="total_counts"></label> Docs.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-5 col-xs-12">
-          {% include 'search/v2/_pagination.html' %}
-        </div>
-      </div>
+      {% include 'search/v2/_search_view_controller.html' %}
     </div>
     <div class="product-setting">
       <div class="pull-right">
         {% block bulk_perms_button %}
           {% if request.user.is_authenticated %}
-        <button data-toggle="modal" class="btn btn-primary" data-target="#set_permissions">{% trans "Set permissions" %}</button>
+        <button data-toggle="modal" class="btn btn-primary" data-target="#set_permissions">{% trans "Set Permissions" %}</button>
           {% endif %}
         {% endblock %}
         <a href="{% url 'document_upload' %}" class="btn btn-primary" target="_self">{% trans "Upload Document" %}</a>
@@ -159,6 +121,9 @@
       <div id="myTabContent" class="tab-content">
         {% include 'v2/_resourcebase_snippet.html' %}
       </div>
+    </div>
+    <div class="controls-product-bottom">
+      {% include 'search/v2/_search_view_controller.html' %}
     </div>
   </div>
 </div>

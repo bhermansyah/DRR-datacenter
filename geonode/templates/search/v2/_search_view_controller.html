@@ -1,0 +1,45 @@
+{% load i18n %}
+
+<div class="controls-product-item row">
+  <div class="col-md-3 col-sm-3 col-xs-12">
+    <div class="product-item-view">
+      <ul class="nav nav-tabs">
+        <li><span>{% trans "View as:" %}</span></li>
+        <li class="active">
+          <a data-toggle="tab" href="#grid-container" role="tab" data-toggle="tab"><i class="icon fa fa-th"></i></a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#list-container" role="tab" data-toggle="tab"><i class="icon fa fa-th-list"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-4 col-xs-12">
+    <div class="custom-select">
+      <ul class="list-unstyled">
+        <li class="short-by">
+          {% include "search/v2/_sort_filters.html" %}
+        </li>
+        <li class="show-page">
+          <label>
+            {% trans "Showing max 20" %}
+            {% blocktrans %}
+            <span>
+              of 
+              <label ng-bind="total_counts"></label>Docs.
+            </span>
+            {% endblocktrans %}
+          </label>
+          <!-- <select>
+            <option>20</option>
+            <option>50</option>
+            <option>All</option>
+          </select> -->
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-3 col-sm-5 col-xs-12">
+    {% include 'search/v2/_pagination.html' %}
+  </div>
+</div>
