@@ -7,38 +7,38 @@
       </button>
       <div class="collapse navbar-collapse collapse-buttons navbar-lower-collapse">
         <ul class="nav navbar-nav">
-          <li><a href="{% url 'v2:dashboard_detail' %}?page=main"><span>{% trans 'Quick Overview' %}</span></a></li>
-          <li><a href="{% url 'v2:dashboard_detail' %}?page=baseline"><span>{% trans 'Baseline' %}</span></a></li>
-          <li><a href="{% url 'v2:dashboard_detail' %}?page=accessibility"><span>{% trans 'Accessibility' %}</span></a></li>
+          <li><a href="{% url 'v2:dashboard_detail' %}?page=main{{add_link}}"><span>{% trans 'Quick Overview' %}</span></a></li>
+          <li><a href="{% url 'v2:dashboard_detail' %}?page=baseline{{add_link}}"><span>{% trans 'Baseline' %}</span></a></li>
+          <li><a href="{% url 'v2:dashboard_detail' %}?page=accessibility{{add_link}}"><span>{% trans 'Accessibility' %}</span></a></li>
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>{% trans 'Floods' %}</span>&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
               <ul class="dropdown-menu">
-                <li><a href="{% url 'v2:dashboard_detail' %}?page=floodforecast">{% trans 'Flood Prediction' %}</a></li>
-                <li><a href="{% url 'v2:dashboard_detail' %}?page=floodrisk">{% trans 'Flood Risk' %}</a></li>
+                <li><a href="{% url 'v2:dashboard_detail' %}?page=floodforecast{{add_link}}">{% trans 'Flood Prediction' %}</a></li>
+                <li><a href="{% url 'v2:dashboard_detail' %}?page=floodrisk{{add_link}}">{% trans 'Flood Risk' %}</a></li>
               </ul>
 
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>{% trans 'Avalanches' %}</span>&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></a>
             <ul class="dropdown-menu">
-              <li><a href="{% url 'v2:dashboard_detail' %}?page=avalcheforecast">{% trans 'Avalanche Prediction' %}</a></li>
-              <li><a href="{% url 'v2:dashboard_detail' %}?page=avalancherisk">{% trans 'Avalanche Risk' %}</a></li>
+              <li><a href="{% url 'v2:dashboard_detail' %}?page=avalcheforecast{{add_link}}">{% trans 'Avalanche Prediction' %}</a></li>
+              <li><a href="{% url 'v2:dashboard_detail' %}?page=avalancherisk{{add_link}}">{% trans 'Avalanche Risk' %}</a></li>
             </ul>
           </li>
           <li>
-              <a href="{% url 'v2:dashboard_detail' %}?page=landslide"><span>{% trans 'Landslide' %}</span></a>
+              <a href="{% url 'v2:dashboard_detail' %}?page=landslide{{add_link}}"><span>{% trans 'Landslide' %}</span></a>
           </li>
           <li>
-              <a href="{% url 'v2:dashboard_detail' %}?page=earthquake"><span>{% trans 'Earthquake' %}</span></a>
+              <a href="{% url 'v2:dashboard_detail' %}?page=earthquake{{add_link}}"><span>{% trans 'Earthquake' %}</span></a>
           </li>
           <li>
-              <a href="{% url 'v2:dashboard_detail' %}?page=security"><span>{% trans 'Humanitarian Access' %}</span></a>
+              <a href="{% url 'v2:dashboard_detail' %}?page=security{{add_link}}"><span>{% trans 'Humanitarian Access' %}</span></a>
           </li>
           <li>
-              <a href="{% url 'v2:dashboard_detail' %}?page=naturaldisaster"><span>{% trans 'Natural Disaster' %}</span></a>
+              <a href="{% url 'v2:dashboard_detail' %}?page=naturaldisaster{{add_link}}"><span>{% trans 'Natural Disaster' %}</span></a>
           </li>
           <li>
-            <a href="{% url 'v2:dashboard_detail' %}?page=weather"><span>{% trans 'Weather' %}</span></a>
+            <a href="{% url 'v2:dashboard_detail' %}?page=weather{{add_link}}"><span>{% trans 'Weather' %}</span></a>
           </li>
           <li>
             <button id="pdf" class="btn btn-red" title="Download PDF"><i class="fa fa-file-pdf-o"></i></button>

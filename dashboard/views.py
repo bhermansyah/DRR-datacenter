@@ -133,7 +133,7 @@ def dashboard_detail(request):
 	# add '?page=baseline' to url if none exist
 	if not request.GET.get('page'):
 	    currenturl = request.build_absolute_uri()
-	    return redirect(set_query_parameter(currenturl, 'page', 'main'))
+	    return redirect(set_query_parameter(currenturl, 'page', 'baseline'))
 
 	if 'pdf' in request.GET:
 		v2_folder = ''
