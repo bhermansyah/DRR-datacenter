@@ -174,60 +174,60 @@ def getFloodForecastBySource(sourceType, targetRisk, filterLock, flag, code, YEA
 			code = 'NULL'
 		cursor = connections['geodb'].cursor()
 		sql = "select \
-		round(sum(extreme)) as riverflood_forecast_extreme_pop, \
-		round(sum(veryhigh)) as riverflood_forecast_veryhigh_pop, \
-		round(sum(high)) as riverflood_forecast_high_pop, \
-		round(sum(moderate)) as riverflood_forecast_med_pop, \
-		round(sum(low)) as riverflood_forecast_low_pop, \
-		round(sum(verylow)) as riverflood_forecast_verylow_pop, \
-		round(sum(extreme_high)) as riverflood_forecast_extreme_risk_high_pop, \
-		round(sum(extreme_med)) as riverflood_forecast_extreme_risk_med_pop, \
-		round(sum(extreme_low)) as riverflood_forecast_extreme_risk_low_pop, \
-		round(sum(veryhigh_high)) as riverflood_forecast_veryhigh_risk_high_pop, \
-		round(sum(veryhigh_med)) as riverflood_forecast_veryhigh_risk_med_pop, \
-		round(sum(veryhigh_low)) as riverflood_forecast_veryhigh_risk_low_pop, \
-		round(sum(high_high)) as riverflood_forecast_high_risk_high_pop, \
-		round(sum(high_med)) as riverflood_forecast_high_risk_med_pop, \
-		round(sum(high_low)) as riverflood_forecast_high_risk_low_pop, \
-		round(sum(moderate_high)) as riverflood_forecast_med_risk_high_pop, \
-		round(sum(moderate_med)) as riverflood_forecast_med_risk_med_pop, \
-		round(sum(moderate_low)) as riverflood_forecast_med_risk_low_pop,\
-		round(sum(low_high)) as riverflood_forecast_low_risk_high_pop, \
-		round(sum(low_med)) as riverflood_forecast_low_risk_med_pop, \
-		round(sum(low_low)) as riverflood_forecast_low_risk_low_pop, \
-		round(sum(verylow_high)) as riverflood_forecast_verylow_risk_high_pop, \
-		round(sum(verylow_med)) as riverflood_forecast_verylow_risk_med_pop, \
-		round(sum(verylow_low)) as riverflood_forecast_verylow_risk_low_pop, \
-		round(sum(extreme_area),1)::double precision as riverflood_forecast_extreme_area, \
-		round(sum(veryhigh_area),1)::double precision as riverflood_forecast_veryhigh_area, \
-		round(sum(high_area),1)::double precision as riverflood_forecast_high_area, \
-		round(sum(moderate_area),1)::double precision as riverflood_forecast_med_area, \
-		round(sum(low_area),1)::double precision as riverflood_forecast_low_area, \
-		round(sum(verylow_area),1)::double precision as riverflood_forecast_verylow_area, \
-		round(sum(extreme_buildings)) as riverflood_forecast_extreme_buildings, \
-		round(sum(veryhigh_buildings)) as riverflood_forecast_veryhigh_buildings, \
-		round(sum(high_buildings)) as riverflood_forecast_high_buildings, \
-		round(sum(moderate_buildings)) as riverflood_forecast_med_buildings, \
-		round(sum(low_buildings)) as riverflood_forecast_low_buildings, \
-		round(sum(verylow_buildings)) as riverflood_forecast_verylow_buildings, \
-		round(sum(extreme_high_buildings)) as riverflood_forecast_extreme_risk_high_buildings, \
-		round(sum(extreme_med_buildings)) as riverflood_forecast_extreme_risk_med_buildings, \
-		round(sum(extreme_low_buildings)) as riverflood_forecast_extreme_risk_low_buildings, \
-		round(sum(veryhigh_high_buildings)) as riverflood_forecast_veryhigh_risk_high_buildings, \
-		round(sum(veryhigh_med_buildings)) as riverflood_forecast_veryhigh_risk_med_buildings, \
-		round(sum(veryhigh_low_buildings)) as riverflood_forecast_veryhigh_risk_low_buildings, \
-		round(sum(high_high_buildings)) as riverflood_forecast_high_risk_high_buildings, \
-		round(sum(high_med_buildings)) as riverflood_forecast_high_risk_med_buildings, \
-		round(sum(high_low_buildings)) as riverflood_forecast_high_risk_low_buildings, \
-		round(sum(moderate_high_buildings)) as riverflood_forecast_med_risk_high_buildings, \
-		round(sum(moderate_med_buildings)) as riverflood_forecast_med_risk_med_buildings, \
-		round(sum(moderate_low_buildings)) as riverflood_forecast_med_risk_low_buildings,\
-		round(sum(low_high_buildings)) as riverflood_forecast_low_risk_high_buildings, \
-		round(sum(low_med_buildings)) as riverflood_forecast_low_risk_med_buildings, \
-		round(sum(low_low_buildings)) as riverflood_forecast_low_risk_low_buildings, \
-		round(sum(verylow_high_buildings)) as riverflood_forecast_verylow_risk_high_buildings, \
-		round(sum(verylow_med_buildings)) as riverflood_forecast_verylow_risk_med_buildings, \
-		round(sum(verylow_low_buildings)) as riverflood_forecast_verylow_risk_low_buildings \
+		coalesce(round(sum(extreme)),0) as riverflood_forecast_extreme_pop, \
+		coalesce(round(sum(veryhigh)),0) as riverflood_forecast_veryhigh_pop, \
+		coalesce(round(sum(high)),0) as riverflood_forecast_high_pop, \
+		coalesce(round(sum(moderate)),0) as riverflood_forecast_med_pop, \
+		coalesce(round(sum(low)),0) as riverflood_forecast_low_pop, \
+		coalesce(round(sum(verylow)),0) as riverflood_forecast_verylow_pop, \
+		coalesce(round(sum(extreme_high)),0) as riverflood_forecast_extreme_risk_high_pop, \
+		coalesce(round(sum(extreme_med)),0) as riverflood_forecast_extreme_risk_med_pop, \
+		coalesce(round(sum(extreme_low)),0) as riverflood_forecast_extreme_risk_low_pop, \
+		coalesce(round(sum(veryhigh_high)),0) as riverflood_forecast_veryhigh_risk_high_pop, \
+		coalesce(round(sum(veryhigh_med)),0) as riverflood_forecast_veryhigh_risk_med_pop, \
+		coalesce(round(sum(veryhigh_low)),0) as riverflood_forecast_veryhigh_risk_low_pop, \
+		coalesce(round(sum(high_high)),0) as riverflood_forecast_high_risk_high_pop, \
+		coalesce(round(sum(high_med)),0) as riverflood_forecast_high_risk_med_pop, \
+		coalesce(round(sum(high_low)),0) as riverflood_forecast_high_risk_low_pop, \
+		coalesce(round(sum(moderate_high)),0) as riverflood_forecast_med_risk_high_pop, \
+		coalesce(round(sum(moderate_med)),0) as riverflood_forecast_med_risk_med_pop, \
+		coalesce(round(sum(moderate_low)),0) as riverflood_forecast_med_risk_low_pop,\
+		coalesce(round(sum(low_high)),0) as riverflood_forecast_low_risk_high_pop, \
+		coalesce(round(sum(low_med)),0) as riverflood_forecast_low_risk_med_pop, \
+		coalesce(round(sum(low_low)),0) as riverflood_forecast_low_risk_low_pop, \
+		coalesce(round(sum(verylow_high)),0) as riverflood_forecast_verylow_risk_high_pop, \
+		coalesce(round(sum(verylow_med)),0) as riverflood_forecast_verylow_risk_med_pop, \
+		coalesce(round(sum(verylow_low)),0) as riverflood_forecast_verylow_risk_low_pop, \
+		coalesce(round(sum(extreme_area),1)::double precision,0) as riverflood_forecast_extreme_area, \
+		coalesce(round(sum(veryhigh_area),1)::double precision,0) as riverflood_forecast_veryhigh_area, \
+		coalesce(round(sum(high_area),1)::double precision,0) as riverflood_forecast_high_area, \
+		coalesce(round(sum(moderate_area),1)::double precision,0) as riverflood_forecast_med_area, \
+		coalesce(round(sum(low_area),1)::double precision,0) as riverflood_forecast_low_area, \
+		coalesce(round(sum(verylow_area),1)::double precision,0) as riverflood_forecast_verylow_area, \
+		coalesce(round(sum(extreme_buildings)),0) as riverflood_forecast_extreme_buildings, \
+		coalesce(round(sum(veryhigh_buildings)),0) as riverflood_forecast_veryhigh_buildings, \
+		coalesce(round(sum(high_buildings)),0) as riverflood_forecast_high_buildings, \
+		coalesce(round(sum(moderate_buildings)),0) as riverflood_forecast_med_buildings, \
+		coalesce(round(sum(low_buildings)),0) as riverflood_forecast_low_buildings, \
+		coalesce(round(sum(verylow_buildings)),0) as riverflood_forecast_verylow_buildings, \
+		coalesce(round(sum(extreme_high_buildings)),0) as riverflood_forecast_extreme_risk_high_buildings, \
+		coalesce(round(sum(extreme_med_buildings)),0) as riverflood_forecast_extreme_risk_med_buildings, \
+		coalesce(round(sum(extreme_low_buildings)),0) as riverflood_forecast_extreme_risk_low_buildings, \
+		coalesce(round(sum(veryhigh_high_buildings)),0) as riverflood_forecast_veryhigh_risk_high_buildings, \
+		coalesce(round(sum(veryhigh_med_buildings)),0) as riverflood_forecast_veryhigh_risk_med_buildings, \
+		coalesce(round(sum(veryhigh_low_buildings)),0) as riverflood_forecast_veryhigh_risk_low_buildings, \
+		coalesce(round(sum(high_high_buildings)),0) as riverflood_forecast_high_risk_high_buildings, \
+		coalesce(round(sum(high_med_buildings)),0) as riverflood_forecast_high_risk_med_buildings, \
+		coalesce(round(sum(high_low_buildings)),0) as riverflood_forecast_high_risk_low_buildings, \
+		coalesce(round(sum(moderate_high_buildings)),0) as riverflood_forecast_med_risk_high_buildings, \
+		coalesce(round(sum(moderate_med_buildings)),0) as riverflood_forecast_med_risk_med_buildings, \
+		coalesce(round(sum(moderate_low_buildings)),0) as riverflood_forecast_med_risk_low_buildings,\
+		coalesce(round(sum(low_high_buildings)),0) as riverflood_forecast_low_risk_high_buildings, \
+		coalesce(round(sum(low_med_buildings)),0) as riverflood_forecast_low_risk_med_buildings, \
+		coalesce(round(sum(low_low_buildings)),0) as riverflood_forecast_low_risk_low_buildings, \
+		coalesce(round(sum(verylow_high_buildings)),0) as riverflood_forecast_verylow_risk_high_buildings, \
+		coalesce(round(sum(verylow_med_buildings)),0) as riverflood_forecast_verylow_risk_med_buildings, \
+		coalesce(round(sum(verylow_low_buildings)),0) as riverflood_forecast_verylow_risk_low_buildings \
 		from get_glofas(date('%s-%s-%s')-1,'%s',%s,'%s')" %(YEAR,MONTH,DAY,flag,code,filterLock)
 		row = query_to_dicts(cursor, sql)
 		for item in row:
@@ -241,60 +241,60 @@ def getFloodForecastBySource(sourceType, targetRisk, filterLock, flag, code, YEA
 			code = 'NULL'
 		cursor = connections['geodb'].cursor()
 		sql = "select \
-		round(sum(extreme)) as riverflood_forecast_extreme_pop, \
-		round(sum(veryhigh)) as riverflood_forecast_veryhigh_pop, \
-		round(sum(high)) as riverflood_forecast_high_pop, \
-		round(sum(moderate)) as riverflood_forecast_med_pop, \
-		round(sum(low)) as riverflood_forecast_low_pop, \
-		round(sum(verylow)) as riverflood_forecast_verylow_pop, \
-		round(sum(extreme_high)) as riverflood_forecast_extreme_risk_high_pop, \
-		round(sum(extreme_med)) as riverflood_forecast_extreme_risk_med_pop, \
-		round(sum(extreme_low)) as riverflood_forecast_extreme_risk_low_pop, \
-		round(sum(veryhigh_high)) as riverflood_forecast_veryhigh_risk_high_pop, \
-		round(sum(veryhigh_med)) as riverflood_forecast_veryhigh_risk_med_pop, \
-		round(sum(veryhigh_low)) as riverflood_forecast_veryhigh_risk_low_pop, \
-		round(sum(high_high)) as riverflood_forecast_high_risk_high_pop, \
-		round(sum(high_med)) as riverflood_forecast_high_risk_med_pop, \
-		round(sum(high_low)) as riverflood_forecast_high_risk_low_pop, \
-		round(sum(moderate_high)) as riverflood_forecast_med_risk_high_pop, \
-		round(sum(moderate_med)) as riverflood_forecast_med_risk_med_pop, \
-		round(sum(moderate_low)) as riverflood_forecast_med_risk_low_pop,\
-		round(sum(low_high)) as riverflood_forecast_low_risk_high_pop, \
-		round(sum(low_med)) as riverflood_forecast_low_risk_med_pop, \
-		round(sum(low_low)) as riverflood_forecast_low_risk_low_pop, \
-		round(sum(verylow_high)) as riverflood_forecast_verylow_risk_high_pop, \
-		round(sum(verylow_med)) as riverflood_forecast_verylow_risk_med_pop, \
-		round(sum(verylow_low)) as riverflood_forecast_verylow_risk_low_pop, \
-		round(sum(extreme_area),1)::double precision as riverflood_forecast_extreme_area, \
-		round(sum(veryhigh_area),1)::double precision as riverflood_forecast_veryhigh_area, \
-		round(sum(high_area),1)::double precision as riverflood_forecast_high_area, \
-		round(sum(moderate_area),1)::double precision as riverflood_forecast_med_area, \
-		round(sum(low_area),1)::double precision as riverflood_forecast_low_area, \
-		round(sum(verylow_area),1)::double precision as riverflood_forecast_verylow_area, \
-		round(sum(extreme_buildings)) as riverflood_forecast_extreme_buildings, \
-		round(sum(veryhigh_buildings)) as riverflood_forecast_veryhigh_buildings, \
-		round(sum(high_buildings)) as riverflood_forecast_high_buildings, \
-		round(sum(moderate_buildings)) as riverflood_forecast_med_buildings, \
-		round(sum(low_buildings)) as riverflood_forecast_low_buildings, \
-		round(sum(verylow_buildings)) as riverflood_forecast_verylow_buildings, \
-		round(sum(extreme_high_buildings)) as riverflood_forecast_extreme_risk_high_buildings, \
-		round(sum(extreme_med_buildings)) as riverflood_forecast_extreme_risk_med_buildings, \
-		round(sum(extreme_low_buildings)) as riverflood_forecast_extreme_risk_low_buildings, \
-		round(sum(veryhigh_high_buildings)) as riverflood_forecast_veryhigh_risk_high_buildings, \
-		round(sum(veryhigh_med_buildings)) as riverflood_forecast_veryhigh_risk_med_buildings, \
-		round(sum(veryhigh_low_buildings)) as riverflood_forecast_veryhigh_risk_low_buildings, \
-		round(sum(high_high_buildings)) as riverflood_forecast_high_risk_high_buildings, \
-		round(sum(high_med_buildings)) as riverflood_forecast_high_risk_med_buildings, \
-		round(sum(high_low_buildings)) as riverflood_forecast_high_risk_low_buildings, \
-		round(sum(moderate_high_buildings)) as riverflood_forecast_med_risk_high_buildings, \
-		round(sum(moderate_med_buildings)) as riverflood_forecast_med_risk_med_buildings, \
-		round(sum(moderate_low_buildings)) as riverflood_forecast_med_risk_low_buildings,\
-		round(sum(low_high_buildings)) as riverflood_forecast_low_risk_high_buildings, \
-		round(sum(low_med_buildings)) as riverflood_forecast_low_risk_med_buildings, \
-		round(sum(low_low_buildings)) as riverflood_forecast_low_risk_low_buildings, \
-		round(sum(verylow_high_buildings)) as riverflood_forecast_verylow_risk_high_buildings, \
-		round(sum(verylow_med_buildings)) as riverflood_forecast_verylow_risk_med_buildings, \
-		round(sum(verylow_low_buildings)) as riverflood_forecast_verylow_risk_low_buildings \
+		coalesce(round(sum(extreme)),0) as riverflood_forecast_extreme_pop, \
+		coalesce(round(sum(veryhigh)),0) as riverflood_forecast_veryhigh_pop, \
+		coalesce(round(sum(high)),0) as riverflood_forecast_high_pop, \
+		coalesce(round(sum(moderate)),0) as riverflood_forecast_med_pop, \
+		coalesce(round(sum(low)),0) as riverflood_forecast_low_pop, \
+		coalesce(round(sum(verylow)),0) as riverflood_forecast_verylow_pop, \
+		coalesce(round(sum(extreme_high)),0) as riverflood_forecast_extreme_risk_high_pop, \
+		coalesce(round(sum(extreme_med)),0) as riverflood_forecast_extreme_risk_med_pop, \
+		coalesce(round(sum(extreme_low)),0) as riverflood_forecast_extreme_risk_low_pop, \
+		coalesce(round(sum(veryhigh_high)),0) as riverflood_forecast_veryhigh_risk_high_pop, \
+		coalesce(round(sum(veryhigh_med)),0) as riverflood_forecast_veryhigh_risk_med_pop, \
+		coalesce(round(sum(veryhigh_low)),0) as riverflood_forecast_veryhigh_risk_low_pop, \
+		coalesce(round(sum(high_high)),0) as riverflood_forecast_high_risk_high_pop, \
+		coalesce(round(sum(high_med)),0) as riverflood_forecast_high_risk_med_pop, \
+		coalesce(round(sum(high_low)),0) as riverflood_forecast_high_risk_low_pop, \
+		coalesce(round(sum(moderate_high)),0) as riverflood_forecast_med_risk_high_pop, \
+		coalesce(round(sum(moderate_med)),0) as riverflood_forecast_med_risk_med_pop, \
+		coalesce(round(sum(moderate_low)),0) as riverflood_forecast_med_risk_low_pop,\
+		coalesce(round(sum(low_high)),0) as riverflood_forecast_low_risk_high_pop, \
+		coalesce(round(sum(low_med)),0) as riverflood_forecast_low_risk_med_pop, \
+		coalesce(round(sum(low_low)),0) as riverflood_forecast_low_risk_low_pop, \
+		coalesce(round(sum(verylow_high)),0) as riverflood_forecast_verylow_risk_high_pop, \
+		coalesce(round(sum(verylow_med)),0) as riverflood_forecast_verylow_risk_med_pop, \
+		coalesce(round(sum(verylow_low)),0) as riverflood_forecast_verylow_risk_low_pop, \
+		coalesce(round(sum(extreme_area),1)::double precision,0) as riverflood_forecast_extreme_area, \
+		coalesce(round(sum(veryhigh_area),1)::double precision,0) as riverflood_forecast_veryhigh_area, \
+		coalesce(round(sum(high_area),1)::double precision,0) as riverflood_forecast_high_area, \
+		coalesce(round(sum(moderate_area),1)::double precision,0) as riverflood_forecast_med_area, \
+		coalesce(round(sum(low_area),1)::double precision,0) as riverflood_forecast_low_area, \
+		coalesce(round(sum(verylow_area),1)::double precision,0) as riverflood_forecast_verylow_area, \
+		coalesce(round(sum(extreme_buildings)),0) as riverflood_forecast_extreme_buildings, \
+		coalesce(round(sum(veryhigh_buildings)),0) as riverflood_forecast_veryhigh_buildings, \
+		coalesce(round(sum(high_buildings)),0) as riverflood_forecast_high_buildings, \
+		coalesce(round(sum(moderate_buildings)),0) as riverflood_forecast_med_buildings, \
+		coalesce(round(sum(low_buildings)),0) as riverflood_forecast_low_buildings, \
+		coalesce(round(sum(verylow_buildings)),0) as riverflood_forecast_verylow_buildings, \
+		coalesce(round(sum(extreme_high_buildings)),0) as riverflood_forecast_extreme_risk_high_buildings, \
+		coalesce(round(sum(extreme_med_buildings)),0) as riverflood_forecast_extreme_risk_med_buildings, \
+		coalesce(round(sum(extreme_low_buildings)),0) as riverflood_forecast_extreme_risk_low_buildings, \
+		coalesce(round(sum(veryhigh_high_buildings)),0) as riverflood_forecast_veryhigh_risk_high_buildings, \
+		coalesce(round(sum(veryhigh_med_buildings)),0) as riverflood_forecast_veryhigh_risk_med_buildings, \
+		coalesce(round(sum(veryhigh_low_buildings)),0) as riverflood_forecast_veryhigh_risk_low_buildings, \
+		coalesce(round(sum(high_high_buildings)),0) as riverflood_forecast_high_risk_high_buildings, \
+		coalesce(round(sum(high_med_buildings)),0) as riverflood_forecast_high_risk_med_buildings, \
+		coalesce(round(sum(high_low_buildings)),0) as riverflood_forecast_high_risk_low_buildings, \
+		coalesce(round(sum(moderate_high_buildings)),0) as riverflood_forecast_med_risk_high_buildings, \
+		coalesce(round(sum(moderate_med_buildings)),0) as riverflood_forecast_med_risk_med_buildings, \
+		coalesce(round(sum(moderate_low_buildings)),0) as riverflood_forecast_med_risk_low_buildings,\
+		coalesce(round(sum(low_high_buildings)),0) as riverflood_forecast_low_risk_high_buildings, \
+		coalesce(round(sum(low_med_buildings)),0) as riverflood_forecast_low_risk_med_buildings, \
+		coalesce(round(sum(low_low_buildings)),0) as riverflood_forecast_low_risk_low_buildings, \
+		coalesce(round(sum(verylow_high_buildings)),0) as riverflood_forecast_verylow_risk_high_buildings, \
+		coalesce(round(sum(verylow_med_buildings)),0) as riverflood_forecast_verylow_risk_med_buildings, \
+		coalesce(round(sum(verylow_low_buildings)),0) as riverflood_forecast_verylow_risk_low_buildings \
 		from get_merge_glofas_gfms(date('%s-%s-%s'),'%s',%s,'%s')" %(YEAR,MONTH,DAY,flag,code,filterLock)
 		row = query_to_dicts(cursor, sql)
 		for item in row:
