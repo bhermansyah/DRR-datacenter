@@ -4989,8 +4989,9 @@ input#districtSelection_c{
   color: #0D63AD;
 }
 
-div#OpenLayers_Map_15_OpenLayers_Container{
-    position: relative !important;
+html[dir=rtl] div#OpenLayers_Map_15_OpenLayers_Container{
+    /*position: relative !important;*/
+    left: 0;
 }
 
 #searchTB .x-form-cb-label{
