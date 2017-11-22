@@ -27,7 +27,7 @@ def userstatistics(request):
     data['jsondata'] = {}
     data['jsondata']['useractivities'] = {}
     data['jsondata']['user'] = {}
-    user_exclude = ['admin', 'dodiws', 'dodiwsreg', 'rafinkanisa', 'boedy1996']
+    user_exclude = ['admin', 'dodiws', 'dodiwsreg', 'rafinkanisa', 'boedy1996', 'razinal']
     start = time.time()
     print 'query start', start
     data['jsondata']['useractivities']['data'] = [
@@ -50,9 +50,9 @@ def userstatistics(request):
             r[10].strftime('%Y-%m-%d %H:%M:%S'),
             r[11].strftime('%Y-%m-%d %H:%M:%S'),
             r[12].strftime('%Y-%m-%d %H:%M:%S'),
-            r[12].strftime('%Y'),
-            r[12].strftime('%m'),
-            r[12].strftime('%d')
+            r[12].year,
+            r[12].month,
+            r[12].day
         ]
         for r in matrix.objects.exclude(user__username__in=user_exclude).values_list(
             'user__username',
