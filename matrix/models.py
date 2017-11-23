@@ -15,3 +15,18 @@ class matrix(models.Model):
         return super(matrix, self).save(*args, **kwargs)
     def __unicode__(self):
         return self.action
+
+
+class MatrixCertificate(models.Model):
+    email = models.CharField(primary_key=True, max_length=200)
+    first = models.CharField(max_length=200, blank=True)
+    last = models.CharField(max_length=200, blank=True)
+    percentage = models.FloatField(blank=True, null=True)
+    points_score = models.FloatField(blank=True, null=True)
+    points_available = models.FloatField(blank=True, null=True)
+    time_started = models.BigIntegerField(blank=True, null=True)
+    time_finished = models.BigIntegerField(blank=True, null=True)
+    cm_user_id = models.CharField(max_length=200, blank=True)
+    class Meta:
+        managed = False
+        db_table = 'matrix_certificate'
