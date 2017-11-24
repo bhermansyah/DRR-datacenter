@@ -4,7 +4,7 @@ from django.template import RequestContext, loader
 from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity, getLandslideRisk, getQuickOverview
 from geodb.models import AfgAdmbndaAdm1, AfgAdmbndaAdm2
 from django.shortcuts import HttpResponse
-from matrix.models import matrix
+from matrix.models import matrix, MatrixCertificate
 from dashboard.models import classmarker
 from urlparse import urlparse
 from geonode.maps.views import _resolve_map, _PERMISSION_MSG_VIEW
@@ -28,6 +28,10 @@ from urlparse import parse_qs, urlsplit, urlunsplit
 import re
 from requests.utils import quote
 from django.utils import translation
+
+import time
+import md5
+import calendar
 
 def common(request):
 	response = {}
@@ -352,3 +356,48 @@ def classmarkerInsert(request):
 
 	p.save()
 	return HttpResponse({}, mimetype='application/json')
+
+def classmarkerGet():
+	api_name = 'getUsersData'
+	api_key = 'QPCkKLbJ5XemMe8Kei6oLD0ZE0w1JfOa'
+	api_secret = '1WpKiVZKTD4gnAwwNzk0dO9MT1nDFcjF87Vmzv4S'
+	# d = datetime.utcnow()
+	# ts = calendar.timegm(d.utctimetuple())
+	ts = int(time.time())
+	from_ts = int(time.mktime((2017, 11, 15, 0, 0, 0, 0, 0, 0)))
+	signature = md5.new(api_key + api_secret + str(ts));
+	# url = 'https://api.classmarker.com/v1/groups/315743/tests/673903/recent_results.json?api_key=%s&signature=%s&timestamp=%s&finishedAfterTimestamp=%s' %(api_key,signature.hexdigest(),str(ts),str(from_ts))
+	url = 'https://api.classmarker.com/v1/links/recent_results.json?api_key=%s&signature=%s&timestamp=%s' %(api_key,signature.hexdigest(),str(ts))
+	# print url
+	data = urllib.urlopen(url)
+	for i in data:
+		result = json.loads(i)
+		# print result['results']
+		for x in result['results']:
+			available_certified_users = MatrixCertificate.objects.filter(pk=x['result']['email'])
+			if available_certified_users.count()>0:
+				if x['result']['percentage']>available_certified_users[0].percentage:
+					available_certified_users[0].first = x['result']['first']
+					available_certified_users[0].last = x['result']['last']
+					available_certified_users[0].percentage = x['result']['percentage']
+					available_certified_users[0].points_score = x['result']['points_score']
+					available_certified_users[0].points_available = x['result']['points_available']
+					available_certified_users[0].time_started = x['result']['time_started']
+					available_certified_users[0].time_finished = x['result']['time_finished']
+					available_certified_users[0].cm_user_id = x['result']['cm_user_id']
+					available_certified_users[0].save()
+					# print available_certified_users
+			else:
+				p = MatrixCertificate(pk=x['result']['email'])	
+				p.first = x['result']['first']
+				p.last = x['result']['last']
+				p.percentage = x['result']['percentage']
+				p.points_score = x['result']['points_scored']
+				p.points_available = x['result']['points_available']
+				p.time_started = x['result']['time_started']
+				p.time_finished = x['result']['time_finished']
+				p.cm_user_id = x['result']['cm_user_id']
+				p.save()	
+				# print p
+
+

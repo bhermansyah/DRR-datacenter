@@ -4,6 +4,7 @@ from celery.decorators import periodic_task
 from celery.utils.log import get_task_logger
 from datetime import datetime
 from geodb.views import getForecastedDisaster, updateSummaryTable, getSnowCover, getLatestEarthQuake, getLatestShakemap, databasevacumm, runGlofasDownloader
+from dashboard.views import classmarkerGet
 
 logger = get_task_logger(__name__)
 
@@ -35,5 +36,9 @@ def updateLatestShakemap():
 @periodic_task(run_every=(crontab(hour='3')))
 def runGetGlofasDS():
 	runGlofasDownloader()
+
+@periodic_task(run_every=(crontab(hour='*')))
+def runClassmarkerGet():
+	classmarkerGet()
 	
 
