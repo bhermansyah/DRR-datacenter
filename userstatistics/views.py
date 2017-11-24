@@ -71,15 +71,22 @@ def userstatistics(request):
         )
     ]
 
+    queryset = get_user_model().objects.exclude(username__in=user_exclude).\
+    extra(select={'certificate_percentage': 'SELECT percentage FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email',
+    'certified': 'SELECT (case when CAST (percentage AS FLOAT) >= 75 then \'Yes\' else \'No\' end) AS certified FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email'}).\
+    values_list('username', 'organization', 'org_acronym', 'org_type', 'date_joined', 'certificate_percentage', 'certified')
+    print queryset.query
     data['jsondata']['user']['data'] = [
         [
             unicode(r[0]).encode('utf-8').strip(),
             unicode(r[1]).encode('utf-8').strip(),
             unicode(r[2]).encode('utf-8').strip(),
             unicode(r[3]).encode('utf-8').strip(),
-            r[4].strftime('%Y-%m-%d %H:%M:%S')
+            r[4].strftime('%Y-%m-%d %H:%M:%S'),
+            unicode(r[5] or '').encode('utf-8').strip(),
+            unicode(r[6] or 'No').encode('utf-8').strip(),
         ]
-        for r in get_user_model().objects.exclude(username__in=user_exclude).values_list('username', 'organization', 'org_acronym', 'org_type', 'date_joined')
+        for r in queryset
     ]
     # data['user']['data'] = get_user_model().objects.all()
     end = time.time()
@@ -103,5 +110,5 @@ def userstatistics(request):
         str('action_month'),
         str('action_day')
     ]
-    data['jsondata']['user']['columns'] = [str('username'), str('organization'), str('org_acronym'), str('org_type'), str('date_join')]
+    data['jsondata']['user']['columns'] = [str('username'), str('organization'), str('org_acronym'), str('org_type'), str('date_join'), str('certificate_percentage'), str('certified')]
     return render(request, 'userstatistics.html', data)
