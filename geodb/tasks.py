@@ -37,7 +37,7 @@ def updateLatestShakemap():
 def runGetGlofasDS():
 	runGlofasDownloader()
 
-@periodic_task(run_every=(crontab(hour='*')))
+@periodic_task(run_every=(crontab(hour='1')))
 def runClassmarkerGet():
 	classmarkerGet()
 	
