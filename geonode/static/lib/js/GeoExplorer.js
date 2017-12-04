@@ -33011,7 +33011,7 @@ GeoExt.PrintMapPanel = Ext.extend(GeoExt.MapPanel, {
 
         // console.log(this);
         this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Filter Layer')[0], 10000);
-        this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Mask Layer')[0], 10000);
+        this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Mask Layer')[0], 90000);
         this.sourceMap.raiseLayer(this.sourceMap.getLayersByName('Finder Layer')[0], 10000);
         this.extent = this.sourceMap.getExtent();
 
@@ -91500,6 +91500,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     }
                 }
                 mask_layer.addFeatures(features);
+                tempMap.raiseLayer(mask_layer,90000);
             }
         });
 
