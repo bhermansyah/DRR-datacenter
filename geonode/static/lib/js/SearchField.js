@@ -39,7 +39,12 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     },
 
     onTrigger2Click : function(){
-        var v = this.getRawValue();
+
+        var v = '';
+        var y = '';
+
+        if (this.id == 'freeSearchForm') v = this.getRawValue();
+        if (this.id == 'villageIDSearchForm') y = this.getRawValue();
 
         // v = v.toLowerCase();
         var layers = [];

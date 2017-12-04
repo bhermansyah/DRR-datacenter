@@ -34922,6 +34922,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                     "_checked":"detail_base"
                 }
             ]
+        },{
+            "id":"9",
+            "nodeID":"9",
+            "pnodeID":"0",
+            "text":"Landslide",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=landslide&pdf=true",
+            "children":[]
         }
     ],
 
@@ -91624,7 +91633,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
             tempMap.raiseLayer(vector_layer,10000);
             tempMap.raiseLayer(vector_layerEQ,10000);
-            tempMap.raiseLayer(mask_layer,10000);
+            tempMap.raiseLayer(mask_layer,90000);
             tempMap.raiseLayer(vector_layerSecurityEntry,10000);
         });
 
@@ -92365,6 +92374,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('airportCB').setValue(false);
                                             Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                            Ext.getCmp('tbVUID').hide();
                                         }
                                     }
                                 }
@@ -92383,6 +92393,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('airportCB').setValue(false);
                                             Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                            Ext.getCmp('tbVUID').hide()
                                         }
                                     }
                                 }
@@ -92402,6 +92413,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('hfCB').setValue(false);
                                             Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                            Ext.getCmp('tbVUID').hide()
                                         }
                                     }
                                 }
@@ -92420,6 +92432,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('hfCB').setValue(false);
                                             Ext.getCmp('airportCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                            Ext.getCmp('tbVUID').hide()
                                         }
                                     }
                                 }
@@ -92640,6 +92653,31 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 },
                                 new Ext.ux.form.SearchField({
                                     id:'freeSearchForm',
+                                    store: finderStore,
+                                    style:'width:320px !important',
+                                    width:320
+                                })
+                            ]
+                        },{
+                            id:'tbCoordinate',
+                            hidden:true,
+                            items: [
+                                'Search by Coordinate: ',
+                                {
+                                    xtype: 'tbtext',
+                                    id: 'textCoordinate',
+                                    text: 'Not Set'
+                                }, 
+                                '->', 
+                                {text:'Set'}, 
+                                {text:'Clear'}]
+                        },{
+                            id:'tbVUID',
+                            hidden:true,
+                            items: [
+                                'Search by Village ID: ', 
+                                new Ext.ux.form.SearchField({
+                                    id:'villageIDSearchForm',
                                     store: finderStore,
                                     style:'width:320px !important',
                                     width:320
