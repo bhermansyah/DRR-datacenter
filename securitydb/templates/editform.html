@@ -190,12 +190,13 @@
 		}
 
 		function initialize_page() {
-			mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
 			$('#id_scre_username').attr('readonly', true);
 
 			var prov_id = $('#id_scre_provid').val();
 			var dist_code = $('#id_scre_distid').val();
 			var settid = $('#id_scre_settvuid').val();
+
+			if (prov_id=='') mainMap.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
 
 			updatediststore(prov_id);
 			updatesettstore(dist_code);
