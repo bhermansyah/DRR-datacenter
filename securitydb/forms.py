@@ -166,6 +166,10 @@ class SecureFeatureForm(ModelForm):
 			self.fields['scre_settvuid'].widget.attrs['disabled'] = 'disabled'
 		if self.initial['recstatus'] is None:
 			self.initial['recstatus'] = 1
+		print 'self.fields[\'scre_latitude\']', dir(self.fields['scre_latitude'])
+		print 'self.fields.keys()', self.fields.keys()
+		self.fields['scre_latitude'].required = False
+		self.fields['scre_longitude'].required = False
 
 		# put here because dynamic content, where as class meta is cached
 		self.fields['scre_incidentdatestr'].widget.options['maxDate'] = datetime.now().strftime('%Y-%m-%d')

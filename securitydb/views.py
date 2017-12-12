@@ -227,7 +227,7 @@ def scresysed(request, criteria_id=None):
 
         	obj = form.save(commit=False) # use this to assign values to excluded fields
         	obj.scre_incidentdate = frm_incdtstr + " " + frm_inctmstr
-        	obj.mpoint = fromstr('Point(' + frm_lon + ' ' + frm_lat + ')')
+        	obj.mpoint = fromstr('Point(' + frm_lon + ' ' + frm_lat + ')') if frm_lon and frm_lat else None
         	obj.scre_settvuid = vuid
         	if obj.id: # edit existing
         		obj.userud = request.user.id

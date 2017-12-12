@@ -28,8 +28,8 @@ class SecureFeature(models.Model):
 	# scre_distid = models.ForeignKey('geodb.AfgAdmbndaAdm2', to_field="dist_code", db_column="scre_distid", null=True, blank=True)
 	scre_distname = models.CharField(max_length=255, null=True, blank=True) #only for table, not viewed on the form
 	scre_placename = models.CharField(max_length=255, null=True, blank=True)
-	scre_latitude = models.FloatField()
-	scre_longitude = models.FloatField()
+	scre_latitude = models.FloatField(null=True, blank=True)
+	scre_longitude = models.FloatField(null=True, blank=True)
     # GeoDjango-specific: a geometry field (MultiPolygonField), and
     # overriding the default manager with a GeoManager instance.
 	mpoint = models.PointField(null=True, blank=True)
@@ -46,7 +46,7 @@ class SecureFeature(models.Model):
 		managed = True
 		db_table = 'afg_scr_securefeature'
 	def __unicode__(self):
-		return self.id
+		return self.scre_notes
 
 # ---------------------------------- Its moved from ishlah/models.py
 	# standard table for accountability
@@ -76,7 +76,7 @@ class SourceGroup(models.Model):
 
 class SourceType(models.Model):
 	id = models.AutoField(primary_key=True)
-	scrc_scrgid  = models.ForeignKey('SourceGroup'),
+	scrc_scrgid  = models.ForeignKey(SourceGroup, db_column='scrc_scrgid', blank=True, null=True)
 	scrc_name = models.CharField(max_length=255, blank=True)
 	scrc_description = models.CharField(max_length=400, null=True, blank=True)
 	scrc_url = models.CharField(max_length=255, null=True, blank=True)
@@ -93,15 +93,33 @@ class SourceType(models.Model):
 	def __unicode__(self):
 		return self.scrc_name
 
+class AfgScrEventtypecat(models.Model):
+    id = models.AutoField(primary_key=True)
+    cat_name = models.CharField(max_length=255, blank=True)
+    name_short = models.CharField(max_length=255, blank=True)
+
+    userid = models.IntegerField(blank=True, null=True)
+    entrydatetime = models.DateTimeField(blank=True, null=True)
+    userud = models.IntegerField(blank=True, null=True)
+    updatedatetime = models.DateTimeField(blank=True, null=True)
+    recstatus = models.IntegerField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_scr_eventtypecat'
+    def __unicode__(self):
+        return self.cat_name
+
 class EventType(models.Model):
 	id = models.AutoField(primary_key=True)
 	evnt_name = models.CharField(max_length=255)
+	# evnt_cat = models.IntegerField(blank=True, null=True)
 
 	userid = models.IntegerField(null=True, blank=True)
 	entrydatetime = models.DateTimeField(null=True, blank=True)
 	userud = models.IntegerField(null=True, blank=True)
 	updatedatetime = models.DateTimeField(null=True, blank=True)
 	recstatus = models.IntegerField(null=True, blank=True)
+	evnt_cat = models.ForeignKey(AfgScrEventtypecat, db_column='evnt_cat', blank=True, null=True)
 	class Meta:
 		managed = True
 		db_table = 'afg_scr_eventtype'
@@ -109,12 +127,30 @@ class EventType(models.Model):
 	def __unicode__(self):
 		return self.evnt_name
 
+class AfgScrIncidenttargetcat(models.Model):
+    id = models.IntegerField(primary_key=True)
+    cat_name = models.CharField(max_length=255)
+    name_short = models.CharField(max_length=255, blank=True)
+
+    userid = models.IntegerField(blank=True, null=True)
+    entrydatetime = models.DateTimeField(blank=True, null=True)
+    userud = models.IntegerField(blank=True, null=True)
+    updatedatetime = models.DateTimeField(blank=True, null=True)
+    recstatus = models.IntegerField(blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'afg_scr_incidenttargetcat'
+    def __unicode__(self):
+        return self.cat_name
+
 class IncidentTarget(models.Model):
 	id = models.AutoField(primary_key=True)
 	inct_name = models.CharField(max_length=255)
 	inct_short = models.CharField(max_length=255, null=True, blank=True)
 	inct_description= models.CharField(max_length=400, null=True, blank=True)
 	inct_scoring = models.IntegerField(null=True, blank=True)
+	inct_catid = models.ForeignKey(AfgScrIncidenttargetcat, db_column='inct_catid', blank=True, null=True)
+
 	userid = models.IntegerField(null=True, blank=True)
 	entrydatetime = models.DateTimeField(null=True, blank=True)
 	userud = models.IntegerField(null=True, blank=True)
