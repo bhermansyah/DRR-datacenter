@@ -100,7 +100,7 @@ class Profile(AbstractUser):
         help_text=_('Title'))
     org_acronym = models.CharField(
          _('Organisation acronym'),
-        choices=ORG_ACCRONYM,
+        # choices=ORG_ACCRONYM,
         max_length=255,
         blank=True,
         null=True,
@@ -113,7 +113,7 @@ class Profile(AbstractUser):
         help_text=_('Organisation Type'))
     org_name_status = models.CharField(
          _('Organisation Name Status'),
-        choices=ORG_NAME_STATUS,
+        # choices=ORG_NAME_STATUS,
         max_length=255,
         blank=True,
         null=True,
