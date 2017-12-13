@@ -750,7 +750,7 @@
 	                      			<tbody>
 	                      				{% for item in incident_list_100 %}
                       					<tr>
-                      						<td>{{ item.incident_date }}</td>
+                      						<td>{{ item.incident_date |date:'M j, Y' }}</td>
                       						<td>{{ item.description }}</td>
                       					</tr>
 	                      				{% endfor %}

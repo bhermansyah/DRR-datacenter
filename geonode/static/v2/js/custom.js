@@ -17121,6 +17121,8 @@ jQuery(function($){
 
 	    	// console.log('jsondata[\'lc_child\']', jsondata['lc_child']);
 
+	    	$.fn.dataTable.moment( 'MMM D, YYYY' );
+
 	    	$('.print').DataTable({
 	    		"ordering": false, //do this when print
 	    		"paging": false, //do this when print
