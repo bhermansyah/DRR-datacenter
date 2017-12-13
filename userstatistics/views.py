@@ -41,6 +41,7 @@ def userstatistics(request):
         'user__organization',
         'user__org_acronym',
         'user__org_type',
+        'user__org_name_status',
         'action',
         'resourceid__title',
         'resourceid__csw_type',
@@ -63,19 +64,15 @@ def userstatistics(request):
             unicode(r[7]).encode('utf-8').strip(),
             unicode(r[8]).encode('utf-8').strip(),
             unicode(r[9]).encode('utf-8').strip(),
-            # str(r[3]),
-            # str(r[4]),
-            # str(r[5]),
-            # str(r[6]),
-            # str(r[7]),
-            r[10].strftime('%Y-%m-%d %H:%M:%S'),
+            unicode(r[10]).encode('utf-8').strip(),
             r[11].strftime('%Y-%m-%d %H:%M:%S'),
             r[12].strftime('%Y-%m-%d %H:%M:%S'),
-            r[12].year,
-            r[12].month,
-            r[12].day,
-            unicode(r[13] or '').encode('utf-8').strip(),
-            unicode(r[14] or 'No').encode('utf-8').strip(),
+            r[13].strftime('%Y-%m-%d %H:%M:%S'),
+            r[13].year,
+            r[13].month,
+            r[13].day,
+            unicode(r[14] or '').encode('utf-8').strip(),
+            unicode(r[15] or 'No').encode('utf-8').strip(),
         ]
         for r in qs_matrix
     ]
@@ -83,7 +80,16 @@ def userstatistics(request):
     queryset = get_user_model().objects.exclude(username__in=user_exclude).\
     extra(select={'certificate_percentage': 'SELECT percentage FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email',
     'certified': 'SELECT (case when CAST (percentage AS FLOAT) >= 75 then \'Yes\' else \'No\' end) AS certified FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email'}).\
-    values_list('username', 'organization', 'org_acronym', 'org_type', 'date_joined', 'certificate_percentage', 'certified')
+    values_list(
+        'username',
+        'organization',
+        'org_acronym',
+        'org_type',
+        'org_name_status',
+        'date_joined',
+        'certificate_percentage',
+        'certified'
+        )
     # print queryset.query
     data['jsondata']['user']['data'] = [
         [
@@ -91,9 +97,10 @@ def userstatistics(request):
             unicode(r[1]).encode('utf-8').strip(),
             unicode(r[2]).encode('utf-8').strip(),
             unicode(r[3]).encode('utf-8').strip(),
-            r[4].strftime('%Y-%m-%d %H:%M:%S'),
-            unicode(r[5] or '').encode('utf-8').strip(),
-            unicode(r[6] or 'No').encode('utf-8').strip(),
+            unicode(r[4]).encode('utf-8').strip(),
+            r[5].strftime('%Y-%m-%d %H:%M:%S'),
+            unicode(r[6] or '').encode('utf-8').strip(),
+            unicode(r[7] or 'No').encode('utf-8').strip(),
         ]
         for r in queryset
     ]
@@ -109,6 +116,7 @@ def userstatistics(request):
         str('organization'),
         str('org_acronym'),
         str('org_type'),
+        str('org_name_status'),
         str('action'),
         str('resource'),
         str('type_of_object'),
@@ -121,5 +129,13 @@ def userstatistics(request):
         str('certificate_percentage'),
         str('certified')
     ]
-    data['jsondata']['user']['columns'] = [str('username'), str('organization'), str('org_acronym'), str('org_type'), str('date_join'), str('certificate_percentage'), str('certified')]
+    data['jsondata']['user']['columns'] = [
+    str('username'),
+    str('organization'),
+    str('org_acronym'),
+    str('org_type'),
+    str('org_name_status'),
+    str('date_join'),
+    str('certificate_percentage'),
+    str('certified')]
     return render(request, 'userstatistics.html', data)
