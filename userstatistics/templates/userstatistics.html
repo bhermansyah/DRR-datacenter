@@ -403,7 +403,7 @@ config['selectqry'] = [
     sqlfiltered: this.sql,
     filter: {},
     fnbuildsqlfiltered: function() {
-      var arorganization = $('#filterorganization option:selected').map(function(a, b) {return '"'+b.value+'"';});
+      var arorganization = $('#filterorganizationtype option:selected').map(function(a, b) {return '"'+b.value+'"';});
       var wherein = "WHERE `org_type` IN ("+arorganization.get().join()+')';
       var datefunc = 'SUBSTRING(actiontime, 1, 10)';
       if ($('#periodic').val() == 'weekly') {
@@ -416,22 +416,22 @@ config['selectqry'] = [
         datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
       }
       this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
-      this.filter['organization'] = $('#filterorganization option:selected').map(function(a, b) {return b.value;}).get();
+      this.filter['organization'] = $('#filterorganizationtype option:selected').map(function(a, b) {return b.value;}).get();
       return this.sqlfiltered;
     },
     fnsetfilters: function() {
       var queryopted = this;
       var arorganization = alasql('SELECT org_type, COUNT(*) AS `usercount` FROM user GROUP BY org_type ORDER BY COUNT(*) DESC, org_type ASC;');
-      fill_options($('#filterorganization'), arorganization, function(d) {return d['org_type']}, function(d) {return d['org_type']+' - '+d['usercount']+' activity'});
-      $('#filterorganization').multiselect({
+      fill_options($('#filterorganizationtype'), arorganization, function(d) {return d['org_type']}, function(d) {return d['org_type']+' - '+d['usercount']+' activity'});
+      $('#filterorganizationtype').multiselect({
         maxHeight: 200,
         buttonWidth: '100%',
         includeSelectAllOption: true
       });
-      // $('#filterorganization').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
-      $('#filterorganization').multiselect('selectAll', false);
-      $('#filterorganization').multiselect('updateButtonText');
-      var showids = ['blockfilterorganization', 'blockperiodic', 'blockbtnfiltersubmit'];
+      // $('#filterorganizationtype').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
+      $('#filterorganizationtype').multiselect('selectAll', false);
+      $('#filterorganizationtype').multiselect('updateButtonText');
+      var showids = ['blockfilterorganizationtype', 'blockperiodic', 'blockbtnfiltersubmit'];
       $('#blockfilter .form-group').each(function() {
         if (showids.indexOf(this.id) === -1) {
           $(this).hide();
@@ -588,7 +588,7 @@ config['selectqry'] = [
     sqlfiltered: this.sql,
     filter: {},
     fnbuildsqlfiltered: function() {
-      var arorganization = $('#filterorganization option:selected').map(function(a, b) {return '"'+b.value+'"';});
+      var arorganization = $('#filterorganizationgrowth option:selected').map(function(a, b) {return '"'+b.value+'"';});
       var wherein = "WHERE `organization` IN ("+arorganization.get().join()+')';
       var datefunc = 'SUBSTRING(date_join, 1, 10)';
       if ($('#periodic').val() == 'weekly') {
@@ -601,22 +601,22 @@ config['selectqry'] = [
         datefunc = 'YEAR(date_join)+\'-\'+parseInt((MONTH(date_join)+2)/3)';
       }
       this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
-      this.filter['organization'] = $('#filterorganization option:selected').map(function(a, b) {return b.value;}).get();
+      this.filter['organization'] = $('#filterorganizationgrowth option:selected').map(function(a, b) {return b.value;}).get();
       return this.sqlfiltered;
     },
     fnsetfilters: function() {
       var queryopted = this;
       var arorganization = alasql('SELECT organization, COUNT(*) AS `usercount` FROM user GROUP BY organization ORDER BY COUNT(*) DESC;');
-      fill_options($('#filterorganization'), arorganization, function(d) {return d['organization']}, function(d) {return d['organization']+' - '+d['usercount']+' user'});
-      $('#filterorganization').multiselect({
+      fill_options($('#filterorganizationgrowth'), arorganization, function(d) {return d['organization']}, function(d) {return d['organization']+' - '+d['usercount']+' user'});
+      $('#filterorganizationgrowth').multiselect({
         maxHeight: 200,
         buttonWidth: '100%',
         includeSelectAllOption: true
       });
-      // $('#filterorganization').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
-      $('#filterorganization').multiselect('selectAll', false);
-      $('#filterorganization').multiselect('updateButtonText');
-      var showids = ['blockfilterorganization', 'blockperiodic', 'blockbtnfiltersubmit'];
+      // $('#filterorganizationgrowth').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
+      $('#filterorganizationgrowth').multiselect('selectAll', false);
+      $('#filterorganizationgrowth').multiselect('updateButtonText');
+      var showids = ['blockfilterorganizationgrowth', 'blockperiodic', 'blockbtnfiltersubmit'];
       $('#blockfilter .form-group').each(function() {
         if (showids.indexOf(this.id) === -1) {
           $(this).hide();
@@ -930,7 +930,7 @@ function makeserialdates(startdate, enddate, periodic) {
   text-transform: capitalize;
 }
 /* hide for now, TODO: filterorganizationoption functionality */
-#filterorganizationoption {
+#filterorganizationoption, #filterorganizationtypeoption, #filterorganizationgrowthoption {
   display: none;
 }
 /* hide for now, TODO: filterresourceoption functionality */
@@ -1023,16 +1023,28 @@ background-color: rgba(255, 255, 255, 0.5);
   <p class="lead">{% trans "Filter" %}</p>
   <form class="">
     <div id="blockfilterresource" class="form-group">
-      <label for="filterresource">Filter Resource</label>
+      <label for="filterresource">Resource</label>
       <select id="filterresource" class="form-control" multiple="multiple">
       </select>
       <span id="filterorganizationoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></span>
     </div>
     <div id="blockfilterorganization" class="form-group">
-      <label for="filterorganization">Filter Organization</label>
+      <label for="filterorganization">Organization</label>
       <select id="filterorganization" class="form-control" multiple="multiple">
       </select>
       <p id="filterorganizationoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
+    </div>
+    <div id="blockfilterorganizationtype" class="form-group">
+      <label for="filterorganizationtype">Organization Type</label>
+      <select id="filterorganizationtype" class="form-control" multiple="multiple">
+      </select>
+      <p id="filterorganizationtypeoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
+    </div>
+    <div id="blockfilterorganizationgrowth" class="form-group">
+      <label for="filterorganizationgrowth">Organization</label>
+      <select id="filterorganizationgrowth" class="form-control" multiple="multiple">
+      </select>
+      <p id="filterorganizationgrowthoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
     </div>
     <div id="blockperiodic" class="form-group">
       <label for="periodic">Periodic</label>
