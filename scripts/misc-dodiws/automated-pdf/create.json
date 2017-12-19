@@ -1,0 +1,405 @@
+{
+  "units": "m",
+  "srs": "EPSG:900913",
+  "layout": "A2 landscape",
+  "dpi": 150,
+  "outputFilename": "\"iMMAP_AFG_Transportation network of Afghanistan_A2 landscape_map_2017-12-18\"",
+  "mapTitle": "Transportation network of Afghanistan",
+  "comment": "Gives the transportation network of Afghanistan as well as various points of interest.",
+  "layers": [
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 0,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_ppla"
+      ],
+      "format": "image/png8",
+      "styles": [
+        "polygon_nothing"
+      ],
+      "customParams": {
+        "TRANSPARENT": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_elev_dem_30m_aster_hillshade"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms?SERVICE=WMS&",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_lndcrva"
+      ],
+      "format": "image/png",
+      "styles": [
+        "afg_lndcrva_build_up"
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm1"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm2"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_riv"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms?SERVICE=WMS&",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_lndcrva"
+      ],
+      "format": "image/png",
+      "styles": [
+        "afg_lndcrva_hydrology"
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_rdsl"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_airdrma"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_poia_buildings"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_hltfac"
+      ],
+      "format": "image/png8",
+      "styles": [
+        "afg_hltfac_hospitals"
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_airdrmp"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_pplp"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm2"
+      ],
+      "format": "image/png8",
+      "customParams": {
+        "TRANSPARENT": true,
+        "SLD_BODY": "$mask_district_sld",
+        "CQL_FILTER": "dist_code<>$dist_code"
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm2"
+      ],
+      "format": "image/png8",
+      "customParams": {
+        "TRANSPARENT": true,
+        "SLD_BODY": "$outline_district_sld",
+        "CQL_FILTER": "dist_code=$dist_code"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "center": [
+        7534189.373794,
+        4036693.3897429
+      ],
+      "scale": 100000,
+      "bbox": [
+        7444795.306117,
+        3971870.3434301,
+        7623583.441471,
+        4101516.4360557
+      ],
+      "rotation": 0
+    }
+  ],
+  "legends": [
+    {
+      "name": "Land cover - Built Up",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?SERVICE=WMS&EXCEPTIONS=application%2Fvnd.ogc.se_xml&TRANSPARENT=TRUE&VERSION=1.1.1&REQUEST=GetLegendGraphic&TILED=true&LAYER=geonode%3Aafg_lndcrva&STYLE=afg_lndcrva_build_up&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000&width=12&height=12"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Land cover - Hydrology",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_lndcrva&style=afg_lndcrva_hydrology&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Settlements",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_pplp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Airports/Airfields",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_airdrmp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Health facilities (H1,2,3)",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_hltfac&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Buildings/Structures",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_poia_buildings&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Aerodrome",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_airdrma&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Road network",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?EXCEPTIONS=application%2Fvnd.ogc.se_xml&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TILED=true&LAYER=geonode%3Aafg_rdsl&STYLE=afg_rdsl_legend_osm&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000&width=12&height=12"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rivers",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_riv&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "District boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm2&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Provincial boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm1&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=350000"
+          ]
+        }
+      ]
+    }
+  ],
+  "selectedBox": "66.87773411557117,33.574952605710216%2068.48381526187202,33.574952605710216%2068.48381526187202,34.53980070930383%2066.87773411557117,34.53980070930383%2066.87773411557117,33.574952605710216",
+  "showRiskTable": false,
+  "mapID": "709"
+}
