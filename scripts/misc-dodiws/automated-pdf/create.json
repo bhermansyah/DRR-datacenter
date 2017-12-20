@@ -235,13 +235,13 @@
       "singleTile": false,
       "type": "WMS",
       "layers": [
-        "geonode:afg_admbnda_adm2"
+        "$adm_layer_name"
       ],
       "format": "image/png8",
       "customParams": {
         "TRANSPARENT": true,
-        "SLD_BODY": "$mask_district_sld",
-        "CQL_FILTER": "dist_code<>$dist_code"
+        "SLD_BODY": "$mask_sld",
+        "CQL_FILTER": "$key_adm_code<>$area_code"
       }
     },
     {
@@ -250,13 +250,13 @@
       "singleTile": false,
       "type": "WMS",
       "layers": [
-        "geonode:afg_admbnda_adm2"
+        "$adm_layer_name"
       ],
       "format": "image/png8",
       "customParams": {
         "TRANSPARENT": true,
-        "SLD_BODY": "$outline_district_sld",
-        "CQL_FILTER": "dist_code=$dist_code"
+        "SLD_BODY": "$outline_sld",
+        "CQL_FILTER": "$key_adm_code=$area_code"
       }
     }
   ],
