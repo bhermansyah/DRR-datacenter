@@ -41,8 +41,18 @@ folderbase = os.path.dirname(os.path.realpath(__file__))+'/'
 folder_pdf = folderbase+'pdf/'
 districts = []
 provinces = []
-frame = {'portrait':{'width': 2394.0, 'height': 2772.0}, 'landscape':{'width': 3020.0, 'height': 2191.0}} # frame size in pixel measured from created pdf file converted to image in 150 dpi
-scales = [1000, 1500, 2500, 5000, 7500, 10000, 15000, 25000, 30000, 40000, 50000, 75000, 100000, 150000, 200000, 250000, 350000, 500000, 750000, 1000000, 1250000, 1500000, 2000000, 2500000, 3000000, 3500000, 4000000, 4500000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11000000, 12000000, 13000000, 14000000, 15000000, 16000000]
+# frame = {'portrait':{'width': 2394.0, 'height': 2772.0}, 'landscape':{'width': 3020.0, 'height': 2191.0}} # frame size in pixel measured from created pdf file converted to image in 150 dpi A2 paper size
+# frame size in pixel measured from created pdf file converted to image in 150 dpi
+dpi = 150
+paper_size = 'A1'
+
+frames = {
+    'A1':{'portrait':{'width': 3409.0, 'height': 4210.0}, 'landscape':{'width': 4370.0, 'height': 3232.0}},
+    'A2':{'portrait':{'width': 2394.0, 'height': 2772.0}, 'landscape':{'width': 3020.0, 'height': 2191.0}}
+}
+frame = frames[paper_size]
+
+scales = [1000, 1500, 2500, 5000, 7500, 10000, 15000, 20000, 25000, 30000, 40000, 50000, 60000, 70000, 75000, 80000, 90000, 100000, 125000, 150000, 175000, 200000, 225000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 525000, 550000, 575000, 600000, 625000, 650000, 675000, 700000, 725000, 750000, 850000, 1000000, 1250000, 1500000, 2000000, 2500000, 3000000, 3500000, 4000000, 4500000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11000000, 12000000, 13000000, 14000000, 15000000, 16000000]
 scaleratio = 4.5e-6
 radtopixelratio_x = 1.5209135935789859e-09 # = (geometry width in pixel*scale)/width in radian
 radtopixelratio_y = 1.241717452991453e-09 # = (geometry height in pixel*scale)/height in radian
@@ -51,9 +61,8 @@ createjsondata = ''
 timeout = 120
 districts_keys = ['prov_code', 'prov_name', 'dist_code', 'dist_name', 'bbox', 'bbox4point', 'page_orientation', 'print']
 provinces_keys = ['prov_code', 'prov_name', 'bbox', 'bbox4point', 'page_orientation', 'print']
-debuglevel = 0 # [0-3]
-dpi = 150
-paper_size = 'A2'
+debuglevel = 2 # [0-3]
+
 polar_circumference = 1.57512e+9 # in inch
 
 def make_districts_csv():
@@ -153,7 +162,7 @@ def get_pdf(areadata={}):
     pdf2_url = session2.post('http://asdc.immap.org/geoserver/pdf/create.json', data=json.dumps(data_pdf2))
     if debuglevel >= 2: print 'request make map pdf', pdf2_url
     if pdf2_url.status_code != 200:
-        print 'request server to make map pdf failed on {area_type} {dist_name} code {dist_code}'.format(**areadata)
+        # print 'request server to make map pdf failed on {area_type} {dist_name} code {dist_code}'.format(**areadata)
         if debuglevel >= 1: print 'reason', '\n', pdf2_url.reason
         if debuglevel >= 2: print 'response content', '\n', pdf2_url.content
         return
@@ -165,20 +174,20 @@ def get_pdf(areadata={}):
         mapUrl=pdf2_urls['getURL'],
         mapTitle = areadata['title'],
         filename = urllib.quote(areadata['file_name']),
-        # baseline='null',
+        baseline='null',
         # accesibility='null',
-        # floodrisk='null',
-        # avalancherisk='null',
-        # earthquake='null',
-        # security='null',
-        # landslide='null',
-        baseline='"?page=baseline&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
+        floodrisk='null',
+        avalancherisk='null',
+        earthquake='null',
+        security='null',
+        landslide='null',
+        # baseline='"?page=baseline&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
         accesibility='"?page=accessibility&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
-        floodrisk='"?page=floodrisk&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
-        avalancherisk='"?page=avalancherisk&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
-        earthquake='"?page=earthquake&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
-        security='"?page=security&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
-        landslide='"?page=landslide&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
+        # floodrisk='"?page=floodrisk&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
+        # avalancherisk='"?page=avalancherisk&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
+        # earthquake='"?page=earthquake&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
+        # security='"?page=security&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
+        # landslide='"?page=landslide&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
         )
     response = session2.post('http://asdc.immap.org/dashboard/multiple', data=multiple_url, timeout=timeout)
 
@@ -233,7 +242,7 @@ def make_provinces_pdf():
             'csv_file': 'provinces.csv',
             'mask_sld_file': 'mask_province.sld',
             'outline_sld_file': 'outline_province.sld',
-            'title_tpl': 'Overview Province {prov_name}',
+            'title_tpl': '{prov_name} Province Hospitals Accessibility (Tier 1,2,3)',
             'area_type': 'province',
             'key_prefix': 'prov',
             'folder_pdf_area': folder_pdf+'province/',

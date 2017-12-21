@@ -1,1 +1,1 @@
-login_data = {'username': 'dummy_string', 'password': 'dummy_string'}
+login_data = {'username': 'dummy', 'password': 'dummy'}
