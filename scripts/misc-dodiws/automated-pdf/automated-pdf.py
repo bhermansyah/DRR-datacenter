@@ -43,12 +43,18 @@ districts = []
 provinces = []
 # frame = {'portrait':{'width': 2394.0, 'height': 2772.0}, 'landscape':{'width': 3020.0, 'height': 2191.0}} # frame size in pixel measured from created pdf file converted to image in 150 dpi A2 paper size
 # frame size in pixel measured from created pdf file converted to image in 150 dpi
-dpi = 150
-paper_size = 'A1'
+if len(sys.argv) > 3:
+    dpi = sys.argv[3]
+    paper_size = sys.argv[2]
+else:    
+    dpi = 300
+    paper_size = 'A4'
 
 frames = {
     'A1':{'portrait':{'width': 3409.0, 'height': 4210.0}, 'landscape':{'width': 4370.0, 'height': 3232.0}},
-    'A2':{'portrait':{'width': 2394.0, 'height': 2772.0}, 'landscape':{'width': 3020.0, 'height': 2191.0}}
+    'A2':{'portrait':{'width': 2394.0, 'height': 2772.0}, 'landscape':{'width': 3020.0, 'height': 2191.0}},
+    'A3':{'portrait':{'width': 1664.0, 'height': 1814.0}, 'landscape':{'width': 1942.0, 'height': 1503.0}},
+    'A4':{'portrait':{'width': 1162.0, 'height': 1064.0}, 'landscape':{'width': 1243.0, 'height': 1018.0}}
 }
 frame = frames[paper_size]
 
@@ -61,7 +67,7 @@ createjsondata = ''
 timeout = 120
 districts_keys = ['prov_code', 'prov_name', 'dist_code', 'dist_name', 'bbox', 'bbox4point', 'page_orientation', 'print']
 provinces_keys = ['prov_code', 'prov_name', 'bbox', 'bbox4point', 'page_orientation', 'print']
-debuglevel = 2 # [0-3]
+debuglevel = 1 # [0-3]
 
 polar_circumference = 1.57512e+9 # in inch
 
@@ -152,7 +158,7 @@ def get_pdf(areadata={}):
         if debuglevel >= 3: print 'if (({0} > ({1})) and ({2} > ({3})))'.format(frame_width,width/(scale*radtopixelratio_x),frame_height,height/(scale*radtopixelratio_y))
         if ((frame_width > (width/(scale*radtopixelratio_x))) and (frame_height > (height/(scale*radtopixelratio_y)))):
             data_pdf2['pages'][0]['scale'] = scale
-            if debuglevel >= 2: print 'scale at', scale
+            if debuglevel >= 1: print 'scale at', scale
             break
     data_pdf2['selectedBox'] = urllib.quote(areadata['bbox4point'], ',')
     data_pdf2['mapTitle'] = areadata['title']
@@ -227,7 +233,8 @@ def make_districts_pdf():
             'csv_file': 'districts.csv',
             'mask_sld_file': 'mask_district.sld',
             'outline_sld_file': 'outline_district.sld',
-            'title_tpl': 'Overview Province {prov_name} - District {dist_name}',
+            # 'title_tpl': 'Overview Province {prov_name} - District {dist_name}',
+            'title_tpl': '{prov_name} Province, {dist_name} District Hospitals Accessibility (Tier All)',
             'area_type': 'district',
             'key_prefix': 'dist',
             'folder_pdf_area': folder_pdf+'district/',
@@ -242,7 +249,7 @@ def make_provinces_pdf():
             'csv_file': 'provinces.csv',
             'mask_sld_file': 'mask_province.sld',
             'outline_sld_file': 'outline_province.sld',
-            'title_tpl': '{prov_name} Province Hospitals Accessibility (Tier 1,2,3)',
+            'title_tpl': '{prov_name} Province Hospitals Accessibility (Tier All)',
             'area_type': 'province',
             'key_prefix': 'prov',
             'folder_pdf_area': folder_pdf+'province/',
@@ -323,4 +330,4 @@ elif len(sys.argv) > 1 and sys.argv[1] == 'makepdf-districts':
 elif len(sys.argv) > 1 and sys.argv[1] == 'makepdf-provinces':
     make_provinces_pdf()
 else:
-    print 'optiions are: makecsv-districts, makecsv-provinces, makepdf-districts, makepdf-provinces'
+    print 'optiions are: makecsv-districts, makecsv-provinces, makepdf-districts <papersize> <dpi>, makepdf-provinces <papersize> <dpi>'
