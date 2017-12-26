@@ -166,8 +166,8 @@ class SecureFeatureForm(ModelForm):
 			self.fields['scre_settvuid'].widget.attrs['disabled'] = 'disabled'
 		if self.initial['recstatus'] is None:
 			self.initial['recstatus'] = 1
-		print 'self.fields[\'scre_latitude\']', dir(self.fields['scre_latitude'])
-		print 'self.fields.keys()', self.fields.keys()
+		if self.initial['scre_arrested'] is None:
+			self.initial['scre_arrested'] = 0
 		self.fields['scre_latitude'].required = False
 		self.fields['scre_longitude'].required = False
 

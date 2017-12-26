@@ -150,9 +150,9 @@
 			{
 				if ($('#id_scre_unknown').is(":checked"))
 				{
-					$('#id_scre_arrested').val('');
-					$('#id_scre_arrested').attr('readonly', true);
-					$('#id_scre_arrested').attr('color', 'grey');
+					// $('#id_scre_arrested').val('');
+					// $('#id_scre_arrested').attr('readonly', true);
+					// $('#id_scre_arrested').attr('color', 'grey');
 					$('#id_scre_injured').val('');
 					$('#id_scre_injured').attr('readonly', true);
 					$('#id_scre_injured').attr('color', 'grey');
@@ -171,9 +171,9 @@
 			}
 			else
 			{
-				$('#id_scre_arrested').val('');
-				$('#id_scre_arrested').attr('readonly', true);
-				$('#id_scre_arrested').attr('color', 'grey');
+				// $('#id_scre_arrested').val('');
+				// $('#id_scre_arrested').attr('readonly', true);
+				// $('#id_scre_arrested').attr('color', 'grey');
 				$('#id_scre_injured').val('');
 				$('#id_scre_injured').attr('readonly', true);
 				$('#id_scre_injured').attr('color', 'grey');
@@ -337,6 +337,12 @@
 	<style>
 		body {font-family: sans-serif; padding:20px}
 		#map {width: 800px; height: 300px}
+		.sticky-notes {
+			position: sticky;
+			top: 20px;
+			z-index: 3;
+			background-color: white;
+		}
 	</style>
 </head>
 <body onload='initialize_page()'>
@@ -382,6 +388,8 @@
 					{% bootstrap_field field show_label=False %}
 				{% elif field.name == 'scre_longitude' %}
 					{% bootstrap_field field addon_after='<button class="btn btn-default" type="button" title="move pin to long lat value"><span class="glyphicon glyphicon-map-marker"></span></button>' addon_after_class='input-group-btn' %}
+				{% elif field.name == 'scre_notes' %}
+					{% bootstrap_field field form_group_class='form-group sticky-notes' %}
 				{% else %}
 					{% bootstrap_field field %}
 				{% endif %}

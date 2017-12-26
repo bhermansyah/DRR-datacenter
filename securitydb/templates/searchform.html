@@ -62,7 +62,6 @@
 		{
 			content: '\e013';
 		}
-
 	</style>
 	<script>
 		var mainMap = window.parent.GeoExt.MapPanel.guess();
@@ -76,6 +75,26 @@
 		</div>
 	</header>
  -->
+
+ <div id="modalConfirmPermanentRemove" class="modal fade" tabindex="-1" role="dialog">
+	 <div class="modal-dialog" role="document">
+		 <div class="modal-content panel-primary">
+			 <div class="modal-header panel-heading">
+				 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				 <h4 class="modal-title">Confirm</h4>
+			 </div>
+			 <div class="modal-body">
+				 <p>Permanently remove this record? </p>
+				 <p id="record-desc" style="font-size: small;"></p>
+			 </div>
+			 <div class="modal-footer">
+				 <button type="button" class="btn" id="btnConfirmPermanentRemove" data-dismiss="modal">Yes</button>
+				 <button type="button" class="btn btn-primary btn-default" data-dismiss="modal">Cancel</button>
+			 </div>
+		 </div><!-- /.modal-content -->
+	 </div><!-- /.modal-dialog -->
+ </div><!-- /.modal -->
+
 	<form action="" method="post" class="form">
 		{% csrf_token %}
 		{% if has_delete %}
@@ -131,6 +150,10 @@
 							<a style="font-size:0.9em" type="" id="toggleRecStatus-{{ search_result.id }}" class="label label-default recstatus-{{ search_result.recstatus }}">
 								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 								<span class="recstatus-text"></span>
+							</a>
+							<!-- &nbsp; -->
+							<a style="font-size:0.9em; background-color: transparent; color: initial;" type="" id="permanentremove-{{ search_result.id }}" class="label label-default" title="permanent remove">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 							</a>
 						</p>
 						{% endif %}
@@ -272,6 +295,30 @@
 				}
 			});
 			event.stopImmediatePropagation();
+		});
+
+		$('[id^=permanentremove]').click(function(event) {
+			var recId = extractRecId(this.id);
+			$('#modalConfirmPermanentRemove').data('recordid', recId);
+			$('#modalConfirmPermanentRemove #record-desc')[0].innerHTML = $('#tdRecord-'+recId).data('original-title');
+			$('#modalConfirmPermanentRemove').modal('show');
+			event.stopImmediatePropagation();
+			return false;
+		});
+
+		$('#btnConfirmPermanentRemove').click(function() {
+			var recId = $('#modalConfirmPermanentRemove').data('recordid');
+			var request_url = '/securitydb/'+recId+'/permanentremove/';
+			$.ajax({
+				url: request_url,
+				success: function(data){
+					if (data.success) {
+						console.log('record-id', recId);
+						$('#tdRecord-'+recId).fadeOut(2000);
+					}
+					return false;
+				}
+			});
 		});
 
 		$('[id^=tdRecord]').mouseenter(function () {

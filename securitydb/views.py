@@ -67,6 +67,17 @@ def toggle_approve(request, record_id):
             break
     return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
+def permanentremove(request, record_id):
+    response = {}
+    # print 'record_id', record_id
+    result = SecureFeature.objects.filter(id=record_id).delete()
+    try:
+        r = SecureFeature.objects.get(id=record_id)
+    except SecureFeature.DoesNotExist:
+        response['success'] = True
+    # print 'result', result
+    return HttpResponse(simplejson.dumps(response), mimetype="application/json")
+
 def geoadm_from_lonlat(request):
     pnt_wkt = 'POINT('+request.GET['lon']+' '+request.GET['lat']+')'
     settlement = AfgPpla.objects.all().filter(wkb_geometry__contains=pnt_wkt).order_by('name_en')
@@ -82,7 +93,7 @@ def geoadm_from_lonlat(request):
         area_dict['sett_list'] = get_settlements2(None, settlement[0].dist_code, toResponse=False)
     else:
         # fallback to district area
-        print 'fallback to district area'
+        print 'locate point adm area: fallback to district area'
         district = AfgAdmbndaAdm2.objects.filter(wkb_geometry__contains=pnt_wkt).order_by('dist_na_en')
         if district.count() > 0:
             area_dict['prov_code'] = district[0].prov_code
@@ -93,14 +104,14 @@ def geoadm_from_lonlat(request):
             area_dict['sett_list'] = get_settlements2(None, district[0].dist_code, toResponse=False)
         else:
             # fallback to province area
-            print 'fallback to province area'
+            print 'locate point adm area: fallback to province area'
             province = AfgAdmbndaAdm1.objects.filter(wkb_geometry__contains=pnt_wkt).order_by('prov_na_en')
             if province.count() > 0:
                 area_dict['prov_code'] = province[0].prov_code
                 area_dict['prov_na_en'] = province[0].prov_na_en
                 area_dict['dist_list'] = get_districts(None, province[0].prov_code, toResponse=False)
             else:
-                print 'Not found in Afghanistan area!'
+                print 'locate point adm area: Not found in Afghanistan area!'
                 area_dict['message'] = 'Not found in Afghanistan area!'
 
     return HttpResponse(simplejson.dumps(area_dict), mimetype="application/json")
