@@ -191,7 +191,7 @@ def get_pdf(areadata={}):
         accesibility='"?page=accessibility&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
         floodrisk='"?page=floodrisk&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
         avalancherisk='"?page=avalancherisk&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
-        earthquake='"?page=earthquake&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
+        # earthquake='"?page=earthquake&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
         security='"?page=security&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
         landslide='"?page=landslide&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
         )
