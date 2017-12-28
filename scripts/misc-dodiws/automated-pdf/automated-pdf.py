@@ -184,7 +184,7 @@ def get_pdf(areadata={}):
         # accesibility='null',
         # floodrisk='null',
         # avalancherisk='null',
-        # earthquake='null',
+        earthquake='null',
         # security='null',
         # landslide='null',
         baseline='"?page=baseline&pdf=true&date={0}&code={1}"'.format(areadata['date_now'], areadata[areadata['key_prefix']+'_code']),
