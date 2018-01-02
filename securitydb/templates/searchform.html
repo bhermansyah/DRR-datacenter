@@ -85,7 +85,7 @@
 			 </div>
 			 <div class="modal-body">
 				 <p>Permanently remove this record? </p>
-				 <p id="record-desc" style="font-size: small;"></p>
+				 <p id="record-desc" style="font-size: small; white-space: pre-wrap;"></p>
 			 </div>
 			 <div class="modal-footer">
 				 <button type="button" class="btn" id="btnConfirmPermanentRemove" data-dismiss="modal">Yes</button>
@@ -144,7 +144,7 @@
 			<tbody>
 				{% for search_result in search_result_list %}
 				<tr style="border-bottom:1px solid #eee;">
-					<td id="tdRecord-{{ search_result.id }}" valign="top" class="small" data-toggle="tooltip" title="Date: {{ search_result.scre_incidentdate }}&#10;Notes: {{ search_result.scre_notes }}&#10;Place: {{ search_result.scre_placename }}&#10;User: {{ search_result.scre_username }}" data-lat="{{ search_result.scre_latitude }}" data-lon="{{ search_result.scre_longitude }}">
+					<td id="tdRecord-{{ search_result.id }}" valign="top" class="small" data-toggle="tooltip" data-placement="auto" title="Notes: {{ search_result.scre_notes }}&#10;Operator: {{ search_result.scre_username }}&#10;Province: {{ search_result.prov_name }}&#10;District: {{ search_result.dist_name }}&#10;Settlement: {{ search_result.sett_name }}&#10;Incident time: {{ search_result.scre_incidentdatestr }} {{ search_result.scre_incidenttimestr }}&#10;Event Type: {{ search_result.scre_eventid.evnt_name }}&#10;Target: {{ search_result.scre_incidenttarget.inct_name }}&#10;Injured: {{ search_result.scre_injured|default_if_none:"0" }}&#10;Dead: {{ search_result.scre_dead|default_if_none:"0" }}" data-lat="{{ search_result.scre_latitude }}" data-lon="{{ search_result.scre_longitude }}">
 						{% if has_delete %}
 						<p class='pull-right'>
 							<a style="font-size:0.9em" type="" id="toggleRecStatus-{{ search_result.id }}" class="label label-default recstatus-{{ search_result.recstatus }}">

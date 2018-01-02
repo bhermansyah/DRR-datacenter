@@ -144,7 +144,7 @@ def scresysls(request):
 		date_end = date_range_list[1]
 
 	# queryset
-	search_result_list = SecureFeature.objects.order_by('scre_incidentdate')
+	search_result_list = SecureFeature.objects.select_related('scre_eventid', 'scre_incidenttarget').order_by('scre_incidentdate')
 	if has_delete:
 		if recstatus != recstatus_default:
 			search_result_list = search_result_list.filter(Q(recstatus=recstatus))
@@ -168,9 +168,15 @@ def scresysls(request):
 		# If page is out of range (e.g. 9999), deliver last page of results.
 		paged_search_result_list = paginator.page(paginator.num_pages)
 
-	# insert recstatus text for each record
+	# insert recstatus text and settlement name for each record
+	# settlements = AfgPpla.objects.filter(Q(vuid__in=[r.scre_settvuid for r in paged_search_result_list]))
 	for result in paged_search_result_list:
 		result.recstatus_text = recstatus_choices_dict[str(result.recstatus)]
+		# result.sett_name = (s for s in settlements if s.vuid == result.scre_settvuid).next().name_en
+		adm_names = result.scre_placename.split(',')
+		result.prov_name = adm_names[0].strip() if len(adm_names) > 0 else None
+		result.dist_name = adm_names[1].strip() if len(adm_names) > 1 else None
+		result.sett_name = adm_names[2].strip() if len(adm_names) > 2 else None
 
 	render_data = {
 		'form': form,
