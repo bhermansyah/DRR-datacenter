@@ -144,7 +144,7 @@ def scresysls(request):
 		date_end = date_range_list[1]
 
 	# queryset
-	search_result_list = SecureFeature.objects.select_related('scre_eventid', 'scre_incidenttarget').order_by('scre_incidentdate')
+	search_result_list = SecureFeature.objects.select_related('scre_eventid', 'scre_incidenttarget').order_by('-scre_incidentdate')
 	if has_delete:
 		if recstatus != recstatus_default:
 			search_result_list = search_result_list.filter(Q(recstatus=recstatus))
