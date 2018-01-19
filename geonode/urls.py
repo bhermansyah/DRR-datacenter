@@ -68,6 +68,7 @@ v2urlpatterns = patterns('',
                        (r'^layers/', include('geonode.layers.urls')),
 
                        (r'^maps/', include('geonode.maps.urls')),
+                       # (r'^maps/$', TemplateView.as_view(template_name='v2/map_list.html'), name='v2_maps_browse'),
 
                        (r"^account/", include("account.urls")),
                        (r'^people/', include('geonode.people.urls')),
@@ -83,6 +84,7 @@ v2urlpatterns = patterns('',
                        )
 
 urlpatterns = patterns('',
+                      # change server into v2
                        (r'^', include(v2urlpatterns, namespace='v2')),
 
                        # Static pages
@@ -95,6 +97,9 @@ urlpatterns = patterns('',
                        url(r'^video/$', TemplateView.as_view(template_name='video.html'), name='video'),
                        url(r'^training/$', TemplateView.as_view(template_name='training.html'), name='training'),
                        url(r'^documentation/$', TemplateView.as_view(template_name='documentation.html'), name='documentation'),
+
+                       # Publication Web
+                       url(r'^publication/$', TemplateView.as_view(template_name='publication/Look8.html'), name='publication'),
 
                        # Layer views
                        (r'^layers/', include('geonode.layers.urls')),
