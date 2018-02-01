@@ -92674,19 +92674,19 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     text:'Set',
                                     handler:function(){
                                         var win = new Ext.Window({
-                                            title: 'test',
+                                            title: 'Entry Coordinate',
                                             modal: true,
                                             layout: "fit",
-                                            width: 300,
-                                            height: 200,
+                                            width: 320,
+                                            height: 225,
                                             items:[new Ext.FormPanel({
                                                 labelWidth: 75, // label settings here cascade unless overridden
                                                 url:'save-form.php',
-                                                frame:true,
+                                                frame:false,
                                                 // title: 'Simple Form',
                                                 bodyStyle:'padding:5px 5px 0',
                                                 autoWidth: true,
-                                                defaults: {width: 150},
+                                                defaults: {width: 215},
                                                 defaultType: 'textfield',
 
                                                 items: [
@@ -92698,7 +92698,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                                         triggerAction:  'all',
                                                         forceSelection: true,
                                                         editable:       false,
-                                                        fieldLabel:     'Proj',
+                                                        fieldLabel:     'Projection',
                                                         name:           'projection',
                                                         id:             'projectionCB',
                                                         displayField:   'name',
@@ -92706,8 +92706,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                                         store:          new Ext.data.JsonStore({
                                                             fields : ['name', 'value'],
                                                             data   : [
-                                                                {name : 'WGS 84',   value: 'WGS 84'},
-                                                                {name : 'UTM',  value: 'UTM'},
+                                                                {name : 'Decimal Degree (WGS84)',   value: 'WGS 84'},
+                                                                {name : 'Degree Minute Seconds (WGS84)',   value: 'WGS 84 DMS'},
+                                                                {name : 'UTM 41 North',  value: 'UTM41N'},
+                                                                {name : 'UTM 42 North',  value: 'UTM42N'},
                                                                 {name : 'MGRS', value: 'MGRS'}
                                                             ]
                                                         }),
@@ -92715,20 +92717,35 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                                             select:function(){
                                                                 var selectedProj = Ext.getCmp('projectionCB').getValue();
                                                                 if (selectedProj == 'WGS 84'){ 
-                                                                    console.log(Ext.getCmp('zone'), Ext.getCmp('lat'));
-                                                                    Ext.getCmp('zone').hide();
+                                                                    // console.log(Ext.getCmp('zone'), Ext.getCmp('lat'));
+                                                                    // Ext.getCmp('zone').hide();
                                                                     Ext.getCmp('lat').label.update('Latitude');
                                                                     Ext.getCmp('lon').label.update('Longitude');
                                                                     Ext.getCmp('lon').show();
-                                                                } else if (selectedProj == 'UTM'){
-                                                                    Ext.getCmp('zone').show();
+                                                                    Ext.getCmp('lat').show();
+                                                                    Ext.getCmp('Latitude_DMS').hide();
+                                                                    Ext.getCmp('Longitude_DMS').hide();
+                                                                } else if (selectedProj == 'UTM41N' || selectedProj == 'UTM42N'){
+                                                                    // Ext.getCmp('zone').show();
                                                                     Ext.getCmp('lat').label.update('Northing');
                                                                     Ext.getCmp('lon').label.update('Easting');
                                                                     Ext.getCmp('lon').show();
+                                                                    Ext.getCmp('lat').show();
+                                                                    Ext.getCmp('Latitude_DMS').hide();
+                                                                    Ext.getCmp('Longitude_DMS').hide();
                                                                 } else if (selectedProj == 'MGRS'){
                                                                     Ext.getCmp('lon').hide();
                                                                     Ext.getCmp('lat').label.update('MGRS');
                                                                     Ext.getCmp('zone').hide();
+                                                                    Ext.getCmp('lat').show();
+                                                                    Ext.getCmp('Latitude_DMS').hide();
+                                                                    Ext.getCmp('Longitude_DMS').hide();
+                                                                } else if (selectedProj == 'WGS 84 DMS'){
+                                                                    Ext.getCmp('lon').hide();
+                                                                    Ext.getCmp('lat').hide();
+                                                                    Ext.getCmp('zone').hide();
+                                                                    Ext.getCmp('Latitude_DMS').show();
+                                                                    Ext.getCmp('Longitude_DMS').show();
                                                                 }
                                                             }                                                        
                                                         },
@@ -92748,6 +92765,34 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                                         id: 'zone',
                                                         maskRe: /[0-9.]/,
                                                         hidden:true
+                                                    },{
+                                                        xtype: 'compositefield',
+                                                        fieldLabel: 'Latitude',
+                                                        id: 'Latitude_DMS',
+                                                        // msgTarget: 'under',
+                                                        hidden:true,
+                                                        items: [
+                                                            {xtype: 'textfield',    id: 'lat_D', name: 'lat_D', width: 25, allowBlank: false},
+                                                            {xtype: 'displayfield', value: '&deg;'},
+                                                            {xtype: 'textfield',    id: 'lat_M', name: 'lat_M', width: 25, allowBlank: false},
+                                                            {xtype: 'displayfield', value: "'"},
+                                                            {xtype: 'textfield',    id: 'lat_S', name: 'lat_S', width: 25, allowBlank: false},
+                                                            {xtype: 'displayfield', value: '"'},
+                                                        ]
+                                                    },{
+                                                        xtype: 'compositefield',
+                                                        fieldLabel: 'Longitude',
+                                                        id: 'Longitude_DMS',
+                                                        // msgTarget: 'under',
+                                                        hidden:true,
+                                                        items: [
+                                                            {xtype: 'textfield',    id: 'lon_D', name: 'lon_D', width: 25, allowBlank: false},
+                                                            {xtype: 'displayfield', value: '&deg;'},
+                                                            {xtype: 'textfield',    id: 'lon_M', name: 'lon_M', width: 25, allowBlank: false},
+                                                            {xtype: 'displayfield', value: "'"},
+                                                            {xtype: 'textfield',    id: 'lon_S', name: 'lon_S', width: 25, allowBlank: false},
+                                                            {xtype: 'displayfield', value: '"'},
+                                                        ]
                                                     }
                                                 ],
 
@@ -92766,14 +92811,29 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                                                 new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
                                                             );
                                                             var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
-                                                        } else if (selectedProj == 'UTM'){
+                                                        } else if (selectedProj == 'UTM41N'){
                                                             var converter = new usngs.Converter();
 
                                                             var lat = parseFloat(Ext.getCmp('lat').getValue());
                                                             var lon = parseFloat(Ext.getCmp('lon').getValue());
-                                                            var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
+                                                            // var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
 
-                                                            var UTMCoordinate = converter.UTMtoLL(lat,lon,zonenumber);
+                                                            var UTMCoordinate = converter.UTMtoLL(lat,lon,41);
+
+                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lon, 'lon'));
+                                                            var lonlat = new OpenLayers.LonLat(UTMCoordinate.lon, UTMCoordinate.lat).transform(
+                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                            );
+                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                                        } else if (selectedProj == 'UTM42N'){
+                                                            var converter = new usngs.Converter();
+
+                                                            var lat = parseFloat(Ext.getCmp('lat').getValue());
+                                                            var lon = parseFloat(Ext.getCmp('lon').getValue());
+                                                            // var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
+
+                                                            var UTMCoordinate = converter.UTMtoLL(lat,lon,42);
 
                                                             Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lon, 'lon'));
                                                             var lonlat = new OpenLayers.LonLat(UTMCoordinate.lon, UTMCoordinate.lat).transform(
@@ -92790,6 +92850,19 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                                             
                                                             Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(LLCoordinate.north, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(LLCoordinate.east, 'lon'));
                                                             var lonlat = new OpenLayers.LonLat(LLCoordinate.east, LLCoordinate.north).transform(
+                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                            );
+                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                                        } else if (selectedProj == 'WGS 84 DMS'){ 
+                                                            var lat = parseFloat(Ext.getCmp('lat_D').getValue());
+                                                            lat = lat+(parseFloat(Ext.getCmp('lat_M').getValue())/60);
+                                                            lat = lat+(parseFloat(Ext.getCmp('lat_S').getValue())/3600);
+                                                            var lon = parseFloat(Ext.getCmp('lon_D').getValue());
+                                                            lon = lon+(parseFloat(Ext.getCmp('lon_M').getValue())/60);
+                                                            lon = lon+(parseFloat(Ext.getCmp('lon_S').getValue())/3600);
+                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(lon, 'lon'));
+                                                            var lonlat = new OpenLayers.LonLat(lon, lat).transform(
                                                                 new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
                                                                 new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
                                                             );
