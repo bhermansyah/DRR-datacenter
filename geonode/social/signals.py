@@ -202,9 +202,9 @@ if notification_app:
 
     # signals
     # layer/map/document notifications
-    for resource in (Layer, Map, Document):
-        signals.post_save.connect(notification_post_save_resource, sender=resource)
-        signals.post_delete.connect(notification_post_delete_resource, sender=resource)
+    # for resource in (Layer, Map, Document):
+    #     signals.post_save.connect(notification_post_save_resource, sender=resource)
+    #     signals.post_delete.connect(notification_post_delete_resource, sender=resource)
 
     signals.post_save.connect(comment_post_save, sender=Comment)
 
