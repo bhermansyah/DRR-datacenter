@@ -5366,4 +5366,8 @@ input#villageIDSearchForm.x-form-text.x-form-field.x-form-focus {
     }*/
 }
 
+#x-form-el-projectionCB .x-form-field-wrap{
+    left: 1px !important;
+}
+
 

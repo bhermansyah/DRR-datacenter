@@ -2006,9 +2006,25 @@ class getVillages(ModelResource):
 
     def get_list(self, request, **kwargs):
         self.method_check(request, allowed=['get'])
-        response = self.getStats(request)
+
+        if request.GET['type']=='VUID':
+            response = self.getVillageFromVUID(request) 
+        else:    
+            response = self.getStats(request)
+        
         # return self.create_response(request, response)   
         return HttpResponse(response, mimetype='application/json')
+
+    def getVillageFromVUID(self, request):
+        resource = AfgPplp.objects.all().values('vil_uid','name_en','type_settlement','wkb_geometry')
+        resource = resource.filter(vuid__icontains=request.GET['search'])
+        response = GeoJSONSerializer().serialize(resource, use_natural_keys=True, with_modelname=False, geometry_field='wkb_geometry', srid=3857)
+        data = json.loads(response)
+        for i in range(len(data['features'])):
+            data['features'][i]['properties']['number']=i+1
+            if 'name_en' in data['features'][i]['properties']:
+                data['features'][i]['properties']['fromlayer'] = 'glyphicon glyphicon-home'
+        return json.dumps(data)
 
     def fuzzyLookup(self, request):
         f = AfgPplp.objects.all().values('name_en','dist_na_en','prov_na_en','vil_uid','type_settlement','wkb_geometry')

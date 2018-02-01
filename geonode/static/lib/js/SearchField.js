@@ -39,12 +39,15 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     },
 
     onTrigger2Click : function(){
-
+        if (this.id == 'freeSearchForm') this.comonAction()
+        else if (this.id == 'villageIDSearchForm') this.searchVUIDAction();
+        
+    },
+    comonAction : function(){
         var v = '';
-        var y = '';
 
         if (this.id == 'freeSearchForm') v = this.getRawValue();
-        if (this.id == 'villageIDSearchForm') y = this.getRawValue();
+        // if (this.id == 'villageIDSearchForm') y = this.getRawValue();
 
         // v = v.toLowerCase();
         var layers = [];
@@ -137,5 +140,21 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
         this.store.reload({params:o});
         this.hasSearch = true;
         this.triggers[0].show();
+    },
+    searchVUIDAction : function(){
+        var v =  this.getRawValue();
+        if(v.length < 1){
+            this.onTrigger1Click();
+            return;
+        }
+        this.store.baseParams['search'] = v;
+        this.store.baseParams['type'] = 'VUID';
+
+        var o = {start: 0};
+        this.store.baseParams = this.store.baseParams || {};
+        this.store.reload({params:o});
+        this.hasSearch = true;
+        this.triggers[0].show();
     }
+
 });

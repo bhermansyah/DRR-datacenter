@@ -163,7 +163,6 @@
                             <li><a href="{{ user.get_absolute_url }}"><i class="fa fa-user pull-right"></i> {% trans "Profile" %}</a></li>
                             <li><a href="{% url 'messages_inbox' %}"><i class="fa fa-inbox pull-right"></i> {% trans "Inbox" %}</a></li>
                             <li><a href="{% url 'recent-activity' %}"><i class="fa fa-clock-o pull-right"></i> {% trans "Recent Activity" %}</a></li>
-                            <li><a href="{% url 'notification_notice_settings' %}"><i class="fa fa-cog pull-right"></i> {% trans 'Settings' %}</a></li>
                             <!-- Need to be checked Later -->
                             {% if USE_NOTIFICATIONS %}
                               <li><a href="{% url "notification_notice_settings" %}"><i class="fa fa-bell"></i> {% trans "Notifications" %}</a></li>

@@ -92375,7 +92375,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('airportCB').setValue(false);
                                             Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').hide();
+                                            Ext.getCmp('tbVUID').show();
                                         }
                                     }
                                 }
@@ -92394,7 +92394,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('airportCB').setValue(false);
                                             Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').hide()
+                                            Ext.getCmp('tbVUID').hide();
                                         }
                                     }
                                 }
@@ -92414,7 +92414,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('hfCB').setValue(false);
                                             Ext.getCmp('oasisCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').hide()
+                                            Ext.getCmp('tbVUID').hide();
                                         }
                                     }
                                 }
@@ -92433,7 +92433,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                             Ext.getCmp('hfCB').setValue(false);
                                             Ext.getCmp('airportCB').setValue(false);
                                             Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').hide()
+                                            Ext.getCmp('tbVUID').show();
                                         }
                                     }
                                 }
@@ -92661,17 +92661,166 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             ]
                         },{
                             id:'tbCoordinate',
-                            hidden:true,
+                            hidden:false,
                             items: [
-                                'Search by Coordinate: ',
+                                'Locate Coordinate: ',
                                 {
                                     xtype: 'tbtext',
                                     id: 'textCoordinate',
                                     text: 'Not Set'
                                 }, 
                                 '->', 
-                                {text:'Set'}, 
-                                {text:'Clear'}]
+                                {
+                                    text:'Set',
+                                    handler:function(){
+                                        var win = new Ext.Window({
+                                            title: 'test',
+                                            modal: true,
+                                            layout: "fit",
+                                            width: 300,
+                                            height: 200,
+                                            items:[new Ext.FormPanel({
+                                                labelWidth: 75, // label settings here cascade unless overridden
+                                                url:'save-form.php',
+                                                frame:true,
+                                                // title: 'Simple Form',
+                                                bodyStyle:'padding:5px 5px 0',
+                                                autoWidth: true,
+                                                defaults: {width: 150},
+                                                defaultType: 'textfield',
+
+                                                items: [
+                                                    {
+                                                        // width:          50,
+                                                        xtype:          'combo',
+                                                        mode:           'local',
+                                                        value:          'WGS 84',
+                                                        triggerAction:  'all',
+                                                        forceSelection: true,
+                                                        editable:       false,
+                                                        fieldLabel:     'Proj',
+                                                        name:           'projection',
+                                                        id:             'projectionCB',
+                                                        displayField:   'name',
+                                                        valueField:     'value',
+                                                        store:          new Ext.data.JsonStore({
+                                                            fields : ['name', 'value'],
+                                                            data   : [
+                                                                {name : 'WGS 84',   value: 'WGS 84'},
+                                                                {name : 'UTM',  value: 'UTM'},
+                                                                {name : 'MGRS', value: 'MGRS'}
+                                                            ]
+                                                        }),
+                                                        listeners:{ 
+                                                            select:function(){
+                                                                var selectedProj = Ext.getCmp('projectionCB').getValue();
+                                                                if (selectedProj == 'WGS 84'){ 
+                                                                    console.log(Ext.getCmp('zone'), Ext.getCmp('lat'));
+                                                                    Ext.getCmp('zone').hide();
+                                                                    Ext.getCmp('lat').label.update('Latitude');
+                                                                    Ext.getCmp('lon').label.update('Longitude');
+                                                                    Ext.getCmp('lon').show();
+                                                                } else if (selectedProj == 'UTM'){
+                                                                    Ext.getCmp('zone').show();
+                                                                    Ext.getCmp('lat').label.update('Northing');
+                                                                    Ext.getCmp('lon').label.update('Easting');
+                                                                    Ext.getCmp('lon').show();
+                                                                } else if (selectedProj == 'MGRS'){
+                                                                    Ext.getCmp('lon').hide();
+                                                                    Ext.getCmp('lat').label.update('MGRS');
+                                                                    Ext.getCmp('zone').hide();
+                                                                }
+                                                            }                                                        
+                                                        },
+                                                    },{
+                                                        fieldLabel: 'Latitude',
+                                                        name: 'lat',
+                                                        id: 'lat',
+                                                        // maskRe: /[0-9.]/
+                                                    },{
+                                                        fieldLabel: 'Longitude',
+                                                        name: 'lon',
+                                                        id: 'lon',
+                                                        maskRe: /[0-9.]/
+                                                    },{
+                                                        fieldLabel: 'Zone Number',
+                                                        name: 'zone',
+                                                        id: 'zone',
+                                                        maskRe: /[0-9.]/,
+                                                        hidden:true
+                                                    }
+                                                ],
+
+                                                buttons: [{
+                                                    text: 'Save',
+                                                    handler:function(){
+                                                        
+                                                        var selectedProj = Ext.getCmp('projectionCB').getValue();
+
+                                                        if (selectedProj == 'WGS 84'){ 
+                                                            var lat = parseFloat(Ext.getCmp('lat').getValue());
+                                                            var lon = parseFloat(Ext.getCmp('lon').getValue());
+                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(lon, 'lon'));
+                                                            var lonlat = new OpenLayers.LonLat(lon, lat).transform(
+                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                            );
+                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                                        } else if (selectedProj == 'UTM'){
+                                                            var converter = new usngs.Converter();
+
+                                                            var lat = parseFloat(Ext.getCmp('lat').getValue());
+                                                            var lon = parseFloat(Ext.getCmp('lon').getValue());
+                                                            var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
+
+                                                            var UTMCoordinate = converter.UTMtoLL(lat,lon,zonenumber);
+
+                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lon, 'lon'));
+                                                            var lonlat = new OpenLayers.LonLat(UTMCoordinate.lon, UTMCoordinate.lat).transform(
+                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                            );
+                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                                        } else if (selectedProj == 'MGRS'){
+                                                            var lat = Ext.getCmp('lat').getValue();
+                                                            // var lon = parseFloat(Ext.getCmp('lon').getValue());
+
+                                                            var converter = new usngs.Converter();
+                                                            var LLCoordinate = converter.USNGtoLL(lat);
+                                                            
+                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(LLCoordinate.north, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(LLCoordinate.east, 'lon'));
+                                                            var lonlat = new OpenLayers.LonLat(LLCoordinate.east, LLCoordinate.north).transform(
+                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                            );
+                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                                        }
+
+                                                        tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+                                                        tempMap.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
+                                                        tempMap.raiseLayer(tempMap.getLayersByName('sec_entry_vector')[0],10000);
+                                                        tempMap.panTo(lonlat);
+                                                        win.close();
+                                                    }
+                                                },{
+                                                    text: 'Cancel',handler:function(){
+                                                        tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+                                                        Ext.getCmp('textCoordinate').setText('Not Set');
+                                                        win.close();
+                                                    }
+                                                }]
+                                            })]
+                                        });
+                                        win.show();
+                                    }
+                                }, 
+                                {
+                                    text:'Clear',
+                                    handler : function(){
+                                        tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+                                        Ext.getCmp('textCoordinate').setText('Not Set');
+                                    }
+                                }]
                         },{
                             id:'tbVUID',
                             hidden:true,
