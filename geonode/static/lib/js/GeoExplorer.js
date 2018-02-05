@@ -92313,7 +92313,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         });
 
         var finderToolsPanel = new Ext.Panel({
-            title: gettext('Finder'),
+            title: gettext('Finder Tool'),
             xtype: 'form',
             id:'bd_findertool_panel',
             border: false,
@@ -92324,598 +92324,634 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             collapsed: false,
             hidden: true,
             width: 320,
-            layout:'border',
-            bbar: new Ext.Toolbar({
-                // style : 'width:100%',
-                items:[
-                {
-                    text: gettext('Show settlement inspector'),
-                    iconCls: 'icon-village-inspector',
-                    enableToggle: true,
-                    tooltip: 'Show settlement inspector on row or point click',
-                    id: 'show_s_inspector_toggle',
-                    handler: function(){
-                    }
-                },
-                '->',{
-                    text: gettext('Reset'),
-                    iconCls: 'gxp-icon-reset',
-                    handler: function(){
-                        vector_layer.removeAllFeatures();
-                        mask_layer.removeAllFeatures();
-                        finder_layer.removeAllFeatures();
-                        Ext.getCmp('provSelectionLocator').reset();
-                        Ext.getCmp('districtSelectionLocator').reset();
-                        Ext.getCmp('settlemnentSelectionLocator').reset();
-                        data2.removeAll();
-                        data3.removeAll();
-                    }
-                }]
-            }),
-            tbar: {
-                xtype: 'container',
-                layout: 'anchor',
-                id:'finderKindFilterTB',
-                defaults: {anchor: '0'},
-                defaultType: 'toolbar',
-                items : [{
-                    items: [
-                        '', '',
-                        {
-                            xtype      : 'checkbox',
-                            id: 'settlementCB',
-                            fieldLabel: gettext(""),
-                            boxLabel: gettext('Settlements'),
-                            inputValue : 'settlement',
-                            listeners:{
-                                'check' : {
-                                     fn : function(checkbox, checked){
-                                        if (checked){
-                                            Ext.getCmp('hfCB').setValue(false);
-                                            Ext.getCmp('airportCB').setValue(false);
-                                            Ext.getCmp('oasisCB').setValue(false);
-                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').show();
-                                        }
-                                    }
-                                }
-                            }
-                        },{
-                            xtype      : 'checkbox',
-                            id: 'hfCB',
-                            fieldLabel: gettext(""),
-                            boxLabel: gettext('Health Facilities'),
-                            inputValue : 'hf',
-                            listeners:{
-                                'check' : {
-                                     fn : function(checkbox, checked){
-                                        if (checked){
-                                            Ext.getCmp('settlementCB').setValue(false);
-                                            Ext.getCmp('airportCB').setValue(false);
-                                            Ext.getCmp('oasisCB').setValue(false);
-                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').hide();
-                                        }
-                                    }
-                                }
-                            }
-                        },{
-                            xtype      : 'checkbox',
-                            id: 'airportCB',
-                            fieldLabel: gettext(""),
-                            boxLabel: gettext('Airports'),
-                            inputValue : 'airport',
-                            checked : true,
-                            listeners:{
-                                'check' : {
-                                     fn : function(checkbox, checked){
-                                        if (checked){
-                                            Ext.getCmp('settlementCB').setValue(false);
-                                            Ext.getCmp('hfCB').setValue(false);
-                                            Ext.getCmp('oasisCB').setValue(false);
-                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').hide();
-                                        }
-                                    }
-                                }
-                            }
-                        },{
-                            xtype      : 'checkbox',
-                            id: 'oasisCB',
-                            fieldLabel: gettext(""),
-                            boxLabel: gettext('Settlements Oasis'),
-                            inputValue : 's_oasis',
-                            listeners:{
-                                'check' : {
-                                     fn : function(checkbox, checked){
-                                        if (checked){
-                                            Ext.getCmp('settlementCB').setValue(false);
-                                            Ext.getCmp('hfCB').setValue(false);
-                                            Ext.getCmp('airportCB').setValue(false);
-                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                            Ext.getCmp('tbVUID').show();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                }]
-            },
+            layout:'fit',
             items : [
-                new Ext.form.FormPanel({
-                    // title: gettext("Basic Form"),
-                    id: 'comboLocatorForm',
-                    width: '100%',
-                    frame: true,
-                    region : 'north',
-                    border: false,
-                    layout:'form',
-                    layoutConfig: {columns: 1},
-                    height : 100,
-                    items: [{
-                        xtype: 'combo',
-                        width:175,
-                        fieldLabel: gettext('Provinces'),
-                        labelStyle: 'width:50px',
-                        emptyText: gettext('Select a province...'),
-                        id:'provSelectionLocator',
-                        disabled : false,
-                        typeAhead: true,
-                        triggerAction: 'all',
-                        forceSelection: true,
-                        editable:false,
-                        lazyRender:true,
-                        mode: 'local',
-                        store: data1,
-                        sm: new GeoExt.grid.FeatureSelectionModel(),
-                        valueField: 'prov_code',
-                        displayField: 'prov_na_en',
-                        scope: this,
-                        listeners       : {
-                            'select': function(combo, record, index) {
-                                Ext.getCmp('districtSelectionLocator').reset();
-                                Ext.getCmp('settlemnentSelectionLocator').reset();
-                                data2.removeAll();
-                                data3.removeAll();
-
-                                // console.log(Ext.getCmp('freeSearchForm'));
-                                Ext.getCmp('freeSearchForm').onTrigger2Click();
-
-                                dataSelected.load({
-                                    params: {
-                                        service: "WFS",
-                                        version: "1.1.0",
-                                        request: "GetFeature",
-                                        typeName: "geonode:afg_admbnda_adm1",
-                                        srsName: "EPSG:900913",
-                                        outputFormat: "json",
-                                        CQL_FILTER: "prov_code = "+record.data.prov_code
-                                    }
-                                });
-
-                                data2.load({
-                                    params:{
-                                        service: "WFS",
-                                        version: "1.1.0",
-                                        request: "GetFeature",
-                                        typeName: "geonode:afg_admbnda_adm2",
-                                        srsName: "EPSG:900913",
-                                        outputFormat: "json",
-                                        // maxFeatures: 50,
-                                        propertyName:'dist_code,dist_na_en',
-                                        CQL_FILTER: "prov_code = "+record.data.prov_code
-                                    }
-                                });
-
-                            }
-
-
-                        }
-
-                    },{
-                        xtype: 'combo',
-                        fieldLabel: gettext('Districts'),
-                        id:'districtSelectionLocator',
-                        emptyText: gettext('Select a district...'),
-                        labelStyle: 'width:50px',
-                        typeAhead: true,
-                        width:175,
-                        disabled : false,
-                        triggerAction: 'all',
-                        forceSelection: true,
-                        editable:false,
-                        lazyRender:true,
-                        mode: 'local',
-                        store: data2,
-                        sm: new GeoExt.grid.FeatureSelectionModel(),
-                        valueField: 'dist_code',
-                        displayField: 'dist_na_en',
-                        listeners       : {
-                            'select': function(combo, record, index) {
-                                Ext.getCmp('settlemnentSelectionLocator').reset();
-                                data3.removeAll();
-
-                                Ext.getCmp('freeSearchForm').onTrigger2Click();
-
-                                dataSelected.load({
-                                    params: {
-                                        service: "WFS",
-                                        version: "1.1.0",
-                                        request: "GetFeature",
-                                        typeName: "geonode:afg_admbnda_adm2",
-                                        srsName: "EPSG:900913",
-                                        outputFormat: "json",
-                                        CQL_FILTER: "dist_code = "+record.data.dist_code
-                                    }
-                                });
-
-                                data3.load({
-                                    params:{
-                                        service: "WFS",
-                                        version: "1.1.0",
-                                        request: "GetFeature",
-                                        typeName: "geonode:afg_ppla",
-                                        srsName: "EPSG:900913",
-                                        outputFormat: "json",
-                                        // maxFeatures: 50,
-                                        propertyName:'vuid,name_en',
-                                        CQL_FILTER: "dist_code = "+record.data.dist_code
-                                    }
-                                });
-                            }
-                        }
-
-                    },{
-                        xtype: 'combo',
-                        fieldLabel: gettext('Settlements'),
-                        id:'settlemnentSelectionLocator',
-                        emptyText: gettext('Select a settlement...'),
-                        labelStyle: 'width:50px',
-                        typeAhead: true,
-                        width:175,
-                        disabled : false,
-                        triggerAction: 'all',
-                        forceSelection: true,
-                        editable:false,
-                        lazyRender:true,
-                        mode: 'local',
-                        store: data3,
-                        sm: new GeoExt.grid.FeatureSelectionModel(),
-                        valueField: 'vuid',
-                        displayField: 'name_en',
-                        listeners       : {
-                            'select': function(combo, record, index) {
-                                dataSelected.load({
-                                    params: {
-                                        service: "WFS",
-                                        version: "1.1.0",
-                                        request: "GetFeature",
-                                        typeName: "geonode:afg_ppla",
-                                        srsName: "EPSG:900913",
-                                        outputFormat: "json",
-                                        CQL_FILTER: "vuid = '"+record.data.vuid+"'"
-                                    }
-                                });
-                            }
-                        }
-
-                    }]
-                }),
-                new Ext.Panel({
-                    //title: gettext(''),
-                    // height:350,
-                    region:'center',
-                    autoScroll:true,
-                    width: 320,
-                    border: false,
-                    // autoHeight:true,
-                    layout:'fit',
-                    items:
-                    // new Ext.DataView({
-                    //     // autoHeight: true,
-                    //     multiSelect: true,
-                    //     trackOver: true,
-                    //     overItemCls: 'x-item-over',
-                    //     emptyText: gettext('No data to display'),
-                    //     tpl: new Ext.XTemplate(
-                    //         '<tpl for=".">',
-                    //         '<div class="locator-item">',
-                    //             '<span>{dist_na_en}</span>',
-                    //         '</div></tpl>'
-                    //     ),
-                    //     store: data2,
-                    //     itemSelector: 'div.locator-item'
-                    // }),
-
-                    gridSelector,
-
-                    tbar: {
-                        xtype: 'container',
-                        layout: 'anchor',
-                        defaults: {anchor: '0'},
-                        defaultType: 'toolbar',
-                        id:'searchTB',
-                        items : [{
-                            items: [
-                                'Search by name: ',
+                new Ext.TabPanel({
+                    activeTab: 0,
+                    autoWidth:true,
+                    fullscreen: true,
+                    tabBarPosition: 'top',
+                    resizeTabs: true,
+                    border:false,
+                    frame:false,
+                    // layout:'border',
+                    // minTabWidth     : 75,
+                    // layout: 'fit',
+                    // defaults:{
+                    //     autoScroll: true,
+                    // },
+                    items:[{
+                            title: 'Find Location',
+                            layout:'border',
+                            bbar: new Ext.Toolbar({
+                                // style : 'width:100%',
+                                items:[
                                 {
-                                    xtype      : 'checkbox',
-                                    id: 'fuzzyCB',
-                                    fieldLabel: gettext(""),
-                                    boxLabel: gettext('Fuzzy'),
-                                    inputValue : 'fuzzy',
-                                    checked:true,
-                                    listeners: {
-                                        check: function (checkbox, checked) {
-                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
-                                        }
+                                    text: gettext('Show settlement inspector'),
+                                    iconCls: 'icon-village-inspector',
+                                    enableToggle: true,
+                                    tooltip: 'Show settlement inspector on row or point click',
+                                    id: 'show_s_inspector_toggle',
+                                    handler: function(){
                                     }
                                 },
-                                new Ext.ux.form.SearchField({
-                                    id:'freeSearchForm',
-                                    store: finderStore,
-                                    style:'width:320px !important',
-                                    width:320
-                                })
-                            ]
-                        },{
-                            id:'tbCoordinate',
-                            hidden:false,
-                            items: [
-                                'Locate Coordinate: ',
-                                {
-                                    xtype: 'tbtext',
-                                    id: 'textCoordinate',
-                                    text: 'Not Set'
-                                }, 
-                                '->', 
-                                {
-                                    text:'Set',
-                                    handler:function(){
-                                        var win = new Ext.Window({
-                                            title: 'Entry Coordinate',
-                                            modal: true,
-                                            layout: "fit",
-                                            width: 320,
-                                            height: 225,
-                                            items:[new Ext.FormPanel({
-                                                labelWidth: 75, // label settings here cascade unless overridden
-                                                url:'save-form.php',
-                                                frame:false,
-                                                // title: 'Simple Form',
-                                                bodyStyle:'padding:5px 5px 0',
-                                                autoWidth: true,
-                                                defaults: {width: 215},
-                                                defaultType: 'textfield',
-
-                                                items: [
-                                                    {
-                                                        // width:          50,
-                                                        xtype:          'combo',
-                                                        mode:           'local',
-                                                        value:          'WGS 84',
-                                                        triggerAction:  'all',
-                                                        forceSelection: true,
-                                                        editable:       false,
-                                                        fieldLabel:     'Projection',
-                                                        name:           'projection',
-                                                        id:             'projectionCB',
-                                                        displayField:   'name',
-                                                        valueField:     'value',
-                                                        store:          new Ext.data.JsonStore({
-                                                            fields : ['name', 'value'],
-                                                            data   : [
-                                                                {name : 'Decimal Degree (WGS84)',   value: 'WGS 84'},
-                                                                {name : 'Degree Minute Seconds (WGS84)',   value: 'WGS 84 DMS'},
-                                                                {name : 'UTM 41 North',  value: 'UTM41N'},
-                                                                {name : 'UTM 42 North',  value: 'UTM42N'},
-                                                                {name : 'MGRS', value: 'MGRS'}
-                                                            ]
-                                                        }),
-                                                        listeners:{ 
-                                                            select:function(){
-                                                                var selectedProj = Ext.getCmp('projectionCB').getValue();
-                                                                if (selectedProj == 'WGS 84'){ 
-                                                                    // console.log(Ext.getCmp('zone'), Ext.getCmp('lat'));
-                                                                    // Ext.getCmp('zone').hide();
-                                                                    Ext.getCmp('lat').label.update('Latitude');
-                                                                    Ext.getCmp('lon').label.update('Longitude');
-                                                                    Ext.getCmp('lon').show();
-                                                                    Ext.getCmp('lat').show();
-                                                                    Ext.getCmp('Latitude_DMS').hide();
-                                                                    Ext.getCmp('Longitude_DMS').hide();
-                                                                } else if (selectedProj == 'UTM41N' || selectedProj == 'UTM42N'){
-                                                                    // Ext.getCmp('zone').show();
-                                                                    Ext.getCmp('lat').label.update('Northing');
-                                                                    Ext.getCmp('lon').label.update('Easting');
-                                                                    Ext.getCmp('lon').show();
-                                                                    Ext.getCmp('lat').show();
-                                                                    Ext.getCmp('Latitude_DMS').hide();
-                                                                    Ext.getCmp('Longitude_DMS').hide();
-                                                                } else if (selectedProj == 'MGRS'){
-                                                                    Ext.getCmp('lon').hide();
-                                                                    Ext.getCmp('lat').label.update('MGRS');
-                                                                    Ext.getCmp('zone').hide();
-                                                                    Ext.getCmp('lat').show();
-                                                                    Ext.getCmp('Latitude_DMS').hide();
-                                                                    Ext.getCmp('Longitude_DMS').hide();
-                                                                } else if (selectedProj == 'WGS 84 DMS'){
-                                                                    Ext.getCmp('lon').hide();
-                                                                    Ext.getCmp('lat').hide();
-                                                                    Ext.getCmp('zone').hide();
-                                                                    Ext.getCmp('Latitude_DMS').show();
-                                                                    Ext.getCmp('Longitude_DMS').show();
-                                                                }
-                                                            }                                                        
-                                                        },
-                                                    },{
-                                                        fieldLabel: 'Latitude',
-                                                        name: 'lat',
-                                                        id: 'lat',
-                                                        // maskRe: /[0-9.]/
-                                                    },{
-                                                        fieldLabel: 'Longitude',
-                                                        name: 'lon',
-                                                        id: 'lon',
-                                                        maskRe: /[0-9.]/
-                                                    },{
-                                                        fieldLabel: 'Zone Number',
-                                                        name: 'zone',
-                                                        id: 'zone',
-                                                        maskRe: /[0-9.]/,
-                                                        hidden:true
-                                                    },{
-                                                        xtype: 'compositefield',
-                                                        fieldLabel: 'Latitude',
-                                                        id: 'Latitude_DMS',
-                                                        // msgTarget: 'under',
-                                                        hidden:true,
-                                                        items: [
-                                                            {xtype: 'textfield',    id: 'lat_D', name: 'lat_D', width: 25, allowBlank: false},
-                                                            {xtype: 'displayfield', value: '&deg;'},
-                                                            {xtype: 'textfield',    id: 'lat_M', name: 'lat_M', width: 25, allowBlank: false},
-                                                            {xtype: 'displayfield', value: "'"},
-                                                            {xtype: 'textfield',    id: 'lat_S', name: 'lat_S', width: 25, allowBlank: false},
-                                                            {xtype: 'displayfield', value: '"'},
-                                                        ]
-                                                    },{
-                                                        xtype: 'compositefield',
-                                                        fieldLabel: 'Longitude',
-                                                        id: 'Longitude_DMS',
-                                                        // msgTarget: 'under',
-                                                        hidden:true,
-                                                        items: [
-                                                            {xtype: 'textfield',    id: 'lon_D', name: 'lon_D', width: 25, allowBlank: false},
-                                                            {xtype: 'displayfield', value: '&deg;'},
-                                                            {xtype: 'textfield',    id: 'lon_M', name: 'lon_M', width: 25, allowBlank: false},
-                                                            {xtype: 'displayfield', value: "'"},
-                                                            {xtype: 'textfield',    id: 'lon_S', name: 'lon_S', width: 25, allowBlank: false},
-                                                            {xtype: 'displayfield', value: '"'},
-                                                        ]
-                                                    }
-                                                ],
-
-                                                buttons: [{
-                                                    text: 'Save',
-                                                    handler:function(){
-                                                        
-                                                        var selectedProj = Ext.getCmp('projectionCB').getValue();
-
-                                                        if (selectedProj == 'WGS 84'){ 
-                                                            var lat = parseFloat(Ext.getCmp('lat').getValue());
-                                                            var lon = parseFloat(Ext.getCmp('lon').getValue());
-                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(lon, 'lon'));
-                                                            var lonlat = new OpenLayers.LonLat(lon, lat).transform(
-                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-                                                            );
-                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
-                                                        } else if (selectedProj == 'UTM41N'){
-                                                            var converter = new usngs.Converter();
-
-                                                            var lat = parseFloat(Ext.getCmp('lat').getValue());
-                                                            var lon = parseFloat(Ext.getCmp('lon').getValue());
-                                                            // var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
-
-                                                            var UTMCoordinate = converter.UTMtoLL(lat,lon,41);
-
-                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lon, 'lon'));
-                                                            var lonlat = new OpenLayers.LonLat(UTMCoordinate.lon, UTMCoordinate.lat).transform(
-                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-                                                            );
-                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
-                                                        } else if (selectedProj == 'UTM42N'){
-                                                            var converter = new usngs.Converter();
-
-                                                            var lat = parseFloat(Ext.getCmp('lat').getValue());
-                                                            var lon = parseFloat(Ext.getCmp('lon').getValue());
-                                                            // var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
-
-                                                            var UTMCoordinate = converter.UTMtoLL(lat,lon,42);
-
-                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lon, 'lon'));
-                                                            var lonlat = new OpenLayers.LonLat(UTMCoordinate.lon, UTMCoordinate.lat).transform(
-                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-                                                            );
-                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
-                                                        } else if (selectedProj == 'MGRS'){
-                                                            var lat = Ext.getCmp('lat').getValue();
-                                                            // var lon = parseFloat(Ext.getCmp('lon').getValue());
-
-                                                            var converter = new usngs.Converter();
-                                                            var LLCoordinate = converter.USNGtoLL(lat);
-                                                            
-                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(LLCoordinate.north, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(LLCoordinate.east, 'lon'));
-                                                            var lonlat = new OpenLayers.LonLat(LLCoordinate.east, LLCoordinate.north).transform(
-                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-                                                            );
-                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
-                                                        } else if (selectedProj == 'WGS 84 DMS'){ 
-                                                            var lat = parseFloat(Ext.getCmp('lat_D').getValue());
-                                                            lat = lat+(parseFloat(Ext.getCmp('lat_M').getValue())/60);
-                                                            lat = lat+(parseFloat(Ext.getCmp('lat_S').getValue())/3600);
-                                                            var lon = parseFloat(Ext.getCmp('lon_D').getValue());
-                                                            lon = lon+(parseFloat(Ext.getCmp('lon_M').getValue())/60);
-                                                            lon = lon+(parseFloat(Ext.getCmp('lon_S').getValue())/3600);
-                                                            Ext.getCmp('textCoordinate').setText(OpenLayers.Util.getFormattedLonLat(lat, 'lat') +' '+ OpenLayers.Util.getFormattedLonLat(lon, 'lon'));
-                                                            var lonlat = new OpenLayers.LonLat(lon, lat).transform(
-                                                                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-                                                                new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-                                                            );
-                                                            var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
-                                                        }
-
-                                                        tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
-                                                        tempMap.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
-                                                        tempMap.raiseLayer(tempMap.getLayersByName('sec_entry_vector')[0],10000);
-                                                        tempMap.panTo(lonlat);
-                                                        win.close();
-                                                    }
-                                                },{
-                                                    text: 'Cancel',handler:function(){
-                                                        tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
-                                                        Ext.getCmp('textCoordinate').setText('Not Set');
-                                                        win.close();
-                                                    }
-                                                }]
-                                            })]
-                                        });
-                                        win.show();
-                                    }
-                                }, 
-                                {
-                                    text:'Clear',
-                                    handler : function(){
-                                        tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
-                                        Ext.getCmp('textCoordinate').setText('Not Set');
+                                '->',{
+                                    text: gettext('Reset'),
+                                    iconCls: 'gxp-icon-reset',
+                                    handler: function(){
+                                        vector_layer.removeAllFeatures();
+                                        mask_layer.removeAllFeatures();
+                                        finder_layer.removeAllFeatures();
+                                        Ext.getCmp('provSelectionLocator').reset();
+                                        Ext.getCmp('districtSelectionLocator').reset();
+                                        Ext.getCmp('settlemnentSelectionLocator').reset();
+                                        data2.removeAll();
+                                        data3.removeAll();
                                     }
                                 }]
-                        },{
-                            id:'tbVUID',
-                            hidden:true,
-                            items: [
-                                'Search by Village ID: ', 
-                                new Ext.ux.form.SearchField({
-                                    id:'villageIDSearchForm',
-                                    store: finderStore,
-                                    style:'width:320px !important',
-                                    width:320
+                            }),
+                            tbar: {
+                                xtype: 'container',
+                                layout: 'anchor',
+                                id:'finderKindFilterTB',
+                                defaults: {anchor: '0'},
+                                defaultType: 'toolbar',
+                                items : [{
+                                    items: [
+                                        '', '',
+                                        {
+                                            xtype      : 'checkbox',
+                                            id: 'settlementCB',
+                                            fieldLabel: gettext(""),
+                                            boxLabel: gettext('Settlements'),
+                                            inputValue : 'settlement',
+                                            listeners:{
+                                                'check' : {
+                                                     fn : function(checkbox, checked){
+                                                        if (checked){
+                                                            Ext.getCmp('hfCB').setValue(false);
+                                                            Ext.getCmp('airportCB').setValue(false);
+                                                            Ext.getCmp('oasisCB').setValue(false);
+                                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                                            Ext.getCmp('tbVUID').show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },{
+                                            xtype      : 'checkbox',
+                                            id: 'hfCB',
+                                            fieldLabel: gettext(""),
+                                            boxLabel: gettext('Health Facilities'),
+                                            inputValue : 'hf',
+                                            listeners:{
+                                                'check' : {
+                                                     fn : function(checkbox, checked){
+                                                        if (checked){
+                                                            Ext.getCmp('settlementCB').setValue(false);
+                                                            Ext.getCmp('airportCB').setValue(false);
+                                                            Ext.getCmp('oasisCB').setValue(false);
+                                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                                            Ext.getCmp('tbVUID').hide();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },{
+                                            xtype      : 'checkbox',
+                                            id: 'airportCB',
+                                            fieldLabel: gettext(""),
+                                            boxLabel: gettext('Airports'),
+                                            inputValue : 'airport',
+                                            checked : true,
+                                            listeners:{
+                                                'check' : {
+                                                     fn : function(checkbox, checked){
+                                                        if (checked){
+                                                            Ext.getCmp('settlementCB').setValue(false);
+                                                            Ext.getCmp('hfCB').setValue(false);
+                                                            Ext.getCmp('oasisCB').setValue(false);
+                                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                                            Ext.getCmp('tbVUID').hide();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },{
+                                            xtype      : 'checkbox',
+                                            id: 'oasisCB',
+                                            fieldLabel: gettext(""),
+                                            boxLabel: gettext('Settlements Oasis'),
+                                            inputValue : 's_oasis',
+                                            listeners:{
+                                                'check' : {
+                                                     fn : function(checkbox, checked){
+                                                        if (checked){
+                                                            Ext.getCmp('settlementCB').setValue(false);
+                                                            Ext.getCmp('hfCB').setValue(false);
+                                                            Ext.getCmp('airportCB').setValue(false);
+                                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                                            Ext.getCmp('tbVUID').show();
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }]
+                            },
+                            items : [
+                                new Ext.form.FormPanel({
+                                    // title: gettext("Basic Form"),
+                                    id: 'comboLocatorForm',
+                                    width: '100%',
+                                    frame: true,
+                                    region : 'north',
+                                    border: false,
+                                    layout:'form',
+                                    layoutConfig: {columns: 1},
+                                    height : 100,
+                                    items: [{
+                                        xtype: 'combo',
+                                        width:175,
+                                        fieldLabel: gettext('Provinces'),
+                                        labelStyle: 'width:50px',
+                                        emptyText: gettext('Select a province...'),
+                                        id:'provSelectionLocator',
+                                        disabled : false,
+                                        typeAhead: true,
+                                        triggerAction: 'all',
+                                        forceSelection: true,
+                                        editable:false,
+                                        lazyRender:true,
+                                        mode: 'local',
+                                        store: data1,
+                                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                                        valueField: 'prov_code',
+                                        displayField: 'prov_na_en',
+                                        scope: this,
+                                        listeners       : {
+                                            'select': function(combo, record, index) {
+                                                Ext.getCmp('districtSelectionLocator').reset();
+                                                Ext.getCmp('settlemnentSelectionLocator').reset();
+                                                data2.removeAll();
+                                                data3.removeAll();
+
+                                                // console.log(Ext.getCmp('freeSearchForm'));
+                                                Ext.getCmp('freeSearchForm').onTrigger2Click();
+
+                                                dataSelected.load({
+                                                    params: {
+                                                        service: "WFS",
+                                                        version: "1.1.0",
+                                                        request: "GetFeature",
+                                                        typeName: "geonode:afg_admbnda_adm1",
+                                                        srsName: "EPSG:900913",
+                                                        outputFormat: "json",
+                                                        CQL_FILTER: "prov_code = "+record.data.prov_code
+                                                    }
+                                                });
+
+                                                data2.load({
+                                                    params:{
+                                                        service: "WFS",
+                                                        version: "1.1.0",
+                                                        request: "GetFeature",
+                                                        typeName: "geonode:afg_admbnda_adm2",
+                                                        srsName: "EPSG:900913",
+                                                        outputFormat: "json",
+                                                        // maxFeatures: 50,
+                                                        propertyName:'dist_code,dist_na_en',
+                                                        CQL_FILTER: "prov_code = "+record.data.prov_code
+                                                    }
+                                                });
+
+                                            }
+
+
+                                        }
+
+                                    },{
+                                        xtype: 'combo',
+                                        fieldLabel: gettext('Districts'),
+                                        id:'districtSelectionLocator',
+                                        emptyText: gettext('Select a district...'),
+                                        labelStyle: 'width:50px',
+                                        typeAhead: true,
+                                        width:175,
+                                        disabled : false,
+                                        triggerAction: 'all',
+                                        forceSelection: true,
+                                        editable:false,
+                                        lazyRender:true,
+                                        mode: 'local',
+                                        store: data2,
+                                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                                        valueField: 'dist_code',
+                                        displayField: 'dist_na_en',
+                                        listeners       : {
+                                            'select': function(combo, record, index) {
+                                                Ext.getCmp('settlemnentSelectionLocator').reset();
+                                                data3.removeAll();
+
+                                                Ext.getCmp('freeSearchForm').onTrigger2Click();
+
+                                                dataSelected.load({
+                                                    params: {
+                                                        service: "WFS",
+                                                        version: "1.1.0",
+                                                        request: "GetFeature",
+                                                        typeName: "geonode:afg_admbnda_adm2",
+                                                        srsName: "EPSG:900913",
+                                                        outputFormat: "json",
+                                                        CQL_FILTER: "dist_code = "+record.data.dist_code
+                                                    }
+                                                });
+
+                                                data3.load({
+                                                    params:{
+                                                        service: "WFS",
+                                                        version: "1.1.0",
+                                                        request: "GetFeature",
+                                                        typeName: "geonode:afg_ppla",
+                                                        srsName: "EPSG:900913",
+                                                        outputFormat: "json",
+                                                        // maxFeatures: 50,
+                                                        propertyName:'vuid,name_en',
+                                                        CQL_FILTER: "dist_code = "+record.data.dist_code
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                    },{
+                                        xtype: 'combo',
+                                        fieldLabel: gettext('Settlements'),
+                                        id:'settlemnentSelectionLocator',
+                                        emptyText: gettext('Select a settlement...'),
+                                        labelStyle: 'width:50px',
+                                        typeAhead: true,
+                                        width:175,
+                                        disabled : false,
+                                        triggerAction: 'all',
+                                        forceSelection: true,
+                                        editable:false,
+                                        lazyRender:true,
+                                        mode: 'local',
+                                        store: data3,
+                                        sm: new GeoExt.grid.FeatureSelectionModel(),
+                                        valueField: 'vuid',
+                                        displayField: 'name_en',
+                                        listeners       : {
+                                            'select': function(combo, record, index) {
+                                                dataSelected.load({
+                                                    params: {
+                                                        service: "WFS",
+                                                        version: "1.1.0",
+                                                        request: "GetFeature",
+                                                        typeName: "geonode:afg_ppla",
+                                                        srsName: "EPSG:900913",
+                                                        outputFormat: "json",
+                                                        CQL_FILTER: "vuid = '"+record.data.vuid+"'"
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                    }]
+                                }),
+                                new Ext.Panel({
+                                    //title: gettext(''),
+                                    minHeight:350,
+                                    region:'center',
+                                    autoScroll:true,
+                                    width: 320,
+                                    border: false,
+                                    // autoHeight:true,
+                                    layout:'fit',
+                                    items:gridSelector,
+
+                                    tbar: {
+                                        xtype: 'container',
+                                        layout: 'anchor',
+                                        defaults: {anchor: '0'},
+                                        defaultType: 'toolbar',
+                                        id:'searchTB',
+                                        items : [{
+                                            items: [
+                                                'Search by name: ',
+                                                {
+                                                    xtype      : 'checkbox',
+                                                    id: 'fuzzyCB',
+                                                    fieldLabel: gettext(""),
+                                                    boxLabel: gettext('Fuzzy'),
+                                                    inputValue : 'fuzzy',
+                                                    checked:true,
+                                                    listeners: {
+                                                        check: function (checkbox, checked) {
+                                                            Ext.getCmp('freeSearchForm').onTrigger2Click();
+                                                        }
+                                                    }
+                                                },
+                                                new Ext.ux.form.SearchField({
+                                                    id:'freeSearchForm',
+                                                    store: finderStore,
+                                                    style:'width:320px !important',
+                                                    width:320
+                                                })
+                                            ]
+                                        },{
+                                            id:'tbVUID',
+                                            hidden:true,
+                                            items: [
+                                                'Search by Village ID: ', 
+                                                new Ext.ux.form.SearchField({
+                                                    id:'villageIDSearchForm',
+                                                    store: finderStore,
+                                                    style:'width:320px !important',
+                                                    width:320
+                                                })
+                                            ]
+                                        }]
+                                     },
                                 })
                             ]
-                        }]
-                     },
 
-                    // bbar: new Ext.PagingToolbar({
-                    //     store: data2,
-                    //     // pageSize: 10,
-                    //     displayInfo: true,
-                    //     displayMsg: 'Data {0} - {1} of {2}',
-                    //     emptyMsg: "No data to display"
-                    // })
+                        },{
+                            title: 'Coordinate',
+                            items:[
+                                new Ext.FormPanel({
+                                    labelWidth: 75, // label settings here cascade unless overridden
+                                    url:'save-form.php',
+                                    frame:false,
+                                    border:false,
+                                    // title: 'Simple Form',
+                                    bodyStyle:'padding:5px 5px 0',
+                                    autoWidth: true,
+                                    defaults: {width: 215},
+                                    defaultType: 'textfield',
+
+                                    items: [
+                                        {
+                                            // width:          50,
+                                            xtype:          'combo',
+                                            mode:           'local',
+                                            value:          'WGS 84',
+                                            triggerAction:  'all',
+                                            forceSelection: true,
+                                            editable:       false,
+                                            fieldLabel:     'Projection',
+                                            name:           'projection',
+                                            id:             'projectionCB',
+                                            displayField:   'name',
+                                            valueField:     'value',
+                                            store:          new Ext.data.JsonStore({
+                                                fields : ['name', 'value'],
+                                                data   : [
+                                                    {name : 'Decimal Degree (WGS84)',   value: 'WGS 84'},
+                                                    {name : 'Degree Minute Seconds (WGS84)',   value: 'WGS 84 DMS'},
+                                                    {name : 'UTM 41 North',  value: 'UTM41N'},
+                                                    {name : 'UTM 42 North',  value: 'UTM42N'},
+                                                    {name : 'MGRS', value: 'MGRS'}
+                                                ]
+                                            }),
+                                            listeners:{ 
+                                                select:function(){
+                                                    var selectedProj = Ext.getCmp('projectionCB').getValue();
+                                                    Ext.getCmp('lat').setValue('');
+                                                    Ext.getCmp('lon').setValue('');
+                                                    Ext.getCmp('lat_D').setValue('');
+                                                    Ext.getCmp('lat_M').setValue('');
+                                                    Ext.getCmp('lat_S').setValue('');
+                                                    Ext.getCmp('lon_D').setValue('');
+                                                    Ext.getCmp('lon_M').setValue('');
+                                                    Ext.getCmp('lon_S').setValue('');
+                                                    if (selectedProj == 'WGS 84'){ 
+                                                        // console.log(Ext.getCmp('zone'), Ext.getCmp('lat'));
+                                                        // Ext.getCmp('zone').hide();
+                                                        Ext.getCmp('lat').label.update('Latitude');
+                                                        Ext.getCmp('lon').label.update('Longitude');
+                                                        Ext.getCmp('lon').show();
+                                                        Ext.getCmp('lat').show();
+                                                        Ext.getCmp('Latitude_DMS').hide();
+                                                        Ext.getCmp('Longitude_DMS').hide();
+                                                    } else if (selectedProj == 'UTM41N' || selectedProj == 'UTM42N'){
+                                                        // Ext.getCmp('zone').show();
+                                                        Ext.getCmp('lat').label.update('Northing');
+                                                        Ext.getCmp('lon').label.update('Easting');
+                                                        Ext.getCmp('lon').show();
+                                                        Ext.getCmp('lat').show();
+                                                        Ext.getCmp('Latitude_DMS').hide();
+                                                        Ext.getCmp('Longitude_DMS').hide();
+                                                    } else if (selectedProj == 'MGRS'){
+                                                        Ext.getCmp('lon').hide();
+                                                        Ext.getCmp('lat').label.update('MGRS');
+                                                        Ext.getCmp('zone').hide();
+                                                        Ext.getCmp('lat').show();
+                                                        Ext.getCmp('Latitude_DMS').hide();
+                                                        Ext.getCmp('Longitude_DMS').hide();
+                                                    } else if (selectedProj == 'WGS 84 DMS'){
+                                                        Ext.getCmp('lon').hide();
+                                                        Ext.getCmp('lat').hide();
+                                                        Ext.getCmp('zone').hide();
+                                                        Ext.getCmp('Latitude_DMS').show();
+                                                        Ext.getCmp('Longitude_DMS').show();
+                                                    }
+                                                }                                                        
+                                            },
+                                        },{
+                                            fieldLabel: 'Latitude',
+                                            name: 'lat',
+                                            id: 'lat',
+                                            // maskRe: /[0-9.]/
+                                        },{
+                                            fieldLabel: 'Longitude',
+                                            name: 'lon',
+                                            id: 'lon',
+                                            maskRe: /[0-9.]/
+                                        },{
+                                            fieldLabel: 'Zone Number',
+                                            name: 'zone',
+                                            id: 'zone',
+                                            maskRe: /[0-9.]/,
+                                            hidden:true
+                                        },{
+                                            xtype: 'compositefield',
+                                            fieldLabel: 'Latitude',
+                                            id: 'Latitude_DMS',
+                                            // msgTarget: 'under',
+                                            hidden:true,
+                                            items: [
+                                                {xtype: 'textfield',    id: 'lat_D', name: 'lat_D', width: 25, allowBlank: false},
+                                                {xtype: 'displayfield', value: '&deg;'},
+                                                {xtype: 'textfield',    id: 'lat_M', name: 'lat_M', width: 25, allowBlank: false},
+                                                {xtype: 'displayfield', value: "'"},
+                                                {xtype: 'textfield',    id: 'lat_S', name: 'lat_S', width: 25, allowBlank: false},
+                                                {xtype: 'displayfield', value: '"'},
+                                            ]
+                                        },{
+                                            xtype: 'compositefield',
+                                            fieldLabel: 'Longitude',
+                                            id: 'Longitude_DMS',
+                                            // msgTarget: 'under',
+                                            hidden:true,
+                                            items: [
+                                                {xtype: 'textfield',    id: 'lon_D', name: 'lon_D', width: 25, allowBlank: false},
+                                                {xtype: 'displayfield', value: '&deg;'},
+                                                {xtype: 'textfield',    id: 'lon_M', name: 'lon_M', width: 25, allowBlank: false},
+                                                {xtype: 'displayfield', value: "'"},
+                                                {xtype: 'textfield',    id: 'lon_S', name: 'lon_S', width: 25, allowBlank: false},
+                                                {xtype: 'displayfield', value: '"'},
+                                            ]
+                                        },{
+                                            xtype: 'menuseparator',
+                                            width:'100%'
+                                        },{
+                                            fieldLabel: 'DMS<br/>(WGS84)',
+                                            xtype: 'displayfield', 
+                                            id:'textCoordinate',
+                                            value: ''
+                                        },{
+                                            fieldLabel: 'Decimals<br/>(WGS84)',
+                                            xtype: 'displayfield', 
+                                            id:'textCoordinateDecimals',
+                                            value: ''
+                                        },{
+                                            fieldLabel: 'UTM',
+                                            xtype: 'displayfield', 
+                                            id:'textCoordinateUTM',
+                                            value: ''
+                                        },{
+                                            fieldLabel: 'MGRS',
+                                            xtype: 'displayfield', 
+                                            id:'textCoordinateMGRS',
+                                            value: ''
+                                        }
+                                    ],
+
+                                    buttons: [{
+                                        text: 'Plot to Map',
+                                        handler:function(){
+                                            
+                                            var selectedProj = Ext.getCmp('projectionCB').getValue();
+                                            var converter = new usngs.Converter();
+
+                                            if (selectedProj == 'WGS 84'){ 
+                                                
+                                                var lat = parseFloat(Ext.getCmp('lat').getValue());
+                                                var lon = parseFloat(Ext.getCmp('lon').getValue());
+
+                                                var UTMCoord = {};
+                                                converter.LLtoUTM(lat,lon,UTMCoord);
+
+                                                Ext.getCmp('textCoordinate').setValue(OpenLayers.Util.getFormattedLonLat(lat, 'lat') +'<br/>'+ OpenLayers.Util.getFormattedLonLat(lon, 'lon'));
+                                                Ext.getCmp('textCoordinateDecimals').setValue('Lat '+lat.toFixed(6) +'<br/>'+ 'Lon '+lon.toFixed(6));
+                                                Ext.getCmp('textCoordinateUTM').setValue(UTMCoord[2]+'N'+'<br/>'+'Northing '+UTMCoord[1].toFixed(1) +'<br/>'+ 'Easting '+UTMCoord[0].toFixed(1));
+                                                Ext.getCmp('textCoordinateMGRS').setValue(converter.LLtoMGRS(lat,lon,5));
+
+                                                var lonlat = new OpenLayers.LonLat(lon, lat).transform(
+                                                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                    new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                );
+                                                var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                            } else if (selectedProj == 'UTM41N'){
+
+                                                var lat = parseFloat(Ext.getCmp('lat').getValue());
+                                                var lon = parseFloat(Ext.getCmp('lon').getValue());
+                                                // var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
+
+                                                var UTMCoordinate = converter.UTMtoLL(lat,lon,41);
+
+                                                Ext.getCmp('textCoordinate').setValue(OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lat, 'lat') +'<br/>'+ OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lon, 'lon'));
+                                                Ext.getCmp('textCoordinateDecimals').setValue('Lat '+UTMCoordinate.lat.toFixed(6) +'<br/>'+ 'Lon '+UTMCoordinate.lon.toFixed(6));
+                                                Ext.getCmp('textCoordinateUTM').setValue(41+'N'+'<br/>'+'Northing '+lat.toFixed(1) +'<br/>'+ 'Easting '+lon.toFixed(1));
+                                                Ext.getCmp('textCoordinateMGRS').setValue(converter.LLtoMGRS(UTMCoordinate.lat,UTMCoordinate.lon,5));
+
+                                                var lonlat = new OpenLayers.LonLat(UTMCoordinate.lon, UTMCoordinate.lat).transform(
+                                                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                    new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                );
+                                                var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                            } else if (selectedProj == 'UTM42N'){
+
+                                                var lat = parseFloat(Ext.getCmp('lat').getValue());
+                                                var lon = parseFloat(Ext.getCmp('lon').getValue());
+                                                // var zonenumber = parseFloat(Ext.getCmp('zone').getValue());
+
+                                                var UTMCoordinate = converter.UTMtoLL(lat,lon,42);
+
+                                                Ext.getCmp('textCoordinate').setValue(OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lat, 'lat') +'<br/>'+ OpenLayers.Util.getFormattedLonLat(UTMCoordinate.lon, 'lon'));
+                                                Ext.getCmp('textCoordinateDecimals').setValue('Lat '+UTMCoordinate.lat.toFixed(6) +'<br/>'+ 'Lon '+UTMCoordinate.lon.toFixed(6));
+                                                Ext.getCmp('textCoordinateUTM').setValue(42+'N'+'<br/>'+'Northing '+lat.toFixed(1) +'<br/>'+ 'Easting '+lon.toFixed(1));
+                                                Ext.getCmp('textCoordinateMGRS').setValue(converter.LLtoMGRS(UTMCoordinate.lat,UTMCoordinate.lon,5));
+
+                                                var lonlat = new OpenLayers.LonLat(UTMCoordinate.lon, UTMCoordinate.lat).transform(
+                                                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                    new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                );
+                                                var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                            } else if (selectedProj == 'MGRS'){
+                                                var lat = Ext.getCmp('lat').getValue();
+                                                // var lon = parseFloat(Ext.getCmp('lon').getValue());
+
+                                                var UTMCoord = {};
+                                                var LLCoordinate = converter.USNGtoLL(lat);
+                                                converter.LLtoUTM(LLCoordinate.north,LLCoordinate.east,UTMCoord);
+                                                
+                                                Ext.getCmp('textCoordinate').setValue(OpenLayers.Util.getFormattedLonLat(LLCoordinate.north, 'lat') +'<br/>'+ OpenLayers.Util.getFormattedLonLat(LLCoordinate.east, 'lon'));
+                                                Ext.getCmp('textCoordinateDecimals').setValue('Lat '+LLCoordinate.north.toFixed(6) +'<br/>'+ 'Lon '+LLCoordinate.east.toFixed(6));
+                                                Ext.getCmp('textCoordinateUTM').setValue(UTMCoord[2]+'N'+'<br/>'+'Northing '+UTMCoord[1].toFixed(1) +'<br/>'+ 'Easting '+UTMCoord[0].toFixed(1));
+                                                Ext.getCmp('textCoordinateMGRS').setValue(converter.LLtoMGRS(LLCoordinate.north,LLCoordinate.east,5));
+
+                                                var lonlat = new OpenLayers.LonLat(LLCoordinate.east, LLCoordinate.north).transform(
+                                                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                    new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                );
+                                                var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                            } else if (selectedProj == 'WGS 84 DMS'){ 
+                                                var lat = parseFloat(Ext.getCmp('lat_D').getValue());
+                                                lat = lat+(parseFloat(Ext.getCmp('lat_M').getValue())/60);
+                                                lat = lat+(parseFloat(Ext.getCmp('lat_S').getValue())/3600);
+                                                var lon = parseFloat(Ext.getCmp('lon_D').getValue());
+                                                lon = lon+(parseFloat(Ext.getCmp('lon_M').getValue())/60);
+                                                lon = lon+(parseFloat(Ext.getCmp('lon_S').getValue())/3600);
+                                                
+                                                var UTMCoord = {};
+                                                converter.LLtoUTM(lat,lon,UTMCoord);
+
+                                                Ext.getCmp('textCoordinate').setValue(OpenLayers.Util.getFormattedLonLat(lat, 'lat') +'<br/>'+ OpenLayers.Util.getFormattedLonLat(lon, 'lon'));
+                                                Ext.getCmp('textCoordinateDecimals').setValue('Lat '+lat.toFixed(6) +'<br/>'+ 'Lon '+lon.toFixed(6));
+                                                Ext.getCmp('textCoordinateUTM').setValue(UTMCoord[2]+'N'+'<br/>'+'Northing '+UTMCoord[1].toFixed(1) +'<br/>'+ 'Easting '+UTMCoord[0].toFixed(1));
+                                                Ext.getCmp('textCoordinateMGRS').setValue(converter.LLtoMGRS(lat,lon,5));
+
+                                                var lonlat = new OpenLayers.LonLat(lon, lat).transform(
+                                                    new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                                                    new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+                                                );
+                                                var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat));
+                                            }
+
+                                            tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+                                            tempMap.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
+                                            tempMap.raiseLayer(tempMap.getLayersByName('sec_entry_vector')[0],10000);
+                                            tempMap.panTo(lonlat);
+        
+                                        }
+                                    },{
+                                        text: 'Clear',handler:function(){
+                                            tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+                                            Ext.getCmp('textCoordinate').setValue('');
+                                            Ext.getCmp('textCoordinate').setValue('');
+                                            Ext.getCmp('textCoordinateDecimals').setValue('');
+                                            Ext.getCmp('textCoordinateUTM').setValue('');
+                                            Ext.getCmp('textCoordinateMGRS').setValue('');
+     
+                                        }
+                                    }]
+                                })
+                            ]
+                        }
+                    ]
                 })
             ]
         });
