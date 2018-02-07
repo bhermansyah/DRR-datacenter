@@ -1630,7 +1630,8 @@ def getGeneralInfoVillages(request):
 
     context_dict['landcover_pop_chart'] = gchart.PieChart(SimpleDataSource(data=data1), html_id="pie_chart1", options={'title': _("# of Population"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
     context_dict['landcover_area_chart'] = gchart.PieChart(SimpleDataSource(data=data2), html_id="pie_chart2", options={'title': _("# of Area (KM2)"), 'width': 225,'height': 225, 'pieSliceText': _('percentage'),'legend': {'position': 'top', 'maxLines':3}})
-
+    context_dict['longitude'] = context_dict['position'].x
+    context_dict['latitude'] = context_dict['position'].y
     context_dict.pop('position')
     return render_to_response(template,
                                   RequestContext(request, context_dict))
