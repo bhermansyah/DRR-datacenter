@@ -195,7 +195,7 @@
             {% if resource.supplemental_information %}
             <tr class="hid-row">
                 <td>{% trans "Supplemental Information" %}</td>
-                <td>{{ resource.supplemental_information|truncatechars:160|escape|urlize|linebreaks|safe }}</td>
+                <td>{{ resource.supplemental_information|escape|urlize|linebreaks|safe }}</td>
             </tr>
             {% endif %}
 
@@ -207,7 +207,7 @@
             {% endif %}
         </tbody>
       </table>
-      <div class="btn btn-primary btn-toggle expand pull-right" onClick="toggleRow('hid-row');"><span class="sign"></span></div>
+      <div class="btn btn-primary btn-toggle pull-right" onClick="toggleRow('hid-row');"><span class="sign"></span></div>
     </div>
 </div>
 <!-- <div id="attribute" class="tab-pane fade">

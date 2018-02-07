@@ -31,7 +31,7 @@
 
 {% block extra_script %}
   {% if GEONODE_SECURITY_ENABLED %}
-    {% include "_permissions_form_js.html" %}
+    {% include "v2/_permissions_form_js.html" %}
   {% endif %}
   <script type="text/javascript">
       {% if HAYSTACK_SEARCH %}
