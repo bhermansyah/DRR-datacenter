@@ -43,7 +43,7 @@ table#info tr.odd td {
 <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
 </script>
-
+<script src="{{STATIC_URL}}lib/js/usng.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -65,8 +65,26 @@ table#info tr.odd td {
 		<td><strong>{{prov_na_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>{% trans "Elevation" %}</td>
-		<td><strong>{% blocktrans %}{{elevation}} m above sea level{% endblocktrans %}</strong></td>
+		<td>{% trans "Coordinate<br/>(WGS84)" %}</td>
+		<td><strong>
+			<span id="WGS84"></span>
+		</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Coordinate<br/>(UTM)" %}</td>
+		<td><strong>
+			<span id="UTM"></span>
+		</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Coordinate<br/>(MGRS)" %}</td>
+		<td><strong>
+			<span id="MGRS"></span>
+		</strong></td>
+	</tr>
+	<tr>
+		<td>{% trans "Elevation"  %}</td>
+		<td><strong>{{elevation|floatformat:"0" }}{% blocktrans %} m above sea level{% endblocktrans %}</strong></td>
 	</tr>
 	<tr>
 		<td>{% trans "Area" %}</td>
@@ -109,5 +127,80 @@ table#info tr.odd td {
 	<div style='float:left;'>{{ landcover_pop_chart.as_html }}</div>
 	<div style='float:left;'>{{ landcover_area_chart.as_html }}</div>
 </div>
+<script type="text/javascript">
+
+document.addEventListener('DOMContentLoaded', function(){ 
+
+	function getFormattedLonLat(coordinate, axis, dmsOption) {
+	    if (!dmsOption) {
+	        dmsOption = 'dms';    //default to show degree, minutes, seconds
+	    }
+
+	    coordinate = (coordinate+540)%360 - 180; // normalize for sphere being round
+
+	    var abscoordinate = Math.abs(coordinate);
+	    var coordinatedegrees = Math.floor(abscoordinate);
+
+	    var coordinateminutes = (abscoordinate - coordinatedegrees)/(1/60);
+	    var tempcoordinateminutes = coordinateminutes;
+	    coordinateminutes = Math.floor(coordinateminutes);
+	    var coordinateseconds = (tempcoordinateminutes - coordinateminutes)/(1/60);
+	    coordinateseconds =  Math.round(coordinateseconds*10);
+	    coordinateseconds /= 10;
+
+	    if( coordinateseconds >= 60) {
+	        coordinateseconds -= 60;
+	        coordinateminutes += 1;
+	        if( coordinateminutes >= 60) {
+	            coordinateminutes -= 60;
+	            coordinatedegrees += 1;
+	        }
+	    }
+
+	    if( coordinatedegrees < 10 ) {
+	        coordinatedegrees = "0" + coordinatedegrees;
+	    }
+	    var str = coordinatedegrees + "\u00B0";
+
+	    if (dmsOption.indexOf('dm') >= 0) {
+	        if( coordinateminutes < 10 ) {
+	            coordinateminutes = "0" + coordinateminutes;
+	        }
+	        str += coordinateminutes + "'";
+
+	        if (dmsOption.indexOf('dms') >= 0) {
+	            if( coordinateseconds < 10 ) {
+	                coordinateseconds = "0" + coordinateseconds;
+	            }
+	            str += coordinateseconds + '"';
+	        }
+	    }
+
+	    if (axis == "lon") {
+	        str += coordinate < 0 ? "W" : "E";
+	    } else {
+	        str += coordinate < 0 ? "S" : "N";
+	    }
+	    return str;
+	}
+
+	var converter = new usngs.Converter();
+	var lat = parseFloat({{ latitude }});
+    var lon = parseFloat({{ longitude }});
+
+    
+    var UTMCoord = {};
+    converter.LLtoUTM(lat,lon,UTMCoord);
+
+    document.getElementById("WGS84").innerHTML =getFormattedLonLat(lat, 'lat') +'<br/>'+ getFormattedLonLat(lon, 'lon');
+    document.getElementById("UTM").innerHTML =UTMCoord[2]+'N'+'<br/>'+'Northing '+UTMCoord[1].toFixed(1) +'<br/>'+ 'Easting '+UTMCoord[0].toFixed(1);
+    document.getElementById("MGRS").innerHTML =converter.LLtoMGRS(lat,lon,5);
+
+}, false);
+	
+
+
+
+</script>
 </body>
 </html>
