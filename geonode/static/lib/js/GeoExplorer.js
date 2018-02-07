@@ -92938,6 +92938,23 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         
                                         }
                                     },{
+                                        text: 'Pick from Map',
+                                        enableToggle:true,
+                                        id:'bt_pickfrommap',
+                                        handler:function(){
+                                            if (this.pressed){
+                                                this.setText('Stop Picking');
+                                                var click = new OpenLayers.Control.CustomClick({id:'CustomClick'});
+                                                tempMap.addControl(click);
+                                                click.activate();
+                                            } else {
+                                                tempMap.getControl('CustomClick').deactivate();
+                                                tempMap.removeControl(tempMap.getControl('CustomClick'));
+                                                console.log(tempMap);
+                                                this.setText('Pick from Map');
+                                            }
+                                        }
+                                    },{
                                         text: 'Clear',handler:function(){
                                             tempMap.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
                                             Ext.getCmp('textCoordinate').setValue('');

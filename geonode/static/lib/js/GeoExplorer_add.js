@@ -2270,3 +2270,58 @@ OpenLayers.Control.CustomNavToolbar = OpenLayers.Class(OpenLayers.Control.Panel,
         return div;
     }
 });
+
+OpenLayers.Control.CustomClick = OpenLayers.Class(OpenLayers.Control, {                
+    defaultHandlerOptions: {
+        'single': true,
+        'double': false,
+        'pixelTolerance': 0,
+        'stopSingle': false,
+        'stopDouble': false
+    },
+
+    initialize: function(options) {
+        this.handlerOptions = OpenLayers.Util.extend(
+            {}, this.defaultHandlerOptions
+        );
+        OpenLayers.Control.prototype.initialize.apply(
+            this, arguments
+        ); 
+        this.handler = new OpenLayers.Handler.Click(
+            this, {
+                'click': this.trigger
+            }, this.handlerOptions
+        );
+    }, 
+
+    trigger: function(e) {
+        var lonlat_real = this.map.getLonLatFromPixel(e.xy);
+        // alert("You clicked near " + lonlat.lat + " N, " +
+        //                           + lonlat.lon + " E");
+        var lonlat = new OpenLayers.LonLat(lonlat_real.lon, lonlat_real.lat).transform(
+            new OpenLayers.Projection("EPSG:900913"), // transform from WGS 1984
+            new OpenLayers.Projection("EPSG:4326") // to Spherical Mercator Projection
+        );
+        var converter = new usngs.Converter();
+        var UTMCoord = {};
+        converter.LLtoUTM(lonlat.lat,lonlat.lon,UTMCoord);
+        Ext.getCmp('textCoordinate').setValue(OpenLayers.Util.getFormattedLonLat(lonlat.lat, 'lat') +'<br/>'+ OpenLayers.Util.getFormattedLonLat(lonlat.lon, 'lon'));
+        Ext.getCmp('textCoordinateDecimals').setValue('Lat '+lonlat.lat.toFixed(6) +'<br/>'+ 'Lon '+lonlat.lon.toFixed(6));
+        Ext.getCmp('textCoordinateUTM').setValue(UTMCoord[2]+'N'+'<br/>'+'Northing '+UTMCoord[1].toFixed(1) +'<br/>'+ 'Easting '+UTMCoord[0].toFixed(1));
+        Ext.getCmp('textCoordinateMGRS').setValue(converter.LLtoMGRS(lonlat.lat,lonlat.lon,5));
+        // this.deactivate();
+        // this.map.removeControl(this,this.map.control);
+
+        var lonlatPlot = new OpenLayers.LonLat(lonlat.lon,lonlat.lat).transform(
+            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+            new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+        );
+        var feature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Point(lonlatPlot.lon, lonlatPlot.lat));
+        this.map.getLayersByName('sec_entry_vector')[0].removeAllFeatures();
+        this.map.getLayersByName('sec_entry_vector')[0].addFeatures([feature]);
+        this.map.raiseLayer(this.map.getLayersByName('sec_entry_vector')[0],10000);
+        this.map.panTo(lonlatPlot);
+
+    }
+
+});
