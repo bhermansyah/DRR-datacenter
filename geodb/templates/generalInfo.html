@@ -38,6 +38,41 @@ table#info tr.odd td {
 	height:250 !important;
 }
 
+
+
+.select-style select {
+  /*margin: 50px;*/
+  border: 1px solid #111;
+  background: transparent;
+  width: 150px;
+  padding: 5px 35px 5px 5px;
+  /*font-size: 16px;*/
+  color: #0D63AD;
+  border: 1px solid #ccc;
+  height: 30px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url(http://www.stackoverflow.com/favicon.ico) 96% / 15% no-repeat #eee;
+}
+
+/* CAUTION: IE hackery ahead */
+.select-style select::-ms-expand { 
+    display: none; /* remove default arrow on ie10 and ie11 */
+}
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0) {
+    select {
+        background:none\9;
+        padding: 5px\9;
+    } 
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
 </style>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -65,22 +100,22 @@ table#info tr.odd td {
 		<td><strong>{{prov_na_en}}</strong></td>
 	</tr>
 	<tr>
-		<td>{% trans "Coordinate<br/>(WGS84)" %}</td>
-		<td><strong>
-			<span id="WGS84"></span>
-		</strong></td>
-	</tr>
-	<tr>
-		<td>{% trans "Coordinate<br/>(UTM)" %}</td>
-		<td><strong>
-			<span id="UTM"></span>
-		</strong></td>
-	</tr>
-	<tr>
-		<td>{% trans "Coordinate<br/>(MGRS)" %}</td>
-		<td><strong>
-			<span id="MGRS"></span>
-		</strong></td>
+		<td>
+			<div class="select-style">
+				<select id="coordinate_selection" onchange='proj_select();'>
+				  <option selected value="WGS84">WGS84 Coordinate</option>
+				  <option value="UTM">UTM Coordinate</option>
+				  <option value="MGRS">MGRS Coordinate</option>
+				</select>
+			</div>
+			<!-- <span id="WGS84_link">WGS84</span> - <span id="UTM_link">UTM</span> - <span id="MGRS_link">MGRS</span></td> -->
+		<td>
+			<strong>
+				<span id="WGS84"></span>
+				<span id="UTM"></span>
+				<span id="MGRS"></span>
+			</strong>
+		</td>
 	</tr>
 	<tr>
 		<td>{% trans "Elevation"  %}</td>
@@ -128,8 +163,28 @@ table#info tr.odd td {
 	<div style='float:left;'>{{ landcover_area_chart.as_html }}</div>
 </div>
 <script type="text/javascript">
+function proj_select(){
+	var selectBox = document.getElementById('coordinate_selection');
+	var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+	if (selectedValue == 'WGS84'){
+		document.getElementById("WGS84").style.display = '';
+	    document.getElementById("UTM").style.display = 'none';
+	    document.getElementById("MGRS").style.display = 'none';
+	} else if (selectedValue == 'UTM'){
+		document.getElementById("WGS84").style.display = 'none';
+	    document.getElementById("UTM").style.display = '';
+	    document.getElementById("MGRS").style.display = '';
+	} else if (selectedValue == 'MGRS'){
+		document.getElementById("WGS84").style.display = 'none';
+	    document.getElementById("UTM").style.display = 'none';
+	    document.getElementById("MGRS").style.display = '';
+	}
+}
 
 document.addEventListener('DOMContentLoaded', function(){ 
+
+
+	
 
 	function getFormattedLonLat(coordinate, axis, dmsOption) {
 	    if (!dmsOption) {
@@ -195,6 +250,10 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("WGS84").innerHTML =getFormattedLonLat(lat, 'lat') +'<br/>'+ getFormattedLonLat(lon, 'lon');
     document.getElementById("UTM").innerHTML =UTMCoord[2]+'N'+'<br/>'+'Northing '+UTMCoord[1].toFixed(1) +'<br/>'+ 'Easting '+UTMCoord[0].toFixed(1);
     document.getElementById("MGRS").innerHTML =converter.LLtoMGRS(lat,lon,5);
+
+    document.getElementById("WGS84").style.display = '';
+    document.getElementById("UTM").style.display = 'none';
+    document.getElementById("MGRS").style.display = 'none';
 
 }, false);
 	
