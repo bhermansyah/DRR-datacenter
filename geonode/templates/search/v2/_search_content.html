@@ -114,7 +114,15 @@
         <button data-toggle="modal" class="btn btn-primary" data-target="#set_permissions">{% trans "Set Permissions" %}</button>
           {% endif %}
         {% endblock %}
-        <a href="{% url 'document_upload' %}" class="btn btn-primary" target="_self">{% trans "Upload Document" %}</a>
+        {% if 'documents' in request.path %}
+        <a href="{% url 'document_upload' %}" class="btn btn-primary">{% trans "Upload Document" %}</a>
+        {% elif 'maps' in request.path %}
+          {% if user.is_superuser %}
+        <a href="{% url 'new_map' %}" class="btn btn-primary">{% trans "Create a New Map" %}</a>
+          {% endif %}
+        {% elif 'layers' in request.path %}
+        <a href="{% url 'layer_upload' %}" class="btn btn-primary">{% trans "Upload Layers" %}</a>
+        {% endif %}
       </div>
     </div>
     <div class="search-result-container">
