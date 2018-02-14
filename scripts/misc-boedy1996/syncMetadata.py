@@ -6,7 +6,16 @@ from geonode.layers.models import Layer
 
 test = Layer.objects.all()
 # test = Layer.objects.filter(pk=5831)
+
+ids = []
+
 for i in test:
-	print i.title
-	i.save()
+	ids.append(i.pk)
+
+
+for x in ids:
+	layer = Layer.objects.filter(pk=x)[0]
+	layer.save()
+	print layer
+
 
