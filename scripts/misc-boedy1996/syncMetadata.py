@@ -15,7 +15,10 @@ for i in test:
 
 for x in ids:
 	layer = Layer.objects.filter(pk=x)[0]
-	layer.save()
-	print layer
+	try:
+		layer.save()
+	except:	
+		print layer
+		pass
 
 
