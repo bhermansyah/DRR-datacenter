@@ -7,5 +7,9 @@ from geonode.layers.models import Layer
 test = Layer.objects.all()
 # test = Layer.objects.filter(pk=5831)
 for i in test:
-	i.save()
+	try:
+		i.save()
+	except:
+		print i
+		pass	
 
