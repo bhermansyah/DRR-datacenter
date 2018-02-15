@@ -90397,12 +90397,12 @@ var GeoExplorer = Ext.extend(gxp.Viewer, {
             checked: true,
             iconCls: "gxp-icon-legend",
             ptype: "gxp_legend"
-        }, {
-            leaf: true,
-            text: gxp.plugins.GoogleEarth.prototype.tooltip,
-            checked: true,
-            iconCls: "gxp-icon-googleearth",
-            ptype: "gxp_googleearth"
+        // }, {
+        //     leaf: true,
+        //     text: gxp.plugins.GoogleEarth.prototype.tooltip,
+        //     checked: true,
+        //     iconCls: "gxp-icon-googleearth",
+        //     ptype: "gxp_googleearth"
         }, {
             hidden: true, actions: ["->"], checked: true
         }, {
@@ -90723,9 +90723,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             }, {
                 ptype: "gxp_zoomtolayerextent",
                 actionTarget: {target: "layers.contextMenu", index: 0}
-            }, {
-                ptype: "gxp_googleearth",
-                actionTarget: ["map.tbar", "globe.tbar"]
+            // }, {
+            //     ptype: "gxp_googleearth",
+            //     actionTarget: ["map.tbar", "globe.tbar"]
             }, {
                 ptype: "gxp_navigation", toggleGroup: "navigation"
             }, {
