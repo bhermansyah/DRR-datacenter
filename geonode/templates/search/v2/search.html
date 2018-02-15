@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
 {% load i18n %}
 {% load staticfiles %}
 {% load url from future %}
@@ -8,22 +8,34 @@
 {% block body_class %}search{% endblock %}
 
 {% block body_outer %}
-  <div class="page-header">
-    <h2>{% trans "Search" %} <span ng-if="text_query != ''">:</span> <span ng-bind="text_query"></span></h2>
-  </div>
-  {% with include_type_filter='true' %}
-  {% with header='Type' %}
-  {% with filter='type__in' %}
-  {% include "search/_search_content.html" %}
-  {% endwith %}
-  {% endwith %}
-  {% endwith %}
-  {% include "_bulk_permissions_form.html" %}
+
+  <!-- Breadcrumb -->
+  <section class="breadcrumb-section" style="padding: 0;">
+    <div class="container" style="padding: 0;">
+      <div class="">
+        <h2>{% trans "Search" %} <span ng-if="text_query != ''">:</span> <span ng-bind="text_query"></span></h2>
+      </div>
+    </div>
+  </section>
+
+  <section id="search" style="padding: 0;">
+    <div class="container">
+      {% with include_type_filter='true' %}
+        {% with header='Type' %}
+          {% with filter='type__in' %}
+            {% include "search/v2/_search_content.html" %}
+          {% endwith %}
+        {% endwith %}
+      {% endwith %}
+    </div>
+  </section>
+
+  {% include "v2/_bulk_permissions_form.html" %}
 {% endblock %}
 
 {% block extra_script %}
   {% if GEONODE_SECURITY_ENABLED %}
-    {% include "_permissions_form_js.html" %}
+    {% include "v2/_permissions_form_js.html" %}
   {% endif %}
   <script type="text/javascript">
     {% if HAYSTACK_SEARCH %}
@@ -33,6 +45,6 @@
     {% endif %}
   </script>
   {% with include_spatial='true' %}
-  {% include 'search/search_scripts.html' %}
+    {% include 'search/v2/search_scripts.html' %}
   {% endwith %}
 {% endblock extra_script %}

@@ -70,6 +70,8 @@ v2urlpatterns = patterns('',
                        (r'^maps/', include('geonode.maps.urls')),
                        # (r'^maps/$', TemplateView.as_view(template_name='v2/map_list.html'), name='v2_maps_browse'),
 
+                       url(r'^search/$', TemplateView.as_view(template_name='search/v2/search.html'), name='search'),
+
                        (r"^account/", include("account.urls")),
                        (r'^people/', include('geonode.people.urls')),
 
