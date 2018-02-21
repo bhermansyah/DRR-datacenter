@@ -1677,10 +1677,18 @@ def getAvalancheRisk(request, filterLock, flag, code):
 def getFloodRisk(request, filterLock, flag, code):
     targetBase = AfgLndcrva.objects.all()
     response = getCommonUse(request, flag, code)
-    response['Population']=getTotalPop(filterLock, flag, code, targetBase)
-    response['Area']=getTotalArea(filterLock, flag, code, targetBase)
-    response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
-    response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+
+    if flag not in ['entireAfg','currentProvince']:
+        response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+        response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+        response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
+        response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+    else :
+        tempData = getShortCutData(flag,code)
+        response['Population']= tempData['Population']
+        response['Area']= tempData['Area']
+        response['Buildings']= tempData['total_buildings']
+        response['settlement']= tempData['settlements'] 
 
     rawBaseline = getRawBaseLine(filterLock, flag, code)
     rawFloodRisk = getRawFloodRisk(filterLock, flag, code)
