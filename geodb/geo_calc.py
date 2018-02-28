@@ -522,10 +522,17 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
         response = getCommonUse(request, flag, code)
         targetBase = AfgLndcrva.objects.all()
 
-        response['Population']=getTotalPop(filterLock, flag, code, targetBase)
-        response['Area']=getTotalArea(filterLock, flag, code, targetBase)
-        response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
-        response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+        if flag not in ['entireAfg','currentProvince']:
+            response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+            response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+            response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
+            response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+        else :
+            tempData = getShortCutData(flag,code)
+            response['Population']= tempData['Population']
+            response['Area']= tempData['Area']
+            response['Buildings']= tempData['total_buildings']
+            response['settlement']= tempData['settlements'] 
 
         url = 'http://asdc.immap.org/geoapi/geteqevents/?dateofevent__gte=2015-09-08&_dc=1473243793279'
         req = urllib2.Request(url)
@@ -3235,9 +3242,18 @@ def getLandslideRisk(request, filterLock, flag, code, includes=[], excludes=[]):
         response = getCommonUse(request, flag, code)
     if include_section('totals', includes, excludes):
         targetBase = AfgLndcrva.objects.all()
-        response['Population']=getTotalPop(filterLock, flag, code, targetBase)
-        response['Area']=getTotalArea(filterLock, flag, code, targetBase)
-        response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+
+        if flag not in ['entireAfg','currentProvince']:
+            response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+            response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+            response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
+            response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+        else :
+            tempData = getShortCutData(flag,code)
+            response['Population']= tempData['Population']
+            response['Area']= tempData['Area']
+            response['Buildings']= tempData['total_buildings']
+            response['settlement']= tempData['settlements'] 
 
     if include_section('lc_child', includes, excludes):
         response['lc_child'] = getLandslideRiskChild(filterLock, flag, code)
