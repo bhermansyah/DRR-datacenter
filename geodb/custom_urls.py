@@ -16,5 +16,6 @@ urlpatterns = patterns(
     url(r'^demographic$', 'getDemographicInfo', name='getDemographicInfo'),
     url(r'^landslideinfo$', 'getLandSlideInfoVillages', name='getLandSlideInfoVillages'),
     url(r'^climateinfo$', 'getClimateVillage', name='getClimateVillage'),
+    url(r'^restartwebserver$', 'restartApacheTemp', name='restartApacheTemp'),
     
 )
