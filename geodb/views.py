@@ -2535,7 +2535,3 @@ def getDemographicInfo(request):
     context_dict.pop('position')
     return render_to_response(template,
                                   RequestContext(request, context_dict))
-
-def restartApacheTemp(request):
-    os.system('sudo service apache2 restart')
-    return HttpResponse("<html><body>web server restarted</body></html>")
