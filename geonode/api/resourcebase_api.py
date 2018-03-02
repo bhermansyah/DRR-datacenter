@@ -29,6 +29,12 @@ from .api import TagResource, RegionResource, ProfileResource, \
     TopicCategoryResource, \
     FILTER_TYPES
 
+from pprint import pprint
+from contextlib import closing
+from django.db import connection, connections
+
+import json
+
 if settings.HAYSTACK_SEARCH:
     from haystack.query import SearchQuerySet  # noqa
 
@@ -391,8 +397,8 @@ class CommonModelApi(ModelResource):
 
     # def alter_list_data_to_serialize(self, request, data):
     #     for index, row in enumerate(data['objects']):
-    #         data['objects'][index].constraints_other_en = 'test' 
-    #     return data    
+    #         data['objects'][index].constraints_other_en = 'test'
+    #     return data
 
     def get_list(self, request, **kwargs):
         """
@@ -410,7 +416,7 @@ class CommonModelApi(ModelResource):
             bundle=base_bundle,
             **self.remove_api_resource_names(kwargs))
         sorted_objects = self.apply_sorting(objects, options=request.GET)
-                
+
         paginator = self._meta.paginator_class(
             request.GET,
             sorted_objects,
@@ -431,7 +437,7 @@ class CommonModelApi(ModelResource):
             data,
             response_class=HttpResponse,
             **response_kwargs):
-        
+
         """
         Extracts the common "which-format/serialize/return-response" cycle.
 
@@ -471,7 +477,7 @@ class CommonModelApi(ModelResource):
                 data['objects'],
                 list):
             data['objects'] = list(data['objects'].values(*VALUES))
-        
+
         if '/documents/' in request.path:
             for row in data['objects']:
                 location = Document.objects.get(pk=row['id'])
@@ -480,8 +486,8 @@ class CommonModelApi(ModelResource):
                 for item in location.regions.all():
                     row['region_description'] = row['region_description'] + ' ' +str(item)
                 for item in location.keywords.all():
-                    row['keyword_description'] = row['keyword_description'] + ' ' +str(item)    
-            
+                    row['keyword_description'] = row['keyword_description'] + ' ' +str(item)
+
 
 
         desired_format = self.determine_format(request)
@@ -539,10 +545,59 @@ class LayerResource(CommonModelApi):
         resource_name = 'layers'
         excludes = ['csw_anytext', 'metadata_xml']
 
+    def get_list(self, request, **kwargs):
+        result = super(LayerResource, self).get_list(request, **kwargs)
+        result_json = json.loads(result.content)
+        layerids = [o['id'] for o in result_json['objects']]
+        # orglogos = self.get_orglogos(layerids)
+        orglogos = Layer.objects.filter(pk__in=layerids).values('pk', 'orglogo__filename')
+        for o in result_json['objects']:
+            for l in orglogos:
+                if (o['id'] == l['pk']) and (l['orglogo__filename']):
+                    if ('orglogos' not in o):
+                        o['orglogos'] = []
+                    o['orglogos'].append(l['orglogo__filename'])
+        result.content = json.dumps(result_json)
+        return result
 
 class MapResource(CommonModelApi):
 
     """Maps API"""
+
+    def get_orglogos(self, mapids):
+        orglogos = {}
+        # raw query because no relation between layer - maplayer
+        with closing(connection.cursor()) as cursor:
+            sql = '''
+            SELECT DISTINCT
+              "maps_maplayer"."map_id",
+              "layers_orglogo"."filename"
+            FROM "maps_maplayer"
+            JOIN "layers_layer"
+              ON ("maps_maplayer"."name" = "layers_layer"."typename")
+            JOIN "layers_orglogo_layer"
+              ON ("layers_layer"."resourcebase_ptr_id" = "layers_orglogo_layer"."layer_id")
+            JOIN "layers_orglogo"
+              ON ("layers_orglogo_layer"."orglogo_id" = "layers_orglogo"."id")
+            WHERE "maps_maplayer"."map_id" in (%s);
+            ''' % (', '.join(map(str, mapids)))
+            cursor.execute(sql)
+            orglogos = cursor.fetchall()
+        return orglogos
+
+    def get_list(self, request, **kwargs):
+        result = super(MapResource, self).get_list(request, **kwargs)
+        result_json = json.loads(result.content)
+        mapids = [o['id'] for o in result_json['objects']]
+        orglogos = self.get_orglogos(mapids)
+        for o in result_json['objects']:
+            for l in orglogos:
+                if (o['id'] == l[0]):
+                    if ('orglogos' not in o):
+                        o['orglogos'] = []
+                    o['orglogos'].append(l[1])
+        result.content = json.dumps(result_json)
+        return result
 
     class Meta(CommonMetaApi):
         queryset = Map.objects.distinct().order_by('-date')
@@ -550,9 +605,8 @@ class MapResource(CommonModelApi):
             queryset = queryset.filter(is_published=True)
         resource_name = 'maps'
 
-
 class DocumentResource(CommonModelApi):
-    
+
     """Maps API"""
 
     class Meta(CommonMetaApi):
@@ -561,7 +615,7 @@ class DocumentResource(CommonModelApi):
         queryset = Document.objects.distinct().order_by('-date')
         if settings.RESOURCE_PUBLISHING:
             queryset = queryset.filter(is_published=True)
-        resource_name = 'documents'  
+        resource_name = 'documents'
 
 # added by boedy1996@gmail.com
 class LatestDocumentResource(CommonModelApi):
@@ -574,7 +628,7 @@ class LatestDocumentResource(CommonModelApi):
         queryset = Document.objects.distinct().order_by('-date')
         if settings.RESOURCE_PUBLISHING:
             queryset = queryset.filter(is_published=True)
-        resource_name = 'lastestdocument'       
+        resource_name = 'lastestdocument'
 
 class LatestDocumentHazardResource(CommonModelApi):
 
@@ -586,4 +640,4 @@ class LatestDocumentHazardResource(CommonModelApi):
         queryset = Document.objects.distinct().order_by('-date')
         if settings.RESOURCE_PUBLISHING:
             queryset = queryset.filter(is_published=True)
-        resource_name = 'lastestflood'           
+        resource_name = 'lastestflood'

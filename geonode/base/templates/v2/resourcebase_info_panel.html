@@ -195,7 +195,25 @@
             {% if resource.supplemental_information %}
             <tr class="hid-row">
                 <td>{% trans "Supplemental Information" %}</td>
-                <td>{{ resource.supplemental_information|escape|urlize|linebreaks|safe }}</td>
+                <td class="source_info">
+                    <div style="display: inline-block;">
+                        {{ resource.supplemental_information|escape|urlize|linebreaks|safe }}
+                    </div>
+                    <br>
+                    {% if orglogos %}
+                        <div class="detail_source_logo">
+                          {% for filename in orglogos %}
+                          <img src="{{STATIC_URL}}v2/images/layer_logo/{{filename}}">
+                          {% endfor %}
+                        </div>
+                    {% endif %}
+                    <!-- {{ resource.supplemental_information|escape|urlize|linebreaks|safe }} -->
+                  </td>
+                    <!-- <ul class="list-inline list-unstyled" style="display: inline-block;">
+                        <li><img src="{{ STATIC_URL }}v2/images/layer_logo/FAO.png" class="img-responsive" style="height: 3em;"></li>
+                        <li><img src="{{ STATIC_URL }}v2/images/layer_logo/immap.png" class="img-responsive" style="height: 3em;"></li>
+                    </ul> -->
+                </td>
             </tr>
             {% endif %}
 
@@ -210,19 +228,3 @@
       <div class="btn btn-primary btn-toggle pull-right" onClick="toggleRow('hid-row');"><span class="sign"></span></div>
     </div>
 </div>
-<!-- <div id="attribute" class="tab-pane fade">
-    <h3>Menu 1</h3>
-    <p>Some content in menu 1.</p>
-</div>
-<div id="rate" class="tab-pane fade">
-    <h3>Menu 2</h3>
-    <p>Some content in menu 2.</p>
-</div>
-<div id="comment" class="tab-pane fade">
-    <h3>Menu 2</h3>
-    <p>Some content in menu 2.</p>
-</div>
-<div id="geogig" class="tab-pane fade">
-    <h3>Menu 3</h3>
-    <p>Some content in menu 2.</p>
-</div> -->

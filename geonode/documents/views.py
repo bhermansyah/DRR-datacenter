@@ -106,7 +106,7 @@ def document_detail(request, docid):
             context_dict["social_links"] = build_social_links(request, document)
 
         # ubah
-        template = 'document_detail.html'
+        template = 'documents/document_detail.html'
         if request.resolver_match.namespace == 'v2':
             template = 'v2/document_detail.html'
         return render_to_response(

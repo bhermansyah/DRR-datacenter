@@ -36,7 +36,7 @@ from django.utils import simplejson as json
 from django.utils.html import escape
 from django.template.defaultfilters import slugify
 from django.forms.models import inlineformset_factory
-from django.db.models import F
+from django.db.models import F, connection
 
 from geonode.tasks.deletion import delete_layer
 from geonode.services.models import Service
@@ -59,6 +59,8 @@ from geonode.security.views import _perms_info_json
 from geonode.documents.models import get_related_documents
 from geonode.utils import build_social_links
 from geonode.geoserver.helpers import cascading_delete, gs_catalog
+
+from contextlib import closing
 
 CONTEXT_LOG_FILE = None
 
@@ -127,7 +129,7 @@ def layer_upload(request, template='upload/layer_upload.html'):
     # ubah
     # if (request.resolver_match.namespace == 'v2'): template = 'v2/upload/layer_upload.html'
     # /ubah
-    
+
     if request.method == 'GET':
         ctx = {
             'charsets': CHARSETS,
@@ -281,7 +283,10 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
     metadata = layer.link_set.metadata().filter(
         name__in=settings.DOWNLOAD_FORMATS_METADATA)
 
+    orglogos = [l.filename for l in layer.orglogo_set.all()]
+
     context_dict = {
+        "orglogos": orglogos,
         "resource": layer,
         "permissions_json": _perms_info_json(layer),
         "documents": get_related_documents(layer),

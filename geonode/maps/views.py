@@ -123,7 +123,12 @@ def map_detail(request, mapid, snapshot=None, template='maps/map_detail.html'):
     config = json.dumps(config)
     layers = MapLayer.objects.filter(map=map_obj.id)
 
+    layernames = [l.name for l in layers]
+    qs_orglogos = Layer.objects.filter(typename__in=layernames, orglogo__filename__isnull=False).values('orglogo__filename').distinct()
+    orglogos = [l['orglogo__filename'] for l in qs_orglogos]
+
     context_dict = {
+        "orglogos": orglogos,
         'config': config,
         'resource': map_obj,
         'layers': layers,
