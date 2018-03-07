@@ -1989,9 +1989,7 @@ def getRawBaseLine(filterLock, flag, code, includes=[], excludes=[]):
 
 def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
     response = {}
-    start = time.time()
     tempData = getShortCutData(flag,code)
-    print('1 '+str(time.time() - start))
     # response['Population']= tempData['Population']
     # response['Area']= tempData['Area']
     # response['Buildings']= tempData['total_buildings']
@@ -2006,24 +2004,15 @@ def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
                 'settlements': tempData['settlements']
             }
         ))
-        print('2 '+str(time.time() - start))
         # response.update(getFloodForecastMatrix(filterLock, flag, code, includes=['flashflood_forecast_risk_pop']))
-        print('3 '+str(time.time() - start))
         response.update(getFloodForecast(request, filterLock, flag, code, excludes=['getCommonUse','detail']))
-        print('4 '+str(time.time() - start))
         response.update(getRawFloodRisk(filterLock, flag, code, excludes=['landcoverfloodrisk']))
-        print('5 '+str(time.time() - start))
         response.update(getRawAvalancheForecast(request, filterLock, flag, code))
-        print('6 '+str(time.time() - start))
         response.update(getRawAvalancheRisk(filterLock, flag, code))
-        print('7 '+str(time.time() - start))
         response.update(getLandslideRisk(request, filterLock, flag, code, includes=['lsi_immap']))
-        print('8 '+str(time.time() - start))
         response.update(getEarthquake(request, filterLock, flag, code, excludes=['getListEQ']))
-        print('9 '+str(time.time() - start))
 
         response.update(GetAccesibilityData(filterLock, flag, code, includes=['AfgCaptAirdrmImmap', 'AfgCaptHltfacTier1Immap', 'AfgCaptHltfacTier2Immap', 'AfgCaptAdm1ItsProvcImmap', 'AfgCapaGsmcvr']))
-        print('10 '+str(time.time() - start))
         response['pop_coverage_percent'] = int(round((response['pop_on_gsm_coverage']/response['Population'])*100,0))
 
     if include_section('getSAMParams', includes, excludes):
@@ -2044,7 +2033,7 @@ def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
         for i in main_type_raw_data:
             response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':list(getSAMIncident(request, daterange, rawFilterLock, flag, code, 'type', i['main_type']))})
         response['main_type_child'] = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_type', False)
-        print('11 '+str(time.time() - start))
+
     return response
 
 def getShortCutData(flag, code):
