@@ -1880,7 +1880,7 @@ def getRawAvalancheRisk(filterLock, flag, code):
 
     return response
 
-def getRawFloodRisk(filterLock, flag, code):
+def getRawFloodRisk(filterLock, flag, code, includes=[], excludes=[]):
     response = {}
     targetRiskIncludeWater = AfgFldzonea100KRiskLandcoverPop.objects.all()
     targetRisk = targetRiskIncludeWater.exclude(agg_simplified_description='Water body and Marshland')
@@ -1910,18 +1910,19 @@ def getRawFloodRisk(filterLock, flag, code):
     response['low_risk_area']=round((temp.get('029 cm', 0) or 0)/1000000,1)
     response['total_risk_area']=round(response['high_risk_area']+response['med_risk_area']+response['low_risk_area'],2)
 
-    counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, None)
+    if include_section('landcoverfloodrisk', includes, excludes):
+        counts =  getRiskNumber(targetRiskIncludeWater.exclude(mitigated_pop__gt=0), filterLock, 'agg_simplified_description', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, None)
 
-    # landcover/pop/atrisk
-    temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
-    response['built_up_pop_risk'] = round(temp.get('Build Up', 0) or 0,0)
-    response['cultivated_pop_risk'] = round(temp.get('Fruit Trees', 0) or 0,0)+round(temp.get('Irrigated Agricultural Land', 0) or 0,0)+round(temp.get('Rainfed', 0) or 0,0)+round(temp.get('Vineyards', 0) or 0,0)
-    response['barren_pop_risk'] = round(temp.get('Barren land', 0) or 0,0)+round(temp.get('Snow', 0) or 0,0) +round(temp.get('Rangeland', 0) or 0,0)+round(temp.get('Sand Covered Areas', 0) or 0,0)+round(temp.get('Forest & Shrub', 0) or 0,0)+round(temp.get('Sand Dunes', 0) or 0,0)
+        # landcover/pop/atrisk
+        temp = dict([(c['agg_simplified_description'], c['count']) for c in counts])
+        response['built_up_pop_risk'] = round(temp.get('Build Up', 0) or 0,0)
+        response['cultivated_pop_risk'] = round(temp.get('Fruit Trees', 0) or 0,0)+round(temp.get('Irrigated Agricultural Land', 0) or 0,0)+round(temp.get('Rainfed', 0) or 0,0)+round(temp.get('Vineyards', 0) or 0,0)
+        response['barren_pop_risk'] = round(temp.get('Barren land', 0) or 0,0)+round(temp.get('Snow', 0) or 0,0) +round(temp.get('Rangeland', 0) or 0,0)+round(temp.get('Sand Covered Areas', 0) or 0,0)+round(temp.get('Forest & Shrub', 0) or 0,0)+round(temp.get('Sand Dunes', 0) or 0,0)
 
-    temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
-    response['built_up_area_risk'] = round((temp.get('Build Up', 0) or 0)/1000000,1)
-    response['cultivated_area_risk'] = round((temp.get('Fruit Trees', 0) or 0)/1000000,1)+round((temp.get('Irrigated Agricultural Land', 0) or 0)/1000000,1)+round((temp.get('Rainfed', 0) or 0)/1000000,1)+round((temp.get('Vineyards', 0) or 0)/1000000,1)
-    response['barren_area_risk'] = round((temp.get('Barren land', 0) or 0)/1000000,1)+round((temp.get('Snow', 0) or 0)/1000000,1)+round((temp.get('Rangeland', 0) or 0)/1000000,1)+round((temp.get('Sand Covered Areas', 0) or 0)/1000000,1)+round((temp.get('Forest & Shrub', 0) or 0)/1000000,1)+round((temp.get('Sand Dunes', 0) or 0)/1000000,1)
+        temp = dict([(c['agg_simplified_description'], c['areaatrisk']) for c in counts])
+        response['built_up_area_risk'] = round((temp.get('Build Up', 0) or 0)/1000000,1)
+        response['cultivated_area_risk'] = round((temp.get('Fruit Trees', 0) or 0)/1000000,1)+round((temp.get('Irrigated Agricultural Land', 0) or 0)/1000000,1)+round((temp.get('Rainfed', 0) or 0)/1000000,1)+round((temp.get('Vineyards', 0) or 0)/1000000,1)
+        response['barren_area_risk'] = round((temp.get('Barren land', 0) or 0)/1000000,1)+round((temp.get('Snow', 0) or 0)/1000000,1)+round((temp.get('Rangeland', 0) or 0)/1000000,1)+round((temp.get('Sand Covered Areas', 0) or 0)/1000000,1)+round((temp.get('Forest & Shrub', 0) or 0)/1000000,1)+round((temp.get('Sand Dunes', 0) or 0)/1000000,1)
 
     return response
 
@@ -1988,9 +1989,9 @@ def getRawBaseLine(filterLock, flag, code, includes=[], excludes=[]):
 
 def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
     response = {}
-    # start = time.time()
+    start = time.time()
     tempData = getShortCutData(flag,code)
-    # print('1 '+str(time.time() - start))
+    print('1 '+str(time.time() - start))
     # response['Population']= tempData['Population']
     # response['Area']= tempData['Area']
     # response['Buildings']= tempData['total_buildings']
@@ -2005,24 +2006,24 @@ def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
                 'settlements': tempData['settlements']
             }
         ))
-        # print('2 '+str(time.time() - start))
+        print('2 '+str(time.time() - start))
         # response.update(getFloodForecastMatrix(filterLock, flag, code, includes=['flashflood_forecast_risk_pop']))
-        # print('3 '+str(time.time() - start))
+        print('3 '+str(time.time() - start))
         response.update(getFloodForecast(request, filterLock, flag, code, excludes=['getCommonUse','detail']))
-        # print('4 '+str(time.time() - start))
-        response.update(getRawFloodRisk(filterLock, flag, code))
-        # print('5 '+str(time.time() - start))
+        print('4 '+str(time.time() - start))
+        response.update(getRawFloodRisk(filterLock, flag, code, excludes=['landcoverfloodrisk']))
+        print('5 '+str(time.time() - start))
         response.update(getRawAvalancheForecast(request, filterLock, flag, code))
-        # print('6 '+str(time.time() - start))
+        print('6 '+str(time.time() - start))
         response.update(getRawAvalancheRisk(filterLock, flag, code))
-        # print('7 '+str(time.time() - start))
+        print('7 '+str(time.time() - start))
         response.update(getLandslideRisk(request, filterLock, flag, code, includes=['lsi_immap']))
-        # print('8 '+str(time.time() - start))
+        print('8 '+str(time.time() - start))
         response.update(getEarthquake(request, filterLock, flag, code, excludes=['getListEQ']))
-        # print('9 '+str(time.time() - start))
+        print('9 '+str(time.time() - start))
 
         response.update(GetAccesibilityData(filterLock, flag, code, includes=['AfgCaptAirdrmImmap', 'AfgCaptHltfacTier1Immap', 'AfgCaptHltfacTier2Immap', 'AfgCaptAdm1ItsProvcImmap', 'AfgCapaGsmcvr']))
-        # print('10 '+str(time.time() - start))
+        print('10 '+str(time.time() - start))
         response['pop_coverage_percent'] = int(round((response['pop_on_gsm_coverage']/response['Population'])*100,0))
 
     if include_section('getSAMParams', includes, excludes):
@@ -2043,7 +2044,7 @@ def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
         for i in main_type_raw_data:
             response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':list(getSAMIncident(request, daterange, rawFilterLock, flag, code, 'type', i['main_type']))})
         response['main_type_child'] = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_type', False)
-
+        print('11 '+str(time.time() - start))
     return response
 
 def getShortCutData(flag, code):
