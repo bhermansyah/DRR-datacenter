@@ -2704,12 +2704,12 @@ def getFloodForecastMatrix(filterLock, flag, code, includes=[], excludes=[]):
     if include_section('riverflood_forecast_pop', includes, excludes):
         counts =  getRiskNumber(targetRisk.exclude(mitigated_pop__gt=0).select_related("basinmembers").defer('basinmember__wkb_geometry').exclude(basinmember__basins__riskstate=None).filter(basinmember__basins__forecasttype='riverflood',basinmember__basins__datadate='%s-%s-%s' %(YEAR,MONTH,DAY)), filterLock, 'basinmember__basins__riskstate', 'fldarea_population', 'fldarea_sqm', 'area_buildings', flag, code, 'afg_fldzonea_100k_risk_landcover_pop')
         temp = dict([(c['basinmember__basins__riskstate'], c['count']) for c in counts])
-        response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0),0)
-        response['riverflood_forecast_low_pop']=round(temp.get(2, 0),0)
-        response['riverflood_forecast_med_pop']=round(temp.get(3, 0),0)
-        response['riverflood_forecast_high_pop']=round(temp.get(4, 0),0)
-        response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0),0)
-        response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0),0)
+        response['riverflood_forecast_verylow_pop']=round(temp.get(1, 0) or 0,0)
+        response['riverflood_forecast_low_pop']=round(temp.get(2, 0) or 0,0)
+        response['riverflood_forecast_med_pop']=round(temp.get(3, 0) or 0,0)
+        response['riverflood_forecast_high_pop']=round(temp.get(4, 0) or 0,0)
+        response['riverflood_forecast_veryhigh_pop']=round(temp.get(5, 0) or 0,0)
+        response['riverflood_forecast_extreme_pop']=round(temp.get(6, 0) or 0,0)
         response['total_riverflood_forecast_pop']=response['riverflood_forecast_verylow_pop'] + response['riverflood_forecast_low_pop'] + response['riverflood_forecast_med_pop'] + response['riverflood_forecast_high_pop'] + response['riverflood_forecast_veryhigh_pop'] + response['riverflood_forecast_extreme_pop']
 
     if include_section('riverflood_forecast_area', includes, excludes):
@@ -2723,12 +2723,12 @@ def getFloodForecastMatrix(filterLock, flag, code, includes=[], excludes=[]):
         response['total_riverflood_forecast_area']=response['riverflood_forecast_verylow_area'] + response['riverflood_forecast_low_area'] + response['riverflood_forecast_med_area'] + response['riverflood_forecast_high_area'] + response['riverflood_forecast_veryhigh_area'] + response['riverflood_forecast_extreme_area']
 
         temp = dict([(c['basinmember__basins__riskstate'], c['houseatrisk']) for c in counts])
-        response['riverflood_forecast_verylow_buildings']=round(temp.get(1, 0),0)
-        response['riverflood_forecast_low_buildings']=round(temp.get(2, 0),0)
-        response['riverflood_forecast_med_buildings']=round(temp.get(3, 0),0)
-        response['riverflood_forecast_high_buildings']=round(temp.get(4, 0),0)
-        response['riverflood_forecast_veryhigh_buildings']=round(temp.get(5, 0),0)
-        response['riverflood_forecast_extreme_buildings']=round(temp.get(6, 0),0)
+        response['riverflood_forecast_verylow_buildings']=round(temp.get(1, 0) or 0,0)
+        response['riverflood_forecast_low_buildings']=round(temp.get(2, 0) or 0,0)
+        response['riverflood_forecast_med_buildings']=round(temp.get(3, 0) or 0,0)
+        response['riverflood_forecast_high_buildings']=round(temp.get(4, 0) or 0,0)
+        response['riverflood_forecast_veryhigh_buildings']=round(temp.get(5, 0) or 0,0)
+        response['riverflood_forecast_extreme_buildings']=round(temp.get(6, 0) or 0,0)
         response['total_riverflood_forecast_buildings']=response['riverflood_forecast_verylow_buildings'] + response['riverflood_forecast_low_buildings'] + response['riverflood_forecast_med_buildings'] + response['riverflood_forecast_high_buildings'] + response['riverflood_forecast_veryhigh_buildings'] + response['riverflood_forecast_extreme_buildings']
 
     # flood risk and riverflood forecast matrix
