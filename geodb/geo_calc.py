@@ -1448,14 +1448,15 @@ def getFloodForecast(request, filterLock, flag, code, includes=[], excludes=[]):
 
 
     if includeDetailState:
-        data = getProvinceSummary(filterLock, flag, code)
-        response['lc_child']=data
+        if include_section('detail', includes, excludes):
+            data = getProvinceSummary(filterLock, flag, code)
+            response['lc_child']=data
 
-        data = getProvinceSummary_glofas(filterLock, flag, code, reverse_date.strftime("%Y"), reverse_date.strftime("%m"), reverse_date.strftime("%d"), False)
-        response['glofas_child']=data
+            data = getProvinceSummary_glofas(filterLock, flag, code, reverse_date.strftime("%Y"), reverse_date.strftime("%m"), reverse_date.strftime("%d"), False)
+            response['glofas_child']=data
 
-        data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY), True)
-        response['glofas_gfms_child']=data
+            data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY), True)
+            response['glofas_gfms_child']=data
 
     return response
 
@@ -1987,17 +1988,41 @@ def getRawBaseLine(filterLock, flag, code, includes=[], excludes=[]):
 
 def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
     response = {}
+    # start = time.time()
+    tempData = getShortCutData(flag,code)
+    # print('1 '+str(time.time() - start))
+    # response['Population']= tempData['Population']
+    # response['Area']= tempData['Area']
+    # response['Buildings']= tempData['total_buildings']
+    # response['settlement']= tempData['settlements']   
     if include_section('', includes, excludes):
-        response.update(getBaseline(request, filterLock, flag, code, excludes=['getProvinceSummary', 'getProvinceAdditionalSummary']))
-        response.update(getFloodForecastMatrix(filterLock, flag, code, includes=['flashflood_forecast_risk_pop']))
-        response.update(getFloodForecast(request, filterLock, flag, code, excludes=['getCommonUse']))
+        response.update(getBaseline(request, filterLock, flag, code, excludes=['getProvinceSummary', 'getProvinceAdditionalSummary'],
+            inject={
+                'forward':True,
+                'Population': tempData['Population'],
+                'Area': tempData['Area'],
+                'total_buildings': tempData['total_buildings'],
+                'settlements': tempData['settlements']
+            }
+        ))
+        # print('2 '+str(time.time() - start))
+        # response.update(getFloodForecastMatrix(filterLock, flag, code, includes=['flashflood_forecast_risk_pop']))
+        # print('3 '+str(time.time() - start))
+        response.update(getFloodForecast(request, filterLock, flag, code, excludes=['getCommonUse','detail']))
+        # print('4 '+str(time.time() - start))
         response.update(getRawFloodRisk(filterLock, flag, code))
+        # print('5 '+str(time.time() - start))
         response.update(getRawAvalancheForecast(request, filterLock, flag, code))
+        # print('6 '+str(time.time() - start))
         response.update(getRawAvalancheRisk(filterLock, flag, code))
+        # print('7 '+str(time.time() - start))
         response.update(getLandslideRisk(request, filterLock, flag, code, includes=['lsi_immap']))
+        # print('8 '+str(time.time() - start))
         response.update(getEarthquake(request, filterLock, flag, code, excludes=['getListEQ']))
+        # print('9 '+str(time.time() - start))
 
         response.update(GetAccesibilityData(filterLock, flag, code, includes=['AfgCaptAirdrmImmap', 'AfgCaptHltfacTier1Immap', 'AfgCaptHltfacTier2Immap', 'AfgCaptAdm1ItsProvcImmap', 'AfgCapaGsmcvr']))
+        # print('10 '+str(time.time() - start))
         response['pop_coverage_percent'] = int(round((response['pop_on_gsm_coverage']/response['Population'])*100,0))
 
     if include_section('getSAMParams', includes, excludes):
@@ -2056,7 +2081,7 @@ def getShortCutData(flag, code):
         response[p[:-5]] = px[p]
     return response
 
-def getBaseline(request, filterLock, flag, code, includes=[], excludes=[]):
+def getBaseline(request, filterLock, flag, code, includes=[], excludes=[], inject={'forward':False}):
     response = getCommonUse(request, flag, code)
     targetBase = AfgLndcrva.objects.all()
 
@@ -2066,11 +2091,17 @@ def getBaseline(request, filterLock, flag, code, includes=[], excludes=[]):
         response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
         response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
     else :
-        tempData = getShortCutData(flag,code)
-        response['Population']= tempData['Population']
-        response['Area']= tempData['Area']
-        response['Buildings']= tempData['total_buildings']
-        response['settlement']= tempData['settlements']   
+        if inject['forward']:
+            response['Population']= inject['Population']
+            response['Area']= inject['Area']
+            response['Buildings']= inject['total_buildings']
+            response['settlement']= inject['settlements'] 
+        else:    
+            tempData = getShortCutData(flag,code)
+            response['Population']= tempData['Population']
+            response['Area']= tempData['Area']
+            response['Buildings']= tempData['total_buildings']
+            response['settlement']= tempData['settlements']   
 
     response['hltfac']=getTotalHealthFacilities(filterLock, flag, code, AfgHltfac)
     response['roadnetwork']=getTotalRoadNetwork(filterLock, flag, code, AfgRdsl)
