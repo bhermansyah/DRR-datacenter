@@ -46514,7 +46514,7 @@ OpenLayers.Control.Attribution =
      * APIProperty: separator
      * {String} String used to separate layers.
      */
-    separator: "|",
+    separator: " | ",
 
     /**
      * APIProperty: template

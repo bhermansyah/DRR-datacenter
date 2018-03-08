@@ -325,7 +325,7 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
         if qs_orglogos.count()>0:
             layer['attribution']='<img src="/static/v2/images/layer_logo/'+qs_orglogos[0]['orglogo__filename']+'" height=50>'
         else:
-            layer['attribution']=''   
+            layer['attribution']=' '   
 
     # layernames = [l['name'] for l in config['map']['layers']]
     # qs_orglogos = Layer.objects.filter(typename__in=layernames, orglogo__filename__isnull=False).values('orglogo__filename').distinct()
