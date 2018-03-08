@@ -574,6 +574,23 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
         for i in rawEarthquake:
             response[i]=rawEarthquake[i]
 
+        if 'pop_shake_weak' in response:
+            response['pop_shake_weak'] if response['pop_shake_weak']<response['Population'] else response['Population']    
+        if 'pop_shake_light' in response:
+            response['pop_shake_light'] if response['pop_shake_light']<response['Population'] else response['Population']
+        if 'pop_shake_moderate' in response:
+            response['pop_shake_moderate'] if response['pop_shake_moderate']<response['Population'] else response['Population']
+        if 'pop_shake_strong' in response:
+            response['pop_shake_strong'] if response['pop_shake_strong']<response['Population'] else response['Population']
+        if 'pop_shake_verystrong' in response:
+            response['pop_shake_verystrong'] if response['pop_shake_verystrong']<response['Population'] else response['Population']
+        if 'pop_shake_severe' in response:
+            response['pop_shake_severe'] if response['pop_shake_severe']<response['Population'] else response['Population']
+        if 'pop_shake_violent' in response:
+            response['pop_shake_violent'] if response['pop_shake_violent']<response['Population'] else response['Population']
+        if 'pop_shake_extreme' in response:
+            response['pop_shake_extreme'] if response['pop_shake_extreme']<response['Population'] else response['Population']   
+
         dataEQ = []
         dataEQ.append(['intensity','population'])
         dataEQ.append(['II-III : Weak',response['pop_shake_weak'] if 'pop_shake_weak' in response else 0])
@@ -589,6 +606,10 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
         response['total_eq_pop'] = response['pop_shake_weak']+response['pop_shake_light']+response['pop_shake_moderate']+response['pop_shake_strong']+response['pop_shake_verystrong']+response['pop_shake_severe']+response['pop_shake_violent']+response['pop_shake_extreme']
         response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
         response['total_eq_buildings'] = response['buildings_shake_weak']+response['buildings_shake_light']+response['buildings_shake_moderate']+response['buildings_shake_strong']+response['buildings_shake_verystrong']+response['buildings_shake_severe']+response['buildings_shake_violent']+response['buildings_shake_extreme']
+
+        response['total_eq_pop'] = response['total_eq_pop'] if response['total_eq_pop'] < response['Population'] else response['Population'] 
+        response['total_eq_settlements'] = response['total_eq_settlements'] if response['total_eq_settlements'] < response['settlement'] else response['settlement'] 
+        response['total_eq_buildings'] = response['total_eq_buildings'] if response['total_eq_buildings'] < response['Buildings'] else response['Buildings'] 
 
     if include_section('getListEQ', includes, excludes):
         data = getListEQ(filterLock, flag, code, eq_event)
