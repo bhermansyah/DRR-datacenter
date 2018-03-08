@@ -591,6 +591,40 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
         if 'pop_shake_extreme' in response:
             response['pop_shake_extreme'] if response['pop_shake_extreme']<response['Population'] else response['Population']   
 
+        if 'buildings_shake_weak' in response:
+            response['buildings_shake_weak'] if response['buildings_shake_weak']<response['Buildings'] else response['Buildings']    
+        if 'buildings_shake_light' in response:
+            response['buildings_shake_light'] if response['buildings_shake_light']<response['Buildings'] else response['Buildings']
+        if 'buildings_shake_moderate' in response:
+            response['buildings_shake_moderate'] if response['buildings_shake_moderate']<response['Buildings'] else response['Buildings']
+        if 'buildings_shake_strong' in response:
+            response['buildings_shake_strong'] if response['buildings_shake_strong']<response['Buildings'] else response['Buildings']
+        if 'buildings_shake_verystrong' in response:
+            response['buildings_shake_verystrong'] if response['buildings_shake_verystrong']<response['Buildings'] else response['Buildings']
+        if 'buildings_shake_severe' in response:
+            response['buildings_shake_severe'] if response['buildings_shake_severe']<response['Buildings'] else response['Buildings']
+        if 'buildings_shake_violent' in response:
+            response['buildings_shake_violent'] if response['buildings_shake_violent']<response['Buildings'] else response['Buildings']
+        if 'buildings_shake_extreme' in response:
+            response['buildings_shake_extreme'] if response['buildings_shake_extreme']<response['Buildings'] else response['Buildings']
+
+        if 'settlement_shake_weak' in response:
+            response['settlement_shake_weak'] if response['settlement_shake_weak']<response['settlement'] else response['settlement']    
+        if 'settlement_shake_light' in response:
+            response['settlement_shake_light'] if response['settlement_shake_light']<response['settlement'] else response['settlement']
+        if 'settlement_shake_moderate' in response:
+            response['settlement_shake_moderate'] if response['settlement_shake_moderate']<response['settlement'] else response['settlement']
+        if 'settlement_shake_strong' in response:
+            response['settlement_shake_strong'] if response['settlement_shake_strong']<response['settlement'] else response['settlement']
+        if 'settlement_shake_verystrong' in response:
+            response['settlement_shake_verystrong'] if response['settlement_shake_verystrong']<response['settlement'] else response['settlement']
+        if 'settlement_shake_severe' in response:
+            response['settlement_shake_severe'] if response['settlement_shake_severe']<response['settlement'] else response['settlement']
+        if 'settlement_shake_violent' in response:
+            response['settlement_shake_violent'] if response['settlement_shake_violent']<response['settlement'] else response['settlement']
+        if 'settlement_shake_extreme' in response:
+            response['settlement_shake_extreme'] if response['settlement_shake_extreme']<response['settlement'] else response['settlement']
+
         dataEQ = []
         dataEQ.append(['intensity','population'])
         dataEQ.append(['II-III : Weak',response['pop_shake_weak'] if 'pop_shake_weak' in response else 0])
