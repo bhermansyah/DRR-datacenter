@@ -46514,7 +46514,7 @@ OpenLayers.Control.Attribution =
      * APIProperty: separator
      * {String} String used to separate layers.
      */
-    separator: ", ",
+    separator: "|",
 
     /**
      * APIProperty: template
@@ -76310,7 +76310,7 @@ gxp.plugins.WMSSource = Ext.extend(gxp.plugins.LayerSource, {
 
             layer.setName(config.title || layer.name);
             layer.addOptions({
-                attribution: layer.attribution || config.attribution,
+                attribution: config.attribution || layer.attribution, //layer.attribution || config.attribution,
                 maxExtent: maxExtent,
                 restrictedExtent: maxExtent,
                 singleTile: singleTile,
