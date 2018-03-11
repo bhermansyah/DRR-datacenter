@@ -321,9 +321,9 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
                 if layer['capability']['abstract']:
                     layer['capability']['abstract'] = _(layer['capability']['abstract'])
 
-        qs_orglogos = Layer.objects.filter(typename=layer['name'], orglogo__filename__isnull=False).values('orglogo__filename')
+        qs_orglogos = Layer.objects.filter(typename=layer['name'], orglogo__filename__isnull=False).values('orglogo__filename', 'orglogo__name')
         if qs_orglogos.count()>0:
-            layer['attribution']='<img src="/static/v2/images/layer_logo/'+qs_orglogos[0]['orglogo__filename']+'" height=50>'
+            layer['attribution']='<img src="/static/v2/images/layer_logo/'+qs_orglogos[0]['orglogo__filename']+'" title="'+qs_orglogos[0]['orglogo__name']+'" alt="'+qs_orglogos[0]['orglogo__name']+'" height=50>'
         else:
             layer['attribution']=' '   
 

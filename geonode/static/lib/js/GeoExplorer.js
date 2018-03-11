@@ -35089,11 +35089,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         jsonData.mapID = tempMapId;
 
         jsonData.logo = {'data':[], 'columns':['logourl']};
+        var contributors = [];
 
         Ext.each(map.getControlsBy('displayClass','olControlAttribution')[0].div.children, function(img) {
             var filenames = img.src.split('/').slice(-1)[0];
             jsonData.logo.data.push({'logourl':filenames});
+            contributors.push(img.alt);
         });
+
+        jsonData.contributors = contributors.toString();
         
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
