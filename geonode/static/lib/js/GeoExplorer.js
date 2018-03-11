@@ -34967,6 +34967,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
      *        layouts configured to print an overview map.
      */
     print: function(map, pages, options) {
+
         if(map instanceof GeoExt.MapPanel) {
             map = map.map;
         }
@@ -35087,6 +35088,13 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         }        
         jsonData.mapID = tempMapId;
 
+        jsonData.logo = {'data':[], 'columns':['logourl']};
+
+        Ext.each(map.getControlsBy('displayClass','olControlAttribution')[0].div.children, function(img) {
+            var filenames = img.src.split('/').slice(-1)[0];
+            jsonData.logo.data.push({'logourl':filenames});
+        });
+        
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
@@ -46514,7 +46522,7 @@ OpenLayers.Control.Attribution =
      * APIProperty: separator
      * {String} String used to separate layers.
      */
-    separator: " | ",
+    separator: " ",
 
     /**
      * APIProperty: template
@@ -87493,7 +87501,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                                         new OpenLayers.Control.PanPanel(),
                                         new OpenLayers.Control.ZoomPanel(),
                                         new OpenLayers.Control.CustomNavToolbar(),
-                                        // new OpenLayers.Control.Attribution()
+                                        new OpenLayers.Control.Attribution()
                                     ],
                                     eventListeners: {
                                         preaddlayer: function(evt) {

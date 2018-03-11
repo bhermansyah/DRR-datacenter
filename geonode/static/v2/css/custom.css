@@ -5443,3 +5443,7 @@ input#villageIDSearchForm.x-form-text.x-form-field.x-form-focus {
 }
 
 
+.gx-map-overlay {
+    z-index: 9000 !important;
+}
+
