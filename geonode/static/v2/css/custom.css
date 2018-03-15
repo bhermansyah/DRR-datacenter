@@ -2028,9 +2028,9 @@ a.user-profile {
 }
 
 .user-profile img {
-    width: 29px;
+    width: 32px;
     height: 29px;
-    border-radius: 50%;
+  /*  border-radius: 50%;*/
 }
 
 html[dir=ltr] .user-profile img {

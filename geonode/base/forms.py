@@ -35,7 +35,7 @@ from geonode.people.models import Profile
 class CategoryChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
         return '<span class="has-popover" data-container="body" data-toggle="popover" data-placement="top" ' \
-               'data-content="' + obj.description + '" trigger="hover">' + obj.gn_description + '</span>'
+               'data-content="' + obj.description + '" trigger="hover">' + obj.identifier +' - '+ obj.gn_description + '</span>'
 
 
 class CategoryForm(forms.Form):

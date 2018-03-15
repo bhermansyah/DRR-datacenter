@@ -35099,6 +35099,10 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
 
         jsonData.contributors = contributors.toString();
         
+        var userLogo = getUserLogo();
+        jsonData.userlogo_onpdf = userLogo['onpdf'];
+        jsonData.userlogo_url = userLogo['logo_url'];
+
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));

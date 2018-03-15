@@ -1,3 +1,5 @@
+{% load avatar_tags %}
+
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}geoexplorer/externals/geoext/resources/css/geoext-all.css" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}geoexplorer/externals/geoext/resources/css/gxtheme-gray.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}geoexplorer/theme/ux/colorpicker/color-picker.ux.css" />
@@ -57,5 +59,16 @@ GeoExplorer.Composer.prototype.loadConfig = function(config) {
 
     GeoExplorer.Composer.superclass.loadConfig.call(this, config);
 };
+
+function getUserLogo(){
+    var dataxx = {% avatar_print_url user 200 %};
+    if (dataxx['onpdf']=='true'){
+        dataxx['onpdf']=true;
+    } else {
+        dataxx['onpdf']=false;
+    }
+    return dataxx;
+}
+
 
 </script>

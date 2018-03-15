@@ -56,6 +56,7 @@ from geonode.utils import build_social_links
 
 # addded by boedy
 from matrix.models import matrix
+from avatar.templatetags.avatar_tags import avatar_print_url
 
 if 'geonode.geoserver' in settings.INSTALLED_APPS:
     # FIXME: The post service providing the map_status object
@@ -326,7 +327,9 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
             layer['attribution']='<img src="/static/v2/images/layer_logo/'+qs_orglogos[0]['orglogo__filename']+'" title="'+qs_orglogos[0]['orglogo__name']+'" alt="'+qs_orglogos[0]['orglogo__name']+'" height=50>'
         else:
             layer['attribution']=' '   
-
+    # avatar_print_url_params = avatar_print_url(request.user, 200)
+    # config['about']['print_org_logo'] = avatar_print_url_params['onpdf']
+    # config['about']['org_logo'] = avatar_print_url_params['logo_url']
     # layernames = [l['name'] for l in config['map']['layers']]
     # qs_orglogos = Layer.objects.filter(typename__in=layernames, orglogo__filename__isnull=False).values('orglogo__filename').distinct()
     # orglogos = [l['orglogo__filename'] for l in qs_orglogos]
