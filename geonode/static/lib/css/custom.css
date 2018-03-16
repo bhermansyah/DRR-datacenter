@@ -1132,6 +1132,10 @@ body.groups li#nav_groups>a::after {
   margin: 5px 0 0 10px;
 }
 
+.navbar-right>li>button>img {
+  height: 29px !important;
+}
+
 .navbar-right>li>button#signin {
   padding: 5px 10px 5px 10px;
   margin: 5px 0 0 10px;
