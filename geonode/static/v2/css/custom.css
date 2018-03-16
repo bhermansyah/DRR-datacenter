@@ -2033,7 +2033,7 @@ a.user-profile {
 }
 
 .user-profile img {
-    /*width: 32px;*/
+    max-width: 150px !important;
     height: 45px;
   /*  border-radius: 50%;*/
 }
