@@ -108,9 +108,9 @@ class Orglogo(models.Model):
         thumb = self.logo.storage.save(self.logo_name(size), thumb_file)
 
     def logo_url(self, size):
-        return self.logo.storage.url(self.logo_name(size))
+        return self.logo.storage.url(self.logo_name())
 
-    def logo_name(self, size):
+    def logo_name(self, size=None):
         ext = find_extension(AVATAR_THUMB_FORMAT)
         return orglogo_file_path(
             instance=self,
