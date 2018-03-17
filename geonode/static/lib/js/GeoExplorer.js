@@ -35102,6 +35102,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         var userLogo = getUserLogo();
         jsonData.userlogo_onpdf = userLogo['onpdf'];
         jsonData.userlogo_url = userLogo['logo_url'];
+        jsonData.showMapComments = Ext.getCmp('map_comments').checked;
 
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
@@ -87274,6 +87275,8 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
      */
     includeLegend: false,
 
+    includeMapComments: false,
+
     /** api: config[menuText]
      *  ``String``
      *  Text for print menu item (i18n).
@@ -87532,6 +87535,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                             },
                             printProvider: printProvider,
                             includeLegend: this.includeLegend,
+                            includeMapComments: this.includeMapComments,
                             legend: legend,
                             sourceMap: mapPanel
                         })
@@ -89777,6 +89781,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     emptyTitleText: gettext("Enter map title here."),
     /** api: config[includeLegendText] ``String`` i18n */
     includeLegendText: gettext("Include legend?"),
+    includeMapCommentsText: gettext("Include comments?"),
 
     includeRiskText: gettext("Open Statistics Configuration"),
 
@@ -89851,6 +89856,8 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
     includeLegend: false,
 
     includeRiskTable: false,
+
+    includeMapComments : false,
 
     /** api: config[mapTitle]
      *  ``String`` An optional title to set for the mapTitle field when
@@ -90067,21 +90074,18 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
 
 
 
-        // var riskTableCheckbox = new Ext.Button({
-        //     text    : this.includeRiskText,
-        //     handler: function() {
-        //         new Ext.Window({
-        //             // title: this.previewText,
-        //             modal: true,
-        //             border: false,
-        //             autoHeight: true,
-        //             resizable: false,
-        //             width: 360,
-        //             items: [this.createStatisticConfigForm()]
-        //         }).show();
-        //     },
-        //     scope: this
-        // });
+        var commentsCheckbox = new Ext.form.Checkbox({
+            name: "map_comments",
+            id:'map_comments',
+            checked: this.includeMapComments,
+            boxLabel: this.includeMapCommentsText,
+            hideLabel: true,
+            ctCls: "gx-item-nowrap",
+            handler: function(cb, checked) {
+                this.includeMapComments = checked;
+            },
+            scope: this
+        });
 
         return new Ext.form.FormPanel({
             autoHeight: true,
@@ -90097,6 +90101,7 @@ GeoExt.ux.PrintPreview = Ext.extend(Ext.Container, {
                     items: [
                         // titleCfg,
                         legendCheckbox,
+                        commentsCheckbox,
                         fractionalCheckbox,
                         // {
                         //     buttonAlign: 'right',
