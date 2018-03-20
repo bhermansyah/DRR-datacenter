@@ -28796,6 +28796,8 @@ OpenLayers.Layer = OpenLayers.Class({
             if (selectedEQ) this.mergeNewParams({'CQL_FILTER': "event_code='"+selectedEQ.data.event_code+"'"});
         } else if (this.name == gettext('Historical Flood Prediction')){
             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
+        } else if (this.name == gettext('Flashflood Prediction')){
+            this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
         } else if (this.name == gettext('Flood prediction')){
             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
 
@@ -91835,6 +91837,9 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     gfms_select = 'FALSE';
 
                                 tempMap.getLayersByName(gettext('Flood prediction'))[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";gfms:"+gfms_select+";glofas:"+glofas_select+";"});
+                            }
+                            if (tempMap.getLayersByName(gettext('Flashflood Prediction')).length > 0) {
+                                tempMap.getLayersByName(gettext('Flashflood Prediction'))[0].mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
                             }
                             if (tempMap.getLayersByName('Glofas Points').length > 0) {
                                 // tempMap.getLayersByName('Glofas Points')[0].setVisibility(false);
