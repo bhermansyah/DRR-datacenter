@@ -18,6 +18,13 @@
                 document.getElementById('organization').innerHTML = vars.organization;
                 document.getElementById('isodate').innerHTML = vars.isodate;
                 // document.getElementById('paginate').innerHTML = 'page ' + vars.page + ' of ' + vars.topage;
+
+                  if (vars.onpdf=='true'){
+                    var img = document.createElement("img");
+                    img.setAttribute('src', '..'+vars.userlogo);
+                    img.style.height = '40px';
+                    document.getElementById("partner_logo").appendChild(img);
+                  }  
             }
         </script>
 
@@ -26,7 +33,10 @@
 
     <body style="margin:10px 0 15px 0;" onload="dynvar();">
         <div style="border-bottom:1px solid #eee;color:#333;font-family:Lato,sans-serif;font-size:12px;height:70px;position:relative;overflow: hidden;">
-            <div style="float:left;padding:0 5px 0 4px;"><img alt="DPB" src="lib/img/USAID-Identity_reduce.png" style="border-radius:3px;width:150px;" /><img alt="DPB" src="lib/img/immap.jpg" style="border-radius:3px;height:50px;" /></div>
+            <div id="partner_logo" style="float:left;padding:0 5px 0 4px;">
+              <img alt="DPB" src="lib/img/USAID-Identity_reduce.png" style="height:40px;margin-right:5px;" />
+              <img alt="DPB" src="lib/img/immap.jpg" style="height:45px;margin-right:5px;" />
+            </div>
             <div style="float:right;margin:0px 3px 3px 3px;text-align:right;width:175px;">
               <strong id="title" style="unicode-bidi: plaintext;">{cust_title}</strong><br />
               <span id="name" style="color:#666666;display:inline-block;font-size:9px;font-weight:300;padding-right:1px;">{name}</span>

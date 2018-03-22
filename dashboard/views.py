@@ -33,6 +33,8 @@ import time
 import md5
 import calendar
 
+from avatar.templatetags.avatar_tags import avatar_print_url
+
 def common(request):
 	response = {}
 	code = None
@@ -117,7 +119,7 @@ def common(request):
 # Create your views here.
 def dashboard_detail(request):
 	# print request.GET['page']
-
+	user_logo = avatar_print_url(request.user,200)
 	def set_query_parameter(url, param_name, param_value):
 	    """Given a URL, set or replace a query parameter and return the
 	    modified URL.
@@ -142,7 +144,6 @@ def dashboard_detail(request):
 	if 'pdf' in request.GET:
 		v2_folder = ''
 		# v2_folder = 'v2/' if request.resolver_match.namespace == 'v2' else ''
-
 		try:
 			a = 'asdc.immap.org'+request.META.get('PATH_INFO')
 			print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
@@ -155,7 +156,7 @@ def dashboard_detail(request):
 			# client.setPageMargins('1in', '1in', '1in', '1in')
 			client.setVerticalMargin("0.75in")
 			client.setHorizontalMargin("0.25in")
-			client.setHeaderUrl('http://asdc.immap.org/static/'+v2_folder+'rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
+			client.setHeaderUrl('http://asdc.immap.org/static/'+v2_folder+'rep_header_vector.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
 			# convert a web page and store the generated PDF to a variable
 			pdf = client.convertURI('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&lang='+str(translation.get_language()))
 			 # set HTTP response headers
@@ -177,7 +178,7 @@ def dashboard_detail(request):
 			    'margin-bottom':10,
 			    'margin-top':25,
 			    # 'viewport-size':'800x600',
-			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&lang='+str(translation.get_language()),
+			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&lang='+str(translation.get_language()),
 			    # 'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header(v2).html?name='+request.user.first_name+'-'+request.user.last_name+'&cust_title=&organization='+request.user.organization,
 			    # 'lowquality':'-'
 			    # 'disable-smart-shrinking':'-',
@@ -247,7 +248,7 @@ def dashboard_multiple(request):
 		# client.setPageMargins('1in', '1in', '1in', '1in')
 		client.setVerticalMargin("0.75in")
 		client.setHorizontalMargin("0.25in")
-		client.setHeaderUrl('http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header_vector.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
+		client.setHeaderUrl('http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header_vector.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
 		# convert a web page and store the generated PDF to a variable
 
 		# get map pdf
@@ -287,7 +288,7 @@ def dashboard_multiple(request):
 		    'margin-bottom':10,
 		    'margin-top':25,
 		    # 'viewport-size':'800x600',
-		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&lang='+str(translation.get_language()),
+		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&lang='+str(translation.get_language()),
 			# 'lowquality':'-',
 		    # 'disable-smart-shrinking':'-',
 		    # 'print-media-type':'-',
