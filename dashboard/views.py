@@ -229,6 +229,7 @@ def get_provinces(request):
 
 @csrf_exempt
 def dashboard_multiple(request):
+	user_logo = avatar_print_url(request.user,200)
 	urls = []
 	# data = request.POST
 	data = json.loads(request.body)
