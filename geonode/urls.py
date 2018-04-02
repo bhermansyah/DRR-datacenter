@@ -103,6 +103,7 @@ urlpatterns = patterns('',
                        # Publication Web
                        url(r'^publication/flooding/$', TemplateView.as_view(template_name='publication/flooding/Look8.html'), name='flooding_publication'),
                        url(r'^publication/avalanches/$', TemplateView.as_view(template_name='publication/avalanches/index.html'), name='avalanche_publication'),
+                       url(r'^publication/earthquake/$', TemplateView.as_view(template_name='publication/earthquake/index.html'), name='earthquake_publication'),
 
                        # Layer views
                        (r'^layers/', include('geonode.layers.urls')),
