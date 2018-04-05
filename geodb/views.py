@@ -2398,12 +2398,12 @@ def calculate_glofas_params(date):
             for z in checkdata:
                 p = Glofasintegrated(basin_id=z.value, datadate=date, lon=lon, lat=lat, rl2=rl2, rl5=rl5, rl20=rl20, rl2_dis_percent=max(rl2_dis_percent), rl2_avg_dis_percent=rl2_avg_dis_percent, rl5_dis_percent=max(rl5_dis_percent), rl5_avg_dis_percent=rl5_avg_dis_percent, rl20_dis_percent=max(rl20_dis_percent), rl20_avg_dis_percent=rl20_avg_dis_percent)
                 p.save()
-                print coord_index, z.value
+                # print coord_index, z.value
 
         coord_index = coord_index+1
         # print data_in
 
-    print Glofasintegrated.objects.filter(datadate=date).count()
+    # print Glofasintegrated.objects.filter(datadate=date).count()
     if Glofasintegrated.objects.filter(datadate=date).count() == 0 :
         Glofasintegrated(datadate=date).save()
 
