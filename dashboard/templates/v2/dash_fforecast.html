@@ -155,7 +155,7 @@
 	                </div>
 	                <div class="x_content">
 	                	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-	                		<div id="echart_bar_stack" class="ch-size-fforecast"></div>
+	                		<div id="echart_bar_stack_fforecast" class="ch-size-fforecast"></div>
 	                	</div>
 	                	<!-- <div class="col-md-12 col-sm-4 col-xs-12 center">
 	                		<div class="tile_count">
@@ -186,9 +186,9 @@
 	            </div>
 	        </div>
 	        <div class="row">
-	        	<div class="col-md-2">
+	        	<div class="col-md-12">
 	        		<div class="x_panel">
-	        			<ul class="nav nav-pills nav-stacked navbar-forecast">
+	        			<ul class="nav nav-pills navbar-forecast">
 	        				<li class='{% if "GLOFAS + GFMS" in checked or "GLOFAS + GFMS" not in checked and "GLOFAS" not in checked and "GFMS" not in checked %} active {% endif %} release_lock'><a href="#ggMenu" class="tab_toggle" data-toggle="pill"> GLOFAS + GFMS</a></li>
 	        				<li class='{% if "GLOFAS" in checked %} active {% endif %} release_lock'><a href="#glMenu" class="tab_toggle" data-toggle="pill">GLOFAS</a></li>
 	        				<li class='{% if "GFMS" in checked %} active {% endif %} release_lock'><a href="#gfMenu" class="tab_toggle" data-toggle="pill">GFMS</a></li>
@@ -197,7 +197,7 @@
 	        	</div>
 	        	<div class="tab-content">
 	        		<div id="ggMenu" class="tab-pane fade {% if 'GFMS + GLOFAS' in checked or 'GFMS + GLOFAS' not in checked and 'GLOFAS' not in checked and 'GFMS' not in checked %} in active {% endif %}">
-			            <div class="col-md-4 col-sm-12 col-xs-12">
+			            <div class="col-md-6 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
@@ -340,7 +340,7 @@
 			                </div>
 			                <div class="x_content">
 			                	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-			                		<div id="echart_bar_stack_2" class="ch-size-fforecast"></div>
+			                		<div id="echart_bar_stack_ggforecast" class="ch-size-fforecast"></div>
 			                	</div>
 			                	<!-- <div class="col-md-12 col-sm-4 col-xs-12 center">
 			                		<div class="tile_count">
@@ -423,16 +423,16 @@
 			                                    {% for data in glofas_gfms_child %}
 			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
 			                                        <td>{{data.na_en}}</td>
-			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                                        <td class="ext">{{ data.extreme }}</td>
-			                                        <td class="vhigh">{{ data.veryhigh }}</td>
-			                                        <td class="high">{{ data.high }}</td>
-			                                        <td class="mod">{{ data.moderate }}</td>
-			                                        <td class="low">{{ data.low }}</td>
+			                                        <td class="ext_fill">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.extreme }}</td>
+			                                        <td class="vhigh_fill">{{ data.veryhigh }}</td>
+			                                        <td class="high_fill">{{ data.high }}</td>
+			                                        <td class="mod_fill">{{ data.moderate }}</td>
+			                                        <td class="low_fill">{{ data.low }}</td>
 			                                    </tr>
 			                                    {% endfor %}
 			                                </tbody>
@@ -476,16 +476,16 @@
 			                                    {% for data in glofas_gfms_child %}
 			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
 			                                        <td>{{data.na_en}}</td>
-			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                                        <td class="ext">{{ data.extreme }}</td>
-			                                        <td class="vhigh">{{ data.veryhigh }}</td>
-			                                        <td class="high">{{ data.high }}</td>
-			                                        <td class="mod">{{ data.moderate }}</td>
-			                                        <td class="low">{{ data.low }}</td>
+			                                        <td class="ext_fill">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.extreme }}</td>
+			                                        <td class="vhigh_fill">{{ data.veryhigh }}</td>
+			                                        <td class="high_fill">{{ data.high }}</td>
+			                                        <td class="mod_fill">{{ data.moderate }}</td>
+			                                        <td class="low_fill">{{ data.low }}</td>
 			                                    </tr>
 			                                    {% endfor %}
 			                                </tbody>
@@ -496,7 +496,7 @@
 			            </div>
 	        		</div>
 	        		<div id="glMenu" class="tab-pane fade {% if 'GLOFAS' in checked %} in active {% endif %}">
-			            <div class="col-md-4 col-sm-12 col-xs-12">
+			            <div class="col-md-6 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
@@ -639,7 +639,7 @@
 			                </div>
 			                <div class="x_content">
 			                	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-			                		<div id="echart_bar_stack_3" class="ch-size-fforecast"></div>
+			                		<div id="echart_bar_stack_glforecast" class="ch-size-fforecast"></div>
 			                	</div>
 			                	<!-- <div class="col-md-12 col-sm-4 col-xs-12 center">
 			                		<div class="tile_count">
@@ -723,16 +723,16 @@
 			                                    {% for data in glofas_child %}
 			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
 			                                        <td>{{data.na_en}}</td>
-			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                                        <td class="ext">{{ data.extreme }}</td>
-			                                        <td class="vhigh">{{ data.veryhigh }}</td>
-			                                        <td class="high">{{ data.high }}</td>
-			                                        <td class="mod">{{ data.moderate }}</td>
-			                                        <td class="low">{{ data.low }}</td>
+			                                        <td class="ext_fill">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.extreme }}</td>
+			                                        <td class="vhigh_fill">{{ data.veryhigh }}</td>
+			                                        <td class="high_fill">{{ data.high }}</td>
+			                                        <td class="mod_fill">{{ data.moderate }}</td>
+			                                        <td class="low_fill">{{ data.low }}</td>
 			                                    </tr>
 			                                    {% endfor %}
 			                                </tbody>
@@ -776,16 +776,16 @@
 			                                    {% for data in glofas_child %}
 			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
 			                                        <td>{{data.na_en}}</td>
-			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                                        <td class="ext">{{ data.extreme }}</td>
-			                                        <td class="vhigh">{{ data.veryhigh }}</td>
-			                                        <td class="high">{{ data.high }}</td>
-			                                        <td class="mod">{{ data.moderate }}</td>
-			                                        <td class="low">{{ data.low }}</td>
+			                                        <td class="ext_fill">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.extreme }}</td>
+			                                        <td class="vhigh_fill">{{ data.veryhigh }}</td>
+			                                        <td class="high_fill">{{ data.high }}</td>
+			                                        <td class="mod_fill">{{ data.moderate }}</td>
+			                                        <td class="low_fill">{{ data.low }}</td>
 			                                    </tr>
 			                                    {% endfor %}
 			                                </tbody>
@@ -796,7 +796,7 @@
 			            </div>
 	        		</div>
 	        		<div id="gfMenu" class="tab-pane fade {% if 'GFMS' in checked %} in active {% endif %}">
-			            <div class="col-md-4 col-sm-12 col-xs-12">
+			            <div class="col-md-6 col-sm-12 col-xs-12">
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
@@ -939,7 +939,7 @@
 			                </div>
 			                <div class="x_content">
 			                	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-			                		<div id="echart_bar_stack_4" class="ch-size-fforecast"></div>
+			                		<div id="echart_bar_stack_gfforecast" class="ch-size-fforecast"></div>
 			                	</div>
 
 			                	<!-- <div class="col-md-12 col-sm-4 col-xs-12 center">
@@ -1025,16 +1025,16 @@
 			                                    {% for data in lc_child %}
 			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
 			                                        <td>{{data.na_en}}</td>
-			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                                        <td class="ext">{{ data.riverflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.riverflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.riverflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.riverflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.riverflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.riverflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.riverflood_forecast_low_pop }}</td>
 			                                    </tr>
 			                                    {% endfor %}
 			                                </tbody>
@@ -1078,16 +1078,16 @@
 			                                    {% for data in lc_child %}
 			                                    <tr class="selectable" onclick="window.document.location='?page=floodforecast&code={{data.code}}';">
 			                                        <td>{{data.na_en}}</td>
-			                                        <td class="ext">{{ data.flashflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.flashflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.flashflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.flashflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.flashflood_forecast_low_pop }}</td>
-			                                        <td class="ext">{{ data.riverflood_forecast_extreme_pop }}</td>
-			                                        <td class="vhigh">{{ data.riverflood_forecast_veryhigh_pop }}</td>
-			                                        <td class="high">{{ data.riverflood_forecast_high_pop }}</td>
-			                                        <td class="mod">{{ data.riverflood_forecast_med_pop }}</td>
-			                                        <td class="low">{{ data.riverflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.flashflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.flashflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.flashflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.flashflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.flashflood_forecast_low_pop }}</td>
+			                                        <td class="ext_fill">{{ data.riverflood_forecast_extreme_pop }}</td>
+			                                        <td class="vhigh_fill">{{ data.riverflood_forecast_veryhigh_pop }}</td>
+			                                        <td class="high_fill">{{ data.riverflood_forecast_high_pop }}</td>
+			                                        <td class="mod_fill">{{ data.riverflood_forecast_med_pop }}</td>
+			                                        <td class="low_fill">{{ data.riverflood_forecast_low_pop }}</td>
 			                                    </tr>
 			                                    {% endfor %}
 			                                </tbody>
@@ -1120,23 +1120,95 @@
 </script>
 
 <script type="text/javascript">
-	var fforecast_cat = ['{% trans "Extreme" %}', '{% trans "Very High" %}', '{% trans "High" %}', '{% trans "Moderate" %}', '{% trans "Low" %}']
-	var fforecast_legend = ['{% trans "Low" %}', '{% trans "Medium" %}', '{% trans "High" %}']
+	var fforecast_cat = [ '{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}', '{% trans "Extreme" %}']
+	var fforecast_legend = ['{% trans "Low" %}', '{% trans "Med" %}', '{% trans "High" %}']
 
-	var fforecast_low_val = [{{ flashflood_forecast_extreme_risk_low_pop }}, {{ flashflood_forecast_veryhigh_risk_low_pop }}, {{ flashflood_forecast_high_risk_low_pop }}, {{ flashflood_forecast_med_risk_low_pop }}, {{ flashflood_forecast_low_risk_low_pop }}]
-	var fforecast_med_val = [{{ flashflood_forecast_extreme_risk_med_pop }}, {{ flashflood_forecast_veryhigh_risk_med_pop }}, {{ flashflood_forecast_high_risk_med_pop }}, {{ flashflood_forecast_med_risk_med_pop }}, {{ flashflood_forecast_low_risk_med_pop }}]
-	var fforecast_hi_val = [{{ flashflood_forecast_extreme_risk_high_pop }}, {{ flashflood_forecast_veryhigh_risk_high_pop }}, {{ flashflood_forecast_high_risk_high_pop }}, {{ flashflood_forecast_med_risk_high_pop }}, {{ flashflood_forecast_low_risk_high_pop }}]
+	var fforecast_low_val = [
+		{{ flashflood_forecast_low_risk_low_pop }},
+		{{ flashflood_forecast_med_risk_low_pop }}, 
+		{{ flashflood_forecast_high_risk_low_pop }}, 
+		{{ flashflood_forecast_veryhigh_risk_low_pop }}, 
+		{{ flashflood_forecast_extreme_risk_low_pop }} 
+	]
+	var fforecast_med_val = [
+		{{ flashflood_forecast_low_risk_med_pop }},
+		{{ flashflood_forecast_med_risk_med_pop }}, 
+		{{ flashflood_forecast_high_risk_med_pop }}, 
+		{{ flashflood_forecast_veryhigh_risk_med_pop }}, 
+		{{ flashflood_forecast_extreme_risk_med_pop }}
+	]
+	var fforecast_hi_val = [
+		{{ flashflood_forecast_low_risk_high_pop }},
+		{{ flashflood_forecast_med_risk_high_pop }}, 
+		{{ flashflood_forecast_high_risk_high_pop }}, 
+		{{ flashflood_forecast_veryhigh_risk_high_pop }}, 
+		{{ flashflood_forecast_extreme_risk_high_pop }} 
+	]
 
-	var ggforecast_low_val = [{{ gfms_glofas_riverflood_forecast_extreme_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_high_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_med_risk_low_pop }}, {{ gfms_glofas_riverflood_forecast_low_risk_low_pop }}]
-	var ggforecast_med_val = [{{ gfms_glofas_riverflood_forecast_extreme_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_high_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_med_risk_med_pop }}, {{ gfms_glofas_riverflood_forecast_low_risk_med_pop }}]
-	var ggforecast_hi_val = [{{ gfms_glofas_riverflood_forecast_extreme_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_high_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_med_risk_high_pop }}, {{ gfms_glofas_riverflood_forecast_low_risk_high_pop }}]
+	var ggforecast_low_val = [
+		{{ gfms_glofas_riverflood_forecast_low_risk_low_pop }},
+		{{ gfms_glofas_riverflood_forecast_med_risk_low_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_high_risk_low_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_extreme_risk_low_pop }}
+	]
+	var ggforecast_med_val = [
+		{{ gfms_glofas_riverflood_forecast_low_risk_med_pop }},
+		{{ gfms_glofas_riverflood_forecast_med_risk_med_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_high_risk_med_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_extreme_risk_med_pop }} 
+	]
+	var ggforecast_hi_val = [
+		{{ gfms_glofas_riverflood_forecast_low_risk_high_pop }},
+		{{ gfms_glofas_riverflood_forecast_med_risk_high_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_high_risk_high_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop }}, 
+		{{ gfms_glofas_riverflood_forecast_extreme_risk_high_pop }}
+	]
 
-	var glforecast_low_val = [{{ glofas_riverflood_forecast_extreme_risk_low_pop }}, {{ glofas_riverflood_forecast_veryhigh_risk_low_pop }}, {{ glofas_riverflood_forecast_high_risk_low_pop }}, {{ glofas_riverflood_forecast_med_risk_low_pop }}, {{ glofas_riverflood_forecast_low_risk_low_pop }}]
-	var glforecast_med_val = [{{ glofas_riverflood_forecast_extreme_risk_med_pop }}, {{ glofas_riverflood_forecast_veryhigh_risk_med_pop }}, {{ glofas_riverflood_forecast_high_risk_med_pop }}, {{ glofas_riverflood_forecast_med_risk_med_pop }}, {{ glofas_riverflood_forecast_low_risk_med_pop }}]
-	var glforecast_hi_val = [{{ glofas_riverflood_forecast_extreme_risk_high_pop }}, {{ glofas_riverflood_forecast_veryhigh_risk_high_pop }}, {{ glofas_riverflood_forecast_high_risk_high_pop }}, {{ glofas_riverflood_forecast_med_risk_high_pop }}, {{ glofas_riverflood_forecast_low_risk_high_pop }}]
+	var glforecast_low_val = [
+		{{ glofas_riverflood_forecast_low_risk_low_pop }},
+		{{ glofas_riverflood_forecast_med_risk_low_pop }}, 
+		{{ glofas_riverflood_forecast_high_risk_low_pop }}, 
+		{{ glofas_riverflood_forecast_veryhigh_risk_low_pop }}, 
+		{{ glofas_riverflood_forecast_extreme_risk_low_pop }}
+	]
+	var glforecast_med_val = [
+		{{ glofas_riverflood_forecast_low_risk_med_pop }},
+		{{ glofas_riverflood_forecast_med_risk_med_pop }}, 
+		{{ glofas_riverflood_forecast_high_risk_med_pop }}, 
+		{{ glofas_riverflood_forecast_veryhigh_risk_med_pop }}, 
+		{{ glofas_riverflood_forecast_extreme_risk_med_pop }}
+	]
+	var glforecast_hi_val = [
+		{{ glofas_riverflood_forecast_low_risk_high_pop }},
+		{{ glofas_riverflood_forecast_med_risk_high_pop }}, 
+		{{ glofas_riverflood_forecast_high_risk_high_pop }}, 
+		{{ glofas_riverflood_forecast_veryhigh_risk_high_pop }}, 
+		{{ glofas_riverflood_forecast_extreme_risk_high_pop }}
+	]
 
-	var gfforecast_low_val = [{{ riverflood_forecast_extreme_risk_low_pop }}, {{ riverflood_forecast_veryhigh_risk_low_pop }}, {{ riverflood_forecast_high_risk_low_pop }}, {{ riverflood_forecast_med_risk_low_pop }}, {{ riverflood_forecast_low_risk_low_pop }}]
-	var gfforecast_med_val = [{{ riverflood_forecast_extreme_risk_med_pop }}, {{ riverflood_forecast_veryhigh_risk_med_pop }}, {{ riverflood_forecast_high_risk_med_pop }}, {{ riverflood_forecast_med_risk_med_pop }}, {{ riverflood_forecast_low_risk_med_pop }}]
-	var gfforecast_hi_val = [{{ riverflood_forecast_extreme_risk_high_pop }}, {{ riverflood_forecast_veryhigh_risk_high_pop }}, {{ riverflood_forecast_high_risk_high_pop }}, {{ riverflood_forecast_med_risk_high_pop }}, {{ riverflood_forecast_low_risk_high_pop }}]
+	var gfforecast_low_val = [
+		{{ riverflood_forecast_low_risk_low_pop }},
+		{{ riverflood_forecast_med_risk_low_pop }}, 
+		{{ riverflood_forecast_high_risk_low_pop }}, 
+		{{ riverflood_forecast_veryhigh_risk_low_pop }}, 
+		{{ riverflood_forecast_extreme_risk_low_pop }}
+	]
+	var gfforecast_med_val = [
+		{{ riverflood_forecast_low_risk_med_pop }},
+		{{ riverflood_forecast_med_risk_med_pop }}, 
+		{{ riverflood_forecast_high_risk_med_pop }}, 
+		{{ riverflood_forecast_veryhigh_risk_med_pop }}, 
+		{{ riverflood_forecast_extreme_risk_med_pop }}
+	]
+	var gfforecast_hi_val = [
+		{{ riverflood_forecast_low_risk_high_pop }},
+		{{ riverflood_forecast_med_risk_high_pop }}, 
+		{{ riverflood_forecast_high_risk_high_pop }}, 
+		{{ riverflood_forecast_veryhigh_risk_high_pop }}, 
+		{{ riverflood_forecast_extreme_risk_high_pop }} 
+	]
 
 </script>

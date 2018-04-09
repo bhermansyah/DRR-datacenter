@@ -435,6 +435,13 @@ th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low {
     border-left: 1px solid #fff;
 }
 
+#access .color_table tbody>tr>td:first-child,
+#landslide .table>tbody>tr>td:first-child,
+#erthqk .table>tbody>tr>td:first-child {
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
 #access thead {
     border-bottom: 20px solid #fff !important;
 }
@@ -516,7 +523,7 @@ th.m8h, td.m8h/*,
 td.ext, td.vhigh, td.high, td.mod, td.low, td.hi, td.med, td.lo{
     font-weight: bold;
     width: 20%;
-    border: 1px solid #fff !important;
+    /*border: 1px solid #fff !important;*/
 }
 
 table#ffforecast, table#ggfforecast, table#glfforecast, table#gffforecast{
@@ -533,8 +540,10 @@ th.ext,
 #rggfoverview tr td:nth-child(2), #rggfoverview tr td:nth-child(3), #rggfoverview tr td:nth-child(12), #rggfoverview tr td:nth-child(13),
 #rglfoverview tr td:nth-child(2), #rglfoverview tr td:nth-child(3), #rglfoverview tr td:nth-child(12), #rglfoverview tr td:nth-child(13),
 #rgffoverview tr td:nth-child(2), #rgffoverview tr td:nth-child(3), #rgffoverview tr td:nth-child(12), #rgffoverview tr td:nth-child(13){
-    background-color: rgba(226, 7, 14, 0.5) !important;
-    border: 1px solid #fff !important;
+    /*background-color: rgba(226, 7, 14, 0.5) !important;*/
+    background-color: #ff7f80 !important;
+    border-top: 1px solid #fff !important;
+    border-left: 1px solid #fff !important;
 }
 
 td.vhigh, td.vhigh_fill, #ffforecast tr:nth-child(4) td:nth-child(2),
@@ -547,8 +556,10 @@ th.vhigh,
 #rggfoverview tr td:nth-child(4), #rggfoverview tr td:nth-child(5), #rggfoverview tr td:nth-child(14), #rggfoverview tr td:nth-child(15),
 #rglfoverview tr td:nth-child(4), #rglfoverview tr td:nth-child(5), #rglfoverview tr td:nth-child(14), #rglfoverview tr td:nth-child(15),
 #rgffoverview tr td:nth-child(4), #rgffoverview tr td:nth-child(5), #rgffoverview tr td:nth-child(14), #rgffoverview tr td:nth-child(15){
-    background-color: rgba(249, 109, 9, 0.5) !important;
-    border: 1px solid #fff !important;
+    /*background-color: rgba(249, 109, 9, 0.5) !important;*/
+    background-color: #feb24c !important;
+    border-top: 1px solid #fff !important;
+    border-left: 1px solid #fff !important;
 }
 
 td.high, td.high_fill, #ffforecast tr:nth-child(7) td:nth-child(2),
@@ -561,8 +572,10 @@ th.high,
 #rggfoverview tr td:nth-child(6), #rggfoverview tr td:nth-child(7), #rggfoverview tr td:nth-child(16), #rggfoverview tr td:nth-child(17),
 #rglfoverview tr td:nth-child(6), #rglfoverview tr td:nth-child(7), #rglfoverview tr td:nth-child(16), #rglfoverview tr td:nth-child(17),
 #rgffoverview tr td:nth-child(6), #rgffoverview tr td:nth-child(7), #rgffoverview tr td:nth-child(16), #rgffoverview tr td:nth-child(17){
-    background-color: rgba(252, 237, 21, 0.5) !important;
-    border: 1px solid #fff !important;
+    /*background-color: rgba(252, 237, 21, 0.5) !important;*/
+    background-color: #fff37f !important; /*fffe7f*/
+    border-top: 1px solid #fff !important;
+    border-left: 1px solid #fff !important;
 }
 
 td.mod, td.mod_fill, #ffforecast tr:nth-child(10) td:nth-child(2),
@@ -575,8 +588,10 @@ th.mod,
 #rggfoverview tr td:nth-child(8), #rggfoverview tr td:nth-child(9), #rggfoverview tr td:nth-child(18), #rggfoverview tr td:nth-child(19),
 #rglfoverview tr td:nth-child(8), #rglfoverview tr td:nth-child(9), #rglfoverview tr td:nth-child(18), #rglfoverview tr td:nth-child(19),
 #rgffoverview tr td:nth-child(8), #rgffoverview tr td:nth-child(9), #rgffoverview tr td:nth-child(18), #rgffoverview tr td:nth-child(19){
-    background-color: rgba(15, 200, 123, 0.5) !important;
-    border: 1px solid #fff !important;
+    /*background-color: rgba(15, 200, 123, 0.5) !important;*/
+    background-color: #c8eb8f !important;
+    border-top: 1px solid #fff !important;
+    border-left: 1px solid #fff !important;
 }
 
 td.low, td.low_fill, #ffforecast tr:nth-child(13) td:nth-child(2),
@@ -589,8 +604,10 @@ th.low,
 #rggfoverview tr td:nth-child(10), #rggfoverview tr td:nth-child(11), #rggfoverview tr td:nth-child(20), #rggfoverview tr td:nth-child(21),
 #rglfoverview tr td:nth-child(10), #rglfoverview tr td:nth-child(11), #rglfoverview tr td:nth-child(20), #rglfoverview tr td:nth-child(21),
 #rgffoverview tr td:nth-child(10), #rgffoverview tr td:nth-child(11), #rgffoverview tr td:nth-child(20), #rgffoverview tr td:nth-child(21){
-    background-color: rgba(146, 231, 253, 0.5) !important;
-    border: 1px solid #fff !important;
+    /*background-color: rgba(146, 231, 253, 0.5) !important;*/
+    background-color: #abedfd !important; /*92e7fd*/
+    border-top: 1px solid #fff !important;
+    border-left: 1px solid #fff !important;
 }
 
 td.hi, td.hi_fill, #ffforecast tr:nth-child(1) td:nth-child(4), #ffforecast tr:nth-child(4) td:nth-child(4), #ffforecast tr:nth-child(7) td:nth-child(4), #ffforecast tr:nth-child(10) td:nth-child(4), #ffforecast tr:nth-child(13) td:nth-child(4),
@@ -599,7 +616,8 @@ td.hi, td.hi_fill, #ffforecast tr:nth-child(1) td:nth-child(4), #ffforecast tr:n
 #gffforecast tr:nth-child(1) td:nth-child(4), #gffforecast tr:nth-child(4) td:nth-child(4), #gffforecast tr:nth-child(7) td:nth-child(4), #gffforecast tr:nth-child(10) td:nth-child(4), #gffforecast tr:nth-child(13) td:nth-child(4),
 th.hi
 {
-    background-color: rgba(21, 101, 192, 0.5) !important;
+    /*background-color: rgba(21, 101, 192, 0.5) !important;*/
+    background-color: #46a7ff !important;
     border: 1px solid #fff !important;
 }
 
@@ -609,7 +627,8 @@ td.med, td.med_fill, #ffforecast tr:nth-child(2) td:nth-child(2), #ffforecast tr
 #gffforecast tr:nth-child(2) td:nth-child(2), #gffforecast tr:nth-child(5) td:nth-child(2), #gffforecast tr:nth-child(8) td:nth-child(2), #gffforecast tr:nth-child(11) td:nth-child(2), #gffforecast tr:nth-child(14) td:nth-child(2),
 th.med
 {
-    background-color: rgba(100, 181, 246, 0.5) !important;
+    /*background-color: rgba(100, 181, 246, 0.5) !important;*/
+    background-color: #79bfff !important;
     border: 1px solid #fff !important;
 }
 
@@ -619,7 +638,8 @@ td.lo, td.lo_fill, #ffforecast tr:nth-child(3) td:nth-child(2), #ffforecast tr:n
 #gffforecast tr:nth-child(3) td:nth-child(2), #gffforecast tr:nth-child(6) td:nth-child(2), #gffforecast tr:nth-child(9) td:nth-child(2), #gffforecast tr:nth-child(12) td:nth-child(2), #gffforecast tr:nth-child(15) td:nth-child(2),
 th.lo
 {
-    background-color: rgba(187, 222, 251, 0.5) !important;
+    /*background-color: rgba(187, 222, 251, 0.5) !important;*/
+    background-color: #acd7ff !important;
     border: 1px solid #fff !important;
 }
 

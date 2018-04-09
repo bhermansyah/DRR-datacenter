@@ -58,7 +58,7 @@
                     </div>
                     <div class="x_content">
                         <div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
-                            <div id="echart_donut_2" class="ch-size-pie"></div>
+                            <div id="echart_donut_gsm_area" class="ch-size-pie"></div>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-12 center">
                             <div class="tile_count">
@@ -173,7 +173,7 @@
                     <div class="x_content">
                         <!-- <div class="row"> -->
                             <div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-                                <div id="echart_donut" class="ch-size-pie"></div>
+                                <div id="echart_donut_gsm_pop" class="ch-size-pie"></div>
                             </div>
                             <div class="col-md-12 col-sm-4 col-xs-12 center">
                                 <div class="tile_count">
@@ -325,7 +325,7 @@
                     </div>
                     <div class="x_content">
 
-                      <div id="echart_bar_horizontal_4" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_nAirport" class="ch-size"></div>
 
                     </div>
                   </div>
@@ -463,7 +463,7 @@
                     </div>
                     <div class="x_content">
 
-                      <div id="echart_bar_horizontal_5" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_h1" class="ch-size"></div>
 
                     </div>
                   </div>
@@ -601,7 +601,7 @@
                     </div>
                     <div class="x_content">
 
-                      <div id="echart_bar_horizontal_6" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_h2" class="ch-size"></div>
 
                     </div>
                   </div>
@@ -739,7 +739,7 @@
                     </div>
                     <div class="x_content">
 
-                      <div id="echart_bar_horizontal_7" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_h3" class="ch-size"></div>
 
                     </div>
                   </div>
@@ -877,7 +877,7 @@
                     </div>
                     <div class="x_content">
 
-                      <div id="echart_bar_horizontal_8" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_hAll" class="ch-size"></div>
 
                     </div>
                   </div>
@@ -1015,7 +1015,7 @@
                     </div>
                     <div class="x_content">
 
-                      <div id="echart_bar_horizontal_9" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_itsProv" class="ch-size"></div>
 
                     </div>
                   </div>
@@ -1152,7 +1152,7 @@
                       <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                      <div id="echart_bar_horizontal_10" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_nProv" class="ch-size"></div>
                     </div>
                   </div>
                 </div>
@@ -1289,7 +1289,7 @@
                     </div>
                     <div class="x_content">
 
-                      <div id="echart_bar_horizontal_11" class="ch-size"></div>
+                      <div id="echart_bar_horizontal_nDist" class="ch-size"></div>
 
                     </div>
                   </div>
@@ -1306,6 +1306,7 @@
     var pop = {{ Population }};
     var gsm_bld = {{ buildings_on_gsm_coverage }};
     var build = {{ Buildings }};
+    var time_legend =['< {% trans "1 h" %}', '< {% trans "2 h" %}', '< {% trans "3 h" %}', '< {% trans "4 h" %}', '< {% trans "5 h" %}', '< {% trans "6 h" %}', '< {% trans "7 h" %}', '< {% trans "8 h" %}', '> {% trans "8 h" %}', ];
 
     var near_airport = [{{ l1_h__near_airp }}, {{ l2_h__near_airp }}, {{ l3_h__near_airp }}, {{ l4_h__near_airp }}, {{ l5_h__near_airp }}, {{ l6_h__near_airp }}, {{ l7_h__near_airp }}, {{ l8_h__near_airp }}, {{ g8_h__near_airp }}];
 

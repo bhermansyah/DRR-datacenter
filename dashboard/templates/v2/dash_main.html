@@ -92,7 +92,7 @@
 	                    </div>
 	                    <div class="x_content">
 	                    	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-	                    		<div id="echart_bar_horizontal_2" class="ch-size"></div>
+	                    		<div id="echart_bar_horizontal_health_fac" class="ch-size"></div>
 	                    	</div>
 	                        <div class="col-md-12 col-sm-4 col-xs-12 center">
 	                        	<div class="tile_count">
@@ -122,7 +122,7 @@
 	                    </div>
 	                    <div class="x_content">
 	                    	<div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-	                    		<div id="echart_bar_horizontal_3" class="ch-size"></div>
+	                    		<div id="echart_bar_horizontal_road" class="ch-size"></div>
 	                    	</div>
 	                        <div class="col-md-12 col-sm-4 col-xs-12 center">
 	                        	<div class="tile_count">
@@ -153,7 +153,7 @@
 	        	    <div class="x_content">
 	        	        <!-- <div class="row"> -->
 	        	            <div class="col-md-12 col-sm-8 col-xs-12 print-no-pad">
-	        	                <div id="echart_donut" class="ch-size-pie"></div>
+	        	                <div id="echart_donut_gsm_pop" class="ch-size-pie"></div>
 	        	            </div>
 	        	            <div class="col-md-12 col-sm-4 col-xs-12 center">
 	        	                <div class="tile_count">
@@ -187,7 +187,7 @@
 	        	    </div>
 	        	    <div class="x_content">
 
-	        	      <div id="echart_bar_horizontal_4" class="ch-size"></div>
+	        	      <div id="echart_bar_horizontal_nAirport" class="ch-size"></div>
 
 	        	    </div>
 	        	  </div>
@@ -207,7 +207,7 @@
 	        	    </div>
 	        	    <div class="x_content">
 
-	        	      <div id="echart_bar_horizontal_5" class="ch-size"></div>
+	        	      <div id="echart_bar_horizontal_h1" class="ch-size"></div>
 
 	        	    </div>
 	        	  </div>
@@ -227,7 +227,7 @@
 	        	    </div>
 	        	    <div class="x_content">
 
-	        	      <div id="echart_bar_horizontal_6" class="ch-size"></div>
+	        	      <div id="echart_bar_horizontal_h2" class="ch-size"></div>
 
 	        	    </div>
 	        	  </div>
@@ -246,7 +246,7 @@
 	        	      <div class="clearfix"></div>
 	        	    </div>
 	        	    <div class="x_content">
-	        	      <div id="echart_bar_horizontal_10" class="ch-size"></div>
+	        	      <div id="echart_bar_horizontal_nProv" class="ch-size"></div>
 	        	    </div>
 	        	  </div>
 	        	</div>
@@ -267,7 +267,7 @@
 	        	    </div>
 	        	    <div class="x_content">
 	        	    	<div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
-	        	    		<div id="echart_donut_3" class="ch-size-pie"></div>
+	        	    		<div id="echart_donut_frisk_pop" class="ch-size-pie"></div>
 	        	    	</div>
 	        	    	<div class="col-md-4 col-xs-12 col-sm-4 center">
 	        	    		<div class="tile_count">
@@ -999,7 +999,7 @@
         	        </div>
         	        <div class="x_content">
         	        	<div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
-        	        		<div id="echart_donut_6" class="ch-size-pie"></div>
+        	        		<div id="echart_donut_ava_risk_pop" class="ch-size-pie"></div>
         	        	</div>
         	        	<div class="col-md-4 col-xs-12 col-sm-4 center">
         	        		<div class="tile_count">
@@ -1031,7 +1031,7 @@
         	        </div>
         	        <div class="x_content">
         	        	<div class="col-md-8 col-sm-8 col-xs-12 print-no-pad">
-        	        		<div id="echart_donut_4" class="ch-size-pie"></div>
+        	        		<div id="echart_donut_ava_pop_prediction" class="ch-size-pie"></div>
         	        	</div>
         	        	<div class="col-md-4 col-xs-12 col-sm-4 center">
         	        		<div class="tile_count">
@@ -1125,7 +1125,7 @@
 	                </div>
 	                <div class="x_content">
 	                    <div class="col-md-8">
-	                        <div id="echart_polar_2" style="height:420px;"></div>
+	                        <div id="echart_polar_incident_type" style="height:420px;"></div>
 	                    </div>
 	                    <div class="col-md-4">
 	                    	<div class="panel panel-default checkbox-group">
@@ -1186,6 +1186,8 @@
     var category_ov = ['{% trans "Build-Up" %}', '{% trans "Fruit Trees" %}', '{% trans "Irrigated Agricultural Land" %}', '{% trans "Rainfed" %}', '{% trans "Vineyards" %}', '{% trans "Water Body & Marshland" %}', '{% trans "Barren land" %}', '{% trans "Snow" %}', '{% trans "Rangeland" %}', '{% trans "Sand Covered Areas" %}', '{% trans "Forest & Shrub" %}', '{% trans "Sand Dunes" %}'];
 
     var overview_legend = ['{% trans "Population" %}', '{% trans "Area" %}', '{% trans "Building" %}'];
+
+    var time_legend =['< {% trans "1 h" %}', '< {% trans "2 h" %}', '< {% trans "3 h" %}', '< {% trans "4 h" %}', '< {% trans "5 h" %}', '< {% trans "6 h" %}', '< {% trans "7 h" %}', '< {% trans "8 h" %}', '> {% trans "8 h" %}', ];
 
     var landcover_area = [{{built_up_area_build_up}},
     {{cultivated_area_fruit_trees}},
@@ -1279,7 +1281,6 @@
 
 
 
-    var color = [ '#43A047', '#FDD835' , '#FB8C00', '#e84c3d' ];
     var level_risk = ['{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}' ];
     var level_risk_pie = ['{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}', '{% trans "Not at Risk" %}' ];
 

@@ -415,8083 +415,6 @@ jQuery(function($){
 	// });
 
 	// Echart
-	// function init_echarts() {
-
-	// 	if( typeof (echarts) === 'undefined'){
-	// 		return;
-	// 	}
-
-	// 	console.log('init_echarts');
-
-	// 	var humTooltipPie = function(params){
-	// 	    console.log(params)
-	// 	    var v= params.data.value;
-	// 	    var p= params.percent;
-	// 	    var n= params.data.name;
-	// 	    if(v>=1000 && v<1000000){
-	// 	        return n+'</br>'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 	    }
-	// 	    else if (v>=1000000 && v<1000000000) {
-	// 	        return n+'</br>'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 	    }else{
-	// 	        return n+ '</br>'+ v+ ' ('+ p+'%)'
-	// 	    }
-
-	// 	};
-
-	// 	var humanizePie = function(params){
-	// 		console.log(params)
-
-	// 		var v= params.data.value;
-	// 		var p= params.percent;
-	// 		var n= params.data.name;
-	// 		if(v>=1000 && v<1000000){
-	// 			return n+'\n'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 		}
-	// 		else if (v>=1000000 && v<1000000000) {
-	// 			return n+'\n'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 		}else{
-	// 			return n+ '\n'+ v+ ' ('+ p+'%)'
-	// 		}
-
-	// 	};
-
-	// 	var humTooltipBar = function(params){
-	// 	    console.log(params)
-	// 	    params1 = params[0];
-	// 	    params2 = params[1];
-	// 	    var v1= params1.value;
-	// 	    var n1= params1.name;
-	// 	    var v2= params2.value;
-	// 	    var n2= params2.name;
-	// 	    var vN1; var vN2;
-	// 	    if(v1>=1000 && v1<1000000){
-	// 	    	vN1=((v1/1000).toFixed(2))+' K'
-	// 	        // return n1+' '+((v1/1000).toFixed(2))+' K'+'</br>'
-	// 	    }
-	// 	    if (v1>=1000000 && v1<1000000000) {
-	// 	    	vN1=((v1/1000000).toFixed(2))+' M'
-	// 	        // return n1+' '+((v1/1000000).toFixed(2))+' M'+'</br>'
-	// 	    }if (v1<1000){
-	// 	    	vN1=v1;
-	// 	        // return n1+' '+ v1+'</br>'
-	// 	    }
-
-	// 	    if(v2>=1000 && v2<1000000){
-	// 	    	vN2=((v2/1000).toFixed(2))+' K'
-	// 	        // return n2+' '+((v2/1000).toFixed(2))+' K'
-	// 	    }
-	// 	    if (v2>=1000000 && v2<1000000000) {
-	// 	    	vN2=((v2/1000000).toFixed(2))+' M'
-	// 	        // return n2+' '+((v2/1000000).toFixed(2))+' M'
-	// 	    }if (v2<1000){
-	// 	    	vN2=v2;
-	// 	        // return n2+' '+ v2
-	// 	    }
-	// 	    return (n1+' '+vN1+'</br>'+n2+' '+vN2)
-
-	// 	};
-
-	// 	var humanizeBar = function(params){
-	// 		console.log(params)
-
-	// 		var v= params.data;
-	// 		// var n= params.name;
-	// 		if(v>=1000 && v<1000000){
-	// 			return ((v/1000).toFixed(2))+' K'
-	// 		}
-	// 		else if (v>=1000000 && v<1000000000) {
-	// 			return ((v/1000000).toFixed(2))+' M'
-	// 		}else{
-	// 			return v
-	// 		}
-
-	// 	};
-
-	// 	var theme = {
-	// 		  color: [
-	// 			  // '#c3272b', '#c93756', '#8e44ad', '#317589', '#003171',
-	// 			  // rainbow
-	// 			  // '#800026', '#bd0026', '#e31a1c', '#fc4e2a',
-	// 			  // '#fd8d3c', '#feb24c', '#fed976', '#ffeda0'
-	// 			  //blue to light blue
-	// 			  // '#abd9e9', '#74add1',
-	// 			  // '#4575b4'
-
-	// 			  // '#84caec', '#5cbae5',
-	// 			  // '#27a3dd'
-
-	// 			  // '#c0392b',    '#e74c3c',    '#f39c12',
-	// 			  // '#f1c40f',    '#8e44ad',    '#9b59b6',
-	// 			  // '#ca2c68'    //'#ff6c5c',    '#ff7c6c'
-
-	// 			  // graphic flat ui color dark red to light
-	// 			  // '#870000',    '#a70c00',    '#b71c0c',
-	// 			  // '#c72c1c',    '#d73c2c',    '#e74c3c',
-	// 			  // '#f75c4c',    '#ff6c5c',    '#ff7c6c'
-
-	// 			  // '#f99494',    '#f66364',    '#f33334',
-	// 			  // '#dc0d0e',    '#b90c0d',    '#930a0a'
-
-	// 			  // sap
-	// 			  '#5cbae6',    '#b6d957',    '#fac364',
-	// 			  '#8cd3ff',    '#d998cb',    '#f2d249',
-	// 			  '#93b9c6',    '#ccc5a8',    '#52bacc',
-	// 			  '#dbdb46',    '#98aafb'
-
-	// 			  // colorbrewer
-	// 			  // red and yellow
-	// 			  // '#ffeda0',
-	// 			  // '#fed976',
-	// 			  // '#feb24c',
-	// 			  // '#fd8d3c',
-	// 			  // '#fc4e2a',
-	// 			  // '#e31a1c',
-	// 			  // '#bd0026',
-	// 			  // '#800026'
-
-	// 			  // red
-	// 			  // '#fee0d2',
-	// 			  // '#fcbba1',
-	// 			  // '#fc9272',
-	// 			  // '#fb6a4a',
-	// 			  // '#ef3b2c',
-	// 			  // '#cb181d',
-	// 			  // '#a50f15',
-	// 			  // '#67000d'
-
-	// 			  // red to gray
-	// 			  // '#b2182b',
-	// 			  // '#d6604d',
-	// 			  // '#f4a582',
-	// 			  // '#fddbc7',
-	// 			  // // '#ffffff',
-	// 			  // '#e0e0e0',
-	// 			  // '#bababa',
-	// 			  // '#878787',
-	// 			  // '#4d4d4d'
-
-	// 			  // red to green 6
-	// 			  // '#d73027',
-	// 			  // '#fc8d59',
-	// 			  // '#fee08b',
-	// 			  // '#d9ef8b',
-	// 			  // '#91cf60',
-	// 			  // '#1a9850'
-
-	// 			  // qualitative 12
-	// 			  // '#a6cee3',
-	// 			  // '#1f78b4',
-	// 			  // '#b2df8a',
-	// 			  // '#33a02c',
-	// 			  // '#fb9a99',
-	// 			  // '#e31a1c',
-	// 			  // '#fdbf6f',
-	// 			  // '#ff7f00',
-	// 			  // '#cab2d6',
-	// 			  // '#6a3d9a',
-	// 			  // '#ffff99',
-	// 			  // '#b15928'
-
-
-
-	// 			  // '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-	// 			  // '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-	// 		  ],
-
-	// 		  title: {
-	// 			  itemGap: 8,
-	// 			  textStyle: {
-	// 				  fontWeight: 'normal',
-	// 				  color: '#408829'
-	// 			  }
-	// 		  },
-
-	// 		  dataRange: {
-	// 			  color: ['#1f610a', '#97b58d']
-	// 		  },
-
-	// 		  toolbox: {
-	// 			  color: ['#408829', '#408829', '#408829', '#408829']
-	// 		  },
-
-	// 		  tooltip: {
-	// 			  backgroundColor: 'rgba(0,0,0,0.5)',
-	// 			  axisPointer: {
-	// 				  type: 'line',
-	// 				  lineStyle: {
-	// 					  color: '#408829',
-	// 					  type: 'dashed'
-	// 				  },
-	// 				  crossStyle: {
-	// 					  color: '#408829'
-	// 				  },
-	// 				  shadowStyle: {
-	// 					  color: 'rgba(200,200,200,0.3)'
-	// 				  }
-	// 			  }
-	// 		  },
-
-	// 		  dataZoom: {
-	// 			  dataBackgroundColor: '#eee',
-	// 			  fillerColor: 'rgba(64,136,41,0.2)',
-	// 			  handleColor: '#408829'
-	// 		  },
-	// 		  grid: {
-	// 			  borderWidth: 0
-	// 		  },
-
-	// 		  categoryAxis: {
-	// 			  axisLine: {
-	// 				  lineStyle: {
-	// 					  color: '#408829'
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  lineStyle: {
-	// 					  color: ['#eee']
-	// 				  }
-	// 			  }
-	// 		  },
-
-	// 		  valueAxis: {
-	// 			  axisLine: {
-	// 				  lineStyle: {
-	// 					  color: '#408829'
-	// 				  }
-	// 			  },
-	// 			  splitArea: {
-	// 				  show: true,
-	// 				  areaStyle: {
-	// 					  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  lineStyle: {
-	// 					  color: ['#eee']
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  timeline: {
-	// 			  lineStyle: {
-	// 				  color: '#408829'
-	// 			  },
-	// 			  controlStyle: {
-	// 				  normal: {color: '#408829'},
-	// 				  emphasis: {color: '#408829'}
-	// 			  }
-	// 		  },
-
-	// 		  k: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  color: '#68a54a',
-	// 					  color0: '#a9cba2',
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: '#408829',
-	// 						  color0: '#86b379'
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  map: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  areaStyle: {
-	// 						  color: '#ddd'
-	// 					  },
-	// 					  label: {
-	// 						  textStyle: {
-	// 							  color: '#c12e34'
-	// 						  }
-	// 					  }
-	// 				  },
-	// 				  emphasis: {
-	// 					  areaStyle: {
-	// 						  color: '#99d2dd'
-	// 					  },
-	// 					  label: {
-	// 						  textStyle: {
-	// 							  color: '#c12e34'
-	// 						  }
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  force: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  linkStyle: {
-	// 						  strokeColor: '#408829'
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  chord: {
-	// 			  padding: 4,
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: 'rgba(128, 128, 128, 0.5)'
-	// 					  },
-	// 					  chordStyle: {
-	// 						  lineStyle: {
-	// 							  width: 1,
-	// 							  color: 'rgba(128, 128, 128, 0.5)'
-	// 						  }
-	// 					  }
-	// 				  },
-	// 				  emphasis: {
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: 'rgba(128, 128, 128, 0.5)'
-	// 					  },
-	// 					  chordStyle: {
-	// 						  lineStyle: {
-	// 							  width: 1,
-	// 							  color: 'rgba(128, 128, 128, 0.5)'
-	// 						  }
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  gauge: {
-	// 			  startAngle: 225,
-	// 			  endAngle: -45,
-	// 			  axisLine: {
-	// 				  show: true,
-	// 				  lineStyle: {
-	// 					  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
-	// 					  width: 8
-	// 				  }
-	// 			  },
-	// 			  axisTick: {
-	// 				  splitNumber: 10,
-	// 				  length: 12,
-	// 				  lineStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  axisLabel: {
-	// 				  textStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  length: 18,
-	// 				  lineStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  pointer: {
-	// 				  length: '90%',
-	// 				  color: 'auto'
-	// 			  },
-	// 			  title: {
-	// 				  textStyle: {
-	// 					  color: '#333'
-	// 				  }
-	// 			  },
-	// 			  detail: {
-	// 				  textStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  textStyle: {
-	// 			  fontFamily: 'Arial, Verdana, sans-serif'
-	// 		  }
-	//   	};
-
-
-	// 	//echart Bar
-
-	// 	if ($('#mainb').length ){
-
-	// 		  var echartBar = echarts.init(document.getElementById('mainb'), theme);
-
-	// 		  echartBar.setOption({
-	// 			title: {
-	// 			  text: 'Graph title',
-	// 			  subtext: 'Graph Sub-text'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'axis'
-	// 			},
-	// 			legend: {
-	// 			  data: ['sales', 'purchases']
-	// 			},
-	// 			toolbox: {
-	// 			  show: false
-	// 			},
-	// 			calculable: false,
-	// 			xAxis: [{
-	// 			  type: 'category',
-	// 			  data: ['1?', '2?', '3?', '4?', '5?', '6?', '7?', '8?', '9?', '10?', '11?', '12?']
-	// 			}],
-	// 			yAxis: [{
-	// 			  type: 'value'
-	// 			}],
-	// 			series: [{
-	// 			  name: 'sales',
-	// 			  type: 'bar',
-	// 			  data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-	// 			  markPoint: {
-	// 				data: [{
-	// 				  type: 'max',
-	// 				  name: '???'
-	// 				}, {
-	// 				  type: 'min',
-	// 				  name: '???'
-	// 				}]
-	// 			  },
-	// 			  markLine: {
-	// 				data: [{
-	// 				  type: 'average',
-	// 				  name: '???'
-	// 				}]
-	// 			  }
-	// 			}, {
-	// 			  name: 'purchases',
-	// 			  type: 'bar',
-	// 			  data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3],
-	// 			  markPoint: {
-	// 				data: [{
-	// 				  name: 'sales',
-	// 				  value: 182.2,
-	// 				  xAxis: 7,
-	// 				  yAxis: 183,
-	// 				}, {
-	// 				  name: 'purchases',
-	// 				  value: 2.3,
-	// 				  xAxis: 11,
-	// 				  yAxis: 3
-	// 				}]
-	// 			  },
-	// 			  markLine: {
-	// 				data: [{
-	// 				  type: 'average',
-	// 				  name: '???'
-	// 				}]
-	// 			  }
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	// echart Bar 2
-
-	// 	if ($('#echart_bar').length ){
-
-	// 		  var echartBar = echarts.init(document.getElementById('echart_bar'), theme);
-
-	// 		  echartBar.setOption({
-	// 			title: {
-	// 			  text: 'Graph title',
-	// 			  subtext: 'Graph Sub-text'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'axis'
-	// 			},
-	// 			legend: {
-	// 			  data: ['River Flood']
-	// 			},
-	// 			toolbox: {
-	// 			  show: false
-	// 			},
-	// 			calculable: false,
-	// 			xAxis: [{
-	// 			  type: 'category',
-	// 			  data: ['1?', '2?', '3?', '4?', '5?', '6?', '7?', '8?', '9?', '10?', '11?', '12?']
-	// 			}],
-	// 			yAxis: [{
-	// 			  type: 'value'
-	// 			}],
-	// 			series: [{
-	// 			  name: 'River Flood',
-	// 			  type: 'bar',
-	// 			  data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
-	// 			  markPoint: {
-	// 				data: [{
-	// 				  type: 'max',
-	// 				  name: '???'
-	// 				}, {
-	// 				  type: 'min',
-	// 				  name: '???'
-	// 				}]
-	// 			  },
-	// 			  markLine: {
-	// 				data: [{
-	// 				  type: 'average',
-	// 				  name: '???'
-	// 				}]
-	// 			  }
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	   //echart Radar
-
-	// 	if ($('#echart_sonar').length ){
-
-	// 	  var echartRadar = echarts.init(document.getElementById('echart_sonar'), theme);
-
-	// 	  echartRadar.setOption({
-	// 		title: {
-	// 		  text: 'Incident Type',
-	// 		  subtext: 'Subtitle'
-	// 		},
-	// 		 tooltip: {
-	// 			trigger: 'item'
-	// 		},
-	// 		legend: {
-	// 		  orient: 'vertical',
-	// 		  x: 'right',
-	// 		  y: 'bottom',
-	// 		  data: ['Incident', 'Dead', 'Injured', 'Violent']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		polar: [{
-	// 		  indicator: [{
-	// 			text: 'Abandonment',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Attack',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Demonstration',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Kidnapping',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Murder',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Small Arms Fire',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Weapons',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Arrest',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Civillian Accident',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'IED',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Military/Non-Military Operation',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'Others',
-	// 			max: 5000
-	// 		  }, {
-	// 			text: 'UXO',
-	// 			max: 5000
-	// 		  }]
-	// 		}],
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Incident Type',
-	// 		  type: 'radar',
-	// 		  data: [{
-	// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-	// 			name: 'Incident'
-	// 		  }, {
-	// 			value: [5, 2024, 10, 2, 418, 538, 41, 5, 314, 1219, 173, 37, 122],
-	// 			name: 'Dead'
-	// 		  }, {
-	// 			value: [0, 3076, 7, 3, 36, 1694, 193, 4, 767, 2595, 190, 57, 315],
-	// 			name: 'Injured'
-	// 		  }, {
-	// 			value: [59, 1845, 149, 115, 10, 3420, 70, 101, 122, 178, 909, 3, 42],
-	// 			name: 'Violent'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Radar 2
-
-	// 	if ($('#echart_sonar_2').length ){
-
-	// 	  var echartRadar2 = echarts.init(document.getElementById('echart_sonar_2'), theme);
-
-	// 	  echartRadar2.setOption({
-	// 		title: {
-	// 		  text: 'Budget vs spending',
-	// 		  subtext: 'Subtitle'
-	// 		},
-	// 		 tooltip: {
-	// 			trigger: 'item'
-	// 		},
-	// 		legend: {
-	// 		  orient: 'vertical',
-	// 		  x: 'right',
-	// 		  y: 'bottom',
-	// 		  data: ['Allocated Budget', 'Actual Spending']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		polar: [{
-	// 		  indicator: [{
-	// 			text: 'Sales',
-	// 			max: 6000
-	// 		  }, {
-	// 			text: 'Administration',
-	// 			max: 16000
-	// 		  }, {
-	// 			text: 'Information Techology',
-	// 			max: 30000
-	// 		  }, {
-	// 			text: 'Customer Support',
-	// 			max: 38000
-	// 		  }, {
-	// 			text: 'Development',
-	// 			max: 52000
-	// 		  }, {
-	// 			text: 'Marketing',
-	// 			max: 25000
-	// 		  }]
-	// 		}],
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Budget vs spending',
-	// 		  type: 'radar',
-	// 		  data: [{
-	// 			value: [4300, 10000, 28000, 35000, 50000, 19000],
-	// 			name: 'Allocated Budget'
-	// 		  }, {
-	// 			value: [5000, 14000, 28000, 31000, 42000, 21000],
-	// 			name: 'Actual Spending'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Radar 3
-
-	// 	if ($('#echart_sonar_3').length ){
-
-	// 	  var echartRadar = echarts.init(document.getElementById('echart_sonar_3'), theme);
-
-	// 	  echartRadar.setOption({
-	// 		// title: {
-	// 		//   text: 'Number of Incident and Casualties by Incident Type',
-	// 		//   subtext: 'Subtitle'
-	// 		// },
-	// 		 tooltip: {
-	// 			trigger: 'item'
-	// 		},
-	// 		legend: {
-	// 		  // orient: 'vertical',
-	// 		  x: 'left',
-	// 		  y: 'top',
-	// 		  data: ['Incident', 'Dead', 'Injured', 'Violent']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		polar: [{
-	// 	  	  indicator: [
-	// 	  	  {
-	// 	  		text: 'Abandonment',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Demonstration',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Attack',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Kidnapping',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Murder',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Small Arms Fire',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Weapons',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Military/Non-Military Operation',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Civillian Accident',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'IED',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Arrest',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'Others',
-	// 	  		max: 5000
-	// 	  	  }, {
-	// 	  		text: 'UXO',
-	// 	  		max: 5000
-	// 		  }
-	// 		  ], center:['13%', 150],
-	// 		  radius: 60
-	// 		},{
-	// 	  	  indicator: [
-	// 	  	  {
-	// 	  		text: 'Abandonment',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Attack',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Demonstration',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Kidnapping',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Murder',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Small Arms Fire',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Weapons',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Arrest',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Civillian Accident',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'IED',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Military/Non-Military Operation',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'Others',
-	// 	  		max: 2500
-	// 	  	  }, {
-	// 	  		text: 'UXO',
-	// 	  		max: 2500
-	// 		  }
-	// 		  ], center:['45%', 150],
-	// 		  radius: 60
-	// 		},{
-	// 	  	  indicator: [
-	// 	  	  {
-	// 	  		text: 'Abandonment',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Attack',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Demonstration',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Kidnapping',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Murder',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Small Arms Fire',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Weapons',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Military/Non-Military Operation',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Civillian Accident',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'IED',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Arrest',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Others',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'UXO',
-	// 	  		max: 3500
-	// 		  }
-	// 		  ], center:['13%', 350],
-	// 		  radius: 60
-	// 		},{
-	// 	  	  indicator: [
-	// 	  	  {
-	// 	  		text: 'Abandonment',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Attack',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Demonstration',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Kidnapping',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Murder',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Small Arms Fire',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Weapons',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Military/Non-Military Operation',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Civillian Accident',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'IED',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Arrest',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'Others',
-	// 	  		max: 3500
-	// 	  	  }, {
-	// 	  		text: 'UXO',
-	// 	  		max: 3500
-	// 		  }
-	// 		  ], center:['45%', 350],
-	// 		  radius: 60
-	// 		}],
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Incident Type',
-	// 		  type: 'radar',
-	// 		  data: [{
-	// 			value: [68, 158, 3446, 132, 332, 4602, 138, 1572, 416, 1232, 118, 33, 221],
-	// 			name: 'Incident'
-	// 		  }]
-	// 		}, {
-	// 		  name: 'Casualties',
-	// 		  type: 'radar',
-	// 		  polarIndex: 1,
-	// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	// 		  data: [{
-	// 			value: [5, 2024, 10, 2, 418, 538, 41, 5, 314, 1219, 173, 37, 122],
-	// 			name: 'Dead'
-	// 		  }]
-	// 		}, {
-	// 		  name: 'Casualties',
-	// 		  type: 'radar',
-	// 		  polarIndex: 2,
-	// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	// 		  data: [{
-	// 			value: [0, 3076, 7, 3, 36, 1694, 193, 190, 767, 2595, 4, 57, 315],
-	// 			name: 'Injured'
-	// 		  }]
-	// 		}, {
-	// 		  name: 'Casualties',
-	// 		  type: 'radar',
-	// 		  polarIndex: 3,
-	// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	// 		  data: [{
-	// 			value: [59, 1845, 149, 115, 10, 3420, 70, 101, 122, 178, 909, 3, 42],
-	// 			name: 'Violent'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	//echart Line
-
-	// 	if ($('#echart_line').length ){
-
-	// 	  var echartLine = echarts.init(document.getElementById('echart_line'), theme);
-
-	// 	  echartLine.setOption({
-	// 		title: {
-	// 		  text: 'Line Graph',
-	// 		  subtext: 'Subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 220,
-	// 		  y: 40,
-	// 		  data: ['River Flood', 'Flash Flood']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  title: {
-	// 				line: 'Line',
-	// 				bar: 'Bar',
-	// 				stack: 'Stack',
-	// 				tiled: 'Tiled'
-	// 			  },
-	// 			  type: ['line', 'bar', 'stack', 'tiled']
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'category',
-	// 		  boundaryGap: false,
-	// 		  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'value'
-	// 		}],
-	// 		series: [{
-	// 		  name: 'River Flood',
-	// 		  type: 'line',
-	// 		  smooth: true,
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  areaStyle: {
-	// 				type: 'default'
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [10, 12, 21, 54, 260, 830, 710]
-	// 		}, {
-	// 		  name: 'Flash Flood',
-	// 		  type: 'line',
-	// 		  smooth: true,
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  areaStyle: {
-	// 				type: 'default'
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [30, 182, 434, 791, 390, 30, 10]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Line 2
-
-	// 	if ($('#echart_line_2').length ){
-
-	// 	  var echartLine = echarts.init(document.getElementById('echart_line_2'), theme);
-
-	// 	  echartLine.setOption({
-	// 		title: {
-	// 		  text: 'Line Graph',
-	// 		  subtext: 'Subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 220,
-	// 		  y: 40,
-	// 		  data: ['River Flood']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  title: {
-	// 				line: 'Line',
-	// 				bar: 'Bar',
-	// 				stack: 'Stack',
-	// 				tiled: 'Tiled'
-	// 			  },
-	// 			  type: ['line', 'bar', 'stack', 'tiled']
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'category',
-	// 		  boundaryGap: false,
-	// 		  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'value'
-	// 		}],
-	// 		series: [{
-	// 		  name: 'River Flood',
-	// 		  type: 'line',
-	// 		  smooth: true,
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  areaStyle: {
-	// 				type: 'default'
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [10, 12, 21, 54, 260, 830, 710]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Line 3
-
-	// 	if ($('#echart_line_3').length ){
-
-	// 	  var echartLine = echarts.init(document.getElementById('echart_line_3'), theme);
-
-	// 	  echartLine.setOption({
-	// 		title: {
-	// 		  text: 'Beijing Graph',
-	// 		  subtext: 'Subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		xAxis: {
-	//             data: data.map(function (item) {
-	//                 return item[0];
-	//             })
-	//         },
-	//         yAxis: {
-	//             splitLine: {
-	//                 show: false
-	//             }
-	//         },
-	// 		// legend: {
-	// 		//   x: 220,
-	// 		//   y: 40,
-	// 		//   data: ['River Flood']
-	// 		// },
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			dataZoom: {
- //                    yAxisIndex: 'none'
- //                },
-	// 			magicType: {
-	// 			  show: true,
-	// 			  title: {
-	// 				line: 'Line',
-	// 				bar: 'Bar',
-	// 				stack: 'Stack',
-	// 				tiled: 'Tiled'
-	// 			  },
-	// 			  type: ['line', 'bar', 'stack', 'tiled']
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		dataZoom: [{
-	//             startValue: '2014-06-01'
-	//         }, {
-	//             type: 'inside'
-	//         }],
-	//         visualMap: {
-	//             top: 10,
-	//             right: 10,
-	//             pieces: [{
-	//                 gt: 0,
-	//                 lte: 50,
-	//                 color: '#096'
-	//             }, {
-	//                 gt: 50,
-	//                 lte: 100,
-	//                 color: '#ffde33'
-	//             }, {
-	//                 gt: 100,
-	//                 lte: 150,
-	//                 color: '#ff9933'
-	//             }, {
-	//                 gt: 150,
-	//                 lte: 200,
-	//                 color: '#cc0033'
-	//             }, {
-	//                 gt: 200,
-	//                 lte: 300,
-	//                 color: '#660099'
-	//             }, {
-	//                 gt: 300,
-	//                 color: '#7e0023'
-	//             }],
-	//             outOfRange: {
-	//                 color: '#999'
-	//             }
-	//         },
-	// 		// calculable: true,
-	// 		// xAxis: [{
-	// 		//   type: 'category',
-	// 		//   boundaryGap: false,
-	// 		//   data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-	// 		// }],
-	// 		// yAxis: [{
-	// 		//   type: 'value'
-	// 		// }],
-	// 		series: [{
-	// 		  name: 'River Flood',
-	// 		  type: 'line',
-	// 		  data: data.map(function (item) {
- //                  return item[1];
- //              }),
- //              markLine: {
- //                  silent: true,
- //                  data: [{
- //                      yAxis: 50
- //                  }, {
- //                      yAxis: 100
- //                  }, {
- //                      yAxis: 150
- //                  }, {
- //                      yAxis: 200
- //                  }, {
- //                      yAxis: 300
- //                  }]
- //              }
-	// 		 //  smooth: true,
-	// 		 //  itemStyle: {
-	// 			// normal: {
-	// 			//   areaStyle: {
-	// 			// 	type: 'default'
-	// 			//   }
-	// 			// }
-	// 		 //  },
-	// 		 //  data: [10, 12, 21, 54, 260, 830, 710]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	if ($('#echart_line_3').length ){
-
-	// 	  var echartLine = echarts.init(document.getElementById('echart_line_3'), theme);
-
-	// 	  echartLine.setOption({
-	// 		title: {
-	//             text: 'Beijing AQI'
-	//         },
-	//         tooltip: {
-	//             trigger: 'axis'
-	//         },
-	//         xAxis: {
-	//             data: data.map(function (item) {
-	//                 return item[0];
-	//             })
-	//         },
-	//         yAxis: {
-	//             splitLine: {
-	//                 show: false
-	//             }
-	//         },
-	//         toolbox: {
-	//             left: 'center',
-	//             feature: {
-	//                 dataZoom: {
-	//                     yAxisIndex: 'none'
-	//                 },
-	//                 restore: {},
-	//                 saveAsImage: {}
-	//             }
-	//         },
-	//         dataZoom: [{
-	//             startValue: '2014-06-01'
-	//         }, {
-	//             type: 'inside'
-	//         }],
-	//         visualMap: {
-	//             top: 10,
-	//             right: 10,
-	//             pieces: [{
-	//                 gt: 0,
-	//                 lte: 50,
-	//                 color: '#096'
-	//             }, {
-	//                 gt: 50,
-	//                 lte: 100,
-	//                 color: '#ffde33'
-	//             }, {
-	//                 gt: 100,
-	//                 lte: 150,
-	//                 color: '#ff9933'
-	//             }, {
-	//                 gt: 150,
-	//                 lte: 200,
-	//                 color: '#cc0033'
-	//             }, {
-	//                 gt: 200,
-	//                 lte: 300,
-	//                 color: '#660099'
-	//             }, {
-	//                 gt: 300,
-	//                 color: '#7e0023'
-	//             }],
-	//             outOfRange: {
-	//                 color: '#999'
-	//             }
-	//         },
-	//         series: {
-	//             name: 'Beijing AQI',
-	//             type: 'line',
-	//             data: data.map(function (item) {
-	//                 return item[1];
-	//             }),
-	//             markLine: {
-	//                 silent: true,
-	//                 data: [{
-	//                     yAxis: 50
-	//                 }, {
-	//                     yAxis: 100
-	//                 }, {
-	//                     yAxis: 150
-	//                 }, {
-	//                     yAxis: 200
-	//                 }, {
-	//                     yAxis: 300
-	//                 }]
-	//             }
-	//         }
-	// 	  });
-
-	// 	}
-
-	// 	//echart Bar Horizontal
-
-	// 	if ($('#echart_bar_horizontal').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal'), theme, humTooltipBar, humanizeBar);
-
-	// 	  echartBar.setOption({
-	// 		// title: {
-	// 		//   text: 'Overview 1',
-	// 		//   subtext: 'Graph subtitle'
-	// 		// },
-	// 		tooltip: {
-	// 		  trigger: 'axis',
-	// 		  axisPointer:{
-	// 		  	type: 'shadow',
-	// 		  },
-	// 		  formatter: humTooltipBar
-	// 		},
-	// 		legend: {
-	// 		  x: 'left',
-	// 		  data: ['Population', 'Area (km2)']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 		  	magicType: {
-	// 	    	  show: true,
-	// 	    	  title: {
-	// 	    		line: 'Line',
-	// 	    		bar: 'Bar',
-	// 	    		stack: 'Stack',
-	// 	    		tiled: 'Tiled'
-	// 	    	  },
-	// 	    	  type: ['line', 'bar', 'stack', 'tiled']
-	// 	    	},
-	// 	    	restore: {
-	// 	    	  show: true,
-	// 	    	  title: "Restore"
-	// 	    	},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		grid: {
-	// 	        left: '0%',
-	// 	        right: '4%',
-	// 	        bottom: '8%',
-	// 	        containLabel: true
-	// 	    },
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01],
-	// 		  axisLabel:{
-	// 		  	rotate: 30
-	// 		  }
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Built-Up', 'Cultivated', 'Barrend/Rangeland']
-	// 		}],
-	// 		series: [{
-	// 		  name: 'Population',
-	// 		  type: 'bar',
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		formatter: humanizeBar,
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [12550853, 13002950, 5554167]
-	// 		}, {
-	// 		  name: 'Area (km2)',
-	// 		  type: 'bar',
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		formatter: humanizeBar,
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [3050.5, 76153.2, 568421.5]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Bar Horizontal 2
-
-	// 	if ($('#echart_bar_horizontal_2').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_2'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal 3
-
-	// 	if ($('#echart_bar_horizontal_3').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_3'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal 4
-
-	// 	if ($('#echart_bar_horizontal_4').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_4'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal 5
-
-	// 	if ($('#echart_bar_horizontal_5').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_5'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal 6
-
-	// 	if ($('#echart_bar_horizontal_6').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_6'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal 7
-
-	// 	if ($('#echart_bar_horizontal_7').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_7'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal Casualties
-
-	// 	if ($('#echart_bar_horizontal_8').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_8'), theme);
-
-	// 	  echartBar.setOption({
-	// 		// title: {
-	// 		//   text: 'Overview 1',
-	// 		//   subtext: 'Graph subtitle'
-	// 		// },
-	// 		tooltip: {
-	// 		  trigger: 'axis',
-	// 		  axisPointer:{
-	// 		  	type:'shadow'
-	// 		  }
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Dead', 'Injured']
-	// 		},
-	// 		toolbox: {
-	// 	      show: true,
-	// 	      feature: {
-	// 	    	magicType: {
-	// 	    	  show: true,
-	// 	    	  title: {
-	// 	    		line: 'Line',
-	// 	    		bar: 'Bar',
-	// 	    		stack: 'Stack',
-	// 	    		tiled: 'Tiled'
-	// 	    	  },
-	// 	    	  type: ['line', 'bar', 'stack', 'tiled']
-	// 	    	},
-	// 	    	restore: {
-	// 	    	  show: true,
-	// 	    	  title: "Restore"
-	// 	    	},
-	// 	    	saveAsImage: {
-	// 	    	  show: true,
-	// 	    	  title: "Save Image"
-	// 	    	}
-	// 	      }
-	// 		},
-	// 		grid: {
-	// 	        left: '0%',
-	// 	        right: '4%',
-	// 	        bottom: '8%',
-	// 	        containLabel: true
-	// 	    },
-	// 		// grid:[{
-	// 		// 	top: 50,
-	// 		// 	width: '50%',
-	// 		// 	bottom: '45%',
-	// 		// 	left: 10,
-	// 		// 	containLabel: true
-	// 		// }],
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'log',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 			type: 'category',
-	// 			data: ['Abandonment', 'Demonstration', 'Attack', 'Kidnapping', 'Murder', 'Small Arms Fire', 'Weapons', 'Military/Non-Military Operation', 'Civillian Accident', 'IED', 'Arrest', 'Others', 'UXO'],
-	// 			axisLabel:{
-	// 				// rotate: 30
-	// 			}
-	// 		}],
-	// 		series: [{
-	// 		  name: 'Dead',
-	// 		  type: 'bar',
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [5, 2024, 10, 2, 418, 538, 41, 5, 314, 1219, 173, 37, 122]
-	// 		}, {
-	// 		  name: 'Injured',
-	// 		  type: 'bar',
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [0, 3076, 7, 3, 36, 1694, 193, 190, 767, 2595, 4, 57, 315]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal Incident
-
-	// 	if ($('#echart_bar_horizontal_9').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_9'), theme);
-
-	// 	  echartBar.setOption({
-	// 		// title: {
-	// 		//   text: 'Overview 1',
-	// 		//   subtext: 'Graph subtitle'
-	// 		// },
-	// 		tooltip: {
-	// 		  trigger: 'axis',
-	// 		  axisPointer:{
-	// 		  	type:'shadow'
-	// 		  }
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Incident', 'Violent']
-	// 		},
-	// 		toolbox: {
-	// 	      show: true,
-	// 	      feature: {
-	// 	    	magicType: {
-	// 	    	  show: true,
-	// 	    	  title: {
-	// 	    		line: 'Line',
-	// 	    		bar: 'Bar',
-	// 	    		stack: 'Stack',
-	// 	    		tiled: 'Tiled'
-	// 	    	  },
-	// 	    	  type: ['line', 'bar', 'stack', 'tiled']
-	// 	    	},
-	// 	    	restore: {
-	// 	    	  show: true,
-	// 	    	  title: "Restore"
-	// 	    	},
-	// 	    	saveAsImage: {
-	// 	    	  show: true,
-	// 	    	  title: "Save Image"
-	// 	    	}
-	// 	      }
-	// 		},
-	// 		grid: {
-	// 	        left: '0%',
-	// 	        right: '4%',
-	// 	        bottom: '8%',
-	// 	        containLabel: true
-	// 	    },
-	// 		// grid:[{
-	// 		// 	top: 50,
-	// 		// 	width: '50%',
-	// 		// 	bottom: '45%',
-	// 		// 	left: 10,
-	// 		// 	containLabel: true
-	// 		// }],
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'log',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 			type: 'category',
-	// 			data: ['Abandonment', 'Demonstration', 'Attack', 'Kidnapping', 'Murder', 'Small Arms Fire', 'Weapons', 'Military/Non-Military Operation', 'Civillian Accident', 'IED', 'Arrest', 'Others', 'UXO'],
-	// 			axisLabel:{
-	// 				// rotate: 30
-	// 			}
-	// 		}],
-	// 		series: [{
-	// 		  name: 'Incident',
-	// 		  type: 'bar',
-	// 		  // barMinHeight: 10,
-	// 		  // barWidth: 15,
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [68, 158, 3446, 132, 332, 4602, 138, 1572, 416, 1232, 118, 33, 221]
-	// 		}, {
-	// 		  name: 'Violent',
-	// 		  type: 'bar',
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [59, 1845, 149, 115, 10, 3420, 70, 101, 122, 178, 909, 3, 42]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Stack
-
-	// 	if ($('#echart_bar_stack').length ){
-
-	// 		  var echartBar = echarts.init(document.getElementById('echart_bar_stack'), theme);
-
-	// 		  echartBar.setOption({
-	// 			title: {
-	// 			  text: 'Graph title',
-	// 			  subtext: 'Graph Sub-text',
-	// 			  x: 'center'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'axis',
-	// 			  axisPointer:{
-	// 			  	type:'shadow'
-	// 			  }
-	// 			},
-	// 			legend: {
-	// 				x: 'center',
-	// 				y: 'bottom',
-	// 			  data: ['Low', 'Medium', 'High']
-	// 			},
-	// 			toolbox: {
-	// 		      show: true,
-	// 		      feature: {
-	// 		    	magicType: {
-	// 		    	  show: true,
-	// 		    	  title: {
-	// 		    		line: 'Line',
-	// 		    		bar: 'Bar',
-	// 		    		stack: 'Stack',
-	// 		    		tiled: 'Tiled'
-	// 		    	  },
-	// 		    	  type: ['line', 'bar', 'stack', 'tiled']
-	// 		    	},
-	// 		    	restore: {
-	// 		    	  show: true,
-	// 		    	  title: "Restore"
-	// 		    	},
-	// 		    	saveAsImage: {
-	// 		    	  show: true,
-	// 		    	  title: "Save Image"
-	// 		    	}
-	// 		      }
-	// 			},
-	// 			calculable: true,
-	// 			xAxis: [{
-	// 			  type: 'category',
-	// 			  name: 'likelihood',
-	// 			  data: ['Extreme', 'Very High', 'High', 'Moderate', 'Low']
-	// 			}],
-	// 			yAxis: [{
-	// 			  type: 'log',
-	// 			  name: 'population'
-	// 			}],
-	// 			series: [{
-	// 			  name: 'Low',
-	// 			  type: 'bar',
-	// 			  stack: 'flash',
-	// 			  // barMinHeight: 20,
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [0, 28073, 4708, 196553, 237405]
-	// 			}, {
-	// 			  name: 'Medium',
-	// 			  type: 'bar',
-	// 			  stack: 'flash',
-	// 			  // barMinHeight: 20,
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [0, 21875, 8484, 149036, 238381]
-	// 			},{
-	// 			  name: 'High',
-	// 			  type: 'bar',
-	// 			  stack: 'flash',
-	// 			  // barMinHeight: 20,
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [0, 10150, 11396, 161921, 177592]
-	// 			 //  markPoint: {
-	// 				// data: [{
-	// 				//   type: 'max',
-	// 				//   name: '???'
-	// 				// }, {
-	// 				//   type: 'min',
-	// 				//   name: '???'
-	// 				// }]
-	// 			 //  },
-	// 			 //  markLine: {
-	// 				// data: [{
-	// 				//   type: 'average',
-	// 				//   name: '???'
-	// 				// }]
-	// 			 //  }
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	// echart Bar Stack 3
-
-	// 	if ($('#echart_bar_stack_3').length ){
-
-	// 		  var echartBar = echarts.init(document.getElementById('echart_bar_stack_3'), theme);
-
-	// 		  echartBar.setOption({
-	// 			title: {
-	// 			  text: 'Graph title',
-	// 			  subtext: 'Graph Sub-text',
-	// 			  x: 'center'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'axis',
-	// 			  axisPointer:{
-	// 			  	type:'shadow'
-	// 			  }
-	// 			},
-	// 			legend: {
-	// 				x: 'center',
-	// 				y: 'bottom',
-	// 			  data: ['Low', 'Medium', 'High']
-	// 			},
-	// 			toolbox: {
-	// 		      show: true,
-	// 		      feature: {
-	// 		    	magicType: {
-	// 		    	  show: true,
-	// 		    	  title: {
-	// 		    		line: 'Line',
-	// 		    		bar: 'Bar',
-	// 		    		stack: 'Stack',
-	// 		    		tiled: 'Tiled'
-	// 		    	  },
-	// 		    	  type: ['line', 'bar', 'stack', 'tiled']
-	// 		    	},
-	// 		    	restore: {
-	// 		    	  show: true,
-	// 		    	  title: "Restore"
-	// 		    	},
-	// 		    	saveAsImage: {
-	// 		    	  show: true,
-	// 		    	  title: "Save Image"
-	// 		    	}
-	// 		      }
-	// 			},
-	// 			calculable: true,
-	// 			xAxis: [{
-	// 			  type: 'category',
-	// 			  name: 'likelihood',
-	// 			  data: ['Extreme', 'Very High', 'High', 'Moderate', 'Low']
-	// 			}],
-	// 			yAxis: [{
-	// 			  type: 'log',
-	// 			  name: 'population'
-	// 			}],
-	// 			series: [{
-	// 			  name: 'Low',
-	// 			  type: 'bar',
-	// 			  stack: 'flash',
-	// 			  // barMinHeight: 20,
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [0, 28073, 4708, 196553, 237405]
-	// 			}, {
-	// 			  name: 'Medium',
-	// 			  type: 'bar',
-	// 			  stack: 'flash',
-	// 			  // barMinHeight: 20,
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [0, 21875, 8484, 149036, 238381]
-	// 			},{
-	// 			  name: 'High',
-	// 			  type: 'bar',
-	// 			  stack: 'flash',
-	// 			  // barMinHeight: 20,
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [0, 10150, 11396, 161921, 177592]
-	// 			 //  markPoint: {
-	// 				// data: [{
-	// 				//   type: 'max',
-	// 				//   name: '???'
-	// 				// }, {
-	// 				//   type: 'min',
-	// 				//   name: '???'
-	// 				// }]
-	// 			 //  },
-	// 			 //  markLine: {
-	// 				// data: [{
-	// 				//   type: 'average',
-	// 				//   name: '???'
-	// 				// }]
-	// 			 //  }
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	// echart Bar Stack Casualties
-
-	// 	if ($('#echart_bar_stack_2').length ){
-
-	// 		  var echartBar = echarts.init(document.getElementById('echart_bar_stack_2'), theme);
-
-	// 		  echartBar.setOption({
-	// 			title: {
-	// 			  text: 'Graph title',
-	// 			  subtext: 'Graph Sub-text',
-	// 			  x: 'center'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'axis',
-	// 			  axisPointer:{
-	// 			  	type:'shadow'
-	// 			  }
-	// 			},
-	// 			legend: {
-	// 				x: 'center',
-	// 				y: 'bottom',
-	// 			  data: ['Abandonment', 'Attack', 'Demonstration', 'Kidnapping', 'Murder', 'Small Arms Fire', 'Weapons', 'Arrest', 'Civillian Accident', 'IED', 'Military/Non-Military Operation', 'Others', 'UXO']
-	// 			},
-	// 			toolbox: {
-	// 		      show: true,
-	// 		      feature: {
-	// 		    	magicType: {
-	// 		    	  show: true,
-	// 		    	  title: {
-	// 		    		line: 'Line',
-	// 		    		bar: 'Bar',
-	// 		    		stack: 'Stack',
-	// 		    		tiled: 'Tiled'
-	// 		    	  },
-	// 		    	  type: ['line', 'bar', 'stack', 'tiled']
-	// 		    	},
-	// 		    	restore: {
-	// 		    	  show: true,
-	// 		    	  title: "Restore"
-	// 		    	},
-	// 		    	saveAsImage: {
-	// 		    	  show: true,
-	// 		    	  title: "Save Image"
-	// 		    	}
-	// 		      }
-	// 			},
-	// 			calculable: true,
-	// 			xAxis: [{
-	// 			  type: 'category',
-	// 			  // name: '',
-	// 			  data: ['Incident', 'Dead', 'Injured', 'Violent']
-	// 			}],
-	// 			yAxis: [{
-	// 			  type: 'log',
-	// 			  name: 'Population'
-	// 			}],
-	// 			series: [{
-	// 			  name: 'Abandonment',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [68, 5, 0, 59]
-	// 			}, {
-	// 			  name: 'Attack',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [3446, 2024, 3076, 1845]
-	// 			},{
-	// 			  name: 'Demonstration',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [158, 10, 7, 149]
-	// 			},{
-	// 			  name: 'Kidnapping',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [132, 2, 3, 115]
-	// 			}, {
-	// 			  name: 'Murder',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [332, 418, 36, 10]
-	// 			},{
-	// 			  name: 'Small Arms Fire',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [4602, 538, 1694, 10]
-	// 			},{
-	// 			  name: 'Weapons',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [138, 41, 193, 3420]
-	// 			}, {
-	// 			  name: 'Arrest',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [118, 5, 4, 70]
-	// 			},{
-	// 			  name: 'Civillian Accident',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [416, 314, 767, 101]
-	// 			},{
-	// 			  name: 'IED',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [1232, 1219, 2595, 122]
-	// 			}, {
-	// 			  name: 'Military/Non-Military Operation',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [1572, 173, 190, 909]
-	// 			},{
-	// 			  name: 'Others',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [33, 37, 57, 3]
-	// 			},{
-	// 			  name: 'UXO',
-	// 			  type: 'bar',
-	// 			  stack: 'casualties',
-	// 			  itemStyle:{
-	// 			  	normal:{
-	// 			  		label:{
-	// 			  			show:true,
-	// 			  			position: 'inside'
-	// 			  		}
-	// 			  	}
-	// 			  },
-	// 			  data: [221, 122, 315, 42]
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	//echart Pie Collapse
-
-	// 	if ($('#echart_pie2').length ){
-
-	// 	  var echartPieCollapse = echarts.init(document.getElementById('echart_pie2'), theme);
-
-	// 	  echartPieCollapse.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel']
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Area Mode',
-	// 		  type: 'pie',
-	// 		  radius: [25, 90],
-	// 		  center: ['50%', 170],
-	// 		  roseType: 'area',
-	// 		  x: '50%',
-	// 		  max: 40,
-	// 		  sort: 'ascending',
-	// 		  data: [{
-	// 			value: 10,
-	// 			name: 'rose1'
-	// 		  }, {
-	// 			value: 5,
-	// 			name: 'rose2'
-	// 		  }, {
-	// 			value: 15,
-	// 			name: 'rose3'
-	// 		  }, {
-	// 			value: 25,
-	// 			name: 'rose4'
-	// 		  }, {
-	// 			value: 20,
-	// 			name: 'rose5'
-	// 		  }, {
-	// 			value: 35,
-	// 			name: 'rose6'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	//echart Donut
-
-	// 	if ($('#echart_donut').length ){
-
-	// 	  var echartDonut = echarts.init(document.getElementById('echart_donut'), theme, humTooltipPie, humanizePie);
-
-	// 	 //  var humTooltip = function(params){
-	// 		//     console.log(params)
-	// 		//     var v= params.data.value;
-	// 		//     var p= params.percent;
-	// 		//     var n= params.data.name;
-	// 		//     if(v>=1000 && v<1000000){
-	// 		//         return n+'</br>'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 		//     }
-	// 		//     else if (v>=1000000 && v<1000000000) {
-	// 		//         return n+'</br>'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 		//     }else{
-	// 		//         return n+ '</br>'+ v+ ' ('+ p+'%)'
-	// 		//     }
-
-	// 		// };
-
-	// 	  // var humanize = function(params){
-	// 	  // 				console.log(params)
-	// 			// 		var v= params.data.value;
-	// 			// 		var p= params.percent;
-	// 			// 		var n= params.data.name;
-	// 			// 		if(v>=1000 && v<1000000){
-	// 			// 			return n+'\n'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 			// 		}
-	// 			// 		else if (v>=1000000 && v<1000000000) {
-	// 			// 			return n+'\n'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 			// 		}else{
-	// 			// 			return n+ '\n'+ v+ ' ('+ p+'%)'
-	// 			// 		}
-
-	// 			// 	};
-
-	// 	  echartDonut.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie
-	// 		},
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['With GSM Coverage','Without GSM Coverage']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Population',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle:
-	// 		  {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie
-	// 				// "{b} \n"+humanize+" ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 21051822,
-	// 			name: 'With GSM Coverage'
-	// 		  }, {
-	// 			value: 10056148,
-	// 			name: 'Without GSM Coverage'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Donut 2
-
-	// 	if ($('#echart_donut_2').length ){
-
-	// 	  var echartDonut2 = echarts.init(document.getElementById('echart_donut_2'), theme, humTooltipPie, humanizePie);
-
-	// 	  echartDonut2.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie
-	// 		},
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['With GSM Coverage','Without GSM Coverage']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Area',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 105732,
-	// 			name: 'With GSM Coverage'
-	// 		  }, {
-	// 			value: 541893,
-	// 			name: 'Without GSM Coverage'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Donut 3
-
-	// 	if ($('#echart_donut_3').length ){
-
-	// 	  var echartDonut = echarts.init(document.getElementById('echart_donut_3'), theme, humTooltipPie, humanizePie);
-
-	// 	  echartDonut.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Low Risk','Medium Risk', 'High Risk', 'Not at Risk']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Area',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie //"{b} \n{c} ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 2600000,
-	// 			name: 'Low Risk'
-	// 		  }, {
-	// 			value: 2800000,
-	// 			name: 'Medium Risk'
-	// 		  }, {
-	// 			value: 1700000,
-	// 			name: 'High Risk'
-	// 		  }, {
-	// 			value: 24000000,
-	// 			name: 'Not at Risk'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Donut 4
-
-	// 	if ($('#echart_donut_4').length ){
-
-	// 	  var echartDonut = echarts.init(document.getElementById('echart_donut_4'), theme, humTooltipPie, humanizePie);
-
-	// 	  echartDonut.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Low Risk','Medium Risk', 'High Risk', 'Not at Risk']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Area',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie //"{b} \n{c} ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 1714,
-	// 			name: 'Low Risk'
-	// 		  }, {
-	// 			value: 292,
-	// 			name: 'Medium Risk'
-	// 		  }, {
-	// 			value: 902,
-	// 			name: 'High Risk'
-	// 		  }, {
-	// 			value: 31097092,
-	// 			name: 'Not at Risk'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Donut 5
-
-	// 	if ($('#echart_donut_5').length ){
-
-	// 	  var echartDonut = echarts.init(document.getElementById('echart_donut_5'), theme, humTooltipPie ,humanizePie);
-
-	// 	  echartDonut.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		title:[{
-	// 			text: 'Avalanche Population',
-	// 			subtext: 'Population at Risk of Avalanche',
-	// 			x: '25%',
-	// 			textAlign: 'center'
-	// 		}, {
-	// 			text: 'Avalanche Area',
-	// 			subtext: 'Area at Risk of Avalanche',
-	// 			x: '50%',
-	// 			textAlign: 'center'
-	// 		}
-	// 		],
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'left',
-	// 		  y: 'bottom',
-	// 		  data: ['Moderate Risk Pop', 'High Risk Pop', 'Not at Risk Pop', 'Moderate Risk Area', 'High Risk Area', 'Not at Risk Area']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Population',
-	// 		  type: 'pie',
-	// 		  center:['18%', '50%'],
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie //"{b} \n{c} ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 508637,
-	// 			name: 'Moderate Risk Pop'
-	// 		  }, {
-	// 			value: 134917,
-	// 			name: 'High Risk Pop'
-	// 		  }, {
-	// 			value: 30356446,
-	// 			name: 'Not at Risk Pop'
-	// 		  }]
-	// 		}, {
-	// 		  name: 'Area',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: "{b} \n{d}%"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 28861,
-	// 			name: 'Moderate Risk Area'
-	// 		  }, {
-	// 			value: 4954,
-	// 			name: 'High Risk Area'
-	// 		  }, {
-	// 			value: 613809,
-	// 			name: 'Not at Risk Area'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Donut 6
-
-	// 	if ($('#echart_donut_6').length ){
-
-	// 	  var echartDonut = echarts.init(document.getElementById('echart_donut_6'), theme, humTooltipPie, humanizePie);
-
-	// 	  echartDonut.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Moderate Risk', 'High Risk', 'Not at Risk']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Area',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie //"{b} \n{c} ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 508637,
-	// 			name: 'Moderate Risk'
-	// 		  }, {
-	// 			value: 134917,
-	// 			name: 'High Risk'
-	// 		  }, {
-	// 			value: 30356446,
-	// 			name: 'Not at Risk'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	   //echart Pie
-
-	// 	if ($('#echart_pie').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie'), theme, humTooltipPie, humanizePie);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Nearest Airport',
-	// 		  type: 'pie',
-	// 		  radius: '30%',
-	// 		  center: ['50%', '48%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie //"{b} \n{c} ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 14900000,
-	// 			name: '< 1h'
-	// 		  }, {
-	// 			value: 7400000,
-	// 			name: '< 2h'
-	// 		  }, {
-	// 			value: 3600000,
-	// 			name: '< 3h'
-	// 		  }, {
-	// 			value: 1600000,
-	// 			name: '< 4h'
-	// 		  }, {
-	// 			value: 775996,
-	// 			name: '< 5h'
-	// 		  }, {
-	// 			value: 477632,
-	// 			name: '< 6h'
-	// 		  }, {
-	// 			value: 359146,
-	// 			name: '< 7h'
-	// 		  }, {
-	// 			value: 593026,
-	// 			name: '< 8h'
-	// 		  }, {
-	// 			value: 1400000,
-	// 			name: '> 5h'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 2
-
-	// 	if ($('#echart_pie_2').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_2'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 3
-
-	// 	if ($('#echart_pie_3').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_3'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 4
-
-	// 	if ($('#echart_pie_4').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_4'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 5
-
-	// 	if ($('#echart_pie_5').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_5'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 6
-
-	// 	if ($('#echart_pie_6').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_6'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 7
-
-	// 	if ($('#echart_pie_7').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_7'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 8
-
-	// 	if ($('#echart_pie_8').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_8'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Not Affected Population', 'Affected Population']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Population Affected',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 27800000,
-	// 			name: 'Not Affected Population'
-	// 		  }, {
-	// 			value: 3300000,
-	// 			name: 'Affected Population'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 9
-
-	// 	if ($('#echart_pie_9').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_9'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Affected Settlement', 'Not Affected Settlement']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Earthquake Impact',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 3966,
-	// 			name: 'Affected Settlement'
-	// 		  }, {
-	// 			value: 39723,
-	// 			name: 'Not Affected Settlement'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie and Donut
-
-	// 	if ($('#echart_pieDonut').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pieDonut'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Extreme', 'Very High', 'High', 'Moderate', 'Low', 'High', 'Medium', 'Low']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'River Flood',
-	// 		  type: 'pie',
-	// 		  selectedMode: 'single',
-	// 		  radius: [0, '30%'],
-	// 		  // center: ['50%', '48%'],
-
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		position: 'inner'
-	// 		  	}
-	// 		  },
-	// 		  labelLine:{
-	// 		  	normal: {
-	// 		  		show: false
-	// 		  	}
-	// 		  },
-	// 		  data: [{
-	// 			value: 0,
-	// 			name: 'Extreme'
-	// 		  }, {
-	// 			value: 60098,
-	// 			name: 'Very High'
-	// 		  }, {
-	// 			value: 24588,
-	// 			name: 'High'
-	// 		  }, {
-	// 			value: 507510,
-	// 			name: 'Moderate'
-	// 		  }, {
-	// 			value: 653378,
-	// 			name: 'Low'
-	// 		  }]
-	// 		},
-	// 		{
-	// 			name: 'Flood Risk Level',
-	// 			type: 'pie',
-	// 			radius: ['40%', '55%'],
-
-	// 			data:[{
-	// 				value: 0,
-	// 				name: 'High'
-	// 			}, {
-	// 				value: 0,
-	// 				name: 'Medium'
-	// 			}, {
-	// 				value: 0,
-	// 				name: 'Low'
-	// 			}, {
-	// 				value: 10150,
-	// 				name: 'High'
-	// 			}, {
-	// 				value: 21875,
-	// 				name: 'Medium'
-	// 			},{
-	// 				value: 28073,
-	// 				name: 'Low'
-	// 			}, {
-	// 				value: 11396,
-	// 				name: 'High'
-	// 			}, {
-	// 				value: 8484,
-	// 				name: 'Medium'
-	// 			}, {
-	// 				value: 4708,
-	// 				name: 'Low'
-	// 			}, {
-	// 				value: 161921,
-	// 				name: 'High'
-	// 			}, {
-	// 				value: 149036,
-	// 				name: 'Medium'
-	// 			}, {
-	// 				value: 196553,
-	// 				name: 'Low'
-	// 			}, {
-	// 				value: 177592,
-	// 				name: 'High'
-	// 			}, {
-	// 				value: 238381,
-	// 				name: 'Medium'
-	// 			}, {
-	// 				value: 237405,
-	// 				name: 'Low'
-	// 			}
-	// 			]
-	// 		}
-	// 		]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	   //echart Mini Pie
-
-	// 	if ($('#echart_mini_pie').length ){
-
-	// 	  var echartMiniPie = echarts.init(document.getElementById('echart_mini_pie'), theme);
-
-	// 	  var dataStyle = {
-	// 	      normal: {
-	// 	          label: {show:false},
-	// 	          labelLine: {show:false}
-	// 	      }
-	// 	  };
-	// 	  var placeHolderStyle = {
-	// 	      normal : {
-	// 	          color: 'rgba(0,0,0,0)',
-	// 	          label: {show:false},
-	// 	          labelLine: {show:false}
-	// 	      },
-	// 	      emphasis : {
-	// 	          color: 'rgba(0,0,0,0)'
-	// 	      }
-	// 	  };
-
-	// 	  echartMiniPie .setOption({
-	// 		title: {
-	// 		  text: 'Flood Risk',
-	// 		  subtext: 'Population at Risk of Flood',
-	// 		  // sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
-	// 		  x: 'center',
-	// 		  y: 'center',
-	// 		  itemGap: 20,
-	// 		  textStyle: {
-	// 			color: 'rgba(30,144,255,0.8)',
-	// 			fontFamily: '微软雅黑',
-	// 			fontSize: 35,
-	// 			fontWeight: 'bolder'
-	// 		  }
-	// 		},
-	// 		tooltip: {
-	// 		  show: true,
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  orient: 'vertical',
-	// 		  x: '50%',
-	// 		  y: 45,
-	// 		  itemGap: 12,
-	// 		  data: ['Low Risk', 'Medium Risk', 'High Risk'],
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			mark: {
-	// 			  show: true
-	// 			},
-	// 			dataView: {
-	// 			  show: true,
-	// 			  title: "Text View",
-	// 			  lang: [
-	// 				"Text View",
-	// 				"Close",
-	// 				"Refresh",
-	// 			  ],
-	// 			  readOnly: false
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Flood Risk',
-	// 		  type: 'pie',
-	// 		  clockWise: false,
-	// 		  radius: [105, 130],
-	// 		  itemStyle: dataStyle,
-	// 		  data: [{
-	// 			value: 2600000,
-	// 			name: 'Low Risk'
-	// 		  }, {
-	// 			value: 4500000,
-	// 			name: 'Others',
-	// 			itemStyle: placeHolderStyle
-	// 		  }]
-	// 		}, {
-	// 		  name: 'Flood Risk',
-	// 		  type: 'pie',
-	// 		  clockWise: false,
-	// 		  radius: [80, 105],
-	// 		  itemStyle: dataStyle,
-	// 		  data: [{
-	// 			value: 2800000,
-	// 			name: 'Medium Risk'
-	// 		  }, {
-	// 			value: 4300000,
-	// 			name: 'Others',
-	// 			itemStyle: placeHolderStyle
-	// 		  }]
-	// 		}, {
-	// 		  name: 'Flood Risk',
-	// 		  type: 'pie',
-	// 		  clockWise: false,
-	// 		  radius: [25, 80],
-	// 		  itemStyle: dataStyle,
-	// 		  data: [{
-	// 			value: 1700000,
-	// 			name: 'High Risk'
-	// 		  }, {
-	// 			value: 5400000,
-	// 			name: 'Others',
-	// 			itemStyle: placeHolderStyle
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Mini Pie 2
-
-	// 	if ($('#echart_mini_pie_2').length ){
-
-	// 	  var echartMiniPie = echarts.init(document.getElementById('echart_mini_pie_2'), theme);
-
-	// 	  var dataStyle = {
-	// 	      normal: {
-	// 	          label: {show:false},
-	// 	          labelLine: {show:false}
-	// 	      }
-	// 	  };
-	// 	  var placeHolderStyle = {
-	// 	      normal : {
-	// 	          color: 'rgba(0,0,0,0)',
-	// 	          label: {show:false},
-	// 	          labelLine: {show:false}
-	// 	      },
-	// 	      emphasis : {
-	// 	          color: 'rgba(0,0,0,0)'
-	// 	      }
-	// 	  };
-
-	// 	  echartMiniPie .setOption({
-	// 		title: {
-	// 		  text: 'Chart #2',
-	// 		  subtext: 'From ExcelHome',
-	// 		  sublink: 'http://e.weibo.com/1341556070/AhQXtjbqh',
-	// 		  x: 'center',
-	// 		  y: 'center',
-	// 		  itemGap: 20,
-	// 		  textStyle: {
-	// 			color: 'rgba(30,144,255,0.8)',
-	// 			fontFamily: '微软雅黑',
-	// 			fontSize: 35,
-	// 			fontWeight: 'bolder'
-	// 		  }
-	// 		},
-	// 		tooltip: {
-	// 		  show: true,
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  orient: 'vertical',
-	// 		  x: '50%',
-	// 		  y: 45,
-	// 		  itemGap: 12,
-	// 		  data: ['68%Something #1', '29%Something #2', '3%Something #3'],
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			mark: {
-	// 			  show: true
-	// 			},
-	// 			dataView: {
-	// 			  show: true,
-	// 			  title: "Text View",
-	// 			  lang: [
-	// 				"Text View",
-	// 				"Close",
-	// 				"Refresh",
-	// 			  ],
-	// 			  readOnly: false
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: '1',
-	// 		  type: 'pie',
-	// 		  clockWise: false,
-	// 		  radius: [105, 130],
-	// 		  itemStyle: dataStyle,
-	// 		  data: [{
-	// 			value: 68,
-	// 			name: '68%Something #1'
-	// 		  }, {
-	// 			value: 32,
-	// 			name: 'invisible',
-	// 			itemStyle: placeHolderStyle
-	// 		  }]
-	// 		}, {
-	// 		  name: '2',
-	// 		  type: 'pie',
-	// 		  clockWise: false,
-	// 		  radius: [80, 105],
-	// 		  itemStyle: dataStyle,
-	// 		  data: [{
-	// 			value: 29,
-	// 			name: '29%Something #2'
-	// 		  }, {
-	// 			value: 71,
-	// 			name: 'invisible',
-	// 			itemStyle: placeHolderStyle
-	// 		  }]
-	// 		}, {
-	// 		  name: '3',
-	// 		  type: 'pie',
-	// 		  clockWise: false,
-	// 		  radius: [25, 80],
-	// 		  itemStyle: dataStyle,
-	// 		  data: [{
-	// 			value: 3,
-	// 			name: '3%Something #3'
-	// 		  }, {
-	// 			value: 97,
-	// 			name: 'invisible',
-	// 			itemStyle: placeHolderStyle
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	   //echart Map
-
-	// 	if ($('#echart_world_map').length ){
-
-	// 		  var echartMap = echarts.init(document.getElementById('echart_world_map'), theme);
-
-
-	// 		  echartMap.setOption({
-	// 			title: {
-	// 			  text: 'World Population (2010)',
-	// 			  subtext: 'from United Nations, Total population, both sexes combined, as of 1 July (thousands)',
-	// 			  x: 'center',
-	// 			  y: 'top'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'item',
-	// 			  formatter: function(params) {
-	// 				var value = (params.value + '').split('.');
-	// 				value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + '.' + value[1];
-	// 				return params.seriesName + '<br/>' + params.name + ' : ' + value;
-	// 			  }
-	// 			},
-	// 			toolbox: {
-	// 			  show: true,
-	// 			  orient: 'vertical',
-	// 			  x: 'right',
-	// 			  y: 'center',
-	// 			  feature: {
-	// 				mark: {
-	// 				  show: true
-	// 				},
-	// 				dataView: {
-	// 				  show: true,
-	// 				  title: "Text View",
-	// 				  lang: [
-	// 					"Text View",
-	// 					"Close",
-	// 					"Refresh",
-	// 				  ],
-	// 				  readOnly: false
-	// 				},
-	// 				restore: {
-	// 				  show: true,
-	// 				  title: "Restore"
-	// 				},
-	// 				saveAsImage: {
-	// 				  show: true,
-	// 				  title: "Save Image"
-	// 				}
-	// 			  }
-	// 			},
-	// 			dataRange: {
-	// 			  orient: 'horizontal',
-	// 			  min: 0,
-	// 			  max: 1000000,
-	// 			  text: ['High', 'Low'],
-	// 			  realtime: false,
-	// 			  calculable: true,
-	// 			  color: ['#087E65', '#26B99A', '#CBEAE3']
-	// 			},
-	// 			series: [{
-	// 			  name: 'World Population (2010)',
-	// 			  type: 'map',
-	// 			  mapType: 'world',
-	// 			  roam: false,
-	// 			  mapLocation: {
-	// 				y: 60
-	// 			  },
-	// 			  itemStyle: {
-	// 				emphasis: {
-	// 				  label: {
-	// 					show: true
-	// 				  }
-	// 				}
-	// 			  },
-	// 			  data: [{
-	// 				name: 'Afghanistan',
-	// 				value: 28397.812
-	// 			  }, {
-	// 				name: 'Angola',
-	// 				value: 19549.124
-	// 			  }, {
-	// 				name: 'Albania',
-	// 				value: 3150.143
-	// 			  }, {
-	// 				name: 'United Arab Emirates',
-	// 				value: 8441.537
-	// 			  }, {
-	// 				name: 'Argentina',
-	// 				value: 40374.224
-	// 			  }, {
-	// 				name: 'Armenia',
-	// 				value: 2963.496
-	// 			  }, {
-	// 				name: 'French Southern and Antarctic Lands',
-	// 				value: 268.065
-	// 			  }, {
-	// 				name: 'Australia',
-	// 				value: 22404.488
-	// 			  }, {
-	// 				name: 'Austria',
-	// 				value: 8401.924
-	// 			  }, {
-	// 				name: 'Azerbaijan',
-	// 				value: 9094.718
-	// 			  }, {
-	// 				name: 'Burundi',
-	// 				value: 9232.753
-	// 			  }, {
-	// 				name: 'Belgium',
-	// 				value: 10941.288
-	// 			  }, {
-	// 				name: 'Benin',
-	// 				value: 9509.798
-	// 			  }, {
-	// 				name: 'Burkina Faso',
-	// 				value: 15540.284
-	// 			  }, {
-	// 				name: 'Bangladesh',
-	// 				value: 151125.475
-	// 			  }, {
-	// 				name: 'Bulgaria',
-	// 				value: 7389.175
-	// 			  }, {
-	// 				name: 'The Bahamas',
-	// 				value: 66402.316
-	// 			  }, {
-	// 				name: 'Bosnia and Herzegovina',
-	// 				value: 3845.929
-	// 			  }, {
-	// 				name: 'Belarus',
-	// 				value: 9491.07
-	// 			  }, {
-	// 				name: 'Belize',
-	// 				value: 308.595
-	// 			  }, {
-	// 				name: 'Bermuda',
-	// 				value: 64.951
-	// 			  }, {
-	// 				name: 'Bolivia',
-	// 				value: 716.939
-	// 			  }, {
-	// 				name: 'Brazil',
-	// 				value: 195210.154
-	// 			  }, {
-	// 				name: 'Brunei',
-	// 				value: 27.223
-	// 			  }, {
-	// 				name: 'Bhutan',
-	// 				value: 716.939
-	// 			  }, {
-	// 				name: 'Botswana',
-	// 				value: 1969.341
-	// 			  }, {
-	// 				name: 'Central African Republic',
-	// 				value: 4349.921
-	// 			  }, {
-	// 				name: 'Canada',
-	// 				value: 34126.24
-	// 			  }, {
-	// 				name: 'Switzerland',
-	// 				value: 7830.534
-	// 			  }, {
-	// 				name: 'Chile',
-	// 				value: 17150.76
-	// 			  }, {
-	// 				name: 'China',
-	// 				value: 1359821.465
-	// 			  }, {
-	// 				name: 'Ivory Coast',
-	// 				value: 60508.978
-	// 			  }, {
-	// 				name: 'Cameroon',
-	// 				value: 20624.343
-	// 			  }, {
-	// 				name: 'Democratic Republic of the Congo',
-	// 				value: 62191.161
-	// 			  }, {
-	// 				name: 'Republic of the Congo',
-	// 				value: 3573.024
-	// 			  }, {
-	// 				name: 'Colombia',
-	// 				value: 46444.798
-	// 			  }, {
-	// 				name: 'Costa Rica',
-	// 				value: 4669.685
-	// 			  }, {
-	// 				name: 'Cuba',
-	// 				value: 11281.768
-	// 			  }, {
-	// 				name: 'Northern Cyprus',
-	// 				value: 1.468
-	// 			  }, {
-	// 				name: 'Cyprus',
-	// 				value: 1103.685
-	// 			  }, {
-	// 				name: 'Czech Republic',
-	// 				value: 10553.701
-	// 			  }, {
-	// 				name: 'Germany',
-	// 				value: 83017.404
-	// 			  }, {
-	// 				name: 'Djibouti',
-	// 				value: 834.036
-	// 			  }, {
-	// 				name: 'Denmark',
-	// 				value: 5550.959
-	// 			  }, {
-	// 				name: 'Dominican Republic',
-	// 				value: 10016.797
-	// 			  }, {
-	// 				name: 'Algeria',
-	// 				value: 37062.82
-	// 			  }, {
-	// 				name: 'Ecuador',
-	// 				value: 15001.072
-	// 			  }, {
-	// 				name: 'Egypt',
-	// 				value: 78075.705
-	// 			  }, {
-	// 				name: 'Eritrea',
-	// 				value: 5741.159
-	// 			  }, {
-	// 				name: 'Spain',
-	// 				value: 46182.038
-	// 			  }, {
-	// 				name: 'Estonia',
-	// 				value: 1298.533
-	// 			  }, {
-	// 				name: 'Ethiopia',
-	// 				value: 87095.281
-	// 			  }, {
-	// 				name: 'Finland',
-	// 				value: 5367.693
-	// 			  }, {
-	// 				name: 'Fiji',
-	// 				value: 860.559
-	// 			  }, {
-	// 				name: 'Falkland Islands',
-	// 				value: 49.581
-	// 			  }, {
-	// 				name: 'France',
-	// 				value: 63230.866
-	// 			  }, {
-	// 				name: 'Gabon',
-	// 				value: 1556.222
-	// 			  }, {
-	// 				name: 'United Kingdom',
-	// 				value: 62066.35
-	// 			  }, {
-	// 				name: 'Georgia',
-	// 				value: 4388.674
-	// 			  }, {
-	// 				name: 'Ghana',
-	// 				value: 24262.901
-	// 			  }, {
-	// 				name: 'Guinea',
-	// 				value: 10876.033
-	// 			  }, {
-	// 				name: 'Gambia',
-	// 				value: 1680.64
-	// 			  }, {
-	// 				name: 'Guinea Bissau',
-	// 				value: 10876.033
-	// 			  }, {
-	// 				name: 'Equatorial Guinea',
-	// 				value: 696.167
-	// 			  }, {
-	// 				name: 'Greece',
-	// 				value: 11109.999
-	// 			  }, {
-	// 				name: 'Greenland',
-	// 				value: 56.546
-	// 			  }, {
-	// 				name: 'Guatemala',
-	// 				value: 14341.576
-	// 			  }, {
-	// 				name: 'French Guiana',
-	// 				value: 231.169
-	// 			  }, {
-	// 				name: 'Guyana',
-	// 				value: 786.126
-	// 			  }, {
-	// 				name: 'Honduras',
-	// 				value: 7621.204
-	// 			  }, {
-	// 				name: 'Croatia',
-	// 				value: 4338.027
-	// 			  }, {
-	// 				name: 'Haiti',
-	// 				value: 9896.4
-	// 			  }, {
-	// 				name: 'Hungary',
-	// 				value: 10014.633
-	// 			  }, {
-	// 				name: 'Indonesia',
-	// 				value: 240676.485
-	// 			  }, {
-	// 				name: 'India',
-	// 				value: 1205624.648
-	// 			  }, {
-	// 				name: 'Ireland',
-	// 				value: 4467.561
-	// 			  }, {
-	// 				name: 'Iran',
-	// 				value: 240676.485
-	// 			  }, {
-	// 				name: 'Iraq',
-	// 				value: 30962.38
-	// 			  }, {
-	// 				name: 'Iceland',
-	// 				value: 318.042
-	// 			  }, {
-	// 				name: 'Israel',
-	// 				value: 7420.368
-	// 			  }, {
-	// 				name: 'Italy',
-	// 				value: 60508.978
-	// 			  }, {
-	// 				name: 'Jamaica',
-	// 				value: 2741.485
-	// 			  }, {
-	// 				name: 'Jordan',
-	// 				value: 6454.554
-	// 			  }, {
-	// 				name: 'Japan',
-	// 				value: 127352.833
-	// 			  }, {
-	// 				name: 'Kazakhstan',
-	// 				value: 15921.127
-	// 			  }, {
-	// 				name: 'Kenya',
-	// 				value: 40909.194
-	// 			  }, {
-	// 				name: 'Kyrgyzstan',
-	// 				value: 5334.223
-	// 			  }, {
-	// 				name: 'Cambodia',
-	// 				value: 14364.931
-	// 			  }, {
-	// 				name: 'South Korea',
-	// 				value: 51452.352
-	// 			  }, {
-	// 				name: 'Kosovo',
-	// 				value: 97.743
-	// 			  }, {
-	// 				name: 'Kuwait',
-	// 				value: 2991.58
-	// 			  }, {
-	// 				name: 'Laos',
-	// 				value: 6395.713
-	// 			  }, {
-	// 				name: 'Lebanon',
-	// 				value: 4341.092
-	// 			  }, {
-	// 				name: 'Liberia',
-	// 				value: 3957.99
-	// 			  }, {
-	// 				name: 'Libya',
-	// 				value: 6040.612
-	// 			  }, {
-	// 				name: 'Sri Lanka',
-	// 				value: 20758.779
-	// 			  }, {
-	// 				name: 'Lesotho',
-	// 				value: 2008.921
-	// 			  }, {
-	// 				name: 'Lithuania',
-	// 				value: 3068.457
-	// 			  }, {
-	// 				name: 'Luxembourg',
-	// 				value: 507.885
-	// 			  }, {
-	// 				name: 'Latvia',
-	// 				value: 2090.519
-	// 			  }, {
-	// 				name: 'Morocco',
-	// 				value: 31642.36
-	// 			  }, {
-	// 				name: 'Moldova',
-	// 				value: 103.619
-	// 			  }, {
-	// 				name: 'Madagascar',
-	// 				value: 21079.532
-	// 			  }, {
-	// 				name: 'Mexico',
-	// 				value: 117886.404
-	// 			  }, {
-	// 				name: 'Macedonia',
-	// 				value: 507.885
-	// 			  }, {
-	// 				name: 'Mali',
-	// 				value: 13985.961
-	// 			  }, {
-	// 				name: 'Myanmar',
-	// 				value: 51931.231
-	// 			  }, {
-	// 				name: 'Montenegro',
-	// 				value: 620.078
-	// 			  }, {
-	// 				name: 'Mongolia',
-	// 				value: 2712.738
-	// 			  }, {
-	// 				name: 'Mozambique',
-	// 				value: 23967.265
-	// 			  }, {
-	// 				name: 'Mauritania',
-	// 				value: 3609.42
-	// 			  }, {
-	// 				name: 'Malawi',
-	// 				value: 15013.694
-	// 			  }, {
-	// 				name: 'Malaysia',
-	// 				value: 28275.835
-	// 			  }, {
-	// 				name: 'Namibia',
-	// 				value: 2178.967
-	// 			  }, {
-	// 				name: 'New Caledonia',
-	// 				value: 246.379
-	// 			  }, {
-	// 				name: 'Niger',
-	// 				value: 15893.746
-	// 			  }, {
-	// 				name: 'Nigeria',
-	// 				value: 159707.78
-	// 			  }, {
-	// 				name: 'Nicaragua',
-	// 				value: 5822.209
-	// 			  }, {
-	// 				name: 'Netherlands',
-	// 				value: 16615.243
-	// 			  }, {
-	// 				name: 'Norway',
-	// 				value: 4891.251
-	// 			  }, {
-	// 				name: 'Nepal',
-	// 				value: 26846.016
-	// 			  }, {
-	// 				name: 'New Zealand',
-	// 				value: 4368.136
-	// 			  }, {
-	// 				name: 'Oman',
-	// 				value: 2802.768
-	// 			  }, {
-	// 				name: 'Pakistan',
-	// 				value: 173149.306
-	// 			  }, {
-	// 				name: 'Panama',
-	// 				value: 3678.128
-	// 			  }, {
-	// 				name: 'Peru',
-	// 				value: 29262.83
-	// 			  }, {
-	// 				name: 'Philippines',
-	// 				value: 93444.322
-	// 			  }, {
-	// 				name: 'Papua New Guinea',
-	// 				value: 6858.945
-	// 			  }, {
-	// 				name: 'Poland',
-	// 				value: 38198.754
-	// 			  }, {
-	// 				name: 'Puerto Rico',
-	// 				value: 3709.671
-	// 			  }, {
-	// 				name: 'North Korea',
-	// 				value: 1.468
-	// 			  }, {
-	// 				name: 'Portugal',
-	// 				value: 10589.792
-	// 			  }, {
-	// 				name: 'Paraguay',
-	// 				value: 6459.721
-	// 			  }, {
-	// 				name: 'Qatar',
-	// 				value: 1749.713
-	// 			  }, {
-	// 				name: 'Romania',
-	// 				value: 21861.476
-	// 			  }, {
-	// 				name: 'Russia',
-	// 				value: 21861.476
-	// 			  }, {
-	// 				name: 'Rwanda',
-	// 				value: 10836.732
-	// 			  }, {
-	// 				name: 'Western Sahara',
-	// 				value: 514.648
-	// 			  }, {
-	// 				name: 'Saudi Arabia',
-	// 				value: 27258.387
-	// 			  }, {
-	// 				name: 'Sudan',
-	// 				value: 35652.002
-	// 			  }, {
-	// 				name: 'South Sudan',
-	// 				value: 9940.929
-	// 			  }, {
-	// 				name: 'Senegal',
-	// 				value: 12950.564
-	// 			  }, {
-	// 				name: 'Solomon Islands',
-	// 				value: 526.447
-	// 			  }, {
-	// 				name: 'Sierra Leone',
-	// 				value: 5751.976
-	// 			  }, {
-	// 				name: 'El Salvador',
-	// 				value: 6218.195
-	// 			  }, {
-	// 				name: 'Somaliland',
-	// 				value: 9636.173
-	// 			  }, {
-	// 				name: 'Somalia',
-	// 				value: 9636.173
-	// 			  }, {
-	// 				name: 'Republic of Serbia',
-	// 				value: 3573.024
-	// 			  }, {
-	// 				name: 'Suriname',
-	// 				value: 524.96
-	// 			  }, {
-	// 				name: 'Slovakia',
-	// 				value: 5433.437
-	// 			  }, {
-	// 				name: 'Slovenia',
-	// 				value: 2054.232
-	// 			  }, {
-	// 				name: 'Sweden',
-	// 				value: 9382.297
-	// 			  }, {
-	// 				name: 'Swaziland',
-	// 				value: 1193.148
-	// 			  }, {
-	// 				name: 'Syria',
-	// 				value: 7830.534
-	// 			  }, {
-	// 				name: 'Chad',
-	// 				value: 11720.781
-	// 			  }, {
-	// 				name: 'Togo',
-	// 				value: 6306.014
-	// 			  }, {
-	// 				name: 'Thailand',
-	// 				value: 66402.316
-	// 			  }, {
-	// 				name: 'Tajikistan',
-	// 				value: 7627.326
-	// 			  }, {
-	// 				name: 'Turkmenistan',
-	// 				value: 5041.995
-	// 			  }, {
-	// 				name: 'East Timor',
-	// 				value: 10016.797
-	// 			  }, {
-	// 				name: 'Trinidad and Tobago',
-	// 				value: 1328.095
-	// 			  }, {
-	// 				name: 'Tunisia',
-	// 				value: 10631.83
-	// 			  }, {
-	// 				name: 'Turkey',
-	// 				value: 72137.546
-	// 			  }, {
-	// 				name: 'United Republic of Tanzania',
-	// 				value: 44973.33
-	// 			  }, {
-	// 				name: 'Uganda',
-	// 				value: 33987.213
-	// 			  }, {
-	// 				name: 'Ukraine',
-	// 				value: 46050.22
-	// 			  }, {
-	// 				name: 'Uruguay',
-	// 				value: 3371.982
-	// 			  }, {
-	// 				name: 'United States of America',
-	// 				value: 312247.116
-	// 			  }, {
-	// 				name: 'Uzbekistan',
-	// 				value: 27769.27
-	// 			  }, {
-	// 				name: 'Venezuela',
-	// 				value: 236.299
-	// 			  }, {
-	// 				name: 'Vietnam',
-	// 				value: 89047.397
-	// 			  }, {
-	// 				name: 'Vanuatu',
-	// 				value: 236.299
-	// 			  }, {
-	// 				name: 'West Bank',
-	// 				value: 13.565
-	// 			  }, {
-	// 				name: 'Yemen',
-	// 				value: 22763.008
-	// 			  }, {
-	// 				name: 'South Africa',
-	// 				value: 51452.352
-	// 			  }, {
-	// 				name: 'Zambia',
-	// 				value: 13216.985
-	// 			  }, {
-	// 				name: 'Zimbabwe',
-	// 				value: 13076.978
-	// 			  }]
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	// echart Map 2
-
-	// 	if ($('#echart_world_map_2').length ){
-
-	// 		  var echartMap2 = echarts.init(document.getElementById('echart_world_map_2'), theme);
-
-
-	// 		  echartMap2.setOption({
-	// 			title: {
-	// 			  text: 'World Population (2010)',
-	// 			  subtext: 'from United Nations, Total population, both sexes combined, as of 1 July (thousands)',
-	// 			  x: 'center',
-	// 			  y: 'top'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'item',
-	// 			  formatter: function(params) {
-	// 				var value = (params.value + '').split('.');
-	// 				value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + '.' + value[1];
-	// 				return params.seriesName + '<br/>' + params.name + ' : ' + value;
-	// 			  }
-	// 			},
-	// 			toolbox: {
-	// 			  show: true,
-	// 			  orient: 'vertical',
-	// 			  x: 'right',
-	// 			  y: 'center',
-	// 			  feature: {
-	// 				mark: {
-	// 				  show: true
-	// 				},
-	// 				dataView: {
-	// 				  show: true,
-	// 				  title: "Text View",
-	// 				  lang: [
-	// 					"Text View",
-	// 					"Close",
-	// 					"Refresh",
-	// 				  ],
-	// 				  readOnly: false
-	// 				},
-	// 				restore: {
-	// 				  show: true,
-	// 				  title: "Restore"
-	// 				},
-	// 				saveAsImage: {
-	// 				  show: true,
-	// 				  title: "Save Image"
-	// 				}
-	// 			  }
-	// 			},
-	// 			dataRange: {
-	// 			  min: 0,
-	// 			  max: 1000000,
-	// 			  text: ['High', 'Low'],
-	// 			  realtime: false,
-	// 			  calculable: true,
-	// 			  color: ['#087E65', '#26B99A', '#CBEAE3']
-	// 			},
-	// 			series: [{
-	// 			  name: 'World Population (2010)',
-	// 			  type: 'map',
-	// 			  mapType: 'world',
-	// 			  roam: false,
-	// 			  mapLocation: {
-	// 				y: 60
-	// 			  },
-	// 			  itemStyle: {
-	// 				emphasis: {
-	// 				  label: {
-	// 					show: true
-	// 				  }
-	// 				}
-	// 			  },
-	// 			  data: [{
-	// 				name: 'Afghanistan',
-	// 				value: 28397.812
-	// 			  }, {
-	// 				name: 'Angola',
-	// 				value: 19549.124
-	// 			  }, {
-	// 				name: 'Albania',
-	// 				value: 3150.143
-	// 			  }, {
-	// 				name: 'United Arab Emirates',
-	// 				value: 8441.537
-	// 			  }, {
-	// 				name: 'Argentina',
-	// 				value: 40374.224
-	// 			  }, {
-	// 				name: 'Armenia',
-	// 				value: 2963.496
-	// 			  }, {
-	// 				name: 'French Southern and Antarctic Lands',
-	// 				value: 268.065
-	// 			  }, {
-	// 				name: 'Australia',
-	// 				value: 22404.488
-	// 			  }, {
-	// 				name: 'Austria',
-	// 				value: 8401.924
-	// 			  }, {
-	// 				name: 'Azerbaijan',
-	// 				value: 9094.718
-	// 			  }, {
-	// 				name: 'Burundi',
-	// 				value: 9232.753
-	// 			  }, {
-	// 				name: 'Belgium',
-	// 				value: 10941.288
-	// 			  }, {
-	// 				name: 'Benin',
-	// 				value: 9509.798
-	// 			  }, {
-	// 				name: 'Burkina Faso',
-	// 				value: 15540.284
-	// 			  }, {
-	// 				name: 'Bangladesh',
-	// 				value: 151125.475
-	// 			  }, {
-	// 				name: 'Bulgaria',
-	// 				value: 7389.175
-	// 			  }, {
-	// 				name: 'The Bahamas',
-	// 				value: 66402.316
-	// 			  }, {
-	// 				name: 'Bosnia and Herzegovina',
-	// 				value: 3845.929
-	// 			  }, {
-	// 				name: 'Belarus',
-	// 				value: 9491.07
-	// 			  }, {
-	// 				name: 'Belize',
-	// 				value: 308.595
-	// 			  }, {
-	// 				name: 'Bermuda',
-	// 				value: 64.951
-	// 			  }, {
-	// 				name: 'Bolivia',
-	// 				value: 716.939
-	// 			  }, {
-	// 				name: 'Brazil',
-	// 				value: 195210.154
-	// 			  }, {
-	// 				name: 'Brunei',
-	// 				value: 27.223
-	// 			  }, {
-	// 				name: 'Bhutan',
-	// 				value: 716.939
-	// 			  }, {
-	// 				name: 'Botswana',
-	// 				value: 1969.341
-	// 			  }, {
-	// 				name: 'Central African Republic',
-	// 				value: 4349.921
-	// 			  }, {
-	// 				name: 'Canada',
-	// 				value: 34126.24
-	// 			  }, {
-	// 				name: 'Switzerland',
-	// 				value: 7830.534
-	// 			  }, {
-	// 				name: 'Chile',
-	// 				value: 17150.76
-	// 			  }, {
-	// 				name: 'China',
-	// 				value: 1359821.465
-	// 			  }, {
-	// 				name: 'Ivory Coast',
-	// 				value: 60508.978
-	// 			  }, {
-	// 				name: 'Cameroon',
-	// 				value: 20624.343
-	// 			  }, {
-	// 				name: 'Democratic Republic of the Congo',
-	// 				value: 62191.161
-	// 			  }, {
-	// 				name: 'Republic of the Congo',
-	// 				value: 3573.024
-	// 			  }, {
-	// 				name: 'Colombia',
-	// 				value: 46444.798
-	// 			  }, {
-	// 				name: 'Costa Rica',
-	// 				value: 4669.685
-	// 			  }, {
-	// 				name: 'Cuba',
-	// 				value: 11281.768
-	// 			  }, {
-	// 				name: 'Northern Cyprus',
-	// 				value: 1.468
-	// 			  }, {
-	// 				name: 'Cyprus',
-	// 				value: 1103.685
-	// 			  }, {
-	// 				name: 'Czech Republic',
-	// 				value: 10553.701
-	// 			  }, {
-	// 				name: 'Germany',
-	// 				value: 83017.404
-	// 			  }, {
-	// 				name: 'Djibouti',
-	// 				value: 834.036
-	// 			  }, {
-	// 				name: 'Denmark',
-	// 				value: 5550.959
-	// 			  }, {
-	// 				name: 'Dominican Republic',
-	// 				value: 10016.797
-	// 			  }, {
-	// 				name: 'Algeria',
-	// 				value: 37062.82
-	// 			  }, {
-	// 				name: 'Ecuador',
-	// 				value: 15001.072
-	// 			  }, {
-	// 				name: 'Egypt',
-	// 				value: 78075.705
-	// 			  }, {
-	// 				name: 'Eritrea',
-	// 				value: 5741.159
-	// 			  }, {
-	// 				name: 'Spain',
-	// 				value: 46182.038
-	// 			  }, {
-	// 				name: 'Estonia',
-	// 				value: 1298.533
-	// 			  }, {
-	// 				name: 'Ethiopia',
-	// 				value: 87095.281
-	// 			  }, {
-	// 				name: 'Finland',
-	// 				value: 5367.693
-	// 			  }, {
-	// 				name: 'Fiji',
-	// 				value: 860.559
-	// 			  }, {
-	// 				name: 'Falkland Islands',
-	// 				value: 49.581
-	// 			  }, {
-	// 				name: 'France',
-	// 				value: 63230.866
-	// 			  }, {
-	// 				name: 'Gabon',
-	// 				value: 1556.222
-	// 			  }, {
-	// 				name: 'United Kingdom',
-	// 				value: 62066.35
-	// 			  }, {
-	// 				name: 'Georgia',
-	// 				value: 4388.674
-	// 			  }, {
-	// 				name: 'Ghana',
-	// 				value: 24262.901
-	// 			  }, {
-	// 				name: 'Guinea',
-	// 				value: 10876.033
-	// 			  }, {
-	// 				name: 'Gambia',
-	// 				value: 1680.64
-	// 			  }, {
-	// 				name: 'Guinea Bissau',
-	// 				value: 10876.033
-	// 			  }, {
-	// 				name: 'Equatorial Guinea',
-	// 				value: 696.167
-	// 			  }, {
-	// 				name: 'Greece',
-	// 				value: 11109.999
-	// 			  }, {
-	// 				name: 'Greenland',
-	// 				value: 56.546
-	// 			  }, {
-	// 				name: 'Guatemala',
-	// 				value: 14341.576
-	// 			  }, {
-	// 				name: 'French Guiana',
-	// 				value: 231.169
-	// 			  }, {
-	// 				name: 'Guyana',
-	// 				value: 786.126
-	// 			  }, {
-	// 				name: 'Honduras',
-	// 				value: 7621.204
-	// 			  }, {
-	// 				name: 'Croatia',
-	// 				value: 4338.027
-	// 			  }, {
-	// 				name: 'Haiti',
-	// 				value: 9896.4
-	// 			  }, {
-	// 				name: 'Hungary',
-	// 				value: 10014.633
-	// 			  }, {
-	// 				name: 'Indonesia',
-	// 				value: 240676.485
-	// 			  }, {
-	// 				name: 'India',
-	// 				value: 1205624.648
-	// 			  }, {
-	// 				name: 'Ireland',
-	// 				value: 4467.561
-	// 			  }, {
-	// 				name: 'Iran',
-	// 				value: 240676.485
-	// 			  }, {
-	// 				name: 'Iraq',
-	// 				value: 30962.38
-	// 			  }, {
-	// 				name: 'Iceland',
-	// 				value: 318.042
-	// 			  }, {
-	// 				name: 'Israel',
-	// 				value: 7420.368
-	// 			  }, {
-	// 				name: 'Italy',
-	// 				value: 60508.978
-	// 			  }, {
-	// 				name: 'Jamaica',
-	// 				value: 2741.485
-	// 			  }, {
-	// 				name: 'Jordan',
-	// 				value: 6454.554
-	// 			  }, {
-	// 				name: 'Japan',
-	// 				value: 127352.833
-	// 			  }, {
-	// 				name: 'Kazakhstan',
-	// 				value: 15921.127
-	// 			  }, {
-	// 				name: 'Kenya',
-	// 				value: 40909.194
-	// 			  }, {
-	// 				name: 'Kyrgyzstan',
-	// 				value: 5334.223
-	// 			  }, {
-	// 				name: 'Cambodia',
-	// 				value: 14364.931
-	// 			  }, {
-	// 				name: 'South Korea',
-	// 				value: 51452.352
-	// 			  }, {
-	// 				name: 'Kosovo',
-	// 				value: 97.743
-	// 			  }, {
-	// 				name: 'Kuwait',
-	// 				value: 2991.58
-	// 			  }, {
-	// 				name: 'Laos',
-	// 				value: 6395.713
-	// 			  }, {
-	// 				name: 'Lebanon',
-	// 				value: 4341.092
-	// 			  }, {
-	// 				name: 'Liberia',
-	// 				value: 3957.99
-	// 			  }, {
-	// 				name: 'Libya',
-	// 				value: 6040.612
-	// 			  }, {
-	// 				name: 'Sri Lanka',
-	// 				value: 20758.779
-	// 			  }, {
-	// 				name: 'Lesotho',
-	// 				value: 2008.921
-	// 			  }, {
-	// 				name: 'Lithuania',
-	// 				value: 3068.457
-	// 			  }, {
-	// 				name: 'Luxembourg',
-	// 				value: 507.885
-	// 			  }, {
-	// 				name: 'Latvia',
-	// 				value: 2090.519
-	// 			  }, {
-	// 				name: 'Morocco',
-	// 				value: 31642.36
-	// 			  }, {
-	// 				name: 'Moldova',
-	// 				value: 103.619
-	// 			  }, {
-	// 				name: 'Madagascar',
-	// 				value: 21079.532
-	// 			  }, {
-	// 				name: 'Mexico',
-	// 				value: 117886.404
-	// 			  }, {
-	// 				name: 'Macedonia',
-	// 				value: 507.885
-	// 			  }, {
-	// 				name: 'Mali',
-	// 				value: 13985.961
-	// 			  }, {
-	// 				name: 'Myanmar',
-	// 				value: 51931.231
-	// 			  }, {
-	// 				name: 'Montenegro',
-	// 				value: 620.078
-	// 			  }, {
-	// 				name: 'Mongolia',
-	// 				value: 2712.738
-	// 			  }, {
-	// 				name: 'Mozambique',
-	// 				value: 23967.265
-	// 			  }, {
-	// 				name: 'Mauritania',
-	// 				value: 3609.42
-	// 			  }, {
-	// 				name: 'Malawi',
-	// 				value: 15013.694
-	// 			  }, {
-	// 				name: 'Malaysia',
-	// 				value: 28275.835
-	// 			  }, {
-	// 				name: 'Namibia',
-	// 				value: 2178.967
-	// 			  }, {
-	// 				name: 'New Caledonia',
-	// 				value: 246.379
-	// 			  }, {
-	// 				name: 'Niger',
-	// 				value: 15893.746
-	// 			  }, {
-	// 				name: 'Nigeria',
-	// 				value: 159707.78
-	// 			  }, {
-	// 				name: 'Nicaragua',
-	// 				value: 5822.209
-	// 			  }, {
-	// 				name: 'Netherlands',
-	// 				value: 16615.243
-	// 			  }, {
-	// 				name: 'Norway',
-	// 				value: 4891.251
-	// 			  }, {
-	// 				name: 'Nepal',
-	// 				value: 26846.016
-	// 			  }, {
-	// 				name: 'New Zealand',
-	// 				value: 4368.136
-	// 			  }, {
-	// 				name: 'Oman',
-	// 				value: 2802.768
-	// 			  }, {
-	// 				name: 'Pakistan',
-	// 				value: 173149.306
-	// 			  }, {
-	// 				name: 'Panama',
-	// 				value: 3678.128
-	// 			  }, {
-	// 				name: 'Peru',
-	// 				value: 29262.83
-	// 			  }, {
-	// 				name: 'Philippines',
-	// 				value: 93444.322
-	// 			  }, {
-	// 				name: 'Papua New Guinea',
-	// 				value: 6858.945
-	// 			  }, {
-	// 				name: 'Poland',
-	// 				value: 38198.754
-	// 			  }, {
-	// 				name: 'Puerto Rico',
-	// 				value: 3709.671
-	// 			  }, {
-	// 				name: 'North Korea',
-	// 				value: 1.468
-	// 			  }, {
-	// 				name: 'Portugal',
-	// 				value: 10589.792
-	// 			  }, {
-	// 				name: 'Paraguay',
-	// 				value: 6459.721
-	// 			  }, {
-	// 				name: 'Qatar',
-	// 				value: 1749.713
-	// 			  }, {
-	// 				name: 'Romania',
-	// 				value: 21861.476
-	// 			  }, {
-	// 				name: 'Russia',
-	// 				value: 21861.476
-	// 			  }, {
-	// 				name: 'Rwanda',
-	// 				value: 10836.732
-	// 			  }, {
-	// 				name: 'Western Sahara',
-	// 				value: 514.648
-	// 			  }, {
-	// 				name: 'Saudi Arabia',
-	// 				value: 27258.387
-	// 			  }, {
-	// 				name: 'Sudan',
-	// 				value: 35652.002
-	// 			  }, {
-	// 				name: 'South Sudan',
-	// 				value: 9940.929
-	// 			  }, {
-	// 				name: 'Senegal',
-	// 				value: 12950.564
-	// 			  }, {
-	// 				name: 'Solomon Islands',
-	// 				value: 526.447
-	// 			  }, {
-	// 				name: 'Sierra Leone',
-	// 				value: 5751.976
-	// 			  }, {
-	// 				name: 'El Salvador',
-	// 				value: 6218.195
-	// 			  }, {
-	// 				name: 'Somaliland',
-	// 				value: 9636.173
-	// 			  }, {
-	// 				name: 'Somalia',
-	// 				value: 9636.173
-	// 			  }, {
-	// 				name: 'Republic of Serbia',
-	// 				value: 3573.024
-	// 			  }, {
-	// 				name: 'Suriname',
-	// 				value: 524.96
-	// 			  }, {
-	// 				name: 'Slovakia',
-	// 				value: 5433.437
-	// 			  }, {
-	// 				name: 'Slovenia',
-	// 				value: 2054.232
-	// 			  }, {
-	// 				name: 'Sweden',
-	// 				value: 9382.297
-	// 			  }, {
-	// 				name: 'Swaziland',
-	// 				value: 1193.148
-	// 			  }, {
-	// 				name: 'Syria',
-	// 				value: 7830.534
-	// 			  }, {
-	// 				name: 'Chad',
-	// 				value: 11720.781
-	// 			  }, {
-	// 				name: 'Togo',
-	// 				value: 6306.014
-	// 			  }, {
-	// 				name: 'Thailand',
-	// 				value: 66402.316
-	// 			  }, {
-	// 				name: 'Tajikistan',
-	// 				value: 7627.326
-	// 			  }, {
-	// 				name: 'Turkmenistan',
-	// 				value: 5041.995
-	// 			  }, {
-	// 				name: 'East Timor',
-	// 				value: 10016.797
-	// 			  }, {
-	// 				name: 'Trinidad and Tobago',
-	// 				value: 1328.095
-	// 			  }, {
-	// 				name: 'Tunisia',
-	// 				value: 10631.83
-	// 			  }, {
-	// 				name: 'Turkey',
-	// 				value: 72137.546
-	// 			  }, {
-	// 				name: 'United Republic of Tanzania',
-	// 				value: 44973.33
-	// 			  }, {
-	// 				name: 'Uganda',
-	// 				value: 33987.213
-	// 			  }, {
-	// 				name: 'Ukraine',
-	// 				value: 46050.22
-	// 			  }, {
-	// 				name: 'Uruguay',
-	// 				value: 3371.982
-	// 			  }, {
-	// 				name: 'United States of America',
-	// 				value: 312247.116
-	// 			  }, {
-	// 				name: 'Uzbekistan',
-	// 				value: 27769.27
-	// 			  }, {
-	// 				name: 'Venezuela',
-	// 				value: 236.299
-	// 			  }, {
-	// 				name: 'Vietnam',
-	// 				value: 89047.397
-	// 			  }, {
-	// 				name: 'Vanuatu',
-	// 				value: 236.299
-	// 			  }, {
-	// 				name: 'West Bank',
-	// 				value: 13.565
-	// 			  }, {
-	// 				name: 'Yemen',
-	// 				value: 22763.008
-	// 			  }, {
-	// 				name: 'South Africa',
-	// 				value: 51452.352
-	// 			  }, {
-	// 				name: 'Zambia',
-	// 				value: 13216.985
-	// 			  }, {
-	// 				name: 'Zimbabwe',
-	// 				value: 13076.978
-	// 			  }]
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	// echart Map 3
-
-	// 	if ($('#echart_world_map_3').length ){
-
-	// 		  var echartMap2 = echarts.init(document.getElementById('echart_world_map_3'), theme);
-
-
-	// 		  echartMap2.setOption({
-	// 			title: {
-	// 			  text: 'World Population (2010)',
-	// 			  subtext: 'from United Nations, Total population, both sexes combined, as of 1 July (thousands)',
-	// 			  x: 'center',
-	// 			  y: 'top'
-	// 			},
-	// 			tooltip: {
-	// 			  trigger: 'item',
-	// 			  formatter: function(params) {
-	// 				var value = (params.value + '').split('.');
-	// 				value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + '.' + value[1];
-	// 				return params.seriesName + '<br/>' + params.name + ' : ' + value;
-	// 			  }
-	// 			},
-	// 			toolbox: {
-	// 			  show: true,
-	// 			  orient: 'vertical',
-	// 			  x: 'right',
-	// 			  y: 'center',
-	// 			  feature: {
-	// 				mark: {
-	// 				  show: true
-	// 				},
-	// 				dataView: {
-	// 				  show: true,
-	// 				  title: "Text View",
-	// 				  lang: [
-	// 					"Text View",
-	// 					"Close",
-	// 					"Refresh",
-	// 				  ],
-	// 				  readOnly: false
-	// 				},
-	// 				restore: {
-	// 				  show: true,
-	// 				  title: "Restore"
-	// 				},
-	// 				saveAsImage: {
-	// 				  show: true,
-	// 				  title: "Save Image"
-	// 				}
-	// 			  }
-	// 			},
-	// 			dataRange: {
-	// 			  min: 0,
-	// 			  max: 1000000,
-	// 			  text: ['High', 'Low'],
-	// 			  realtime: false,
-	// 			  calculable: true,
-	// 			  color: ['#087E65', '#26B99A', '#CBEAE3']
-	// 			},
-	// 			series: [{
-	// 			  name: 'World Population (2010)',
-	// 			  type: 'map',
-	// 			  mapType: 'world',
-	// 			  roam: false,
-	// 			  mapLocation: {
-	// 				y: 60
-	// 			  },
-	// 			  itemStyle: {
-	// 				emphasis: {
-	// 				  label: {
-	// 					show: true
-	// 				  }
-	// 				}
-	// 			  },
-	// 			  data: [{
-	// 				name: 'Afghanistan',
-	// 				value: 28397.812
-	// 			  }, {
-	// 				name: 'Angola',
-	// 				value: 19549.124
-	// 			  }, {
-	// 				name: 'Albania',
-	// 				value: 3150.143
-	// 			  }, {
-	// 				name: 'United Arab Emirates',
-	// 				value: 8441.537
-	// 			  }, {
-	// 				name: 'Argentina',
-	// 				value: 40374.224
-	// 			  }, {
-	// 				name: 'Armenia',
-	// 				value: 2963.496
-	// 			  }, {
-	// 				name: 'French Southern and Antarctic Lands',
-	// 				value: 268.065
-	// 			  }, {
-	// 				name: 'Australia',
-	// 				value: 22404.488
-	// 			  }, {
-	// 				name: 'Austria',
-	// 				value: 8401.924
-	// 			  }, {
-	// 				name: 'Azerbaijan',
-	// 				value: 9094.718
-	// 			  }, {
-	// 				name: 'Burundi',
-	// 				value: 9232.753
-	// 			  }, {
-	// 				name: 'Belgium',
-	// 				value: 10941.288
-	// 			  }, {
-	// 				name: 'Benin',
-	// 				value: 9509.798
-	// 			  }, {
-	// 				name: 'Burkina Faso',
-	// 				value: 15540.284
-	// 			  }, {
-	// 				name: 'Bangladesh',
-	// 				value: 151125.475
-	// 			  }, {
-	// 				name: 'Bulgaria',
-	// 				value: 7389.175
-	// 			  }, {
-	// 				name: 'The Bahamas',
-	// 				value: 66402.316
-	// 			  }, {
-	// 				name: 'Bosnia and Herzegovina',
-	// 				value: 3845.929
-	// 			  }, {
-	// 				name: 'Belarus',
-	// 				value: 9491.07
-	// 			  }, {
-	// 				name: 'Belize',
-	// 				value: 308.595
-	// 			  }, {
-	// 				name: 'Bermuda',
-	// 				value: 64.951
-	// 			  }, {
-	// 				name: 'Bolivia',
-	// 				value: 716.939
-	// 			  }, {
-	// 				name: 'Brazil',
-	// 				value: 195210.154
-	// 			  }, {
-	// 				name: 'Brunei',
-	// 				value: 27.223
-	// 			  }, {
-	// 				name: 'Bhutan',
-	// 				value: 716.939
-	// 			  }, {
-	// 				name: 'Botswana',
-	// 				value: 1969.341
-	// 			  }, {
-	// 				name: 'Central African Republic',
-	// 				value: 4349.921
-	// 			  }, {
-	// 				name: 'Canada',
-	// 				value: 34126.24
-	// 			  }, {
-	// 				name: 'Switzerland',
-	// 				value: 7830.534
-	// 			  }, {
-	// 				name: 'Chile',
-	// 				value: 17150.76
-	// 			  }, {
-	// 				name: 'China',
-	// 				value: 1359821.465
-	// 			  }, {
-	// 				name: 'Ivory Coast',
-	// 				value: 60508.978
-	// 			  }, {
-	// 				name: 'Cameroon',
-	// 				value: 20624.343
-	// 			  }, {
-	// 				name: 'Democratic Republic of the Congo',
-	// 				value: 62191.161
-	// 			  }, {
-	// 				name: 'Republic of the Congo',
-	// 				value: 3573.024
-	// 			  }, {
-	// 				name: 'Colombia',
-	// 				value: 46444.798
-	// 			  }, {
-	// 				name: 'Costa Rica',
-	// 				value: 4669.685
-	// 			  }, {
-	// 				name: 'Cuba',
-	// 				value: 11281.768
-	// 			  }, {
-	// 				name: 'Northern Cyprus',
-	// 				value: 1.468
-	// 			  }, {
-	// 				name: 'Cyprus',
-	// 				value: 1103.685
-	// 			  }, {
-	// 				name: 'Czech Republic',
-	// 				value: 10553.701
-	// 			  }, {
-	// 				name: 'Germany',
-	// 				value: 83017.404
-	// 			  }, {
-	// 				name: 'Djibouti',
-	// 				value: 834.036
-	// 			  }, {
-	// 				name: 'Denmark',
-	// 				value: 5550.959
-	// 			  }, {
-	// 				name: 'Dominican Republic',
-	// 				value: 10016.797
-	// 			  }, {
-	// 				name: 'Algeria',
-	// 				value: 37062.82
-	// 			  }, {
-	// 				name: 'Ecuador',
-	// 				value: 15001.072
-	// 			  }, {
-	// 				name: 'Egypt',
-	// 				value: 78075.705
-	// 			  }, {
-	// 				name: 'Eritrea',
-	// 				value: 5741.159
-	// 			  }, {
-	// 				name: 'Spain',
-	// 				value: 46182.038
-	// 			  }, {
-	// 				name: 'Estonia',
-	// 				value: 1298.533
-	// 			  }, {
-	// 				name: 'Ethiopia',
-	// 				value: 87095.281
-	// 			  }, {
-	// 				name: 'Finland',
-	// 				value: 5367.693
-	// 			  }, {
-	// 				name: 'Fiji',
-	// 				value: 860.559
-	// 			  }, {
-	// 				name: 'Falkland Islands',
-	// 				value: 49.581
-	// 			  }, {
-	// 				name: 'France',
-	// 				value: 63230.866
-	// 			  }, {
-	// 				name: 'Gabon',
-	// 				value: 1556.222
-	// 			  }, {
-	// 				name: 'United Kingdom',
-	// 				value: 62066.35
-	// 			  }, {
-	// 				name: 'Georgia',
-	// 				value: 4388.674
-	// 			  }, {
-	// 				name: 'Ghana',
-	// 				value: 24262.901
-	// 			  }, {
-	// 				name: 'Guinea',
-	// 				value: 10876.033
-	// 			  }, {
-	// 				name: 'Gambia',
-	// 				value: 1680.64
-	// 			  }, {
-	// 				name: 'Guinea Bissau',
-	// 				value: 10876.033
-	// 			  }, {
-	// 				name: 'Equatorial Guinea',
-	// 				value: 696.167
-	// 			  }, {
-	// 				name: 'Greece',
-	// 				value: 11109.999
-	// 			  }, {
-	// 				name: 'Greenland',
-	// 				value: 56.546
-	// 			  }, {
-	// 				name: 'Guatemala',
-	// 				value: 14341.576
-	// 			  }, {
-	// 				name: 'French Guiana',
-	// 				value: 231.169
-	// 			  }, {
-	// 				name: 'Guyana',
-	// 				value: 786.126
-	// 			  }, {
-	// 				name: 'Honduras',
-	// 				value: 7621.204
-	// 			  }, {
-	// 				name: 'Croatia',
-	// 				value: 4338.027
-	// 			  }, {
-	// 				name: 'Haiti',
-	// 				value: 9896.4
-	// 			  }, {
-	// 				name: 'Hungary',
-	// 				value: 10014.633
-	// 			  }, {
-	// 				name: 'Indonesia',
-	// 				value: 240676.485
-	// 			  }, {
-	// 				name: 'India',
-	// 				value: 1205624.648
-	// 			  }, {
-	// 				name: 'Ireland',
-	// 				value: 4467.561
-	// 			  }, {
-	// 				name: 'Iran',
-	// 				value: 240676.485
-	// 			  }, {
-	// 				name: 'Iraq',
-	// 				value: 30962.38
-	// 			  }, {
-	// 				name: 'Iceland',
-	// 				value: 318.042
-	// 			  }, {
-	// 				name: 'Israel',
-	// 				value: 7420.368
-	// 			  }, {
-	// 				name: 'Italy',
-	// 				value: 60508.978
-	// 			  }, {
-	// 				name: 'Jamaica',
-	// 				value: 2741.485
-	// 			  }, {
-	// 				name: 'Jordan',
-	// 				value: 6454.554
-	// 			  }, {
-	// 				name: 'Japan',
-	// 				value: 127352.833
-	// 			  }, {
-	// 				name: 'Kazakhstan',
-	// 				value: 15921.127
-	// 			  }, {
-	// 				name: 'Kenya',
-	// 				value: 40909.194
-	// 			  }, {
-	// 				name: 'Kyrgyzstan',
-	// 				value: 5334.223
-	// 			  }, {
-	// 				name: 'Cambodia',
-	// 				value: 14364.931
-	// 			  }, {
-	// 				name: 'South Korea',
-	// 				value: 51452.352
-	// 			  }, {
-	// 				name: 'Kosovo',
-	// 				value: 97.743
-	// 			  }, {
-	// 				name: 'Kuwait',
-	// 				value: 2991.58
-	// 			  }, {
-	// 				name: 'Laos',
-	// 				value: 6395.713
-	// 			  }, {
-	// 				name: 'Lebanon',
-	// 				value: 4341.092
-	// 			  }, {
-	// 				name: 'Liberia',
-	// 				value: 3957.99
-	// 			  }, {
-	// 				name: 'Libya',
-	// 				value: 6040.612
-	// 			  }, {
-	// 				name: 'Sri Lanka',
-	// 				value: 20758.779
-	// 			  }, {
-	// 				name: 'Lesotho',
-	// 				value: 2008.921
-	// 			  }, {
-	// 				name: 'Lithuania',
-	// 				value: 3068.457
-	// 			  }, {
-	// 				name: 'Luxembourg',
-	// 				value: 507.885
-	// 			  }, {
-	// 				name: 'Latvia',
-	// 				value: 2090.519
-	// 			  }, {
-	// 				name: 'Morocco',
-	// 				value: 31642.36
-	// 			  }, {
-	// 				name: 'Moldova',
-	// 				value: 103.619
-	// 			  }, {
-	// 				name: 'Madagascar',
-	// 				value: 21079.532
-	// 			  }, {
-	// 				name: 'Mexico',
-	// 				value: 117886.404
-	// 			  }, {
-	// 				name: 'Macedonia',
-	// 				value: 507.885
-	// 			  }, {
-	// 				name: 'Mali',
-	// 				value: 13985.961
-	// 			  }, {
-	// 				name: 'Myanmar',
-	// 				value: 51931.231
-	// 			  }, {
-	// 				name: 'Montenegro',
-	// 				value: 620.078
-	// 			  }, {
-	// 				name: 'Mongolia',
-	// 				value: 2712.738
-	// 			  }, {
-	// 				name: 'Mozambique',
-	// 				value: 23967.265
-	// 			  }, {
-	// 				name: 'Mauritania',
-	// 				value: 3609.42
-	// 			  }, {
-	// 				name: 'Malawi',
-	// 				value: 15013.694
-	// 			  }, {
-	// 				name: 'Malaysia',
-	// 				value: 28275.835
-	// 			  }, {
-	// 				name: 'Namibia',
-	// 				value: 2178.967
-	// 			  }, {
-	// 				name: 'New Caledonia',
-	// 				value: 246.379
-	// 			  }, {
-	// 				name: 'Niger',
-	// 				value: 15893.746
-	// 			  }, {
-	// 				name: 'Nigeria',
-	// 				value: 159707.78
-	// 			  }, {
-	// 				name: 'Nicaragua',
-	// 				value: 5822.209
-	// 			  }, {
-	// 				name: 'Netherlands',
-	// 				value: 16615.243
-	// 			  }, {
-	// 				name: 'Norway',
-	// 				value: 4891.251
-	// 			  }, {
-	// 				name: 'Nepal',
-	// 				value: 26846.016
-	// 			  }, {
-	// 				name: 'New Zealand',
-	// 				value: 4368.136
-	// 			  }, {
-	// 				name: 'Oman',
-	// 				value: 2802.768
-	// 			  }, {
-	// 				name: 'Pakistan',
-	// 				value: 173149.306
-	// 			  }, {
-	// 				name: 'Panama',
-	// 				value: 3678.128
-	// 			  }, {
-	// 				name: 'Peru',
-	// 				value: 29262.83
-	// 			  }, {
-	// 				name: 'Philippines',
-	// 				value: 93444.322
-	// 			  }, {
-	// 				name: 'Papua New Guinea',
-	// 				value: 6858.945
-	// 			  }, {
-	// 				name: 'Poland',
-	// 				value: 38198.754
-	// 			  }, {
-	// 				name: 'Puerto Rico',
-	// 				value: 3709.671
-	// 			  }, {
-	// 				name: 'North Korea',
-	// 				value: 1.468
-	// 			  }, {
-	// 				name: 'Portugal',
-	// 				value: 10589.792
-	// 			  }, {
-	// 				name: 'Paraguay',
-	// 				value: 6459.721
-	// 			  }, {
-	// 				name: 'Qatar',
-	// 				value: 1749.713
-	// 			  }, {
-	// 				name: 'Romania',
-	// 				value: 21861.476
-	// 			  }, {
-	// 				name: 'Russia',
-	// 				value: 21861.476
-	// 			  }, {
-	// 				name: 'Rwanda',
-	// 				value: 10836.732
-	// 			  }, {
-	// 				name: 'Western Sahara',
-	// 				value: 514.648
-	// 			  }, {
-	// 				name: 'Saudi Arabia',
-	// 				value: 27258.387
-	// 			  }, {
-	// 				name: 'Sudan',
-	// 				value: 35652.002
-	// 			  }, {
-	// 				name: 'South Sudan',
-	// 				value: 9940.929
-	// 			  }, {
-	// 				name: 'Senegal',
-	// 				value: 12950.564
-	// 			  }, {
-	// 				name: 'Solomon Islands',
-	// 				value: 526.447
-	// 			  }, {
-	// 				name: 'Sierra Leone',
-	// 				value: 5751.976
-	// 			  }, {
-	// 				name: 'El Salvador',
-	// 				value: 6218.195
-	// 			  }, {
-	// 				name: 'Somaliland',
-	// 				value: 9636.173
-	// 			  }, {
-	// 				name: 'Somalia',
-	// 				value: 9636.173
-	// 			  }, {
-	// 				name: 'Republic of Serbia',
-	// 				value: 3573.024
-	// 			  }, {
-	// 				name: 'Suriname',
-	// 				value: 524.96
-	// 			  }, {
-	// 				name: 'Slovakia',
-	// 				value: 5433.437
-	// 			  }, {
-	// 				name: 'Slovenia',
-	// 				value: 2054.232
-	// 			  }, {
-	// 				name: 'Sweden',
-	// 				value: 9382.297
-	// 			  }, {
-	// 				name: 'Swaziland',
-	// 				value: 1193.148
-	// 			  }, {
-	// 				name: 'Syria',
-	// 				value: 7830.534
-	// 			  }, {
-	// 				name: 'Chad',
-	// 				value: 11720.781
-	// 			  }, {
-	// 				name: 'Togo',
-	// 				value: 6306.014
-	// 			  }, {
-	// 				name: 'Thailand',
-	// 				value: 66402.316
-	// 			  }, {
-	// 				name: 'Tajikistan',
-	// 				value: 7627.326
-	// 			  }, {
-	// 				name: 'Turkmenistan',
-	// 				value: 5041.995
-	// 			  }, {
-	// 				name: 'East Timor',
-	// 				value: 10016.797
-	// 			  }, {
-	// 				name: 'Trinidad and Tobago',
-	// 				value: 1328.095
-	// 			  }, {
-	// 				name: 'Tunisia',
-	// 				value: 10631.83
-	// 			  }, {
-	// 				name: 'Turkey',
-	// 				value: 72137.546
-	// 			  }, {
-	// 				name: 'United Republic of Tanzania',
-	// 				value: 44973.33
-	// 			  }, {
-	// 				name: 'Uganda',
-	// 				value: 33987.213
-	// 			  }, {
-	// 				name: 'Ukraine',
-	// 				value: 46050.22
-	// 			  }, {
-	// 				name: 'Uruguay',
-	// 				value: 3371.982
-	// 			  }, {
-	// 				name: 'United States of America',
-	// 				value: 312247.116
-	// 			  }, {
-	// 				name: 'Uzbekistan',
-	// 				value: 27769.27
-	// 			  }, {
-	// 				name: 'Venezuela',
-	// 				value: 236.299
-	// 			  }, {
-	// 				name: 'Vietnam',
-	// 				value: 89047.397
-	// 			  }, {
-	// 				name: 'Vanuatu',
-	// 				value: 236.299
-	// 			  }, {
-	// 				name: 'West Bank',
-	// 				value: 13.565
-	// 			  }, {
-	// 				name: 'Yemen',
-	// 				value: 22763.008
-	// 			  }, {
-	// 				name: 'South Africa',
-	// 				value: 51452.352
-	// 			  }, {
-	// 				name: 'Zambia',
-	// 				value: 13216.985
-	// 			  }, {
-	// 				name: 'Zimbabwe',
-	// 				value: 13076.978
-	// 			  }]
-	// 			}]
-	// 		  });
-
-	// 	}
-
-	// 	// echart Map and Pie
-
-	// 	if ($('#echart_map_4').length ){
-
-	// 	  var echartMap = echarts.init(document.getElementById('echart_map_4'), theme);
-
-
-	// 	  echartMap.setOption({
-	// 		title : {
-	// 		        text: '2011全国GDP（亿元）',
-	// 		        subtext: '数据来自国家统计局'
-	// 		    },
-	// 		    tooltip : {
-	// 		        trigger: 'item'
-	// 		    },
-	// 		    legend: {
-	// 		        x:'right',
-	// 		        selectedMode:false,
-	// 		        data:['北京','上海','广东']
-	// 		    },
-	// 		    dataRange: {
-	// 		        orient: 'horizontal',
-	// 		        min: 0,
-	// 		        max: 55000,
-	// 		        text:['高','低'],           // 文本，默认为数值文本
-	// 		        splitNumber:0
-	// 		    },
-	// 		    toolbox: {
-	// 		        show : true,
-	// 		        orient: 'vertical',
-	// 		        x:'right',
-	// 		        y:'center',
-	// 		        feature : {
-	// 		            mark : {show: true},
-	// 		            dataView : {show: true, readOnly: false}
-	// 		        }
-	// 		    },
-	// 		    series : [
-	// 		        {
-	// 		            name: '2011全国GDP分布',
-	// 		            type: 'map',
-	// 		            mapType: 'china',
-	// 		            mapLocation: {
-	// 		                x: 'left'
-	// 		            },
-	// 		            selectedMode : 'multiple',
-	// 		            itemStyle:{
-	// 		                normal:{label:{show:true}},
-	// 		                emphasis:{label:{show:true}}
-	// 		            },
-	// 		            data:[
-	// 		                {name:'西藏', value:605.83},
-	// 		                {name:'青海', value:1670.44},
-	// 		                {name:'宁夏', value:2102.21},
-	// 		                {name:'海南', value:2522.66},
-	// 		                {name:'甘肃', value:5020.37},
-	// 		                {name:'贵州', value:5701.84},
-	// 		                {name:'新疆', value:6610.05},
-	// 		                {name:'云南', value:8893.12},
-	// 		                {name:'重庆', value:10011.37},
-	// 		                {name:'吉林', value:10568.83},
-	// 		                {name:'山西', value:11237.55},
-	// 		                {name:'天津', value:11307.28},
-	// 		                {name:'江西', value:11702.82},
-	// 		                {name:'广西', value:11720.87},
-	// 		                {name:'陕西', value:12512.3},
-	// 		                {name:'黑龙江', value:12582},
-	// 		                {name:'内蒙古', value:14359.88},
-	// 		                {name:'安徽', value:15300.65},
-	// 		                {name:'北京', value:16251.93, selected:true},
-	// 		                {name:'福建', value:17560.18},
-	// 		                {name:'上海', value:19195.69, selected:true},
-	// 		                {name:'湖北', value:19632.26},
-	// 		                {name:'湖南', value:19669.56},
-	// 		                {name:'四川', value:21026.68},
-	// 		                {name:'辽宁', value:22226.7},
-	// 		                {name:'河北', value:24515.76},
-	// 		                {name:'河南', value:26931.03},
-	// 		                {name:'浙江', value:32318.85},
-	// 		                {name:'山东', value:45361.85},
-	// 		                {name:'江苏', value:49110.27},
-	// 		                {name:'广东', value:53210.28, selected:true}
-	// 		            ]
-	// 		        },
-	// 		        {
-	// 		            name:'2011全国GDP对比',
-	// 		            type:'pie',
-	// 		            roseType : 'area',
-	// 		            tooltip: {
-	// 		                trigger: 'item',
-	// 		                formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		            },
-	// 		            center: [document.getElementById('main').offsetWidth - 250, 225],
-	// 		            radius: [30, 120],
-	// 		            data:[
-	// 		                {name: '北京', value: 16251.93},
-	// 		                {name: '上海', value: 19195.69},
-	// 		                {name: '广东', value: 53210.28}
-	// 		            ]
-	// 		        }
-	// 		    ],
-	// 		    animation: false
-	// 	  });
-
-	// 	  var ecConfig = require('echarts/config');
-	// 	  myChart.on(ecConfig.EVENT.MAP_SELECTED, function (param){
-	// 	      var selected = param.selected;
-	// 	      var mapSeries = option.series[0];
-	// 	      var data = [];
-	// 	      var legendData = [];
-	// 	      var name;
-	// 	      for (var p = 0, len = mapSeries.data.length; p < len; p++) {
-	// 	          name = mapSeries.data[p].name;
-	// 	          //mapSeries.data[p].selected = selected[name];
-	// 	          if (selected[name]) {
-	// 	              data.push({
-	// 	                  name: name,
-	// 	                  value: mapSeries.data[p].value
-	// 	              });
-	// 	              legendData.push(name);
-	// 	          }
-	// 	      }
-	// 	      option.legend.data = legendData;
-	// 	      option.series[1].data = data;
-	// 	      myChart.setOption(option, true);
-	// 	  })
-
-	// 	}
-
-	// };
-
-	// function init_baseline() {
-
-	// 	if( typeof (echarts) === 'undefined'){
-	// 		return;
-	// 	}
-
-	// 	console.log('init_baseline');
-
-	// 	var humTooltipBar = function(params){
-	// 	    console.log(params)
-	// 	    params1 = params[0];
-	// 	    params2 = params[1];
-	// 	    var v1= params1.value;
-	// 	    var n1= params1.name;
-	// 	    var v2= params2.value;
-	// 	    var n2= params2.name;
-	// 	    var vN1; var vN2;
-	// 	    if(v1>=1000 && v1<1000000){
-	// 	    	vN1=((v1/1000).toFixed(2))+' K'
-	// 	        // return n1+' '+((v1/1000).toFixed(2))+' K'+'</br>'
-	// 	    }
-	// 	    if (v1>=1000000 && v1<1000000000) {
-	// 	    	vN1=((v1/1000000).toFixed(2))+' M'
-	// 	        // return n1+' '+((v1/1000000).toFixed(2))+' M'+'</br>'
-	// 	    }if (v1<1000){
-	// 	    	vN1=v1;
-	// 	        // return n1+' '+ v1+'</br>'
-	// 	    }
-
-	// 	    if(v2>=1000 && v2<1000000){
-	// 	    	vN2=((v2/1000).toFixed(2))+' K'
-	// 	        // return n2+' '+((v2/1000).toFixed(2))+' K'
-	// 	    }
-	// 	    if (v2>=1000000 && v2<1000000000) {
-	// 	    	vN2=((v2/1000000).toFixed(2))+' M'
-	// 	        // return n2+' '+((v2/1000000).toFixed(2))+' M'
-	// 	    }if (v2<1000){
-	// 	    	vN2=v2;
-	// 	        // return n2+' '+ v2
-	// 	    }
-	// 	    return (n1+' '+vN1+'</br>'+n2+' '+vN2)
-
-	// 	};
-
-	// 	var humanizeBar = function(params){
-	// 		console.log(params)
-
-	// 		var v= params.data;
-	// 		// var n= params.name;
-	// 		if(v>=1000 && v<1000000){
-	// 			return ((v/1000).toFixed(2))+' K'
-	// 		}
-	// 		else if (v>=1000000 && v<1000000000) {
-	// 			return ((v/1000000).toFixed(2))+' M'
-	// 		}else{
-	// 			return v
-	// 		}
-
-	// 	};
-
-	// 	var theme = {
-	// 		  color: [
-	// 			  // '#c3272b', '#c93756', '#8e44ad', '#317589', '#003171',
-	// 			  // rainbow
-	// 			  // '#800026', '#bd0026', '#e31a1c', '#fc4e2a',
-	// 			  // '#fd8d3c', '#feb24c', '#fed976', '#ffeda0'
-	// 			  //blue to light blue
-	// 			  // '#abd9e9', '#74add1',
-	// 			  // '#4575b4'
-
-	// 			  // '#84caec', '#5cbae5',
-	// 			  // '#27a3dd'
-
-	// 			  // '#c0392b',    '#e74c3c',    '#f39c12',
-	// 			  // '#f1c40f',    '#8e44ad',    '#9b59b6',
-	// 			  // '#ca2c68'    //'#ff6c5c',    '#ff7c6c'
-
-	// 			  // graphic flat ui color dark red to light
-	// 			  // '#870000',    '#a70c00',    '#b71c0c',
-	// 			  // '#c72c1c',    '#d73c2c',    '#e74c3c',
-	// 			  // '#f75c4c',    '#ff6c5c',    '#ff7c6c'
-
-	// 			  // '#f99494',    '#f66364',    '#f33334',
-	// 			  // '#dc0d0e',    '#b90c0d',    '#930a0a'
-
-	// 			  // sap
-	// 			  '#5cbae6',    '#b6d957',    '#fac364',
-	// 			  '#8cd3ff',    '#d998cb',    '#f2d249',
-	// 			  '#93b9c6',    '#ccc5a8',    '#52bacc',
-	// 			  '#dbdb46',    '#98aafb'
-
-	// 			  // colorbrewer
-	// 			  // red and yellow
-	// 			  // '#ffeda0',
-	// 			  // '#fed976',
-	// 			  // '#feb24c',
-	// 			  // '#fd8d3c',
-	// 			  // '#fc4e2a',
-	// 			  // '#e31a1c',
-	// 			  // '#bd0026',
-	// 			  // '#800026'
-
-	// 			  // red
-	// 			  // '#fee0d2',
-	// 			  // '#fcbba1',
-	// 			  // '#fc9272',
-	// 			  // '#fb6a4a',
-	// 			  // '#ef3b2c',
-	// 			  // '#cb181d',
-	// 			  // '#a50f15',
-	// 			  // '#67000d'
-
-	// 			  // red to gray
-	// 			  // '#b2182b',
-	// 			  // '#d6604d',
-	// 			  // '#f4a582',
-	// 			  // '#fddbc7',
-	// 			  // // '#ffffff',
-	// 			  // '#e0e0e0',
-	// 			  // '#bababa',
-	// 			  // '#878787',
-	// 			  // '#4d4d4d'
-
-	// 			  // red to green 6
-	// 			  // '#d73027',
-	// 			  // '#fc8d59',
-	// 			  // '#fee08b',
-	// 			  // '#d9ef8b',
-	// 			  // '#91cf60',
-	// 			  // '#1a9850'
-
-	// 			  // qualitative 12
-	// 			  // '#a6cee3',
-	// 			  // '#1f78b4',
-	// 			  // '#b2df8a',
-	// 			  // '#33a02c',
-	// 			  // '#fb9a99',
-	// 			  // '#e31a1c',
-	// 			  // '#fdbf6f',
-	// 			  // '#ff7f00',
-	// 			  // '#cab2d6',
-	// 			  // '#6a3d9a',
-	// 			  // '#ffff99',
-	// 			  // '#b15928'
-
-
-
-	// 			  // '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-	// 			  // '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-	// 		  ],
-
-	// 		  title: {
-	// 			  itemGap: 8,
-	// 			  textStyle: {
-	// 				  fontWeight: 'normal',
-	// 				  color: '#408829'
-	// 			  }
-	// 		  },
-
-	// 		  dataRange: {
-	// 			  color: ['#1f610a', '#97b58d']
-	// 		  },
-
-	// 		  toolbox: {
-	// 			  color: ['#408829', '#408829', '#408829', '#408829']
-	// 		  },
-
-	// 		  tooltip: {
-	// 			  backgroundColor: 'rgba(0,0,0,0.5)',
-	// 			  axisPointer: {
-	// 				  type: 'line',
-	// 				  lineStyle: {
-	// 					  color: '#408829',
-	// 					  type: 'dashed'
-	// 				  },
-	// 				  crossStyle: {
-	// 					  color: '#408829'
-	// 				  },
-	// 				  shadowStyle: {
-	// 					  color: 'rgba(200,200,200,0.3)'
-	// 				  }
-	// 			  }
-	// 		  },
-
-	// 		  dataZoom: {
-	// 			  dataBackgroundColor: '#eee',
-	// 			  fillerColor: 'rgba(64,136,41,0.2)',
-	// 			  handleColor: '#408829'
-	// 		  },
-	// 		  grid: {
-	// 			  borderWidth: 0
-	// 		  },
-
-	// 		  categoryAxis: {
-	// 			  axisLine: {
-	// 				  lineStyle: {
-	// 					  color: '#408829'
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  lineStyle: {
-	// 					  color: ['#eee']
-	// 				  }
-	// 			  }
-	// 		  },
-
-	// 		  valueAxis: {
-	// 			  axisLine: {
-	// 				  lineStyle: {
-	// 					  color: '#408829'
-	// 				  }
-	// 			  },
-	// 			  splitArea: {
-	// 				  show: true,
-	// 				  areaStyle: {
-	// 					  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  lineStyle: {
-	// 					  color: ['#eee']
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  timeline: {
-	// 			  lineStyle: {
-	// 				  color: '#408829'
-	// 			  },
-	// 			  controlStyle: {
-	// 				  normal: {color: '#408829'},
-	// 				  emphasis: {color: '#408829'}
-	// 			  }
-	// 		  },
-
-	// 		  k: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  color: '#68a54a',
-	// 					  color0: '#a9cba2',
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: '#408829',
-	// 						  color0: '#86b379'
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  map: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  areaStyle: {
-	// 						  color: '#ddd'
-	// 					  },
-	// 					  label: {
-	// 						  textStyle: {
-	// 							  color: '#c12e34'
-	// 						  }
-	// 					  }
-	// 				  },
-	// 				  emphasis: {
-	// 					  areaStyle: {
-	// 						  color: '#99d2dd'
-	// 					  },
-	// 					  label: {
-	// 						  textStyle: {
-	// 							  color: '#c12e34'
-	// 						  }
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  force: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  linkStyle: {
-	// 						  strokeColor: '#408829'
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  chord: {
-	// 			  padding: 4,
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: 'rgba(128, 128, 128, 0.5)'
-	// 					  },
-	// 					  chordStyle: {
-	// 						  lineStyle: {
-	// 							  width: 1,
-	// 							  color: 'rgba(128, 128, 128, 0.5)'
-	// 						  }
-	// 					  }
-	// 				  },
-	// 				  emphasis: {
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: 'rgba(128, 128, 128, 0.5)'
-	// 					  },
-	// 					  chordStyle: {
-	// 						  lineStyle: {
-	// 							  width: 1,
-	// 							  color: 'rgba(128, 128, 128, 0.5)'
-	// 						  }
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  gauge: {
-	// 			  startAngle: 225,
-	// 			  endAngle: -45,
-	// 			  axisLine: {
-	// 				  show: true,
-	// 				  lineStyle: {
-	// 					  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
-	// 					  width: 8
-	// 				  }
-	// 			  },
-	// 			  axisTick: {
-	// 				  splitNumber: 10,
-	// 				  length: 12,
-	// 				  lineStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  axisLabel: {
-	// 				  textStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  length: 18,
-	// 				  lineStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  pointer: {
-	// 				  length: '90%',
-	// 				  color: 'auto'
-	// 			  },
-	// 			  title: {
-	// 				  textStyle: {
-	// 					  color: '#333'
-	// 				  }
-	// 			  },
-	// 			  detail: {
-	// 				  textStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  textStyle: {
-	// 			  fontFamily: 'Arial, Verdana, sans-serif'
-	// 		  }
-	//   	};
-
-	// 	//echart Bar Horizontal
-
-	// 	if ($('#echart_bar_horizontal').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal'), theme, humTooltipBar, humanizeBar);
-
-	// 	  echartBar.setOption({
-	// 		// title: {
-	// 		//   text: 'Overview 1',
-	// 		//   subtext: 'Graph subtitle'
-	// 		// },
-	// 		tooltip: {
-	// 		  trigger: 'axis',
-	// 		  axisPointer:{
-	// 		  	type: 'shadow',
-	// 		  },
-	// 		  formatter: humTooltipBar
-	// 		},
-	// 		legend: {
-	// 		  x: 'left',
-	// 		  data: ['Population', 'Area (km2)']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 		  	magicType: {
-	// 	    	  show: true,
-	// 	    	  title: {
-	// 	    		line: 'Line',
-	// 	    		bar: 'Bar',
-	// 	    		stack: 'Stack',
-	// 	    		tiled: 'Tiled'
-	// 	    	  },
-	// 	    	  type: ['line', 'bar', 'stack', 'tiled']
-	// 	    	},
-	// 	    	restore: {
-	// 	    	  show: true,
-	// 	    	  title: "Restore"
-	// 	    	},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		grid: {
-	// 	        left: '0%',
-	// 	        right: '4%',
-	// 	        bottom: '8%',
-	// 	        containLabel: true
-	// 	    },
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01],
-	// 		  axisLabel:{
-	// 		  	rotate: 30
-	// 		  }
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Built-Up', 'Cultivated', 'Barrend/Rangeland']
-	// 		}],
-	// 		series: [{
-	// 		  name: 'Population',
-	// 		  type: 'bar',
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		formatter: humanizeBar,
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [12550853, 13002950, 5554167]
-	// 		}, {
-	// 		  name: 'Area (km2)',
-	// 		  type: 'bar',
-	// 		  label:{
-	// 		  	normal:{
-	// 		  		formatter: humanizeBar,
-	// 		  		position: 'right',
-	// 		  		show: true
-	// 		  	}
-	// 		  },
-	// 		  data: [3050.5, 76153.2, 568421.5]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Bar Horizontal 2
-
-	// 	if ($('#echart_bar_horizontal_2').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_2'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	// echart Bar Horizontal 3
-
-	// 	if ($('#echart_bar_horizontal_3').length ){
-
-	// 	  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_3'), theme);
-
-	// 	  echartBar.setOption({
-	// 		title: {
-	// 		  text: 'Bar Graph',
-	// 		  subtext: 'Graph subtitle'
-	// 		},
-	// 		tooltip: {
-	// 		  trigger: 'axis'
-	// 		},
-	// 		legend: {
-	// 		  x: 100,
-	// 		  data: ['2015', '2016']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		xAxis: [{
-	// 		  type: 'value',
-	// 		  boundaryGap: [0, 0.01]
-	// 		}],
-	// 		yAxis: [{
-	// 		  type: 'category',
-	// 		  data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun']
-	// 		}],
-	// 		series: [{
-	// 		  name: '2015',
-	// 		  type: 'bar',
-	// 		  data: [18203, 23489, 29034, 104970, 131744, 630230]
-	// 		}, {
-	// 		  name: '2016',
-	// 		  type: 'bar',
-	// 		  data: [19325, 23438, 31000, 121594, 134141, 681807]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// };
-
-	// function init_accsblty() {
-
-	// 	if( typeof (echarts) === 'undefined'){
-	// 		return;
-	// 	}
-
-	// 	console.log('init_accsblty');
-
-	// 	var humTooltipPie = function(params){
-	// 	    console.log(params)
-	// 	    var v= params.data.value;
-	// 	    var p= params.percent;
-	// 	    var n= params.data.name;
-	// 	    if(v>=1000 && v<1000000){
-	// 	        return n+'</br>'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 	    }
-	// 	    else if (v>=1000000 && v<1000000000) {
-	// 	        return n+'</br>'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 	    }else{
-	// 	        return n+ '</br>'+ v+ ' ('+ p+'%)'
-	// 	    }
-
-	// 	};
-
-	// 	var humanizePie = function(params){
-	// 		console.log(params)
-
-	// 		var v= params.data.value;
-	// 		var p= params.percent;
-	// 		var n= params.data.name;
-	// 		if(v>=1000 && v<1000000){
-	// 			return n+'\n'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 		}
-	// 		else if (v>=1000000 && v<1000000000) {
-	// 			return n+'\n'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 		}else{
-	// 			return n+ '\n'+ v+ ' ('+ p+'%)'
-	// 		}
-
-	// 	};
-
-	// 	var theme = {
-	// 		  color: [
-	// 			  // '#c3272b', '#c93756', '#8e44ad', '#317589', '#003171',
-	// 			  // rainbow
-	// 			  // '#800026', '#bd0026', '#e31a1c', '#fc4e2a',
-	// 			  // '#fd8d3c', '#feb24c', '#fed976', '#ffeda0'
-	// 			  //blue to light blue
-	// 			  // '#abd9e9', '#74add1',
-	// 			  // '#4575b4'
-
-	// 			  // '#84caec', '#5cbae5',
-	// 			  // '#27a3dd'
-
-	// 			  // '#c0392b',    '#e74c3c',    '#f39c12',
-	// 			  // '#f1c40f',    '#8e44ad',    '#9b59b6',
-	// 			  // '#ca2c68'    //'#ff6c5c',    '#ff7c6c'
-
-	// 			  // graphic flat ui color dark red to light
-	// 			  // '#870000',    '#a70c00',    '#b71c0c',
-	// 			  // '#c72c1c',    '#d73c2c',    '#e74c3c',
-	// 			  // '#f75c4c',    '#ff6c5c',    '#ff7c6c'
-
-	// 			  // '#f99494',    '#f66364',    '#f33334',
-	// 			  // '#dc0d0e',    '#b90c0d',    '#930a0a'
-
-	// 			  // sap
-	// 			  '#5cbae6',    '#b6d957',    '#fac364',
-	// 			  '#8cd3ff',    '#d998cb',    '#f2d249',
-	// 			  '#93b9c6',    '#ccc5a8',    '#52bacc',
-	// 			  '#dbdb46',    '#98aafb'
-
-	// 			  // colorbrewer
-	// 			  // red and yellow
-	// 			  // '#ffeda0',
-	// 			  // '#fed976',
-	// 			  // '#feb24c',
-	// 			  // '#fd8d3c',
-	// 			  // '#fc4e2a',
-	// 			  // '#e31a1c',
-	// 			  // '#bd0026',
-	// 			  // '#800026'
-
-	// 			  // red
-	// 			  // '#fee0d2',
-	// 			  // '#fcbba1',
-	// 			  // '#fc9272',
-	// 			  // '#fb6a4a',
-	// 			  // '#ef3b2c',
-	// 			  // '#cb181d',
-	// 			  // '#a50f15',
-	// 			  // '#67000d'
-
-	// 			  // red to gray
-	// 			  // '#b2182b',
-	// 			  // '#d6604d',
-	// 			  // '#f4a582',
-	// 			  // '#fddbc7',
-	// 			  // // '#ffffff',
-	// 			  // '#e0e0e0',
-	// 			  // '#bababa',
-	// 			  // '#878787',
-	// 			  // '#4d4d4d'
-
-	// 			  // red to green 6
-	// 			  // '#d73027',
-	// 			  // '#fc8d59',
-	// 			  // '#fee08b',
-	// 			  // '#d9ef8b',
-	// 			  // '#91cf60',
-	// 			  // '#1a9850'
-
-	// 			  // qualitative 12
-	// 			  // '#a6cee3',
-	// 			  // '#1f78b4',
-	// 			  // '#b2df8a',
-	// 			  // '#33a02c',
-	// 			  // '#fb9a99',
-	// 			  // '#e31a1c',
-	// 			  // '#fdbf6f',
-	// 			  // '#ff7f00',
-	// 			  // '#cab2d6',
-	// 			  // '#6a3d9a',
-	// 			  // '#ffff99',
-	// 			  // '#b15928'
-
-
-
-	// 			  // '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-	// 			  // '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-	// 		  ],
-
-	// 		  title: {
-	// 			  itemGap: 8,
-	// 			  textStyle: {
-	// 				  fontWeight: 'normal',
-	// 				  color: '#408829'
-	// 			  }
-	// 		  },
-
-	// 		  dataRange: {
-	// 			  color: ['#1f610a', '#97b58d']
-	// 		  },
-
-	// 		  toolbox: {
-	// 			  color: ['#408829', '#408829', '#408829', '#408829']
-	// 		  },
-
-	// 		  tooltip: {
-	// 			  backgroundColor: 'rgba(0,0,0,0.5)',
-	// 			  axisPointer: {
-	// 				  type: 'line',
-	// 				  lineStyle: {
-	// 					  color: '#408829',
-	// 					  type: 'dashed'
-	// 				  },
-	// 				  crossStyle: {
-	// 					  color: '#408829'
-	// 				  },
-	// 				  shadowStyle: {
-	// 					  color: 'rgba(200,200,200,0.3)'
-	// 				  }
-	// 			  }
-	// 		  },
-
-	// 		  dataZoom: {
-	// 			  dataBackgroundColor: '#eee',
-	// 			  fillerColor: 'rgba(64,136,41,0.2)',
-	// 			  handleColor: '#408829'
-	// 		  },
-	// 		  grid: {
-	// 			  borderWidth: 0
-	// 		  },
-
-	// 		  categoryAxis: {
-	// 			  axisLine: {
-	// 				  lineStyle: {
-	// 					  color: '#408829'
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  lineStyle: {
-	// 					  color: ['#eee']
-	// 				  }
-	// 			  }
-	// 		  },
-
-	// 		  valueAxis: {
-	// 			  axisLine: {
-	// 				  lineStyle: {
-	// 					  color: '#408829'
-	// 				  }
-	// 			  },
-	// 			  splitArea: {
-	// 				  show: true,
-	// 				  areaStyle: {
-	// 					  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  lineStyle: {
-	// 					  color: ['#eee']
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  timeline: {
-	// 			  lineStyle: {
-	// 				  color: '#408829'
-	// 			  },
-	// 			  controlStyle: {
-	// 				  normal: {color: '#408829'},
-	// 				  emphasis: {color: '#408829'}
-	// 			  }
-	// 		  },
-
-	// 		  k: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  color: '#68a54a',
-	// 					  color0: '#a9cba2',
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: '#408829',
-	// 						  color0: '#86b379'
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  map: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  areaStyle: {
-	// 						  color: '#ddd'
-	// 					  },
-	// 					  label: {
-	// 						  textStyle: {
-	// 							  color: '#c12e34'
-	// 						  }
-	// 					  }
-	// 				  },
-	// 				  emphasis: {
-	// 					  areaStyle: {
-	// 						  color: '#99d2dd'
-	// 					  },
-	// 					  label: {
-	// 						  textStyle: {
-	// 							  color: '#c12e34'
-	// 						  }
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  force: {
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  linkStyle: {
-	// 						  strokeColor: '#408829'
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  chord: {
-	// 			  padding: 4,
-	// 			  itemStyle: {
-	// 				  normal: {
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: 'rgba(128, 128, 128, 0.5)'
-	// 					  },
-	// 					  chordStyle: {
-	// 						  lineStyle: {
-	// 							  width: 1,
-	// 							  color: 'rgba(128, 128, 128, 0.5)'
-	// 						  }
-	// 					  }
-	// 				  },
-	// 				  emphasis: {
-	// 					  lineStyle: {
-	// 						  width: 1,
-	// 						  color: 'rgba(128, 128, 128, 0.5)'
-	// 					  },
-	// 					  chordStyle: {
-	// 						  lineStyle: {
-	// 							  width: 1,
-	// 							  color: 'rgba(128, 128, 128, 0.5)'
-	// 						  }
-	// 					  }
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  gauge: {
-	// 			  startAngle: 225,
-	// 			  endAngle: -45,
-	// 			  axisLine: {
-	// 				  show: true,
-	// 				  lineStyle: {
-	// 					  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
-	// 					  width: 8
-	// 				  }
-	// 			  },
-	// 			  axisTick: {
-	// 				  splitNumber: 10,
-	// 				  length: 12,
-	// 				  lineStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  axisLabel: {
-	// 				  textStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  splitLine: {
-	// 				  length: 18,
-	// 				  lineStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  },
-	// 			  pointer: {
-	// 				  length: '90%',
-	// 				  color: 'auto'
-	// 			  },
-	// 			  title: {
-	// 				  textStyle: {
-	// 					  color: '#333'
-	// 				  }
-	// 			  },
-	// 			  detail: {
-	// 				  textStyle: {
-	// 					  color: 'auto'
-	// 				  }
-	// 			  }
-	// 		  },
-	// 		  textStyle: {
-	// 			  fontFamily: 'Arial, Verdana, sans-serif'
-	// 		  }
-	//   	};
-
-	// 	//echart Donut
-
-	// 	if ($('#echart_donut').length ){
-
-	// 	  var echartDonut = echarts.init(document.getElementById('echart_donut'), theme, humTooltipPie, humanizePie);
-
-	// 	 //  var humTooltip = function(params){
-	// 		//     console.log(params)
-	// 		//     var v= params.data.value;
-	// 		//     var p= params.percent;
-	// 		//     var n= params.data.name;
-	// 		//     if(v>=1000 && v<1000000){
-	// 		//         return n+'</br>'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 		//     }
-	// 		//     else if (v>=1000000 && v<1000000000) {
-	// 		//         return n+'</br>'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 		//     }else{
-	// 		//         return n+ '</br>'+ v+ ' ('+ p+'%)'
-	// 		//     }
-
-	// 		// };
-
-	// 	  // var humanize = function(params){
-	// 	  // 				console.log(params)
-	// 			// 		var v= params.data.value;
-	// 			// 		var p= params.percent;
-	// 			// 		var n= params.data.name;
-	// 			// 		if(v>=1000 && v<1000000){
-	// 			// 			return n+'\n'+((v/1000).toFixed(2))+' K (' + p+'%)'
-	// 			// 		}
-	// 			// 		else if (v>=1000000 && v<1000000000) {
-	// 			// 			return n+'\n'+((v/1000000).toFixed(2))+' M (' + p+'%)'
-	// 			// 		}else{
-	// 			// 			return n+ '\n'+ v+ ' ('+ p+'%)'
-	// 			// 		}
-
-	// 			// 	};
-
-	// 	  echartDonut.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie
-	// 		},
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['With GSM Coverage','Without GSM Coverage']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Population',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle:
-	// 		  {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie
-	// 				// "{b} \n"+humanize+" ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 21051822,
-	// 			name: 'With GSM Coverage'
-	// 		  }, {
-	// 			value: 10056148,
-	// 			name: 'Without GSM Coverage'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	 // echart Donut 2
-
-	// 	if ($('#echart_donut_2').length ){
-
-	// 	  var echartDonut2 = echarts.init(document.getElementById('echart_donut_2'), theme, humTooltipPie, humanizePie);
-
-	// 	  echartDonut2.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie
-	// 		},
-	// 		calculable: true,
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['With GSM Coverage','Without GSM Coverage']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'center',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		series: [{
-	// 		  name: 'Area',
-	// 		  type: 'pie',
-	// 		  radius: ['35%', '55%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 105732,
-	// 			name: 'With GSM Coverage'
-	// 		  }, {
-	// 			value: 541893,
-	// 			name: 'Without GSM Coverage'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	}
-
-	// 	//echart Pie
-
-	// 	if ($('#echart_pie').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie'), theme, humTooltipPie, humanizePie);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: humTooltipPie
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Nearest Airport',
-	// 		  type: 'pie',
-	// 		  radius: '30%',
-	// 		  center: ['50%', '48%'],
-	// 		  itemStyle: {
-	// 			normal: {
-	// 			  label: {
-	// 				show: true,
-	// 				formatter: humanizePie //"{b} \n{c} ({d}%)"
-	// 			  },
-	// 			  labelLine: {
-	// 				show: true
-	// 			  }
-	// 			},
-	// 			emphasis: {
-	// 			  label: {
-	// 				show: true,
-	// 				position: 'center',
-	// 				textStyle: {
-	// 				  fontSize: '14',
-	// 				  fontWeight: 'normal'
-	// 				}
-	// 			  }
-	// 			}
-	// 		  },
-	// 		  data: [{
-	// 			value: 14900000,
-	// 			name: '< 1h'
-	// 		  }, {
-	// 			value: 7400000,
-	// 			name: '< 2h'
-	// 		  }, {
-	// 			value: 3600000,
-	// 			name: '< 3h'
-	// 		  }, {
-	// 			value: 1600000,
-	// 			name: '< 4h'
-	// 		  }, {
-	// 			value: 775996,
-	// 			name: '< 5h'
-	// 		  }, {
-	// 			value: 477632,
-	// 			name: '< 6h'
-	// 		  }, {
-	// 			value: 359146,
-	// 			name: '< 7h'
-	// 		  }, {
-	// 			value: 593026,
-	// 			name: '< 8h'
-	// 		  }, {
-	// 			value: 1400000,
-	// 			name: '> 5h'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 2
-
-	// 	if ($('#echart_pie_2').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_2'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 3
-
-	// 	if ($('#echart_pie_3').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_3'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 4
-
-	// 	if ($('#echart_pie_4').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_4'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 5
-
-	// 	if ($('#echart_pie_5').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_5'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 6
-
-	// 	if ($('#echart_pie_6').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_6'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 7
-
-	// 	if ($('#echart_pie_7').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_7'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Direct Access', 'E-mail Marketing', 'Union Ad', 'Video Ads', 'Search Engine']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: '访问来源',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 335,
-	// 			name: 'Direct Access'
-	// 		  }, {
-	// 			value: 310,
-	// 			name: 'E-mail Marketing'
-	// 		  }, {
-	// 			value: 234,
-	// 			name: 'Union Ad'
-	// 		  }, {
-	// 			value: 135,
-	// 			name: 'Video Ads'
-	// 		  }, {
-	// 			value: 1548,
-	// 			name: 'Search Engine'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// 	// echart Pie 8
-
-	// 	if ($('#echart_pie_8').length ){
-
-	// 	  var echartPie = echarts.init(document.getElementById('echart_pie_8'), theme);
-
-	// 	  echartPie.setOption({
-	// 		tooltip: {
-	// 		  trigger: 'item',
-	// 		  formatter: "{a} <br/>{b} : {c} ({d}%)"
-	// 		},
-	// 		legend: {
-	// 		  x: 'center',
-	// 		  y: 'bottom',
-	// 		  data: ['Not Affected Population', 'Affected Population']
-	// 		},
-	// 		toolbox: {
-	// 		  show: true,
-	// 		  feature: {
-	// 			magicType: {
-	// 			  show: true,
-	// 			  type: ['pie', 'funnel'],
-	// 			  option: {
-	// 				funnel: {
-	// 				  x: '25%',
-	// 				  width: '50%',
-	// 				  funnelAlign: 'left',
-	// 				  max: 1548
-	// 				}
-	// 			  }
-	// 			},
-	// 			restore: {
-	// 			  show: true,
-	// 			  title: "Restore"
-	// 			},
-	// 			saveAsImage: {
-	// 			  show: true,
-	// 			  title: "Save Image"
-	// 			}
-	// 		  }
-	// 		},
-	// 		calculable: true,
-	// 		series: [{
-	// 		  name: 'Population Affected',
-	// 		  type: 'pie',
-	// 		  radius: '55%',
-	// 		  center: ['50%', '48%'],
-	// 		  data: [{
-	// 			value: 27800000,
-	// 			name: 'Not Affected Population'
-	// 		  }, {
-	// 			value: 3300000,
-	// 			name: 'Affected Population'
-	// 		  }]
-	// 		}]
-	// 	  });
-
-	// 	  var dataStyle = {
-	// 		normal: {
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		}
-	// 	  };
-
-	// 	  var placeHolderStyle = {
-	// 		normal: {
-	// 		  color: 'rgba(0,0,0,0)',
-	// 		  label: {
-	// 			show: false
-	// 		  },
-	// 		  labelLine: {
-	// 			show: false
-	// 		  }
-	// 		},
-	// 		emphasis: {
-	// 		  color: 'rgba(0,0,0,0)'
-	// 		}
-	// 	  };
-
-	// 	}
-
-	// };
-
 	if (window.location.href.match(/\/dashboard\/*/)) {
 		// if (Object.keys(jsondata).length > 0) {
 		// 	if (window.location.href.match(/\?page=baseline&*/)) {
@@ -9085,8 +1008,6 @@ jQuery(function($){
 				return;
 			}
 
-			// console.log('init_echarts2');
-
 			var humTooltipPie = function(params){
 			    // console.log(params)
 			    var v= params.data.value;
@@ -9139,7 +1060,9 @@ jQuery(function($){
 
 			var humTooltipBar = function(params){
 			    // console.log('params', params)
+			    // console.log(params);
 			    p = params;
+
 			    if (!Array.isArray(params)) {
 			    	params = [params];
 			    }
@@ -9233,8 +1156,18 @@ jQuery(function($){
 
 			};
 
+			var render = function(){
+				var dir_read = document.documentElement.dir;
+				
+				if (dir_read=='rtl') {
+					return {renderer: 'canvas'};
+				}else {
+					return {renderer: 'svg'};
+				};
+			}
+
 			var theme = {
-				  color: [
+				color: [
 					  // '#c3272b', '#c93756', '#8e44ad', '#317589', '#003171',
 					  // rainbow
 					  // '#800026', '#bd0026', '#e31a1c', '#fc4e2a',
@@ -9332,94 +1265,117 @@ jQuery(function($){
 
 					  // '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
 					  // '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-				  ],
+				],
 
-				  title: {
-					  itemGap: 8,
-					  textStyle: {
-						  fontWeight: 'normal',
-						  color: '#408829'
-					  }
-				  },
+				title: {
+					itemGap: 8,
+					textStyle: {
+					  	fontWeight: 'normal',
+					  	color: '#408829'
+					}
+				},
 
-				  dataRange: {
-					  color: ['#1f610a', '#97b58d']
-				  },
+				dataRange: {
+				  	color: ['#1f610a', '#97b58d']
+				},
 
-				  toolbox: {
-					  color: ['#408829', '#408829', '#408829', '#408829']
-				  },
+				toolbox: {
+				  	color: ['#408829', '#408829', '#408829', '#408829']
+				},
 
-				  tooltip: {
-					  backgroundColor: 'rgba(0,0,0,0.5)',
-					  axisPointer: {
-						  type: 'line',
-						  lineStyle: {
-							  color: '#408829',
-							  type: 'dashed'
-						  },
-						  crossStyle: {
-							  color: '#408829'
-						  },
-						  shadowStyle: {
-							  color: 'rgba(200,200,200,0.3)'
-						  }
-					  }
-				  },
+				tooltip: {
+					backgroundColor: 'rgba(0,0,0,0.5)',
+					axisPointer: {
+						type: 'line',
+						lineStyle: {
+						  	color: '#ddd',
+						  	type: 'dashed'
+						},
+						crossStyle: {
+						  	color: '#408829'
+						},
+						shadowStyle: {
+						  	color: 'rgba(200,200,200,0.3)'
+						}
+					}
+				},
 
-				  dataZoom: {
-					  dataBackgroundColor: '#eee',
-					  fillerColor: 'rgba(64,136,41,0.2)',
-					  handleColor: '#408829'
-				  },
-				  grid: {
-					  borderWidth: 0
-				  },
+				dataZoom: {
+					dataBackgroundColor: '#eee',
+					fillerColor: 'rgba(64,136,41,0.2)',
+					handleColor: '#408829'
+				},
 
-				  categoryAxis: {
-					  axisLine: {
-						  lineStyle: {
-							  color: '#252525'
-						  }
-					  },
-					  splitLine: {
-						  lineStyle: {
-							  color: ['#eee']
-						  }
-					  }
-				  },
+				grid: {
+				  	borderWidth: 0
+				},
 
-				  valueAxis: {
-					  axisLine: {
-						  lineStyle: {
-							  color: '#252525'
-						  }
-					  },
-					  splitArea: {
-						  show: true,
-						  areaStyle: {
-							  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-						  }
-					  },
-					  splitLine: {
-						  lineStyle: {
-							  color: ['#eee']
-						  }
-					  }
-				  },
-				  timeline: {
-					  lineStyle: {
-						  color: '#408829'
-					  },
-					  controlStyle: {
-						  normal: {color: '#408829'},
-						  emphasis: {color: '#408829'}
-					  }
-				  },
-				  textStyle: {
-					  fontFamily: 'Arial, Verdana, sans-serif'
-				  },
-				  animation: animate
+				categoryAxis: {
+					axisLine: {
+					  	lineStyle: {
+						  	color: '#252525'
+					  	}
+					},
+					splitLine: {
+					  	lineStyle: {
+						  	color: ['#eee']
+					  	}
+					}
+				},
+
+				valueAxis: {
+					axisLine: {
+						lineStyle: {
+						  	color: '#252525'
+						}
+					},
+					splitArea: {
+						show: true,
+						areaStyle: {
+						  	color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)'] //background for bar chart
+						}
+					},
+					splitLine: {
+						lineStyle: {
+						  	color: ['#eee']
+						}
+					}
+				},
+
+				logAxis: {
+					axisLine: {
+						lineStyle: {
+						  	color: '#252525'
+						}
+					},
+					splitArea: {
+						show: true,
+						areaStyle: {
+						  	color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)'] //background for bar chart
+						}
+					},
+					splitLine: {
+						lineStyle: {
+						  	color: ['#eee']
+						}
+					}
+				},
+
+				timeline: {
+					lineStyle: {
+					  	color: '#408829'
+					},
+					controlStyle: {
+					  	normal: {color: '#408829'},
+					  	emphasis: {color: '#408829'}
+					}
+				},
+
+				textStyle: {
+				  	fontFamily: 'Arial, Verdana, sans-serif'
+				},
+
+				animation: animate
 		  	};
 
 		  	var w = ['#ffaaab', '#ff6264', '#d13c3e', '#b92527']
@@ -9433,10 +1389,6 @@ jQuery(function($){
 		  	var pieNull={
 		  		normal:{
 		  			color: '#ccc',
-		  			// label: {
-		  			// 	show: true,
-		  			// 	position: 'center'
-		  			// },
 		  			labelLine:{
 		  				show: true
 		  			}
@@ -9446,308 +1398,218 @@ jQuery(function($){
 		  		}
 		  	};
 
-		  	var colorBlue = {
-		  		color:[
-		  			//blue to light blue
-					'#abd9e9', '#74add1', '#4575b4'
-					// '#84caec', '#5cbae5', '#27a3dd'
-		  		],
-		  		valueAxis: {
-					  axisLine: {
-						  lineStyle: {
-							  color: '#FF0000'
-						  }
-					  },
-					  splitArea: {
-						  show: true,
-						  areaStyle: {
-							  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-						  }
-					  },
-					  splitLine: {
-						  lineStyle: {
-							  color: ['#eee']
-						  }
-					  }
-				  },
-		  		dataRange: {
-					  color: ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF']
-				}
-		  	}
+		  	var colorDonutDefault = ['#b92527', '#ccc'];
 
-		  	var colorMercalli = {
-		  		color:[
+		  	var colorFloodLikelihood = 
+		  		function (value, params) {
+        	    	// console.log(value);
+        	    	// console.log(index);
+        	    	// console.log(params);
+        	    	if (value==fforecast_cat[0]) {
+        	    		return '#00ACC1'
+        	    	}else if (value==fforecast_cat[1]) {
+        	    		return '#71cc24'
+        	    	}else if (value==fforecast_cat[2]) {
+        	    		return '#ffd300'
+        	    	}else if (value==fforecast_cat[3]) {
+        	    		return '#FB8C00'
+        	    	}else if (value==fforecast_cat[4]) {
+        	    		return '#e53935'
+        	    	}   
+        	    }
+
+        	var colorFloodRisk = ['#abd9e9', '#74add1', '#4575b4'];
+
+		  	var colorMercalli = [
 		  			// /*'#eeeeee', '#bfccff',*/ '#9999ff', '#88ffff', '#7df894', '#ffff00',
 		  			// '#ffdd00', '#ff9100', '#ff0000', '#dd0000', '#880000', '#440000'
 
 		  			'#d4e6f1', '#c2fcf7', '#6dffb6', '#ffff5c',
 		  			 '#ffe74c', '#ffc600', '#ff5751', '#e84c3d'
-		  		]
-		  	}
+		  		];
 
-		  	var colorTime = {
-		  		color:[
-		  			'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', /*'#fffc79',*/ /*'#ffe641', '#FFD341', '#FFC041',*/ '#fffe7f', '#feb24c', '#fd8d3c', /*'#ffdd72',*/
-		  			/*'#ffd341',*/ '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-		  		]
-		  	}
-
-		  	var colorBar =
+		  	var colorTimes =
 		  		function(params){
-		  			return color[params.dataIndex]
+		  			var colorList=[
+		  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', /*'#fffb46',*/ '#fff327', /*'#fffc79', */ /*'#ffdd72',*/
+		  				/*'#ffd341',*/ '#ffc43b', '#ff9c00', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
+		  			];
+		  			return colorList[params.dataIndex]
 		  		}
 
+		  	var colorLandslide = [ '#43A047', '#FDD835' , '#FB8C00', '#e84c3d', '#ccc' ];
+
+		  	var colorLandslideBar =
+		  		function(params){
+		  			return colorLandslide[params.dataIndex]
+		  		}
 
 		  	var checkIndicator2 = tc1;
-		  	// [
-		  	// 	{
-			  // 		text: 'Armed Opposition Group',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Intl. Humanitarian Cmty.',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Government',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Police/ Military Gov.',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Infrastructure',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Civilians',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Humanitarian Cmty.',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Unknown',
-			  // 		// max: 10
-			  // 	  }, {
-			  // 		text: 'Intl. Military',
-			  // 		// max: 10
-			  // 	  }
-		  	// ]
 
 		  	var checkIndicator1 = ic1;
-		  	// [
-				 //  {
-					// text: 'Military/Non-Military Operation',
-					// // max: 5000
-				 //  }, {
-					// text: 'Attack',
-					// // max: 5000
-				 //  }, {
-					// text: 'Kidnapping',
-					// // max: 5000
-				 //  }, {
-					// text: 'Murder',
-					// // max: 5000
-				 //  }, {
-					// text: 'Weapons',
-					// // max: 5000
-				 //  }, {
-					// text: 'Abandonment',
-					// // max: 5000
-				 //  }, {
-					// text: 'Small Arms Fire',
-					// // max: 5000
-				 //  }, {
-					// text: 'Civillian Accident',
-					// // max: 5000
-				 //  }, {
-					// text: 'Demonstration',
-					// // max: 5000
-				 //  }, {
-					// text: 'IED',
-					// // max: 5000
-				 //  }, {
-					// text: 'Arrest',
-					// // max: 5000
-				 //  }, {
-					// text: 'Others',
-					// // max: 5000
-				 //  }, {
-					// text: 'UXO',
-					// // max: 5000
-				 //  }
-		  	// ]
+
+		  	var sizeBubble = 
+		  		function (val) {
+		            return Math.log(val)*3;
+		        }
+
+			var delay = 
+				function (idx) {
+		            return idx * 5;
+		        }
 
 	  		// case "accessibility":
 	  			// accessibility tab
 	  			//echart Donut
 
-	  			if ($('#echart_donut').length ){
+	  			if ($('#echart_donut_gsm_pop').length ){
 
-	  				// console.log('init_echart_donut');
+	  			  	var echartDonutGSMPop = echarts.init(document.getElementById('echart_donut_gsm_pop'), theme, render());
 
-	  			  var echartDonut = echarts.init(document.getElementById('echart_donut'), theme, humTooltipPie, humanizePie, pieNull);
-
-	  			  echartDonut.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: gsm_legend
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Population',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle:
-	  				  {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie
-	  						// "{b} \n"+humanize+" ({d}%)"
-	  					  }/*,
-	  					  labelLine: {
-	  						show: true
-	  					  }*/
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: gsm_pop,
-	  					name: gsm_legend[0],
-	  					itemStyle: colorReversed
-	  				  }, {
-	  					value: pop - gsm_pop,
-	  					name: gsm_legend[1],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+	  			  	echartDonutGSMPop.setOption({
+	  			  		tooltip: {
+	  			  		  	trigger: 'item',
+	  			  		  	formatter: humTooltipPie
+	  			  		},
+	  			  		calculable: true,
+	  			  		legend: {
+	  			  			x: 'left',
+	  			  			y: 'top',
+	  			  			orient: 'vertical',
+	  			  			data: gsm_legend
+	  			  		},
+	  			  		toolbox: {
+	  			  			show: true,
+	  			  			feature: {
+	  			  				restore: {
+	  			  				  	show: true,
+	  			  				  	title: "Restore"
+	  			  				},
+	  			  				saveAsImage: {
+	  			  				  	show: true,
+	  			  				  	title: "Save Image"
+	  			  				}
+	  			  			}
+	  			  		},
+	  			  		series: [{
+	  			  			name: 'Area',
+	  			  			type: 'pie',
+	  			  			radius: ['35%', '55%'],
+	  			  			itemStyle: {
+	  			  				normal: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						formatter: humanizePie
+	  			  					},
+	  			  					labelLine: {
+	  			  						show: true
+	  			  					}
+	  			  				},
+	  			  				emphasis: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						position: 'center',
+	  			  						textStyle: {
+	  			  						  	fontSize: '14',
+	  			  						  	fontWeight: 'normal'
+	  			  						}
+	  			  					}
+	  			  				}
+	  			  			},
+	  			  			data: [
+	  			  				{
+	  			  					value: gsm_pop,
+	  			  					name: gsm_legend[0],
+	  			  					itemStyle: colorReversed
+	  			  				}, 
+	  			  				{
+	  			  					value: pop - gsm_pop,
+	  			  					name: gsm_legend[1],
+	  			  					itemStyle: pieNull
+	  			  				}
+	  			  			]
+	  			  		}]
+	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartDonut.resize();
+	  			  		echartDonutGSMPop.resize();
 	  			  	});
 
 	  			}
 
 	  			// echart Donut 2
 
-	  			if ($('#echart_donut_2').length ){
+	  			if ($('#echart_donut_gsm_area').length ){
 
-	  			  var echartDonut2 = echarts.init(document.getElementById('echart_donut_2'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutGSMArea = echarts.init(document.getElementById('echart_donut_gsm_area'), theme, render());
 
-	  			  echartDonut2.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: gsm_legend
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: gsm_area,
-	  					name: gsm_legend[0],
-	  					itemStyle: colorReversed
-	  				  }, {
-	  					value: area - gsm_area,
-	  					name: gsm_legend[1],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+	  			  	echartDonutGSMArea.setOption({
+	  			  		tooltip: {
+	  			  		  	trigger: 'item',
+	  			  		  	formatter: humTooltipPie
+	  			  		},
+	  			  		calculable: true,
+	  			  		legend: {
+	  			  			x: 'left',
+	  			  			y: 'top',
+	  			  			orient: 'vertical',
+	  			  			data: gsm_legend
+	  			  		},
+	  			  		toolbox: {
+	  			  			show: true,
+	  			  			feature: {
+	  			  				restore: {
+	  			  				  	show: true,
+	  			  				  	title: "Restore"
+	  			  				},
+	  			  				saveAsImage: {
+	  			  				  	show: true,
+	  			  				  	title: "Save Image"
+	  			  				}
+	  			  			}
+	  			  		},
+	  			  		series: [{
+	  			  			name: 'Area',
+	  			  			type: 'pie',
+	  			  			radius: ['35%', '55%'],
+	  			  			itemStyle: {
+	  			  				normal: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						formatter: humanizePie
+	  			  					},
+	  			  					labelLine: {
+	  			  						show: true
+	  			  					}
+	  			  				},
+	  			  				emphasis: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						position: 'center',
+	  			  						textStyle: {
+	  			  						  	fontSize: '14',
+	  			  						  	fontWeight: 'normal'
+	  			  						}
+	  			  					}
+	  			  				}
+	  			  			},
+	  			  			data: [
+	  			  				{
+	  			  					value: gsm_area,
+	  			  					name: gsm_legend[0],
+	  			  					itemStyle: colorReversed
+	  			  				}, 
+	  			  				{
+	  			  					value: area - gsm_area,
+	  			  					name: gsm_legend[1],
+	  			  					itemStyle: pieNull
+	  			  				}
+	  			  			]
+	  			  		}]
+	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartDonut2.resize();
+	  			  		echartDonutGSMArea.resize();
 	  			  	});
 
 	  			}
@@ -9756,81 +1618,84 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_gsm_building').length ){
 
-	  			  var echartDonutGSMBuild = echarts.init(document.getElementById('echart_donut_gsm_building'), theme, humTooltipPie, humanizePie);
+					var echartDonutGSMBuild = echarts.init(document.getElementById('echart_donut_gsm_building'), theme, render());
 
-	  			  echartDonutGSMBuild.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: gsm_legend
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: gsm_bld,
-	  					name: gsm_legend[0],
-	  					itemStyle: colorReversed
-	  				  }, {
-	  					value: build - gsm_bld,
-	  					name: gsm_legend[1],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+					echartDonutGSMBuild.setOption({
+						tooltip: {
+						  	trigger: 'item',
+						  	formatter: humTooltipPie
+						},
+						calculable: true,
+						legend: {
+							x: 'left',
+							y: 'top',
+							orient: 'vertical',
+							data: gsm_legend
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								// magicType: {
+								// 	show: true,
+								// 	type: ['pie', 'funnel'],
+								// 	option: {
+								// 		funnel: {
+								// 			x: '25%',
+								// 			width: '50%',
+								// 			funnelAlign: 'center',
+								// 			max: 1548
+								// 		}
+								// 	}
+								// },
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+										  	fontSize: '14',
+										  	fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [
+								{
+									value: gsm_bld,
+									name: gsm_legend[0],
+									itemStyle: colorReversed
+								}, 
+								{
+									value: build - gsm_bld,
+									name: gsm_legend[1],
+									itemStyle: pieNull
+								}
+							]
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartDonutGSMBuild.resize();
@@ -9840,2264 +1705,1236 @@ jQuery(function($){
 
 	  			//echart Bar Horizontal 4
 
-				if ($('#echart_bar_horizontal_4').length ){
+				if ($('#echart_bar_horizontal_nAirport').length ){
 
-				  var echartBar = echarts.init(document.getElementById('echart_bar_horizontal_4'), colorTime, humTooltipBar, humanizeBar);
+					var echartBarAirport = echarts.init(document.getElementById('echart_bar_horizontal_nAirport'), theme, render());
 
-				  echartBar.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_airport
-					}]
-				  });
+					echartBarAirport.setOption({
+						tooltip: {
+							trigger: 'item',
+							axisPointer:{
+								type: 'line',
+							},
+							formatter: humTooltipBar
+						},
+						legend: {
+							x: 'left',
+							data: time_legend
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar'
+									},
+									type: ['line', 'bar']
+								},
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '15%',
+						    bottom: '8%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
+						}],
+						yAxis: [{
+							type: 'category',
+							data: time_legend
+						}],
+						series: [{
+							name: 'Airport',
+							type: 'bar',
+							itemStyle:{
+								normal:{
+									color: colorTimes
+								}
+							},
+							label:{
+								normal:{
+									formatter: humanizeBar,
+									position: 'right',
+									textBorderColor: 'auto',
+									// textBorderWidth: 2,
+									// textShadowBlur: 3,
+									// textShadowColor: 'auto',
+									color: '#33333352',
+									show: true
+								}
+							},
+							data: near_airport
+						}]
+					});
 
 				  	window.addEventListener("resize", function(){
-				  		echartBar.resize();
+				  		echartBarAirport.resize();
 				  	});
 
 				  	// window.onresize = function(){
 				  	// 	echartBar.resize();
 				  	// }
-
 				}
 
 				//echart Bar Horizontal 5
 
-				if ($('#echart_bar_horizontal_5').length ){
+				if ($('#echart_bar_horizontal_h1').length ){
 
-				  var echartBar5 = echarts.init(document.getElementById('echart_bar_horizontal_5'), colorTime, humTooltipBar, humanizeBar);
+				  	var echartBarH1 = echarts.init(document.getElementById('echart_bar_horizontal_h1'), theme, render());
 
-				  echartBar5.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_h1
-					}]
-				  });
-
-				  	window.addEventListener("resize", function(){
-				  		echartBar5.resize();
+				  	echartBarH1.setOption({
+				  		tooltip: {
+				  			trigger: 'item',
+				  			axisPointer:{
+				  				type: 'line',
+				  			},
+				  			formatter: humTooltipBar
+				  		},
+				  		legend: {
+				  			x: 'left',
+				  			data: time_legend
+				  		},
+				  		toolbox: {
+				  			show: true,
+				  			feature: {
+				  				magicType: {
+				  					show: true,
+				  					title: {
+				  						line: 'Line',
+				  						bar: 'Bar'
+				  					},
+				  					type: ['line', 'bar']
+				  				},
+				  				restore: {
+				  				  	show: true,
+				  				  	title: "Restore"
+				  				},
+				  				saveAsImage: {
+				  				  	show: true,
+				  				  	title: "Save Image"
+				  				}
+				  			}
+				  		},
+				  		grid: {
+				  		    left: '0%',
+				  		    right: '15%',
+				  		    bottom: '8%',
+				  		    containLabel: true
+				  		},
+				  		calculable: true,
+				  		xAxis: [{
+				  			type: 'value',
+				  			boundaryGap: [0, 0.01],
+				  			axisLabel:{
+				  				rotate: 30,
+				  				formatter: humanizeFormatter
+				  			}
+				  		}],
+				  		yAxis: [{
+				  			type: 'category',
+				  			data: time_legend
+				  		}],
+				  		series: [{
+				  			name: 'Health Facilities Tier 1',
+				  			type: 'bar',
+				  			itemStyle:{
+				  				normal:{
+				  					color: colorTimes
+				  				}
+				  			},
+				  			label:{
+				  				normal:{
+				  					formatter: humanizeBar,
+				  					position: 'right',
+				  					textBorderColor: 'auto',
+				  					color: '#33333352',
+				  					show: true
+				  				}
+				  			},
+				  			data: near_h1
+				  		}]
 				  	});
 
-				  	// window.onresize = function(){
-				  	// 	echartBar.resize();
-				  	// }
+				  	window.addEventListener("resize", function(){
+				  		echartBarH1.resize();
+				  	});
 
 				}
 
 				//echart Bar Horizontal 6
 
-				if ($('#echart_bar_horizontal_6').length ){
+				if ($('#echart_bar_horizontal_h2').length ){
 
-				  var echartBar6 = echarts.init(document.getElementById('echart_bar_horizontal_6'), colorTime, humTooltipBar, humanizeBar);
+				  	var echartBarH2 = echarts.init(document.getElementById('echart_bar_horizontal_h2'), theme, render());
 
-				  echartBar6.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_h2
-					}]
-				  });
-
-				  	window.addEventListener("resize", function(){
-				  		echartBar6.resize();
+				  	echartBarH2.setOption({
+				  		tooltip: {
+				  			trigger: 'item',
+				  			axisPointer:{
+				  				type: 'line',
+				  			},
+				  			formatter: humTooltipBar
+				  		},
+				  		legend: {
+				  			x: 'left',
+				  			data: time_legend
+				  		},
+				  		toolbox: {
+				  			show: true,
+				  			feature: {
+				  				magicType: {
+				  					show: true,
+				  					title: {
+				  						line: 'Line',
+				  						bar: 'Bar'
+				  					},
+				  					type: ['line', 'bar']
+				  				},
+				  				restore: {
+				  				  	show: true,
+				  				  	title: "Restore"
+				  				},
+				  				saveAsImage: {
+				  				  	show: true,
+				  				  	title: "Save Image"
+				  				}
+				  			}
+				  		},
+				  		grid: {
+				  		    left: '0%',
+				  		    right: '15%',
+				  		    bottom: '8%',
+				  		    containLabel: true
+				  		},
+				  		calculable: true,
+				  		xAxis: [{
+				  			type: 'value',
+				  			boundaryGap: [0, 0.01],
+				  			axisLabel:{
+				  				rotate: 30,
+				  				formatter: humanizeFormatter
+				  			}
+				  		}],
+				  		yAxis: [{
+				  			type: 'category',
+				  			data: time_legend
+				  		}],
+				  		series: [{
+				  			name: 'Health Facilities Tier 2',
+				  			type: 'bar',
+				  			itemStyle:{
+				  				normal:{
+				  					color: colorTimes
+				  				}
+				  			},
+				  			label:{
+				  				normal:{
+				  					formatter: humanizeBar,
+				  					position: 'right',
+				  					textBorderColor: 'auto',
+				  					color: '#33333352',
+				  					show: true
+				  				}
+				  			},
+				  			data: near_h2
+				  		}]
 				  	});
 
-				  	// window.onresize = function(){
-				  	// 	echartBar.resize();
-				  	// }
+				  	window.addEventListener("resize", function(){
+				  		echartBarH2.resize();
+				  	});
 
 				}
 
 				//echart Bar Horizontal 7
 
-				if ($('#echart_bar_horizontal_7').length ){
+				if ($('#echart_bar_horizontal_h3').length ){
 
-				  var echartBar7 = echarts.init(document.getElementById('echart_bar_horizontal_7'), colorTime, humTooltipBar, humanizeBar);
+				  	var echartBarH3 = echarts.init(document.getElementById('echart_bar_horizontal_h3'), theme, render());
 
-				  echartBar7.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_h3
-					}]
-				  });
-
-				  	window.addEventListener("resize", function(){
-				  		echartBar7.resize();
+				  	echartBarH3.setOption({
+				  		tooltip: {
+				  			trigger: 'item',
+				  			axisPointer:{
+				  				type: 'line',
+				  			},
+				  			formatter: humTooltipBar
+				  		},
+				  		legend: {
+				  			x: 'left',
+				  			data: time_legend
+				  		},
+				  		toolbox: {
+				  			show: true,
+				  			feature: {
+				  				magicType: {
+				  					show: true,
+				  					title: {
+				  						line: 'Line',
+				  						bar: 'Bar'
+				  					},
+				  					type: ['line', 'bar']
+				  				},
+				  				restore: {
+				  				  	show: true,
+				  				  	title: "Restore"
+				  				},
+				  				saveAsImage: {
+				  				  	show: true,
+				  				  	title: "Save Image"
+				  				}
+				  			}
+				  		},
+				  		grid: {
+				  		    left: '0%',
+				  		    right: '15%',
+				  		    bottom: '8%',
+				  		    containLabel: true
+				  		},
+				  		calculable: true,
+				  		xAxis: [{
+				  			type: 'value',
+				  			boundaryGap: [0, 0.01],
+				  			axisLabel:{
+				  				rotate: 30,
+				  				formatter: humanizeFormatter
+				  			}
+				  		}],
+				  		yAxis: [{
+				  			type: 'category',
+				  			data: time_legend
+				  		}],
+				  		series: [{
+				  			name: 'Health Facilities Tier 3',
+				  			type: 'bar',
+				  			itemStyle:{
+				  				normal:{
+				  					color: colorTimes
+				  				}
+				  			},
+				  			label:{
+				  				normal:{
+				  					formatter: humanizeBar,
+				  					position: 'right',
+				  					textBorderColor: 'auto',
+				  					color: '#33333352',
+				  					show: true
+				  				}
+				  			},
+				  			data: near_h3
+				  		}]
 				  	});
 
-				  	// window.onresize = function(){
-				  	// 	echartBar.resize();
-				  	// }
+				  	window.addEventListener("resize", function(){
+				  		echartBarH3.resize();
+				  	});
 
 				}
 
 				//echart Bar Horizontal 8
 
-				if ($('#echart_bar_horizontal_8').length ){
+				if ($('#echart_bar_horizontal_hAll').length ){
 
-				  var echartBar8 = echarts.init(document.getElementById('echart_bar_horizontal_8'), colorTime, humTooltipBar, humanizeBar);
+				  	var echartBarHAll = echarts.init(document.getElementById('echart_bar_horizontal_hAll'), theme, render());
 
-				  echartBar8.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_h_all
-					}]
-				  });
-
-				  	window.addEventListener("resize", function(){
-				  		echartBar8.resize();
+				  	echartBarHAll.setOption({
+				  		tooltip: {
+				  			trigger: 'item',
+				  			axisPointer:{
+				  				type: 'line',
+				  			},
+				  			formatter: humTooltipBar
+				  		},
+				  		legend: {
+				  			x: 'left',
+				  			data: time_legend
+				  		},
+				  		toolbox: {
+				  			show: true,
+				  			feature: {
+				  				magicType: {
+				  					show: true,
+				  					title: {
+				  						line: 'Line',
+				  						bar: 'Bar'
+				  					},
+				  					type: ['line', 'bar']
+				  				},
+				  				restore: {
+				  				  	show: true,
+				  				  	title: "Restore"
+				  				},
+				  				saveAsImage: {
+				  				  	show: true,
+				  				  	title: "Save Image"
+				  				}
+				  			}
+				  		},
+				  		grid: {
+				  		    left: '0%',
+				  		    right: '15%',
+				  		    bottom: '8%',
+				  		    containLabel: true
+				  		},
+				  		calculable: true,
+				  		xAxis: [{
+				  			type: 'value',
+				  			boundaryGap: [0, 0.01],
+				  			axisLabel:{
+				  				rotate: 30,
+				  				formatter: humanizeFormatter
+				  			}
+				  		}],
+				  		yAxis: [{
+				  			type: 'category',
+				  			data: time_legend
+				  		}],
+				  		series: [{
+				  			name: 'Health Facilities Tier All',
+				  			type: 'bar',
+				  			itemStyle:{
+				  				normal:{
+				  					color: colorTimes
+				  				}
+				  			},
+				  			label:{
+				  				normal:{
+				  					formatter: humanizeBar,
+				  					position: 'right',
+				  					textBorderColor: 'auto',
+				  					color: '#33333352',
+				  					show: true
+				  				}
+				  			},
+				  			data: near_h_all
+				  		}]
 				  	});
 
-				  	// window.onresize = function(){
-				  	// 	echartBar.resize();
-				  	// }
+				  	window.addEventListener("resize", function(){
+				  		echartBarHAll.resize();
+				  	});
 
 				}
 
 				//echart Bar Horizontal 9
 
-				if ($('#echart_bar_horizontal_9').length ){
+				if ($('#echart_bar_horizontal_itsProv').length ){
 
-				  var echartBar9 = echarts.init(document.getElementById('echart_bar_horizontal_9'), colorTime, humTooltipBar, humanizeBar);
+				  	var echartBarItsProv = echarts.init(document.getElementById('echart_bar_horizontal_itsProv'), theme, render());
 
-				  echartBar9.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_it_prov_cap
-					}]
-				  });
-
-				  	window.addEventListener("resize", function(){
-				  		echartBar9.resize();
+				  	echartBarItsProv.setOption({
+				  		tooltip: {
+				  			trigger: 'item',
+				  			axisPointer:{
+				  				type: 'line',
+				  			},
+				  			formatter: humTooltipBar
+				  		},
+				  		legend: {
+				  			x: 'left',
+				  			data: time_legend
+				  		},
+				  		toolbox: {
+				  			show: true,
+				  			feature: {
+				  				magicType: {
+				  					show: true,
+				  					title: {
+				  						line: 'Line',
+				  						bar: 'Bar'
+				  					},
+				  					type: ['line', 'bar']
+				  				},
+				  				restore: {
+				  				  	show: true,
+				  				  	title: "Restore"
+				  				},
+				  				saveAsImage: {
+				  				  	show: true,
+				  				  	title: "Save Image"
+				  				}
+				  			}
+				  		},
+				  		grid: {
+				  		    left: '0%',
+				  		    right: '15%',
+				  		    bottom: '8%',
+				  		    containLabel: true
+				  		},
+				  		calculable: true,
+				  		xAxis: [{
+				  			type: 'value',
+				  			boundaryGap: [0, 0.01],
+				  			axisLabel:{
+				  				rotate: 30,
+				  				formatter: humanizeFormatter
+				  			}
+				  		}],
+				  		yAxis: [{
+				  			type: 'category',
+				  			data: time_legend
+				  		}],
+				  		series: [{
+				  			name: 'Its Provincial Capital',
+				  			type: 'bar',
+				  			itemStyle:{
+				  				normal:{
+				  					color: colorTimes
+				  				}
+				  			},
+				  			label:{
+				  				normal:{
+				  					formatter: humanizeBar,
+				  					position: 'right',
+				  					textBorderColor: 'auto',
+				  					color: '#33333352',
+				  					show: true
+				  				}
+				  			},
+				  			data: near_it_prov_cap
+				  		}]
 				  	});
 
-				  	// window.onresize = function(){
-				  	// 	echartBar.resize();
-				  	// }
+				  	window.addEventListener("resize", function(){
+				  		echartBarItsProv.resize();
+				  	});
 
 				}
 
 				//echart Bar Horizontal 10
 
-				if ($('#echart_bar_horizontal_10').length ){
+				if ($('#echart_bar_horizontal_nProv').length ){
 
-				  var echartBar10 = echarts.init(document.getElementById('echart_bar_horizontal_10'), colorTime, humTooltipBar, humanizeBar);
+				  	var echartBarProv = echarts.init(document.getElementById('echart_bar_horizontal_nProv'), theme, render());
 
-				  echartBar10.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_prov_cap
-					}]
-				  });
-
-				  	window.addEventListener("resize", function(){
-				  		echartBar10.resize();
+				  	echartBarProv.setOption({
+				  		tooltip: {
+				  			trigger: 'item',
+				  			axisPointer:{
+				  				type: 'line',
+				  			},
+				  			formatter: humTooltipBar
+				  		},
+				  		legend: {
+				  			x: 'left',
+				  			data: time_legend
+				  		},
+				  		toolbox: {
+				  			show: true,
+				  			feature: {
+				  				magicType: {
+				  					show: true,
+				  					title: {
+				  						line: 'Line',
+				  						bar: 'Bar'
+				  					},
+				  					type: ['line', 'bar']
+				  				},
+				  				restore: {
+				  				  	show: true,
+				  				  	title: "Restore"
+				  				},
+				  				saveAsImage: {
+				  				  	show: true,
+				  				  	title: "Save Image"
+				  				}
+				  			}
+				  		},
+				  		grid: {
+				  		    left: '0%',
+				  		    right: '15%',
+				  		    bottom: '8%',
+				  		    containLabel: true
+				  		},
+				  		calculable: true,
+				  		xAxis: [{
+				  			type: 'value',
+				  			boundaryGap: [0, 0.01],
+				  			axisLabel:{
+				  				rotate: 30,
+				  				formatter: humanizeFormatter
+				  			}
+				  		}],
+				  		yAxis: [{
+				  			type: 'category',
+				  			data: time_legend
+				  		}],
+				  		series: [{
+				  			name: 'Nearest Provincial Capital',
+				  			type: 'bar',
+				  			itemStyle:{
+				  				normal:{
+				  					color: colorTimes
+				  				}
+				  			},
+				  			label:{
+				  				normal:{
+				  					formatter: humanizeBar,
+				  					position: 'right',
+				  					textBorderColor: 'auto',
+				  					color: '#33333352',
+				  					show: true
+				  				}
+				  			},
+				  			data: near_prov_cap
+				  		}]
 				  	});
 
-				  	// window.onresize = function(){
-				  	// 	echartBar.resize();
-				  	// }
+				  	window.addEventListener("resize", function(){
+				  		echartBarProv.resize();
+				  	});
 
 				}
 
 				//echart Bar Horizontal 11
 
-				if ($('#echart_bar_horizontal_11').length ){
+				if ($('#echart_bar_horizontal_nDist').length ){
 
-				  var echartBar11 = echarts.init(document.getElementById('echart_bar_horizontal_11'), colorTime, humTooltipBar, humanizeBar);
+				  	var echartBarDist = echarts.init(document.getElementById('echart_bar_horizontal_nDist'), theme, render());
 
-				  echartBar11.setOption({
-				  	// backgroundColor: '#000',
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					legend: {
-					  x: 'left',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					},
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar'
-				    	  },
-				    	  type: ['line', 'bar']
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-					}],
-					series: [{
-					  name: 'Airport',
-					  type: 'bar',
-					  itemStyle:{
-					  	normal:{
-					  		color: function(params){
-					  			var colorList=[
-					  				'#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', '#fffc79', '#ffdd72',
-					  				'#ffd341', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
-					  			];
-					  			return colorList[params.dataIndex]
-					  		}
-					  	}
-					  },
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: near_dist_cap
-					}]
-				  });
-
-				  	window.addEventListener("resize", function(){
-				  		echartBar11.resize();
+				  	echartBarDist.setOption({
+				  		tooltip: {
+				  			trigger: 'item',
+				  			axisPointer:{
+				  				type: 'line',
+				  			},
+				  			formatter: humTooltipBar
+				  		},
+				  		legend: {
+				  			x: 'left',
+				  			data: time_legend
+				  		},
+				  		toolbox: {
+				  			show: true,
+				  			feature: {
+				  				magicType: {
+				  					show: true,
+				  					title: {
+				  						line: 'Line',
+				  						bar: 'Bar'
+				  					},
+				  					type: ['line', 'bar']
+				  				},
+				  				restore: {
+				  				  	show: true,
+				  				  	title: "Restore"
+				  				},
+				  				saveAsImage: {
+				  				  	show: true,
+				  				  	title: "Save Image"
+				  				}
+				  			}
+				  		},
+				  		grid: {
+				  		    left: '0%',
+				  		    right: '15%',
+				  		    bottom: '8%',
+				  		    containLabel: true
+				  		},
+				  		calculable: true,
+				  		xAxis: [{
+				  			type: 'value',
+				  			boundaryGap: [0, 0.01],
+				  			axisLabel:{
+				  				rotate: 30,
+				  				formatter: humanizeFormatter
+				  			}
+				  		}],
+				  		yAxis: [{
+				  			type: 'category',
+				  			data: time_legend
+				  		}],
+				  		series: [{
+				  			name: 'Near District',
+				  			type: 'bar',
+				  			itemStyle:{
+				  				normal:{
+				  					color: colorTimes
+				  				}
+				  			},
+				  			label:{
+				  				normal:{
+				  					formatter: humanizeBar,
+				  					position: 'right',
+				  					textBorderColor: 'auto',
+				  					color: '#33333352',
+				  					show: true
+				  				}
+				  			},
+				  			data: near_dist_cap
+				  		}]
 				  	});
 
-				  	// window.onresize = function(){
-				  	// 	echartBar.resize();
-				  	// }
+				  	window.addEventListener("resize", function(){
+				  		echartBarDist.resize();
+				  	});
 
 				}
 
-	  			// //echart Pie
-
-	  			// if ($('#echart_pie').length ){
-
-	  			//   var echartPie1 = echarts.init(document.getElementById('echart_pie'), colorTime, humTooltipPie, humanizePie);
-
-	  			//   echartPie1.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: [/*'15%', '25%'*/30, 110],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  roseType : 'area',
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 14900000,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 7400000,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 3600000,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 1600000,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 775996,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 477632,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 359146,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 593026,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1400000,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   var dataStyle = {
-	  			// 	normal: {
-	  			// 	  label: {
-	  			// 		show: false
-	  			// 	  },
-	  			// 	  labelLine: {
-	  			// 		show: false
-	  			// 	  }
-	  			// 	}
-	  			//   };
-
-	  			//   var placeHolderStyle = {
-	  			// 	normal: {
-	  			// 	  color: 'rgba(0,0,0,0)',
-	  			// 	  label: {
-	  			// 		show: false
-	  			// 	  },
-	  			// 	  labelLine: {
-	  			// 		show: false
-	  			// 	  }
-	  			// 	},
-	  			// 	emphasis: {
-	  			// 	  color: 'rgba(0,0,0,0)'
-	  			// 	}
-	  			//   };
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie1.resize();
-	  			//   	});
-
-	  			//   	// window.onresize = function(){
-	  			//   	// 	echartPie.resize();
-	  			//   	// }
-
-	  			// }
-
-	  			// // echart Pie 2
-
-	  			// if ($('#echart_pie_2').length ){
-
-	  			//   var echartPie2 = echarts.init(document.getElementById('echart_pie_2'), colorTime);
-
-	  			//   echartPie2.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: ['15%', '25%'],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 21395164,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 4203840,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 1940909,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 945379,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 537423,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 346062,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 287884,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 460079,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1022070,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie2.resize();
-	  			//   	});
-
-	  			// }
-
-	  			// // echart Pie 3
-
-	  			// if ($('#echart_pie_3').length ){
-
-	  			//   var echartPie3 = echarts.init(document.getElementById('echart_pie_3'), colorTime);
-
-	  			//   echartPie3.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: ['15%', '25%'],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 14900000,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 7400000,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 3600000,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 1600000,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 775996,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 477632,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 359146,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 593026,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1400000,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie3.resize();
-	  			//   	});
-
-	  			// }
-
-	  			// // echart Pie 4
-
-	  			// if ($('#echart_pie_4').length ){
-
-	  			//   var echartPie4 = echarts.init(document.getElementById('echart_pie_4'), colorTime);
-
-	  			//   echartPie4.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: ['15%', '25%'],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 14900000,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 7400000,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 3600000,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 1600000,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 775996,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 477632,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 359146,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 593026,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1400000,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie4.resize();
-	  			//   	});
-
-	  			// }
-
-	  			// // echart Pie 5
-
-	  			// if ($('#echart_pie_5').length ){
-
-	  			//   var echartPie5 = echarts.init(document.getElementById('echart_pie_5'), colorTime);
-
-	  			//   echartPie5.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: ['15%', '25%'],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 14900000,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 7400000,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 3600000,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 1600000,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 775996,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 477632,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 359146,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 593026,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1400000,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie5.resize();
-	  			//   	});
-
-	  			// }
-
-	  			// // echart Pie 6
-
-	  			// if ($('#echart_pie_6').length ){
-
-	  			//   var echartPie6 = echarts.init(document.getElementById('echart_pie_6'), colorTime);
-
-	  			//   echartPie6.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: ['15%', '25%'],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 14900000,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 7400000,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 3600000,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 1600000,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 775996,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 477632,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 359146,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 593026,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1400000,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie6.resize();
-	  			//   	});
-
-	  			// }
-
-	  			// // echart Pie 7
-
-	  			// if ($('#echart_pie_7').length ){
-
-	  			//   var echartPie7 = echarts.init(document.getElementById('echart_pie_7'), colorTime);
-
-	  			//   echartPie7.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: ['15%', '25%'],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 14900000,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 7400000,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 3600000,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 1600000,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 775996,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 477632,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 359146,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 593026,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1400000,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie7.resize();
-	  			//   	});
-
-	  			// }
-
-	  			// // echart Pie 10
-
-	  			// if ($('#echart_pie_10').length ){
-
-	  			//   var echartPie8 = echarts.init(document.getElementById('echart_pie_10'), colorTime);
-
-	  			//   echartPie8.setOption({
-	  			// 	tooltip: {
-	  			// 	  trigger: 'item',
-	  			// 	  formatter: humTooltipPie
-	  			// 	},
-	  			// 	legend: {
-	  			// 	  x: 'center',
-	  			// 	  y: 'bottom',
-	  			// 	  data: ['< 1h', '< 2h', '< 3h', '< 4h', '< 5h', '< 6h', '< 7h', '< 8h', '> 8h']
-	  			// 	},
-	  			// 	toolbox: {
-	  			// 	  show: true,
-	  			// 	  feature: {
-	  			// 		magicType: {
-	  			// 		  show: true,
-	  			// 		  type: ['pie', 'funnel'],
-	  			// 		  option: {
-	  			// 			funnel: {
-	  			// 			  x: '25%',
-	  			// 			  width: '50%',
-	  			// 			  funnelAlign: 'left',
-	  			// 			  max: 1548
-	  			// 			}
-	  			// 		  }
-	  			// 		},
-	  			// 		restore: {
-	  			// 		  show: true,
-	  			// 		  title: "Restore"
-	  			// 		},
-	  			// 		saveAsImage: {
-	  			// 		  show: true,
-	  			// 		  title: "Save Image"
-	  			// 		}
-	  			// 	  }
-	  			// 	},
-	  			// 	calculable: true,
-	  			// 	series: [{
-	  			// 	  name: 'Nearest Airport',
-	  			// 	  type: 'pie',
-	  			// 	  radius: ['15%', '25%'],
-	  			// 	  // radius: '30%',
-	  			// 	  center: ['50%', '40%'],
-	  			// 	  itemStyle: {
-	  			// 		normal: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  			// 		  },
-	  			// 		  labelLine: {
-	  			// 			show: true
-	  			// 		  }
-	  			// 		},
-	  			// 		emphasis: {
-	  			// 		  label: {
-	  			// 			show: true,
-	  			// 			position: 'center',
-	  			// 			textStyle: {
-	  			// 			  fontSize: '14',
-	  			// 			  fontWeight: 'normal'
-	  			// 			}
-	  			// 		  }
-	  			// 		}
-	  			// 	  },
-	  			// 	  data: [{
-	  			// 		value: 14900000,
-	  			// 		name: '< 1h'
-	  			// 	  }, {
-	  			// 		value: 7400000,
-	  			// 		name: '< 2h'
-	  			// 	  }, {
-	  			// 		value: 3600000,
-	  			// 		name: '< 3h'
-	  			// 	  }, {
-	  			// 		value: 1600000,
-	  			// 		name: '< 4h'
-	  			// 	  }, {
-	  			// 		value: 775996,
-	  			// 		name: '< 5h'
-	  			// 	  }, {
-	  			// 		value: 477632,
-	  			// 		name: '< 6h'
-	  			// 	  }, {
-	  			// 		value: 359146,
-	  			// 		name: '< 7h'
-	  			// 	  }, {
-	  			// 		value: 593026,
-	  			// 		name: '< 8h'
-	  			// 	  }, {
-	  			// 		value: 1400000,
-	  			// 		name: '> 8h'
-	  			// 	  }]
-	  			// 	}]
-	  			//   });
-
-	  			//   	window.addEventListener("resize", function(){
-	  			//   		echartPie8.resize();
-	  			//   	});
-
-	  			// }
-	  		// break;
 
 	  		// case "fforecast":
 	  			// fforecast tab
 	  			// echart Bar Stack
 
-	  			if ($('#echart_bar_stack').length ){
+	  			if ($('#echart_bar_stack_fforecast').length ){
 
 	  				// console.log('init_echarts_bar_stack');
 
-	  				var echartBar1 = echarts.init(document.getElementById('echart_bar_stack'), colorBlue, humanizeBar);
+	  				var echartBarFforecast = echarts.init(document.getElementById('echart_bar_stack_fforecast'), theme, render());
 
-	  				echartBar1.setOption({
-	  					// title: {
-	  					//   text: 'Graph title',
-	  					//   subtext: 'Graph Sub-text',
-	  					//   x: 'center'
-	  					// },
-	  					animation: animate,
-	  					tooltip: {
-	  					  trigger: 'axis',
-	  					  axisPointer:{
-	  					  	type:'shadow'
-	  					  },
-	  					  formatter: humTooltipBar
+	  				echartBarFforecast.setOption({
+	  					tooltip : {
+	  					    trigger: 'axis',
+	  					    axisPointer : {            
+	  					        type : 'line'        
+	  					    },
+	  					    formatter: humTooltipBar
 	  					},
 	  					legend: {
 	  						x: 'center',
 	  						y: 'bottom',
-	  					  data: fforecast_legend
+	  					  	data: fforecast_legend
 	  					},
 	  					toolbox: {
-	  				      show: true,
-	  				      feature: {
-	  				    	magicType: {
-	  				    	  show: true,
-	  				    	  title: {
-	  				    		line: 'Line',
-	  				    		bar: 'Bar',
-	  				    		stack: 'Stack',
-	  				    		tiled: 'Tiled'
-	  				    	  },
-	  				    	  type: ['line', 'bar', 'stack', 'tiled']
-	  				    	},
-	  				    	restore: {
-	  				    	  show: true,
-	  				    	  title: "Restore"
-	  				    	},
-	  				    	saveAsImage: {
-	  				    	  show: true,
-	  				    	  title: "Save Image"
-	  				    	}
-	  				      }
+	  				      	show: true,
+	  				      	feature: {
+	  				    		magicType: {
+		  				    	  	show: true,
+		  				    	  	title: {
+		  				    			line: 'Line',
+		  				    			bar: 'Bar',
+		  				    			stack: 'Stack',
+		  				    			tiled: 'Tiled'
+		  				    	  	},
+	  				    	  		type: ['line', 'bar', 'stack', 'tiled']
+		  				    	},
+		  				    	restore: {
+		  				    	  	show: true,
+		  				    	  	title: "Restore"
+		  				    	},
+		  				    	saveAsImage: {
+		  				    	  	show: true,
+		  				    	  	title: "Save Image"
+		  				    	}
+	  				      	}
 	  					},
-							grid: {
-						        left: '1%',
-						        right: '20%',
-						        bottom: '8%',
-						        containLabel: true
-						    },
+						grid: {
+					        left: '1%',
+					        right: '20%',
+					        bottom: '8%',
+					        containLabel: true
+					    },
+					    color: colorFloodRisk,
 	  					calculable: true,
 	  					textStyle:{
 	  						fontSize: '10'
 	  					},
 	  					xAxis: [{
-	  					  type: 'category',
-	  					  name: 'Likelihood',
-	  					  // nameRotate: 30,
-	  					  data: fforecast_cat,
-	  					  // data: ['Extreme', 'Very High', 'High', 'Moderate', 'Low'],
-	  					  axisLabel:{
-	  					  	textStyle: {
-	  					  		fontSize: '10',
-	  					  		color: ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF']
-	  					  	}
-	  					  }
+	  					  	type: 'category',
+	  					  	name: 'Likelihood',
+	  					  	// nameRotate: 30,
+	  					  	data: fforecast_cat,
+							axisLabel:{
+								textStyle: {
+								    color: colorFloodLikelihood
+								}
+							}
 	  					}],
 	  					yAxis: [{
-	  					  type: 'log',
-	  					  name: 'Population',
-	  					  axisLabel:{
-	  					  	// rotate: 30,
-	  					  	textStyle: {
-	  					  		fontSize: '10'
-	  					  	},
-	  					  	formatter: humanizeFormatter
-	  					  }
+							type: 'value',
+							name: 'Population',
+							scale: true,
+							axisLabel:{
+								// rotate: 30,
+								textStyle: {
+									color: '#333',
+									fontSize: '10'
+								},
+								formatter: humanizeFormatter
+							}
 	  					}],
 	  					series: [{
 	  					  name: fforecast_legend[0],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
+	  					  	// color: colorFloodRisk,
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar,
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: fforecast_low_val
-	  					  // data: [jsondata['flashflood_forecast_extreme_risk_low_pop'], jsondata['flashflood_forecast_veryhigh_risk_low_pop'], jsondata['flashflood_forecast_high_risk_low_pop'], jsondata['flashflood_forecast_med_risk_low_pop'], jsondata['flashflood_forecast_low_risk_low_pop']]
-	  					  // data: [0, 28073, 4708, 196553, 237405]
 	  					}, {
 	  					  name: fforecast_legend[1],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: fforecast_med_val
-	  					  // data: [jsondata['flashflood_forecast_extreme_risk_med_pop'], jsondata['flashflood_forecast_veryhigh_risk_med_pop'], jsondata['flashflood_forecast_high_risk_med_pop'], jsondata['flashflood_forecast_med_risk_med_pop'], jsondata['flashflood_forecast_low_risk_med_pop']]
-	  					  // data: [0, 21875, 8484, 149036, 238381]
 	  					},{
 	  					  name: fforecast_legend[2],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20, //galau. kalo pake min height ntar ga sesuai sm log nya hasilnya
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: fforecast_hi_val
-	  					  // data: [jsondata['flashflood_forecast_extreme_risk_high_pop'], jsondata['flashflood_forecast_veryhigh_risk_high_pop'], jsondata['flashflood_forecast_high_risk_high_pop'], jsondata['flashflood_forecast_med_risk_high_pop'], jsondata['flashflood_forecast_low_risk_high_pop']]
-	  					  // data: [0, 10150, 11396, 161921, 177592]
-	  					 //  markPoint: {
-	  						// data: [{
-	  						//   type: 'max',
-	  						//   name: '???'
-	  						// }, {
-	  						//   type: 'min',
-	  						//   name: '???'
-	  						// }]
-	  					 //  },
-	  					 //  markLine: {
-	  						// data: [{
-	  						//   type: 'average',
-	  						//   name: '???'
-	  						// }]
-	  					 //  }
 	  					}]
 	  				});
 
   				  	window.addEventListener("resize", function(){
-  				  		echartBar1.resize();
+  				  		echartBarFforecast.resize();
   				  	});
 
 	  			}
 
 	  			// echart Bar Stack 2
 
-	  			if ($('#echart_bar_stack_2').length ){
+	  			if ($('#echart_bar_stack_ggforecast').length ){
 
 	  				// console.log('init_echarts_bar_stack_2');
 
-	  				var echartBar2 = echarts.init(document.getElementById('echart_bar_stack_2'), colorBlue, humanizeBar);
+	  				var echartBarGGforecast = echarts.init(document.getElementById('echart_bar_stack_ggforecast'), theme, render());
 
-	  				echartBar2.setOption({
-	  					// title: {
-	  					//   text: 'Graph title',
-	  					//   subtext: 'Graph Sub-text',
-	  					//   x: 'center'
-	  					// },
-	  					tooltip: {
-	  					  trigger: 'axis',
-	  					  axisPointer:{
-	  					  	type:'shadow'
-	  					  },
-	  					  formatter: humTooltipBar
+	  				echartBarGGforecast.setOption({
+	  					tooltip : {
+	  					    trigger: 'axis',
+	  					    axisPointer : {            
+	  					        type : 'line'        
+	  					    },
+	  					    formatter: humTooltipBar
 	  					},
 	  					legend: {
 	  						x: 'center',
 	  						y: 'bottom',
-	  					  data: fforecast_legend
+	  					  	data: fforecast_legend
 	  					},
 	  					toolbox: {
-	  				      show: true,
-	  				      feature: {
-	  				    	magicType: {
-	  				    	  show: true,
-	  				    	  title: {
-	  				    		line: 'Line',
-	  				    		bar: 'Bar',
-	  				    		stack: 'Stack',
-	  				    		tiled: 'Tiled'
-	  				    	  },
-	  				    	  type: ['line', 'bar', 'stack', 'tiled']
-	  				    	},
-	  				    	restore: {
-	  				    	  show: true,
-	  				    	  title: "Restore"
-	  				    	},
-	  				    	saveAsImage: {
-	  				    	  show: true,
-	  				    	  title: "Save Image"
-	  				    	}
-	  				      }
+	  				      	show: true,
+	  				      	feature: {
+	  				    		magicType: {
+		  				    	  	show: true,
+		  				    	  	title: {
+		  				    			line: 'Line',
+		  				    			bar: 'Bar',
+		  				    			stack: 'Stack',
+		  				    			tiled: 'Tiled'
+		  				    	  	},
+	  				    	  		type: ['line', 'bar', 'stack', 'tiled']
+		  				    	},
+		  				    	restore: {
+		  				    	  	show: true,
+		  				    	  	title: "Restore"
+		  				    	},
+		  				    	saveAsImage: {
+		  				    	  	show: true,
+		  				    	  	title: "Save Image"
+		  				    	}
+	  				      	}
 	  					},
-							grid: {
-						        left: '1%',
-						        right: '20%',
-						        bottom: '8%',
-						        containLabel: true
-						    },
+						grid: {
+					        left: '1%',
+					        right: '20%',
+					        bottom: '8%',
+					        containLabel: true
+					    },
+					    color: colorFloodRisk,
 	  					calculable: true,
 	  					textStyle:{
 	  						fontSize: '10'
 	  					},
 	  					xAxis: [{
-	  					  type: 'category',
-	  					  name: 'Likelihood',
-	  					  // nameRotate: 30,
-	  					  data: fforecast_cat,
-	  					  axisLabel:{
-	  					  	textStyle: {
-	  					  		fontSize: '10',
-	  					  		color: ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF']
-	  					  	}
-	  					  }
+	  					  	type: 'category',
+	  					  	name: 'Likelihood',
+	  					  	// nameRotate: 30,
+	  					  	data: fforecast_cat,
+							axisLabel:{
+								textStyle: {
+								    color: colorFloodLikelihood
+								}
+							}
 	  					}],
 	  					yAxis: [{
-	  					  type: 'log',
-	  					  name: 'Population',
-	  					  axisLabel:{
-	  					  	// rotate: 30,
-	  					  	textStyle: {
-	  					  		fontSize: '10'
-	  					  	},
-	  					  	formatter: humanizeFormatter
-	  					  }
+							type: 'value',
+							name: 'Population',
+							scale: true,
+							axisLabel:{
+								// rotate: 30,
+								textStyle: {
+									color: '#333',
+									fontSize: '10'
+								},
+								formatter: humanizeFormatter
+							}
 	  					}],
 	  					series: [{
 	  					  name: fforecast_legend[0],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
+	  					  	// color: colorFloodRisk,
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar,
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: ggforecast_low_val
-	  					  // data: [jsondata['gfms_glofas_riverflood_forecast_extreme_risk_low_pop'], jsondata['gfms_glofas_riverflood_forecast_veryhigh_risk_low_pop'], jsondata['gfms_glofas_riverflood_forecast_high_risk_low_pop'], jsondata['gfms_glofas_riverflood_forecast_med_risk_low_pop'], jsondata['gfms_glofas_riverflood_forecast_low_risk_low_pop']]
-	  					  // data: [jsondata[''], jsondata[''], jsondata[''], jsondata[''], jsondata['']]
-	  					  // data: [0, 28073, 4708, 196553, 237405]
 	  					}, {
 	  					  name: fforecast_legend[1],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: ggforecast_med_val
-	  					  // data: [jsondata['gfms_glofas_riverflood_forecast_extreme_risk_med_pop'], jsondata['gfms_glofas_riverflood_forecast_veryhigh_risk_med_pop'], jsondata['gfms_glofas_riverflood_forecast_high_risk_med_pop'], jsondata['gfms_glofas_riverflood_forecast_med_risk_med_pop'], jsondata['gfms_glofas_riverflood_forecast_low_risk_med_pop']]
-	  					  // data: [0, 21875, 8484, 149036, 238381]
 	  					},{
 	  					  name: fforecast_legend[2],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20, //galau. kalo pake min height ntar ga sesuai sm log nya hasilnya
+	  					  // barMinHeight: 20, //galau. kalo pake min height ntar ga sesuai sm log nya hasilnya
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: ggforecast_hi_val
-	  					  // data: [jsondata['gfms_glofas_riverflood_forecast_extreme_risk_high_pop'], jsondata['gfms_glofas_riverflood_forecast_veryhigh_risk_high_pop'], jsondata['gfms_glofas_riverflood_forecast_high_risk_high_pop'], jsondata['gfms_glofas_riverflood_forecast_med_risk_high_pop'], jsondata['gfms_glofas_riverflood_forecast_low_risk_high_pop']]
-	  					  // data: [0, 10150, 11396, 161921, 177592]
-	  					 //  markPoint: {
-	  						// data: [{
-	  						//   type: 'max',
-	  						//   name: '???'
-	  						// }, {
-	  						//   type: 'min',
-	  						//   name: '???'
-	  						// }]
-	  					 //  },
-	  					 //  markLine: {
-	  						// data: [{
-	  						//   type: 'average',
-	  						//   name: '???'
-	  						// }]
-	  					 //  }
 	  					}]
 	  				});
 
-	  				  	window.addEventListener("resize", function(){
-	  				  		echartBar2.resize();
-	  				  	});
+  				  	window.addEventListener("resize", function(){
+  				  		echartBarGGforecast.resize();
+  				  	});
+
+  				  	$('.navbar-forecast a[href="#ggMenu"]').on('shown.bs.tab', function(){
+  				  		echartBarGGforecast.resize();
+  				  	});
 
 	  			}
 
 	  			// echart Bar Stack 3
 
-	  			if ($('#echart_bar_stack_3').length ){
+	  			if ($('#echart_bar_stack_glforecast').length ){
 
 	  				// console.log('init_echarts_bar_stack_3');
 
-	  				var echartBar3 = echarts.init(document.getElementById('echart_bar_stack_3'), colorBlue, humanizeBar);
+	  				var echartBarGLforecast = echarts.init(document.getElementById('echart_bar_stack_glforecast'), theme);
 
-	  				echartBar3.setOption({
-	  					// title: {
-	  					//   text: 'Graph title',
-	  					//   subtext: 'Graph Sub-text',
-	  					//   x: 'center'
-	  					// },
-	  					tooltip: {
-	  					  trigger: 'axis',
-	  					  axisPointer:{
-	  					  	type:'shadow'
-	  					  },
-	  					  formatter: humTooltipBar
+	  				echartBarGLforecast.setOption({
+	  					tooltip : {
+	  					    trigger: 'axis',
+	  					    axisPointer : {            
+	  					        type : 'line'        
+	  					    },
+	  					    formatter: humTooltipBar
 	  					},
 	  					legend: {
 	  						x: 'center',
 	  						y: 'bottom',
-	  					  data: fforecast_legend
+	  					  	data: fforecast_legend
 	  					},
 	  					toolbox: {
-	  				      show: true,
-	  				      feature: {
-	  				    	magicType: {
-	  				    	  show: true,
-	  				    	  title: {
-	  				    		line: 'Line',
-	  				    		bar: 'Bar',
-	  				    		stack: 'Stack',
-	  				    		tiled: 'Tiled'
-	  				    	  },
-	  				    	  type: ['line', 'bar', 'stack', 'tiled']
-	  				    	},
-	  				    	restore: {
-	  				    	  show: true,
-	  				    	  title: "Restore"
-	  				    	},
-	  				    	saveAsImage: {
-	  				    	  show: true,
-	  				    	  title: "Save Image"
-	  				    	}
-	  				      }
+	  				      	show: true,
+	  				      	feature: {
+	  				    		magicType: {
+		  				    	  	show: true,
+		  				    	  	title: {
+		  				    			line: 'Line',
+		  				    			bar: 'Bar',
+		  				    			stack: 'Stack',
+		  				    			tiled: 'Tiled'
+		  				    	  	},
+	  				    	  		type: ['line', 'bar', 'stack', 'tiled']
+		  				    	},
+		  				    	restore: {
+		  				    	  	show: true,
+		  				    	  	title: "Restore"
+		  				    	},
+		  				    	saveAsImage: {
+		  				    	  	show: true,
+		  				    	  	title: "Save Image"
+		  				    	}
+	  				      	}
 	  					},
-							grid: {
-						        left: '1%',
-						        right: '20%',
-						        bottom: '8%',
-						        containLabel: true
-						    },
+						grid: {
+					        left: '1%',
+					        right: '20%',
+					        bottom: '8%',
+					        containLabel: true
+					    },
+					    color: colorFloodRisk,
 	  					calculable: true,
 	  					textStyle:{
 	  						fontSize: '10'
 	  					},
 	  					xAxis: [{
-	  					  type: 'category',
-	  					  name: 'Likelihood',
-	  					  // nameRotate: 30,
-	  					  data: fforecast_cat,
-	  					  axisLabel:{
-	  					  	textStyle: {
-	  					  		fontSize: '10',
-	  					  		color: ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF']
-	  					  	}
-	  					  }
+	  					  	type: 'category',
+	  					  	name: 'Likelihood',
+	  					  	// nameRotate: 30,
+	  					  	data: fforecast_cat,
+							axisLabel:{
+								textStyle: {
+								    color: colorFloodLikelihood
+								}
+							}
 	  					}],
 	  					yAxis: [{
-	  					  type: 'log',
-	  					  name: 'Population',
-	  					  axisLabel:{
-	  					  	// rotate: 30,
-	  					  	textStyle: {
-	  					  		fontSize: '10'
-	  					  	},
-	  					  	formatter: humanizeFormatter
-	  					  }
+							type: 'value',
+							name: 'Population',
+							scale: true,
+							axisLabel:{
+								// rotate: 30,
+								textStyle: {
+									color: '#333',
+									fontSize: '10'
+								},
+								formatter: humanizeFormatter
+							}
 	  					}],
 	  					series: [{
 	  					  name: fforecast_legend[0],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
+	  					  	// color: colorFloodRisk,
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar,
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: glforecast_low_val
-	  					  // data: [jsondata['glofas_riverflood_forecast_extreme_risk_low_pop'], jsondata['glofas_riverflood_forecast_veryhigh_risk_low_pop'], jsondata['glofas_riverflood_forecast_high_risk_low_pop'], jsondata['glofas_riverflood_forecast_med_risk_low_pop'], jsondata['glofas_riverflood_forecast_low_risk_low_pop']]
-	  					  // data: [0, 28073, 4708, 196553, 237405]
 	  					}, {
 	  					  name: fforecast_legend[1],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: glforecast_med_val
-	  					  // data: [jsondata['glofas_riverflood_forecast_extreme_risk_med_pop'], jsondata['glofas_riverflood_forecast_veryhigh_risk_med_pop'], jsondata['glofas_riverflood_forecast_high_risk_med_pop'], jsondata['glofas_riverflood_forecast_med_risk_med_pop'], jsondata['glofas_riverflood_forecast_low_risk_med_pop']]
-	  					  // data: [0, 21875, 8484, 149036, 238381]
 	  					},{
 	  					  name: fforecast_legend[2],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20, //galau. kalo pake min height ntar ga sesuai sm log nya hasilnya
+	  					  // barMinHeight: 20, //galau. kalo pake min height ntar ga sesuai sm log nya hasilnya
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: glforecast_hi_val
-	  					  // data: [jsondata['glofas_riverflood_forecast_extreme_risk_high_pop'], jsondata['glofas_riverflood_forecast_veryhigh_risk_high_pop'], jsondata['glofas_riverflood_forecast_high_risk_high_pop'], jsondata['glofas_riverflood_forecast_med_risk_high_pop'], jsondata['glofas_riverflood_forecast_low_risk_high_pop']]
-	  					  // data: [0, 10150, 11396, 161921, 177592]
-	  					 //  markPoint: {
-	  						// data: [{
-	  						//   type: 'max',
-	  						//   name: '???'
-	  						// }, {
-	  						//   type: 'min',
-	  						//   name: '???'
-	  						// }]
-	  					 //  },
-	  					 //  markLine: {
-	  						// data: [{
-	  						//   type: 'average',
-	  						//   name: '???'
-	  						// }]
-	  					 //  }
 	  					}]
 	  				});
 
-	  				  	window.addEventListener("resize", function(){
-	  				  		echartBar3.resize();
-	  				  	});
+  				  	window.addEventListener("resize", function(){
+  				  		echartBarGLforecast.resize();
+  				  	});
+
+	  				$('.navbar-forecast a[href="#glMenu"]').on('shown.bs.tab', function(){
+	  					echartBarGLforecast.resize();
+	  				});
 
 	  			}
 
 	  			// echart Bar Stack 4
 
-	  			if ($('#echart_bar_stack_4').length ){
+	  			if ($('#echart_bar_stack_gfforecast').length ){
 
-	  				var echartBar4 = echarts.init(document.getElementById('echart_bar_stack_4'), colorBlue, humanizeBar);
+	  				var echartBarGFforecast = echarts.init(document.getElementById('echart_bar_stack_gfforecast'), theme);
 
-	  				echartBar4.setOption({
-	  					// title: {
-	  					//   text: 'Graph title',
-	  					//   subtext: 'Graph Sub-text',
-	  					//   x: 'center'
-	  					// },
-	  					tooltip: {
-	  					  trigger: 'axis',
-	  					  axisPointer:{
-	  					  	type:'shadow'
-	  					  },
-	  					  formatter: humTooltipBar
+	  				echartBarGFforecast.setOption({
+	  					tooltip : {
+	  					    trigger: 'axis',
+	  					    axisPointer : {            
+	  					        type : 'line'        
+	  					    },
+	  					    formatter: humTooltipBar
 	  					},
 	  					legend: {
 	  						x: 'center',
 	  						y: 'bottom',
-	  					  data: fforecast_legend
+	  					  	data: fforecast_legend
 	  					},
 	  					toolbox: {
-	  				      show: true,
-	  				      feature: {
-	  				    	magicType: {
-	  				    	  show: true,
-	  				    	  title: {
-	  				    		line: 'Line',
-	  				    		bar: 'Bar',
-	  				    		stack: 'Stack',
-	  				    		tiled: 'Tiled'
-	  				    	  },
-	  				    	  type: ['line', 'bar', 'stack', 'tiled']
-	  				    	},
-	  				    	restore: {
-	  				    	  show: true,
-	  				    	  title: "Restore"
-	  				    	},
-	  				    	saveAsImage: {
-	  				    	  show: true,
-	  				    	  title: "Save Image"
-	  				    	}
-	  				      }
+	  				      	show: true,
+	  				      	feature: {
+	  				    		magicType: {
+		  				    	  	show: true,
+		  				    	  	title: {
+		  				    			line: 'Line',
+		  				    			bar: 'Bar',
+		  				    			stack: 'Stack',
+		  				    			tiled: 'Tiled'
+		  				    	  	},
+	  				    	  		type: ['line', 'bar', 'stack', 'tiled']
+		  				    	},
+		  				    	restore: {
+		  				    	  	show: true,
+		  				    	  	title: "Restore"
+		  				    	},
+		  				    	saveAsImage: {
+		  				    	  	show: true,
+		  				    	  	title: "Save Image"
+		  				    	}
+	  				      	}
 	  					},
-							grid: {
-						        left: '1%',
-						        right: '20%',
-						        bottom: '8%',
-						        containLabel: true
-						    },
+						grid: {
+					        left: '1%',
+					        right: '20%',
+					        bottom: '8%',
+					        containLabel: true
+					    },
+					    color: colorFloodRisk,
 	  					calculable: true,
 	  					textStyle:{
 	  						fontSize: '10'
 	  					},
 	  					xAxis: [{
-	  					  type: 'category',
-	  					  name: 'Likelihood',
-	  					  // nameRotate: 30,
-	  					  data: fforecast_cat,
-	  					  axisLabel:{
-	  					  	textStyle: {
-	  					  		fontSize: '10',
-	  					  		color: ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF']
-	  					  	}
-	  					  }
+	  					  	type: 'category',
+	  					  	name: 'Likelihood',
+	  					  	// nameRotate: 30,
+	  					  	data: fforecast_cat,
+							axisLabel:{
+								textStyle: {
+								    color: colorFloodLikelihood
+								}
+							}
 	  					}],
 	  					yAxis: [{
-	  					  type: 'log',
-	  					  name: 'Population',
-	  					  axisLabel:{
-	  					  	// rotate: 30,
-	  					  	textStyle: {
-	  					  		fontSize: '10'
-	  					  	},
-	  					  	formatter: humanizeFormatter
-	  					  }
+							type: 'value',
+							name: 'Population',
+							scale: true,
+							axisLabel:{
+								// rotate: 30,
+								textStyle: {
+									color: '#333',
+									fontSize: '10'
+								},
+								formatter: humanizeFormatter
+							}
 	  					}],
 	  					series: [{
 	  					  name: fforecast_legend[0],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
+	  					  	// color: colorFloodRisk,
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar,
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: gfforecast_low_val
-	  					  // data: [jsondata['riverflood_forecast_extreme_risk_low_pop'], jsondata['riverflood_forecast_veryhigh_risk_low_pop'], jsondata['riverflood_forecast_high_risk_low_pop'], jsondata['riverflood_forecast_med_risk_low_pop'], jsondata['riverflood_forecast_low_risk_low_pop']]
-	  					  // data: [0, 28073, 4708, 196553, 237405]
 	  					}, {
 	  					  name: fforecast_legend[1],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20,
+	  					  // barMinHeight: 20,
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: gfforecast_med_val
-	  					  // data: [jsondata['riverflood_forecast_extreme_risk_med_pop'], jsondata['riverflood_forecast_veryhigh_risk_med_pop'], jsondata['riverflood_forecast_high_risk_med_pop'], jsondata['riverflood_forecast_med_risk_med_pop'], jsondata['riverflood_forecast_low_risk_med_pop']]
-	  					  // data: [0, 21875, 8484, 149036, 238381]
 	  					},{
 	  					  name: fforecast_legend[2],
 	  					  type: 'bar',
 	  					  stack: 'flash',
-	  					  barMinHeight: 20, //galau. kalo pake min height ntar ga sesuai sm log nya hasilnya
+	  					  // barMinHeight: 20, //galau. kalo pake min height ntar ga sesuai sm log nya hasilnya
 	  					  itemStyle:{
 	  					  	normal:{
 	  					  		label:{
-	  					  			show:true,
+	  					  			// show:true,
 	  					  			position: 'inside',
 	  					  			formatter: humanizeBar
 	  					  		}
 	  					  	}
 	  					  },
 	  					  data: gfforecast_hi_val
-	  					  // data: [jsondata['riverflood_forecast_extreme_risk_high_pop'], jsondata['riverflood_forecast_veryhigh_risk_high_pop'], jsondata['riverflood_forecast_high_risk_high_pop'], jsondata['riverflood_forecast_med_risk_high_pop'], jsondata['riverflood_forecast_low_risk_high_pop']]
-	  					  // data: [0, 10150, 11396, 161921, 177592]
-	  					 //  markPoint: {
-	  						// data: [{
-	  						//   type: 'max',
-	  						//   name: '???'
-	  						// }, {
-	  						//   type: 'min',
-	  						//   name: '???'
-	  						// }]
-	  					 //  },
-	  					 //  markLine: {
-	  						// data: [{
-	  						//   type: 'average',
-	  						//   name: '???'
-	  						// }]
-	  					 //  }
 	  					}]
 	  				});
 
-	  				  	window.addEventListener("resize", function(){
-	  				  		echartBar4.resize();
-	  				  	});
+  				  	window.addEventListener("resize", function(){
+  				  		echartBarGFforecast.resize();
+  				  	});
+
+  				  	$('.navbar-forecast a[href="#gfMenu"]').on('shown.bs.tab', function(){
+  				  		echartBarGFforecast.resize();
+  				  	});
 
 	  			}
 	  		// break;
@@ -12106,96 +2943,79 @@ jQuery(function($){
 	  			// frisk tab
 	  			// echart Donut 3
 
-	  			if ($('#echart_donut_3').length ){
+	  			if ($('#echart_donut_frisk_pop').length ){
 
-		  			var echartDonut = echarts.init(document.getElementById('echart_donut_3'), theme, humTooltipPie, humanizePie);
+		  			var echartDonutFriskPop = echarts.init(document.getElementById('echart_donut_frisk_pop'), theme, render());
 
-		  			echartDonut.setOption({
+		  			echartDonutFriskPop.setOption({
 		  				tooltip: {
-		  				  trigger: 'item',
-		  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
+							trigger: 'item',
+							formatter: humTooltipPie 
 		  				},
-		  				calculable: true,
 		  				legend: {
-		  				  x: 'left',
-		  				  y: 'top',
-		  				  orient: 'vertical',
-		  				  data: frisk_cat
-		  				  // data: ['Low Risk','Medium Risk', 'High Risk', 'Not at Risk']
+							x: 'left',
+							y: 'top',
+							orient: 'vertical',
+							data: frisk_cat
 		  				},
 		  				toolbox: {
-		  				  show: true,
-		  				  feature: {
-		  					magicType: {
-		  					  show: true,
-		  					  type: ['pie', 'funnel'],
-		  					  option: {
-		  						funnel: {
-		  						  x: '25%',
-		  						  width: '50%',
-		  						  funnelAlign: 'center',
-		  						  max: 1548
+		  					show: true,
+		  					feature: {
+		  						restore: {
+		  						  	show: true,
+		  						  	title: "Restore"
+		  						},
+		  						saveAsImage: {
+		  						  	show: true,
+		  						  	title: "Save Image"
 		  						}
-		  					  }
-		  					},
-		  					restore: {
-		  					  show: true,
-		  					  title: "Restore"
-		  					},
-		  					saveAsImage: {
-		  					  show: true,
-		  					  title: "Save Image"
 		  					}
-		  				  }
 		  				},
+		  				calculable: true,
 		  				series: [{
-		  				  name: 'Area',
-		  				  type: 'pie',
-		  				  radius: ['35%', '55%'],
-		  				  itemStyle: {
-		  					normal: {
-		  					  label: {
-		  						show: true,
-		  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-		  					  },
-		  					  labelLine: {
-		  						show: true
-		  					  }
-		  					},
-		  					emphasis: {
-		  					  label: {
-		  						show: true,
-		  						position: 'center',
-		  						textStyle: {
-		  						  fontSize: '14',
-		  						  fontWeight: 'normal'
-		  						}
-		  					  }
-		  					}
-		  				  },
-		  				  data: [{
-		  				  	value: frisk_low_pop,
-		  					// value: jsondata['low_risk_population'],
-		  					name: frisk_cat[0]
-		  				  }, {
-		  				  	value: frisk_med_pop,
-		  					// value: jsondata['med_risk_population'] ,
-		  					name: frisk_cat[1]
-		  				  }, {
-		  				  	value: frisk_hi_pop,
-		  					// value: jsondata['high_risk_population'] ,
-		  					name: frisk_cat[2]
-		  				  }, {
-		  				  	value: pop - tot_risk_pop,
-		  					// value: jsondata['Population'] - jsondata['total_risk_population'],
-		  					name: frisk_cat[3],
-		  					itemStyle: pieNull
-		  				  }]
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: frisk_low_pop,
+								name: frisk_cat[0]
+							}, {
+								value: frisk_med_pop,
+								name: frisk_cat[1]
+							}, {
+								value: frisk_hi_pop,
+								name: frisk_cat[2]
+							}, {
+								value: pop - tot_risk_pop,
+								name: frisk_cat[3],
+								itemStyle: pieNull
+							}]
 		  				}]
 		  			});
 
 	  			  	window.onresize = function(){
-	  			  		echartDonut.resize();
+	  			  		echartDonutFriskPop.resize();
 	  			  	}
 
 	  			}
@@ -12204,94 +3024,74 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_frisk_build').length ){
 
-	  			  var echartDonutFRiskBuild = echarts.init(document.getElementById('echart_donut_frisk_build'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutFRiskBuild = echarts.init(document.getElementById('echart_donut_frisk_build'), theme, render());
 
-	  			  echartDonutFRiskBuild.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: frisk_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  				  	value: frisk_low_build,
-	  					// value: jsondata['low_risk_buildings'],
-	  					name: frisk_cat[0]
-	  					// name: 'Low Risk'
-	  				  }, {
-	  				  	value: frisk_med_build,
-	  					// value: jsondata['med_risk_buildings'],
-	  					name: frisk_cat[1]
-	  					// name: 'Medium Risk'
-	  				  }, {
-	  				  	value: frisk_hi_build,
-	  					// value: jsondata['high_risk_buildings'],
-	  					name: frisk_cat[2]
-	  					// name: 'High Risk'
-	  				  }, {
-	  				  	value: build - tot_risk_build,
-	  					// value: jsondata['Population'] - jsondata['total_risk_buildings'],
-	  					name: frisk_cat[3],
-	  					// name: 'Not at Risk',
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+	  	  			echartDonutFRiskBuild.setOption({
+	  	  				tooltip: {
+	  						trigger: 'item',
+	  						formatter: humTooltipPie 
+	  	  				},
+	  	  				legend: {
+	  						x: 'left',
+	  						y: 'top',
+	  						orient: 'vertical',
+	  						data: frisk_cat
+	  	  				},
+	  	  				toolbox: {
+	  	  					show: true,
+	  	  					feature: {
+	  	  						restore: {
+	  	  						  	show: true,
+	  	  						  	title: "Restore"
+	  	  						},
+	  	  						saveAsImage: {
+	  	  						  	show: true,
+	  	  						  	title: "Save Image"
+	  	  						}
+	  	  					}
+	  	  				},
+	  	  				calculable: true,
+	  	  				series: [{
+	  						name: 'Area',
+	  						type: 'pie',
+	  						radius: ['35%', '55%'],
+	  						itemStyle: {
+	  							normal: {
+	  								label: {
+	  									show: true,
+	  									formatter: humanizePie
+	  								},
+	  								labelLine: {
+	  									show: true
+	  								}
+	  							},
+	  							emphasis: {
+	  								label: {
+	  									show: true,
+	  									position: 'center',
+	  									textStyle: {
+	  										fontSize: '14',
+	  										fontWeight: 'normal'
+	  									}
+	  								}
+	  							}
+	  						},
+	  						data: [{
+	  							value: frisk_low_build,
+	  							name: frisk_cat[0]
+	  						}, {
+	  							value: frisk_med_build,
+	  							name: frisk_cat[1]
+	  						}, {
+	  							value: frisk_hi_build,
+	  							name: frisk_cat[2]
+	  						}, {
+	  							value: build - tot_risk_build,
+	  							name: frisk_cat[3],
+	  							itemStyle: pieNull
+	  						}]
+	  	  				}]
+	  	  			});
 
 	  			  	window.onresize = function(){
 	  			  		echartDonutFRiskBuild.resize();
@@ -12303,94 +3103,74 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_frisk_area').length ){
 
-	  			  var echartDonutFRiskArea = echarts.init(document.getElementById('echart_donut_frisk_area'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutFRiskArea = echarts.init(document.getElementById('echart_donut_frisk_area'), theme, render());
 
-	  			  echartDonutFRiskArea.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: frisk_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: frisk_low_area,
-	  					// value: jsondata['low_risk_area'],
-	  					name: frisk_cat[0]
-	  					// name: 'Low Risk'
-	  				  }, {
-	  					value: frisk_med_area,
-	  					// value: jsondata['med_risk_area'] ,
-	  					name: frisk_cat[1]
-	  					// name: 'Medium Risk'
-	  				  }, {
-	  					value: frisk_hi_area,
-	  					// value: jsondata['high_risk_area'] ,
-	  					name: frisk_cat[2]
-	  					// name: 'High Risk'
-	  				  }, {
-	  					value: area - tot_risk_area,
-	  					// value: jsondata['Area'] - jsondata['total_risk_area'],
-	  					name: frisk_cat[3],
-	  					// name: 'Not at Risk',
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+	  	  			echartDonutFRiskArea.setOption({
+	  	  				tooltip: {
+	  						trigger: 'item',
+	  						formatter: humTooltipPie 
+	  	  				},
+	  	  				legend: {
+	  						x: 'left',
+	  						y: 'top',
+	  						orient: 'vertical',
+	  						data: frisk_cat
+	  	  				},
+	  	  				toolbox: {
+	  	  					show: true,
+	  	  					feature: {
+	  	  						restore: {
+	  	  						  	show: true,
+	  	  						  	title: "Restore"
+	  	  						},
+	  	  						saveAsImage: {
+	  	  						  	show: true,
+	  	  						  	title: "Save Image"
+	  	  						}
+	  	  					}
+	  	  				},
+	  	  				calculable: true,
+	  	  				series: [{
+	  						name: 'Area',
+	  						type: 'pie',
+	  						radius: ['35%', '55%'],
+	  						itemStyle: {
+	  							normal: {
+	  								label: {
+	  									show: true,
+	  									formatter: humanizePie
+	  								},
+	  								labelLine: {
+	  									show: true
+	  								}
+	  							},
+	  							emphasis: {
+	  								label: {
+	  									show: true,
+	  									position: 'center',
+	  									textStyle: {
+	  										fontSize: '14',
+	  										fontWeight: 'normal'
+	  									}
+	  								}
+	  							}
+	  						},
+	  						data: [{
+	  							value: frisk_low_area,
+	  							name: frisk_cat[0]
+	  						}, {
+	  							value: frisk_med_area,
+	  							name: frisk_cat[1]
+	  						}, {
+	  							value: frisk_hi_area,
+	  							name: frisk_cat[2]
+	  						}, {
+	  							value: area - tot_risk_area,
+	  							name: frisk_cat[3],
+	  							itemStyle: pieNull
+	  						}]
+	  	  				}]
+	  	  			});
 
 	  			  	window.onresize = function(){
 	  			  		echartDonutFRiskArea.resize();
@@ -12403,95 +3183,78 @@ jQuery(function($){
 	  			// aforecast tab
 	  			// echart Donut 4
 
-	  			if ($('#echart_donut_4').length ){
+	  			if ($('#echart_donut_ava_pop_prediction').length ){
 
-	  			  var echartDonut = echarts.init(document.getElementById('echart_donut_4'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutAvaPopPredict = echarts.init(document.getElementById('echart_donut_ava_pop_prediction'), theme, render());
 
-	  			  echartDonut.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: aforecast_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: (afo_low_pop || '-'),
-	  					// value: jsondata['ava_forecast_low_pop'],
-	  					name: aforecast_cat[0]
-	  				  }, {
-	  					value: (afo_med_pop || '-'),
-	  					// value: jsondata['ava_forecast_med_pop'],
-	  					name: aforecast_cat[1]
-	  				  }, {
-	  					value: (afo_hi_pop || '-'),
-	  					// value: jsondata['ava_forecast_high_pop'],
-	  					name: aforecast_cat[2]
-	  				  }, {
-	  					value: pop - tot_ava_pop,
-	  					// value: jsondata['Population'] - jsondata['total_ava_forecast_pop'],
-	  					name: aforecast_cat[3],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+					echartDonutAvaPopPredict.setOption({
+						tooltip: {
+	  						trigger: 'item',
+	  						formatter: humTooltipPie 
+	  	  				},
+	  	  				legend: {
+	  						x: 'left',
+	  						y: 'top',
+	  						orient: 'vertical',
+	  						data: aforecast_cat
+	  	  				},
+	  	  				toolbox: {
+	  	  					show: true,
+	  	  					feature: {
+	  	  						restore: {
+	  	  						  	show: true,
+	  	  						  	title: "Restore"
+	  	  						},
+	  	  						saveAsImage: {
+	  	  						  	show: true,
+	  	  						  	title: "Save Image"
+	  	  						}
+	  	  					}
+	  	  				},
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: (afo_low_pop || '-'),
+								name: aforecast_cat[0]
+							}, {
+								value: (afo_med_pop || '-'),
+								name: aforecast_cat[1]
+							}, {
+								value: (afo_hi_pop || '-'),
+								name: aforecast_cat[2]
+							}, {
+								value: pop - tot_ava_pop,
+								name: aforecast_cat[3],
+								itemStyle: pieNull
+							}]
+						}]
+					});
 
 	  			  	window.onresize = function(){
-	  			  		echartDonut.resize();
+	  			  		echartDonutAvaPopPredict.resize();
 	  			  	}
 
 	  			}
@@ -12500,94 +3263,73 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_ava_building_prediction').length ){
 
-	  			  var echartDonutAvaBuildingPredict = echarts.init(document.getElementById('echart_donut_ava_building_prediction'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutAvaBuildingPredict = echarts.init(document.getElementById('echart_donut_ava_building_prediction'), theme, render());
 
-	  			  echartDonutAvaBuildingPredict.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: aforecast_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: (afo_low_build || '-'),
-	  					// value: jsondata['ava_forecast_low_pop'],
-	  					name: aforecast_cat[0]
-	  					// name: 'Low Risk'
-	  				  }, {
-	  					value: (afo_med_build || '-'),
-	  					// value: jsondata['ava_forecast_low_pop'],
-	  					name: aforecast_cat[1]
-	  					// name: 'Medium Risk'
-	  				  }, {
-	  					value: (afo_hi_build || '-'),
-	  					// value: jsondata['ava_forecast_low_pop'],
-	  					name: aforecast_cat[2]
-	  					// name: 'High Risk'
-	  				  }, {
-	  					value: build - tot_ava_build,
-	  					// value: jsondata['Population'] - jsondata['total_ava_forecast_pop'],
-	  					name: aforecast_cat[3],
-	  					// name: 'Not at Risk',
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+	  			  	echartDonutAvaBuildingPredict.setOption({
+						tooltip: {
+	  						trigger: 'item',
+	  						formatter: humTooltipPie 
+	  	  				},
+	  	  				legend: {
+	  						x: 'left',
+	  						y: 'top',
+	  						orient: 'vertical',
+	  						data: aforecast_cat
+	  	  				},
+	  	  				toolbox: {
+	  	  					show: true,
+	  	  					feature: {
+	  	  						restore: {
+	  	  						  	show: true,
+	  	  						  	title: "Restore"
+	  	  						},
+	  	  						saveAsImage: {
+	  	  						  	show: true,
+	  	  						  	title: "Save Image"
+	  	  						}
+	  	  					}
+	  	  				},
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: (afo_low_build || '-'),
+								name: aforecast_cat[0]
+							}, {
+								value: (afo_med_build || '-'),
+								name: aforecast_cat[1]
+							}, {
+								value: (afo_hi_build || '-'),
+								name: aforecast_cat[2]
+							}, {
+								value: build - tot_ava_build,
+								name: aforecast_cat[3],
+								itemStyle: pieNull
+							}]
+						}]
+					});
 
 	  			  	window.onresize = function(){
 	  			  		echartDonutAvaBuildingPredict.resize();
@@ -12600,188 +3342,147 @@ jQuery(function($){
 	  			// arisk tab
 	  			// echart Donut 5
 
-	  			if ($('#echart_donut_6').length ){
+	  			if ($('#echart_donut_ava_risk_pop').length ){
 
-	  			  var echartDonut1 = echarts.init(document.getElementById('echart_donut_6'), theme, humTooltipPie ,humanizePie);
+	  			  	var echartDonutAvaRiskPop = echarts.init(document.getElementById('echart_donut_ava_risk_pop'), theme, render());
 
-	  			  echartDonut1.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				// title:[{
-	  				// 	text: 'Avalanche Area',
-	  				// 	subtext: 'Area at Risk of Avalanche',
-	  				// 	x: '50%',
-	  				// 	textAlign: 'center'
-	  				// }
-	  				// ],
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: arisk_cat
-	  				  // data: ['Moderate Risk Pop', 'High Risk Pop', 'Not at Risk Pop', 'Moderate Risk Area', 'High Risk Area', 'Not at Risk Area']
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{d}%"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: arisk_med_pop,
-	  					// value: jsondata['med_ava_population'],
-	  					name: arisk_cat[0]
-	  				  }, {
-	  					value: arisk_hi_pop,
-	  					// value: jsondata['high_ava_population'],
-	  					name: arisk_cat[1]
-	  				  }, {
-	  					value: pop - tot_risk_pop,
-	  					// value: jsondata['Population'] - jsondata['total_ava_population'],
-	  					name: arisk_cat[2],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+	  			  	echartDonutAvaRiskPop.setOption({
+						tooltip: {
+	  						trigger: 'item',
+	  						formatter: humTooltipPie 
+	  	  				},
+	  	  				legend: {
+	  						x: 'left',
+	  						y: 'top',
+	  						orient: 'vertical',
+	  						data: arisk_cat
+	  	  				},
+	  	  				toolbox: {
+	  	  					show: true,
+	  	  					feature: {
+	  	  						restore: {
+	  	  						  	show: true,
+	  	  						  	title: "Restore"
+	  	  						},
+	  	  						saveAsImage: {
+	  	  						  	show: true,
+	  	  						  	title: "Save Image"
+	  	  						}
+	  	  					}
+	  	  				},
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: (arisk_med_pop || '-'),
+								name: arisk_cat[0]
+							}, {
+								value: (arisk_hi_pop || '-'),
+								name: arisk_cat[1]
+							}, {
+								value: pop - tot_risk_pop,
+								name: arisk_cat[2],
+								itemStyle: pieNull
+							}]
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartDonut1.resize();
+	  			  		echartDonutAvaRiskPop.resize();
 	  			  	});
 
 	  			}
 
 	  			// echart Donut
 
-	  			if ($('#echart_donut_ava_building').length ){
+	  			if ($('#echart_donut_ava_risk_building').length ){
 
-	  			  var echartDonutAvaBuildingRisk = echarts.init(document.getElementById('echart_donut_ava_building'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutAvaBuildingRisk = echarts.init(document.getElementById('echart_donut_ava_risk_building'), theme, render());
 
-	  			  echartDonutAvaBuildingRisk.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: arisk_cat
-	  				  // data: ['Moderate Risk', 'High Risk', 'Not at Risk']
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: arisk_med_build,
-	  					// value: jsondata['med_ava_area'],
-	  					name: arisk_cat[0]
-	  				  }, {
-	  					value: arisk_hi_build,
-	  					// value: jsondata['high_ava_area'],
-	  					name: arisk_cat[1]
-	  				  }, {
-	  					value: build - tot_risk_build,
-	  					// value: jsondata['Area'] - jsondata['total_ava_area'],
-	  					name: arisk_cat[2],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+	  			  	echartDonutAvaBuildingRisk.setOption({
+						tooltip: {
+	  						trigger: 'item',
+	  						formatter: humTooltipPie 
+	  	  				},
+	  	  				legend: {
+	  						x: 'left',
+	  						y: 'top',
+	  						orient: 'vertical',
+	  						data: arisk_cat
+	  	  				},
+	  	  				toolbox: {
+	  	  					show: true,
+	  	  					feature: {
+	  	  						restore: {
+	  	  						  	show: true,
+	  	  						  	title: "Restore"
+	  	  						},
+	  	  						saveAsImage: {
+	  	  						  	show: true,
+	  	  						  	title: "Save Image"
+	  	  						}
+	  	  					}
+	  	  				},
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: (arisk_med_build || '-'),
+								name: arisk_cat[0]
+							}, {
+								value: (arisk_hi_build || '-'),
+								name: arisk_cat[1]
+							}, {
+								value: build - tot_risk_build,
+								name: arisk_cat[2],
+								itemStyle: pieNull
+							}]
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartDonutAvaBuildingRisk.resize();
@@ -12791,92 +3492,75 @@ jQuery(function($){
 
 	  			// echart Donut 6
 
-	  			if ($('#echart_donut_5').length ){
+	  			if ($('#echart_donut_ava_risk_area').length ){
 
-		  			var echartDonut2 = echarts.init(document.getElementById('echart_donut_5'), theme, humTooltipPie, humanizePie);
+		  			var echartDonutAvaPopRisk = echarts.init(document.getElementById('echart_donut_ava_risk_area'), theme, render());
 
-		  			echartDonut2.setOption({
-		  				tooltip: {
-		  				  trigger: 'item',
-		  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-		  				},
-		  				calculable: true,
-		  				legend: {
-		  				  x: 'left',
-		  				  y: 'top',
-		  				  orient: 'vertical',
-		  				  data: arisk_cat
-		  				  // data: ['Moderate Risk', 'High Risk', 'Not at Risk']
-		  				},
-		  				toolbox: {
-		  				  show: true,
-		  				  feature: {
-		  					magicType: {
-		  					  show: true,
-		  					  type: ['pie', 'funnel'],
-		  					  option: {
-		  						funnel: {
-		  						  x: '25%',
-		  						  width: '50%',
-		  						  funnelAlign: 'center',
-		  						  max: 1548
-		  						}
-		  					  }
-		  					},
-		  					restore: {
-		  					  show: true,
-		  					  title: "Restore"
-		  					},
-		  					saveAsImage: {
-		  					  show: true,
-		  					  title: "Save Image"
-		  					}
-		  				  }
-		  				},
-		  				series: [{
-		  				  name: 'Area',
-		  				  type: 'pie',
-		  				  radius: ['35%', '55%'],
-		  				  itemStyle: {
-		  					normal: {
-		  					  label: {
-		  						show: true,
-		  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-		  					  },
-		  					  labelLine: {
-		  						show: true
-		  					  }
-		  					},
-		  					emphasis: {
-		  					  label: {
-		  						show: true,
-		  						position: 'center',
-		  						textStyle: {
-		  						  fontSize: '14',
-		  						  fontWeight: 'normal'
-		  						}
-		  					  }
-		  					}
-		  				  },
-		  				  data: [{
-		  					value: arisk_med_area,
-		  					// value: jsondata['med_ava_area'],
-		  					name: arisk_cat[0]
-		  				  }, {
-		  					value: arisk_hi_area,
-		  					// value: jsondata['high_ava_area'],
-		  					name: arisk_cat[1]
-		  				  }, {
-		  					value: area - tot_risk_area,
-		  					// value: jsondata['Area'] - jsondata['total_ava_area'],
-		  					name: arisk_cat[2],
-		  					itemStyle: pieNull
-		  				  }]
-		  				}]
-		  			});
+		  			echartDonutAvaPopRisk.setOption({
+						tooltip: {
+	  						trigger: 'item',
+	  						formatter: humTooltipPie 
+	  	  				},
+	  	  				legend: {
+	  						x: 'left',
+	  						y: 'top',
+	  						orient: 'vertical',
+	  						data: arisk_cat
+	  	  				},
+	  	  				toolbox: {
+	  	  					show: true,
+	  	  					feature: {
+	  	  						restore: {
+	  	  						  	show: true,
+	  	  						  	title: "Restore"
+	  	  						},
+	  	  						saveAsImage: {
+	  	  						  	show: true,
+	  	  						  	title: "Save Image"
+	  	  						}
+	  	  					}
+	  	  				},
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: (arisk_med_area || '-'),
+								name: arisk_cat[0]
+							}, {
+								value: (arisk_hi_area || '-'),
+								name: arisk_cat[1]
+							}, {
+								value: area - tot_risk_area,
+								name: arisk_cat[2],
+								itemStyle: pieNull
+							}]
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartDonut2.resize();
+	  			  		echartDonutAvaPopRisk.resize();
 	  			  	});
 
 	  			}
@@ -12887,90 +3571,76 @@ jQuery(function($){
 	  			// Landslide tab
 	  			if ($('#echart_donut_lsi').length ){
 
-	  			  var echartDonutLSI = echarts.init(document.getElementById('echart_donut_lsi'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutLSI = echarts.init(document.getElementById('echart_donut_lsi'), theme, render());
 
-	  			  echartDonutLSI.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: level_risk_pie
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				color: color,
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: lsi[0],
-	  					name: level_risk_pie[0]
-	  				  }, {
-	  					value: lsi[1] ,
-	  					name: level_risk_pie[1]
-	  				  }, {
-	  					value: lsi[2] ,
-	  					name: level_risk_pie[2]
-	  				  }, {
-	  					value: lsi[3] ,
-	  					name: level_risk_pie[3]
-	  				  }, {
-	  					value: pop - (lsi[0]+lsi[1]+lsi[2]+lsi[3]),
-	  					name: level_risk_pie[4],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+					echartDonutLSI.setOption({
+						tooltip: {
+							trigger: 'item',
+							formatter: humTooltipPie
+						},
+						calculable: true,
+						legend: {
+							x: 'left',
+							y: 'top',
+							orient: 'vertical',
+							data: level_risk_pie
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						color: colorLandslide,
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: lsi[0],
+								name: level_risk_pie[0]
+							}, {
+								value: lsi[1] ,
+								name: level_risk_pie[1]
+							}, {
+								value: lsi[2] ,
+								name: level_risk_pie[2]
+							}, {
+								value: lsi[3] ,
+								name: level_risk_pie[3]
+							}, {
+								value: pop - (lsi[0]+lsi[1]+lsi[2]+lsi[3]),
+								name: level_risk_pie[4]
+							}]
+						}]
+					});
 
 	  			  	window.onresize = function(){
 	  			  		echartDonutLSI.resize();
@@ -12980,90 +3650,76 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_ku').length ){
 
-	  			  var echartDonutKU = echarts.init(document.getElementById('echart_donut_ku'), theme, humTooltipPie, humanizePie);
+	  			  	var echartDonutKU = echarts.init(document.getElementById('echart_donut_ku'), theme, render());
 
-	  			  echartDonutKU.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				calculable: true,
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'bottom',
-	  				  orient: 'vertical',
-	  				  data: level_risk_pie
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'center',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				color: color,
-	  				series: [{
-	  				  name: 'Area',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: lsi_ku[0],
-	  					name: level_risk_pie[0]
-	  				  }, {
-	  					value: lsi_ku[1] ,
-	  					name: level_risk_pie[1]
-	  				  }, {
-	  					value: lsi_ku[2] ,
-	  					name: level_risk_pie[2]
-	  				  }, {
-	  					value: lsi_ku[3] ,
-	  					name: level_risk_pie[3]
-	  				  }, {
-	  					value: pop - (lsi_ku[0]+lsi_ku[1]+lsi_ku[2]+lsi_ku[3]),
-	  					name: level_risk_pie[4],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
+					echartDonutKU.setOption({
+						tooltip: {
+							trigger: 'item',
+							formatter: humTooltipPie 
+						},
+						calculable: true,
+						legend: {
+							x: 'left',
+							y: 'bottom',
+							orient: 'vertical',
+							data: level_risk_pie
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						color: colorLandslide,
+						series: [{
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: lsi_ku[0],
+								name: level_risk_pie[0]
+							}, {
+								value: lsi_ku[1] ,
+								name: level_risk_pie[1]
+							}, {
+								value: lsi_ku[2] ,
+								name: level_risk_pie[2]
+							}, {
+								value: lsi_ku[3] ,
+								name: level_risk_pie[3]
+							}, {
+								value: pop - (lsi_ku[0]+lsi_ku[1]+lsi_ku[2]+lsi_ku[3]),
+								name: level_risk_pie[4]
+							}]
+						}]
+					});
 
 	  			  	window.onresize = function(){
 	  			  		echartDonutKU.resize();
@@ -13073,88 +3729,74 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_S1').length ){
 
-					var echartDonutS1 = echarts.init(document.getElementById('echart_donut_S1'), theme, humTooltipPie, humanizePie);
+					var echartDonutS1 = echarts.init(document.getElementById('echart_donut_S1'), theme, render());
 
 					echartDonutS1.setOption({
 						tooltip: {
-						  trigger: 'item',
-						  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
+							trigger: 'item',
+							formatter: humTooltipPie 
 						},
 						calculable: true,
 						legend: {
-						  x: 'left',
-						  y: 'top',
-						  orient: 'vertical',
-						  data: level_risk_pie
+							x: 'left',
+							y: 'top',
+							orient: 'vertical',
+							data: level_risk_pie
 						},
 						toolbox: {
-						  show: true,
-						  feature: {
-							magicType: {
-							  show: true,
-							  type: ['pie', 'funnel'],
-							  option: {
-								funnel: {
-								  x: '25%',
-								  width: '50%',
-								  funnelAlign: 'center',
-								  max: 1548
+							show: true,
+							feature: {
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
 								}
-							  }
-							},
-							restore: {
-							  show: true,
-							  title: "Restore"
-							},
-							saveAsImage: {
-							  show: true,
-							  title: "Save Image"
 							}
-						  }
 						},
-						color: color,
+						color: colorLandslide,
 						series: [{
-						  name: 'Area',
-						  type: 'pie',
-						  radius: ['35%', '55%'],
-						  itemStyle: {
-							normal: {
-							  label: {
-								show: true,
-								formatter: humanizePie //"{b} \n{c} ({d}%)"
-							  },
-							  labelLine: {
-								show: true
-							  }
-							},
-							emphasis: {
-							  label: {
-								show: true,
-								position: 'center',
-								textStyle: {
-								  fontSize: '14',
-								  fontWeight: 'normal'
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
 								}
-							  }
-							}
-						  },
-						  data: [{
-							value: ls_s1_wb[0],
-							name: level_risk_pie[0]
-						  }, {
-							value: ls_s1_wb[1] ,
-							name: level_risk_pie[1]
-						  }, {
-							value: ls_s1_wb[2] ,
-							name: level_risk_pie[2]
-						  }, {
-							value: ls_s1_wb[3] ,
-							name: level_risk_pie[3]
-						  }, {
-							value: pop - (ls_s1_wb[0]+ls_s1_wb[1]+ls_s1_wb[2]+ls_s1_wb[3]),
-							name: level_risk_pie[4],
-							itemStyle: pieNull
-						  }]
+							},
+							data: [{
+								value: ls_s1_wb[0],
+								name: level_risk_pie[0]
+							}, {
+								value: ls_s1_wb[1] ,
+								name: level_risk_pie[1]
+							}, {
+								value: ls_s1_wb[2] ,
+								name: level_risk_pie[2]
+							}, {
+								value: ls_s1_wb[3] ,
+								name: level_risk_pie[3]
+							}, {
+								value: pop - (ls_s1_wb[0]+ls_s1_wb[1]+ls_s1_wb[2]+ls_s1_wb[3]),
+								name: level_risk_pie[4]
+							}]
 						}]
 					});
 
@@ -13166,88 +3808,74 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_S2').length ){
 
-		  			var echartDonutS2 = echarts.init(document.getElementById('echart_donut_S2'), theme, humTooltipPie, humanizePie);
+		  			var echartDonutS2 = echarts.init(document.getElementById('echart_donut_S2'), theme, render());
 
 		  			echartDonutS2.setOption({
 		  				tooltip: {
-		  				  trigger: 'item',
-		  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
+							trigger: 'item',
+							formatter: humTooltipPie 
 		  				},
 		  				calculable: true,
 		  				legend: {
-		  				  x: 'left',
-		  				  y: 'top',
-		  				  orient: 'vertical',
-		  				  data: level_risk_pie
+							x: 'left',
+							y: 'top',
+							orient: 'vertical',
+							data: level_risk_pie
 		  				},
 		  				toolbox: {
-		  				  show: true,
-		  				  feature: {
-		  					magicType: {
-		  					  show: true,
-		  					  type: ['pie', 'funnel'],
-		  					  option: {
-		  						funnel: {
-		  						  x: '25%',
-		  						  width: '50%',
-		  						  funnelAlign: 'center',
-		  						  max: 1548
+		  					show: true,
+		  					feature: {
+		  						restore: {
+		  						  	show: true,
+		  						  	title: "Restore"
+		  						},
+		  						saveAsImage: {
+		  						  	show: true,
+		  						  	title: "Save Image"
 		  						}
-		  					  }
-		  					},
-		  					restore: {
-		  					  show: true,
-		  					  title: "Restore"
-		  					},
-		  					saveAsImage: {
-		  					  show: true,
-		  					  title: "Save Image"
 		  					}
-		  				  }
 		  				},
-		  				color: color,
+		  				color: colorLandslide,
 		  				series: [{
-		  				  name: 'Area',
-		  				  type: 'pie',
-		  				  radius: ['35%', '55%'],
-		  				  itemStyle: {
-		  					normal: {
-		  					  label: {
-		  						show: true,
-		  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-		  					  },
-		  					  labelLine: {
-		  						show: true
-		  					  }
-		  					},
-		  					emphasis: {
-		  					  label: {
-		  						show: true,
-		  						position: 'center',
-		  						textStyle: {
-		  						  fontSize: '14',
-		  						  fontWeight: 'normal'
-		  						}
-		  					  }
-		  					}
-		  				  },
-		  				  data: [{
-		  					value: ls_s2_wb[0],
-		  					name: level_risk_pie[0]
-		  				  }, {
-		  					value: ls_s2_wb[1] ,
-		  					name: level_risk_pie[1]
-		  				  }, {
-		  					value: ls_s2_wb[2] ,
-		  					name: level_risk_pie[2]
-		  				  }, {
-		  					value: ls_s2_wb[3] ,
-		  					name: level_risk_pie[3]
-		  				  }, {
-		  					value: pop - (ls_s2_wb[0]+ls_s2_wb[1]+ls_s2_wb[2]+ls_s2_wb[3]),
-		  					name: level_risk_pie[4],
-		  					itemStyle: pieNull
-		  				  }]
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: ls_s2_wb[0],
+								name: level_risk_pie[0]
+							}, {
+								value: ls_s2_wb[1] ,
+								name: level_risk_pie[1]
+							}, {
+								value: ls_s2_wb[2] ,
+								name: level_risk_pie[2]
+							}, {
+								value: ls_s2_wb[3] ,
+								name: level_risk_pie[3]
+							}, {
+								value: pop - (ls_s2_wb[0]+ls_s2_wb[1]+ls_s2_wb[2]+ls_s2_wb[3]),
+								name: level_risk_pie[4]
+							}]
 		  				}]
 		  			});
 
@@ -13259,88 +3887,74 @@ jQuery(function($){
 
 	  			if ($('#echart_donut_S3').length ){
 
-		  			var echartDonutS3 = echarts.init(document.getElementById('echart_donut_S3'), theme, humTooltipPie, humanizePie);
+		  			var echartDonutS3 = echarts.init(document.getElementById('echart_donut_S3'), theme, render());
 
 		  			echartDonutS3.setOption({
 		  				tooltip: {
-		  				  trigger: 'item',
-		  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
+							trigger: 'item',
+							formatter: humTooltipPie 
 		  				},
 		  				calculable: true,
 		  				legend: {
-		  				  x: 'left',
-		  				  y: 'top',
-		  				  orient: 'vertical',
-		  				  data: level_risk_pie
+		  					x: 'left',
+		  					y: 'top',
+		  					orient: 'vertical',
+		  					data: level_risk_pie
 		  				},
 		  				toolbox: {
-		  				  show: true,
-		  				  feature: {
-		  					magicType: {
-		  					  show: true,
-		  					  type: ['pie', 'funnel'],
-		  					  option: {
-		  						funnel: {
-		  						  x: '25%',
-		  						  width: '50%',
-		  						  funnelAlign: 'center',
-		  						  max: 1548
+		  					show: true,
+		  					feature: {
+		  						restore: {
+		  						  	show: true,
+		  						  	title: "Restore"
+		  						},
+		  						saveAsImage: {
+		  						  	show: true,
+		  						  	title: "Save Image"
 		  						}
-		  					  }
-		  					},
-		  					restore: {
-		  					  show: true,
-		  					  title: "Restore"
-		  					},
-		  					saveAsImage: {
-		  					  show: true,
-		  					  title: "Save Image"
 		  					}
-		  				  }
 		  				},
-		  				color: color,
+		  				color: colorLandslide,
 		  				series: [{
-		  				  name: 'Area',
-		  				  type: 'pie',
-		  				  radius: ['35%', '55%'],
-		  				  itemStyle: {
-		  					normal: {
-		  					  label: {
-		  						show: true,
-		  						formatter: humanizePie //"{b} \n{c} ({d}%)"
-		  					  },
-		  					  labelLine: {
-		  						show: true
-		  					  }
-		  					},
-		  					emphasis: {
-		  					  label: {
-		  						show: true,
-		  						position: 'center',
-		  						textStyle: {
-		  						  fontSize: '14',
-		  						  fontWeight: 'normal'
-		  						}
-		  					  }
-		  					}
-		  				  },
-		  				  data: [{
-		  					value: ls_s3_wb[0],
-		  					name: level_risk_pie[0]
-		  				  }, {
-		  					value: ls_s3_wb[1] ,
-		  					name: level_risk_pie[1]
-		  				  }, {
-		  					value: ls_s3_wb[2] ,
-		  					name: level_risk_pie[2]
-		  				  }, {
-		  					value: ls_s3_wb[3] ,
-		  					name: level_risk_pie[3]
-		  				  }, {
-		  					value: pop - (ls_s3_wb[0]+ls_s3_wb[1]+ls_s3_wb[2]+ls_s3_wb[3]),
-		  					name: level_risk_pie[4],
-		  					itemStyle: pieNull
-		  				  }]
+							name: 'Area',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: ls_s3_wb[0],
+								name: level_risk_pie[0]
+							}, {
+								value: ls_s3_wb[1] ,
+								name: level_risk_pie[1]
+							}, {
+								value: ls_s3_wb[2] ,
+								name: level_risk_pie[2]
+							}, {
+								value: ls_s3_wb[3] ,
+								name: level_risk_pie[3]
+							}, {
+								value: pop - (ls_s3_wb[0]+ls_s3_wb[1]+ls_s3_wb[2]+ls_s3_wb[3]),
+								name: level_risk_pie[4]
+							}]
 		  				}]
 		  			});
 
@@ -13352,431 +3966,391 @@ jQuery(function($){
 
 	  			if ($('#echart_bar_horizontal_lsi').length ){
 
-	  			  var echartBarLSI = echarts.init(document.getElementById('echart_bar_horizontal_lsi'), humTooltipBar, humanizeBar);
+	  			  	var echartBarLSI = echarts.init(document.getElementById('echart_bar_horizontal_lsi'), theme, render());
 
-	  			  echartBarLSI.setOption({
-	  			  	// backgroundColor: '#000',
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type: 'shadow',
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  data: level_risk
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  				  	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar'
-	  			    	  },
-	  			    	  type: ['line', 'bar']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '15%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel:{
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  				  type: 'category',
-	  				  data: level_risk
-	  				}],
-	  				series: [{
-	  				  name: 'Landslide Index',
-	  				  type: 'bar',
-	  				  itemStyle:{
-	  				  	normal:{
-	  				  		color: colorBar
-	  				  	}
-	  				  },
-	  				  label:{
-	  				  	normal:{
-	  				  		formatter: humanizeBar,
-	  				  		position: 'right',
-	  				  		show: true
-	  				  	}
-	  				  },
-	  				  data: lsi
-	  				}]
-	  			  });
+	  			  	echartBarLSI.setOption({
+						tooltip: {
+							trigger: 'item',
+							formatter: humTooltipBar
+						},
+						legend: {
+							x: 'left',
+							data: level_risk
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar'
+									},
+									type: ['line', 'bar']
+								},
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '15%',
+						    bottom: '8%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
+						}],
+						yAxis: [{
+							type: 'category',
+							data: level_risk
+						}],
+						series: [{
+							name: 'Landslide Index',
+							type: 'bar',
+							itemStyle:{
+								normal:{
+									color: colorLandslideBar
+								}
+							},
+							label:{
+								normal:{
+									formatter: humanizeBar,
+									position: 'right',
+									show: true
+								}
+							},
+							data: lsi
+						}]
+	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartBarLSI.resize();
 	  			  	});
 
-	  			  	// window.onresize = function(){
-	  			  	// 	echartBar.resize();
-	  			  	// }
-
 	  			}
 
 	  			if ($('#echart_bar_horizontal_ku').length ){
 
-	  			  var echartBarKU = echarts.init(document.getElementById('echart_bar_horizontal_ku'), humTooltipBar, humanizeBar);
+	  			  	var echartBarKU = echarts.init(document.getElementById('echart_bar_horizontal_ku'), theme, render());
 
-	  			  echartBarKU.setOption({
-	  			  	// backgroundColor: '#000',
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type: 'shadow',
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  data: level_risk
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  				  	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar'
-	  			    	  },
-	  			    	  type: ['line', 'bar']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '15%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel:{
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  				  type: 'category',
-	  				  data: level_risk
-	  				}],
-	  				series: [{
-	  				  name: 'Landslide Index',
-	  				  type: 'bar',
-	  				  itemStyle:{
-	  				  	normal:{
-	  				  		color: colorBar
-	  				  	}
-	  				  },
-	  				  label:{
-	  				  	normal:{
-	  				  		formatter: humanizeBar,
-	  				  		position: 'right',
-	  				  		show: true
-	  				  	}
-	  				  },
-	  				  data: lsi_ku
-	  				}]
-	  			  });
+  	  			  	echartBarKU.setOption({
+  						tooltip: {
+  							trigger: 'item',
+  							formatter: humTooltipBar
+  						},
+  						legend: {
+  							x: 'left',
+  							data: level_risk
+  						},
+  						toolbox: {
+  							show: true,
+  							feature: {
+  								magicType: {
+  									show: true,
+  									title: {
+  										line: 'Line',
+  										bar: 'Bar'
+  									},
+  									type: ['line', 'bar']
+  								},
+  								restore: {
+  								  	show: true,
+  								  	title: "Restore"
+  								},
+  								saveAsImage: {
+  								  	show: true,
+  								  	title: "Save Image"
+  								}
+  							}
+  						},
+  						grid: {
+  						    left: '0%',
+  						    right: '15%',
+  						    bottom: '8%',
+  						    containLabel: true
+  						},
+  						calculable: true,
+  						xAxis: [{
+  							type: 'value',
+  							boundaryGap: [0, 0.01],
+  							axisLabel:{
+  								rotate: 30,
+  								formatter: humanizeFormatter
+  							}
+  						}],
+  						yAxis: [{
+  							type: 'category',
+  							data: level_risk
+  						}],
+  						series: [{
+  							name: 'Landslide Index',
+  							type: 'bar',
+  							itemStyle:{
+  								normal:{
+  									color: colorLandslideBar
+  								}
+  							},
+  							label:{
+  								normal:{
+  									formatter: humanizeBar,
+  									position: 'right',
+  									show: true
+  								}
+  							},
+  							data: lsi_ku
+  						}]
+  	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartBarKU.resize();
 	  			  	});
 
-	  			  	// window.onresize = function(){
-	  			  	// 	echartBar.resize();
-	  			  	// }
-
 	  			}
 
 	  			if ($('#echart_bar_horizontal_s1').length ){
 
-	  			  var echartBarS1 = echarts.init(document.getElementById('echart_bar_horizontal_s1'), humTooltipBar, humanizeBar);
+	  			  	var echartBarS1 = echarts.init(document.getElementById('echart_bar_horizontal_s1'), theme, render());
 
-	  			  echartBarS1.setOption({
-	  			  	// backgroundColor: '#000',
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type: 'shadow',
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  data: level_risk
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  				  	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar'
-	  			    	  },
-	  			    	  type: ['line', 'bar']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '15%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel:{
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  				  type: 'category',
-	  				  data: level_risk
-	  				}],
-	  				series: [{
-	  				  name: 'Landslide Index',
-	  				  type: 'bar',
-	  				  itemStyle:{
-	  				  	normal:{
-	  				  		color: colorBar
-	  				  	}
-	  				  },
-	  				  label:{
-	  				  	normal:{
-	  				  		formatter: humanizeBar,
-	  				  		position: 'right',
-	  				  		show: true
-	  				  	}
-	  				  },
-	  				  data: ls_s1_wb
-	  				}]
-	  			  });
+  	  			  	echartBarS1.setOption({
+  						tooltip: {
+  							trigger: 'item',
+  							formatter: humTooltipBar
+  						},
+  						legend: {
+  							x: 'left',
+  							data: level_risk
+  						},
+  						toolbox: {
+  							show: true,
+  							feature: {
+  								magicType: {
+  									show: true,
+  									title: {
+  										line: 'Line',
+  										bar: 'Bar'
+  									},
+  									type: ['line', 'bar']
+  								},
+  								restore: {
+  								  	show: true,
+  								  	title: "Restore"
+  								},
+  								saveAsImage: {
+  								  	show: true,
+  								  	title: "Save Image"
+  								}
+  							}
+  						},
+  						grid: {
+  						    left: '0%',
+  						    right: '15%',
+  						    bottom: '8%',
+  						    containLabel: true
+  						},
+  						calculable: true,
+  						xAxis: [{
+  							type: 'value',
+  							boundaryGap: [0, 0.01],
+  							axisLabel:{
+  								rotate: 30,
+  								formatter: humanizeFormatter
+  							}
+  						}],
+  						yAxis: [{
+  							type: 'category',
+  							data: level_risk
+  						}],
+  						series: [{
+  							name: 'Landslide Index',
+  							type: 'bar',
+  							itemStyle:{
+  								normal:{
+  									color: colorLandslideBar
+  								}
+  							},
+  							label:{
+  								normal:{
+  									formatter: humanizeBar,
+  									position: 'right',
+  									show: true
+  								}
+  							},
+  							data: ls_s1_wb
+  						}]
+  	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartBarS1.resize();
 	  			  	});
 
-	  			  	// window.onresize = function(){
-	  			  	// 	echartBar.resize();
-	  			  	// }
-
 	  			}
 
 	  			if ($('#echart_bar_horizontal_s2').length ){
 
-	  			  var echartBarS2 = echarts.init(document.getElementById('echart_bar_horizontal_s2'), humTooltipBar, humanizeBar);
+	  			  	var echartBarS2 = echarts.init(document.getElementById('echart_bar_horizontal_s2'), theme, render());
 
-	  			  echartBarS2.setOption({
-	  			  	// backgroundColor: '#000',
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type: 'shadow',
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  data: level_risk
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  				  	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar'
-	  			    	  },
-	  			    	  type: ['line', 'bar']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '15%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel:{
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  				  type: 'category',
-	  				  data: level_risk
-	  				}],
-	  				series: [{
-	  				  name: 'Landslide Index',
-	  				  type: 'bar',
-	  				  itemStyle:{
-	  				  	normal:{
-	  				  		color: colorBar
-	  				  	}
-	  				  },
-	  				  label:{
-	  				  	normal:{
-	  				  		formatter: humanizeBar,
-	  				  		position: 'right',
-	  				  		show: true
-	  				  	}
-	  				  },
-	  				  data: ls_s2_wb
-	  				}]
-	  			  });
+  	  			  	echartBarS2.setOption({
+  						tooltip: {
+  							trigger: 'item',
+  							formatter: humTooltipBar
+  						},
+  						legend: {
+  							x: 'left',
+  							data: level_risk
+  						},
+  						toolbox: {
+  							show: true,
+  							feature: {
+  								magicType: {
+  									show: true,
+  									title: {
+  										line: 'Line',
+  										bar: 'Bar'
+  									},
+  									type: ['line', 'bar']
+  								},
+  								restore: {
+  								  	show: true,
+  								  	title: "Restore"
+  								},
+  								saveAsImage: {
+  								  	show: true,
+  								  	title: "Save Image"
+  								}
+  							}
+  						},
+  						grid: {
+  						    left: '0%',
+  						    right: '15%',
+  						    bottom: '8%',
+  						    containLabel: true
+  						},
+  						calculable: true,
+  						xAxis: [{
+  							type: 'value',
+  							boundaryGap: [0, 0.01],
+  							axisLabel:{
+  								rotate: 30,
+  								formatter: humanizeFormatter
+  							}
+  						}],
+  						yAxis: [{
+  							type: 'category',
+  							data: level_risk
+  						}],
+  						series: [{
+  							name: 'Landslide Index',
+  							type: 'bar',
+  							itemStyle:{
+  								normal:{
+  									color: colorLandslideBar
+  								}
+  							},
+  							label:{
+  								normal:{
+  									formatter: humanizeBar,
+  									position: 'right',
+  									show: true
+  								}
+  							},
+  							data: ls_s2_wb
+  						}]
+  	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartBarS2.resize();
 	  			  	});
 
-	  			  	// window.onresize = function(){
-	  			  	// 	echartBar.resize();
-	  			  	// }
-
 	  			}
 
 	  			if ($('#echart_bar_horizontal_s3').length ){
 
-	  			  var echartBarS3 = echarts.init(document.getElementById('echart_bar_horizontal_s3'), humTooltipBar, humanizeBar);
+	  			  	var echartBarS3 = echarts.init(document.getElementById('echart_bar_horizontal_s3'), theme, render());
 
-	  			  echartBarS3.setOption({
-	  			  	// backgroundColor: '#000',
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type: 'shadow',
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  data: level_risk
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  				  	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar'
-	  			    	  },
-	  			    	  type: ['line', 'bar']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '15%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel:{
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  				  type: 'category',
-	  				  data: level_risk
-	  				}],
-	  				series: [{
-	  				  name: 'Landslide Index',
-	  				  type: 'bar',
-	  				  itemStyle:{
-	  				  	normal:{
-	  				  		color: colorBar
-	  				  	}
-	  				  },
-	  				  label:{
-	  				  	normal:{
-	  				  		formatter: humanizeBar,
-	  				  		position: 'right',
-	  				  		show: true
-	  				  	}
-	  				  },
-	  				  data: ls_s3_wb
-	  				}]
-	  			  });
+  	  			  	echartBarS3.setOption({
+  						tooltip: {
+  							trigger: 'item',
+  							formatter: humTooltipBar
+  						},
+  						legend: {
+  							x: 'left',
+  							data: level_risk
+  						},
+  						toolbox: {
+  							show: true,
+  							feature: {
+  								magicType: {
+  									show: true,
+  									title: {
+  										line: 'Line',
+  										bar: 'Bar'
+  									},
+  									type: ['line', 'bar']
+  								},
+  								restore: {
+  								  	show: true,
+  								  	title: "Restore"
+  								},
+  								saveAsImage: {
+  								  	show: true,
+  								  	title: "Save Image"
+  								}
+  							}
+  						},
+  						grid: {
+  						    left: '0%',
+  						    right: '15%',
+  						    bottom: '8%',
+  						    containLabel: true
+  						},
+  						calculable: true,
+  						xAxis: [{
+  							type: 'value',
+  							boundaryGap: [0, 0.01],
+  							axisLabel:{
+  								rotate: 30,
+  								formatter: humanizeFormatter
+  							}
+  						}],
+  						yAxis: [{
+  							type: 'category',
+  							data: level_risk
+  						}],
+  						series: [{
+  							name: 'Landslide Index',
+  							type: 'bar',
+  							itemStyle:{
+  								normal:{
+  									color: colorLandslideBar
+  								}
+  							},
+  							label:{
+  								normal:{
+  									formatter: humanizeBar,
+  									position: 'right',
+  									show: true
+  								}
+  							},
+  							data: ls_s3_wb
+  						}]
+  	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartBarS3.resize();
 	  			  	});
-
-	  			  	// window.onresize = function(){
-	  			  	// 	echartBar.resize();
-	  			  	// }
 
 	  			}
 	  		// break
@@ -13785,115 +4359,74 @@ jQuery(function($){
 	  			// earthquake tab
 	  			// echart Pie 8
 
-	  			if ($('#echart_pie_8').length ){
+	  			if ($('#echart_pie_erthqk_pop').length ){
 
-	  			  var echartPie1 = echarts.init(document.getElementById('echart_pie_8'), theme);
+	  			  	var echartPieErthqkPop = echarts.init(document.getElementById('echart_pie_erthqk_pop'), theme, render());
 
-	  			  echartPie1.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: erthqk_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'left',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				calculable: true,
-	  				series: [{
-	  				  name: 'Population Affected',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  center: ['50%', '48%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{d}%"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: erthqk_pop,
-	  					// value: jsondata['total_eq_pop'],
-	  					name: erthqk_cat[0],
-	  					itemStyle: colorReversed
-	  				  },{
-	  					value: pop - erthqk_pop,
-	  					// value: jsondata['Population']-jsondata['total_eq_pop'],
-	  					name: erthqk_cat[1],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
-
-	  			  var dataStyle = {
-	  				normal: {
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				}
-	  			  };
-
-	  			  var placeHolderStyle = {
-	  				normal: {
-	  				  color: 'rgba(0,0,0,0)',
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				},
-	  				emphasis: {
-	  				  color: 'rgba(0,0,0,0)'
-	  				}
-	  			  };
+					echartPieErthqkPop.setOption({
+						tooltip: {
+							trigger: 'item',
+							formatter: humTooltipPie 
+						},
+						legend: {
+							x: 'left',
+							y: 'top',
+							orient: 'vertical',
+							data: erthqk_cat
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						color: colorDonutDefault,
+						calculable: true,
+						series: [{
+							name: 'Population Affected',
+							type: 'pie',
+							radius: ['35%', '55%'],
+							center: ['50%', '48%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										position: 'center',
+										textStyle: {
+											fontSize: '14',
+											fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: erthqk_pop,
+								name: erthqk_cat[0]
+							},{
+								value: pop - erthqk_pop,
+								name: erthqk_cat[1]
+							}]
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartPie1.resize();
+	  			  		echartPieErthqkPop.resize();
 	  			  	});
 
 	  			}
@@ -13902,110 +4435,69 @@ jQuery(function($){
 
 	  			if ($('#echart_pie_erthqk_building').length ){
 
-	  			  var echartPieErthqkBuilding = echarts.init(document.getElementById('echart_pie_erthqk_building'), theme);
+	  			  	var echartPieErthqkBuilding = echarts.init(document.getElementById('echart_pie_erthqk_building'), theme, render());
 
-	  			  echartPieErthqkBuilding.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: erthqk_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'left',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				calculable: true,
-	  				series: [{
-	  				  name: 'Population Affected',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  center: ['50%', '48%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{d}%"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: erthqk_build,
-	  					// value: jsondata['total_eq_pop'],
-	  					name: erthqk_cat[0],
-	  					itemStyle: colorReversed
-	  				  },{
-	  					value: build - erthqk_build,
-	  					// value: jsondata['Population']-jsondata['total_eq_pop'],
-	  					name: erthqk_cat[1],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
-
-	  			  var dataStyle = {
-	  				normal: {
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				}
-	  			  };
-
-	  			  var placeHolderStyle = {
-	  				normal: {
-	  				  color: 'rgba(0,0,0,0)',
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				},
-	  				emphasis: {
-	  				  color: 'rgba(0,0,0,0)'
-	  				}
-	  			  };
+	  			  	echartPieErthqkBuilding.setOption({
+	  			  		tooltip: {
+	  			  			trigger: 'item',
+	  			  			formatter: humTooltipPie 
+	  			  		},
+	  			  		legend: {
+	  			  			x: 'left',
+	  			  			y: 'top',
+	  			  			orient: 'vertical',
+	  			  			data: erthqk_cat
+	  			  		},
+	  			  		toolbox: {
+	  			  			show: true,
+	  			  			feature: {
+	  			  				restore: {
+	  			  				  	show: true,
+	  			  				  	title: "Restore"
+	  			  				},
+	  			  				saveAsImage: {
+	  			  				  	show: true,
+	  			  				  	title: "Save Image"
+	  			  				}
+	  			  			}
+	  			  		},
+	  			  		color: colorDonutDefault,
+	  			  		calculable: true,
+	  			  		series: [{
+	  			  			name: 'Population Affected',
+	  			  			type: 'pie',
+	  			  			radius: ['35%', '55%'],
+	  			  			center: ['50%', '48%'],
+	  			  			itemStyle: {
+	  			  				normal: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						formatter: humanizePie
+	  			  					},
+	  			  					labelLine: {
+	  			  						show: true
+	  			  					}
+	  			  				},
+	  			  				emphasis: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						position: 'center',
+	  			  						textStyle: {
+	  			  							fontSize: '14',
+	  			  							fontWeight: 'normal'
+	  			  						}
+	  			  					}
+	  			  				}
+	  			  			},
+	  			  			data: [{
+	  			  				value: erthqk_build,
+	  			  				name: erthqk_cat[0]
+	  			  			},{
+	  			  				value: build - erthqk_build,
+	  			  				name: erthqk_cat[1]
+	  			  			}]
+	  			  		}]
+	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartPieErthqkBuilding.resize();
@@ -14015,254 +4507,168 @@ jQuery(function($){
 
 	  			// echart Pie 9
 
-	  			if ($('#echart_pie_9').length ){
+	  			if ($('#echart_pie_erthqk_settl').length ){
 
-	  			  var echartPie2 = echarts.init(document.getElementById('echart_pie_9'), theme);
+	  			  	var echartPieErthqkSettl = echarts.init(document.getElementById('echart_pie_erthqk_settl'), theme, render());
 
-	  			  echartPie2.setOption({
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				legend: {
-	  				  x: 'left',
-	  				  y: 'top',
-	  				  orient: 'vertical',
-	  				  data: erthqk_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'left',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				calculable: true,
-	  				series: [{
-	  				  name: 'Earthquake Impact',
-	  				  type: 'pie',
-	  				  radius: ['35%', '55%'],
-	  				  // radius: '55%',
-	  				  center: ['50%', '48%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{d}%"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: erthqk_settl,
-	  					// value: jsondata['total_eq_settlements'],
-	  					name: erthqk_cat[0],
-	  					itemStyle: colorReversed
-	  				  }, {
-	  					value: settl - erthqk_settl,
-	  					// value: jsondata['settlement']-jsondata['total_eq_settlements'],
-	  					name: erthqk_cat[1],
-	  					itemStyle: pieNull
-	  				  }]
-	  				}]
-	  			  });
-
-	  			  var dataStyle = {
-	  				normal: {
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				}
-	  			  };
-
-	  			  var placeHolderStyle = {
-	  				normal: {
-	  				  color: 'rgba(0,0,0,0)',
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				},
-	  				emphasis: {
-	  				  color: 'rgba(0,0,0,0)'
-	  				}
-	  			  };
+	  			  	echartPieErthqkSettl.setOption({
+	  			  		tooltip: {
+	  			  			trigger: 'item',
+	  			  			formatter: humTooltipPie 
+	  			  		},
+	  			  		legend: {
+	  			  			x: 'left',
+	  			  			y: 'top',
+	  			  			orient: 'vertical',
+	  			  			data: erthqk_cat
+	  			  		},
+	  			  		toolbox: {
+	  			  			show: true,
+	  			  			feature: {
+	  			  				restore: {
+	  			  				  	show: true,
+	  			  				  	title: "Restore"
+	  			  				},
+	  			  				saveAsImage: {
+	  			  				  	show: true,
+	  			  				  	title: "Save Image"
+	  			  				}
+	  			  			}
+	  			  		},
+	  			  		color: colorDonutDefault,
+	  			  		calculable: true,
+	  			  		series: [{
+	  			  			name: 'Population Affected',
+	  			  			type: 'pie',
+	  			  			radius: ['35%', '55%'],
+	  			  			center: ['50%', '48%'],
+	  			  			itemStyle: {
+	  			  				normal: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						formatter: humanizePie
+	  			  					},
+	  			  					labelLine: {
+	  			  						show: true
+	  			  					}
+	  			  				},
+	  			  				emphasis: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						position: 'center',
+	  			  						textStyle: {
+	  			  							fontSize: '14',
+	  			  							fontWeight: 'normal'
+	  			  						}
+	  			  					}
+	  			  				}
+	  			  			},
+	  			  			data: [{
+	  			  				value: erthqk_settl,
+	  			  				name: erthqk_cat[0]
+	  			  			},{
+	  			  				value: settl - erthqk_settl,
+	  			  				name: erthqk_cat[1]
+	  			  			}]
+	  			  		}]
+	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartPie2.resize();
+	  			  		echartPieErthqkSettl.resize();
 	  			  	});
 
 	  			}
 
 	  			// echart Pie 11
 
-	  			if ($('#echart_pie_11').length ){
+	  			if ($('#echart_pie_mercalli_pop').length ){
 
-	  			  var echartPie3 = echarts.init(document.getElementById('echart_pie_11'), colorMercalli);
+	  			  	var echartPieMercallPop = echarts.init(document.getElementById('echart_pie_mercalli_pop'), theme, render());
 
-	  			  echartPie3.setOption({
-	  			  	animation: animate,
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				legend: {
-	  				  x: 'center',
-	  				  y: 'bottom',
-	  				  // orient: 'vertical',
-	  				  data: mercalli_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'left',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				calculable: true,
-	  				series: [{
-	  				  name: 'Earthquake Impact',
-	  				  type: 'pie',
-	  				  radius: '55%',
-	  				  center: ['50%', '48%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{d}%"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  					value: (pop_weak || '-'),
-	  					// value: jsondata['pop_shake_weak'],
-	  					name: mercalli_cat[0]
-	  				  }, {
-	  					value: (pop_light || '-'),
-	  					// value: jsondata['pop_shake_light'],
-	  					name: mercalli_cat[1]
-	  				  }, {
-	  					value: (pop_mod || '-'),
-	  					// value: jsondata['pop_shake_moderate'],
-	  					name: mercalli_cat[2]
-	  				  }, {
-	  					value: (pop_strong || '-'),
-	  					// value: jsondata['pop_shake_strong'],
-	  					name: mercalli_cat[3]
-	  				  }, {
-	  					value: (pop_vstrong || '-'),
-	  					// value: jsondata['pop_shake_verystrong'],
-	  					name: mercalli_cat[4]
-	  				  }, {
-	  					value: (pop_severe || '-'),
-	  					// value: jsondata['pop_shake_severe'],
-	  					name: mercalli_cat[5]
-	  				  }, {
-	  					value: (pop_violent || '-'),
-	  					// value: jsondata['pop_shake_violent'],
-	  					name: mercalli_cat[6]
-	  				  }, {
-	  					value: (pop_ext || '-'),
-	  					// value: jsondata['pop_shake_extreme'],
-	  					name: mercalli_cat[7]
-	  				  }]
-	  				}]
-	  			  });
-
-	  			  var dataStyle = {
-	  				normal: {
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				}
-	  			  };
-
-	  			  var placeHolderStyle = {
-	  				normal: {
-	  				  color: 'rgba(0,0,0,0)',
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				},
-	  				emphasis: {
-	  				  color: 'rgba(0,0,0,0)'
-	  				}
-	  			  };
+					echartPieMercallPop.setOption({
+						tooltip: {
+							trigger: 'item',
+							formatter: humTooltipPie 
+						},
+						legend: {
+							x: 'center',
+							y: 'bottom',
+							// orient: 'vertical',
+							data: mercalli_cat
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						color: colorMercalli,
+						calculable: true,
+						series: [{
+							name: 'Earthquake Impact',
+							type: 'pie',
+							radius: '55%',
+							center: ['50%', '48%'],
+							itemStyle: {
+								normal: {
+									label: {
+										show: true,
+										textBorderColor: 'auto',
+										color: '#33333352',
+										formatter: humanizePie
+									},
+									labelLine: {
+										show: true
+									}
+								},
+								emphasis: {
+									label: {
+										show: true,
+										// position: 'center',
+										textStyle: {
+										  fontSize: '14',
+										  fontWeight: 'normal'
+										}
+									}
+								}
+							},
+							data: [{
+								value: (pop_weak || '-'),
+								name: mercalli_cat[0]
+							}, {
+								value: (pop_light || '-'),
+								name: mercalli_cat[1]
+							}, {
+								value: (pop_mod || '-'),
+								name: mercalli_cat[2]
+							}, {
+								value: (pop_strong || '-'),
+								name: mercalli_cat[3]
+							}, {
+								value: (pop_vstrong || '-'),
+								name: mercalli_cat[4]
+							}, {
+								value: (pop_severe || '-'),
+								name: mercalli_cat[5]
+							}, {
+								value: (pop_violent || '-'),
+								name: mercalli_cat[6]
+							}, {
+								value: (pop_ext || '-'),
+								name: mercalli_cat[7]
+							}]
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartPie3.resize();
+	  			  		echartPieMercallPop.resize();
 	  			  	});
 
 	  			}
@@ -14271,133 +4677,89 @@ jQuery(function($){
 
 	  			if ($('#echart_pie_mercalli_build').length ){
 
-	  			  var echartPieMercallBuild = echarts.init(document.getElementById('echart_pie_mercalli_build'), colorMercalli);
+	  			  	var echartPieMercallBuild = echarts.init(document.getElementById('echart_pie_mercalli_build'), theme, render());
 
-	  			  echartPieMercallBuild.setOption({
-	  			  	animation: animate,
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				legend: {
-	  				  x: 'center',
-	  				  y: 'bottom',
-	  				  // orient: 'vertical',
-	  				  data: mercalli_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'left',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				calculable: true,
-	  				series: [{
-	  				  name: 'Earthquake Impact',
-	  				  type: 'pie',
-	  				  radius: '55%',
-	  				  center: ['50%', '48%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{d}%"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  				    value: (buildings_weak || '-'),
-	  				    // value: jsondata['buildings_shake_weak'],
-	  				    name: mercalli_cat[0]
-	  				    }, {
-	  				    value: (buildings_light || '-'),
-	  				    // value: jsondata['buildings_shake_light'],
-	  				    name: mercalli_cat[1]
-	  				    }, {
-	  				    value: (buildings_mod || '-'),
-	  				    // value: jsondata['buildings_shake_moderate'],
-	  				    name: mercalli_cat[2]
-	  				    }, {
-	  				    value: (buildings_strong || '-'),
-	  				    // value: jsondata['buildings_shake_strong'],
-	  				    name: mercalli_cat[3]
-	  				    }, {
-	  				    value: (buildings_vstrong || '-'),
-	  				    // value: jsondata['buildings_shake_verystrong'],
-	  				    name: mercalli_cat[4]
-	  				    }, {
-	  				    value: (buildings_severe || '-'),
-	  				    // value: jsondata['buildings_shake_severe'],
-	  				    name: mercalli_cat[5]
-	  				    }, {
-	  				    value: (buildings_violent || '-'),
-	  				    // value: jsondata['buildings_shake_violent'],
-	  				    name: mercalli_cat[6]
-	  				    }, {
-	  				    value: (buildings_ext || '-'),
-	  				    // value: jsondata['buildings_shake_extreme'],
-	  				    name: mercalli_cat[7]
-	  				  }]
-	  				}]
-	  			  });
-
-	  			  var dataStyle = {
-	  				normal: {
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				}
-	  			  };
-
-	  			  var placeHolderStyle = {
-	  				normal: {
-	  				  color: 'rgba(0,0,0,0)',
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				},
-	  				emphasis: {
-	  				  color: 'rgba(0,0,0,0)'
-	  				}
-	  			  };
+	  			  	echartPieMercallBuild.setOption({
+	  			  		tooltip: {
+	  			  			trigger: 'item',
+	  			  			formatter: humTooltipPie 
+	  			  		},
+	  			  		legend: {
+	  			  			x: 'center',
+	  			  			y: 'bottom',
+	  			  			// orient: 'vertical',
+	  			  			data: mercalli_cat
+	  			  		},
+	  			  		toolbox: {
+	  			  			show: true,
+	  			  			feature: {
+	  			  				restore: {
+	  			  				  	show: true,
+	  			  				  	title: "Restore"
+	  			  				},
+	  			  				saveAsImage: {
+	  			  				  	show: true,
+	  			  				  	title: "Save Image"
+	  			  				}
+	  			  			}
+	  			  		},
+	  			  		color: colorMercalli,
+	  			  		calculable: true,
+	  			  		series: [{
+	  			  			name: 'Earthquake Impact',
+	  			  			type: 'pie',
+	  			  			radius: '55%',
+	  			  			center: ['50%', '48%'],
+	  			  			itemStyle: {
+	  			  				normal: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						textBorderColor: 'auto',
+	  			  						color: '#33333352',
+	  			  						formatter: humanizePie
+	  			  					},
+	  			  					labelLine: {
+	  			  						show: true
+	  			  					}
+	  			  				},
+	  			  				emphasis: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						// position: 'center',
+	  			  						textStyle: {
+	  			  						  fontSize: '14',
+	  			  						  fontWeight: 'normal'
+	  			  						}
+	  			  					}
+	  			  				}
+	  			  			},
+	  			  			data: [{
+	  			  				value: (buildings_weak || '-'),
+	  			  				name: mercalli_cat[0]
+	  			  			}, {
+	  			  				value: (buildings_light || '-'),
+	  			  				name: mercalli_cat[1]
+	  			  			}, {
+	  			  				value: (buildings_mod || '-'),
+	  			  				name: mercalli_cat[2]
+	  			  			}, {
+	  			  				value: (buildings_strong || '-'),
+	  			  				name: mercalli_cat[3]
+	  			  			}, {
+	  			  				value: (buildings_vstrong || '-'),
+	  			  				name: mercalli_cat[4]
+	  			  			}, {
+	  			  				value: (buildings_severe || '-'),
+	  			  				name: mercalli_cat[5]
+	  			  			}, {
+	  			  				value: (buildings_violent || '-'),
+	  			  				name: mercalli_cat[6]
+	  			  			}, {
+	  			  				value: (buildings_ext || '-'),
+	  			  				name: mercalli_cat[7]
+	  			  			}]
+	  			  		}]
+	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartPieMercallBuild.resize();
@@ -14409,133 +4771,89 @@ jQuery(function($){
 
 	  			if ($('#echart_pie_mercalli_settl').length ){
 
-	  			  var echartPieMercallSettl = echarts.init(document.getElementById('echart_pie_mercalli_settl'), colorMercalli);
+	  			  	var echartPieMercallSettl = echarts.init(document.getElementById('echart_pie_mercalli_settl'), theme, render());
 
-	  			  echartPieMercallSettl.setOption({
-	  			  	animation: animate,
-	  				tooltip: {
-	  				  trigger: 'item',
-	  				  formatter: humTooltipPie //"{a} <br/>{b} : {c} ({d}%)"
-	  				},
-	  				legend: {
-	  				  x: 'center',
-	  				  y: 'bottom',
-	  				  // orient: 'vertical',
-	  				  data: mercalli_cat
-	  				},
-	  				toolbox: {
-	  				  show: true,
-	  				  feature: {
-	  					magicType: {
-	  					  show: true,
-	  					  type: ['pie', 'funnel'],
-	  					  option: {
-	  						funnel: {
-	  						  x: '25%',
-	  						  width: '50%',
-	  						  funnelAlign: 'left',
-	  						  max: 1548
-	  						}
-	  					  }
-	  					},
-	  					restore: {
-	  					  show: true,
-	  					  title: "Restore"
-	  					},
-	  					saveAsImage: {
-	  					  show: true,
-	  					  title: "Save Image"
-	  					}
-	  				  }
-	  				},
-	  				calculable: true,
-	  				series: [{
-	  				  name: 'Earthquake Impact',
-	  				  type: 'pie',
-	  				  radius: '55%',
-	  				  center: ['50%', '48%'],
-	  				  itemStyle: {
-	  					normal: {
-	  					  label: {
-	  						show: true,
-	  						formatter: humanizePie //"{b} \n{d}%"
-	  					  },
-	  					  labelLine: {
-	  						show: true
-	  					  }
-	  					},
-	  					emphasis: {
-	  					  label: {
-	  						show: true,
-	  						position: 'center',
-	  						textStyle: {
-	  						  fontSize: '14',
-	  						  fontWeight: 'normal'
-	  						}
-	  					  }
-	  					}
-	  				  },
-	  				  data: [{
-	  				    value: (settlement_weak || '-'),
-	  				    // value: jsondata['settlement_shake_weak'],
-	  				    name: mercalli_cat[0]
-	  				  }, {
-	  				    value: (settlement_light || '-'),
-	  				    // value: jsondata['settlement_shake_light'],
-	  				    name: mercalli_cat[1]
-	  				  }, {
-	  				    value: (settlement_mod || '-'),
-	  				    // value: jsondata['settlement_shake_moderate'],
-	  				    name: mercalli_cat[2]
-	  				  }, {
-	  				    value: (settlement_strong || '-'),
-	  				    // value: jsondata['settlement_shake_strong'],
-	  				    name: mercalli_cat[3]
-	  				  }, {
-	  				    value: (settlement_vstrong || '-'),
-	  				    // value: jsondata['settlement_shake_verystrong'],
-	  				    name: mercalli_cat[4]
-	  				  }, {
-	  				    value: (settlement_severe || '-'),
-	  				    // value: jsondata['settlement_shake_severe'],
-	  				    name: mercalli_cat[5]
-	  				  }, {
-	  				    value: (settlement_violent || '-'),
-	  				    // value: jsondata['settlement_shake_violent'],
-	  				    name: mercalli_cat[6]
-	  				  }, {
-	  				    value: (settlement_ext || '-'),
-	  				    // value: jsondata['settlement_shake_extreme'],
-	  				    name: mercalli_cat[7]
-	  				  }]
-	  				}]
-	  			  });
-
-	  			  var dataStyle = {
-	  				normal: {
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				}
-	  			  };
-
-	  			  var placeHolderStyle = {
-	  				normal: {
-	  				  color: 'rgba(0,0,0,0)',
-	  				  label: {
-	  					show: false
-	  				  },
-	  				  labelLine: {
-	  					show: false
-	  				  }
-	  				},
-	  				emphasis: {
-	  				  color: 'rgba(0,0,0,0)'
-	  				}
-	  			  };
+	  			  	echartPieMercallSettl.setOption({
+	  			  		tooltip: {
+	  			  			trigger: 'item',
+	  			  			formatter: humTooltipPie 
+	  			  		},
+	  			  		legend: {
+	  			  			x: 'center',
+	  			  			y: 'bottom',
+	  			  			// orient: 'vertical',
+	  			  			data: mercalli_cat
+	  			  		},
+	  			  		toolbox: {
+	  			  			show: true,
+	  			  			feature: {
+	  			  				restore: {
+	  			  				  	show: true,
+	  			  				  	title: "Restore"
+	  			  				},
+	  			  				saveAsImage: {
+	  			  				  	show: true,
+	  			  				  	title: "Save Image"
+	  			  				}
+	  			  			}
+	  			  		},
+	  			  		color: colorMercalli,
+	  			  		calculable: true,
+	  			  		series: [{
+	  			  			name: 'Earthquake Impact',
+	  			  			type: 'pie',
+	  			  			radius: '55%',
+	  			  			center: ['50%', '48%'],
+	  			  			itemStyle: {
+	  			  				normal: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						textBorderColor: 'auto',
+	  			  						color: '#33333352',
+	  			  						formatter: humanizePie
+	  			  					},
+	  			  					labelLine: {
+	  			  						show: true
+	  			  					}
+	  			  				},
+	  			  				emphasis: {
+	  			  					label: {
+	  			  						show: true,
+	  			  						// position: 'center',
+	  			  						textStyle: {
+	  			  						  fontSize: '14',
+	  			  						  fontWeight: 'normal'
+	  			  						}
+	  			  					}
+	  			  				}
+	  			  			},
+	  			  			data: [{
+	  			  				value: (settlement_weak || '-'),
+	  			  				name: mercalli_cat[0]
+	  			  			}, {
+	  			  				value: (settlement_light || '-'),
+	  			  				name: mercalli_cat[1]
+	  			  			}, {
+	  			  				value: (settlement_mod || '-'),
+	  			  				name: mercalli_cat[2]
+	  			  			}, {
+	  			  				value: (settlement_strong || '-'),
+	  			  				name: mercalli_cat[3]
+	  			  			}, {
+	  			  				value: (settlement_vstrong || '-'),
+	  			  				name: mercalli_cat[4]
+	  			  			}, {
+	  			  				value: (settlement_severe || '-'),
+	  			  				name: mercalli_cat[5]
+	  			  			}, {
+	  			  				value: (settlement_violent || '-'),
+	  			  				name: mercalli_cat[6]
+	  			  			}, {
+	  			  				value: (settlement_ext || '-'),
+	  			  				name: mercalli_cat[7]
+	  			  			}]
+	  			  		}]
+	  			  	});
 
 	  			  	window.addEventListener("resize", function(){
 	  			  		echartPieMercallSettl.resize();
@@ -14546,668 +4864,25 @@ jQuery(function($){
 
 	  		// case "haccess":
 	  			// haccess tab
-	  			// echart Radar masing2
-			  		// 	if ($('#echart_sonar').length ){
-			  		// 		  var echartRadar3 = echarts.init(document.getElementById('echart_sonar'), theme);
-
-			  		// 		  echartRadar3.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator1,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar3.resize();
-			  		// 			});
-			  		// 	}
-
-			  		// 	// echart Radar 2
-			  		// 	if ($('#echart_sonar_2').length ){
-			  		// 		  var echartRadar2 = echarts.init(document.getElementById('echart_sonar_2'), theme);
-
-			  		// 		  echartRadar2.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator1,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar2.resize();
-			  		// 			});
-			  		// 	}
-
-			  		// 	// echart Radar 4
-			  		// 	if ($('#echart_sonar_4').length ){
-			  		// 		  var echartRadar4 = echarts.init(document.getElementById('echart_sonar_4'), theme);
-
-			  		// 		  echartRadar4.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator1,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar4.resize();
-			  		// 			});
-			  		// 	}
-
-			  		// 	// echart Radar 5
-			  		// 	if ($('#echart_sonar_5').length ){
-			  		// 		  var echartRadar5 = echarts.init(document.getElementById('echart_sonar_5'), theme);
-
-			  		// 		  echartRadar5.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator1,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar5.resize();
-			  		// 			});
-			  		// 	}
-
-			  		// 	// echart Radar 3
-
-			  		// 	if ($('#echart_sonar_3').length ){
-
-			  		// 	  var echartRadar1 = echarts.init(document.getElementById('echart_sonar_3'), theme);
-
-			  		// 	  echartRadar1.setOption({
-			  		// 		// title: {
-			  		// 		//   text: 'Number of Incident and Casualties by Incident Type',
-			  		// 		//   subtext: 'Subtitle'
-			  		// 		// },
-			  		// 		 tooltip: {
-			  		// 			trigger: 'item'
-			  		// 			// formatter: humTooltipRadar
-			  		// 		},
-			  		// 		legend: {
-			  		// 		  // orient: 'vertical',
-			  		// 		  x: 'center',
-			  		// 		  y: 'bottom',
-			  		// 		  data: ['Incident', 'Dead', 'Injured', 'Violent'],
-			  		// 		  selectedMode: 'single'
-			  		// 		},
-			  		// 		toolbox: {
-			  		// 		  show: true,
-			  		// 		  feature: {
-			  		// 			restore: {
-			  		// 			  show: true,
-			  		// 			  title: "Restore"
-			  		// 			},
-			  		// 			saveAsImage: {
-			  		// 			  show: true,
-			  		// 			  title: "Save Image"
-			  		// 			}
-			  		// 		  }
-			  		// 		},
-			  		// 		radar: [{
-						 //  	  	indicator: checkIndicator1,
-						 //  	  	// axisLine:{
-						 //  	  	// 	lineStyle:{
-						 //  	  	// 		type: 'dotted'
-						 //  	  	// 	}
-						 //  	  	// },
-						 //  	  	splitNumber: 3,
-						 //  	  	nameGap: 20,
-						 //  	  	name: {
-				  	//   	            textStyle: {
-				  	//   	                fontWeight: 'bold'
-				  	//   	            }
-						 //  	  	},
-						 //  	  	axisTick:{
-						 //  	  		// show: true,
-						 //  	  		alignWithLabel: true
-						 //  	  	},
-						 //  	  	axisLabel:{
-						 //  	  		show: true,
-						 //  	  		margin: 5,
-						 //  	  		// rotate: 60,
-						 //  	  		showMinLabel: false,
-						 //  	  		formatter: humanizeFormatter
-						 //  	  		// showMinLabel: true,
-						 //  	  		// showMaxLabel: true
-
-						 //  	  	},
-						 //  	  	splitLine: false,
-						 //  	  	splitArea: false,
-						 //  	  	scale: true,
-				  	// 			center:['50%', '45%'],
-				  	// 			radius: '75%'
-			  		// 		}],
-			  		// 		calculable: true,
-			  		// 		series: [{
-			  		// 		  name: 'Incident Type',
-			  		// 		  type: 'radar',
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 			name: 'Incident',
-			  		// 			label:{
-			  		// 				normal: {
-			  		// 					// show: true,
-			  		// 					showMaxLabel: true,
-			  		// 					// formatter: function(params){
-			  		// 					// 	return params.value;
-			  		// 					// }
-			  		// 				}
-			  		// 			}
-			  		// 		  }]
-			  		// 		}, {
-			  		// 		  name: 'Casualties',
-			  		// 		  type: 'radar',
-			  		// 		  // polarIndex: 1,
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 			name: 'Dead'
-			  		// 		  }]
-			  		// 		}, {
-			  		// 		  name: 'Casualties',
-			  		// 		  type: 'radar',
-			  		// 		  // polarIndex: 2,
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 			name: 'Injured'
-			  		// 		  }]
-			  		// 		}, {
-			  		// 		  name: 'Casualties',
-			  		// 		  type: 'radar',
-			  		// 		  // polarIndex: 3,
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221],
-			  		// 			name: 'Violent'
-			  		// 		  }]
-			  		// 		}]
-			  		// 	  });
-
-							// window.addEventListener("resize", function(){
-							// 	echartRadar1.resize();
-							// });
-
-			  		// 	}
-
-			  		// 	// echart Radar 6
-
-			  		// 	if ($('#echart_sonar_6').length ){
-
-			  		// 	  var echartRadar6 = echarts.init(document.getElementById('echart_sonar_6'), theme);
-
-			  		// 	  echartRadar6.setOption({
-			  		// 		// title: {
-			  		// 		//   text: 'Number of Incident and Casualties by Incident Type',
-			  		// 		//   subtext: 'Subtitle'
-			  		// 		// },
-			  		// 		 tooltip: {
-			  		// 			trigger: 'item'
-			  		// 		},
-			  		// 		legend: {
-			  		// 		  // orient: 'vertical',
-			  		// 		  x: 'center',
-			  		// 		  y: 'bottom',
-			  		// 		  data: ['Incident', 'Dead', 'Injured', 'Violent'],
-			  		// 		  selectedMode: 'single'
-			  		// 		},
-			  		// 		toolbox: {
-			  		// 		  show: true,
-			  		// 		  feature: {
-			  		// 			restore: {
-			  		// 			  show: true,
-			  		// 			  title: "Restore"
-			  		// 			},
-			  		// 			saveAsImage: {
-			  		// 			  show: true,
-			  		// 			  title: "Save Image"
-			  		// 			}
-			  		// 		  }
-			  		// 		},
-			  		// 		radar: [{
-						 //  	  	indicator: checkIndicator2,
-						 //  	  	// axisLine:{
-						 //  	  	// 	lineStyle:{
-						 //  	  	// 		type: 'dotted'
-						 //  	  	// 	}
-						 //  	  	// },
-						 //  	  	axisTick:{
-						 //  	  		show: true
-						 //  	  	},
-						 //  	  	axisLabel:{
-						 //  	  		show: true,
-						 //  	  		// showMinLabel: true,
-						 //  	  		// showMaxLabel: true
-
-						 //  	  	},
-						 //  	  	splitLine: false,
-						 //  	  	// splitArea: true,
-				  	// 			center:['50%', '45%'],
-				  	// 			radius: '65%'
-			  		// 		}],
-			  		// 		calculable: true,
-			  		// 		series: [{
-			  		// 		  name: 'Incident Type',
-			  		// 		  type: 'radar',
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [1, 5, 7, 4, 9, 2, 8, 2, 3],
-			  		// 			name: 'Incident',
-			  		// 			label:{
-			  		// 				normal: {
-			  		// 					// show: true,
-			  		// 					showMaxLabel: true,
-			  		// 					// formatter: function(params){
-			  		// 					// 	return params.value;
-			  		// 					// }
-			  		// 				}
-			  		// 			}
-			  		// 		  }]
-			  		// 		}, {
-			  		// 		  name: 'Casualties',
-			  		// 		  type: 'radar',
-			  		// 		  // polarIndex: 1,
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [5, 4, 10, 2, 6, 9, 1, 9, 3],
-			  		// 			name: 'Dead'
-			  		// 		  }]
-			  		// 		}, {
-			  		// 		  name: 'Casualties',
-			  		// 		  type: 'radar',
-			  		// 		  // polarIndex: 2,
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [0, 4, 7, 3, 9, 8, 2, 1, 2],
-			  		// 			name: 'Injured'
-			  		// 		  }]
-			  		// 		}, {
-			  		// 		  name: 'Casualties',
-			  		// 		  type: 'radar',
-			  		// 		  // polarIndex: 3,
-			  		// 		  itemStyle: {normal: {areaStyle: {type: 'default'}}},
-			  		// 		  data: [{
-			  		// 			value: [10, 1, 5, 8, 2, 3, 6, 8, 7],
-			  		// 			name: 'Violent'
-			  		// 		  }]
-			  		// 		}]
-			  		// 	  });
-
-							// window.addEventListener("resize", function(){
-							// 	echartRadar6.resize();
-							// });
-
-			  		// 	}
-
-			  		// 	// echart Radar 7
-			  		// 	if ($('#echart_sonar_7').length ){
-			  		// 		  var echartRadar7 = echarts.init(document.getElementById('echart_sonar_7'), theme);
-
-			  		// 		  echartRadar7.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator2,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [5, 4, 10, 2, 6, 9, 1, 9, 3],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar7.resize();
-			  		// 			});
-			  		// 	}
-
-			  		// 	// echart Radar 8
-			  		// 	if ($('#echart_sonar_8').length ){
-			  		// 		  var echartRadar8 = echarts.init(document.getElementById('echart_sonar_8'), theme);
-
-			  		// 		  echartRadar8.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator2,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [0, 4, 7, 3, 9, 8, 2, 1, 2],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar8.resize();
-			  		// 			});
-			  		// 	}
-
-			  		// 	// echart Radar 9
-			  		// 	if ($('#echart_sonar_9').length ){
-			  		// 		  var echartRadar9 = echarts.init(document.getElementById('echart_sonar_9'), theme);
-
-			  		// 		  echartRadar9.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator2,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [1, 5, 7, 4, 9, 2, 8, 2, 3],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar9.resize();
-			  		// 			});
-			  		// 	}
-
-			  		// 	// echart Radar 10
-			  		// 	if ($('#echart_sonar_10').length ){
-			  		// 		  var echartRadar10 = echarts.init(document.getElementById('echart_sonar_10'), theme);
-
-			  		// 		  echartRadar10.setOption({
-			  		// 			// title: {
-			  		// 			//   text: 'Incident Type',
-			  		// 			//   subtext: 'Subtitle'
-			  		// 			// },
-			  		// 			 tooltip: {
-			  		// 				trigger: 'item'
-			  		// 			},
-			  		// 			legend: {
-			  		// 			  // orient: 'vertical',
-			  		// 			  x: 'left',
-			  		// 			  y: 'top',
-			  		// 			  data: ['Incident']
-			  		// 			},
-			  		// 			toolbox: {
-			  		// 			  show: true,
-			  		// 			  feature: {
-			  		// 				restore: {
-			  		// 				  show: true,
-			  		// 				  title: "Restore"
-			  		// 				},
-			  		// 				saveAsImage: {
-			  		// 				  show: true,
-			  		// 				  title: "Save Image"
-			  		// 				}
-			  		// 			  }
-			  		// 			},
-			  		// 			polar: [{
-			  		// 			  indicator: checkIndicator2,
-			  		// 			  center:['50%', '55%'],
-			  		// 			  radius: 60
-			  		// 			}],
-			  		// 			calculable: true,
-			  		// 			series: [{
-			  		// 			  name: 'Incident Type',
-			  		// 			  type: 'radar',
-			  		// 			  data: [{
-			  		// 				value: [10, 1, 5, 8, 2, 3, 6, 8, 7],
-			  		// 				name: 'Incident'
-			  		// 			  }]
-			  		// 			}]
-			  		// 		  });
-			  		// 			window.addEventListener("resize", function(){
-			  		// 				echartRadar10.resize();
-			  		// 			});
-			  		// 	}
-
 	  			// echart Polar
-	  			if ($('#echart_polar_1').length ){
-	  				var echartPolar1 = echarts.init(document.getElementById('echart_polar_1'), theme);
+	  			if ($('#echart_polar_target_type').length ){
+	  				var echartPolarTarget = echarts.init(document.getElementById('echart_polar_target_type'), theme/*, render()*/);
 
-	  				echartPolar1.setOption({
+	  				echartPolarTarget.setOption({
 	  					legend: {
 					        data: polar_cat,
 					        orient: 'vertical',
-					        // selectedMode: 'single',
 					        left: 'right'
 					    },
 					    polar: {},
 					    tooltip: {
 					    	formatter: humTooltipPolar
-					        // formatter: function (params) {
-					        //     return params.value[2] + ' commits in ' + hours[params.value[1]] + ' of ' + days[params.value[0]];
-					        // }
 					    },
 					    angleAxis: {
 					        type: 'category',
 					        data: target_cat,
-					        boundaryGap: false,
+					        startAngle: 0,
+					        // boundaryGap: false,
 					        clockwise: false,
 					        splitLine: {
 					            show: true,
@@ -15218,9 +4893,7 @@ jQuery(function($){
 					        },
 					        axisLabel:{
 					        	inside: true,
-					        	padding: [0, 10],
-					        	width: 20
-					        	// margin: 20
+					        	padding: [0, 10]
 					        },
 					        axisLine: {
 					            show: false
@@ -15228,7 +4901,6 @@ jQuery(function($){
 					    },
 					    radiusAxis: {
 					        type: 'log',
-					        // data: days,
 					        // splitLine: {
 					        // 	show: false
 					        // },
@@ -15239,109 +4911,72 @@ jQuery(function($){
 					            show: false
 					        },
 					        axisLabel: {
-					            // rotate: 45
 					            formatter: humanizeFormatter
 					        }
 					    },
 					    series: [{
-					        name: 'Incidents',
-					        // type: 'graph',
+					        name: polar_cat[0],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        // layout: 'force',
-					        // force: {
-		           //              // initLayout: 'circular'
-		           //              // gravity: 0
-		           //              repulsion: 60,
-		           //              edgeLength: 2
-		           //          },
-		                    // links: links,
 					        areaStyle: {
 					        	normal: {
 	                            	// color: '#000'
 	                        	}
 					        },
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
-					        // data: data,
+					        symbolSize: sizeBubble,
 					        data: targetCount,
-					        // jsondata.jsondata.main_target.series.values[0],
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    },
 					    {
-					        name: 'Dead',
+					        name: polar_cat[1],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
-					        // data: data1,
+					        symbolSize: sizeBubble,
 					        data: targetDead,
-					        // jsondata.jsondata.main_target.series.values[1],
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    },
 					    {
-					        name: 'Injured',
+					        name: polar_cat[2],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
-					        // data: data2,
+					        symbolSize: sizeBubble,
 					        data: targetInjured,
-					        // jsondata.jsondata.main_target.series.values[3],
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    },
 					    {
-					        name: 'Violent',
+					        name: polar_cat[3],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
-					        // data: data3,
+					        symbolSize: sizeBubble,
 					        data: targetViolent,
-					        // jsondata.jsondata.main_target.series.values[2],
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    }]
 	  				});
+
 					window.addEventListener("resize", function(){
-						echartPolar1.resize();
+						echartPolarTarget.resize();
 					});
 	  			}
 
 	  			// echart Polar
-	  			if ($('#echart_polar_2').length ){
-	  				var echartPolar2 = echarts.init(document.getElementById('echart_polar_2'), theme);
+	  			if ($('#echart_polar_incident_type').length ){
+	  				var echartPolarIncident = echarts.init(document.getElementById('echart_polar_incident_type'), theme/*, render()*/);
 
-	  				echartPolar2.setOption({
+	  				echartPolarIncident.setOption({
 	  					legend: {
 					        data: polar_cat,
 					        orient: 'vertical',
-					        // selectedMode: 'single',
 					        left: 'right'
 					    },
 					    polar: {},
 					    tooltip: {
 					    	formatter: humTooltipPolar
-					        // formatter: function (params) {
-					        //     return params.value[2] + ' commits in ' + hours[params.value[1]] + ' of ' + days[params.value[0]];
-					        // }
 					    },
 					    angleAxis: {
 					        type: 'category',
 					        data: incident_cat,
 					        startAngle: 0,
-					        boundaryGap: false,
+					        // boundaryGap: false,
 					        clockwise: false,
 					        splitLine: {
 					            show: true,
@@ -15352,9 +4987,7 @@ jQuery(function($){
 					        },
 					        axisLabel:{
 					        	inside: true,
-					        	padding: [0, 100],
-					        	width: 20
-					        	// margin: 20
+					        	padding: [0, 10]
 					        },
 					        axisLine: {
 					            show: false
@@ -15362,10 +4995,6 @@ jQuery(function($){
 					    },
 					    radiusAxis: {
 					        type: 'log',
-					        // data: days,
-					        // splitLine: {
-					        // 	show: false
-					        // },
 					        splitArea: {
 					        	show: false
 					        },
@@ -15373,434 +5002,364 @@ jQuery(function($){
 					            show: false
 					        },
 					        axisLabel: {
-					            // rotate: 45
 					            formatter: humanizeFormatter
 					        }
 					    },
 					    series: [{
-					        name: 'Incidents',
+					        name: polar_cat[0],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
+					        symbolSize: sizeBubble,
 					        data: incidentCount,
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    },
 					    {
-					        name: 'Dead',
+					        name: polar_cat[1],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
+					        symbolSize: sizeBubble,
 					        data: incidentDead,
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    },
 					    {
-					        name: 'Injured',
+					        name: polar_cat[2],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
+					        symbolSize: sizeBubble,
 					        data: incidentInjured,
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    },
 					    {
-					        name: 'Violent',
+					        name: polar_cat[3],
 					        type: 'scatter',
 					        coordinateSystem: 'polar',
-					        symbolSize: function (val) {
-					            return Math.log(val)*3;
-					        },
+					        symbolSize: sizeBubble,
 					        data: incidentViolent,
-					        animationDelay: function (idx) {
-					            return idx * 5;
-					        }
+					        animationDelay: delay
 					    }]
 	  				});
+
 					window.addEventListener("resize", function(){
-						echartPolar2.resize();
+						echartPolarIncident.resize();
 					});
 	  			}
 
 	  			// echart Bar Horizontal Casualties
 
-	  			if ($('#echart_bar_horizontal_12').length ){
+	  			if ($('#echart_bar_horizontal_casualty_incident').length ){
 
-	  			  var echartBar12 = echarts.init(document.getElementById('echart_bar_horizontal_12'), theme);
+	  			  	var echartBarCasInc = echarts.init(document.getElementById('echart_bar_horizontal_casualty_incident'), theme, render());
 
-	  			  echartBar12.setOption({
-	  				// title: {
-	  				//   text: 'Overview 1',
-	  				//   subtext: 'Graph subtitle'
-	  				// },
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type:'shadow'
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'center',
-	  				  y: 'bottom',
-	  				  data: bar_cas_cat
-	  				},
-	  				toolbox: {
-	  			      show: true,
-	  			      feature: {
-	  			    	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar',
-	  			    		stack: 'Stack',
-	  			    		tiled: 'Tiled'
-	  			    	  },
-	  			    	  type: ['line', 'bar', 'stack', 'tiled']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  			    	saveAsImage: {
-	  			    	  show: true,
-	  			    	  title: "Save Image"
-	  			    	}
-	  			      }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '10%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				// grid:[{
-	  				// 	top: 50,
-	  				// 	width: '50%',
-	  				// 	bottom: '45%',
-	  				// 	left: 10,
-	  				// 	containLabel: true
-	  				// }],
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel:{
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  					type: 'category',
-	  					data: incident_cat,
-	  					// data: jsondata['incident_type'],
-	  					// data: ['Abandonment', 'Demonstration', 'Attack', 'Kidnapping', 'Murder', 'Small Arms Fire', 'Weapons', 'Mil./Non-Mil. Operation', 'Civillian Accident', 'IED', 'Arrest', 'Others', 'UXO'],
-	  					axisLabel:{
-	  						// rotate: 30
-	  					}
-	  				}],
-	  				series: [{
-	  				  name: bar_cas_cat[0],
-	  				  type: 'bar',
-	  				  label:{
-	  				  	normal:{
-	  				  		position: 'right',
-	  				  		show: true,
-	  				  		formatter: humanizeBar
-	  				  	}
-	  				  },
-	  				  data: incidentDead
-	  				}, {
-	  				  name: bar_cas_cat[1],
-	  				  type: 'bar',
-	  				  label:{
-	  				  	normal:{
-	  				  		position: 'right',
-	  				  		show: true,
-	  				  		formatter: humanizeBar
-	  				  	}
-	  				  },
-	  				  data: incidentInjured
-	  				}]
-	  			  });
+					echartBarCasInc.setOption({
+						tooltip: {
+							trigger: 'item',
+							axisPointer:{
+								type:'line'
+							},
+							formatter: humTooltipBar
+						},
+						legend: {
+							x: 'center',
+							y: 'bottom',
+							data: bar_cas_cat
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar',
+										stack: 'Stack',
+										tiled: 'Tiled'
+									},
+									type: ['line', 'bar', 'stack', 'tiled']
+								},
+								restore: {
+									show: true,
+									title: "Restore"
+								},
+								saveAsImage: {
+									show: true,
+									title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '10%',
+						    bottom: '8%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
+						}],
+						yAxis: [{
+							type: 'category',
+							data: incident_cat
+						}],
+						series: [{
+							name: bar_cas_cat[0],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: incidentDead
+							}, {
+							name: bar_cas_cat[1],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: incidentInjured
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartBar12.resize();
+	  			  		echartBarCasInc.resize();
 	  			  	});
 
 	  			}
 
 	  			// echart Bar Horizontal Incident
 
-	  			if ($('#echart_bar_horizontal_13').length ){
+	  			if ($('#echart_bar_horizontal_incident_incident').length ){
 
-	  			  var echartBar13 = echarts.init(document.getElementById('echart_bar_horizontal_13'), theme);
+	  			  	var echartBarIncInc = echarts.init(document.getElementById('echart_bar_horizontal_incident_incident'), theme, render());
 
-	  			  echartBar13.setOption({
-	  				// title: {
-	  				//   text: 'Overview 1',
-	  				//   subtext: 'Graph subtitle'
-	  				// },
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type:'shadow'
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'center',
-	  				  y: 'bottom',
-	  				  data: bar_inc_cat
-	  				},
-	  				toolbox: {
-	  			      show: true,
-	  			      feature: {
-	  			    	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar',
-	  			    		stack: 'Stack',
-	  			    		tiled: 'Tiled'
-	  			    	  },
-	  			    	  type: ['line', 'bar', 'stack', 'tiled']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  			    	saveAsImage: {
-	  			    	  show: true,
-	  			    	  title: "Save Image"
-	  			    	}
-	  			      }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '10%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				// grid:[{
-	  				// 	top: 50,
-	  				// 	width: '50%',
-	  				// 	bottom: '45%',
-	  				// 	left: 10,
-	  				// 	containLabel: true
-	  				// }],
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel: {
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  					type: 'category',
-	  					data: incident_cat,
-	  					// data: jsondata['incident_type'],
-	  					// data: ['Abandonment', 'Demonstration', 'Attack', 'Kidnapping', 'Murder', 'Small Arms Fire', 'Weapons', 'Mil./Non-Mil. Operation', 'Civillian Accident', 'IED', 'Arrest', 'Others', 'UXO'],
-	  					axisLabel:{
-	  						// rotate: 30
-	  					}
-	  				}],
-	  				series: [{
-	  				  name: bar_inc_cat[0],
-	  				  type: 'bar',
-	  				  // barMinHeight: 10,
-	  				  // barWidth: 15,
-	  				  label:{
-	  				  	normal:{
-	  				  		position: 'right',
-	  				  		show: true,
-	  				  		formatter: humanizeBar
-	  				  	}
-	  				  },
-	  				  data: incidentCount
-	  				}, {
-	  				  name: bar_inc_cat[1],
-	  				  type: 'bar',
-	  				  label:{
-	  				  	normal:{
-	  				  		position: 'right',
-	  				  		show: true,
-	  				  		formatter: humanizeBar
-	  				  	}
-	  				  },
-	  				  data: incidentViolent
-	  				}]
-	  			  });
+					echartBarIncInc.setOption({
+						tooltip: {
+							trigger: 'axis',
+							axisPointer:{
+								type:'line'
+							},
+							formatter: humTooltipBar
+						},
+						legend: {
+							x: 'center',
+							y: 'bottom',
+							data: bar_inc_cat
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar',
+										stack: 'Stack',
+										tiled: 'Tiled'
+									},
+									type: ['line', 'bar', 'stack', 'tiled']
+								},
+								restore: {
+									show: true,
+									title: "Restore"
+								},
+								saveAsImage: {
+									show: true,
+									title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '10%',
+						    bottom: '8%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel: {
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
+						}],
+						yAxis: [{
+							type: 'category',
+							data: incident_cat
+						}],
+						series: [{
+							name: bar_inc_cat[0],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: incidentCount
+							}, {
+							name: bar_inc_cat[1],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: incidentViolent
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartBar13.resize();
+	  			  		echartBarIncInc.resize();
 	  			  	});
 
 	  			}
 
 	  			// echart Bar Horizontal Casualties by Target
 
-	  			if ($('#echart_bar_horizontal_14').length ){
+	  			if ($('#echart_bar_horizontal_casualty_target').length ){
 
-	  			  var echartBar14 = echarts.init(document.getElementById('echart_bar_horizontal_14'), theme);
+	  			  	var echartBarCasTarg = echarts.init(document.getElementById('echart_bar_horizontal_casualty_target'), theme, render());
 
-	  			  echartBar14.setOption({
-	  				// title: {
-	  				//   text: 'Overview 1',
-	  				//   subtext: 'Graph subtitle'
-	  				// },
-	  				tooltip: {
-	  				  trigger: 'axis',
-	  				  axisPointer:{
-	  				  	type:'shadow'
-	  				  },
-	  				  formatter: humTooltipBar
-	  				},
-	  				legend: {
-	  				  x: 'center',
-	  				  y: 'bottom',
-	  				  data: bar_cas_cat
-	  				},
-	  				toolbox: {
-	  			      show: true,
-	  			      feature: {
-	  			    	magicType: {
-	  			    	  show: true,
-	  			    	  title: {
-	  			    		line: 'Line',
-	  			    		bar: 'Bar',
-	  			    		stack: 'Stack',
-	  			    		tiled: 'Tiled'
-	  			    	  },
-	  			    	  type: ['line', 'bar', 'stack', 'tiled']
-	  			    	},
-	  			    	restore: {
-	  			    	  show: true,
-	  			    	  title: "Restore"
-	  			    	},
-	  			    	saveAsImage: {
-	  			    	  show: true,
-	  			    	  title: "Save Image"
-	  			    	}
-	  			      }
-	  				},
-	  				grid: {
-	  			        left: '0%',
-	  			        right: '10%',
-	  			        bottom: '8%',
-	  			        containLabel: true
-	  			    },
-	  				// grid:[{
-	  				// 	top: 50,
-	  				// 	width: '50%',
-	  				// 	bottom: '45%',
-	  				// 	left: 10,
-	  				// 	containLabel: true
-	  				// }],
-	  				calculable: true,
-	  				xAxis: [{
-	  				  type: 'value',
-	  				  boundaryGap: [0, 0.01],
-	  				  axisLabel:{
-	  				  	rotate: 30,
-	  				  	formatter: humanizeFormatter
-	  				  }
-	  				}],
-	  				yAxis: [{
-	  					type: 'category',
-	  					data: target_cat,
-	  					// data: jsondata['incident_target'],
-	  					// data: ['Armed Opposition Group', 'Civilians', 'Government', 'Humanitarian Community', 'Infrastructure', 'Intl. Humanitarian Comm.', 'Intl. Millitary', 'Police/Millitary Gov.', 'Unknown'],
-	  					axisLabel:{
-	  						// rotate: 30
-	  					}
-	  				}],
-	  				series: [{
-	  				  name: bar_cas_cat[0],
-	  				  type: 'bar',
-	  				  label:{
-	  				  	normal:{
-	  				  		position: 'right',
-	  				  		show: true,
-	  				  		formatter: humanizeBar
-	  				  	}
-	  				  },
-	  				  data: targetDead
-	  				}, {
-	  				  name: bar_cas_cat[1],
-	  				  type: 'bar',
-	  				  label:{
-	  				  	normal:{
-	  				  		position: 'right',
-	  				  		show: true,
-	  				  		formatter: humanizeBar
-	  				  	}
-	  				  },
-	  				  data: targetInjured
-	  				}]
-	  			  });
+					echartBarCasTarg.setOption({
+						tooltip: {
+							trigger: 'item',
+							// axisPointer:{
+							// 	type:'line'
+							// },
+							formatter: humTooltipBar
+						},
+						legend: {
+							x: 'center',
+							y: 'bottom',
+							data: bar_cas_cat
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar',
+										stack: 'Stack',
+										tiled: 'Tiled'
+									},
+									type: ['line', 'bar', 'stack', 'tiled']
+								},
+								restore: {
+									show: true,
+									title: "Restore"
+								},
+								saveAsImage: {
+									show: true,
+									title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '10%',
+						    bottom: '8%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
+						}],
+						yAxis: [{
+							type: 'category',
+							data: target_cat
+						}],
+						series: [{
+							name: bar_cas_cat[0],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: targetDead
+							}, {
+							name: bar_cas_cat[1],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: targetInjured
+						}]
+					});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartBar14.resize();
+	  			  		echartBarCasTarg.resize();
 	  			  	});
 
 	  			}
 
 	  			// echart Bar Horizontal Incident by Target
 
-	  			if ($('#echart_bar_horizontal_15').length ){
-		  			var echartBar15 = echarts.init(document.getElementById('echart_bar_horizontal_15'), theme);
+	  			if ($('#echart_bar_horizontal_incident_target').length ){
+		  			var echartBarIncTarg = echarts.init(document.getElementById('echart_bar_horizontal_incident_target'), theme, render());
 
-		  			echartBar15.setOption({
-		  				// title: {
-		  				//   text: 'Overview 1',
-		  				//   subtext: 'Graph subtitle'
-		  				// },
+		  			echartBarIncTarg.setOption({
 		  				tooltip: {
-		  				  trigger: 'axis',
-		  				  axisPointer:{
-		  				  	type:'shadow'
-		  				  },
-		  				  formatter: humTooltipBar
+							trigger: 'item',
+							// axisPointer:{
+							// 	type:'shadow'
+							// },
+							formatter: humTooltipBar
 		  				},
 		  				legend: {
-		  				  x: 'center',
-		  				  y: 'bottom',
-		  				  data: bar_inc_cat
+							x: 'center',
+							y: 'bottom',
+							data: bar_inc_cat
 		  				},
 		  				toolbox: {
-		  			      show: true,
-		  			      feature: {
-		  			    	magicType: {
-		  			    	  show: true,
-		  			    	  title: {
-		  			    		line: 'Line',
-		  			    		bar: 'Bar',
-		  			    		stack: 'Stack',
-		  			    		tiled: 'Tiled'
-		  			    	  },
-		  			    	  type: ['line', 'bar', 'stack', 'tiled']
-		  			    	},
-		  			    	restore: {
-		  			    	  show: true,
-		  			    	  title: "Restore"
-		  			    	},
-		  			    	saveAsImage: {
-		  			    	  show: true,
-		  			    	  title: "Save Image"
-		  			    	}
-		  			      }
+		  					show: true,
+		  					feature: {
+		  						magicType: {
+		  							show: true,
+		  							title: {
+		  								line: 'Line',
+		  								bar: 'Bar',
+		  								stack: 'Stack',
+		  								tiled: 'Tiled'
+		  							},
+		  							type: ['line', 'bar', 'stack', 'tiled']
+		  						},
+		  						restore: {
+		  							show: true,
+		  							title: "Restore"
+		  						},
+		  						saveAsImage: {
+		  							show: true,
+		  							title: "Save Image"
+		  						}
+		  					}
 		  				},
 		  				grid: {
 		  			        left: '0%',
@@ -15808,58 +5367,46 @@ jQuery(function($){
 		  			        bottom: '8%',
 		  			        containLabel: true
 		  			    },
-		  				// grid:[{
-		  				// 	top: 50,
-		  				// 	width: '50%',
-		  				// 	bottom: '45%',
-		  				// 	left: 10,
-		  				// 	containLabel: true
-		  				// }],
 		  				calculable: true,
 		  				xAxis: [{
-		  				  type: 'value',
-		  				  boundaryGap: [0, 0.01],
-		  				  axisLabel:{
-		  				  	rotate: 30,
-		  				  	formatter: humanizeFormatter
-		  				  }
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
 		  				}],
 		  				yAxis: [{
 		  					type: 'category',
-		  					data: target_cat,
-		  					// data: jsondata['incident_target'],
-		  					// data: ['Armed Opposition Group', 'Civilians', 'Government', 'Humanitarian Community', 'Infrastructure', 'Intl. Humanitarian Comm.', 'Intl. Millitary', 'Police/Millitary Gov.', 'Unknown'],
-		  					axisLabel:{
-		  						// rotate: 30
-		  					}
+		  					data: target_cat
 		  				}],
 		  				series: [{
-		  				  name: bar_inc_cat[0],
-		  				  type: 'bar',
-		  				  label:{
-		  				  	normal:{
-		  				  		position: 'right',
-		  				  		show: true,
-		  				  		formatter: humanizeBar
-		  				  	}
-		  				  },
-		  				  data: targetCount
-		  				}, {
-		  				  name: bar_inc_cat[1],
-		  				  type: 'bar',
-		  				  label:{
-		  				  	normal:{
-		  				  		position: 'right',
-		  				  		show: true,
-		  				  		formatter: humanizeBar
-		  				  	}
-		  				  },
-		  				  data: targetViolent
+							name: bar_inc_cat[0],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: targetCount
+							}, {
+							name: bar_inc_cat[1],
+							type: 'bar',
+							label:{
+								normal:{
+									position: 'right',
+									show: true,
+									formatter: humanizeBar
+								}
+							},
+							data: targetViolent
 		  				}]
 		  			});
 
 	  			  	window.addEventListener("resize", function(){
-	  			  		echartBar15.resize();
+	  			  		echartBarIncTarg.resize();
 	  			  	});
 
 		  		}
@@ -15869,90 +5416,75 @@ jQuery(function($){
 			  	// baseline tab
 			  	//echart Bar Horizontal
 
-				if ($('#echart_bar_horizontal').length ){
+				if ($('#echart_bar_horizontal_pop').length ){
 
-				  var echartBar16 = echarts.init(document.getElementById('echart_bar_horizontal'), theme, humTooltipBar, humanizeBar);
+				  	var echartBarPop = echarts.init(document.getElementById('echart_bar_horizontal_pop'), theme, render());
 
-				  echartBar16.setOption({
-				  	renderer: 'svg',
-					// title: {
-					//   text: 'Overview 1',
-					//   subtext: 'Graph subtitle'
-					// },
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  formatter: humTooltipBar
-					},
-					// legend: {
-					//   x: 'center',
-					//   y: 345,
-					//   // orient: 'vertical',
-					//   data: overview_legend
-					// },
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar',
-				    		stack: 'Stack',
-				    		tiled: 'Tiled'
-				    	  },
-				    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        top: '10%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'log',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: category_ov
-					}],
-					series: [{
-					  name: overview_legend[0],
-					  type: 'bar',
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: landcover_pop
-					  // data: [jsondata['built_up_pop'], jsondata['cultivated_pop'], jsondata['barren_pop']]
-					  // data: jsondata['jsondata']['landcover_echart_hbar']['population']
-					}]
-				  });
+					echartBarPop.setOption({
+						tooltip: {
+							trigger: 'item',
+							// axisPointer:{
+							// 	type: 'shadow',
+							// },
+							formatter: humTooltipBar
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar'
+									},
+									type: ['line', 'bar']
+								},
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '15%',
+						    bottom: '8%',
+						    top: '10%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'log',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
+						}],
+						yAxis: [{
+							type: 'category',
+							data: category_ov
+						}],
+						series: [{
+							name: overview_legend[0],
+							type: 'bar',
+							label:{
+								normal:{
+									formatter: humanizeBar,
+									position: 'right',
+									show: true
+								}
+							},
+							data: landcover_pop
+						}]
+					});
 
 				  	window.addEventListener("resize", function(){
-				  		echartBar16.resize();
+				  		echartBarPop.resize();
 				  	});
 
 				}
@@ -15961,48 +5493,33 @@ jQuery(function($){
 
 				if ($('#echart_bar_horizontal_build').length ){
 
-					var echartBarBuild = echarts.init(document.getElementById('echart_bar_horizontal_build'), theme, humTooltipBar, humanizeBar);
+					var echartBarBuild = echarts.init(document.getElementById('echart_bar_horizontal_build'), theme, render());
 
 					echartBarBuild.setOption({
-						// title: {
-						//   text: 'Overview 1',
-						//   subtext: 'Graph subtitle'
-						// },
 						tooltip: {
-						  trigger: 'axis',
-						  axisPointer:{
-						  	type: 'shadow',
-						  },
-						  formatter: humTooltipBar
+							trigger: 'item',
+							formatter: humTooltipBar
 						},
-						// legend: {
-						//   x: 'center',
-						//   y: 345,
-						//   // orient: 'vertical',
-						//   data: overview_legend
-						// },
 						toolbox: {
-						  show: true,
-						  feature: {
-						  	magicType: {
-					    	  show: true,
-					    	  title: {
-					    		line: 'Line',
-					    		bar: 'Bar',
-					    		stack: 'Stack',
-					    		tiled: 'Tiled'
-					    	  },
-					    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
-					    	},
-					    	restore: {
-					    	  show: true,
-					    	  title: "Restore"
-					    	},
-							saveAsImage: {
-							  show: true,
-							  title: "Save Image"
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar'
+									},
+									type: ['line', 'bar']
+								},
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
 							}
-						  }
 						},
 						grid: {
 					        left: '0%',
@@ -16013,30 +5530,29 @@ jQuery(function($){
 					    },
 						calculable: true,
 						xAxis: [{
-						  type: 'log',
-						  boundaryGap: [0, 0.01],
-						  axisLabel:{
-						  	rotate: 30,
-						  	formatter: humanizeFormatter
-						  }
+							type: 'log',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
 						}],
 						yAxis: [{
-						  type: 'category',
-						  data: category_ov
+							type: 'category',
+							data: category_ov
 						}],
 						series: [{
-						  name: overview_legend[2],
-						  type: 'bar',
-						  label:{
-						  	normal:{
-						  		formatter: humanizeBar,
-						  		position: 'right',
-						  		show: true
-						  	}
-						  },
-						  data: landcover_building
-						  // data: [jsondata['built_up_buildings'], jsondata['cultivated_buildings'], jsondata['barren_buildings']]
-						},]
+							name: overview_legend[2],
+							type: 'bar',
+							label:{
+								normal:{
+									formatter: humanizeBar,
+									position: 'right',
+									show: true
+								}
+							},
+							data: landcover_building
+						}]
 					});
 
 				  	window.addEventListener("resize", function(){
@@ -16049,48 +5565,33 @@ jQuery(function($){
 
 				if ($('#echart_bar_horizontal_area').length ){
 
-					var echartBarArea = echarts.init(document.getElementById('echart_bar_horizontal_area'), theme, humTooltipBar, humanizeBar);
+					var echartBarArea = echarts.init(document.getElementById('echart_bar_horizontal_area'), theme, render());
 
 					echartBarArea.setOption({
-						// title: {
-						//   text: 'Overview 1',
-						//   subtext: 'Graph subtitle'
-						// },
 						tooltip: {
-						  trigger: 'axis',
-						  axisPointer:{
-						  	type: 'shadow',
-						  },
-						  formatter: humTooltipBar
+							trigger: 'item',
+							formatter: humTooltipBar
 						},
-						// legend: {
-						//   x: 'center',
-						//   y: 345,
-						//   // orient: 'vertical',
-						//   data: overview_legend
-						// },
 						toolbox: {
-						  show: true,
-						  feature: {
-						  	magicType: {
-					    	  show: true,
-					    	  title: {
-					    		line: 'Line',
-					    		bar: 'Bar',
-					    		stack: 'Stack',
-					    		tiled: 'Tiled'
-					    	  },
-					    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
-					    	},
-					    	restore: {
-					    	  show: true,
-					    	  title: "Restore"
-					    	},
-							saveAsImage: {
-							  show: true,
-							  title: "Save Image"
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar'
+									},
+									type: ['line', 'bar']
+								},
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
 							}
-						  }
 						},
 						grid: {
 					        left: '0%',
@@ -16101,29 +5602,28 @@ jQuery(function($){
 					    },
 						calculable: true,
 						xAxis: [{
-						  type: 'value',
-						  boundaryGap: [0, 0.01],
-						  axisLabel:{
-						  	rotate: 30,
-						  	formatter: humanizeFormatter
-						  }
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
 						}],
 						yAxis: [{
-						  type: 'category',
-						  data: category_ov
+							type: 'category',
+							data: category_ov
 						}],
 						series: [{
-						  name: overview_legend[1],
-						  type: 'bar',
-						  label:{
-						  	normal:{
-						  		formatter: humanizeBar,
-						  		position: 'right',
-						  		show: true
-						  	}
-						  },
-						  data: landcover_area
-						  // data: [jsondata['built_up_area'], jsondata['cultivated_area'], jsondata['barren_area']]
+							name: overview_legend[1],
+							type: 'bar',
+							label:{
+								normal:{
+									formatter: humanizeBar,
+									position: 'right',
+									show: true
+								}
+							},
+							data: landcover_area
 						}]
 					});
 
@@ -16135,884 +5635,150 @@ jQuery(function($){
 
 				// echart Bar Horizontal 2
 
-				if ($('#echart_bar_horizontal_2').length ){
+				if ($('#echart_bar_horizontal_health_fac').length ){
 
-				  var echartBar17 = echarts.init(document.getElementById('echart_bar_horizontal_2'), theme);
+				  	var echartBarHF = echarts.init(document.getElementById('echart_bar_horizontal_health_fac'), theme, render());
 
-				  echartBar17.setOption({
-					// title: {
-					//   text: 'Bar Graph',
-					//   subtext: 'Graph subtitle'
-					// },
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow',
-					  },
-					  // formatter: humTooltipBar
-					},
-					// legend: {
-					//   // x: 'center',
-					//   // y: 'bottom',
-					//   data: ['Health Facilities']
-					// },
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar',
-				    		/*stack: 'Stack',*/
-				    		// tiled: 'Tiled'
-				    	  },
-				    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        top: '10%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  // formatter: humanizeFormatter
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: hlt_category
-					}],
-					series: [{
-					  name: 'Health Facilities',
-					  type: 'bar',
-					  label:{
-					  	normal:{
-					  		// formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: hlt_val
-					  // data: [jsondata['hlt_h1'], jsondata['hlt_h2'], jsondata['hlt_h3'], jsondata['hlt_chc'], jsondata['hlt_bhc'], jsondata['hlt_shc'], jsondata['hlt_others']]
-					  // data: jsondata['jsondata']['healthfacility_echart']
-					}]
-				  });
+					echartBarHF.setOption({
+						tooltip: {
+							trigger: 'item',
+							// formatter: humTooltipBar
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar'
+									},
+									type: ['line', 'bar']
+								},
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '15%',
+						    bottom: '8%',
+						    top: '10%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							// formatter: humanizeFormatter
+						}],
+						yAxis: [{
+							type: 'category',
+							data: hlt_category
+						}],
+						series: [{
+							name: 'Health Facilities',
+							type: 'bar',
+							label:{
+								normal:{
+									// formatter: humanizeBar,
+									position: 'right',
+									show: true
+								}
+							},
+							data: hlt_val
+						}]
+					});
 
 				  	window.addEventListener("resize", function(){
-				  		echartBar17.resize();
+				  		echartBarHF.resize();
 				  	});
 
 				}
 
 				// echart Bar Horizontal 3
 
-				if ($('#echart_bar_horizontal_3').length ){
+				if ($('#echart_bar_horizontal_road').length ){
 
-				  var echartBar3 = echarts.init(document.getElementById('echart_bar_horizontal_3'), theme);
+				  var echartBarRoad = echarts.init(document.getElementById('echart_bar_horizontal_road'), theme, render());
 
-				  echartBar3.setOption({
-					// title: {
-					//   text: 'Bar Graph',
-					//   subtext: 'Graph subtitle'
-					// },
-					tooltip: {
-					  trigger: 'axis',
-					  axisPointer:{
-					  	type: 'shadow'
-					  },
-					  formatter: humTooltipBar
-					},
-					// legend: {
-					//   x: 100,
-					//   data: ['Road Network']
-					// },
-					toolbox: {
-					  show: true,
-					  feature: {
-					  	magicType: {
-				    	  show: true,
-				    	  title: {
-				    		line: 'Line',
-				    		bar: 'Bar',
-				    		/*stack: 'Stack',*/
-				    		// tiled: 'Tiled'
-				    	  },
-				    	  type: ['line', 'bar'/*, 'stack', 'tiled'*/]
-				    	},
-				    	restore: {
-				    	  show: true,
-				    	  title: "Restore"
-				    	},
-						saveAsImage: {
-						  show: true,
-						  title: "Save Image"
-						}
-					  }
-					},
-					grid: {
-				        left: '0%',
-				        right: '15%',
-				        bottom: '8%',
-				        top: '10%',
-				        containLabel: true
-				    },
-					calculable: true,
-					xAxis: [{
-					  type: 'value',
-					  boundaryGap: [0, 0.01],
-					  axisLabel:{
-					  	rotate: 30,
-					  	formatter: humanizeFormatter
-					  }
-					}],
-					yAxis: [{
-					  type: 'category',
-					  data: roadnetwork_category
-					  // data: ['Highway', 'Primary', 'Secondary', 'Tertiary', 'Residential', 'Track', 'Path', 'River Crossing', 'Bridge']
-					}],
-					series: [{
-					  name: 'Road Network',
-					  type: 'bar',
-					  label:{
-					  	normal:{
-					  		formatter: humanizeBar,
-					  		position: 'right',
-					  		show: true
-					  	}
-					  },
-					  data: roadnetwork
-					  // data: [jsondata['road_highway'], jsondata['road_primary'], jsondata['road_secondary'], jsondata['road_tertiary'], jsondata['road_residential'], jsondata['road_track'], jsondata['road_path'], jsondata['road_river_crossing'], jsondata['road_bridge']]
-					}]
-				  });
+					echartBarRoad.setOption({
+						tooltip: {
+							trigger: 'item',
+							formatter: humTooltipBar
+						},
+						toolbox: {
+							show: true,
+							feature: {
+								magicType: {
+									show: true,
+									title: {
+										line: 'Line',
+										bar: 'Bar'
+									},
+									type: ['line', 'bar']
+								},
+								restore: {
+								  	show: true,
+								  	title: "Restore"
+								},
+								saveAsImage: {
+								  	show: true,
+								  	title: "Save Image"
+								}
+							}
+						},
+						grid: {
+						    left: '0%',
+						    right: '15%',
+						    bottom: '8%',
+						    top: '10%',
+						    containLabel: true
+						},
+						calculable: true,
+						xAxis: [{
+							type: 'value',
+							boundaryGap: [0, 0.01],
+							axisLabel:{
+								rotate: 30,
+								formatter: humanizeFormatter
+							}
+						}],
+						yAxis: [{
+							type: 'category',
+							data: roadnetwork_category
+						}],
+						series: [{
+							name: 'Road Network',
+							type: 'bar',
+							label:{
+								normal:{
+									formatter: humanizeBar,
+									position: 'right',
+									show: true
+								}
+							},
+							data: roadnetwork
+						}]
+					});
 
 				  	window.addEventListener("resize", function(){
-				  		echartBar3.resize();
+				  		echartBarRoad.resize();
 				  	});
 
 				}
 
-					//echart Map
-
-					// if ($('#echart_baseline_map').length ){
-
-					// 	var echartMap = echarts.init(document.getElementById('echart_baseline_map'), theme);
-
-					// 	var provinces = ['Kabul', 'Badakhshan'];
-
-					// 	function showProvince() {
-					// 	    var name = provinces[currentIdx]; // klik prov, ubh sesuai name prov
-
-					// 	    // myChart.showLoading();
-
-					// 	    $.get('vendors/echarts/map/json/province/' + name + '.json', function (geoJson) { //klo afg panggil json afg
-
-					// 	        // myChart.hideLoading();
-
-					// 	        echarts.registerMap(name, geoJson);
-
-					// 	        myChart.setOption(option = {
-					// 	            backgroundColor: '#404a59',
-					// 	            series: [
-					// 	                {
-					// 	                    type: 'map',
-					// 	                    mapType: name, //Json ssuai prov					                    label: {
-					// 	                        emphasis: {
-					// 	                            textStyle: {
-					// 	                                color: '#fff'
-					// 	                            }
-					// 	                        }
-					// 	                    },
-					// 	                    itemStyle: {
-					// 	                        normal: {
-					// 	                            borderColor: '#389BB7',
-					// 	                            areaColor: '#fff',
-					// 	                        },
-					// 	                        emphasis: {
-					// 	                            areaColor: '#389BB7',
-					// 	                            borderWidth: 0
-					// 	                        }
-					// 	                    },
-					// 	                    animation: false
-					// 	                    // animationDurationUpdate: 1000,
-					// 	                    // animationEasingUpdate: 'quinticInOut'
-					// 	                }
-					// 	            ]
-					// 	        });
-					// 	    });
-					// 	}
-
-					// 	var data = [
-					// 	    {name: 'Kabul', value: 9},
-					// 	    {name: 'Badakhshan', value: 12}
-					// 	];
-
-					// 	var geoCoordMap = {
-					// 	   'Kabul':[34.543896, 69.160652],
-					// 	   'Badakhshan':[109.781327,39.608266],
-					// 	};
-
-					// 	function convertData(data) {
-					// 	   var res = [];
-					// 	   for (var i = 0; i < data.length; i++) {
-					// 	       var geoCoord = geoCoordMap[data[i].name];
-					// 	       if (geoCoord) {
-					// 	           res.push({
-					// 	               name: data[i].name,
-					// 	               value: geoCoord.concat(data[i].value)
-					// 	           });
-					// 	       }
-					// 	   }
-					// 	   return res;
-					// 	};
-
-					// 	echartMap.setOption({
-					// 		// title: {
-					// 		//   text: 'World Population (2010)',
-					// 		//   subtext: 'from United Nations, Total population, both sexes combined, as of 1 July (thousands)',
-					// 		//   x: 'center',
-					// 		//   y: 'top'
-					// 		// },
-					// 		tooltip: {
-					// 		  trigger: 'item',
-					// 		  formatter: function(params) {
-					// 			var value = (params.value + '').split('.');
-					// 			value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,') + '.' + value[1];
-					// 			return params.seriesName + '<br/>' + params.name + ' : ' + value;
-					// 		  }
-					// 		},
-					// 		toolbox: {
-					// 		  show: true,
-					// 		  orient: 'vertical',
-					// 		  x: 'right',
-					// 		  y: 'center',
-					// 		  feature: {
-					// 			mark: {
-					// 			  show: true
-					// 			},
-					// 			dataView: {
-					// 			  show: true,
-					// 			  title: "Text View",
-					// 			  lang: [
-					// 				"Text View",
-					// 				"Close",
-					// 				"Refresh",
-					// 			  ],
-					// 			  readOnly: false
-					// 			},
-					// 			restore: {
-					// 			  show: true,
-					// 			  title: "Restore"
-					// 			},
-					// 			saveAsImage: {
-					// 			  show: true,
-					// 			  title: "Save Image"
-					// 			}
-					// 		  }
-					// 		},
-					// 		dataRange: {
-					// 		  min: 0,
-					// 		  max: 1000000,
-					// 		  text: ['High', 'Low'],
-					// 		  realtime: false,
-					// 		  calculable: true,
-					// 		  color: ['#087E65', '#26B99A', '#CBEAE3']
-					// 		},
-					// 		series: [
-					// 		{
-					//            type: 'scatter',
-					//            coordinateSystem: 'geo',
-					//            data: convertData(data),
-					//            symbolSize: 20,
-					//            symbol: 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z',
-					//            symbolRotate: 35,
-					//            label: {
-					//                normal: {
-					//                    formatter: '{b}',
-					//                    position: 'right',
-					//                    show: false
-					//                },
-					//                emphasis: {
-					//                    show: true
-					//                }
-					//            },
-					//            itemStyle: {
-					//                normal: {
-					//                     color: '#F06C00'
-					//                }
-					//            }
-					//         },
-					// 		{
-					// 		  name: 'Population',
-					// 		  type: 'map',
-					// 		  mapType: 'afg',
-					// 		  roam: false,
-					// 		  mapLocation: {
-					// 			y: 60
-					// 		  },
-					// 		  itemStyle: {
-					// 			emphasis: {
-					// 			  label: {
-					// 				show: true
-					// 			  }
-					// 			}
-					// 		  },
-					// 		  data: [{
-					// 			name: 'Badakhshan',
-					// 			value: 28397.812
-					// 		  }, {
-					// 			name: 'Kabul',
-					// 			value: 19549.124
-					// 		  }, {
-					// 			name: 'Albania',
-					// 			value: 3150.143
-					// 		  }, {
-					// 			name: 'United Arab Emirates',
-					// 			value: 8441.537
-					// 		  }, {
-					// 			name: 'Argentina',
-					// 			value: 40374.224
-					// 		  }, {
-					// 			name: 'Armenia',
-					// 			value: 2963.496
-					// 		  }, {
-					// 			name: 'French Southern and Antarctic Lands',
-					// 			value: 268.065
-					// 		  }, {
-					// 			name: 'Australia',
-					// 			value: 22404.488
-					// 		  }, {
-					// 			name: 'Austria',
-					// 			value: 8401.924
-					// 		  }, {
-					// 			name: 'Azerbaijan',
-					// 			value: 9094.718
-					// 		  }, {
-					// 			name: 'Burundi',
-					// 			value: 9232.753
-					// 		  }, {
-					// 			name: 'Belgium',
-					// 			value: 10941.288
-					// 		  }, {
-					// 			name: 'Benin',
-					// 			value: 9509.798
-					// 		  }, {
-					// 			name: 'Burkina Faso',
-					// 			value: 15540.284
-					// 		  }, {
-					// 			name: 'Bangladesh',
-					// 			value: 151125.475
-					// 		  }, {
-					// 			name: 'Bulgaria',
-					// 			value: 7389.175
-					// 		  }, {
-					// 			name: 'The Bahamas',
-					// 			value: 66402.316
-					// 		  }, {
-					// 			name: 'Bosnia and Herzegovina',
-					// 			value: 3845.929
-					// 		  }, {
-					// 			name: 'Belarus',
-					// 			value: 9491.07
-					// 		  }, {
-					// 			name: 'Belize',
-					// 			value: 308.595
-					// 		  }, {
-					// 			name: 'Bermuda',
-					// 			value: 64.951
-					// 		  }, {
-					// 			name: 'Bolivia',
-					// 			value: 716.939
-					// 		  }, {
-					// 			name: 'Brazil',
-					// 			value: 195210.154
-					// 		  }, {
-					// 			name: 'Brunei',
-					// 			value: 27.223
-					// 		  }, {
-					// 			name: 'Bhutan',
-					// 			value: 716.939
-					// 		  }, {
-					// 			name: 'Botswana',
-					// 			value: 1969.341
-					// 		  }, {
-					// 			name: 'Central African Republic',
-					// 			value: 4349.921
-					// 		  }, {
-					// 			name: 'Canada',
-					// 			value: 34126.24
-					// 		  }, {
-					// 			name: 'Switzerland',
-					// 			value: 7830.534
-					// 		  }, {
-					// 			name: 'Chile',
-					// 			value: 17150.76
-					// 		  }, {
-					// 			name: 'China',
-					// 			value: 1359821.465
-					// 		  }, {
-					// 			name: 'Ivory Coast',
-					// 			value: 60508.978
-					// 		  }, {
-					// 			name: 'Cameroon',
-					// 			value: 20624.343
-					// 		  }, {
-					// 			name: 'Democratic Republic of the Congo',
-					// 			value: 62191.161
-					// 		  }, {
-					// 			name: 'Republic of the Congo',
-					// 			value: 3573.024
-					// 		  }, {
-					// 			name: 'Colombia',
-					// 			value: 46444.798
-					// 		  }, {
-					// 			name: 'Costa Rica',
-					// 			value: 4669.685
-					// 		  }, {
-					// 			name: 'Cuba',
-					// 			value: 11281.768
-					// 		  }, {
-					// 			name: 'Northern Cyprus',
-					// 			value: 1.468
-					// 		  }, {
-					// 			name: 'Cyprus',
-					// 			value: 1103.685
-					// 		  }, {
-					// 			name: 'Czech Republic',
-					// 			value: 10553.701
-					// 		  }, {
-					// 			name: 'Germany',
-					// 			value: 83017.404
-					// 		  }, {
-					// 			name: 'Djibouti',
-					// 			value: 834.036
-					// 		  }, {
-					// 			name: 'Denmark',
-					// 			value: 5550.959
-					// 		  }, {
-					// 			name: 'Dominican Republic',
-					// 			value: 10016.797
-					// 		  }, {
-					// 			name: 'Algeria',
-					// 			value: 37062.82
-					// 		  }, {
-					// 			name: 'Ecuador',
-					// 			value: 15001.072
-					// 		  }, {
-					// 			name: 'Egypt',
-					// 			value: 78075.705
-					// 		  }, {
-					// 			name: 'Eritrea',
-					// 			value: 5741.159
-					// 		  }, {
-					// 			name: 'Spain',
-					// 			value: 46182.038
-					// 		  }, {
-					// 			name: 'Estonia',
-					// 			value: 1298.533
-					// 		  }, {
-					// 			name: 'Ethiopia',
-					// 			value: 87095.281
-					// 		  }, {
-					// 			name: 'Finland',
-					// 			value: 5367.693
-					// 		  }, {
-					// 			name: 'Fiji',
-					// 			value: 860.559
-					// 		  }, {
-					// 			name: 'Falkland Islands',
-					// 			value: 49.581
-					// 		  }, {
-					// 			name: 'France',
-					// 			value: 63230.866
-					// 		  }, {
-					// 			name: 'Gabon',
-					// 			value: 1556.222
-					// 		  }, {
-					// 			name: 'United Kingdom',
-					// 			value: 62066.35
-					// 		  }, {
-					// 			name: 'Georgia',
-					// 			value: 4388.674
-					// 		  }, {
-					// 			name: 'Ghana',
-					// 			value: 24262.901
-					// 		  }, {
-					// 			name: 'Guinea',
-					// 			value: 10876.033
-					// 		  }, {
-					// 			name: 'Gambia',
-					// 			value: 1680.64
-					// 		  }, {
-					// 			name: 'Guinea Bissau',
-					// 			value: 10876.033
-					// 		  }, {
-					// 			name: 'Equatorial Guinea',
-					// 			value: 696.167
-					// 		  }, {
-					// 			name: 'Greece',
-					// 			value: 11109.999
-					// 		  }, {
-					// 			name: 'Greenland',
-					// 			value: 56.546
-					// 		  }, {
-					// 			name: 'Guatemala',
-					// 			value: 14341.576
-					// 		  }, {
-					// 			name: 'French Guiana',
-					// 			value: 231.169
-					// 		  }, {
-					// 			name: 'Guyana',
-					// 			value: 786.126
-					// 		  }, {
-					// 			name: 'Honduras',
-					// 			value: 7621.204
-					// 		  }, {
-					// 			name: 'Croatia',
-					// 			value: 4338.027
-					// 		  }, {
-					// 			name: 'Haiti',
-					// 			value: 9896.4
-					// 		  }, {
-					// 			name: 'Hungary',
-					// 			value: 10014.633
-					// 		  }, {
-					// 			name: 'Indonesia',
-					// 			value: 240676.485
-					// 		  }, {
-					// 			name: 'India',
-					// 			value: 1205624.648
-					// 		  }, {
-					// 			name: 'Ireland',
-					// 			value: 4467.561
-					// 		  }, {
-					// 			name: 'Iran',
-					// 			value: 240676.485
-					// 		  }, {
-					// 			name: 'Iraq',
-					// 			value: 30962.38
-					// 		  }, {
-					// 			name: 'Iceland',
-					// 			value: 318.042
-					// 		  }, {
-					// 			name: 'Israel',
-					// 			value: 7420.368
-					// 		  }, {
-					// 			name: 'Italy',
-					// 			value: 60508.978
-					// 		  }, {
-					// 			name: 'Jamaica',
-					// 			value: 2741.485
-					// 		  }, {
-					// 			name: 'Jordan',
-					// 			value: 6454.554
-					// 		  }, {
-					// 			name: 'Japan',
-					// 			value: 127352.833
-					// 		  }, {
-					// 			name: 'Kazakhstan',
-					// 			value: 15921.127
-					// 		  }, {
-					// 			name: 'Kenya',
-					// 			value: 40909.194
-					// 		  }, {
-					// 			name: 'Kyrgyzstan',
-					// 			value: 5334.223
-					// 		  }, {
-					// 			name: 'Cambodia',
-					// 			value: 14364.931
-					// 		  }, {
-					// 			name: 'South Korea',
-					// 			value: 51452.352
-					// 		  }, {
-					// 			name: 'Kosovo',
-					// 			value: 97.743
-					// 		  }, {
-					// 			name: 'Kuwait',
-					// 			value: 2991.58
-					// 		  }, {
-					// 			name: 'Laos',
-					// 			value: 6395.713
-					// 		  }, {
-					// 			name: 'Lebanon',
-					// 			value: 4341.092
-					// 		  }, {
-					// 			name: 'Liberia',
-					// 			value: 3957.99
-					// 		  }, {
-					// 			name: 'Libya',
-					// 			value: 6040.612
-					// 		  }, {
-					// 			name: 'Sri Lanka',
-					// 			value: 20758.779
-					// 		  }, {
-					// 			name: 'Lesotho',
-					// 			value: 2008.921
-					// 		  }, {
-					// 			name: 'Lithuania',
-					// 			value: 3068.457
-					// 		  }, {
-					// 			name: 'Luxembourg',
-					// 			value: 507.885
-					// 		  }, {
-					// 			name: 'Latvia',
-					// 			value: 2090.519
-					// 		  }, {
-					// 			name: 'Morocco',
-					// 			value: 31642.36
-					// 		  }, {
-					// 			name: 'Moldova',
-					// 			value: 103.619
-					// 		  }, {
-					// 			name: 'Madagascar',
-					// 			value: 21079.532
-					// 		  }, {
-					// 			name: 'Mexico',
-					// 			value: 117886.404
-					// 		  }, {
-					// 			name: 'Macedonia',
-					// 			value: 507.885
-					// 		  }, {
-					// 			name: 'Mali',
-					// 			value: 13985.961
-					// 		  }, {
-					// 			name: 'Myanmar',
-					// 			value: 51931.231
-					// 		  }, {
-					// 			name: 'Montenegro',
-					// 			value: 620.078
-					// 		  }, {
-					// 			name: 'Mongolia',
-					// 			value: 2712.738
-					// 		  }, {
-					// 			name: 'Mozambique',
-					// 			value: 23967.265
-					// 		  }, {
-					// 			name: 'Mauritania',
-					// 			value: 3609.42
-					// 		  }, {
-					// 			name: 'Malawi',
-					// 			value: 15013.694
-					// 		  }, {
-					// 			name: 'Malaysia',
-					// 			value: 28275.835
-					// 		  }, {
-					// 			name: 'Namibia',
-					// 			value: 2178.967
-					// 		  }, {
-					// 			name: 'New Caledonia',
-					// 			value: 246.379
-					// 		  }, {
-					// 			name: 'Niger',
-					// 			value: 15893.746
-					// 		  }, {
-					// 			name: 'Nigeria',
-					// 			value: 159707.78
-					// 		  }, {
-					// 			name: 'Nicaragua',
-					// 			value: 5822.209
-					// 		  }, {
-					// 			name: 'Netherlands',
-					// 			value: 16615.243
-					// 		  }, {
-					// 			name: 'Norway',
-					// 			value: 4891.251
-					// 		  }, {
-					// 			name: 'Nepal',
-					// 			value: 26846.016
-					// 		  }, {
-					// 			name: 'New Zealand',
-					// 			value: 4368.136
-					// 		  }, {
-					// 			name: 'Oman',
-					// 			value: 2802.768
-					// 		  }, {
-					// 			name: 'Pakistan',
-					// 			value: 173149.306
-					// 		  }, {
-					// 			name: 'Panama',
-					// 			value: 3678.128
-					// 		  }, {
-					// 			name: 'Peru',
-					// 			value: 29262.83
-					// 		  }, {
-					// 			name: 'Philippines',
-					// 			value: 93444.322
-					// 		  }, {
-					// 			name: 'Papua New Guinea',
-					// 			value: 6858.945
-					// 		  }, {
-					// 			name: 'Poland',
-					// 			value: 38198.754
-					// 		  }, {
-					// 			name: 'Puerto Rico',
-					// 			value: 3709.671
-					// 		  }, {
-					// 			name: 'North Korea',
-					// 			value: 1.468
-					// 		  }, {
-					// 			name: 'Portugal',
-					// 			value: 10589.792
-					// 		  }, {
-					// 			name: 'Paraguay',
-					// 			value: 6459.721
-					// 		  }, {
-					// 			name: 'Qatar',
-					// 			value: 1749.713
-					// 		  }, {
-					// 			name: 'Romania',
-					// 			value: 21861.476
-					// 		  }, {
-					// 			name: 'Russia',
-					// 			value: 21861.476
-					// 		  }, {
-					// 			name: 'Rwanda',
-					// 			value: 10836.732
-					// 		  }, {
-					// 			name: 'Western Sahara',
-					// 			value: 514.648
-					// 		  }, {
-					// 			name: 'Saudi Arabia',
-					// 			value: 27258.387
-					// 		  }, {
-					// 			name: 'Sudan',
-					// 			value: 35652.002
-					// 		  }, {
-					// 			name: 'South Sudan',
-					// 			value: 9940.929
-					// 		  }, {
-					// 			name: 'Senegal',
-					// 			value: 12950.564
-					// 		  }, {
-					// 			name: 'Solomon Islands',
-					// 			value: 526.447
-					// 		  }, {
-					// 			name: 'Sierra Leone',
-					// 			value: 5751.976
-					// 		  }, {
-					// 			name: 'El Salvador',
-					// 			value: 6218.195
-					// 		  }, {
-					// 			name: 'Somaliland',
-					// 			value: 9636.173
-					// 		  }, {
-					// 			name: 'Somalia',
-					// 			value: 9636.173
-					// 		  }, {
-					// 			name: 'Republic of Serbia',
-					// 			value: 3573.024
-					// 		  }, {
-					// 			name: 'Suriname',
-					// 			value: 524.96
-					// 		  }, {
-					// 			name: 'Slovakia',
-					// 			value: 5433.437
-					// 		  }, {
-					// 			name: 'Slovenia',
-					// 			value: 2054.232
-					// 		  }, {
-					// 			name: 'Sweden',
-					// 			value: 9382.297
-					// 		  }, {
-					// 			name: 'Swaziland',
-					// 			value: 1193.148
-					// 		  }, {
-					// 			name: 'Syria',
-					// 			value: 7830.534
-					// 		  }, {
-					// 			name: 'Chad',
-					// 			value: 11720.781
-					// 		  }, {
-					// 			name: 'Togo',
-					// 			value: 6306.014
-					// 		  }, {
-					// 			name: 'Thailand',
-					// 			value: 66402.316
-					// 		  }, {
-					// 			name: 'Tajikistan',
-					// 			value: 7627.326
-					// 		  }, {
-					// 			name: 'Turkmenistan',
-					// 			value: 5041.995
-					// 		  }, {
-					// 			name: 'East Timor',
-					// 			value: 10016.797
-					// 		  }, {
-					// 			name: 'Trinidad and Tobago',
-					// 			value: 1328.095
-					// 		  }, {
-					// 			name: 'Tunisia',
-					// 			value: 10631.83
-					// 		  }, {
-					// 			name: 'Turkey',
-					// 			value: 72137.546
-					// 		  }, {
-					// 			name: 'United Republic of Tanzania',
-					// 			value: 44973.33
-					// 		  }, {
-					// 			name: 'Uganda',
-					// 			value: 33987.213
-					// 		  }, {
-					// 			name: 'Ukraine',
-					// 			value: 46050.22
-					// 		  }, {
-					// 			name: 'Uruguay',
-					// 			value: 3371.982
-					// 		  }, {
-					// 			name: 'United States of America',
-					// 			value: 312247.116
-					// 		  }, {
-					// 			name: 'Uzbekistan',
-					// 			value: 27769.27
-					// 		  }, {
-					// 			name: 'Venezuela',
-					// 			value: 236.299
-					// 		  }, {
-					// 			name: 'Vietnam',
-					// 			value: 89047.397
-					// 		  }, {
-					// 			name: 'Vanuatu',
-					// 			value: 236.299
-					// 		  }, {
-					// 			name: 'West Bank',
-					// 			value: 13.565
-					// 		  }, {
-					// 			name: 'Yemen',
-					// 			value: 22763.008
-					// 		  }, {
-					// 			name: 'South Africa',
-					// 			value: 51452.352
-					// 		  }, {
-					// 			name: 'Zambia',
-					// 			value: 13216.985
-					// 		  }, {
-					// 			name: 'Zimbabwe',
-					// 			value: 13076.978
-					// 		  }]
-					// 		}]
-					// 	});
-					// }
 	  			// break;
 
 		};
 
 		$(document).ready(function(){
-			// init_echarts();
-			// init_baseline();
-			// init_accsblty();
 			init_echarts2();
 		});
 
@@ -17022,17 +5788,17 @@ jQuery(function($){
 		// })
 
 		// Show Echart based on active tab
-		$('.navbar-forecast a[href="#ggMenu"]').on('shown.bs.tab', function(){
-			init_echarts2();
-		});
+		// $('.navbar-forecast a[href="#ggMenu"]').on('shown.bs.tab', function(){
+		// 	init_echarts2();
+		// });
 
-		$('.navbar-forecast a[href="#glMenu"]').on('shown.bs.tab', function(){
-			init_echarts2();
-		});
+		// $('.navbar-forecast a[href="#glMenu"]').on('shown.bs.tab', function(){
+		// 	init_echarts2();
+		// });
 
-		$('.navbar-forecast a[href="#gfMenu"]').on('shown.bs.tab', function(){
-			init_echarts2();
-		});
+		// $('.navbar-forecast a[href="#gfMenu"]').on('shown.bs.tab', function(){
+		// 	init_echarts2();
+		// });
 
 		$('.visible-print-block div#echart_sonar').on('shown.bs.tab', function(){
 			init_echarts2();
@@ -17086,40 +5852,33 @@ jQuery(function($){
 			});
 		});
 
-		var humanizeTableFormatter = function(value){
-			// console.log(value)
-
-			var v= value;
-			// var n= params.name;
-			if(v>=1000 && v<1000000){
-				return (parseFloat((v/1000).toPrecision(3)))+' K'
-				// return (parseFloat((v/1000).toFixed(1)))+' K'
-			}
-			else if (v>=1000000 && v<1000000000) {
-				return (parseFloat((v/1000000).toPrecision(3)))+' M'
-				// return (parseFloat((v/1000000).toFixed(1)))+' M'
-			}else{
-				if (v==null || isNaN(parseFloat(v))) {
-					v=0;
-				}
-				// console.log(v);
-				return (parseFloat((v)))
-				// return (parseFloat((v).toFixed(1)))
-			}
-
-		};
-
 		$(document).ready(function(){
-			// var xxx = {{ Buildings }};
-			// console.log(xxx);
+			var humanizeTableFormatter = function(value){
+				// console.log(value)
 
-			// console.log('run_datatables');
+				var v= value;
+				// var n= params.name;
+				if(v>=1000 && v<1000000){
+					return (parseFloat((v/1000).toPrecision(3)))+' K'
+					// return (parseFloat((v/1000).toFixed(1)))+' K'
+				}
+				else if (v>=1000000 && v<1000000000) {
+					return (parseFloat((v/1000000).toPrecision(3)))+' M'
+					// return (parseFloat((v/1000000).toFixed(1)))+' M'
+				}else{
+					if (v==null || isNaN(parseFloat(v))) {
+						v=0;
+					}
+					// console.log(parseFloat((v).toPrecision(3)));
+					return (parseFloat((v*1).toPrecision(3)))
+					// return (parseFloat((v).toFixed(1)))
+				}
+
+			};
 
 			// if( typeof ($.fn.DataTable) === 'undefined'){
 			// 	return;
 			// }
-
-	    	// console.log('jsondata[\'lc_child\']', jsondata['lc_child']);
 
 	    	$.fn.dataTable.moment( 'MMM D, YYYY' );
 
