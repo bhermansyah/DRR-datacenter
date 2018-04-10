@@ -1162,7 +1162,7 @@ jQuery(function($){
 				if (dir_read=='rtl') {
 					return {renderer: 'canvas'};
 				}else {
-					return {renderer: 'svg'};
+					return {renderer: 'canvas'};
 				};
 			}
 
