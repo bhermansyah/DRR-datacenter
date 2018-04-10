@@ -1375,7 +1375,7 @@ jQuery(function($){
 				  	fontFamily: 'Arial, Verdana, sans-serif'
 				},
 
-				animation: animate
+				animation: false
 		  	};
 
 		  	var w = ['#ffaaab', '#ff6264', '#d13c3e', '#b92527']
