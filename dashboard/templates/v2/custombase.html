@@ -48,7 +48,7 @@
   {% endif %}
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css?dc=1000">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css?dc=1">
   {% if 'print' in request.build_absolute_uri %}
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/print.css">
   {% endif %}
@@ -401,13 +401,13 @@
   <!-- <script src="{{ STATIC_URL }}v2/js/echarts.min.js"></script> --> <!-- versi 3.8.4 -->
   <!-- <script src="{{ STATIC_URL }}v2/js/echarts.min(1).js"></script> --> <!-- versi agak baru -->
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.4/echarts-en.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts-en.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.8.5/echarts-en.min.js?dc=1"></script>
   <!-- <script src="{{ STATIC_URL }}v2/js/echarts.min(2).js"></script> --> <!-- versi 3.6.2 -->
   <script src="{{ STATIC_URL }}v2/js/afg.js"></script>
 
   <!-- Custom -->
   <script src="{{ STATIC_URL }}v2/js/datetime-moment.js"></script>
-  <script src="{{ STATIC_URL }}v2/js/custom.js"></script>
+  <script src="{{ STATIC_URL }}v2/js/custom.js?dc=1"></script>
 
   {% include 'autocomplete_light/static.html' %}
 
