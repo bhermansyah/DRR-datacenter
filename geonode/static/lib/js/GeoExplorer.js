@@ -35094,9 +35094,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         var contributors = [];
 
         Ext.each(map.getControlsBy('displayClass','olControlAttribution')[0].div.children, function(img) {
-            var filenames = img.src.split('/').slice(-1)[0];
-            jsonData.logo.data.push({'logourl':filenames});
-            contributors.push(img.alt);
+            if (img.src != undefined){ 
+                var filenames = img.src.split('/').slice(-1)[0];
+                jsonData.logo.data.push({'logourl':filenames});
+                contributors.push(img.alt);
+            }
         });
 
         jsonData.contributors = contributors.toString();
@@ -87348,18 +87350,80 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                     beforeencodelegend: function(provider, jsonData, legend) {
                         if (legend && legend.ptype === "gxp_layermanager") {
                             var encodedLegends = [];
+                            // var layers = [];
                             var output = legend.output;
                             if (output && output[0]) {
                                 output[0].getRootNode().cascade(function(node) {
                                     if (node.component && !node.component.hidden) {
                                         var cmp = node.component;
                                         var encFn = this.encoders.legends[cmp.getXType()];
-                                        if (cmp.layerRecord.json.name != 'geonode:afg_elev_dem_30m_aster_hillshade')
+                                        if (cmp.layerRecord.json.name != 'geonode:afg_elev_dem_30m_aster_hillshade'){
+                                            // layers.push(cmp.layerRecord.json.name)
                                             encodedLegends = encodedLegends.concat(
                                                 encFn.call(this, cmp, jsonData.pages[0].scale));
+                                        }    
                                     }
                                 }, provider);
                             }
+                            // Ext.Ajax.request({
+                            //     url: 'http://asdc.immap.org/geoserver/ows/',
+                            //     params: {
+                            //         "SERVICE": "WMS",
+                            //         "VERSION": "1.1.1",
+                            //         "REQUEST": "GetStyles",
+                            //         "LAYERS": [layers].join(",")
+                            //     },
+                            //     method: "GET",
+                            //     disableCaching: false,
+                            //     success: function(response){
+                            //         // console.log(response);
+                            //         var data = response.responseXML;
+                            //         if (!data || !data.documentElement) {
+                            //             data = new OpenLayers.Format.XML().read(response.responseText);
+                            //         }
+                            //         var format = new OpenLayers.Format.SLD({profile: "GeoServer", multipleSymbolizers: true});
+                            //         var sld = format.read(data);
+                            //         // var userStyles = sld.namedLayers[layerParams.LAYERS].userStyles;
+                            //         encodedLegends.forEach(function(item){
+                            //             var url = item['classes'][0]['icons'][0];
+                            //             console.log(url);
+                            //             var fullQuery = url.split('?');
+                            //             var host = fullQuery[0];
+                            //             var query = fullQuery[1];
+                            //             var result = {};
+                            //             query.split("&").forEach(function(part) {
+                            //                 var item = part.split("=");
+                            //                 result[item[0]] = decodeURIComponent(item[1]);
+                            //             });
+                            //             // console.log(result, sld['namedLayers'][result['layer']]);
+                            //             // console.log(sld['namedLayers'][result['layer']]['userStyles']);
+                            //             var userStyles = sld['namedLayers'][result['layer']]['userStyles'];
+                            //             item['classes'] = []
+                            //             for (var i = 0; i < userStyles.length; i++) {
+                            //                 if (userStyles[i]['isDefault'] === true) {
+                            //                     // item['classes'].push({'name':});
+                            //                     userStyles[i]['rules'].forEach(function(rule){
+                            //                         if (rule['name'] == null){
+                            //                             item['classes'].push({'name':rule['title'],'icons':[url+'&RULE='+encodeURIComponent(rule['title'])]});
+                            //                         } else {
+                            //                             item['classes'].push({'name':rule['title'],'icons':[url+'&RULE='+encodeURIComponent(rule['name'])]});
+                            //                         }
+                            //                     });
+                            //                     // console.log(userStyles[i],item['classes']);
+                            //                 }
+                            //             }
+
+                            //         });
+
+                            //         jsonData.legends = encodedLegends;
+                            //         // console.log(jsonData.legends);
+
+                            //     },
+                            //     // failure: this.setupNonEditable,
+                            //     // callback: callback,
+                            //     scope: this
+                            // });
+
                             jsonData.legends = encodedLegends;
                             // cancel normal encoding of legend
                             return false;
