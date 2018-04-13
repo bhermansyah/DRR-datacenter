@@ -31,8 +31,8 @@ def userstatistics(request):
     start = time.time()
     print 'query start', start
     qs_matrix = matrix.objects.exclude(user__username__in=user_exclude).\
-    extra(select={'certificate_percentage': 'SELECT percentage FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email',
-    'certified': 'SELECT (case when CAST (percentage AS FLOAT) >= 75 then \'Yes\' else \'No\' end) AS certified FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email'}).\
+    extra(select={'certificate_percentage': 'SELECT percentage FROM matrix_certificate WHERE lower(matrix_certificate.email) = lower(people_profile.email)',
+    'certified': 'SELECT (case when CAST (percentage AS FLOAT) >= 75 then \'Yes\' else \'No\' end) AS certified FROM matrix_certificate WHERE lower(matrix_certificate.email) = lower(people_profile.email)'}).\
     values_list(
         'user__username',
         'user__first_name',
@@ -51,7 +51,7 @@ def userstatistics(request):
         'certificate_percentage',
         'certified'
     )
-    # print qs_matrix.query
+    print qs_matrix.query
     data['jsondata']['useractivities']['data'] = [
         [
             unicode(r[0]).encode('utf-8').strip(),
@@ -78,8 +78,8 @@ def userstatistics(request):
     ]
 
     queryset = get_user_model().objects.exclude(username__in=user_exclude).\
-    extra(select={'certificate_percentage': 'SELECT percentage FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email',
-    'certified': 'SELECT (case when CAST (percentage AS FLOAT) >= 75 then \'Yes\' else \'No\' end) AS certified FROM matrix_certificate WHERE matrix_certificate.email = people_profile.email'}).\
+    extra(select={'certificate_percentage': 'SELECT percentage FROM matrix_certificate WHERE lower(matrix_certificate.email) = lower(people_profile.email)',
+    'certified': 'SELECT (case when CAST (percentage AS FLOAT) >= 75 then \'Yes\' else \'No\' end) AS certified FROM matrix_certificate WHERE lower(matrix_certificate.email) = lower(people_profile.email)'}).\
     values_list(
         'username',
         'organization',
@@ -90,7 +90,7 @@ def userstatistics(request):
         'certificate_percentage',
         'certified'
         )
-    # print queryset.query
+    print queryset.query
     data['jsondata']['user']['data'] = [
         [
             unicode(r[0]).encode('utf-8').strip(),
