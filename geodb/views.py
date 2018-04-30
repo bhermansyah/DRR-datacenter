@@ -2420,7 +2420,7 @@ def get_nc_file_from_ftp(date):
     # filelist=[]
 
     server = FTP()
-    server.connect('ftp.ecmwf.int')
+    server.connect('data-portal.ecmwf.int')
     server.login(getattr(settings, 'GLOFAS_FTP_UNAME'),getattr(settings, 'GLOFAS_FTP_UPASS'))
 
     server.cwd("/for_IMMAP/")
