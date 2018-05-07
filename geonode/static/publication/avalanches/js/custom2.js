@@ -126,4 +126,14 @@ $(document).ready(function(){
 	  }, 1000, 'easeInOutExpo');
 	  return false;
 	});
+
+	// Swipe on Carousel
+	$("#testi_carousel").swipe({
+	    swipeRight: function() {
+	      $(this).carousel('prev')
+	    },
+	    swipeLeft: function() {
+	      $(this).carousel('next')
+	    }
+	});
 });

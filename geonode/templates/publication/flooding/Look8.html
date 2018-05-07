@@ -33,7 +33,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}publication/flooding/lib/facade/facade.css">
 
 	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}publication/flooding/css/custom2.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}publication/flooding/css/custom2.css?ver=2">
 
 </head>
 <body data-spy="scroll" data-target="#nav_head" class="sm_height">
@@ -863,50 +863,225 @@
 		<section id="section_testimony" class="content" style="background-color: #f2f2f2;">
 			<div class="container">
 				<h2 class="text-center text-uppercase">What people think</h2>
-			    <div id="testi_carousel" class="carousel fade" data-ride="carousel">
-			    	<ol class="carousel-indicators">
-			    	    <li data-target="#testi_carousel" data-slide-to="0" class="active"></li>
-			    	    <li data-target="#testi_carousel" data-slide-to="1"></li>
-			    	    <li data-target="#testi_carousel" data-slide-to="2"></li>
-			    	</ol>
-				    <div class="carousel-inner">
-				        <div class="carousel-item active">
-				        	<div class="mask">
-				        	    <img src="{{ STATIC_URL }}publication/flooding/img/user.png">
-				        	</div>
-				        	<div class="carousel-testimonial-caption">
-				        	    <p>Jay Z, Producer</p>
-				        	    <h3>"I absolutely love your app! It's truly amazing and looks awesome!"</h3>
-				        	</div>
-				        </div>
-				        <div class="carousel-item">
-				        	<div class="mask">
-				        	    <img src="{{ STATIC_URL }}publication/flooding/img/user.png">
-				        	</div>
-				        	<div class="carousel-testimonial-caption">
-				        	    <p>Drake, Artist</p>
-				        	    <h3>"This is one of the most awesome apps I've ever seen! Wish you luck Creative Tim!"</h3>
-				        	</div>
-				        </div>
-				        <div class="carousel-item">
-				        	<div class="mask">
-				        	    <img src="{{ STATIC_URL }}publication/flooding/img/user.png">
-				        	</div>
-				        	<div class="carousel-testimonial-caption">
-				        	    <p>Rick Ross, Musician</p>
-				        	    <h3>"Loving this! Just picked it up the other day. Thank you for the work you put into this."</h3>
-				        	</div>
-				        </div>
-				    </div>
-				    <!-- <a class="carousel-control-prev" href="#testi_carousel" role="button" data-slide="prev">
-				        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				        <span class="sr-only">Previous</span>
-				    </a>
-				    <a class="carousel-control-next" href="#testi_carousel" role="button" data-slide="next">
-				        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				        <span class="sr-only">Next</span>
-				    </a> -->
-			    </div>
+		        <div id="testi_carousel" class="carousel slide" data-ride="carousel">
+		    	    <div class="carousel-inner">
+		    	        <div class="carousel-item active">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_andma.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>ANDMA</p>
+		    	        	    <h3>"The ASDC is unbelievable for me, it is a fantastic data source for us"</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_andma.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>ANDMA</p>
+		    	        	    <h3>"I did not expect such the wealth of information and capabilities available on the ASDC. We truly appreciated your efforts on the ASDC, as it will have a wide impact."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_andma.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>ANDMA</p>
+		    	        	    <h3>"There is really an enourmozus body of work on the ASDC. We now can achieve a lot using the accurate and interesting data from the ASDC, it will be a valid data source for our work in in the field and at the planning level."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_andma.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>ANDMA</p>
+		    	        	    <h3>"Many thanks for providing this training for us, this was really was very useful for us and we learned a lot for this training."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_andma.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>ANDMA</p>
+		    	        	    <h3>"Thanks, to our kind kind trainers, who explained everything very good and made the environment of training very friendly. The data quality and accuracy is tremendoes, and will now have a single source for many of my GIS needs."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_dmac.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>DMAC</p>
+		    	        	    <h3>"The  ASDC is very useful for us especially for analyzing data. The method of training was very good and, the approach as a GIS analysit fits my needs perfectly."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_dmac.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>DMAC</p>
+		    	        	    <h3>"I am responsible for GIS maps in our office, and when I someone wants any map belonging to security or a different sector - I am spending lots of time to do it in traditional GIS software. Now I can make any map that I want with accurate data directly in ASDC, much faster and better."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_dmac.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>DMAC</p>
+		    	        	    <h3>"Thank from you and your team, it was very interesting for me. I am working as a security manager, and the ASDC allows me to find very useful data either relevant to security or other risks easy and quickly."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_dmac.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>DMAC</p>
+		    	        	    <h3>"The training was very good."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_fews.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>FEWSNET</p>
+		    	        	    <h3>"Actually I found this training was very important, interesting and I will fully benefit from it. Presently I am working in nutrition cluster, and I can now find exact and trusted data."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_fews.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>FEWSNET</p>
+		    	        	    <h3>"I learned lots of new features and the training was very beneficial. Before we had not access to the ASDC accurate and well informed data sources - which caused us many problems,  yet now I know how to solve them."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_fews.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>FEWSNET</p>
+		    	        	    <h3>"When people wants from us to send them the information about earthquakes, population and other related data know I can find the best data and can help others."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_moph.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>MoPH</p>
+		    	        	    <h3>"Finally we know how to get data from a trusted source"</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_moph.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>MoPH</p>
+		    	        	    <h3>"I am sure it improved our knowledge and information and we know that we can achieve exact and trusted information and data from the ASDC"</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_moph.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>MoPH</p>
+		    	        	    <h3>"It was really good and we learned a lot. We did not know before about the Afghanistan Spatial Data Center, and we really appreciate your efforts to much such a good source of data available to us."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_UNMAS.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>UNMAS</p>
+		    	        	    <h3>"This training was very useful. The ASDC will especially impact our daily operational work."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_UNMAS.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>UNMAS</p>
+		    	        	    <h3>"I am thankful of iMMAP to provide this training for us. The training we got was very useful, and the ASDC will be an invaluable resource."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_UNMAS.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>UNMAS</p>
+		    	        	    <h3>"I found the ASDC very useful, and I really did not expect this wealth of information before I started to use it. I think we will also need to provide ASDC training in our office for our colleagues."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_UNMAS.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>UNMAS</p>
+		    	        	    <h3>"Thanks for your work on the ASDC, the method for training and especially the certification process."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_whh.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>WHH</p>
+		    	        	    <h3>"I really like and apreciate the trainers. The training was very good and we learned many new things from the ASDC."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_whh.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>WHH</p>
+		    	        	    <h3>"The training was very beneficial, especially the part on the interactive maps- Now we know how to make a maps and extract data from ASDC according to our specific needs."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_who.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>WHO</p>
+		    	        	    <h3>"We learned many new things in this training. We appreciate especially that the ASDC that has lots of information from a single location."</h3>
+		    	        	</div>
+		    	        </div>
+		    	        <div class="carousel-item">
+		    	        	<div class="mask">
+		    	        	    <img src="{{ STATIC_URL }}publication/earthquake/img/logo_who.png">
+		    	        	</div>
+		    	        	<div class="carousel-testimonial-caption">
+		    	        	    <p>WHO</p>
+		    	        	    <h3>"This training program was useful and the ASDC it will be very useful in our daily work. We learned a lof of new things from this training, both on natural disasters, techical analysis and response."</h3>
+		    	        	</div>
+		    	        </div>
+		    	    </div>
+		    	    <a class="carousel-control-prev" href="#testi_carousel" role="button" data-slide="prev" style="width: auto;">
+		    	        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    	        <span class="sr-only">Previous</span>
+		    	    </a>
+		    	    <a class="carousel-control-next" href="#testi_carousel" role="button" data-slide="next" style="width: auto;">
+		    	        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    	        <span class="sr-only">Next</span>
+		    	    </a>
+		        </div>
 			</div>
 		</section>
 		<!-- End of Feedback -->
@@ -1087,6 +1262,9 @@
 
 	<!-- JQuery Appear -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.appear/0.3.6/jquery.appear.min.js"></script>
+
+    <!-- JQuery TouchSwipe -->
+    <script src="http://labs.rampinteractive.co.uk/touchSwipe/jquery.touchSwipe.min.js"></script>
 
 	<!-- Wow JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
