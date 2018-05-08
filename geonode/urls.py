@@ -163,6 +163,9 @@ urlpatterns = patterns('',
 
                        # v2 will overwrite named url with the same name
                        (r'^v2/', include(v2urlpatterns, namespace='v2')),
+
+                       url(r'', include('geonode.documents.urls_api_checkpdf'))
+                       
                        )
 
 if "geonode.contrib.dynamic" in settings.INSTALLED_APPS:
