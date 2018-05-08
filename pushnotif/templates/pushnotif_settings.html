@@ -1,0 +1,392 @@
+{% extends "v2/site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Push Notification Settings" %} — {{ block.super }} {% endblock %}
+{% block head %}
+{{ block.super }}
+<style>
+.panel-primary>.panel-heading {
+  background-color: #a61101;
+}
+.modal .modal-header {
+  padding: 15px;
+}
+.modal .modal-header>h4 {
+  color: inherit;
+}
+
+/*
+countdown spinner
+https://codepen.io/anon/pen/ppmgEK
+*/
+
+#countdown {
+  display: inline-block;
+  position: relative;
+  /*margin: auto .3em;*/
+  /*margin-top: 100px;*/
+  margin-left: .5em;
+  height: 1em;
+  width: 1em;
+  text-align: center;
+  line-height: 1em;
+}
+
+#countdown-number {
+  color: white;
+  display: inline-block;
+  line-height: 1em;
+}
+
+#countdown svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  transform: rotateY(-180deg) rotateZ(-90deg);
+}
+
+#countdown svg circle {
+  stroke-dasharray: 37px;
+  stroke-dashoffset: 0px;
+  stroke-linecap: round;
+  stroke-width: 2px;
+  stroke: white;
+  fill: none;
+  animation: countdown 4000ms linear infinite forwards;
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 37px;
+  }
+}
+</style>
+{% endblock head %}
+{% block body_class %}push-notification-settings{% endblock %}
+{% block body_extra_attr %}{{ block.super }} ng-app="formApp" ng-controller="formController" {% endblock %}
+{% block body_outer %}
+<div id="modalConfirmUnsub" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content panel-primary">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{% trans "Confirm" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p class="msg unsub-event">{% trans "Unsubscribe notifications for" %} {% verbatim %}{{ subsOptions.eventtypename }}{% endverbatim %} {% trans "in all area?" %}</p>
+        <p class="msg unsub-area">{% trans "Unsubscribe all notifications for" %} {% verbatim %}{{ subsOptions.area_name }} {{ subsOptions.area_scope }}{% endverbatim %}?</p>
+        <p class="msg unsub-all">{% trans "Unsubscribe all notifications?" %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" id="btnConfirmChangeSettings" data-dismiss="modal">{% trans "Yes" %}</button>
+        <button type="button" class="btn btn-primary btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modalSaveResult" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content panel-primary">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{% trans "Info" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p class="save-result save-success">{% trans "New settings saved succesfully." %}</p>
+        <p class="save-result save-failed">{% trans "Failed to save new settings." %}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Title -->
+<section class="title">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>{% trans "Push Notification Settings" %}</h1>
+      </div>
+    </div>
+</div>
+</section>
+
+<!-- Body -->
+<section id="disclaimer" class="container">
+  <form method="POST" class="form form-horizontal" ng-submit="processForm()">
+    {% csrf_token %}
+    <!-- <p>Angular Data binding monitor</p>
+    <pre>
+      {% verbatim %}{{ formData }}{% endverbatim %}
+    </pre> -->
+    <h4>{% trans "Language" %}</h4>
+    <div class="table-responsive">
+      <table class="table table-striped notice_settings">
+        <tr>
+          <td><p class="form-control-static">{% trans "Notification email language" %}</p></td>
+          {% for language in languages %}
+          <td width="{{ language_col_width }}%" style=";">
+            <div class="radio">
+              <label class="radio-inline">
+                <input class="" type="radio" name="notif_language" value="{{ language.code }}" ng-model="formData.notif_language" /> {{ language.name|title }}
+              </label>
+            </div>
+          </td>
+          {% endfor %}
+        </tr>
+      </table>
+    </div>
+    <h4>{% trans "Notifications Subscription" %}</h4>
+    <p style="">{% trans "Put checkmark on notifications you like to receive." %}</p>
+    <div class="table-responsive">
+      <table class="table table-striped notice_settings">
+        <tr>
+          <th>{% trans "Area" %}</th>
+          {% for key, header in eventtypedata.items %}
+          <th width="{{ event_col_width }}%" style="text-align: center;">
+            {{ header.eventtype }}
+          </th>
+          {% endfor %}
+        </tr>
+        <tr id="selectevent">
+          <th>{% trans "Select All" %}</th>
+          {% for header in eventtypedata_wsubsid %}
+          <td style="text-align: center;">
+            <input type="checkbox" name="{{ header.subs_id }}" title="{% trans "Select All" %} {{ header.eventtype }}" ng-click="selectevent_click()" />
+          </td>
+          {% endfor %}
+        </tr>
+        {% for area in areaevent_ref %}
+        {% ifchanged area.area_scope %}
+        <tr class="notice-row">
+          <td colspan="{{ eventtypedata|length|add:"1" }}">
+            <strong>{{ area.area_scope|title }}</strong>
+          </td>
+        </tr>
+        {% endifchanged %}
+        <tr class="notice-row">
+          <td>
+            <!-- <strong>{{ row.notice_type.display }}</strong><br/> -->
+            <span class="notice_type_description" style="-webkit-margin-start: 2em;">
+              {{ area.area_name }}
+            </span>
+          </td>
+          {% for event in area.eventtypedata %}
+          <td style="text-align: center;">
+            <!-- {% if area.area_scope == 'province' or event.eventtypeid == 'earthquake_epicenter' %}
+            {% endif %} -->
+            <input type="checkbox" name="{{ event.subs_id }}" {% if event.selected %}checked="yes"{% endif %} title="{{ event.eventtype }} in {{ area.area_name }} {{ area.area_scope }}" ng-model="formData.{{ event.subs_id }}" />
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <!-- <p>Angular Data binding monitor</p>
+    <pre>
+      {% verbatim %}{{ formData }}{% endverbatim %}
+    </pre> -->
+    <div class="form-actions">
+      <button id="btn-submit" type="submit" class="btn btn-primary pull-right">{% trans "Save" %}</button>
+    </div>
+  </form>
+</section>
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
+<script>
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function updateUrlParameter(url, param, value){
+    var regex = new RegExp('([?|&]'+param+'=)[^\&]+');
+    return url.replace( regex , '$1' + value);
+}
+
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+
+  // Change this to div.childNodes to support multiple top-level nodes
+  return div.firstChild;
+}
+
+function addCountdownSpinner(elm, counter) {
+  elm.appendChild(createElementFromHTML('<div id="countdown"><div id="countdown-number"></div><svg><circle r="6" cx="7" cy="7"></circle>/svg></div>'));
+  setTimeout(function() {
+    elm.removeChild(elm.querySelector('#countdown'));
+  }, counter);
+}
+
+function addLoadSpinner(elm, toggle) {
+  if (toggle) {
+    elm.appendChild(createElementFromHTML('<i class="fa fa-spinner fa-spin fa-1x fa-fw" style="margin-left: 4px;"></i>'));
+  }
+  else {
+    elm.removeChild(elm.querySelector('.fa-spinner'));
+  }
+}
+
+var eventtypenames = {{ eventtypenames|safe }};
+
+formApp = angular.module('formApp', []).controller('formController', function($scope, $http) {
+
+  var separator = '{{ key_separator }}';
+  var sub_key_separator = '{{ sub_key_separator }}';
+  var subsid_prefix = '{{ subsid_prefix }}';
+  $scope.subsOptions = {};
+
+  $('#modalConfirmUnsub .msg').hide();
+  if (val = getParameterByName('unsub-area')) {
+    val_separator = '-';
+    vals = val.split(val_separator);
+    $scope.subsOptions.unsubsAction = 'unsub-area';
+    $scope.subsOptions.area_scope = vals[0];
+    $scope.subsOptions.area_code = vals[1];
+    $scope.subsOptions.area_name = vals[2];
+    $('#modalConfirmUnsub .unsub-area').show();
+    $('#modalConfirmUnsub').modal('show');
+  }
+  else if (val = getParameterByName('unsub-event')) {
+    $scope.subsOptions.unsubsAction = 'unsub-event';
+    $scope.subsOptions.eventtypeid = val;
+    $scope.subsOptions.eventtypename = eventtypenames[val];
+    $('#modalConfirmUnsub .unsub-event').show();
+    $('#modalConfirmUnsub').modal('show');
+  }
+  else if (val = getParameterByName('unsub-all')) {
+    $scope.subsOptions.unsubsAction = 'unsub-all';
+    $('#modalConfirmUnsub .unsub-all').show();
+    $('#modalConfirmUnsub').modal('show');
+  }
+
+  $('#modalConfirmUnsub #btnConfirmChangeSettings').click(function() {
+    if ($scope.subsOptions.unsubsAction == 'unsub-area') {
+      var area_selected = $scope.subsOptions.area_scope+sub_key_separator+$scope.subsOptions.area_code;
+      var found = false;
+      for (var key in $scope.formData) {
+        if (key.split(separator)[3] == area_selected) {
+          $scope.formData[key] = false;
+          found = true;
+        }
+      }
+      if (found) {
+        $scope.$apply();
+        $scope.processForm();
+      }
+    }
+    else if ($scope.subsOptions.unsubsAction == 'unsub-event') {
+      $('#selectevent input').each(function (idx, elm_child) {
+        if (elm_child.name.split(separator)[2] == $scope.subsOptions.eventtypeid) {
+          elm_child.checked = false;
+          $(elm_child).trigger("change");
+          $scope.processForm();
+        }
+      });
+    }
+    else if ($scope.subsOptions.unsubsAction == 'unsub-all') {
+      var found = false;
+      for (var key in $scope.formData) {
+        if (key.lastIndexOf(subsid_prefix, 0) === 0) {
+          $scope.formData[key] = false;
+          found = true;
+        }
+      }
+      if (found) {
+        $scope.$apply();
+        $scope.processForm();
+      }
+    }
+  });
+
+  $('tr#selectevent input').change(function() {
+    var elm = this;
+    var basename = elm.name.split(separator,3).join(separator);
+    $('tr:not(#selectevent) input[name^='+basename+']').each(function (idx, elm_child) {
+      $scope.formData[elm_child.name] = elm.checked;
+    });
+    $scope.$apply();
+  });
+
+  // create a blank object to hold our form information
+  // $scope will allow this to pass between controller and view
+  $scope.formData = {{ model_values|safe }};
+
+  // process the form
+  $scope.processForm = function() {
+    addLoadSpinner(document.querySelector('#btn-submit'), true);
+    console.log('scope.processForm function start');
+    $http({
+      method  : 'POST',
+      url     : '/pushnotif/savesettings/',
+      data    : $.param($scope.formData),  // pass in data as strings
+      headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+    })
+    .success(function(data) {
+      console.log(data);
+
+      $('#modalSaveResult .save-result').hide();
+      if (data.success) {
+        $('#modalSaveResult .save-success').show();
+        // if not successful, bind errors to error variables
+        // $scope.errorName = data.errors.name;
+        // $scope.errorSuperhero = data.errors.superheroAlias;
+      } else {
+        $('#modalSaveResult .save-failed').show();
+        // if successful, bind success message to message
+        // $scope.message = data.message;
+      }
+      var timeout = 4000 // milliseconds
+      addLoadSpinner(document.querySelector('#btn-submit'), false);
+      addCountdownSpinner(document.querySelector('#modalSaveResult .btn'), timeout);
+      $('#modalSaveResult').modal('show');
+      setTimeout(function(){ $('#modalSaveResult').modal('hide'); }, timeout);
+    });
+  };
+}).config(['$httpProvider', function($httpProvider) {
+    // integrate django csrf-token to angular ajax request
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}]);
+
+document.addEventListener("DOMContentLoaded", function(event) {
+});
+
+</script>
+{% endblock extra_script %}

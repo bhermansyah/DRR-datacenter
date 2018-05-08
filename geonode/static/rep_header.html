@@ -24,7 +24,13 @@ function dynvar() {
     img.setAttribute('src', '..'+vars.userlogo);
     img.style.height = '40px';
     document.getElementById("partner_logo").appendChild(img);
-  }  
+  }
+  
+  if ('hideuserinfo' in vars) {
+    document.getElementById('name').style.display = 'none';
+    document.getElementById('organization').style.display = 'none';
+  }
+  
 }
 </script>
 

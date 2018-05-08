@@ -33,6 +33,9 @@ from geodb.urls import geoapi
 import autocomplete_light
 import dashboard
 import securitydb
+import pushnotif
+
+from geonode.documents.urls_api_checkpdf import api as api_checkpdf
 
 # Setup Django Admin
 autocomplete_light.autodiscover()

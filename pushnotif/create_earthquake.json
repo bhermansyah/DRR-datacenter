@@ -1,0 +1,340 @@
+{
+  "units": "m",
+  "srs": "EPSG:900913",
+  "layout": "A4 portrait",
+  "dpi": 90,
+  "outputFilename": "\"iMMAP_AFG_Earthquake_A4 portrait_map_2018-3-13\"",
+  "mapTitle": "Earthquake",
+  "comment": "Shows the epicentre of the latest earthquakes as well as the shakemap. Shakemaps and the affected population can be loaded by using the latest tab in the statistics menu.\n\nAdditionally it shows the tectonic regions of Afghanistan derived from the USGS \"Seismotectonic Map of Afghanistan, with Annotated Bibliography\" (2005) by By Russell L. Wheeler, Charles G. Bufe, Margo L. Johnson, and Richard L. Dart. \n\nSeismic intensity and description of potential damage (USGS, 2007). Peak Horizontal Acceleration with 2 Percent Probability of Exceedance in 50 years\n\nA 2 percent probability of exceedance in 50 years corresponds to a ground-motion return time of approximately 2500 years, or approximately a 10% probability of of exceedance in 250 years. . The seismic intensity data and classes originate from the USGS Earthquake Hazard Map for Afghanistan (2007), by By Oliver S. Boyd, Charles S. Mueller, and Kenneth S. Rukstales",
+  "layers": [
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 0,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_ppla"
+      ],
+      "format": "image/png8",
+      "styles": [
+        "polygon_nothing"
+      ],
+      "customParams": {
+        "TRANSPARENT": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_elev_dem_30m_aster_hillshade"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_riv"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm1"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm2"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_riv"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 25253.763106179995,
+      "maxScaleDenominator": 631344077654500,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_rdsl"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:earthquake_shakemap"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "CQL_FILTER": "event_code='$event_code'",
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 0.65,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_pplp"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:earthquake_events"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "CQL_FILTER": "event_code in ('$event_code')",
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:earthquake_events_past_week"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    }
+  ],
+  "pages": [
+    {
+      "center": [
+        7616796.993501,
+        4173404.0333301
+      ],
+      "scale": 2000000,
+      "bbox": [
+        7419241.0428335,
+        3993487.0068294,
+        7814352.9441685,
+        4353321.0598308
+      ],
+      "rotation": 0
+    }
+  ],
+  "legends": [
+    {
+      "name": "Earthquakes in the past week",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aearthquake_events_past_week&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Earthquakes with Shakemap ",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aearthquake_events&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Settlements",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_pplp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Earthquake shakemap",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aearthquake_shakemap&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Road network",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?EXCEPTIONS=application%2Fvnd.ogc.se_xml&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TILED=true&LAYER=geonode%3Aafg_rdsl&STYLE=afg_rdsl_legend_osm&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000&width=12&height=12"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rivers",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_riv&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "District boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm2&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Provincial boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm1&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rivers",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_riv&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "selectedBox": "66.64817626271939,33.736589297273376%2070.19752686228102,33.736589297273376%2070.19752686228102,36.38206485182717%2066.64817626271939,36.38206485182717%2066.64817626271939,33.736589297273376",
+  "showRiskTable": false,
+  "mapID": "706",
+  "logo": {
+    "data": [
+      {
+        "logourl": "Government.png"
+      },
+      {
+        "logourl": "immap.png"
+      }
+    ],
+    "columns": [
+      "logourl"
+    ]
+  },
+  "contributors": "iMMAP,AGCHO",
+  "userlogo_onpdf": false,
+  "userlogo_url": "$userlogo_url",
+  "showMapComments": false
+}

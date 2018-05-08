@@ -1,0 +1,25 @@
+{% load i18n humanize %}
+<table style="font:12px Arial, Helvetica, sans-serif; color:#333332; width: 100%; border-collapse: collapse; border-spacing: 0; text-align: center; border: 1px solid #fff; line-height: 2em;">
+    <tr>
+        <td></td>
+    </tr>
+    <tr style="font-weight: 700; border: 1px solid #fff;">
+        <td style="background-color: #eee;">{% trans "Likelihood" %}</td>
+        <td style="background-color: #ffaaab; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Low" %}</td>
+        <td style="background-color: #ff6163; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Moderate" %}</td>
+        <td style="background-color: #d13c3e; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "High" %}</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #fff;">
+        <td style="background-color: #eee;">{% trans "Population" %}</td>
+        <td style="background-color: #ffaaab; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.ava_forecast_low_pop|floatformat:"0"|intcomma}}</td>
+        <td style="background-color: #ff6163;border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.ava_forecast_med_pop|floatformat:"0"|intcomma}}</td>
+        <td style="background-color: #d13c3e;border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.ava_forecast_high_pop|floatformat:"0"|intcomma}}</td>
+    </tr>
+    <tr>
+        <td style="background-color: #eee; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Buildings" %}</td>
+        <td style="background-color: #ffaaab; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.ava_forecast_low_buildings|floatformat:"0"|intcomma}}</td>
+        <td style="background-color: #ff6163; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.ava_forecast_med_buildings|floatformat:"0"|intcomma}}</td>
+        <td style="background-color: #d13c3e; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.ava_forecast_high_buildings|floatformat:"0"|intcomma}}</td>
+    </tr>
+</table>
+

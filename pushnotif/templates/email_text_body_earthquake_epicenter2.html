@@ -1,0 +1,21 @@
+{% load i18n %}
+<br>
+<table style="font-family:Arial,Helvetica,sans-serif; color: #444444; text-align: justify;">
+    <tr>
+        <td width="80px" style="vertical-align: top; font-size: 12px; line-height: 18px; ">
+            {% blocktrans %}For &gt; 5.3 M :{% endblocktrans %}
+        </td>
+        <td style="font-size: 12px; line-height: 18px; ">
+            {% blocktrans %}An updated map including estimates on affected population will be send if and when it becomes available from
+            USGS.{% endblocktrans %}
+        </td>
+    </tr>
+    <tr>
+        <td width="80px" style="vertical-align: top; font-size: 12px; line-height: 18px; ">
+            {% blocktrans %}For &lt; 5.3 M :{% endblocktrans %}
+        </td>
+        <td style="font-size: 12px; line-height: 18px; ">
+            {% blocktrans %}It is unlikely that for this event USGS will create a shakemap as impact will likely be very low.{% endblocktrans %}
+        </td>
+    </tr>
+</table>

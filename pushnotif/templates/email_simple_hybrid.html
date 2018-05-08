@@ -1,0 +1,553 @@
+{% load i18n %}
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title></title>
+    {% block head_script %}
+    <style type="text/css">
+        /* CLIENT-SPECIFIC STYLES */
+
+        body,
+        table,
+        td,
+        a {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+
+        table,
+        td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* RESET STYLES */
+
+        img {
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        body {
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+
+        /* iOS BLUE LINKS */
+
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* MOBILE STYLES */
+
+        @media screen and (max-width: 600px) {
+            .img-max {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            .max-width {
+                max-width: 100% !important;
+            }
+
+            .mobile-wrapper {
+                width: 85% !important;
+                max-width: 85% !important;
+            }
+
+            .mobile-padding {
+                padding-left: 5% !important;
+                padding-right: 5% !important;
+            }
+        }
+
+        /* ANDROID CENTER FIX */
+
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+    </style>
+    {% endblock %}
+
+</head>
+
+<body style="margin: 0 !important; padding: 0; !important background-color: #ffffff;" bgcolor="#ffffff">
+
+    <!-- HIDDEN PREHEADER TEXT -->
+    <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Open Sans, Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+        {% blocktrans %}{{ trans eventtype }} in {{ trans area_name }} {{ trans area_type }}.{% endblocktrans %}
+    </div>
+    <!-- /HIDDEN PREHEADER TEXT -->
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+        {% if askapproval %}
+        <tr>
+            <td align="center" height="100%" valign="top" width="100%" bgcolor="#f6f6f6" style="padding: 25px 15px 0px;" class="mobile-padding">
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px; border-bottom: solid 1px #ddd;">
+                    <tr>
+                        <td align="center" valign="top" style="padding: 0 0 0px 0; font-family: Open Sans, Helvetica, Arial, sans-serif;">
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="border-radius: 0 0 3px 3px; padding: 25px;">
+                                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                            <tr>
+                                                <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif;">
+                                                    <h2 style="font-size: 13px; color: #444444; margin: 0; padding-bottom: 10px;">Send the following email to {{ recipients_count }} recipient(s)?</h2>
+                                                    <p style="color: #999999; font-size: 11px; line-height: 1.4; margin: 0;">
+                                                        {% for key, val in recipients_all_lang.items %} [{{ key }}] {{ val.recipients|length }} recipient(s) {% endfor %}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" style="padding: 15px 0 0 0;">
+                                                    <table border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <a href="{{url_approve_true}}" target="_blank" style="font-size: 13px; font-family: Arial,Helvetica,sans-serif; color: #ffffff; text-decoration: none; border-radius: 26px; background-color: #ce283d; padding: 5px 10px; border: 1px solid #ce283d; display: block;">Yes</a>
+                                                            </td>
+                                                            <td style="padding-right: 15px;"></td>
+                                                            <td align="center">
+                                                                <a href="{{url_approve_false}}" target="_blank" style="font-size: 13px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ce283d; text-decoration: none; border-radius: 26px; background-color: #ffffff; padding: 5px 10px; border: 1px solid #ce283d; display: block;">No</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td align="center" height="100%" valign="top" width="100%" bgcolor="#f6f6f6" style="padding: 0 20px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                    <tr>
+                        <td align="left" valign="top" style="padding: 0; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #999999;">
+                            <p style="font-size:11px;line-height:5px;padding-left: 5px;">
+                                <br>
+                                {% for key, val in url_email_webver_all_lang.items %}
+                                <a href="{{ val }}" style="color: #999999; text-decoration: none" target="_blank">{{ key|upper }} Lang</a>
+                                {% if not forloop.last %}&nbsp; &bull; &nbsp;{% endif %}
+                                {% endfor %}
+                            </p>
+                        </td>
+                        <td align="right" valign="top" style="padding: 0; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #999999;">
+                            <p style="font-size:11px;line-height:5px;padding-right: 5px;">
+                                <br>
+                                <a href="{{ url_email_webver }}" style="color: #999999; text-decoration: none" target="_blank">View in Browser</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <tr>
+            <td align="center" height="100%" valign="top" width="100%" bgcolor="#f6f6f6" style="padding: 1px 50px 15px;" class="mobile-padding">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;border: solid 1px #f1ecec7a;">
+                    <tr>
+                        <td align="center" valign="top" style="padding: 0px; font-family: Open Sans, Helvetica, Arial, sans-serif;">
+                            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="padding: 10px 0;">
+                                        {% if imgsrc_dataimage %}
+                                        <a href="#" target="_blank" style="text-decoration: none;">
+                                            <img src="data:image/png;base64,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"
+                                                width="140px" alt="usaid logo" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                                        </a>
+                                        <a href="#" target="_blank" style="text-decoration: none;">
+                                            <img src="data:image/png;base64,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"
+                                                width="42px" alt="andma logo">
+                                        </a>
+                                        <div style="display: inline-block;">
+                                            <a href="#" style="text-decoration: none;">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="data:image/png;base64,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"
+                                                                width="53px" alt="immap logo" align="absmiddle">
+                                                        </td>
+                                                        <td>
+                                                            <span style="color: #535353; font: normal 600 12px/40px 'futura-pt', sans-serif; letter-spacing: 0.5px; line-height: 42px;">Afghanistan Spatial Data Center</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </a>
+                                        </div>
+                                        {% if user_org_name %}
+                                        <a href="#">
+                                            <img src="data:image/png;base64,{{user_org_logo_data}}" width="{{user_org_logo_width}}" height="{{user_org_logo_height}}"
+                                                alt="{{user_org_name}} Logo" border="0" style="width: {{user_org_logo_width}}px; max-width: {{user_org_logo_width}}px; height: {{user_org_logo_height}}px; background: initial; font-family: sans-serif; font-size: 14px; line-height: 1.4; color: #555555; vertical-align: middle; margin-left: 6px;">
+                                        </a>
+                                        {% endif %} {% elif imgsrc_contentid %}
+                                        <a href="#" target="_blank" style="text-decoration: none;">
+                                            <img src="cid:usaid.png" width="140px" alt="usaid logo" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                                        </a>
+                                        <a href="#" target="_blank" style="text-decoration: none;">
+                                            <img src="cid:andma.png" width="42px" alt="andma logo">
+                                        </a>
+                                        <div style="display: inline-block;">
+                                            <a href="#" style="text-decoration: none;">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="cid:immap.png" width="53px" alt="immap logo" align="absmiddle">
+                                                        </td>
+                                                        <td>
+                                                            <span style="color: #535353; font: normal 600 12px/40px 'futura-pt', sans-serif; letter-spacing: 0.5px; line-height: 42px;">Afghanistan Spatial Data Center</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </a>
+                                        </div>
+                                        {% if user_org_name %}
+                                        <a href="#">
+                                            <img src="cid:{{user_org_logo_fname}}" width="{{user_org_logo_width}}" height="{{user_org_logo_height}}" alt="{{user_org_name}} Logo"
+                                                border="0" style="width: {{user_org_logo_width}}px; max-width: {{user_org_logo_width}}px; height: {{user_org_logo_height}}px; background: initial; font-family: sans-serif; font-size: 14px; line-height: 1.4; color: #555555; vertical-align: middle; margin-left: 6px;">
+                                        </a>
+                                        {% endif %} {% endif %}
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: Open Sans, Helvetica, Arial, sans-serif;" bgcolor="#ce283d">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    {% if imgsrc_dataimage %}
+                                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF8WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA0LTEzVDEwOjAyOjU5KzA3OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wNC0xM1QxMDowNTowNSswNzowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wNC0xM1QxMDowNTowNSswNzowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpkM2M1OTM5Yi1iYzY4LTRhZWQtYWEzMC02MGUxYWQ5MTBjNjMiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpjYjk0ZDEzYy03MDA4LTA1NDMtYTk3ZS1kM2U1ODI0N2I1YTkiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpiMjYwMjg0YS1mM2IzLTQyMDktYjYwOS0yZmU1MjlmZmU4NWYiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmIyNjAyODRhLWYzYjMtNDIwOS1iNjA5LTJmZTUyOWZmZTg1ZiIgc3RFdnQ6d2hlbj0iMjAxOC0wNC0xM1QxMDowMjo1OSswNzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDpkM2M1OTM5Yi1iYzY4LTRhZWQtYWEzMC02MGUxYWQ5MTBjNjMiIHN0RXZ0OndoZW49IjIwMTgtMDQtMTNUMTA6MDU6MDUrMDc6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6whAfQAAAC/ElEQVRogdWazW8NURjGf1WKiEqJj/pISZugcTVSNGikCwtEK+mCjXTZiAV2bCwsxULSlfgDJFY+I6FJV4IViQYLtdEF6iMIiaJ5LM60vWnv7bznzJl+/JKTm8y8Z97nmffMzJk5F0nk0CokXZT0PWkXkm3Rc+UhHknHNZnOPHLNIx/2GrdlJraBSqAJWFFi30pgexITj0ilbJJ0TdLnEkNnIp8kXZVUiJE76wFqJd0wiC7HdUmrZ8pAW3I2s/JRUmuojgpJISPvIHAbqIo0koeBdqDXt2OIgQLwBFji2zGFn0AL8Mqnk6+BhcAzoNGnkwf9wE7gj7WD7230DPmJB1fdUz4dfCpQBQwCqzxF+fIeqAP+WoJ9KnCA/MUD1AJt1mAfA/u9pYRjzuVjoD5ASCgN1kAfA0sDhIRizuVjYEGAkFDMunwMLAoQEoo512wdQtXWQB8Dpeb4eWHOZX2QVeImXHFfRsozDCwGUsVZK7Ce6RMPbs61xhJoNbA5XEswWyxBVgOFDEJC2WYJshpoziAkFFNOq4FcPomk0GoJshhowE1vp5t6S16LgY7sWoI5mhaQZqAC6IqjJYgTaQFpBvbgvrTNFLtIuZjTDJyLpyWY81PtnGoq0QI8jS4njGbc15BJlKtAJdCTmxx/eiijtZyB08Du3OT4sw84WWpHqSHUDDwm3mfDWPzGDesXxRsnVqAOuMPsEw/uLe0ebmY8RrGBOqAPWDuNonzZgNM4ZmJ0CG0CHjG7xRcziJsrvRutQA1zRzy4SlTD+BB6jqvAXKEPeAnjBgR04i6SLPQDIxmPkcYt4BjJ+3Kp2+jypPnQC2zEzVwvAVsNfd4Ahz3zfE3aGPMtQQbe4gwUcM8Qi4GBpGUi1jrxg+S3G7gMDBn6PIySOcsSZ1GrkfQlWXW8Kakx+f1VZmVySNKyGLljGUBSu6SRROBrSd2Sdki6P0H8P0mHYuWNaQC5P3T8KHPWJembpI6YOUPXiadiHXAWOML4osgAcBe4AnyImew/gNAr98SYqnQAAAAASUVORK5CYII=" 
+                                                    width="25px" style="width: 25px">
+                                                    {% elif imgsrc_contentid %}
+                                                    <img src="cid:icon_notif.png" width="25px" style="width: 25px">
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    <h2 style="font-size: 17px; color: #ffffff; margin: 0; padding: 10px; line-height: 2em;">{{ email_head_text }}</h2>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                {{ text_body|safe }}
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="border-radius: 3px 3px 0 0; padding: 0 25px;">
+                                        {% if imgsrc_dataimage %}
+                                        <img mc:edit="banner" class="imgresponsive" src="data:image/png;base64,{{ map_image_base64.600x392 }}" width="94%" style="max-width:570px;"
+                                            alt="maps" /> 
+                                        {% elif imgsrc_contentid %}
+                                        <img mc:edit="banner" class="imgresponsive" src="cid:map_wforecast.png" width="94%" style="max-width:570px;" alt="maps" /> 
+                                        {% endif %}
+                                        <!-- <img src="article-1.png" width="600" height="200" alt="insert alt text here" style="display: block; border-radius: 3px 3px 0 0; font-family: sans-serif; font-size: 13px; color: #999999;" class="img-max"/> -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#ffffff" style="border-radius: 0 0 3px 3px; padding: 8px 25px 0;">
+                                        <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                            <tr>
+                                                <td align="right">
+                                                    <table border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td align="center">
+                                                                <!-- <a href="#" target="_blank" style="font-size: 13px; font-family: Arial,Helvetica,sans-serif; color: #ffffff; text-decoration: none; border-radius: 26px; background-color: #ce283d; padding: 5px 10px; border: 1px solid #ce283d; display: block;">Visit Interactive Maps</a> -->
+
+                                                                <a href="{{view_interactive_map_url}}" target="_blank" style=" font: 10px/2.4 Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 26px; background-color: #ce283d; padding: 0px 13px; border: 1px solid #ce283d; display: block;">{% trans "View Interactive Map" %}</a>
+                                                            </td>
+                                                            <td style="padding: 0 5px; font-size: 9px; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #999999;">&nbsp;</td>
+                                                            <td align="center">
+                                                                <!-- <a href="#" target="_blank" style="font-size: 13px; font-family: Arial,Helvetica,sans-serif; color: #ffffff; text-decoration: none; border-radius: 26px; background-color: #ce283d; padding: 5px 10px; border: 1px solid #ce283d; display: block;">Visit Dashboard</a> -->
+                                                                <a href="{{view_url}}" target="_blank" style="font: 10px/2.4 Open Sans, Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 26px; background-color: #ce283d; padding: 0px 10px; border: 1px solid #ce283d; display: block;">{% trans "View Dashboard" %}</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" bgcolor="#ffffff" style="border-radius: 0 0 3px 3px; padding: 25px;">
+                                        <table style="margin: initial !important; width: 100%;">
+                                            <tr>
+                                                <td style="text-align: left; width: 10%; font-family: Arial,Helvetica,sans-serif; color: #444444; font-size: 12px;">
+                                                    <span class="bold">{% trans "Type" %}</span>
+                                                </td>
+                                                <td style="text-align: left; font-family: Arial,Helvetica,sans-serif; color: #444444; font-size: 12px;">: {{eventtype}}</td>
+                                            </tr>
+                                            {% if eventtypeid == 'earthquake_epicenter' %}
+                                            <tr>
+                                                <td colspan="2" align="left" bgcolor="#ffffff" style="padding: 10px 0 0; width: 100%">
+                                                    <table width="100%" style="font:12px Arial, Helvetica, sans-serif; color:#333332; width: 100%; border-collapse: collapse; border-spacing: 0; text-align: left; border: 1px solid #fff; line-height: 2em;">
+                                                        <tr>
+                                                            <td style="background-color: #eee; border: 1px solid #ddd; font-weight: 700; padding-left: 15px;">{% trans "Epicenter" %}</td>
+                                                            <td style="border: 1px solid #ddd; padding-left: 15px;">{{ eq_selected.epicenter_area_name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="background-color: #eee; border: 1px solid #ddd; font-weight: 700; padding-left: 15px;">{% trans "Magnitude" %}</td>
+                                                            <td style="border: 1px solid #ddd; padding-left: 15px;">{{eq_selected.magnitude}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="background-color: #eee; border: 1px solid #ddd; font-weight: 700; padding-left: 15px;">{% trans "Depth" %}</td>
+                                                            <td style="border: 1px solid #ddd; padding-left: 15px;">{{eq_selected.depth}} km</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="background-color: #eee; border: 1px solid #ddd; font-weight: 700; padding-left: 15px;">{% trans "Time" %}</td>
+                                                            <td style="border: 1px solid #ddd; padding-left: 15px;">{{ eq_selected.dateofevent_time }}, {{ eq_selected.dateofevent_date }} UTC
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="background-color: #eee; border: 1px solid #ddd; font-weight: 700; padding-left: 15px;">{% trans "Area" %}</td>
+                                                            <td style="border: 1px solid #ddd; padding-left: 15px;">{{area_name_scope}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            {% else %}
+                                            <tr>
+                                                <td style="text-align: left; font-family: Arial,Helvetica,sans-serif; color: #444444; font-size: 12px;">
+                                                    <span class="bold">{% trans "Area" %}</span>
+                                                </td>
+                                                <td style="text-align: left; font-family: Arial,Helvetica,sans-serif; color: #444444; font-size: 12px;">: {{area_name_scope}}</td>
+                                            </tr>
+                                            {% endif %}
+                                        </table>
+                                        {% if short_dashboard_table %}
+                                        <br/> {{ short_dashboard_table|safe }} 
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" bgcolor="#ffffff" style="border-radius: 0 0 3px 3px; padding: 0 25px 0px;">
+                                        {% if eventtypeid == 'avalanche_prediction' %} 
+                                            {% include 'email_text_body_avalanche2.html' %} 
+                                        {% elif eventtypeid == 'earthquake_shakemap' %} 
+                                            {% include 'email_text_body_earthquake_shakemap2.html' %} 
+                                        {% elif eventtypeid == 'earthquake_epicenter' %} 
+                                            {% include 'email_text_body_earthquake_epicenter2.html' %} 
+                                        {% elif eventtypeid == 'flash_flood_prediction' %} 
+                                            {% include 'email_text_body_flood2.html' %} 
+                                        {% elif eventtypeid == 'river_flood_prediction' %} 
+                                            {% include 'email_text_body_flood2.html' %} 
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" bgcolor="#ffffff" style="padding: 0 25px 5px;">
+                                        <p style="font-family: Arial,Helvetica,sans-serif; color: #444444; font-size: 12px; line-height: 18px; text-align: justify;">
+                                            iMMAP is sharing this information at request of ANDMA with you for further dissemination to the selected entities within
+                                            GoIRA and the Humanitarian Community.
+                                            <br />
+                                            <br /> Kind regards,
+                                            <br /> iMMAP Afghanistan
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" bgcolor="#ffffff" style="border-radius: 0 0 3px 3px; padding: 0 25px;">
+                                        {% include 'email_text_footer.html' %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+        <tr>
+            <td align="center" style=" padding: 25px; background-color: #ce283d; border-bottom: 20px solid #dc4d5f;" bgcolor="#1b9ba3">
+                <!--[if (gte mso 9)|(IE)]>
+            <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+            <tr>
+            <td align="center" valign="top" width="600">
+            <![endif]-->
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                    <tr>
+                        <td align="center" valign="top" style="padding: 0; color: #fff;">
+                            <p style="font-family: Arial,Helvetica,sans-serif; color: #444444; font-size: 12px; line-height: 18px; color: #ffffff !important;">
+                                &copy; 2018 iMMAP. All rights reserved
+                                <br>
+                                <a style="color: #ffffff; text-decoration: none;">
+                                    1300 Pennsylvania Avenue, N.W.,Suite 470 Washington, D.C. 20004
+                                </a>
+                                <br>Tel: +27 71 427 5996
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <table>
+                                <tr>
+                                    {% if imgsrc_dataimage %}
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://www.facebook.com/immap.org/">
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF8WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTAzLTIxVDExOjQ0OjQ5KzA3OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wNC0xM1QwNjo0OToxMyswNzowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wNC0xM1QwNjo0OToxMyswNzowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2Yjk0OTU1My05NzAzLTQwMjEtYjUyNS1hZGY1ZWJhMTUyNzgiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDo1YmUxNTNhYi0wNzYwLTQzNDktOWI1ZC1kMGViYjk5NTA4M2QiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpjNjg3NmFiNS1jMzgzLTRlYjctYWZiMi0yYWRjNTU5ZTI1MWMiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmM2ODc2YWI1LWMzODMtNGViNy1hZmIyLTJhZGM1NTllMjUxYyIgc3RFdnQ6d2hlbj0iMjAxOC0wMy0yMVQxMTo0NDo0OSswNzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo2Yjk0OTU1My05NzAzLTQwMjEtYjUyNS1hZGY1ZWJhMTUyNzgiIHN0RXZ0OndoZW49IjIwMTgtMDQtMTNUMDY6NDk6MTMrMDc6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5dX5BgAAADbUlEQVRogdWZPWgUQRiGn1NjEmOMIgZULMTCNIoWIYgRjYWglipqJdqKjQQEO0WRgGKl4F8hwULERg0oEf/xPyhYqIUaFAsTxMMY/Mv5WkzumNvs5XZn9vbIA0uY2b1v3zczO/PNTEYSE5lJ1Rbgy5QKxa0DZgANwG9gCPgBJN7cSRiYDKwE1gLtQAswP+S5LPAWeArcAm5iTPkhyfVaIKlL0me5MSypW1KbhwYnA82STkn64yg8jF5JyyptICNpl6RvCQq3yUk6LqmuEgYaJF2okPAgLyQtimogo/LzwGygB2jz/uCiMwisB/rKPVjOwCzgLrAkGV2xGAI6KGNiPAO1mKGuPVldsRgEVgDvSj0w3kx8lOqKB5gDXMJMjKGUaoGNwLUEBAxjusAAkLPqNxFvEj0GdIbeCfmyp0n64DmSjEjqlFRfYvTIOsRbGhYrLPg+T/GStKeEcFcDknQ9LFawC9UD/UBzjOYN8hWYC/wd55ks0OQQuxV4blcE++Fm/MQDPGKs+KnAakx2ClDjGHs3sLOoJtAkvZ5dR5LOhDT1/gTiStKQTFZQiG0Po02YlNiXXEidb6vmmQ6ssStsA6uYGCu0on+y/Q20egbeC3zADAJBzgF3rPJFzHfhQpFO28Bix4B5bgMvS9x7NXoBNOIuHgI67S6zwCNoHOZ5/r4ZK7WwDTR6Bo5K2Ho5LgWtdheq9QzaBXzDZLBnA/d2YPJ7SKalCy1gGxj2DLpu9G+WsQaWA1s949sUdjPsLpRN8AWV5B9msQMUG3ifvhYn+oGRfME28Dp1KW68sQu2gQcpC3Hlvl2wDfQB39PV4sQtu2AbGAEup6slNv0E1gPB5O18alLc6MaMQgWCBu4RYTOpSvwCTgQrgwYEHExFTnxOAV+ClWH5/1XgRsXlxGMAOBB2o9S+0CJMajzd4WU5THPb1OJ3mLINs4YYS8j6NX9tT2gd68tpeWyvH66CYJs7KnNeEOVQ42Tqsg3PJDWV0RfpgCMj6VC62tUrqTGCtlhHTFslfU9B/BFJNVF1xTGApIWSeiok/LWkjph6nE4pM5I2SHqckPBPMpvBUx20eJ0TZyS1ywxzX2OK/i3piqQtrsLzV5RDvihMBpZidvdaMBPhTMxE+AuTpn/EnNQ/AR4CP5N4cVIGqsZE2Asdl/8doWTFaC6QnQAAAABJRU5ErkJggg=="
+                                                alt="facebook" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://twitter.com/immaper?lang=en">
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF8WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTAzLTIxVDExOjQ0OjU3KzA3OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wNC0xM1QwNjo1MjowNSswNzowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wNC0xM1QwNjo1MjowNSswNzowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpkMzE4MzQ0My1mOTU5LTQxODktOWQyOS0wOTA0YzBkOTY5MTgiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDowNTE0OWU2Ny1mZGMxLTNmNGYtYmZlYS0xMDY4ZDk1OTgxMmEiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo3YjFhZDAwNy0xM2I3LTQ2Y2QtOTViNS0zZWVlNzdiZGMyOGQiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjdiMWFkMDA3LTEzYjctNDZjZC05NWI1LTNlZWU3N2JkYzI4ZCIgc3RFdnQ6d2hlbj0iMjAxOC0wMy0yMVQxMTo0NDo1NyswNzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDpkMzE4MzQ0My1mOTU5LTQxODktOWQyOS0wOTA0YzBkOTY5MTgiIHN0RXZ0OndoZW49IjIwMTgtMDQtMTNUMDY6NTI6MDUrMDc6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4kGJSjAAAECUlEQVRogdWaXYhVVRTHf8e5OmNmpeFA1EAxQfNQkYkO4lgoSKiICEWQFBLoS1mPCaEPpolSWC+CCr2E0Af0UIjBhOiLmBpFIdbDqCg9jDOiOYoz+fH3Yd2RPcdz79l7n3Nm9A+He87+WPu/zt5nrbXXvokkHmRMmmgCRVGrSG4b8AgwDRgBhoCrQOnTXYYCLcACYDHQA3QBT2a0uwz8AxwDDgK/YEoVg6TYq0PSdkn/Kg7XJH0tqbsAhygF2iXtlvR/JPEs9Ep6qWoFEknvSrpUInEXtyTtlNRWhQLTJO2riHgav0vq9FUgUb4feBzYD3QX/uD8MQAsBX7La5inwAzgMPBCObyCMAQsIkeJZgq0Yqaup1xeQRgA5gN9jRo088SfMbHkAWYB32OOMRONFFgOvF8FowjMBrY0qsxaQg8BJ4Gnq+MUjFvAy8Cf6YqsGVjP/UUeLFzZkVWRnoGpwFmgvQIS14G/gNvA88DDETLmAifcgvQMvI4/+fPAJc+2XwJPYL5kPvAU8AVmKr8DtnvKee+ekpRn6w3wmFtk8ctATrvPm3jSFkmzJJ2WBXd5GJJFBZmhxKOyeMQXb9f7dUr6o0GbK+kBM65nJb0iadBz3OVuf3cJLSRshzaj/ttXXxofA1dSbY4C13Lk3AT2YSGLDxa7Dy7huZ4CRrHSuR8BPgU6gLXAT0B/vTwPG7BvwhdjeTrT8U3A8pGkq5LW5CyP1px6JP0QOG6/29/dUnYEvAWANZjDawafGegKHLcdCy2GYewSmh4oaAVwKrBPGjMJVwAcrq4CrYFC3sJsehEsAZKIfneDO1eBPGuRRg34GVhNfH7pnch+d7MZ7sCXIwS1AeewpRCKOcCyiH63MQ8OjFXgdISwKdgyGAzsVwN2RYwHFqvdHH1wFYj9IDcCewkLALcC8yLH+3vMk2NTuwPtcRoXJc3zsPsfFhxngyvPFVyT9F+AoBuy+OWwpI9kQVkz4jVJ2wqSl1IvKT3IV55CBiWtlV8SKpG0RNKJEsifkTTJlZ/e0LwKHApYjxexTfdBzCsPYFZiJvAclvRdVb8vA58Am9yCtAIJcBwzcfcbhrGtbr9bmHZAAjaPE6FQ7CZFHrKzEglwAHhtHEj54gIWM92zhc0KAYTtPYsfPpSHD2iw/24Uw/QB6yqjE4a9wLcNa3NM4NYSTF8RHFKOqfax4bvGnbbhuCzR0JSjzyFCIkuhjCd6JU334BZ0xPSmLE1SNbZJmuzLK0QBJD0jaX9FxE9JWhTIJ+qUMpG0TNLRkoifl7Re0pQILoXOiRNJPZL2yELpEIxI+lHSG7HERy+fQz4ftAAvYtm9LqATeAzLQA9jGbtz2En9r8ARLFtdGGUpMGF44P+tcgd5XMOspkfp8gAAAABJRU5ErkJggg=="
+                                                alt="twitter" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://www.linkedin.com/company/527383/">
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF8WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTAzLTIxVDExOjQ1OjA1KzA3OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wNC0xM1QwNjo1MjoyNyswNzowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wNC0xM1QwNjo1MjoyNyswNzowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozMzc2NGU1Yi04YWRiLTRkYzUtOGM1NC1mMmVmZDAxZTM1MGUiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDozNTk4MjU1Yy00MDEwLTJkNDQtODA2Yi05NmQ1YjAyNWVmNmEiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowOWEwNjRkMS1kNmIyLTRiY2EtYmU3MC05YzUyMDdhNGFjZmMiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjA5YTA2NGQxLWQ2YjItNGJjYS1iZTcwLTljNTIwN2E0YWNmYyIgc3RFdnQ6d2hlbj0iMjAxOC0wMy0yMVQxMTo0NTowNSswNzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDozMzc2NGU1Yi04YWRiLTRkYzUtOGM1NC1mMmVmZDAxZTM1MGUiIHN0RXZ0OndoZW49IjIwMTgtMDQtMTNUMDY6NTI6MjcrMDc6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6+rnFuAAADw0lEQVRogdWZW4hNURjHfwfjfpdR5AGJFFHKbTyQO49EuTxM8uD2oOQVkZTyROGF8CB5oERGYkhukxQhYaJRTJgMuY35e1gzrNlnnbPX3mftGf61O+1vrf2t//+sb12/nCT+Z3TqaAKloktGfrsDfYFewHegEfgMBO/uEAI6AzOA2UAFMBYY5qjXADwF7gBXgMsYUaVBUtpnuKS9kuqUDl8kHZc0pQQOqQSUSzok6UdK4i5USZqYtYCcpEpJHwMSt/FL0n5J3bMQ0EvSyYyIR3Ff0ihfATnFrwODgPPAlJIHnD/qgYVATVzFOAEDgGvA+DC8EqERmEWMiGICumGmuoqwvBKhHpgGPC9UodhKvI+OJQ8wGDiNWRidKCRgMbAxxvlP4CFQl4qaPyYBuwqWOkZ2T0kvY2aKapn1oHV6XSOpOdxElIcmSRPkOY1u83A4xvHd2eC02+Kio828EOoBbPHo1lqH7YV3UKTDfGBy1BgVsBQo93C2MPJeBsxLxysRNuRZIl1S5dmdDZLWy8TlHEmXQsdLATTK7AqcK3E/4AP//iFnCWZnALQ9D8zEn3wd+Xv5kZhQ+kn+eOiNOSM0A1XAA+BXyzcLMH+eL2ZjCbDDZ0eCrlyi/BnhSUvZM0fZAkmPJI1zlPWRdDBB29X293YPjEnwLxSDqxfrgbnAG0dZI2ZwlgFrPfy34Wk3NtyTYBxyDlsNbvKtELAVIyYO5VhbC1tAHx92JaAvsB04AVSSL7QBOOvp6w9XO4S6pecWi07ABWB6y/tKzIA+Gql3B1jl4c/ZA1/S84vFZP6Sb8UKR71iYWbjzwxoC2hIxikRBjpsQx22Hx6+mrHGii0g671MFK7ZyufiqxZocjl5XCKhJCRKwRP7xRZwI1ADzYH8FMJ1+8UWUAN8yrjxELhiv9gCmoAzARrIMoRqgXu2ITqQjmXYeAgcJxKiUQHVeFwmxSCrMfANOBA1Rq/XBewkfklfDUyN2AZbv9FbhFEOH0Mc9UYXafMQ8DZqdF1s5TDL/vwiztob7zB5h4/RgkKLyQZCJB/CYTMO8lD4BPYcWJcZnWQ4ApwqWOo4IdnP7gQnpSxwVTH5Ap+kRpLjXkjcldQvhp9XgiMnaVf7cleVzFk5WIYGScslfWoH8nsklfnySiIASSMknc+I+GNJsxLySZWlzElaJOlWIOKvJW2S1DUFl5LyxDlJFZIOS3qfkPR3SeckLUtLvPXxSfL5oDMwAXO7NxazdeiPuZH7htmmv8Jk6m8DN4GvIRoOJaDD8K9f5MbiNzBCcvDv9wyDAAAAAElFTkSuQmCC"
+                                                alt="linkedin" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://www.youtube.com/channel/UCkd_swrFk9vN81s9SQ3fKgg">
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF8WlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTAzLTIxVDExOjQ1OjEyKzA3OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOC0wNC0xM1QwNjo1MTo0NyswNzowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOC0wNC0xM1QwNjo1MTo0NyswNzowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDphY2E5YzRiNi04ZWY2LTRkZDEtYWFlOS0xNjFiZWMwMThjZjQiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDowNWQxYTkwNy0xMzNiLWNjNGUtOGE3Yy1hMjg5YTc1ODBjYzIiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMzE3Y2FlZS02YTdiLTQ1ZmItYjQwZS0yZjIxZDExMzI2NDgiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjAzMTdjYWVlLTZhN2ItNDVmYi1iNDBlLTJmMjFkMTEzMjY0OCIgc3RFdnQ6d2hlbj0iMjAxOC0wMy0yMVQxMTo0NToxMiswNzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDphY2E5YzRiNi04ZWY2LTRkZDEtYWFlOS0xNjFiZWMwMThjZjQiIHN0RXZ0OndoZW49IjIwMTgtMDQtMTNUMDY6NTE6NDcrMDc6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4uk5HpAAAFB0lEQVRogdWaW2xVRRSGv8Pp1bYUFGrRECQ1pioSjQghtkL7oAHjgxEsGvTBGF+MiReM8UEfjMQYMT6gErwlSlATY0hUkpoqXkBDRWJ4qpKoRbzVplIopRdKfx/WnHZ3u/fZl3MOhD/Z6Z7JzJr/nzOzZs3azUjifMasc02gUJSVyG4VMBuoAcaAIeAkUPSfuxgCssCNQDvQAjQDlwa0GwR+Ar4D9gCfYaIKg6S0z0JJz0v6Q+kwLGmHpBUFcEgloEHSdknjKYkHoUvStaUWkJF0n6RjRSTuxRlJL0mqKoWAGkk7S0Tcjx8kNcUVkFH0OXARsBtYUfCGi49+YA1wMKphlIC5wFfANcXhlQhDQBsRIvIJqMRcXUtxeSVCP7AS+DmsQb6TeAvR5I8BjwN7XXkX8CQwGZ9jXswHPsAOxmCEbI5bE2y6xZI2uPflktoL2sLB2KIEXugCSb8mML5J0jyZey2TtM3V90raL2nMlUcknXDvg5JGE4wxIWlpXAFPJDAsSd2u39OSspL6JL0sOzcykq6UNCTpYUnNrk+tbFaToDNIgH8PVAOPJlyny4FFwItAK9AAvAOsBb4HeoBvEtoMwi3AMn+lX8A6RyAp7gCGgfWuPAnUAfWuPJHCZhAe9Ff4Bdyb0vBK9/fqlP3jYh0Wok/BK6AeC4nTIJOWUULUAqu9FV4BrRTvhlYN9GHrP1cGOA7sBEYKsD1jkr2EbyjAaBk2O1lX3gR0A7cBq7AD8SpM1KfAhUB5yrFm8PSGEu8DHSmNBmEEm/FGT91p0hPP4R/g4lzBe6VcWKBhP6qZXjo5FEoezEtWAaMwU0BdSoNjwJ/AADbjJ7HZP4250wxGvBLzIPXYEmrELv5pUEeAgMoEBo4DjwGfA0dIn22Yj90zNgNLE/SbCu68AoYTGNgKvJmgfRj6gU+AU9hkxMVUNsMrYDCBgS+wZbHNV78VOOSrux9bSm/lsbeP+Bt8ErvsADPd6C8xOudwGFvbVZiLvNO9B50jq4GbIuyNJxi/F09o4h2w539NgyHgbzfoRqAT28QbsZvTBsz7rAGucH0qgHuAJa7cAjyFnRE5/BVz/B+9Ba+AfTENnCI8OLsEeA/zNC8AN7v6VVggtgu4DluCy7AM3eWuzWDM8fd6C14BB4ETMQyMxhzIiy7siroAuB74F7jdjd/s2sQNL/Z4C14BE8CHMQwUI15qwJbgGaZdcDa8+RR6sTtGKJm3YxipiW4SiT7MA17G9IzWxui3A1/CwC/ga6KTSRVEn9qLgXmecjnTLnIc81h1wFEsCsbXPgijwCv+Sr8AAc9EGILwuGnAEXyDmTPVhl0zD2DR6Ah2iB0B9rs2iyLG3I79cj7GwUnczogL9t2e9llZNiJXnuOpm+Xes5LqPO1qJC3RdCK3MWK8Pklzgy71YXmhJlkmIQwfh/RL+zwSIaAjrG++1OJdwLt5ftJDmD8/DPzuloQ3Gh3DPFsW2zfVmAOYja33BUATFsy1E+7dXgceCGURMTObI2am1PhSEd8LogRkJL161mkbDkiqj+AX6wNHRtKzZ5e7umSbPpJfko3WoencZinxnKTyuLySeovFknaXiHiPpLaEfFJ9pcxIWivLPBcDRyU9JKkiBZeCvhNnJLVIek3SQELSY5I+krQ+LfHcE+cjXxxksUt5KxYeNwFzsABtFAvTf8O+1HcD31JYdm4KxRJwznDe/7fKf99HODVpfvV2AAAAAElFTkSuQmCC"
+                                                alt="youtube" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    {% elif imgsrc_contentid %}
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://www.facebook.com/immap.org/">
+                                            <img src="cid:icon_facebook.png" alt="facebook" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://twitter.com/immaper?lang=en">
+                                            <img src="cid:icon_twitter.png" alt="twitter" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://www.linkedin.com/company/527383/">
+                                            <img src="cid:icon_linkedin.png" alt="linkedin" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    <td style="padding: 0 10px;">
+                                        <a href="https://www.youtube.com/channel/UCkd_swrFk9vN81s9SQ3fKgg">
+                                            <img src="cid:icon_youtube.png" alt="youtube" width="32" height="32" border="0" />
+                                        </a>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top" style="padding: 0; font-family: Open Sans, Helvetica, Arial, sans-serif; color: #ffffff;">
+                            <p style="font-size: 11px; line-height: 20px;">
+                                <!-- <a href="#" style="color: #ffffff;" target="_blank">View Online</a>
+                            &nbsp; &bull; &nbsp; -->
+                                <a href="#" style="color: #ffffff;" target="_blank">Unsubscribe</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+            </td>
+        </tr>
+        <tr>
+            <td align="center" height="100%" valign="top" width="100%" bgcolor="#f6f6f6" style="padding: 20px 15px 40px 15px;">
+                <!--[if (gte mso 9)|(IE)]>
+                <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                <td align="center" valign="top" width="600">
+                <![endif]-->
+                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;">
+                    <tr>
+                        <td align="center" valign="top" style="font-family: Arial,Helvetica,sans-serif; font-size:11px; line-height: 16px; text-align:justify; color: #999999;">
+                            <p>
+                                PLEASE DO NOT REPLY TO THIS MESSAGE.
+                            </p>
+                            <p>
+                                DATA DISCLAIMER: The Afghanistan Spatial Data Center Data/Maps were created by the iMMAP DRR program. A degree of error is
+                                inherent in all datasets, especially modelled maps and maps of dynamic events such as flooding,
+                                earthquakes. Accordingly, the information is distributed "AS-IS" without warranties of any
+                                kind, either express or implied. iMMAP shall not accept any liability or warranties for damages
+                                incurring from the use of this data, including but not limited to warranties of suitability
+                                to a particular purpose or use. No attempt has been made in either the design or production
+                                of the data to define the limits or jurisdiction of any federal, state, or local government.
+                            </p>
+                            <p>
+                                LIMITATION OF WARRANTIES AND LIABILITY: The information, maps and documentation is provided "AS IS" without any other warranties
+                                or conditions, express or implied, including, but not limited to, warranties for product
+                                quality, or suitability to a particular purpose or use. The risk or liability resulting from
+                                the use of this product rests solely on the user. iMMAP accepts no liability for any direct,
+                                incidental, special, consequential or any other damages whatsoever, including, but not limited
+                                to, loss of revenue or profit, lost or damaged data, or other commercial or economic loss.
+                                iMMAP shall not be responsible for claims by third parties. The data, boundaries and names
+                                and the designations used on this map do not imply official endorsement or acceptance by
+                                iMMAP or USAID/OFDA.
+                            </p>
+                            <p>
+                                Though all efforts have been made to ensure the accuracy of the data and maps, the same should not be construed as a statement
+                                of law or used for any legal purposes. iMMAP accepts no responsibility in relation to the
+                                accuracy, completeness, usefulness or otherwise, of the content. Users are advised to verify/check
+                                any information with the relevant Government Department(s) and/or other source(s), and to
+                                obtain any appropriate professional advice before acting on the information provided.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if (gte mso 9)|(IE)]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

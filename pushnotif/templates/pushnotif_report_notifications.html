@@ -1,0 +1,706 @@
+{% extends "v2/site_base.html" %} 
+{% load i18n %} 
+{% block title %} {% trans "Notifications List - Push Notifications Report" %} — {{ block.super }} {% endblock %} 
+{% block head %} {{ block.super }}
+<!-- angular data table -->
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Swimlane/angular-data-table/gh-pages/lib/dataTable.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Swimlane/angular-data-table/gh-pages/lib/material.css">
+<link rel="stylesheet" type="text/css" href="https://fontastic.s3.amazonaws.com/Jnf54BZCm7mSjGCxNRbfp3/icons.css">
+<style>
+  .panel-primary>.panel-heading {
+    background-color: #a61101;
+  }
+
+  .modal .modal-header {
+    padding: 15px;
+  }
+
+  .modal .modal-header>h4 {
+    color: inherit;
+  }
+
+  /*angular data table*/
+
+  body {
+    font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    letter-spacing: 0.01rem;
+    color: #212121;
+    background-color: #f5f5f5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  #dtmain.dt {
+    /*width: 75%;*/
+    height: 370px;
+    /*10 row per page*/
+  }
+
+  .dt {
+    /*width: 75%;*/
+    margin: 10px auto 25px;
+  }
+
+  .dt-cell,
+  .dt-header-cell {
+    vertical-align: top;
+    overflow: hidden;
+    white-space: normal !important;
+    line-height: 1.4 !important;
+    display: block;
+    display: -webkit-box;
+    /*-webkit-line-clamp: 3;*/
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* override default rule using equal css selector but declared later */
+
+  .dt .dt-cell,
+  .dt .dt-header-cell {
+    -webkit-user-select: initial;
+    user-select: initial;
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  #dt-rowdetail .btn {
+    -webkit-border-radius: 0;
+    border-radius: 3px;
+    border: 1px solid #ccc
+  }
+
+  #dt-rowdetail div.dt-cell:nth-child(2) {
+    max-height: 100px;
+    overflow-y: auto;
+  }
+
+  .modal .msg {
+    word-wrap: break-word;
+  }
+  .pop-body-title {
+    font-weight: bolder;
+  }
+</style>
+{% endblock head %} {% block body_class %}push-notification-report{% endblock %} {% block body_extra_attr %}{{ block.super
+}} ng-app="app" {% endblock %} {% block body_outer %}
+
+<div id="modalApprovalResult" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content panel-primary">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">{% trans "Info" %}</h4>
+      </div>
+      <div class="modal-body">
+        <p class="msg" ng-bind-html="approvalResultMessage">
+          {% comment %} {% verbatim %}{{ approvalResultMessage }}{% endverbatim %} {% endcomment %}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn" id="btnConfirmChangeSettings" data-dismiss="modal">Yes</button> -->
+        <button type="button" class="btn btn-primary btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Title -->
+<section class="title">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>{% trans "Push Notification Report" %}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+{% include "pushnotif_report_links.html" %}
+
+<!-- Body -->
+<section id="datatablesection" class="container" ng-app="app">
+  <h3>{% trans "Notifications List" %}</h3>
+  <p>{% blocktrans %}List of notification emails sent or canceled. Data compiled from <a href="{{emaillist_json_url}}">emaillist.json</a> file. When size over {{ emaillist_json_max_megabyte }} MB file is archived and reset new.{% endblocktrans %}</p>
+  <div id="data-table-controller" ng-controller="data-table-controller">
+    <dtable id="dtmain" options="options" rows="data" class="material" on-row-click="onRowClick(row)" on-page="paging(offset, size)"
+      on-select="onSelect(row)" selected="selected"></dtable>
+    <!-- <div class="selected-box">
+      <h5>Selected list</h5>
+      <code>{% verbatim %}{{selected}}{% endverbatim %}</code>
+      <code>{% verbatim %}{{datadetail}}{% endverbatim %}</code>
+    </div> -->
+    <h5>{% trans "Row Detail" %}</h5>
+    <dtable id="dt-rowdetail" options="optionsdetail" rows="datadetail" class="material"></dtable>
+  </div>
+  <!-- <div ng-controller="data-table-detail-controller">
+  </div> -->
+</section>
+{% endblock %} {% block extra_script %} {{ block.super }}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular-sanitize.min.js"></script>
+<script src="https://swimlane.github.io/angular-data-table/lib/dataTable.helpers.js"></script>
+<script>
+
+  var rawdata = {};
+  var eventtypenames = {{ eventtypenames| safe }};
+  var key_separator = '{{ key_separator }}';
+  var sub_key_separator = '{{ sub_key_separator }}';
+  var spinner_html = '<i class="fa fa-spinner fa-spin fa-1x fa-fw" style="margin-left: 4px;"></i>';
+  var sendstatuses = { 'send': 'sending', 'cancel': 'cancelling' };
+  // var subsid_prefix = '{{ subsid_prefix }}';
+
+  // timeout for fetch
+  function timeout(ms, promise) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject(new Error("timeout"))
+      }, ms)
+      promise.then(resolve, reject)
+    })
+  }
+
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  function updateUrlParameter(url, param, value) {
+    var regex = new RegExp('([?|&]' + param + '=)[^\&]+');
+    return url.replace(regex, '$1' + value);
+  }
+
+  function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+      param,
+      params_arr = [],
+      queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+      params_arr = queryString.split("&");
+      for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+        param = params_arr[i].split("=")[0];
+        if (param === key) {
+          params_arr.splice(i, 1);
+        }
+      }
+      rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+  }
+
+  String.prototype.titleCase = function () {
+    return this.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+  }
+
+  if (!String.prototype.format) {
+    String.prototype.format = function () {
+      var args = arguments;
+      return this.replace(/{(\d+)}/g, function (match, number) {
+        return typeof args[number] != 'undefined'
+          ? args[number]
+          : match
+          ;
+      });
+    };
+  }
+
+  function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+
+    // Change this to div.childNodes to support multiple top-level nodes
+    return div.firstChild;
+  }
+
+  // function notif_action(actiontype, event, options) {
+  //   function fetch_then_update_sent_info(url) {
+  //     fetch(url, myInit)
+  //       .then(function (response) {
+  //         if (response.ok) {
+  //           response.json().then(function (response) {
+  //             if ((response['sent_on']) || (response['canceled_on'])) {
+  //               var action_time_name = options['action_time_name'];
+  //               if (response[action_time_name]) {
+  //                 // var parent = elm.parentElement;
+  //                 // parent.innerHTML = response[options['action_time_name']];
+  //                 // parent.closest('.dt-body').querySelectorAll('.btn.notif-action').forEach(function (btn) {btn.remove();});
+  //                 if (notifid == $scope.datadetail[0]['value']) {
+  //                   $scope.datadetail[5]['value'] = '';
+  //                   $scope.datadetail[6]['value'] = '';
+  //                   $scope.datadetail[rowidx]['value'] = response[action_time_name];
+  //                 }
+  //                 $scope.data.map(function (row) {
+  //                   // updatedata(row, key, action_time_name, $scope.datadetail[rowidx]['value']);
+  //                   if (row['id'] == key) {
+  //                     row[action_time_name] = response[action_time_name];
+  //                     delete row['sendstatus'];
+  //                   }
+  //                 })
+  //               }
+  //               else {
+  //                 // elm.removeAttribute('disabled');
+  //                 // elm.closest('.dt-body').querySelectorAll('.btn.notif-action').forEach(function (btn) {btn.removeAttribute('disabled');});
+  //                 // var garbage = elm.removeChild(elm.querySelector(".fa-spinner")); // This first call remove correctly the node
+  //                 if (notifid == $scope.datadetail[0]['value']) {
+  //                   $scope.datadetail[5]['value'] = make_send_button(key);
+  //                   $scope.datadetail[6]['value'] = make_cancel_button(key);
+  //                 }
+  //               }
+  //               $scope.$apply();
+  //               clearInterval(intervalid);
+  //             };
+  //           });
+  //         }
+  //       });
+  //   }
+
+  //   var elm = event.target;
+  //   var key = elm.dataset.id;
+  //   // angular.element('#mycontroller').scope().myfunction();
+  //   var $scope = angular.element($('[ng-controller]')).scope();
+  //   var notifid = $scope.datadetail[0]['value'];
+  //   var rowidx = { 'send': 5, 'cancel': 6 }[actiontype];
+  //   // if (actiontype == 'send') {
+  //   //   var rowidx = 5;
+  //   // }
+  //   // else if (actiontype == 'cancel') {
+  //   //   var rowidx = 6;
+  //   // }
+  //   // else return;
+  //   $scope.datadetail[5]['value'] = make_send_button(key, true);
+  //   $scope.datadetail[6]['value'] = make_cancel_button(key, true);
+  //   $scope.datadetail[rowidx]['value'] += spinner_html;
+  //   $scope.data.map(function (row) {
+  //     if (row['id'] == key) {
+  //       if (actiontype in sendstatuses) {
+  //         row['sendstatus'] = sendstatuses[actiontype];
+  //       }
+  //     }
+  //   })
+  //   $scope.$apply();
+  //   // return;
+  //   // elm.appendChild(createElementFromHTML('<i class="fa fa-spinner fa-spin fa-1x fa-fw" style="margin-left: 4px;"></i>'));
+  //   // elm.setAttribute('disabled', 'disabled');
+  //   // elm.closest('.dt-body').querySelectorAll('.btn.notif-action').forEach(function (btn) {btn.setAttribute('disabled', 'disabled');});
+
+  //   var myHeaders = new Headers();
+  //   myHeaders.append("Accept", "application/json");
+
+  //   var myInit = {
+  //     method: 'GET',
+  //     headers: myHeaders,
+  //     mode: 'cors',
+  //     credentials: 'include',
+  //     cache: 'default'
+  //   };
+
+  //   // check sent/canceled status every intervaltime milliseconds
+  //   var intervaltime = 60 * 1000;
+  //   var intervalid = setInterval(function () {
+  //     var url = '/pushnotif/sendstatus/{0}/'.format(key)
+  //     fetch_then_update_sent_info(url);
+  //   }, intervaltime);
+
+  //   var url = options['url_tpl'].format(key);
+  //   fetch_then_update_sent_info(url);
+
+  // }
+
+  // function notif_send(event) {
+  //   notif_action('send', event, {'url_tpl': '/pushnotif/adminapproval/{0}/approve/', 'action_time_name': 'sent_on'})
+  // }
+
+  // function notif_cancel(event) {
+  //   notif_action('cancel', event, {'url_tpl': '/pushnotif/adminapproval/{0}/cancel/', 'action_time_name': 'canceled_on'})
+  // }
+
+  // function make_send_button(key, disabled) {
+  //   var attr_disabled = disabled ? 'disabled="{0}"'.format('disabled') : '';
+  //   return '<button onclick="notif_send(event)" data-id="{0}" ng-click="send_notif($event, row)" type="button" class="btn btn-default btn-xs notif-action" title="send this notification" {2}>Send</button>'.format(key, '/pushnotif/adminapproval/'+key+'/approve/', attr_disabled);
+  // }
+
+  // function make_cancel_button(key, disabled) {
+  //   var attr_disabled = disabled ? 'disabled="{0}"'.format('disabled') : '';
+  //   return '<button onclick="notif_cancel(event)" data-id="{0}" ng-click="cancel_notif($event, row)" type="button" class="btn btn-default btn-xs notif-action" title="cancel this notification" {2}>Cancel</button>'.format(key, '/pushnotif/adminapproval/'+key+'/cancel/', attr_disabled);
+  // }
+
+  var module = angular.module('app', ['data-table', 'ngSanitize']);
+
+  module.controller('data-table-controller', function ($scope, $rootScope, $http, $compile, $timeout, $interpolate) {
+
+    $scope.msgs = {};
+
+    $scope.options = {
+      // rowHeight: 50,
+      // headerHeight: 50,
+      footerHeight: 50,
+      selectable: true,
+      // multiSelect: true,
+      columns: [{
+        name: "Date",
+        // prop: "date"
+        width: 180
+      }, {
+        name: "Event",
+        // prop: "event"
+        width: 250
+      }, {
+        name: "Area",
+        // prop: "area"
+        width: 200
+      }, {
+        name: "Language",
+        // prop: "area"
+        width: 100
+      }, {
+        name: "Sent On",
+        prop: "sent_on",
+        width: 200
+      }, {
+        name: "Canceled On",
+        prop: "canceled_on",
+        width: 200
+      }],
+      // columnMode: 'force',
+      paging: {
+        externalPaging: true,
+        size: 10
+      }
+    };
+
+    $scope.optionsdetail = {
+      rowHeight: 100,
+      // headerHeight: 50,
+      footerHeight: false,
+      scrollbarV: false,
+      selectable: false,
+      loadingMessage: 'Click one from the notifications list to show its detail.',
+      // rowHeight: 50,
+      // headerHeight: 50,
+      // footerHeight: 50,
+      columns: [{
+        name: "Property",
+        width: 300
+        // prop: "date"
+      }, {
+        name: "Value",
+        width: 800
+        // prop: "event"
+      }],
+      // columnMode: 'force'
+    };
+
+    $scope.selected = [];
+   
+
+    /////////////////////////////////////////////////////////
+    $scope.make_cancel_button = function (row, key, disabled) {
+      var attr_disabled = disabled ? 'disabled="disabled"' : '';
+      $scope.row = row;
+      var $cancel = $('<button data-id="'+row['id']+'" ' +
+        'ng-click="cancel_notif(row, $event)" ' +
+        'type="button" class="btn btn-warning btn-xs notif-action" title="cancel this notification" '+attr_disabled+'>' +
+        '<i class="glyphicon glyphicon-remove-circle"></i> Cancel</button>');
+
+      var el = angular.element('#buttoncancel');
+      el.empty();
+
+      var compiled = $compile($cancel)($scope);
+
+      $timeout(function() { 
+        angular.element('#buttoncancel').append(compiled);
+      });
+      return '';
+    }
+
+    $scope.make_send_button = function (row, key, disabled) {
+      var attr_disabled = disabled ? 'disabled="disabled"' : '';
+      $scope.row = row;
+      var $cancel = $('<button data-id="'+row['id']+'" ' +
+        'ng-click="send_notif(row, $event)" ' +
+        'type="button" class="btn btn-success btn-xs notif-action" title="send this notification" '+attr_disabled+'>' +
+        '<i class="glyphicon glyphicon-send"></i> Send</button>');
+
+      var el = angular.element('#buttonsend');
+      el.empty();
+
+      var compiled = $compile($cancel)($scope);
+
+      $timeout(function() { 
+        angular.element('#buttonsend').append(compiled);
+      });
+      return '';
+    }
+
+    $scope.cancel_notif = function (row, $event) {
+      var urltpl = {'url_tpl': '/pushnotif/adminapproval/{0}/cancel/', 'action_time_name': 'canceled_on'};
+      $scope.action_notif('cancel', $event, urltpl, row);
+    }
+
+    $scope.send_notif = function (row, $event) {
+      var urltpl = {'url_tpl': '/pushnotif/adminapproval/{0}/approve/', 'action_time_name': 'sent_on'};
+      $scope.action_notif('send', $event, urltpl, row);
+    }
+
+    $scope.action_notif = function (actiontype, action, options, row) {
+      function fetch_then_update_sent_info(url) {
+        $http.get(url, myInit).then(function (response) {
+          if (response.statusText == 'OK') {
+            if ((response.data['sent_on']) || (response.data['canceled_on'])) {
+              if (response.data[action_time_name]) {
+                if (row['id'] == $scope.datadetail[0]['value']) {
+                  $scope.datadetail[5]['value'] = '';
+                  $scope.datadetail[6]['value'] = '';
+                  var iconstatus = '';
+                  if(response.data['sent_on']) {
+                    iconstatus = '<i class="glyphicon glyphicon-ok-circle"></i> ';
+                  }
+                  else if(response.data['canceled_on']) {
+                    iconstatus = '<i class="glyphicon glyphicon-remove-circle"></i> ';
+                  }
+                  $scope.datadetail[rowidx]['value'] = iconstatus+response.data[action_time_name];
+                }
+                if (row['id'] == key) {
+                  row[action_time_name] = response.data[action_time_name];
+                  delete row['sendstatus'];
+                }
+              } else {
+                if (key == $scope.datadetail[0]['value']) {
+                  $scope.datadetail[5]['value'] = '<div id="buttonsend"></div>'+$scope.make_send_button(row, key);
+                  $scope.datadetail[6]['value'] = '<div id="buttoncancel"></div>' + $scope.make_cancel_button(row, key);
+                }
+              }
+              row.action_time_name = row[action_time_name];
+              clearInterval(intervalid);
+            };
+          }
+        })
+      }
+
+      var action_time_name = options['action_time_name'];
+      var elm = event.target;
+      var key = elm.dataset.id;
+      var rowidx = { 'send': 5, 'cancel': 6 }[actiontype];
+      //if (actiontype == 'send') {
+      //  var rowidx = 5;
+      //} else if (actiontype == 'cancel') {
+      //  var rowidx = 6;
+      //}
+      
+      $scope.datadetail[rowidx]['value'] = spinner_html;
+      if (row['id'] == key) {
+        if (actiontype in sendstatuses) {
+          row['sendstatus'] = sendstatuses[actiontype];
+        }
+      }
+      
+      var myHeaders = new Headers();
+      myHeaders.append("Accept", "application/json");
+      var myInit = {
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        credentials: 'include',
+        cache: 'default'
+      };
+      
+      var url = options['url_tpl'].format(key);
+      fetch_then_update_sent_info(url);
+
+      var intervaltime = 60 * 1000;
+      var intervalid = setInterval(function () {
+        var url = '/pushnotif/sendstatus/{0}/'.format(key)
+        fetch_then_update_sent_info(url);
+      }, intervaltime);
+    }
+    /////////////////////////////////////////////////////////
+
+    $scope.onRowClick = function (row, scope) {
+      // console.log(row);
+      var key = row['id'];
+      var r = rawdata[key];
+      var tempfiles = [];
+      for (var lang in r['emaildata']) {
+        for (var idx in r['emaildata'][lang]['files']) {
+          // tempfiles.push('<a class="btn btn-primary btn-xs" href="/pushnotif/tmp/{0}" target="_blank"><i class="glyphicon glyphicon-file"></i> {0}</a>'.format(r['emaildata'][lang]['files'][idx]));
+          tempfiles.push('<a href="/pushnotif/tmp/{0}" target="_blank" onclick="window.open(\'/pushnotif/tmp/{0}\',\'_blank\')"><i class="glyphicon glyphicon-file"></i> {0}</a>'.format(r['emaildata'][lang]['files'][idx]));
+        }
+      }
+
+      var emailrecipients = [];
+      for (var lang in r['emaildata']) {
+        for (var idx in r['emaildata'][lang]['recipients']) {
+          emailrecipients.push('<span class="label label-info"><i class="glyphicon glyphicon-envelope"></i> {0}</span>'.format(r['emaildata'][lang]['recipients'][idx]));
+        }
+      }
+
+      var totrecipients = r['emaildata'][lang]['recipients'].length;
+      
+      var disabled = ['sending', 'cancelling'].indexOf(row['sendstatus']) >= 0;
+      var addspinner_send = (row['sendstatus'] == 'sending') ? spinner_html : '';
+      var addspinner_cancel = (row['sendstatus'] == 'cancelling') ? spinner_html : '';
+
+      $scope.datadetail = [
+        { 'property': 'id', 'value': row['id'] },
+        { 'property': 'date', 'value': row['date'] },
+        { 'property': 'event type', 'value': row['event'] },
+        { 'property': 'area', 'value': row['area'] },
+        { 'property': 'language', 'value': row['language'] },
+        {
+          'property': 'sent on', 'value': (function() {
+            return (
+              (
+                row['sent_on'] == undefined ?
+                  (
+                    row['canceled_on'] ?
+                      row['sent_on'] :
+                      (
+                        addspinner_send ||
+                        '<div id="buttonsend"></div>' + $scope.make_send_button(row, key, disabled)
+                      )
+                  ) :
+                  '<i class="glyphicon glyphicon-ok-circle"></i> ' + row['sent_on']
+              )
+            );
+          }())
+        },
+        {
+          'property': 'canceled on', 'value': (function() {
+            return (
+              (!row['sent_on'] && !row['canceled_on']) ?
+                (
+                  addspinner_cancel ||
+                  '<div id="buttoncancel"></div>' + $scope.make_cancel_button(row, key, disabled)
+                ) :
+                (
+                  row['canceled_on'] == undefined ?
+                    '' :
+                    '<i class="glyphicon glyphicon-remove-circle"></i> ' + row['canceled_on']
+                )
+            );
+          }())
+        },
+        { 'property': 'admin action by', 'value': row['admin_action_by'] },
+        { 'property': 'recipients <span class="badge">'+totrecipients+'</span>', 'value': emailrecipients.join(' ') },
+        // { 'property': 'recipients', 'value': r['emaildata'][lang]['recipients'].join(', ') },
+        // { 'property': 'temp files', 'value': '<a href="http://google.com">tes</a>' },
+        { 'property': 'temp files', 'value': tempfiles.join('<br/>') },
+        { 'property': 'title', 'value': r['emaildata'][lang]['title'] },
+        { 'property': 'earthquake id', 'value': row['earthquake_id'] },
+        { 'property': 'errors', 'value': [].concat(row['errors']).join(', ') },
+      ];
+    }
+
+    $scope.checkpopapproval = function () {
+      var patharray = window.location.pathname.split('/');
+      var pop_idx = patharray.findIndex(function (e) { return e == 'popapproval' });
+      if (pop_idx >= 0) {
+        var emailid = patharray[pop_idx + 1];
+        $rootScope.approvalResultMessage = {% blocktrans %}'<p class="pop-body-title">Notification not found</p>Notification email with id: ' + emailid + ' is not found in current emaillist.json.'{% endblocktrans %}; 
+        $scope.datasource.forEach(function (e) {
+          // console.log(e);
+          if (e['id'] == emailid) {
+            if (e['sent_on']) {
+              $rootScope.approvalResultMessage = {% blocktrans %}'<p class="pop-body-title">Notification sent</p>Notification email with id: ' + emailid + ' is sent on ' + e['sent_on']{% endblocktrans %};
+              console.log('$rootScope.approvalResultMessage', $rootScope.approvalResultMessage);
+            }
+            else if (e['canceled_on']) {
+              $rootScope.approvalResultMessage = {% blocktrans %}'<p class="pop-body-title">Notification canceled</p>Notification email with id: ' + emailid + ' is canceled on ' + e['canceled_on']{% endblocktrans %};
+            }
+            else if (e['sendstatus']) {
+              $rootScope.approvalResultMessage = {% blocktrans %}'<p class="pop-body-title">Notification in process</p>Notification email with id: ' + emailid + ' is in the process of ' + e['sendstatus']{% endblocktrans %};
+            }
+            else {
+              $rootScope.approvalResultMessage = {% blocktrans %}'<p class="pop-body-title">Notification available for send or cancel</p>Notification email with id: ' + emailid + ' available for send or cancel.'{% endblocktrans %};
+            }
+            // $scope.$apply();
+          }
+        });
+        $('#modalApprovalResult').modal('show');
+      }
+    }
+
+    $scope.paging = function (offset, size) {
+
+      // console.log('scope.paging function');
+      function mainPaging(offset, size) {
+        var set = $scope.datasource.slice(offset * size, offset * size + size);
+        // console.log('set', set);
+        set.forEach(function (r, i) {
+          var idx = i + (offset * size);
+          // console.log('idx, r', idx, r);
+          $scope.data[idx] = r;
+        });
+      }
+
+      // console.log('paging!', offset, size);
+      if (!$scope.data) {
+        $http.get('/pushnotif/emaillist.json?timestamp='+Date.now()).success(function (d) {
+          rawdata = d;
+          // console.log(d);
+          $scope.datasource = [];
+          for (var key in d) {
+            var keyparts = key.split(key_separator);
+            var row = {};
+            dp = keyparts[0].match(/.{1,2}/g); // dateparts
+            row['id'] = key;
+            row['date'] = [dp[0] + dp[1], dp[2], dp[3]].join('-') + ' ' + dp.slice(4, 7).join(':');
+            row['event'] = eventtypenames[keyparts[1]];
+            row['area'] = keyparts[2].split(sub_key_separator).join(' ').titleCase();
+            if ('earthquake_id' in d[key]) row['earthquake_id'] = d[key]['earthquakeid'];
+            row['language'] = Object.keys(d[key]['emaildata']).join(' ');
+            // for (lang in d[key]['emaildata']) {
+            // }
+            // var send_link = '<a target="_blank" href="{0}">send</a>'.format('/pushnotif/adminapproval/'+key+'/approve/');
+            // var cancel_link = '<a target="_blank" href="{0}">cancel</a>'.format('/pushnotif/adminapproval/'+key+'/cancel/');
+            // var send_button = '<button onclick="console.log(row)" ng-click="send_notif($event, row)" type="button" class="btn btn-default btn-xs">Send</button>'.format('/pushnotif/adminapproval/'+key+'/approve/');
+            // var send_button_elm = $compile(send_button)($scope);
+            // var cancel_button = '<button ng-click="cancel_notif($event, row)" type="button" class="btn btn-default btn-xs">Cancel</button>'.format('/pushnotif/adminapproval/'+key+'/cancel/');
+            if ('sent_on' in d[key]) row['sent_on'] = d[key]['sent_on'];
+            if ('canceled_on' in d[key]) row['canceled_on'] = d[key]['canceled_on'];
+            if ('admin_action_by' in d[key]) row['admin_action_by'] = d[key]['admin_action_by'];
+            if ('sendstatus' in d[key]) row['sendstatus'] = d[key]['sendstatus'];
+            $scope.datasource.push(row);
+          };
+          $scope.checkpopapproval();
+          $scope.datasource.sort(function (a, b) {
+            if (a.id < b.id) {
+              return 1;
+            }
+            if (a.id > b.id) {
+              return -1;
+            }
+            return 0;
+          });
+          $scope.options.paging.count = $scope.datasource.length;
+          $scope.data = [];
+          mainPaging(offset, size);
+        });
+      }
+      else mainPaging(offset, size);
+    };
+  }).config(['$httpProvider', function ($httpProvider) {
+    // integrate django csrf-token to angular ajax request
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+  }]);
+
+
+  document.addEventListener("DOMContentLoaded", function (event) {
+  });
+
+</script> {% endblock extra_script %}

@@ -1,0 +1,14 @@
+# keep msgstr in manualentry.po empty, put translation in merged po
+# manualentry.po serve as reference pot
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Province"
+msgstr ""
+
+msgid "National"
+msgstr ""
+
+msgid "Afghanistan"
+msgstr ""

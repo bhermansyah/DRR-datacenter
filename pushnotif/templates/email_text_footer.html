@@ -1,0 +1,23 @@
+{% load i18n %}
+<p style="font-family: Arial,Helvetica,sans-serif; font-size:11px; line-height: 16px; text-decoration:none; color:#474b53; text-align:left; margin: 0; padding: 0;">
+    {% blocktrans %}Note:{% endblocktrans %}
+</p>
+<ul style="font-family: Arial,Helvetica,sans-serif; font-size:11px; line-height: 16px; text-decoration:none; color:#474b53; text-align:left; padding-left: 15px;">
+    {% if eventtypeid == 'earthquake_shakemap' %}
+    <li>{% blocktrans %}USGS Shakemaps indicate areas which have shook most at the surface, this is based on modeled information
+        using only large regional fault lines.{% endblocktrans %}</li>
+    <li>{% blocktrans %}Generally, more shaking at the surface has the potential to create more damage, however construction
+        methods and soil conditions differ from region to region and therefore this data is only informative.{% endblocktrans %}</li>
+    <li>{% blocktrans %}This data is only informative.{% endblocktrans %}</li>
+    <li>{% blocktrans %}Please find in attachment maps and statistics from the ASDC related to this event.{% endblocktrans %}</li>
+    {% elif eventtypeid == 'earthquake_epicenter'%}
+    <li>{% blocktrans %}iMMAP uses data from the USGS Earthquake Hazards Program to create these estimates.{% endblocktrans %}</li>
+    <li>{% blocktrans %}Please find in attachment maps and statistics from the ASDC related to this event.{% endblocktrans %}</li>
+    {% else %}
+    <li>{% blocktrans %}The data is at present not calibrated there can be over/under estimations.{% endblocktrans %}</li>
+    <li>{% blocktrans %}This data is only informative.{% endblocktrans %}</li>
+    <li>{% blocktrans %}Please find in attachment maps and statistics from the ASDC related to this event.{% endblocktrans %}</li>
+    {% endif %}
+</ul>
+<br />
+<br />

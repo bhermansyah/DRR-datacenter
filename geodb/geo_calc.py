@@ -214,7 +214,7 @@ def getSecurity(request, filterLock, flag, code):
 
     data_main_type.append(['TYPE', 'incident', 'dead', 'violent', 'injured' ])
     for type_item in main_type_raw_data:
-        data_main_type.append([type_item['main_type'],type_item['count'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['injured'] ])
+        data_main_type.append([type_item['main_type'],type_item['count'], type_item['dead'], (type_item['violent'] or 0)+(type_item['affected'] or 0), type_item['injured'] ])
     response['main_type_chart'] = RadarChart(SimpleDataSource(data=data_main_type),
             html_id="pie_chart2",
             options={
@@ -289,7 +289,7 @@ def getSecurity(request, filterLock, flag, code):
     # })
     data_main_target.append(['Target', 'incident', 'dead', 'violent', 'injured' ])
     for type_item in main_target_raw_data:
-         data_main_target.append([type_item['main_target'],type_item['count'], type_item['dead'], type_item['violent']+type_item['affected'], type_item['injured'] ])
+         data_main_target.append([type_item['main_target'],type_item['count'], type_item['dead'], (type_item['violent'] or 0)+(type_item['affected'] or 0), type_item['injured'] ])
     response['main_target_chart'] = RadarChart(SimpleDataSource(data=data_main_target),
             html_id="pie_chart3",
             options={
@@ -342,11 +342,11 @@ def getSecurity(request, filterLock, flag, code):
 
     if 'incident_type' in request.GET:
         response['incident_type'] = request.GET['incident_type'].split(',')
-        print response['incident_type']
+        # print response['incident_type']
 
     if 'incident_target' in request.GET:
         response['incident_target'] = request.GET['incident_target'].split(',')
-        print response['incident_target']
+        # print response['incident_target']
 
     data = getListIncidentCasualties(request, daterange, rawFilterLock, flag, code)
     response['lc_child']=data
@@ -511,10 +511,10 @@ def getIncidentCasualties(request, daterange, filterLock, flag, code):
 
     return response
 
-def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
+def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[], eq_event=''):
 
     response = {}
-    eq_event = ''
+    # eq_event = ''
     if 'eq_event' in request.GET:
         eq_event = request.GET['eq_event']
 
@@ -532,7 +532,7 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
             response['Population']= tempData['Population']
             response['Area']= tempData['Area']
             response['Buildings']= tempData['total_buildings']
-            response['settlement']= tempData['settlements'] 
+            response['settlement']= tempData['settlements']
 
         url = 'http://asdc.immap.org/geoapi/geteqevents/?dateofevent__gte=2015-09-08&_dc=1473243793279'
         req = urllib2.Request(url)
@@ -575,7 +575,7 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
             response[i]=rawEarthquake[i]
 
         if 'pop_shake_weak' in response:
-            response['pop_shake_weak'] if response['pop_shake_weak']<response['Population'] else response['Population']    
+            response['pop_shake_weak'] if response['pop_shake_weak']<response['Population'] else response['Population']
         if 'pop_shake_light' in response:
             response['pop_shake_light'] if response['pop_shake_light']<response['Population'] else response['Population']
         if 'pop_shake_moderate' in response:
@@ -589,10 +589,10 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
         if 'pop_shake_violent' in response:
             response['pop_shake_violent'] if response['pop_shake_violent']<response['Population'] else response['Population']
         if 'pop_shake_extreme' in response:
-            response['pop_shake_extreme'] if response['pop_shake_extreme']<response['Population'] else response['Population']   
+            response['pop_shake_extreme'] if response['pop_shake_extreme']<response['Population'] else response['Population']
 
         if 'buildings_shake_weak' in response:
-            response['buildings_shake_weak'] if response['buildings_shake_weak']<response['Buildings'] else response['Buildings']    
+            response['buildings_shake_weak'] if response['buildings_shake_weak']<response['Buildings'] else response['Buildings']
         if 'buildings_shake_light' in response:
             response['buildings_shake_light'] if response['buildings_shake_light']<response['Buildings'] else response['Buildings']
         if 'buildings_shake_moderate' in response:
@@ -609,7 +609,7 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
             response['buildings_shake_extreme'] if response['buildings_shake_extreme']<response['Buildings'] else response['Buildings']
 
         if 'settlement_shake_weak' in response:
-            response['settlement_shake_weak'] if response['settlement_shake_weak']<response['settlement'] else response['settlement']    
+            response['settlement_shake_weak'] if response['settlement_shake_weak']<response['settlement'] else response['settlement']
         if 'settlement_shake_light' in response:
             response['settlement_shake_light'] if response['settlement_shake_light']<response['settlement'] else response['settlement']
         if 'settlement_shake_moderate' in response:
@@ -641,9 +641,9 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[]):
         response['total_eq_settlements'] = response['settlement_shake_weak']+response['settlement_shake_light']+response['settlement_shake_moderate']+response['settlement_shake_strong']+response['settlement_shake_verystrong']+response['settlement_shake_severe']+response['settlement_shake_violent']+response['settlement_shake_extreme']
         response['total_eq_buildings'] = response['buildings_shake_weak']+response['buildings_shake_light']+response['buildings_shake_moderate']+response['buildings_shake_strong']+response['buildings_shake_verystrong']+response['buildings_shake_severe']+response['buildings_shake_violent']+response['buildings_shake_extreme']
 
-        response['total_eq_pop'] = response['total_eq_pop'] if response['total_eq_pop'] < response['Population'] else response['Population'] 
-        response['total_eq_settlements'] = response['total_eq_settlements'] if response['total_eq_settlements'] < response['settlement'] else response['settlement'] 
-        response['total_eq_buildings'] = response['total_eq_buildings'] if response['total_eq_buildings'] < response['Buildings'] else response['Buildings'] 
+        response['total_eq_pop'] = response['total_eq_pop'] if response['total_eq_pop'] < response['Population'] else response['Population']
+        response['total_eq_settlements'] = response['total_eq_settlements'] if response['total_eq_settlements'] < response['settlement'] else response['settlement']
+        response['total_eq_buildings'] = response['total_eq_buildings'] if response['total_eq_buildings'] < response['Buildings'] else response['Buildings']
 
     if include_section('getListEQ', includes, excludes):
         data = getListEQ(filterLock, flag, code, eq_event)
@@ -1699,7 +1699,7 @@ def getAvalancheRisk(request, filterLock, flag, code):
         response['Population']= tempData['Population']
         response['Area']= tempData['Area']
         response['Buildings']= tempData['total_buildings']
-        response['settlement']= tempData['settlements'] 
+        response['settlement']= tempData['settlements']
 
 
     rawAvalancheRisk = getRawAvalancheRisk(filterLock, flag, code)
@@ -1767,7 +1767,7 @@ def getFloodRisk(request, filterLock, flag, code):
         response['Population']= tempData['Population']
         response['Area']= tempData['Area']
         response['Buildings']= tempData['total_buildings']
-        response['settlement']= tempData['settlements'] 
+        response['settlement']= tempData['settlements']
 
     rawBaseline = getRawBaseLine(filterLock, flag, code)
     rawFloodRisk = getRawFloodRisk(filterLock, flag, code)
@@ -2048,7 +2048,7 @@ def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
     # response['Population']= tempData['Population']
     # response['Area']= tempData['Area']
     # response['Buildings']= tempData['total_buildings']
-    # response['settlement']= tempData['settlements']   
+    # response['settlement']= tempData['settlements']
     if include_section('', includes, excludes):
         response.update(getBaseline(request, filterLock, flag, code, excludes=['getProvinceSummary', 'getProvinceAdditionalSummary'],
             inject={
@@ -2102,7 +2102,7 @@ def getShortCutData(flag, code):
             Sum('water_body_area'),Sum('barren_land_area'),Sum('built_up_area'),Sum('fruit_trees_area'),Sum('irrigated_agricultural_land_area'),Sum('permanent_snow_area'),Sum('rainfed_agricultural_land_area'),Sum('rangeland_area'),Sum('sandcover_area'),Sum('vineyards_area'),Sum('forest_area'), Sum('sand_dunes_area'), \
             Sum('settlements_at_risk'), Sum('settlements'), Sum('Population'), Sum('Area'), Sum('ava_forecast_low_pop'), Sum('ava_forecast_med_pop'), Sum('ava_forecast_high_pop'), Sum('total_ava_forecast_pop'),
             Sum('total_buildings'), Sum('total_risk_buildings'), Sum('high_ava_buildings'), Sum('med_ava_buildings'), Sum('total_ava_buildings') )
-    else:    
+    else:
         if len(str(code)) > 2:
             px = districtsummary.objects.filter(district=code).aggregate(Sum('high_ava_population'),Sum('med_ava_population'),Sum('low_ava_population'),Sum('total_ava_population'),Sum('high_ava_area'),Sum('med_ava_area'),Sum('low_ava_area'),Sum('total_ava_area'), \
                 Sum('high_risk_population'),Sum('med_risk_population'),Sum('low_risk_population'),Sum('total_risk_population'), Sum('high_risk_area'),Sum('med_risk_area'),Sum('low_risk_area'),Sum('total_risk_area'),  \
@@ -2121,7 +2121,7 @@ def getShortCutData(flag, code):
                 Sum('water_body_area'),Sum('barren_land_area'),Sum('built_up_area'),Sum('fruit_trees_area'),Sum('irrigated_agricultural_land_area'),Sum('permanent_snow_area'),Sum('rainfed_agricultural_land_area'),Sum('rangeland_area'),Sum('sandcover_area'),Sum('vineyards_area'),Sum('forest_area'), Sum('sand_dunes_area'), \
                 Sum('settlements_at_risk'), Sum('settlements'), Sum('Population'), Sum('Area'), Sum('ava_forecast_low_pop'), Sum('ava_forecast_med_pop'), Sum('ava_forecast_high_pop'), Sum('total_ava_forecast_pop'),
                 Sum('total_buildings'), Sum('total_risk_buildings'), Sum('high_ava_buildings'), Sum('med_ava_buildings'), Sum('total_ava_buildings') )
-    
+
     for p in px:
         response[p[:-5]] = px[p]
     return response
@@ -2140,13 +2140,13 @@ def getBaseline(request, filterLock, flag, code, includes=[], excludes=[], injec
             response['Population']= inject['Population']
             response['Area']= inject['Area']
             response['Buildings']= inject['total_buildings']
-            response['settlement']= inject['settlements'] 
-        else:    
+            response['settlement']= inject['settlements']
+        else:
             tempData = getShortCutData(flag,code)
             response['Population']= tempData['Population']
             response['Area']= tempData['Area']
             response['Buildings']= tempData['total_buildings']
-            response['settlement']= tempData['settlements']   
+            response['settlement']= tempData['settlements']
 
     response['hltfac']=getTotalHealthFacilities(filterLock, flag, code, AfgHltfac)
     response['roadnetwork']=getTotalRoadNetwork(filterLock, flag, code, AfgRdsl)
@@ -2425,7 +2425,7 @@ def getTotalBuildings(filterLock, flag, code, targetBase):
                 'ST_Within(wkb_geometry, '+filterLock+')'
             }).values('countbase')
 
-    return round(countsBase[0]['countbase'],0)
+    return round(countsBase[0]['countbase'] or 0,0)
 
 def getTotalPop(filterLock, flag, code, targetBase):
     # All population number
@@ -2473,7 +2473,7 @@ def getTotalPop(filterLock, flag, code, targetBase):
                 'ST_Within(wkb_geometry, '+filterLock+')'
             }).values('countbase')
 
-    return round(countsBase[0]['countbase'],0)
+    return round(countsBase[0]['countbase'] or 0,0)
 
 def getTotalArea(filterLock, flag, code, targetBase):
     if flag=='drawArea':
@@ -2521,7 +2521,7 @@ def getTotalArea(filterLock, flag, code, targetBase):
                 'ST_Within(wkb_geometry, '+filterLock+')'
             }).values('areabase')
 
-    return round(countsBase[0]['areabase']/1000000,0)
+    return round((countsBase[0]['areabase'] or 0)/1000000,0)
 
 def getTotalSettlement(filterLock, flag, code, targetBase):
     if flag=='drawArea':
@@ -3329,7 +3329,7 @@ def getLandslideRisk(request, filterLock, flag, code, includes=[], excludes=[]):
             response['Population']= tempData['Population']
             response['Area']= tempData['Area']
             response['Buildings']= tempData['total_buildings']
-            response['settlement']= tempData['settlements'] 
+            response['settlement']= tempData['settlements']
 
     if include_section('lc_child', includes, excludes):
         response['lc_child'] = getLandslideRiskChild(filterLock, flag, code)

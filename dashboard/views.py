@@ -118,8 +118,17 @@ def common(request):
 
 # Create your views here.
 def dashboard_detail(request):
-	# print request.GET['page']
+	v2_folder = ''
 	user_logo = avatar_print_url(request.user,200)
+
+	headerparam_dict = {p: request.GET.get(p, '') for p in ['hideuserinfo','lang'] if p in request.GET}
+	headerparam = urllib.urlencode(headerparam_dict)
+
+	bodyparam_dict = {}
+	if not request.GET.get('lang'):
+		bodyparam_dict['lang'] = str(translation.get_language())
+	bodyparam = urllib.urlencode(bodyparam_dict)
+
 	def set_query_parameter(url, param_name, param_value):
 	    """Given a URL, set or replace a query parameter and return the
 	    modified URL.
@@ -145,7 +154,7 @@ def dashboard_detail(request):
 		v2_folder = ''
 		# v2_folder = 'v2/' if request.resolver_match.namespace == 'v2' else ''
 		try:
-			a = 'asdc.immap.org'+request.META.get('PATH_INFO')
+			domainpath = 'asdc.immap.org'+request.META.get('PATH_INFO')
 			print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
 			date_string = dateformat.format(datetime.now(), "Y-m-d")
 
@@ -156,9 +165,9 @@ def dashboard_detail(request):
 			# client.setPageMargins('1in', '1in', '1in', '1in')
 			client.setVerticalMargin("0.75in")
 			client.setHorizontalMargin("0.25in")
-			client.setHeaderUrl('http://asdc.immap.org/static/'+v2_folder+'rep_header_vector.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
+			client.setHeaderUrl('http://asdc.immap.org/static/'+v2_folder+'rep_header_vector.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&isodate='+date_string+'&'+headerparam)
 			# convert a web page and store the generated PDF to a variable
-			pdf = client.convertURI('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&lang='+str(translation.get_language()))
+			pdf = client.convertURI('http://'+str(domainpath)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&'+bodyparam)
 			 # set HTTP response headers
 			response = HttpResponse(mimetype="application/pdf")
 			response["Cache-Control"] = "no-cache"
@@ -178,7 +187,7 @@ def dashboard_detail(request):
 			    'margin-bottom':10,
 			    'margin-top':25,
 			    # 'viewport-size':'800x600',
-			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&lang='+str(translation.get_language()),
+			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&'+headerparam,
 			    # 'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header(v2).html?name='+request.user.first_name+'-'+request.user.last_name+'&cust_title=&organization='+request.user.organization,
 			    # 'lowquality':'-'
 			    # 'disable-smart-shrinking':'-',
@@ -190,8 +199,10 @@ def dashboard_detail(request):
 			}
 			if re.match('^/v2', request.path):
 			    options['viewport-size'] = '1240x800'
-			a = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
-			pdf = pdfkit.from_url('http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&lang='+str(translation.get_language()), False, options=options)
+			domainpath = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
+			print 'http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&lang='+str(translation.get_language())
+			url = 'http://'+str(domainpath)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&'+bodyparam
+			pdf = pdfkit.from_url(url, False, options=options)
 			date_string = dateformat.format(datetime.now(), "Y-m-d")
 			response = HttpResponse(pdf,content_type='application/pdf')
 			response['Content-Disposition'] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
@@ -233,10 +244,16 @@ def dashboard_multiple(request):
 	urls = []
 	# data = request.POST
 	data = json.loads(request.body)
-	a = request.META.get('HTTP_HOST')
-	a += '/v2' if re.match('^/v2', request.path) else ''
+	domainpath = request.META.get('HTTP_HOST')
+	domainpath += '/v2' if re.match('^/v2', request.path) else ''
 	v2_folder = ''
-	# v2_folder = 'v2/' if request.resolver_match.namespace == 'v2' else ''
+
+	headerparam_dict = {p: request.GET.get(p, '') for p in ['hideuserinfo','lang'] if p in request.GET}
+	headerparam = urllib.urlencode(headerparam_dict)
+
+	bodyparam_dict = {}
+	bodyparam_dict['lang'] = request.GET.get('lang') or str(translation.get_language())
+	bodyparam = urllib.urlencode(bodyparam_dict)
 
 	try:
 		print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
@@ -249,7 +266,7 @@ def dashboard_multiple(request):
 		# client.setPageMargins('1in', '1in', '1in', '1in')
 		client.setVerticalMargin("0.75in")
 		client.setHorizontalMargin("0.25in")
-		client.setHeaderUrl('http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header_vector.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&isodate='+date_string+'&lang='+str(translation.get_language()))
+		client.setHeaderUrl('http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header_vector.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&isodate='+date_string+'&'+headerparam)
 		# convert a web page and store the generated PDF to a variable
 
 		# get map pdf
@@ -264,8 +281,8 @@ def dashboard_multiple(request):
 
 		for i in data['urls']:
 			if i is not None and i != '':
-				# urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)))
-				pdf = client.convertURI(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)+'&lang='+str(translation.get_language())))
+				# urls.append(str('http://'+domainpath+'/dashboard/print'+i+'&user='+str(request.user.id)))
+				pdf = client.convertURI(str('http://'+domainpath+'/dashboard/print'+i+'&user='+str(request.user.id)+'&'+bodyparam))
 				merger.append(StringIO(pdf))
 
 		 # set HTTP response headers
@@ -289,7 +306,7 @@ def dashboard_multiple(request):
 		    'margin-bottom':10,
 		    'margin-top':25,
 		    # 'viewport-size':'800x600',
-		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&lang='+str(translation.get_language()),
+		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&'+headerparam,
 			# 'lowquality':'-',
 		    # 'disable-smart-shrinking':'-',
 		    # 'print-media-type':'-',
@@ -311,7 +328,7 @@ def dashboard_multiple(request):
 
 		for i in data['urls']:
 			if i is not None and i != '':
-				urls.append(str('http://'+a+'/dashboard/print'+i+'&user='+str(request.user.id)+'&lang='+str(translation.get_language())))
+				urls.append(str('http://'+domainpath+'/dashboard/print'+i+'&user='+str(request.user.id)+'&'+bodyparam))
 
 		pdf = pdfkit.from_url(urls, False, options=options)
 		merger.append(StringIO(pdf))

@@ -1,0 +1,53 @@
+{% load i18n humanize %}
+<table style="font:12px Arial, Helvetica, sans-serif; color:#333332; width: 100%; border-collapse: collapse; border-spacing: 0; text-align: center; border: 1px solid #fff; line-height: 2em;">
+	
+	<tr>
+		<th class="" colspan="3" style="background-color: #eee;">{% trans "Likelihood" %}</th>
+	</tr>
+	<tr>
+		<td style="background-color: #eee; font-weight: 700; border: 1px solid #fff;">{% trans "Scale" %}</td>
+		<td style="background-color: #eee; font-weight: 700; border: 1px solid #fff;">{% trans "Population" %}</td>
+		<td style="background-color: #eee; font-weight: 700; border: 1px solid #fff;">{% trans "Settlement" %}</td>
+	</tr>
+	<tr>
+		<td style="background-color: #d4e6f1; border: 1px solid #fff;">{% trans "Weak" %}</td>    
+		<td style="background-color: #d4e6f1; border: 1px solid #fff;">{{forecast.pop_shake_weak|floatformat:"0"|intcomma}}</td>    
+		<td style="background-color: #d4e6f1; border: 1px solid #fff;">{{forecast.settlement_shake_weak|floatformat:"0"|intcomma}}</td>    
+	</tr>
+	<tr>
+		<td style="background-color: #c2fcf7; border: 1px solid #fff;">{% trans "Light" %}</td>   
+		<td style="background-color: #c2fcf7; border: 1px solid #fff;">{{forecast.pop_shake_light|floatformat:"0"|intcomma}}</td>   
+		<td style="background-color: #c2fcf7; border: 1px solid #fff;">{{forecast.settlement_shake_light|floatformat:"0"|intcomma}}</td>   
+	</tr>
+	<tr>
+		<td style="background-color: #6dffb6; border: 1px solid #fff;">{% trans "Moderate" %}</td>
+		<td style="background-color: #6dffb6; border: 1px solid #fff;">{{forecast.pop_shake_moderate|floatformat:"0"|intcomma}}</td>
+		<td style="background-color: #6dffb6; border: 1px solid #fff;">{{forecast.settlement_shake_moderate|floatformat:"0"|intcomma}}</td>
+	</tr>
+	<tr>
+		<td style="background-color: #ffff5c; border: 1px solid #fff;">{% trans "Strong" %}</td>
+		<td style="background-color: #ffff5c; border: 1px solid #fff;">{{forecast.pop_shake_strong|floatformat:"0"|intcomma}}</td>
+		<td style="background-color: #ffff5c; border: 1px solid #fff;">{{forecast.settlement_shake_strong|floatformat:"0"|intcomma}}</td>
+	</tr>
+	<tr>
+		<td style="background-color: #ffe74c; border: 1px solid #fff;">{% trans "Very Strong" %}</td>    
+		<td style="background-color: #ffe74c; border: 1px solid #fff;">{{forecast.pop_shake_verystrong|floatformat:"0"|intcomma}}</td>    
+		<td style="background-color: #ffe74c; border: 1px solid #fff;">{{forecast.settlement_shake_verystrong|floatformat:"0"|intcomma}}</td>    
+	</tr>
+	<tr>
+		<td style="background-color: #ffc600; border: 1px solid #fff;">{% trans "Severe" %}</td> 
+		<td style="background-color: #ffc600; border: 1px solid #fff;">{{forecast.pop_shake_severe|floatformat:"0"|intcomma}}</td> 
+		<td style="background-color: #ffc600; border: 1px solid #fff;">{{forecast.settlement_shake_severe|floatformat:"0"|intcomma}}</td> 
+	</tr>
+	<tr>
+		<td style="background-color: #ff5751; border: 1px solid #fff;">{% trans "Violent" %}</td>
+		<td style="background-color: #ff5751; border: 1px solid #fff;">{{forecast.pop_shake_violent|floatformat:"0"|intcomma}}</td>
+		<td style="background-color: #ff5751; border: 1px solid #fff;">{{forecast.settlement_shake_violent|floatformat:"0"|intcomma}}</td>
+	</tr>
+	<tr>
+		<td style="background-color: #e84c3d; border: 1px solid #fff;">{% trans "Extreme" %}</td> 
+		<td style="background-color: #e84c3d; border: 1px solid #fff;">{{forecast.pop_shake_extreme|floatformat:"0"|intcomma}}</td> 
+		<td style="background-color: #e84c3d; border: 1px solid #fff;">{{forecast.settlement_shake_extreme|floatformat:"0"|intcomma}}</td> 
+	</tr>
+</table>
+

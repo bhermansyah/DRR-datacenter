@@ -1913,3 +1913,11 @@ class AfgMettClimtemp1KmChelsaTempmin(models.Model):
         managed = False
         db_table = 'afg_mett_climtemp_1km_chelsa_tempmin'
         
+class EventdataHistory(models.Model):
+    # id = models.IntegerField(primary_key=True)
+    timestamp = models.DateTimeField(blank=True, null=True)
+    api = models.CharField(max_length=255, blank=True)
+    eventdata = models.TextField(blank=True) # This field type is a guess.
+    class Meta:
+        managed = False
+        db_table = 'eventdata_history'

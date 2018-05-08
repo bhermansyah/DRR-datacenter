@@ -1,0 +1,27 @@
+{% load i18n humanize %}
+<table style="font:12px Arial, Helvetica, sans-serif; color:#333332; width: 100%; border-collapse: collapse; border-spacing: 0; text-align: center; border: 1px solid #fff; line-height: 2em;">
+	<thead>
+		<tr>
+			<th class="" colspan="5" style="background-color: #eee;">{% trans "Likelihood" %}</th>
+		</tr>
+		<tr>
+			<th class="fl_forecast_extreme" style="background-color: rgba(226,7,14,0.5);">{% trans "Extreme" %}</th>
+			<th class="fl_forecast_vhigh" style="background-color: rgba(249,109,9,0.5);">{% trans "Very High" %}</th>
+			<th class="fl_forecast_high" style="background-color: rgba(252,237,21,0.5);">{% trans "High" %}</th>
+			<th class="fl_forecast_med" style="background-color: rgba(15,200,123,0.5);">{% trans "Moderate" %}</th>
+			<th class="fl_forecast_low" style="background-color: rgba(146,231,253,0.5);">{% trans "Low" %}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="" colspan="5" style="background-color: #eee;">{% trans "Population" %}</td>
+		</tr>
+		<tr>
+			<td class="fl_forecast_extreme" style="background-color: rgba(226,7,14,0.5);">{{forecast.flashflood_forecast_extreme_pop|floatformat:"0"|intcomma}}</td>
+			<td class="fl_forecast_vhigh" style="background-color: rgba(249,109,9,0.5);">{{forecast.flashflood_forecast_veryhigh_pop|floatformat:"0"|intcomma}}</td>
+			<td class="fl_forecast_high" style="background-color: rgba(252,237,21,0.5);">{{forecast.flashflood_forecast_high_pop|floatformat:"0"|intcomma}}</td>
+			<td class="fl_forecast_med" style="background-color: rgba(15,200,123,0.5);">{{forecast.flashflood_forecast_med_pop|floatformat:"0"|intcomma}}</td>
+			<td class="fl_forecast_low" style="background-color: rgba(146,231,253,0.5);">{{forecast.flashflood_forecast_low_pop|floatformat:"0"|intcomma}}</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,1311 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-04-23 14:10+0700\n"
+"PO-Revision-Date: 2017-02-20 09:15+0430\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: prs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: views.py:147
+#, python-brace-format
+msgid "{eventtype} in {area_name} {area_scope:title}"
+msgstr "{eventtype} در {area_scope:title} {area_name}"
+
+#: views.py:149
+#, python-brace-format
+msgid "ASDC Notification: {eventtype} in {area_name} {area_scope:title}"
+msgstr ""
+
+#: views.py:150
+#, python-brace-format
+msgid "{area_name} {area_scope:title}"
+msgstr "{area_scope:title} {area_name}"
+
+#: views.py:151
+#, fuzzy, python-brace-format
+msgid "{eventtype} Notification"
+msgstr "اطلاعات "
+
+#: views.py:374
+msgid "Avalanche Prediction"
+msgstr ""
+
+#: views.py:400
+msgid "Earthquake Shakemap"
+msgstr ""
+
+#: views.py:436
+msgid "Earthquake Epicenter"
+msgstr ""
+
+#: templates/email_simple_hybrid.html:105
+#: templates/email_template/email_simple_hybrid.html:181
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:101
+#: (2)/email_template/email_simple_hybrid.html:101
+#: (3)/email_template/email_simple_hybrid.html:101
+#: (4)/email_template/email_simple_hybrid.html:101
+#: templates_backup/email_simple_hybrid.html:265
+#, python-format
+msgid "%(trans eventtype)s in %(trans area_name)s %(trans area_type)s."
+msgstr ""
+
+#: templates/email_simple_hybrid.html:300 templates/email_template
+#: (2)/email_template/email_simple_hybrid.html:291
+#: (3)/email_template/email_simple_hybrid.html:291
+#: (4)/email_template/email_simple_hybrid.html:291
+msgid "View Interactive Map"
+msgstr ""
+
+#: templates/email_simple_hybrid.html:305 templates/email_template
+#: (2)/email_template/email_simple_hybrid.html:296
+#: (3)/email_template/email_simple_hybrid.html:296
+#: (4)/email_template/email_simple_hybrid.html:296
+#, fuzzy
+msgid "View Dashboard"
+msgstr "مجموعه اطلاعات"
+
+#: templates/email_simple_hybrid.html:319
+#: templates/email_template/email_simple_hybrid.html:513
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:308
+#: (2)/email_template/email_simple_hybrid.html:310
+#: (3)/email_template/email_simple_hybrid.html:310
+#: (4)/email_template/email_simple_hybrid.html:310
+#: templates_backup/email_simple_hybrid.html:445
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:427
+msgid "Type"
+msgstr "نوع"
+
+#: templates/email_simple_hybrid.html:328
+#: templates/email_text_body_earthquake_shakemap.html:36
+#: templates/email_template/email_simple_hybrid.html:520
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:317
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:40
+#: (2)/email_template/email_simple_hybrid.html:319
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:36
+#: (3)/email_template/email_simple_hybrid.html:319
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:36
+#: (4)/email_template/email_simple_hybrid.html:319
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:36
+#: templates_backup/email_simple_hybrid.html:447
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:429
+msgid "Epicenter"
+msgstr ""
+
+#: templates/email_simple_hybrid.html:332
+#: templates/email_text_body_earthquake_shakemap.html:28
+#: templates/email_template/email_simple_hybrid.html:526
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:321
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:32
+#: (2)/email_template/email_simple_hybrid.html:323
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:28
+#: (3)/email_template/email_simple_hybrid.html:323
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:28
+#: (4)/email_template/email_simple_hybrid.html:323
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:28
+#: templates_backup/email_simple_hybrid.html:448
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:430
+msgid "Magnitude"
+msgstr "مگنیتود"
+
+#: templates/email_simple_hybrid.html:336
+#: templates/email_text_body_earthquake_shakemap.html:32
+#: templates/email_template/email_simple_hybrid.html:532
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:325
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:36
+#: (2)/email_template/email_simple_hybrid.html:327
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:32
+#: (3)/email_template/email_simple_hybrid.html:327
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:32
+#: (4)/email_template/email_simple_hybrid.html:327
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:32
+#: templates_backup/email_simple_hybrid.html:449
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:431
+msgid "Depth"
+msgstr ""
+
+#: templates/email_simple_hybrid.html:340
+#: templates/email_text_body_earthquake_shakemap.html:20
+#: templates/email_template/email_simple_hybrid.html:538
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:329
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:24
+#: (2)/email_template/email_simple_hybrid.html:331
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:20
+#: (3)/email_template/email_simple_hybrid.html:331
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:20
+#: (4)/email_template/email_simple_hybrid.html:331
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:20
+#: templates_backup/email_simple_hybrid.html:450
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:432
+msgid "Time"
+msgstr "زمان"
+
+#: templates/email_simple_hybrid.html:345
+#: templates/email_simple_hybrid.html:354
+#: templates/pushnotif_settings.html:152
+#: templates/email_template/email_simple_hybrid.html:545
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:335
+#: (1)/email_template/email_simple_hybrid.html:344
+#: (2)/email_template/email_simple_hybrid.html:336
+#: (2)/email_template/email_simple_hybrid.html:345
+#: (3)/email_template/email_simple_hybrid.html:336
+#: (3)/email_template/email_simple_hybrid.html:345
+#: (4)/email_template/email_simple_hybrid.html:336
+#: (4)/email_template/email_simple_hybrid.html:345
+#: templates_backup/email_simple_hybrid.html:452
+#: templates_backup/pushnotif_settings.html:152
+msgid "Area"
+msgstr "مساحت"
+
+#: templates/email_text_body_avalanche.html:5 templates/email_template
+#: (1)/email_template/email_text_body_avalanche.html:5
+#: (2)/email_template/email_text_body_avalanche.html:5
+#: (3)/email_template/email_text_body_avalanche.html:5
+#: (4)/email_template/email_text_body_avalanche.html:5
+#, python-format
+msgid ""
+"Please find below the estimated population within predicted avalanche risk "
+"areas on\n"
+"            <strong>%(current_date)s</strong>. The information is taken from "
+"the ASDC at national level."
+msgstr ""
+
+#: templates/email_text_body_avalanche2.html:3
+#: templates/email_text_body_flood2.html:3 templates/email_template
+#: (1)/email_template/email_text_body_avalanche2.html:3
+#: (1)/email_template/email_text_body_flood2.html:3
+#: (2)/email_template/email_text_body_avalanche2.html:3
+#: (2)/email_template/email_text_body_flood2.html:3
+#: (3)/email_template/email_text_body_avalanche2.html:3
+#: (3)/email_template/email_text_body_flood2.html:3
+#: (4)/email_template/email_text_body_avalanche2.html:3
+#: (4)/email_template/email_text_body_flood2.html:3
+msgid "These estimates are"
+msgstr ""
+
+#: templates/email_text_body_avalanche2.html:4
+#: templates/email_text_body_flood2.html:4 templates/email_template
+#: (1)/email_template/email_text_body_avalanche2.html:4
+#: (1)/email_template/email_text_body_flood2.html:4
+#: (2)/email_template/email_text_body_avalanche2.html:4
+#: (2)/email_template/email_text_body_flood2.html:4
+#: (3)/email_template/email_text_body_avalanche2.html:4
+#: (3)/email_template/email_text_body_flood2.html:4
+#: (4)/email_template/email_text_body_avalanche2.html:4
+#: (4)/email_template/email_text_body_flood2.html:4
+msgid "valid for ... days"
+msgstr ""
+
+#: templates/email_text_body_avalanche2.html:5
+msgid " Use the ASDC to further investigate areas of interest."
+msgstr ""
+
+#: templates/email_text_body_earthquake_epicenter.html:5
+#: templates/email_text_body_earthquake_shakemap.html:5
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_epicenter.html:5
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:5
+#: (2)/email_template/email_text_body_earthquake_epicenter.html:5
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:5
+#: (3)/email_template/email_text_body_earthquake_epicenter.html:5
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:5
+#: (4)/email_template/email_text_body_earthquake_epicenter.html:5
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:5
+msgid " iMMAP Afghanistan shares information related to :"
+msgstr ""
+
+#: templates/email_text_body_earthquake_epicenter.html:12
+#: templates/email_text_body_earthquake_shakemap.html:12
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_epicenter.html:14
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:14
+#: (2)/email_template/email_text_body_earthquake_epicenter.html:12
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:12
+#: (3)/email_template/email_text_body_earthquake_epicenter.html:12
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:12
+#: (4)/email_template/email_text_body_earthquake_epicenter.html:12
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:12
+msgid "M 6.1 - seismic event in 35km S of Jarm, Afghanistan"
+msgstr ""
+
+#: templates/email_text_body_earthquake_epicenter2.html:6
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_epicenter2.html:6
+#: (2)/email_template/email_text_body_earthquake_epicenter2.html:6
+#: (3)/email_template/email_text_body_earthquake_epicenter2.html:6
+#: (4)/email_template/email_text_body_earthquake_epicenter2.html:6
+msgid "For &gt; 5.3 M :"
+msgstr ""
+
+#: templates/email_text_body_earthquake_epicenter2.html:9
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_epicenter2.html:9
+#: (2)/email_template/email_text_body_earthquake_epicenter2.html:9
+#: (3)/email_template/email_text_body_earthquake_epicenter2.html:9
+#: (4)/email_template/email_text_body_earthquake_epicenter2.html:9
+msgid ""
+"An updated map including estimates on affected population will be send if "
+"and when it becomes available from\n"
+"            USGS."
+msgstr ""
+
+#: templates/email_text_body_earthquake_epicenter2.html:15
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_epicenter2.html:15
+#: (2)/email_template/email_text_body_earthquake_epicenter2.html:15
+#: (3)/email_template/email_text_body_earthquake_epicenter2.html:15
+#: (4)/email_template/email_text_body_earthquake_epicenter2.html:15
+msgid "For &lt; 5.3 M :"
+msgstr ""
+
+#: templates/email_text_body_earthquake_epicenter2.html:18
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_epicenter2.html:18
+#: (3)/email_template/email_text_body_earthquake_epicenter2.html:18
+#: (4)/email_template/email_text_body_earthquake_epicenter2.html:18
+msgid ""
+"It is unlikely that for this event USGS will create a shakemap as impact "
+"will likely be very low."
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap.html:21
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:25
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:21
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:21
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:21
+msgid "07:07 AM"
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap.html:24
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:28
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:24
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:24
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:24
+msgid "Date"
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap.html:25
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:29
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:25
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:25
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:25
+msgid "31-Jan-2018 UTC"
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap.html:29
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:33
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:29
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:29
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:29
+msgid "M 6.1"
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap.html:33
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:37
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:33
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:33
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:33
+msgid "191.19 km"
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap.html:37
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:41
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:37
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:37
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:37
+msgid "35 km S of Jarm, Afghanistan"
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap.html:41
+#: templates/email_template/email_text_body_earthquake_shakemap.html:10
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap.html:45
+#: (2)/email_template/email_text_body_earthquake_shakemap.html:41
+#: (3)/email_template/email_text_body_earthquake_shakemap.html:41
+#: (4)/email_template/email_text_body_earthquake_shakemap.html:41
+#: templates_backup/email_text_body_earthquake_shakemap.html:11
+msgid ""
+"Please find below the update estimated population within seismic risk areas."
+msgstr ""
+
+#: templates/email_text_body_earthquake_shakemap2.html:3
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap2.html:3
+#: (2)/email_template/email_text_body_earthquake_shakemap2.html:3
+#: (3)/email_template/email_text_body_earthquake_shakemap2.html:3
+#: (4)/email_template/email_text_body_earthquake_shakemap2.html:3
+msgid ""
+"The estimates will be recalculated if new information becomes available, "
+"kindly use the ASDC to further investigate\n"
+"    areas of interest."
+msgstr ""
+
+#: templates/email_text_body_flood.html:5 templates/email_template
+#: (1)/email_template/email_text_body_flood.html:5
+#: (2)/email_template/email_text_body_flood.html:5
+#: (3)/email_template/email_text_body_flood.html:5
+#: (4)/email_template/email_text_body_flood.html:5
+#, python-format
+msgid ""
+"Please find below the estimated population within predicted flood risk areas "
+"on \n"
+"            <strong>%(current_date)s</strong>. The information is taken from "
+"the ASDC at national level."
+msgstr ""
+
+#: templates/email_text_body_flood2.html:4 templates/email_template
+#: (1)/email_template/email_text_body_avalanche2.html:4
+#: (1)/email_template/email_text_body_flood2.html:4
+#: (2)/email_template/email_text_body_avalanche2.html:5
+#: (2)/email_template/email_text_body_flood2.html:4
+#: (3)/email_template/email_text_body_avalanche2.html:5
+#: (3)/email_template/email_text_body_flood2.html:4
+#: (4)/email_template/email_text_body_avalanche2.html:5
+#: (4)/email_template/email_text_body_flood2.html:4
+msgid " use the ASDC to further investigate areas of interest."
+msgstr ""
+
+#: templates/email_text_footer.html:3 templates/email_template
+#: (1)/email_template/email_text_footer.html:3
+#: (2)/email_template/email_text_footer.html:3
+#: (3)/email_template/email_text_footer.html:3
+#: (4)/email_template/email_text_footer.html:3
+msgid "Note:"
+msgstr ""
+
+#: templates/email_text_footer.html:7 templates/email_template
+#: (1)/email_template/email_text_footer.html:7
+#: (2)/email_template/email_text_footer.html:7
+#: (3)/email_template/email_text_footer.html:7
+#: (4)/email_template/email_text_footer.html:7
+msgid ""
+"USGS Shakemaps indicate areas which have shook most at the surface, this is "
+"based on modeled information\n"
+"        using only large regional fault lines."
+msgstr ""
+
+#: templates/email_text_footer.html:9 templates/email_template
+#: (1)/email_template/email_text_footer.html:9
+#: (2)/email_template/email_text_footer.html:9
+#: (3)/email_template/email_text_footer.html:9
+#: (4)/email_template/email_text_footer.html:9
+msgid ""
+"Generally, more shaking at the surface has the potential to create more "
+"damage, however construction\n"
+"        methods and soil conditions differ from region to region and "
+"therefore this data is only informative."
+msgstr ""
+
+#: templates/email_text_footer.html:11 templates/email_text_footer.html:18
+#: templates/email_template (1)/email_template/email_text_footer.html:11
+#: (1)/email_template/email_text_footer.html:18
+#: (2)/email_template/email_text_footer.html:11
+#: (2)/email_template/email_text_footer.html:18
+#: (3)/email_template/email_text_footer.html:11
+#: (3)/email_template/email_text_footer.html:18
+#: (4)/email_template/email_text_footer.html:11
+#: (4)/email_template/email_text_footer.html:18
+msgid "This data is only informative."
+msgstr ""
+
+#: templates/email_text_footer.html:12 templates/email_text_footer.html:15
+#: templates/email_text_footer.html:19 templates/email_template
+#: (1)/email_template/email_text_footer.html:12
+#: (1)/email_template/email_text_footer.html:15
+#: (1)/email_template/email_text_footer.html:19
+#: (2)/email_template/email_text_footer.html:12
+#: (2)/email_template/email_text_footer.html:15
+#: (2)/email_template/email_text_footer.html:19
+#: (3)/email_template/email_text_footer.html:12
+#: (3)/email_template/email_text_footer.html:15
+#: (3)/email_template/email_text_footer.html:19
+#: (4)/email_template/email_text_footer.html:12
+#: (4)/email_template/email_text_footer.html:15
+#: (4)/email_template/email_text_footer.html:19
+msgid ""
+"Please find in attachment maps and statistics from the ASDC related to this "
+"event."
+msgstr ""
+
+#: templates/email_text_footer.html:14
+#: templates/email_template/email_text_body_earthquake_epicenter2.html:8
+#: templates/email_template/email_text_body_earthquake_shakemap2.html:4
+#: templates/email_template (1)/email_template/email_text_footer.html:14
+#: (2)/email_template/email_text_footer.html:14
+#: (3)/email_template/email_text_footer.html:14
+#: (4)/email_template/email_text_footer.html:14
+#: templates_backup/email_text_body_earthquake_epicenter.html:14
+#: templates_backup/email_text_body_earthquake_shakemap.html:15
+msgid ""
+"iMMAP uses data from the USGS Earthquake Hazards Program to create these "
+"estimates."
+msgstr ""
+
+#: templates/email_text_footer.html:17 templates/email_template
+#: (1)/email_template/email_text_footer.html:17
+#: (2)/email_template/email_text_footer.html:17
+#: (3)/email_template/email_text_footer.html:17
+#: (4)/email_template/email_text_footer.html:17
+msgid ""
+"The the data is at present not calibrated there can be over/under "
+"estimations."
+msgstr ""
+
+#: templates/pushnotif_report_links.html:20
+#: templates_backup/pushnotif_report_links.html:20
+msgid "Subscriptions"
+msgstr ""
+
+#: templates/pushnotif_report_links.html:23
+#: templates_backup/pushnotif_report_links.html:23
+msgid "Notifications"
+msgstr "اطلاعات "
+
+#: templates/pushnotif_report_notifications.html:3
+#: templates/email_template/pushnotif_report_notifications.html:3
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:3
+#: (2)/email_template/pushnotif_report_notifications.html:3
+#: templates_backup/pushnotif_report_notifications.html:3
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:3
+#: templates_backup/unused/pushnotif_report_notifications_jquery.html:4
+msgid "Notifications List - Push Notifications Report"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:98
+#: templates/pushnotif_settings.html:98
+#: templates/email_template/pushnotif_report_notifications.html:98
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:98
+#: (2)/email_template/pushnotif_report_notifications.html:98
+#: templates_backup/pushnotif_report_notifications.html:98
+#: templates_backup/pushnotif_settings.html:98
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:98
+#: templates_backup/unused/pushnotif_report_notifications_jquery.html:89
+msgid "Info"
+msgstr "معلومات"
+
+#: templates/pushnotif_report_notifications.html:105
+#: templates/pushnotif_settings.html:105
+#: templates/email_template/pushnotif_report_notifications.html:105
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:105
+#: (2)/email_template/pushnotif_report_notifications.html:105
+#: templates_backup/pushnotif_report_notifications.html:105
+#: templates_backup/pushnotif_settings.html:105
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:105
+#: templates_backup/unused/pushnotif_report_notifications_jquery.html:96
+msgid "Close"
+msgstr "بسته"
+
+#: templates/pushnotif_report_notifications.html:119
+#: templates/pushnotif_report_subscriptions.html:108
+#: templates/email_template/pushnotif_report_notifications.html:119
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:119
+#: (2)/email_template/pushnotif_report_notifications.html:119
+#: templates_backup/pushnotif_report_notifications.html:119
+#: templates_backup/pushnotif_report_subscriptions.html:108
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:119
+#: templates_backup/unused/pushnotif_report_notifications_jquery.html:107
+msgid "Push Notification Report"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:128
+#: templates/email_template/pushnotif_report_notifications.html:128
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:128
+#: (2)/email_template/pushnotif_report_notifications.html:128
+#: templates_backup/pushnotif_report_notifications.html:128
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:128
+#: templates_backup/unused/pushnotif_report_notifications_jquery.html:116
+msgid "Notifications List"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:129
+#: templates/email_template/pushnotif_report_notifications.html:129
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:129
+#: (2)/email_template/pushnotif_report_notifications.html:129
+#: templates_backup/pushnotif_report_notifications.html:129
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:129
+#: templates_backup/unused/pushnotif_report_notifications_jquery.html:117
+#, python-format
+msgid ""
+"List of notification emails sent or canceled. Data compiled from <a href="
+"\"%(emaillist_json_url)s\">emaillist.json</a> file. When size over "
+"%(emaillist_json_max_megabyte)s MB file is archived and reset new."
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:138
+#: templates/email_template/pushnotif_report_notifications.html:138
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:138
+#: (2)/email_template/pushnotif_report_notifications.html:138
+#: templates_backup/pushnotif_report_notifications.html:138
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:138
+#: templates_backup/unused/pushnotif_report_notifications_jquery.html:125
+msgid "Row Detail"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:607
+#: templates/email_template/pushnotif_report_notifications.html:582
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:582
+#: (2)/email_template/pushnotif_report_notifications.html:582
+#: templates_backup/pushnotif_report_notifications.html:592
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:556
+msgid ""
+"'Notification email with id: ' + emailid + ' is not found in current "
+"emaillist.json.'"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:612
+#: templates/email_template/pushnotif_report_notifications.html:587
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:587
+#: (2)/email_template/pushnotif_report_notifications.html:587
+#: templates_backup/pushnotif_report_notifications.html:597
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:561
+msgid ""
+"'Notification email with id: ' + emailid + ' is sent on ' + e['sent_on']"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:615
+#: templates/email_template/pushnotif_report_notifications.html:590
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:590
+#: (2)/email_template/pushnotif_report_notifications.html:590
+#: templates_backup/pushnotif_report_notifications.html:600
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:564
+msgid ""
+"'Notification email with id: ' + emailid + ' is canceled on ' + "
+"e['canceled_on']"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:618
+msgid ""
+"'Notification email with id: ' + emailid + ' is in the process of ' + "
+"e['sendstatus']"
+msgstr ""
+
+#: templates/pushnotif_report_notifications.html:621
+#: templates/email_template/pushnotif_report_notifications.html:593
+#: templates/email_template
+#: (1)/email_template/pushnotif_report_notifications.html:593
+#: (2)/email_template/pushnotif_report_notifications.html:593
+#: templates_backup/pushnotif_report_notifications.html:603
+#: templates_backup/unused/pushnotif_report_notifications_20180412.html:567
+msgid ""
+"'Notification email with id: ' + emailid + ' has not been sent or canceled.'"
+msgstr ""
+
+#: templates/pushnotif_report_subscriptions.html:4
+#: templates_backup/pushnotif_report_subscriptions.html:4
+msgid "Subscriptions List - Push Notifications Report"
+msgstr ""
+
+#: templates/pushnotif_report_subscriptions.html:117
+#: templates_backup/pushnotif_report_subscriptions.html:117
+msgid "Subscriptions List"
+msgstr ""
+
+#: templates/pushnotif_report_subscriptions.html:118
+#: templates_backup/pushnotif_report_subscriptions.html:118
+#, python-format
+msgid ""
+"Shows the number of users subscribed to notifications, group by area and "
+"event type. Data compiled from <a href=\"%(subs_csv_url)s\">subscriptions."
+"csv</a> file."
+msgstr ""
+
+#: templates/pushnotif_report_subscriptions.html:121
+#: templates_backup/pushnotif_report_subscriptions.html:121
+msgid "Subscriptions Count"
+msgstr ""
+
+#: templates/pushnotif_settings.html:4 templates/pushnotif_settings.html:116
+#: templates_backup/pushnotif_settings.html:4
+#: templates_backup/pushnotif_settings.html:116
+#: templates_backup/unused/settings.html:4
+#: templates_backup/unused/settings.html:12
+msgid "Push Notification Settings"
+msgstr ""
+
+#: templates/pushnotif_settings.html:78
+#: templates_backup/pushnotif_settings.html:78
+msgid "Confirm"
+msgstr "تایید"
+
+#: templates/pushnotif_settings.html:81
+#: templates_backup/pushnotif_settings.html:81
+msgid "Unsubscribe notifications for"
+msgstr ""
+
+#: templates/pushnotif_settings.html:81
+#: templates_backup/pushnotif_settings.html:81
+msgid "in all area?"
+msgstr ""
+
+#: templates/pushnotif_settings.html:82
+#: templates_backup/pushnotif_settings.html:82
+msgid "Unsubscribe all notifications for"
+msgstr ""
+
+#: templates/pushnotif_settings.html:83
+#: templates_backup/pushnotif_settings.html:83
+msgid "Unsubscribe all notifications?"
+msgstr ""
+
+#: templates/pushnotif_settings.html:86
+#: templates_backup/pushnotif_settings.html:86
+msgid "Yes"
+msgstr ""
+
+#: templates/pushnotif_settings.html:87
+#: templates_backup/pushnotif_settings.html:87
+msgid "Cancel"
+msgstr "لغو "
+
+#: templates/pushnotif_settings.html:101
+#: templates_backup/pushnotif_settings.html:101
+msgid "New settings saved succesfully."
+msgstr ""
+
+#: templates/pushnotif_settings.html:102
+#: templates_backup/pushnotif_settings.html:102
+msgid "Failed to save new settings."
+msgstr ""
+
+#: templates/pushnotif_settings.html:130
+#: templates_backup/pushnotif_settings.html:130
+msgid "Language"
+msgstr "زبان"
+
+#: templates/pushnotif_settings.html:134
+#: templates_backup/pushnotif_settings.html:134
+msgid "Notification email language"
+msgstr ""
+
+#: templates/pushnotif_settings.html:147
+#: templates_backup/pushnotif_settings.html:147
+msgid "Notifications Subscription"
+msgstr ""
+
+#: templates/pushnotif_settings.html:148
+#: templates_backup/pushnotif_settings.html:148
+msgid "Put checkmark on notifications you like to receive."
+msgstr ""
+
+#: templates/pushnotif_settings.html:160 templates/pushnotif_settings.html:163
+#: templates_backup/pushnotif_settings.html:160
+#: templates_backup/pushnotif_settings.html:163
+msgid "Select All"
+msgstr "انتخاب همه"
+
+#: templates/pushnotif_settings.html:199
+#: templates_backup/pushnotif_settings.html:199
+#: templates_backup/unused/settings.html:58
+msgid "Save"
+msgstr "ذخیره"
+
+#: templates/table_avalancheforecast.html:7 templates/table_earthquake.html:5
+#: templates/table_flashfloodforecast.html:5
+#: templates/table_riverfloodforecast.html:5
+#: templates/email_template/email_simple_hybrid.html:555
+#: templates/email_template/table_avalancheforecast.html:5
+#: templates/email_template/table_earthquake.html:5
+#: templates/email_template/table_flashfloodforecast.html:5
+#: templates/email_template/table_riverfloodforecast.html:5
+#: templates/email_template (1)/email_template/table_avalancheforecast.html:5
+#: (1)/email_template/table_earthquake.html:5
+#: (1)/email_template/table_flashfloodforecast.html:5
+#: (1)/email_template/table_riverfloodforecast.html:5
+#: (2)/email_template/table_avalancheforecast.html:5
+#: (2)/email_template/table_earthquake.html:5
+#: (2)/email_template/table_flashfloodforecast.html:5
+#: (2)/email_template/table_riverfloodforecast.html:5
+#: (3)/email_template/table_avalancheforecast.html:7
+#: (3)/email_template/table_earthquake.html:5
+#: (3)/email_template/table_flashfloodforecast.html:5
+#: (3)/email_template/table_riverfloodforecast.html:5
+#: (4)/email_template/table_avalancheforecast.html:7
+#: (4)/email_template/table_earthquake.html:5
+#: (4)/email_template/table_flashfloodforecast.html:5
+#: (4)/email_template/table_riverfloodforecast.html:5
+#: templates_backup/email_simple_hybrid.html:459
+#: templates_backup/table_avalancheforecast.html:5
+#: templates_backup/table_earthquake.html:5
+#: templates_backup/table_flashfloodforecast.html:5
+#: templates_backup/table_riverfloodforecast.html:5
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:441
+msgid "Likelihood"
+msgstr "احتمال"
+
+#: templates/table_avalancheforecast.html:8
+#: templates/table_flashfloodforecast.html:12
+#: templates/table_riverfloodforecast.html:6
+#: templates/email_template/table_avalancheforecast.html:10
+#: templates/email_template/table_flashfloodforecast.html:12
+#: templates/email_template/table_riverfloodforecast.html:12
+#: templates/email_template (1)/email_template/table_avalancheforecast.html:10
+#: (1)/email_template/table_flashfloodforecast.html:12
+#: (1)/email_template/table_riverfloodforecast.html:12
+#: (2)/email_template/table_avalancheforecast.html:10
+#: (2)/email_template/table_flashfloodforecast.html:12
+#: (2)/email_template/table_riverfloodforecast.html:12
+#: (3)/email_template/table_avalancheforecast.html:8
+#: (3)/email_template/table_avalancheforecast.html:10
+#: (3)/email_template/table_flashfloodforecast.html:12
+#: (3)/email_template/table_riverfloodforecast.html:6
+#: (4)/email_template/table_avalancheforecast.html:8
+#: (4)/email_template/table_avalancheforecast.html:10
+#: (4)/email_template/table_flashfloodforecast.html:12
+#: (4)/email_template/table_riverfloodforecast.html:6
+#: templates_backup/table_avalancheforecast.html:10
+#: templates_backup/table_flashfloodforecast.html:12
+#: templates_backup/table_riverfloodforecast.html:12
+msgid "Low"
+msgstr "کم"
+
+#: templates/table_avalancheforecast.html:9 templates/table_earthquake.html:23
+#: templates/table_flashfloodforecast.html:11
+#: templates/table_riverfloodforecast.html:7
+#: templates/email_template/table_avalancheforecast.html:9
+#: templates/email_template/table_flashfloodforecast.html:11
+#: templates/email_template/table_riverfloodforecast.html:11
+#: templates/email_template (1)/email_template/table_avalancheforecast.html:9
+#: (1)/email_template/table_flashfloodforecast.html:11
+#: (1)/email_template/table_riverfloodforecast.html:11
+#: (2)/email_template/table_avalancheforecast.html:9
+#: (2)/email_template/table_flashfloodforecast.html:11
+#: (2)/email_template/table_riverfloodforecast.html:11
+#: (3)/email_template/table_avalancheforecast.html:9
+#: (3)/email_template/table_earthquake.html:23
+#: (3)/email_template/table_flashfloodforecast.html:11
+#: (3)/email_template/table_riverfloodforecast.html:7
+#: (4)/email_template/table_avalancheforecast.html:9
+#: (4)/email_template/table_earthquake.html:23
+#: (4)/email_template/table_flashfloodforecast.html:11
+#: (4)/email_template/table_riverfloodforecast.html:7
+#: templates_backup/table_avalancheforecast.html:9
+#: templates_backup/table_flashfloodforecast.html:11
+#: templates_backup/table_riverfloodforecast.html:11
+msgid "Moderate"
+msgstr "متوسط"
+
+#: templates/table_avalancheforecast.html:10
+#: templates/table_flashfloodforecast.html:10
+#: templates/table_riverfloodforecast.html:8
+#: templates/email_template/table_avalancheforecast.html:8
+#: templates/email_template/table_flashfloodforecast.html:10
+#: templates/email_template/table_riverfloodforecast.html:10
+#: templates/email_template (1)/email_template/table_avalancheforecast.html:8
+#: (1)/email_template/table_flashfloodforecast.html:10
+#: (1)/email_template/table_riverfloodforecast.html:10
+#: (2)/email_template/table_avalancheforecast.html:8
+#: (2)/email_template/table_flashfloodforecast.html:10
+#: (2)/email_template/table_riverfloodforecast.html:10
+#: (3)/email_template/table_flashfloodforecast.html:10
+#: (3)/email_template/table_riverfloodforecast.html:8
+#: (4)/email_template/table_flashfloodforecast.html:10
+#: (4)/email_template/table_riverfloodforecast.html:8
+#: templates_backup/table_avalancheforecast.html:8
+#: templates_backup/table_flashfloodforecast.html:10
+#: templates_backup/table_riverfloodforecast.html:10
+msgid "High"
+msgstr "زیاد"
+
+#
+#: templates/table_avalancheforecast.html:13 templates/table_earthquake.html:9
+#: templates/table_flashfloodforecast.html:17
+#: templates/table_riverfloodforecast.html:13
+#: templates/email_template/table_avalancheforecast.html:15
+#: templates/email_template/table_earthquake.html:9
+#: templates/email_template/table_flashfloodforecast.html:17
+#: templates/email_template/table_riverfloodforecast.html:17
+#: templates/email_template (1)/email_template/table_avalancheforecast.html:15
+#: (1)/email_template/table_earthquake.html:9
+#: (1)/email_template/table_flashfloodforecast.html:17
+#: (1)/email_template/table_riverfloodforecast.html:17
+#: (2)/email_template/table_avalancheforecast.html:15
+#: (2)/email_template/table_earthquake.html:9
+#: (2)/email_template/table_flashfloodforecast.html:17
+#: (2)/email_template/table_riverfloodforecast.html:17
+#: (3)/email_template/table_avalancheforecast.html:13
+#: (3)/email_template/table_earthquake.html:9
+#: (3)/email_template/table_flashfloodforecast.html:17
+#: (3)/email_template/table_riverfloodforecast.html:13
+#: (4)/email_template/table_avalancheforecast.html:13
+#: (4)/email_template/table_earthquake.html:9
+#: (4)/email_template/table_flashfloodforecast.html:17
+#: (4)/email_template/table_riverfloodforecast.html:13
+#: templates_backup/table_avalancheforecast.html:15
+#: templates_backup/table_earthquake.html:9
+#: templates_backup/table_flashfloodforecast.html:17
+#: templates_backup/table_riverfloodforecast.html:17
+msgid "Population"
+msgstr "نفوس"
+
+#: templates/table_avalancheforecast.html:19
+#: templates/email_template/table_avalancheforecast.html:23
+#: templates/email_template (1)/email_template/table_avalancheforecast.html:23
+#: (2)/email_template/table_avalancheforecast.html:23
+#: (3)/email_template/table_avalancheforecast.html:19
+#: (4)/email_template/table_avalancheforecast.html:19
+#: templates_backup/table_avalancheforecast.html:23
+msgid "Buildings"
+msgstr ""
+
+#: templates/table_earthquake.html:8
+#: templates/email_template/table_earthquake.html:8 templates/email_template
+#: (1)/email_template/table_earthquake.html:8
+#: (2)/email_template/table_earthquake.html:8
+#: (3)/email_template/table_earthquake.html:8
+#: (4)/email_template/table_earthquake.html:8
+#: templates_backup/table_earthquake.html:8
+msgid "Scale"
+msgstr ""
+
+#: templates/table_earthquake.html:10
+#: templates/email_template/table_earthquake.html:10 templates/email_template
+#: (1)/email_template/table_earthquake.html:10
+#: (2)/email_template/table_earthquake.html:10
+#: (3)/email_template/table_earthquake.html:10
+#: (4)/email_template/table_earthquake.html:10
+#: templates_backup/table_earthquake.html:10
+msgid "Settlement"
+msgstr "قریه "
+
+#: templates/table_earthquake.html:13 templates/email_template
+#: (3)/email_template/table_earthquake.html:13
+#: (4)/email_template/table_earthquake.html:13
+msgid "Weak"
+msgstr ""
+
+#: templates/table_earthquake.html:18 templates/email_template
+#: (3)/email_template/table_earthquake.html:18
+#: (4)/email_template/table_earthquake.html:18
+#, fuzzy
+msgid "Light"
+msgstr "IV: خفیف"
+
+#: templates/table_earthquake.html:28 templates/email_template
+#: (3)/email_template/table_earthquake.html:28
+#: (4)/email_template/table_earthquake.html:28
+#, fuzzy
+msgid "Strong"
+msgstr "VI: قوی "
+
+#: templates/table_earthquake.html:33 templates/email_template
+#: (3)/email_template/table_earthquake.html:33
+#: (4)/email_template/table_earthquake.html:33
+#, fuzzy
+msgid "Very Strong"
+msgstr "VI: قوی "
+
+#: templates/table_earthquake.html:38 templates/email_template
+#: (3)/email_template/table_earthquake.html:38
+#: (4)/email_template/table_earthquake.html:38
+#, fuzzy
+msgid "Severe"
+msgstr "VIII: شدید"
+
+#: templates/table_earthquake.html:43 templates/email_template
+#: (3)/email_template/table_earthquake.html:43
+#: (4)/email_template/table_earthquake.html:43
+#, fuzzy
+msgid "Violent"
+msgstr "IX: تند "
+
+#: templates/table_earthquake.html:48
+#: templates/table_flashfloodforecast.html:8
+#: templates/table_riverfloodforecast.html:10
+#: templates/email_template/table_flashfloodforecast.html:8
+#: templates/email_template/table_riverfloodforecast.html:8
+#: templates/email_template (1)/email_template/table_flashfloodforecast.html:8
+#: (1)/email_template/table_riverfloodforecast.html:8
+#: (2)/email_template/table_flashfloodforecast.html:8
+#: (2)/email_template/table_riverfloodforecast.html:8
+#: (3)/email_template/table_earthquake.html:48
+#: (3)/email_template/table_flashfloodforecast.html:8
+#: (3)/email_template/table_riverfloodforecast.html:10
+#: (4)/email_template/table_earthquake.html:48
+#: (4)/email_template/table_flashfloodforecast.html:8
+#: (4)/email_template/table_riverfloodforecast.html:10
+#: templates_backup/table_flashfloodforecast.html:8
+#: templates_backup/table_riverfloodforecast.html:8
+msgid "Extreme"
+msgstr "شدیدتر "
+
+#: templates/table_flashfloodforecast.html:9
+#: templates/table_riverfloodforecast.html:9
+#: templates/email_template/table_flashfloodforecast.html:9
+#: templates/email_template/table_riverfloodforecast.html:9
+#: templates/email_template (1)/email_template/table_flashfloodforecast.html:9
+#: (1)/email_template/table_riverfloodforecast.html:9
+#: (2)/email_template/table_flashfloodforecast.html:9
+#: (2)/email_template/table_riverfloodforecast.html:9
+#: (3)/email_template/table_flashfloodforecast.html:9
+#: (3)/email_template/table_riverfloodforecast.html:9
+#: (4)/email_template/table_flashfloodforecast.html:9
+#: (4)/email_template/table_riverfloodforecast.html:9
+#: templates_backup/table_flashfloodforecast.html:9
+#: templates_backup/table_riverfloodforecast.html:9
+msgid "Very High"
+msgstr "بسیار زیاد "
+
+#: templates/email_template/email_simple_hybrid.html:365
+#: templates_backup/email_simple_hybrid.html:378
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:365
+msgid "Afghanistan Spatial Data Center"
+msgstr "مرکز ارقام مکانی افغانستان "
+
+#: templates/email_template/email_simple_hybrid.html:488
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:294
+#: templates_backup/email_simple_hybrid.html:476
+msgid "Dashboard"
+msgstr "مجموعه اطلاعات"
+
+#: templates/email_template/email_simple_hybrid.html:498
+#: templates/email_template (1)/email_template/email_simple_hybrid.html:289
+#: templates_backup/email_simple_hybrid.html:482
+msgid "Interactive Map"
+msgstr ""
+
+#: templates/email_template/email_text_body_avalanche.html:2
+#: templates_backup/email_text_body_avalanche.html:2
+#, python-format
+msgid ""
+"Please find below the estimated population within predicted avalanche risk "
+"areas on %(current_date)s. The information is taken from the ASDC at "
+"national level."
+msgstr ""
+
+#: templates/email_template/email_text_body_avalanche2.html:2
+#: templates_backup/email_text_body_avalanche.html:4
+msgid "Use the ASDC to further investigate areas of interest."
+msgstr ""
+
+#: templates/email_template/email_text_body_avalanche2.html:3
+#: templates_backup/email_text_body_avalanche.html:6
+msgid ""
+"Note: The the data is at present not calibrated there can be over/under "
+"estimations. This data is only informative."
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_epicenter.html:2
+#: templates/email_template/email_text_body_earthquake_shakemap.html:2
+#: templates_backup/email_text_body_earthquake_epicenter.html:2
+#: templates_backup/email_text_body_earthquake_shakemap.html:2
+#, python-format
+msgid ""
+"iMMAP Afghanistan shares information related to the M %(magnitude)s - "
+"seismic event in  %(area_name)s."
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_epicenter.html:4
+#: templates/email_template/email_text_body_earthquake_shakemap.html:4
+#: templates_backup/email_text_body_earthquake_epicenter.html:4
+#: templates_backup/email_text_body_earthquake_shakemap.html:4
+#, python-format
+msgid "It took place at %(dateofevent_time)s, %(dateofevent_date)s UTC."
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_epicenter.html:6
+#: templates/email_template/email_text_body_earthquake_shakemap.html:6
+#: templates_backup/email_text_body_earthquake_epicenter.html:6
+#: templates_backup/email_text_body_earthquake_shakemap.html:6
+#, python-format
+msgid "Magnitude of the event was M %(magnitude)s at a %(depth)skm"
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_epicenter2.html:2
+#: templates/email_template/email_text_body_earthquake_shakemap.html:8
+#: templates_backup/email_text_body_earthquake_epicenter.html:8
+#: templates_backup/email_text_body_earthquake_shakemap.html:8
+#, python-format
+msgid "The earthquake epicenter took place in %(area_name)s."
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_epicenter2.html:4
+#: templates_backup/email_text_body_earthquake_epicenter.html:10
+msgid ""
+"For >5.3M: An updated map including estimates on affected population will be "
+"send if and when it becomes available from USGS."
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_epicenter2.html:6
+#: templates_backup/email_text_body_earthquake_epicenter.html:12
+msgid ""
+"For < 5.3M: It is unlikely that for this event USGS will create a shakemap "
+"as impact will likely be very low."
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_shakemap2.html:2
+#: templates_backup/email_text_body_earthquake_shakemap.html:13
+msgid ""
+"The estimates will be recalculated if new information becomes available, "
+"kindly use the ASDC to further investigate areas of interest."
+msgstr ""
+
+#: templates/email_template/email_text_body_earthquake_shakemap2.html:6
+#: templates_backup/email_text_body_earthquake_shakemap.html:17
+msgid ""
+"Note: USGS Shakemaps indicate areas which have shook most at the surface, "
+"this is based on modeled information using only large regional fault lines. "
+"Generally, more shaking at the surface has the potential to create more "
+"damage, however construction methods and soil conditions differ from region "
+"to region and therefore this data is only informative."
+msgstr ""
+
+#: templates/email_template/email_text_body_flood.html:2
+#: templates_backup/email_text_body_flood.html:2
+#, python-format
+msgid ""
+"Please find below the estimated population within predicted flood risk areas "
+"on %(current_date)s. The information is taken from the ASDC at national "
+"level."
+msgstr ""
+
+#: templates/email_template/email_text_body_flood2.html:2
+#: templates_backup/email_text_body_flood.html:4
+msgid ""
+"These estimates are valid for the next 4 days (GFMS) 20 days for (GLOFAS), "
+"use the ASDC to further investigate areas of interest."
+msgstr ""
+
+#: templates/email_template/email_text_body_flood2.html:4
+#: templates_backup/email_text_body_flood.html:6
+msgid ""
+"Note: The the data is  at present not calibrated  there can be over/under "
+"estimations. This data is only informative."
+msgstr ""
+
+#: templates/email_template/table_earthquake.html:15 templates/email_template
+#: (1)/email_template/table_earthquake.html:15
+#: (2)/email_template/table_earthquake.html:15
+#: templates_backup/table_earthquake.html:15
+msgid "X+: Extreme"
+msgstr "X +: شدیدتر "
+
+#: templates/email_template/table_earthquake.html:20 templates/email_template
+#: (1)/email_template/table_earthquake.html:20
+#: (2)/email_template/table_earthquake.html:20
+#: templates_backup/table_earthquake.html:20
+msgid "IX: Violent"
+msgstr "IX: تند "
+
+#: templates/email_template/table_earthquake.html:25 templates/email_template
+#: (1)/email_template/table_earthquake.html:25
+#: (2)/email_template/table_earthquake.html:25
+#: templates_backup/table_earthquake.html:25
+msgid "VIII: Severe"
+msgstr "VIII: شدید"
+
+#: templates/email_template/table_earthquake.html:30 templates/email_template
+#: (1)/email_template/table_earthquake.html:30
+#: (2)/email_template/table_earthquake.html:30
+#: templates_backup/table_earthquake.html:30
+msgid "VII: Very-strong"
+msgstr "VII: قویتر "
+
+#: templates/email_template/table_earthquake.html:35 templates/email_template
+#: (1)/email_template/table_earthquake.html:35
+#: (2)/email_template/table_earthquake.html:35
+#: templates_backup/table_earthquake.html:35
+msgid "VI: Strong"
+msgstr "VI: قوی "
+
+#: templates/email_template/table_earthquake.html:40 templates/email_template
+#: (1)/email_template/table_earthquake.html:40
+#: (2)/email_template/table_earthquake.html:40
+#: templates_backup/table_earthquake.html:40
+msgid "V: Moderate"
+msgstr "V: متوسط "
+
+#: templates/email_template/table_earthquake.html:45 templates/email_template
+#: (1)/email_template/table_earthquake.html:45
+#: (2)/email_template/table_earthquake.html:45
+#: templates_backup/table_earthquake.html:45
+msgid "IV: Light"
+msgstr "IV: خفیف"
+
+#: templates/email_template/table_earthquake.html:50 templates/email_template
+#: (1)/email_template/table_earthquake.html:50
+#: (2)/email_template/table_earthquake.html:50
+#: templates_backup/table_earthquake.html:50
+msgid "II-III: Weak"
+msgstr "II-III: ضعیف"
+
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap2.html:6
+msgid ""
+"iMMAP is sharing this information at request of ANDMA with you for further "
+"dissemination to the selected\n"
+"    entities within GoIRA and the Humanitarian Community."
+msgstr ""
+
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap2.html:9
+msgid "Kind regards,"
+msgstr ""
+
+#: templates/email_template
+#: (1)/email_template/email_text_body_earthquake_shakemap2.html:10
+msgid "iMMAP Afghanistan"
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:471
+msgid "View in ASDC"
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:507
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:479
+#, python-format
+msgid ""
+"Please <a href=\"%(url_settings_unsubs_event)s\">click here</a> if you do "
+"not want to receive further notifications for this type of event: "
+"%(eventtype)s<br/>"
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:508
+#, python-format
+msgid ""
+"Please <a href=\"%(url_settings_unsubs_area)s\">click here</a> if you do not "
+"want to receive further notifications for this region: %(area_name_scope)s"
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:509
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:481
+#, python-format
+msgid ""
+"Please <a href=\"%(url_settings_unsubs_all)s\">click here</a> if you do not "
+"want to receive any further risk/warning messages from ASDC"
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:510
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:482
+#, python-format
+msgid ""
+"Please <a href=\"%(url_settings_modify)s\">click here</a> if you want to "
+"customize your notifications."
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:534
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:506
+msgid ""
+"Data Disclaimer: The Afghanistan Spatial Data Center Data/Maps were created "
+"by the iMMAP DRR program. A degree of error is inherent in all datasets, "
+"especially modelled maps and maps of dynamic events such as flooding, "
+"earthquakes. Accordingly, the information is distributed \"AS-IS\" without "
+"warranties of any kind, either express or implied. iMMAP shall not accept "
+"any liability or warranties for damages incurring from the use of this data, "
+"including but not limited to warranties of suitability to a particular "
+"purpose or use. No attempt has been made in either the design or production "
+"of the data to define the limits or jurisdiction of any federal, state, or "
+"local government."
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:536
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:508
+msgid ""
+"Limitation of Warranties and Liability: The information, maps and "
+"documentation is provided \"AS IS\" without any other warranties or "
+"conditions, express or implied, including, but not limited to, warranties "
+"for product quality, or suitability to a particular purpose or use. The risk "
+"or liability resulting from the use of this product rests solely on the "
+"user. iMMAP accepts no liability for any direct, incidental, special, "
+"consequential or any other damages whatsoever, including, but not limited "
+"to, loss of revenue or profit, lost or damaged data, or other commercial or "
+"economic loss. iMMAP shall not be responsible for claims by third parties. "
+"The data, boundaries and names and the designations used on this map do not "
+"imply official endorsement or acceptance by iMMAP or USAID/OFDA."
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:538
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:510
+msgid ""
+"Though all efforts have been made to ensure the accuracy of the data and "
+"maps, the same should not be construed as a statement of law or used for any "
+"legal purposes. iMMAP accepts no responsibility in relation to the accuracy, "
+"completeness, usefulness or otherwise, of the content. Users are advised to "
+"verify/check any information with the relevant Government Department(s) and/"
+"or other source(s), and to obtain any appropriate professional advice before "
+"acting on the information provided."
+msgstr ""
+"اگرچه تمام تلاش و کوشش برای اطمینان دقت ارقام و نقشه ها صورت گرفته شده ، هما "
+"نباید به عنوان یک بیانیه قانون  و یا برای اهداف قانونی مورد استفاده قرار "
+"گیرد .در آن زمینه iMMAP هیچ مسئولیتی در قبال دقت، درستی، سودمندی و یا دیگر "
+"جزییات نداشته. به کاربران توصیه میشود برای تأیید / بررسی هر گونه معلومات با "
+"وزارت مربوطه و منابع دیگر برای به دست آوردن هر گونه مشاوره حرفه ای مناسب قبل "
+"از اقدام ارائه معلومات شود."
+
+#: templates_backup/email_simple_hybrid.html:599
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:571
+msgid "iMMAP"
+msgstr "iMMAP"
+
+#: templates_backup/email_simple_hybrid.html:599
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:571
+msgid "1300 Pennsylvania Avenue, N.W.,Suite 470 Washington, D.C. 20004"
+msgstr ""
+
+#: templates_backup/email_simple_hybrid.html:599
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:571
+msgid "Tel: +27 71 427 5996"
+msgstr ""
+
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:265
+msgid "in"
+msgstr ""
+
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:375
+#, python-format
+msgid "%(eventtype)s Notification"
+msgstr ""
+
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:434
+msgid "Region"
+msgstr "منطقه"
+
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:454
+msgid "View in ASDC Dashboard"
+msgstr ""
+
+#: templates_backup/unused/email_simple_hybrid_inlineimg.html:480
+#, python-format
+msgid ""
+"Please <a href=\"%(url_settings_unsubs_area)s\">click here</a> if you do not "
+"want to receive further notifications for this region: %(area_name)s"
+msgstr ""
+
+#: templates_backup/unused/settings.html:17
+msgid "Documentation"
+msgstr "مستندات"
+
+#: templates_backup/unused/settings.html:20
+msgid "Disclaimer"
+msgstr "رفع مسئولیت"
+
+#
+#: templates_backup/unused/settings.html:33
+msgid "Notification Type"
+msgstr "اطلاعیه"

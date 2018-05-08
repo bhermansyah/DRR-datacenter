@@ -1,0 +1,20 @@
+{% load i18n humanize %}
+<table class="dashboard" style="color: #333; font-family: Helvetica, Arial, sans-serif; width: 100%; border-collapse: collapse; border-spacing: 0; text-align: center; border: 1px solid rgba(51, 51, 51, 0.05); line-height: 2em;">
+	
+<tr style="font-weight: 700; border: 1px solid #fff;">
+	<td style="background-color: #eee; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Likelihood" %}</td>
+	<td style="background-color: #abedfd; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Low" %}</td>
+	<td style="background-color: #c8eb8f; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Moderate" %}</td>
+	<td style="background-color: #fff37f; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "High" %}</td>
+	<td style="background-color: #feb24c; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Very High" %}</td>
+	<td style="background-color: #ff7f80; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Extreme" %}</td>
+</tr>
+<tr>
+	<td style="background-color: #eee; border-left: 1px solid #fff; border-right: 1px solid #fff;">{% trans "Population" %}</td>
+	<td style="background-color: #abedfd; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.riverflood_forecast_low_pop|floatformat:"0"|intcomma}}</td>
+	<td style="background-color: #c8eb8f; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.riverflood_forecast_med_pop|floatformat:"0"|intcomma}}</td>
+	<td style="background-color: #fff37f; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.riverflood_forecast_high_pop|floatformat:"0"|intcomma}}</td>
+	<td style="background-color: #feb24c; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.riverflood_forecast_veryhigh_pop|floatformat:"0"|intcomma}}</td>
+	<td style="background-color: #ff7f80; border-left: 1px solid #fff; border-right: 1px solid #fff;">{{forecast.riverflood_forecast_extreme_pop|floatformat:"0"|intcomma}}</td>
+</tr>
+</table>

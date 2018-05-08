@@ -25,6 +25,19 @@ from geonode.utils import build_social_links
 # addded by boedy
 from matrix.models import matrix
 
+# upload pdf api
+from django.conf.urls import url
+from django.contrib.auth import authenticate, login
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from subprocess import call, check_output, CalledProcessError, STDOUT
+from tastypie.authentication import BasicAuthentication
+from tastypie.authorization import DjangoAuthorization
+from tastypie.resources import ModelResource, Resource
+from tastypie.utils import trailing_slash
+import logging
+import os.path
+
 ALLOWED_DOC_TYPES = settings.ALLOWED_DOCUMENT_TYPES
 
 _PERMISSION_MSG_DELETE = _("You are not permitted to delete this document")
@@ -365,3 +378,97 @@ def document_remove(request, docid, template='documents/document_remove.html'):
             mimetype="text/plain",
             status=401
         )
+
+class uploadpdf(Resource):
+    """ wrapper api for checkPDFExists.py """
+    # usage example, call url http://asdc.immap.org/api/uploadpdf/?csv=input.csv
+
+    class Meta:
+        authentication = BasicAuthentication()
+        # authorization = DjangoAuthorization()
+        resource_name = 'uploadpdf'
+        allowed_methods = ['get']
+        detail_allowed_methods = ['get']
+        always_return_data = True
+
+    def base_urls(self):
+        return [
+            url(r"^%s%s$" % (self._meta.resource_name, trailing_slash()), self.wrap_view('run_checkPDFExists'), name="run_checkPDFExists"),
+        ]
+
+    # @logged_in_or_basicauth()
+    def run_checkPDFExists(self, request, **kwargs):
+
+        # manual basic auth 
+        auth_result = BasicAuthentication().is_authenticated(request)
+        if isinstance(auth_result, bool) and (auth_result == True):
+            login(request, request.user)
+        else:
+            return auth_result
+
+        # logging
+        appfolder = os.path.dirname(os.path.realpath(__file__))+'/'
+        logger = logging.getLogger('uploadpdf')
+        logger.setLevel(logging.DEBUG)
+        fh = logging.handlers.RotatingFileHandler(filename=appfolder+'uploadpdflog.txt', mode='a', maxBytes=1024*1024, backupCount=1)
+        fh.setLevel(logging.DEBUG)
+        formatter = logging.Formatter('%(asctime)s;%(name)s;%(levelname)s;%(message)s')
+        fh.setFormatter(formatter)
+        logger.addHandler(fh)
+
+        result = {'success': False}
+        try:
+            # Notes:
+            # set file_out to output csv file
+            # set path_upload to path of csv input
+            # set file_checkPDFExists to location of checkPDFExists.py
+            # make sure csv output file exist
+
+            path_upload = "/home/uploader/161213/"
+            file_checkPDFExists = appfolder+"checkPDFExists.py"
+            filename_csv = request.GET.get('csv', '') or 'uploadlist.csv'
+            file_csv = path_upload+filename_csv
+            file_out = appfolder+"uploadedlist.csv"
+
+            # print 'make sure file exist'
+            if not os.path.isfile(file_csv):
+                raise IOError('file csv(\''+file_csv+'\') not found')
+            if not os.path.isfile(file_out):
+                raise IOError('file output(\''+file_out+'\') not found')
+            if not os.path.isfile(file_checkPDFExists):
+                raise IOError('file checkPDFExists(\''+file_checkPDFExists+'\') not found')
+
+            # print 'call the main script'
+            outputtext = check_output(
+                ["python", file_checkPDFExists, file_csv, file_out],
+                stderr=STDOUT
+            )
+            result['outputtext'] = outputtext
+
+        except CalledProcessError as e:
+            # print 'exception from script checkPDFExists.py'
+            result['exception'] = {}
+            result['exception']['name'] = 'CalledProcessError'
+            if hasattr(e, 'output') and (e.output) : 
+                result['exception']['output'] = e.output
+                logger.error(result['exception']['name']+'; '+e.output)
+            if hasattr(e, 'message') and (e.message) : 
+                result['exception']['message'] = e.message
+                logger.error(result['exception']['name']+'; '+e.message)
+            result['exception']['returncode'] = e.returncode
+
+        except Exception as e:
+            # print 'exception not from script checkPDFExists.py'
+            result['exception'] = {}
+            if hasattr(e, '__name__'): 
+                result['exception']['name'] = e.__name__
+            result['exception']['message'] = 'exception on def run_checkPDFExists()'
+            if hasattr(e, 'message'): 
+                result['exception']['message'] = e.message
+            logger.error(result['exception'].get('name', 'exception_type')+';'+e.message)
+
+        else:
+            # print 'no exception occured'
+            result['success'] = True
+
+        return self.create_response(request, result)

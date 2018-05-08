@@ -1,0 +1,301 @@
+{
+  "units": "m",
+  "srs": "EPSG:900913",
+  "layout": "A4 portrait",
+  "dpi": 90,
+  "outputFilename": "\"iMMAP_AFG_River and flash flood prediction_A4 portrait_map_2018-3-13\"",
+  "mapTitle": "River and flash flood prediction",
+  "comment": "Gives prediction on river floods and flash floods. River flood forecasts are valid for 4 (GFMS) - 20 (GLOFAS) days and updated every 6 hours, whereas the flash floods are valid for 6 hours and updated hourly. \nThe map and statistics are is updated every 6 hours.",
+  "layers": [
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 0,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_ppla"
+      ],
+      "format": "image/png8",
+      "styles": [
+        "polygon_nothing"
+      ],
+      "customParams": {
+        "TRANSPARENT": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_airdrmp"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_fldzonea_100k_risk_landcover_pop"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:current_flash_flood_forecasted_villages"
+      ],
+      "format": "image/png",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:glofas_gfms_merge"
+      ],
+      "format": "image/png",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_riv"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm2"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm1"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "minScaleDenominator": 0.520684892112729,
+      "maxScaleDenominator": 559081145.7863648,
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_pplp"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    }
+  ],
+  "pages": [
+    {
+      "center": [
+        7424175.6822491,
+        4022975.9616858
+      ],
+      "scale": 2000000,
+      "bbox": [
+        7226619.7315816,
+        3843058.9351851,
+        7621731.6329166,
+        4202892.9881865
+      ],
+      "rotation": 0
+    }
+  ],
+  "legends": [
+    {
+      "name": "Settlements",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_pplp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Provincial boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm1&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "District boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm2&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Rivers",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_riv&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Flood prediction",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aglofas_gfms_merge&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Flash flood prediction settlements",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Acurrent_flash_flood_forecasted_villages&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Flood risk zones (100 year interval)",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_fldzonea_100k_risk_landcover_pop&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Airports/Airfields",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_airdrmp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=2000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "selectedBox": "64.91782958303129,32.60551468308389%2068.4671801825929,32.60551468308389%2068.4671801825929,35.286567142252096%2064.91782958303129,35.286567142252096%2064.91782958303129,32.60551468308389",
+  "showRiskTable": false,
+  "mapID": "700",
+  "logo": {
+    "data": [
+      {
+        "logourl": "immap.png"
+      },
+      {
+        "logourl": "Government.png"
+      }
+    ],
+    "columns": [
+      "logourl"
+    ]
+  },
+  "contributors": "iMMAP,AGCHO",
+  "userlogo_onpdf": false,
+  "userlogo_url": "$userlogo_url",
+  "showMapComments": false
+}

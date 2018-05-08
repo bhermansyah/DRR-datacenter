@@ -1,0 +1,115 @@
+#. extracted from /home/dodi/Documents/provinces.csv
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-25 17:28+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.10.0\n"
+
+msgid "Nuristan"
+msgstr ""
+
+msgid "Kunduz"
+msgstr ""
+
+msgid "Ghazni"
+msgstr ""
+
+msgid "Wardak"
+msgstr ""
+
+msgid "Hilmand"
+msgstr ""
+
+msgid "Kandahar"
+msgstr ""
+
+msgid "Faryab"
+msgstr ""
+
+msgid "Bamyan"
+msgstr ""
+
+msgid "Panjsher"
+msgstr ""
+
+msgid "Badghis"
+msgstr ""
+
+msgid "Sar-e-Pul"
+msgstr ""
+
+msgid "Paktya"
+msgstr ""
+
+msgid "Baghlan"
+msgstr ""
+
+msgid "Jawzjan"
+msgstr ""
+
+msgid "Kunar"
+msgstr ""
+
+msgid "Khost"
+msgstr ""
+
+msgid "Laghman"
+msgstr ""
+
+msgid "Samangan"
+msgstr ""
+
+msgid "Hirat"
+msgstr ""
+
+msgid "Ghor"
+msgstr ""
+
+msgid "Farah"
+msgstr ""
+
+msgid "Kabul"
+msgstr ""
+
+msgid "Badakhshan"
+msgstr ""
+
+msgid "Nimroz"
+msgstr ""
+
+msgid "Kapisa"
+msgstr ""
+
+msgid "Parwan"
+msgstr ""
+
+msgid "Balkh"
+msgstr ""
+
+msgid "Nangarhar"
+msgstr ""
+
+msgid "Uruzgan"
+msgstr ""
+
+msgid "Daykundi"
+msgstr ""
+
+msgid "Logar"
+msgstr ""
+
+msgid "Takhar"
+msgstr ""
+
+msgid "Zabul"
+msgstr ""
+
+msgid "Paktika"
+msgstr ""

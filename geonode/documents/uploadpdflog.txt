@@ -1,0 +1,5 @@
+2018-04-26 06:09:51,078;uploadpdf;ERROR;; file csv('/home/uploader/161213/uploadlist.csv') not found
+2018-04-26 06:13:27,551;uploadpdf;ERROR;exception_name;file csv('/home/uploader/161213/uploadlist.csv') not found
+2018-04-26 06:25:36,680;uploadpdf;ERROR;exception_name;file csv('/home/uploader/161213/uploadlist.csv') not found
+2018-04-26 06:42:47,564;uploadpdf;ERROR;exception_type;file csv('/home/uploader/161213/a.csv') not found
+2018-05-07 08:16:54,721;uploadpdf;ERROR;exception_type;file csv('/home/uploader/161213/uploadlist.csv') not found

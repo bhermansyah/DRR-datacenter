@@ -1,0 +1,222 @@
+{
+  "units": "m",
+  "srs": "EPSG:900913",
+  "layout": "A4 portrait",
+  "dpi": 90,
+  "outputFilename": "\"iMMAP_AFG_Avalanche prediction / current risk_A4 portrait_map_2018-3-13\"",
+  "mapTitle": "Avalanche prediction / current risk",
+  "comment": "Shows the number of people potentially affected by avalanches based on the current snow cover and snow water equivalent (at small basin scale)",
+  "layers": [
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 0,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_ppla"
+      ],
+      "format": "image/png8",
+      "styles": [
+        "polygon_nothing"
+      ],
+      "customParams": {
+        "TRANSPARENT": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_elev_dem_30m_aster_hillshade"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:current_avalanche_forecast_villages"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm1"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_admbnda_adm2"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_avsa"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    },
+    {
+      "baseURL": "http://asdc.immap.org/geoserver/wms",
+      "opacity": 1,
+      "singleTile": false,
+      "type": "WMS",
+      "layers": [
+        "geonode:afg_pplp"
+      ],
+      "format": "image/png8",
+      "styles": [
+        ""
+      ],
+      "customParams": {
+        "TRANSPARENT": true,
+        "TILED": true
+      }
+    }
+  ],
+  "pages": [
+    {
+      "center": [
+        7713827.67075,
+        4328013.9672
+      ],
+      "scale": 1000000,
+      "bbox": [
+        7615049.6954163,
+        4238055.4539496,
+        7812605.6460837,
+        4417972.4804504
+      ],
+      "rotation": 0
+    }
+  ],
+  "legends": [
+    {
+      "name": "Settlements",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_pplp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=1000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Avalanche areas (potential)",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_avsa&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=1000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "District boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm2&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=1000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Provincial boundaries",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm1&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=1000000"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Avalanche risk forecast settlements",
+      "classes": [
+        {
+          "name": "",
+          "icons": [
+            "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Acurrent_avalanche_forecast_villages&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=1000000"
+          ]
+        }
+      ]
+    }
+  ],
+  "selectedBox": "68.40715531674404,35.54399215845792%2070.18183061652394,35.54399215845792%2070.18183061652394,36.84822578746453%2068.40715531674404,36.84822578746453%2068.40715531674404,35.54399215845792",
+  "showRiskTable": false,
+  "mapID": "707",
+  "logo": {
+    "data": [
+      {
+        "logourl": "Government.png"
+      },
+      {
+        "logourl": "immap.png"
+      }
+    ],
+    "columns": [
+      "logourl"
+    ]
+  },
+  "contributors": "iMMAP,AGCHO",
+  "userlogo_onpdf": false,
+  "userlogo_url": "$userlogo_url",
+  "showMapComments": false
+}

@@ -1,0 +1,292 @@
+{% extends "v2/site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Subscriptions List - Push Notifications Report" %} — {{ block.super }} {% endblock %}
+{% block head %}
+{{ block.super }}
+<!-- angular data table -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.7.0/dataTable.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.7.0/material.css">
+<link rel="stylesheet" type="text/css" href="https://fontastic.s3.amazonaws.com/Jnf54BZCm7mSjGCxNRbfp3/icons.css">
+<style>
+.panel-primary>.panel-heading {
+  background-color: #a61101;
+}
+.modal .modal-header {
+  padding: 15px;
+}
+.modal .modal-header>h4 {
+  color: inherit;
+}
+
+/*angular data table*/
+body {
+  font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0.01rem;
+  color: #212121;
+  background-color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+#dtmain.dt {
+  /*width: 75%;*/
+  height: 340px; /*10 row per page*/
+}
+.dt {
+  /*width: 75%;*/
+  margin: 10px auto 25px;
+}
+.dt-cell,
+.dt-header-cell {
+  vertical-align: top;
+  overflow: hidden;
+  white-space: normal !important;
+  line-height: 1.4 !important;
+  display: block;
+  display: -webkit-box;
+  /*-webkit-line-clamp: 3;*/
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* override default rule using equal css selector but declared later */
+.dt .dt-cell,
+.dt .dt-header-cell {
+  -webkit-user-select: initial;
+  user-select: initial;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.dt-cell.dtcelluser {
+  overflow-y: auto;
+  max-height: 100px;
+}
+
+.dt-depth-0 > div > .dt-cell, .dt-depth-1 > div > .dt-cell {
+  font-weight: 500;
+}
+
+.dt.material .dt-body .dt-row.dt-depth-0 .dt-cell.dt-tree-col {
+  padding-left: 30px;
+}
+
+.dt.material .dt-body .dt-row.dt-depth-1 .dt-cell.dt-tree-col {
+  padding-left: 50px;
+}
+
+.dt.material .dt-body .dt-row.dt-depth-2 .dt-cell.dt-tree-col {
+  padding-left: 70px;
+}
+
+.dt-tree-col {
+  /*padding-left: 35px !important;*/
+}
+
+.dt-tree-toggle {
+  position: absolute;
+  margin-left: -23px;
+  top: .5em;
+}
+</style>
+{% endblock head %}
+
+{% block body_class %}push-notification-report{% endblock %}
+{% block body_extra_attr %}{{ block.super }} ng-app="app" {% endblock %}
+{% block body_outer %}
+
+<!-- Title -->
+<section class="title">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>{% trans "Push Notification Report" %}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+{% include "pushnotif_report_links.html" %}
+
+<!-- Body -->
+<section id="datatablesection" class="container" ng-app="app">
+  <h3>{% trans "Subscriptions List" %}</h3>
+  <p>{% blocktrans %}Shows the number of users subscribed to notifications, group by area and event type. Data compiled from <a href="{{subs_csv_url}}">subscriptions.csv</a> file.{% endblocktrans %}</p>
+  <div ng-controller="data-table-controller">
+    <dtable options="options" rows="data" class="material" expanded="expanded" on-tree-toggle="treeToggled(cell)"></dtable>
+    <span>{% trans "Subscriptions Count" %}: {% verbatim %}{{subscriptions_count}}{% endverbatim %}</span>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_script %}
+{{ block.super }}
+<script src="{{ STATIC_URL }}v2/js/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-data-table/0.7.0/dataTable.js"></script>
+<script type="text/javascript" src="http://cdn.jsdelivr.net/alasql/0.3/alasql.min.js"></script> <!-- v0.3.9 -->
+<script>
+
+var rawdata = {};
+var area_ref_dict = {{ area_ref_dict|safe }};
+var eventtypenames = {{ eventtypenames|safe }};
+var key_separator = '{{ key_separator }}';
+var sub_key_separator = '{{ sub_key_separator }}';
+var subscriptions_list = {{subscriptions_list|safe}};
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function updateUrlParameter(url, param, value){
+    var regex = new RegExp('([?|&]'+param+'=)[^\&]+');
+    return url.replace( regex , '$1' + value);
+}
+
+function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+
+String.prototype.upperCaseFirst = function() {
+  return this.charAt(0).toUpperCase() + this.substr(1).toLowerCase();
+}
+
+String.prototype.titleCase = function() {
+  return this.replace(/\w\S*/g, function(txt){return txt.upperCaseFirst();});
+}
+
+var module = angular.module('app', ['data-table']);
+
+module.controller('data-table-controller', function($scope, $http) {
+
+  $scope.options = {
+    // rowHeight: 50,
+    footerHeight: false,
+    scrollbarV: false,
+    // headerHeight: 50,
+    columnMode: 'flex',
+    columns: [{
+      name: "Group",
+      prop: "g",
+      flexGrow: 2,
+      isTreeColumn: true,
+      relationProp: 'p',
+      sortable: false
+    }, {
+      name: "Subscriptions",
+      prop: "c",
+      flexGrow: 0.6,
+      sortable: false
+    }, {
+      name: "Area",
+      prop: "area",
+      flexGrow: 1,
+      sortable: false
+    }, {
+      name: "Event",
+      flexGrow: 1,
+      prop: "event",
+      sortable: false
+    }, {
+      name: "User",
+      flexGrow: 1,
+      prop: "user",
+      sortable: false,
+      className: 'dtcelluser'
+    }],
+  };
+  $scope.expanded = {
+    // 'National Afghanistan': true
+  };
+  $scope.treeToggled = function (row, cell) {
+    // console.log('toggled!');
+  };
+  $scope.dataraw = [];
+  $scope.subscriptions_count = subscriptions_list.length;
+  var subscriptions_cols = ['user', 'event', 'area'];
+  var result = {'data':subscriptions_list};
+  // console.log(result);;
+  for (let idx in result.data) {
+    if (result.data[idx].join('').trim() != '') {
+      var csv_row = result.data[idx];
+      var row = {};
+      row[subscriptions_cols[0]] = csv_row[0];
+      row[subscriptions_cols[1]] = eventtypenames[csv_row[1]];
+      row[subscriptions_cols[2]] = csv_row[2].upperCaseFirst()+' '+area_ref_dict[csv_row[2]+sub_key_separator+Math.round(csv_row[3])];
+      $scope.dataraw.push(row);
+    }
+  }
+  alasql("CREATE TABLE subscriptions ("+subscriptions_cols.join(', ')+')');
+  alasql.tables.subscriptions.data = $scope.dataraw;
+  // select (area || ' > ' || event || ' > ' || user) as g, '' as c, area, event, user, (area || ' > ' || event) as p from subscriptions \
+  $scope.data = alasql("\
+  select g as `g`, c as `c`, area, event, user, p as `p` from (\
+    select * from (\
+      select o, g, c, area, event, user, p from (\
+        select (area || ' > ' || event || ' > All User') as o, (area || ' > ' || event || ' > All User') as g, count(*) as c, area, event, array(user) as user, (area || ' > ' || event) as p \
+        from subscriptions \
+        group by area, event) \
+      UNION ALL \
+        select (area || ' > ' || event) as o, (area || ' > ' || event) as g, count(*) as c, area, event, '' as user, (area) as p from subscriptions \
+        group by area, event) \
+    UNION ALL \
+    select (area) as o, (area) as g, count(*) as c, area from subscriptions \
+    group by area \
+  ) \
+  order by o \
+  ")
+  // $scope.data = alasql("\
+  // select o as `o`, g as `g`, c as `c`, area, event, user, p as `p` from (\
+  //   select o, g, c, area, event, user, p from (\
+  //     select (area || ' > ' || event) as o, (area || ' > ' || event) as g, count(*) as c, area, event, array(user) as user, area as p \
+  //     from subscriptions \
+  //     group by area, event) \
+  //   UNION ALL \
+  //   select o, g, c, area from (\
+  //     select (area) as o, (area) as g, count(*) as c, area \
+  //     from subscriptions \
+  //     group by area) \
+  // ) \
+  // order by o \
+  // ")
+  console.log($scope.data);
+
+}).config(['$httpProvider', function($httpProvider) {
+    // integrate django csrf-token to angular ajax request
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+}]);
+
+// module.controller('data-table-detail-controller', function($scope, $http) {
+//
+//
+// });
+
+document.addEventListener("DOMContentLoaded", function(event) {
+});
+
+</script>
+{% endblock extra_script %}
