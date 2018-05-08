@@ -151,11 +151,8 @@ def dashboard_detail(request):
 	    return redirect(set_query_parameter(currenturl, 'page', 'baseline'))
 
 	if 'pdf' in request.GET:
-		v2_folder = ''
-		# v2_folder = 'v2/' if request.resolver_match.namespace == 'v2' else ''
 		try:
 			domainpath = 'asdc.immap.org'+request.META.get('PATH_INFO')
-			print request.META.get('HTTP_HOST'), request.META.get('PATH_INFO')
 			date_string = dateformat.format(datetime.now(), "Y-m-d")
 
 			# create an API client instance
@@ -200,7 +197,6 @@ def dashboard_detail(request):
 			if re.match('^/v2', request.path):
 			    options['viewport-size'] = '1240x800'
 			domainpath = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
-			print 'http://'+str(a)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&lang='+str(translation.get_language())
 			url = 'http://'+str(domainpath)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&'+bodyparam
 			pdf = pdfkit.from_url(url, False, options=options)
 			date_string = dateformat.format(datetime.now(), "Y-m-d")
