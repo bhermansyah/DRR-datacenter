@@ -83,6 +83,7 @@ class MyFormatter(string.Formatter):
         else:
             return super(MyFormatter, self).format_field(value, format_spec)
 
+# custom json encoder
 class CustomEncoder(json.JSONEncoder):
     def default(self, obj):
         if obj.__class__.__name__  == "GeoValuesQuerySet":
@@ -96,10 +97,9 @@ class CustomEncoder(json.JSONEncoder):
             # return {} # convert un-json-able object to empty object
             return 'not converted to json:', obj.__class__.__name__ # convert un-json-able object to empty object
 
-
 # global var
-email_from = 'admin.geonode@immap.org'
-emails_admin = privatedata.emails_admin
+email_from = 'admin.geonode@immap.org' # notification email sender
+emails_admin = privatedata.emails_admin # notification email approval admin
 langs = ['en', 'prs']
 langs_names = ['english', 'dari']
 default_lang = langs[0]
@@ -108,18 +108,18 @@ imgratio = {'x': 4.0, 'y': 3.0}
 latscaleratio = 1.5e-6
 scales = [1000, 1500, 2500, 5000, 7500, 10000, 15000, 25000, 30000, 40000, 50000, 75000, 100000, 150000, 200000, 250000, 350000, 500000, 750000, 1000000, 1250000, 1500000, 2000000, 2500000, 3000000, 3500000, 4000000, 4500000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11000000, 12000000, 13000000, 14000000, 15000000, 16000000]
 script_start_time = strftime("%Y%m%d%H%M%S", gmtime())
-foldertmp = folderbase+'tmp/'
+foldertmp = folderbase+'tmp/' # folder for temporary pdf files, public accessible
 uploadedlogo_baseurl = '/uploaded/logos/'
 urltmp = settings.SITEURL+'/pushnotif/tmp/'
-new_notif_min_days = 0 # minimum number of days new notif of the same type and area can be re-sent
-eq_notif_max_days = 70 # max number of days ago earthquake event included for notification
+new_notif_min_days = 4 # minimum number of days new notif of the same type and area can be re-sent
+eq_notif_max_days = 7 # max number of days ago earthquake event included for notification
 emaillist_json_max_byte = 1*1024*1024 # in bytes, emaillist.json max file size before archived
 eventtypedata = []
 key_separator = '__'
 sub_key_separator = '_'
 subsid_prefix = 'subscription'
 debuglist = ['timer', 'get_pdf', 'triggered', 'checkpoint', 'cacheid', 'emailapproval', 'date_limit']
-session_localhost = {}
+session_localhost = {} # only for development, for production session_localhost == session_asdc
 session_asdc = {}
 emaillist = {}
 provinces = {}
@@ -155,10 +155,7 @@ cid_attachment_imgs = ['usaid.png', 'immap.png', 'andma.png', 'icon_facebook.png
 
 # set logging
 logging.config.fileConfig(folderbase+'logging.conf')
-# print 'after logging.config.fileConfig'
 log = logging.getLogger('pushnotif')
-# print 'after log = logging.getLogger'
-log.debug('pushnotif start logging')
 for h in log.handlers:
     if (isinstance(h, logging.handlers.RotatingFileHandler)):
         h.close()
@@ -185,7 +182,7 @@ for h in log.handlers:
             strftime("%Y-%m-%d %H:%M:%S", gmtime())
         )
         h.mailer.template += '%s' # for email main body
-
+log.debug('pushnotif start logging')
 
 # log error traceback messages
 def exception_hook(exc_type, exc_value, exc_traceback):
@@ -275,7 +272,7 @@ def init_subscriptions(request=None):
             lines = []
             for line in f:
                 username = line.strip().split(',')[0].strip("'")
-                language = usersettings.get(username, {}).get('language', default_lang)
+                language = usersettings.get(username, {}).get('language') or default_lang
                 lines.append("({line},'{language}')".format(**{'line':line.strip(), 'language':language}))
             values = ','.join(lines)
             if values:
@@ -627,6 +624,13 @@ def showtemplate(request):
     msg.send()
     return render(request, template)
 
+# get value from cache with key = cacheid, populate it first if cacheid not in cache
+def cacheget(cacheid, func, *args, **kwargs):
+    global cache
+    if (cacheid not in cache):
+        cache[cacheid] = func(*args, **kwargs)
+    return cache[cacheid]
+
 # # @user_passes_test(lambda u: u.is_superuser, login_url='/')
 # def triggercheck_old(request):
 #     init_provinces()
@@ -853,7 +857,7 @@ def triggercheck(request):
                 emaillistadd[emailid]['emaildata'][r['lang_code']]['recipients'].append(r['email'])
     '''
 
-    # additional entries for emaillist
+    # additional new entries for emaillist
     emaillistadd = {}
 
     for s in subscriptions:
@@ -905,6 +909,7 @@ def triggercheck(request):
             if 'timer' in debuglist: start_time = time.time()
             if 'timer' in debuglist: log.debug(' '.join(map(str, ['timer start getFloodForecast at', datetime.datetime.fromtimestamp(int(start_time)).strftime('%H:%M:%S')])))
             # emaildata['forecast'] = cache.setdefault(cacheid, getFloodForecast(request, filterLock=filterLock, flag=scope_flags[s['area_scope']], code=s['area_code']))
+            is_new_data = cacheid not in cache
             try:
                 emaildata['forecast'] = cache[cacheid] = cache.get(cacheid) or getFloodForecast(request, filterLock=filterLock, flag=scope_flags[s['area_scope']], code=area_code)
             except Exception as e:
@@ -1005,7 +1010,7 @@ def triggercheck(request):
             loop_desc = '%s%s in %s %s code:%s user %s'% (s['eventtypeid'], (' code:%s' % earthquakeid) if earthquakeid else '', s['area_scope'], area_reference['area_name'], s['area_code'], s['username'])
             # log.info(' '.join(map(str, ['checking trigger %s%s in %s %s code:%s user %s'% (s['eventtypeid'], (' code:%s' % earthquakeid) if earthquakeid else '', s['area_scope'], area_reference['area_name'], s['area_code'], s['username'])])))
 
-            # trigger-checking
+            # trigger-checking section
             etd = eventtypedata[s['eventtypeid']]
             triggered = False
             if s['eventtypeid'] in ['earthquake_epicenter']:
@@ -2357,7 +2362,7 @@ def sendnotif_adminapproval(emaillistitem, approvaldata, return_message = False)
 
     if 'timer' in debuglist: start_time = time.time()
     if 'timer' in debuglist: log.debug(' '.join(map(str, ['timer start send() at', datetime.datetime.fromtimestamp(int(start_time)).strftime('%H:%M:%S')])))
-    msg.send()
+    send_result = msg.send()
     if 'timer' in debuglist: log.debug(' '.join(map(str, [("timer end send(), %s seconds" % (time.time() - start_time))])))
 
     return
@@ -2470,7 +2475,7 @@ def sendnotif_user(emaillistitem={}, return_message = False):
         else:
             if 'timer' in debuglist: start_time = time.time()
             if 'timer' in debuglist: log.debug(' '.join(map(str, ['timer start msg.send() at', datetime.datetime.fromtimestamp(int(start_time)).strftime('%H:%M:%S')])))
-            msg.send()
+            send_result = msg.send()
             if 'timer' in debuglist: log.debug(' '.join(map(str, [("timer end msg.send(), %s seconds" % (time.time() - start_time))])))
 
             recipients.append({lang:emaildata['recipients']})
@@ -2906,6 +2911,8 @@ if from_cli and len(sys.argv) > 1:
     #     log_test()
     elif sys.argv[1] == 'init_subscriptions':
         init_data(HttpRequest())
+    else:
+        print 'options: triggercheck, resetsubs, setsubsnewuser, init_subscriptions'
 
         # call function dynamically, sys.argv[1] = function name
         # globals()[sys.argv[1]]()

@@ -164,6 +164,7 @@ urlpatterns = patterns('',
                        # v2 will overwrite named url with the same name
                        (r'^v2/', include(v2urlpatterns, namespace='v2')),
 
+                       (r'^pushnotif/', include('pushnotif.urls')),
                        url(r'', include('geonode.documents.urls_api_checkpdf'))
                        
                        )

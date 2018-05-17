@@ -27,7 +27,6 @@ urlpatterns = patterns(
     # url(r'^pushnotif.log$', serve, {'document_root': document_root,}),
     # url(r'^tmp/(?P<path>.*)$', serve, {'document_root': document_root+'tmp/',}),
     # url(r'pushnotif.log^$', TemplateView.as_view(template_name='pushnotif.log'), name="pushnotif.log"),
-    url(r'^hello/$', 'hello', name='hello')
     )
 
 # pdf, html and other temp files

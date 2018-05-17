@@ -338,6 +338,7 @@ INSTALLED_APPS = (
     'graphos',
     'securitydb',
     'userstatistics',
+    'pushnotif'
 
 ) + GEONODE_APPS
 
