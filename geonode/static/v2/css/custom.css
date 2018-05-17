@@ -1588,6 +1588,10 @@ ul.breadcrumb-custom>li>a,ul.breadcrumb-custom>li .divider
     border: transparent;
 }
 
+div.select2-container.select2-container-multi.user-select{
+    height: auto;
+}
+
 .qlinks, .dash-links{
   /*color: #08c;*/
   cursor: pointer;
@@ -1856,7 +1860,7 @@ nav.navbar-upper .nav>li>a
     padding-top: 10px;
     padding-bottom: 10px;
     color: #333;
-    font-family: "Fjalla One";
+    font-family: "Fjalla One", Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
     text-transform: uppercase;
     text-shadow: none;
