@@ -6,6 +6,8 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE","geonode.settings")
 
 from geonode.base.models import Region
 from geonode.documents.models import Document
+from itertools import tee
+from pprint import pprint
 import geonode.documents.models
 import geonode.documents.views
 import logging
@@ -13,6 +15,7 @@ import logging
 path_source = '/home/uploader/161213/'
 path_dest = '/home/ubuntu/DRR-datacenter/geonode/uploaded/96_Geonode/'
 fin_up_path = '96_Geonode/'
+u = geonode.documents.views.uploadpdf() # instantiate class to init uploadpdf logging
 logger = logging.getLogger('uploadpdf')
 
 f_IN = open(sys.argv[1], 'r+U')
@@ -22,11 +25,13 @@ try:
 	reader = csv.reader(f_IN)
 	writer = csv.writer(f_OUT)
 	remaining = list(reader)
+	f_IN.seek(0)
 	for idx, row in enumerate(reader):
 		if first:
-		   first = False
+			first = False
 		else :
 
+			# logger.debug(row)
 			if os.path.isfile(os.path.normpath(path_source+row[10]+'/'+row[0])):
 				print os.path.normpath(path_source+row[10]+'/'+row[0])
 				os.rename((os.path.normpath(path_source+row[10]+'/'+row[0])), (os.path.normpath(path_dest+row[10]+'/'+row[0])))
@@ -58,12 +63,17 @@ try:
 					loc = Region.objects.get(pk=row[4])
 					newdata.regions.add(loc)
 					del remaining[idx]
+					logger.info('upload pdf succesfull: '+row[1])
 				except Exception as e:
 					msg = "{0} error...!, {1}".format(row[0], e.message)
 					print msg
+					logger.error(msg)
 					sys.exit(msg)
 		writer.writerow(row)
-		logger.info('upload pdf succesfull: '+row[1])
+except Exception as e:
+	print e.message
+	logger.error(e.message)
+	sys.exit(e.message)
 finally:
 
 	# write remaining list back to f_IN

@@ -30,6 +30,7 @@ from django.conf.urls import url
 from django.contrib.auth import authenticate, login
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from pprint import pprint
 from subprocess import call, check_output, CalledProcessError, STDOUT
 from tastypie.authentication import BasicAuthentication
 from tastypie.authorization import DjangoAuthorization
@@ -381,7 +382,7 @@ def document_remove(request, docid, template='documents/document_remove.html'):
 
 class uploadpdf(Resource):
     """ wrapper api for checkPDFExists.py """
-    # usage example, call url http://asdc.immap.org/api/uploadpdf/?csv=input.csv
+    # usage example, call url http://asdc.immap.org/api/uploadpdf/?csv=uploadlist.csv
 
     class Meta:
         authentication = BasicAuthentication()
@@ -390,6 +391,21 @@ class uploadpdf(Resource):
         allowed_methods = ['get']
         detail_allowed_methods = ['get']
         always_return_data = True
+
+    def __init__(self,api_name=None):
+
+        # init logging
+        self.appfolder = os.path.dirname(os.path.realpath(__file__))+'/'
+        self.logger = logging.getLogger('uploadpdf')
+        if not len(self.logger.handlers):
+            self.logger.setLevel(logging.DEBUG)
+            fh = logging.handlers.RotatingFileHandler(filename=self.appfolder+'uploadpdflog.txt', mode='a', maxBytes=1024*1024, backupCount=1)
+            fh.setLevel(logging.DEBUG)
+            formatter = logging.Formatter('%(asctime)s;%(name)s;%(funcName)s:%(lineno)d;%(levelname)s;%(message)s')
+            fh.setFormatter(formatter)
+            self.logger.addHandler(fh)
+
+        super(uploadpdf,self).__init__(api_name)
 
     def base_urls(self):
         return [
@@ -406,16 +422,6 @@ class uploadpdf(Resource):
         else:
             return auth_result
 
-        # logging
-        appfolder = os.path.dirname(os.path.realpath(__file__))+'/'
-        logger = logging.getLogger('uploadpdf')
-        logger.setLevel(logging.DEBUG)
-        fh = logging.handlers.RotatingFileHandler(filename=appfolder+'uploadpdflog.txt', mode='a', maxBytes=1024*1024, backupCount=1)
-        fh.setLevel(logging.DEBUG)
-        formatter = logging.Formatter('%(asctime)s;%(name)s;%(levelname)s;%(message)s')
-        fh.setFormatter(formatter)
-        logger.addHandler(fh)
-
         result = {'success': False}
         try:
             # Notes:
@@ -425,10 +431,10 @@ class uploadpdf(Resource):
             # make sure csv output file exist
 
             path_upload = "/home/uploader/161213/"
-            file_checkPDFExists = appfolder+"checkPDFExists.py"
+            file_checkPDFExists = self.appfolder+"checkPDFExists.py"
             filename_csv = request.GET.get('csv', '') or 'uploadlist.csv'
             file_csv = path_upload+filename_csv
-            file_out = appfolder+"uploadedlist.csv"
+            file_out = self.appfolder+"uploadedlist.csv"
 
             # print 'make sure file exist'
             if not os.path.isfile(file_csv):
@@ -451,10 +457,10 @@ class uploadpdf(Resource):
             result['exception']['name'] = 'CalledProcessError'
             if hasattr(e, 'output') and (e.output) : 
                 result['exception']['output'] = e.output
-                logger.error(result['exception']['name']+'; '+e.output)
+                self.logger.error(result['exception']['name']+'; '+e.output)
             if hasattr(e, 'message') and (e.message) : 
                 result['exception']['message'] = e.message
-                logger.error(result['exception']['name']+'; '+e.message)
+                self.logger.error(result['exception']['name']+'; '+e.message)
             result['exception']['returncode'] = e.returncode
 
         except Exception as e:
@@ -465,7 +471,7 @@ class uploadpdf(Resource):
             result['exception']['message'] = 'exception on def run_checkPDFExists()'
             if hasattr(e, 'message'): 
                 result['exception']['message'] = e.message
-            logger.error(result['exception'].get('name', 'exception_type')+';'+e.message)
+            self.logger.error(result['exception'].get('name', 'exception_type')+';'+e.message)
 
         else:
             # print 'no exception occured'
