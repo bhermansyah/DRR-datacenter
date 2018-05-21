@@ -9,6 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#a72b1f">
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119606425-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-119606425-1');
+    </script>
     {% block js_base_dependency %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     {% endblock %}
