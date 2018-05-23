@@ -24,6 +24,7 @@ from urlparse import urlsplit
 from django.conf import settings
 from django.utils.http import is_safe_url
 from django.http.request import validate_host
+import base64
 
 
 def proxy(request):
@@ -65,6 +66,9 @@ def proxy(request):
 
     if request.method in ("POST", "PUT") and "CONTENT_TYPE" in request.META:
         headers["Content-Type"] = request.META["CONTENT_TYPE"]
+
+    if url.hostname == getattr(settings, 'DGB_USOURCE'):
+        headers["Authorization"] = 'Basic %s' % base64.b64encode(getattr(settings, 'DGB_UNAME')+':'+getattr(settings, 'DGB_UPASS'))
 
     if url.scheme == 'https':
         conn = HTTPSConnection(url.hostname, url.port)
