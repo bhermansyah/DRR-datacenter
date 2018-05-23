@@ -717,6 +717,21 @@ MAP_BASELAYERS = [{
     "fixed": True
 }, {
     "source": {"ptype": "gxp_mapboxsource"},
+},{
+    "source": {"ptype": "gxp_olsource"},
+    "type":"OpenLayers.Layer.XYZ",
+    "args":[
+        "ESRI World Imagery", 
+        ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}"], 
+        {
+            "transitionEffect": "resize",
+            "attribution": "osm_attribution",
+            "blankTile":"true"
+        }
+    ],
+    "visibility": True,
+    "fixed": True,
+    "group":"background"
 }]
 
 SOCIAL_BUTTONS = True
