@@ -316,7 +316,8 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
                 layer['title'] = _(layer['title'])
                 if 'args' in layer:
                     for idx, val in enumerate(layer['args']):
-                        layer['args'][idx] = _(val)
+                        if isinstance(val, list) == False and isinstance(val, dict) == False:
+                            layer['args'][idx] = _(val)
         if 'capability' in layer:
             if 'abstract' in layer['capability']:
                 if layer['capability']['abstract']:

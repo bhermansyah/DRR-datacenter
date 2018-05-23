@@ -729,7 +729,7 @@ MAP_BASELAYERS = [{
             "blankTile":"true"
         }
     ],
-    "visibility": True,
+    "visibility": False,
     "fixed": True,
     "group":"background"
 }]
