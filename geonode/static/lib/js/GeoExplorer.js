@@ -35106,7 +35106,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         jsonData.userlogo_onpdf = userLogo['onpdf'];
         jsonData.userlogo_url = userLogo['logo_url'];
         jsonData.showMapComments = Ext.getCmp('map_comments').checked;
-
+        console.log(jsonData);
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
@@ -35496,12 +35496,12 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             },
             "XYZ": function (layer) {
                 var enc = this.encoders.layers.TileCache.call(this, layer);
-                // console.log(enc.baseURL.substr(0, enc.baseURL.indexOf("$")), enc.baseURL.substr(enc.baseURL.lastIndexOf("$")).split("."), enc.baseURL);
                 return Ext.apply(enc, {
                    type: 'XYZ',
                    baseURL: enc.baseURL.substr(0, enc.baseURL.indexOf("$")),
-                   extension: '',//enc.baseURL.substr(enc.baseURL.lastIndexOf("$")).split(".").pop(),
-                   tileOriginCorner: layer.tileOriginCorner
+                   extension: 'png',//enc.baseURL.substr(enc.baseURL.lastIndexOf("$")).split(".").pop(),
+                   tileOriginCorner: layer.tileOriginCorner,
+                   path_format : '${z}/${y}/${x}' 
                 });
             },
             "TileCache": function(layer) {
