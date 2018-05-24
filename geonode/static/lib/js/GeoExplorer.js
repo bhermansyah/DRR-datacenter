@@ -35001,7 +35001,6 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             if(layer !== pagesLayer && layer.getVisibility() === true) {
                 var enc = this.encodeLayer(layer);
                 enc && encodedLayers.push(enc);
-                console.log(layer,enc, encodedLayers);
             }
         }, this);
 
@@ -35497,10 +35496,11 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             },
             "XYZ": function (layer) {
                 var enc = this.encoders.layers.TileCache.call(this, layer);
+                // console.log(enc.baseURL.substr(0, enc.baseURL.indexOf("$")), enc.baseURL.substr(enc.baseURL.lastIndexOf("$")).split("."), enc.baseURL);
                 return Ext.apply(enc, {
                    type: 'XYZ',
                    baseURL: enc.baseURL.substr(0, enc.baseURL.indexOf("$")),
-                   extension: enc.baseURL.substr(enc.baseURL.lastIndexOf("$")).split(".").pop(),
+                   extension: '',//enc.baseURL.substr(enc.baseURL.lastIndexOf("$")).split(".").pop(),
                    tileOriginCorner: layer.tileOriginCorner
                 });
             },
