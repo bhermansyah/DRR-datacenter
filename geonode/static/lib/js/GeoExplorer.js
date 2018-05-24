@@ -35001,7 +35001,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             if(layer !== pagesLayer && layer.getVisibility() === true) {
                 var enc = this.encodeLayer(layer);
                 enc && encodedLayers.push(enc);
-                // console.log(layer,enc);
+                console.log(layer,enc, encodedLayers);
             }
         }, this);
 
@@ -35493,6 +35493,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
                 return Ext.apply(enc, {
                     type: 'TMS',
                     format: layer.type
+                });
+            },
+            "XYZ": function (layer) {
+                var enc = this.encoders.layers.TileCache.call(this, layer);
+                return Ext.apply(enc, {
+                   type: 'XYZ',
+                   baseURL: enc.baseURL.substr(0, enc.baseURL.indexOf("$")),
+                   extension: enc.baseURL.substr(enc.baseURL.lastIndexOf("$")).split(".").pop(),
+                   tileOriginCorner: layer.tileOriginCorner
                 });
             },
             "TileCache": function(layer) {
@@ -87526,6 +87535,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                     layer instanceof OpenLayers.Layer.WMS ||
                     layer instanceof OpenLayers.Layer.OSM ||
                     layer instanceof OpenLayers.Layer.Google ||
+                    layer instanceof OpenLayers.Layer.XYZ ||
                     layer.name == 'Mask Layer'
                 );
             }
