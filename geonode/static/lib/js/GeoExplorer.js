@@ -35106,7 +35106,7 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
         jsonData.userlogo_onpdf = userLogo['onpdf'];
         jsonData.userlogo_url = userLogo['logo_url'];
         jsonData.showMapComments = Ext.getCmp('map_comments').checked;
-        console.log(jsonData);
+
         if(this.method === "GET") {
             var url = Ext.urlAppend(this.capabilities.printURL,
                 "spec=" + encodeURIComponent(Ext.encode(jsonData)));
