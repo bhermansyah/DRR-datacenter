@@ -388,8 +388,9 @@ class uploadpdf(Resource):
         authentication = BasicAuthentication()
         # authorization = DjangoAuthorization()
         resource_name = 'uploadpdf'
-        allowed_methods = ['get']
-        detail_allowed_methods = ['get']
+        allowed_methods = ['get', 'post']
+        list_allowed_methods = ['get', 'post']
+        detail_allowed_methods = ['get', 'post']
         always_return_data = True
 
     def __init__(self,api_name=None):

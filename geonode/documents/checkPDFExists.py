@@ -18,6 +18,15 @@ fin_up_path = '96_Geonode/'
 u = geonode.documents.views.uploadpdf() # instantiate class to init uploadpdf logging
 logger = logging.getLogger('uploadpdf')
 
+# log error traceback messages
+def exception_hook(exc_type, exc_value, exc_traceback):
+    logger.error(
+        "Uncaught exception",
+        exc_info=(exc_type, exc_value, exc_traceback)
+    )
+
+sys.excepthook = exception_hook
+
 f_IN = open(sys.argv[1], 'r+U')
 f_OUT= open(sys.argv[2], 'wt')
 first = True
@@ -43,9 +52,14 @@ try:
 					'datasource':row[2],
 					'subtitle':row[12]
 				}
-				newdata = Document.objects.filter(title=row[18])
-				if newdata:
-					newdata.update(**kwargs)
+				if (len(row) > 18) and (row[18]):
+					newdata = Document.objects.filter(doc_file__icontains=row[18])
+					if newdata.count() == 1:
+						newdata.update(**kwargs)
+					elif newdata.count() > 1:
+						raise Exception('previous_file_name \'%s\' returns multiple row'%(row[18]))
+					else:
+						newdata = Document(**kwargs)
 				else:
 					newdata = Document(**kwargs)
 				newdata.category_id = row[5]
