@@ -24,6 +24,7 @@ def exception_hook(exc_type, exc_value, exc_traceback):
         "Uncaught exception",
         exc_info=(exc_type, exc_value, exc_traceback)
     )
+    sys.exit('Uncaught exception')
 
 sys.excepthook = exception_hook
 
@@ -40,14 +41,16 @@ try:
 			first = False
 		else :
 
+			if (Document.objects.filter(doc_file__icontains=row[0])):
+				raise Exception('FileName \'%s\' already exist'%(row[0]))		
+
 			# logger.debug(row)
 			if os.path.isfile(os.path.normpath(path_source+row[10]+'/'+row[0])):
 				print os.path.normpath(path_source+row[10]+'/'+row[0])
-				os.rename((os.path.normpath(path_source+row[10]+'/'+row[0])), (os.path.normpath(path_dest+row[10]+'/'+row[0])))
 				kwargs = {
 					'doc_file':os.path.normpath(fin_up_path+row[10]+'/'+row[0]),
 					'title':row[1],
-					'owner_id':1,
+					'owner':1,
 					'papersize':row[8],
 					'datasource':row[2],
 					'subtitle':row[12]
@@ -67,7 +70,8 @@ try:
 				newdata.abstract = row[14]
 				try:
 					newdata.save()
-					# tempKeyword = None, row[7].split("-")
+					os.rename((os.path.normpath(path_source+row[10]+'/'+row[0])), (os.path.normpath(path_dest+row[10]+'/'+row[0])))
+					# tempKeyword = filter(None, row[7].split("-"))
 					# for xx in tempKeyword :
 					# 	if xx!='':
 					# 		newdata.keywords.add(xx)
@@ -77,15 +81,17 @@ try:
 					loc = Region.objects.get(pk=row[4])
 					newdata.regions.add(loc)
 					del remaining[idx]
-					logger.info('upload pdf succesfull: '+row[1])
+					logger.info('upload pdf succesfull: '+row[0])
 				except Exception as e:
 					msg = "{0} error...!, {1}".format(row[0], e.message)
-					print msg
+					# print msg
 					logger.error(msg)
 					sys.exit(msg)
 		writer.writerow(row)
+	if idx == 0:
+		raise Exception('No rows data')
 except Exception as e:
-	print e.message
+	# print e.message
 	logger.error(e.message)
 	sys.exit(e.message)
 finally:
