@@ -1,0 +1,136 @@
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+.members {
+    clear: both;
+	/* column width */
+	-moz-column-width: 19em;
+	-webkit-column-width: 19em;
+	
+	/* space between columns */
+	-moz-column-gap: 1em;
+	-webkit-column-gap: 1em;
+}
+
+.card-group {
+    border: 1px solid #dddfe2;
+    border-radius: 3px;
+    margin: 5px;
+    padding: 1px;
+	display: inline-block;
+	width: 100%;
+} 
+
+.card-group img {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-bottom: 1px;
+}
+
+#card-info {
+    padding: 10px 5px;
+    font-weight: bold;
+    color: #a61101;
+    line-height: 14px;
+    background: #efefef9c;
+}
+
+.card-org {
+    text-align: center
+}
+
+.card-member {
+    padding-top: 5px;
+    text-align: center
+}
+
+.group-count{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* search form */
+.searchbox {
+    width: 20%;
+    margin-top: 5px;
+}
+  
+
+@media (min-width: 768px) and (max-width: 1280px) {
+    .searchbox {
+        width: 25%;
+        margin-top: 8px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .searchbox {
+        width: 30%;
+        margin-top: 5px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .searchbox {
+        width: 35%;
+        margin-top: 5px;
+    }
+}
+
+.inputsearch {
+    width: 100%;
+}
+
+#custom-search-input {
+    margin:0;
+    padding: 0;
+}
+
+#custom-search-input .search-query {
+    height: 30px;
+    padding-right: 3px;
+    padding-right: 4px \9;
+    padding-left: 3px;
+    padding-left: 4px \9;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#custom-search-input button, 
+#custom-search-input a {
+    border: 0;
+    background: none;
+    /** belows styles are working good */
+    padding: 2px 5px;
+    margin-top: 2px;
+    /* position: relative; */
+    position: absolute;
+    z-index: 3;
+    top: 3px;
+    left: -28px;
+    /* IE7-8 doesn't have border-radius, so don't indent the padding */
+    margin-bottom: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color:#D9230F;
+}
+
+#custom-search-input a {
+    color: green !important;
+}
+
+.resetsearch {
+    left: -50px !important;
+}
+
+.search-query:focus + button {
+    z-index: 3;   
+}

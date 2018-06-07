@@ -91,7 +91,7 @@
 	                <h4>{% trans "Static Maps" %}</h4>
 	            </div>
 	            <div class="col-md-3 col-xs-3 text-center">
-	                <a href="{% url 'profile_browse' %}"><h3 class="counting">{{ facets.user|default:_("0") }}</h3></a>
+	                <a href="{% url 'members' %}"><h3 class="counting">{{ facets.user|default:_("0") }}</h3></a>
 	                <h4>{% blocktrans count counter=facets.user %}User{% plural %}Users{% endblocktrans %}</h4>
 	            </div>
 	        </div>

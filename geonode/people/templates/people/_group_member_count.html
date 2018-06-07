@@ -1,0 +1,88 @@
+{% extends "people/profile_base.html" %}
+{% load i18n people_tags %}
+
+{% block body_class %}people people-list explore{% endblock %}
+
+{% block body %} 
+<section class="social">
+    <div class="container forceCenter panel-header-custom">
+        <div class="each-page-title">{% trans "Groups" %}
+            <span ng-bind="total_counts" class="badge">{{ members.paginator.count }}</span>
+        </div>
+        <div class="each-page-title">{% trans "Users" %}
+            <span ng-bind="total_counts" class="badge">{{ tot_user|length }}</span>
+        </div>
+
+        <div class="searchbox pull-right">
+            <form action="" method="GET">
+                <div id="custom-search-input">
+                    <div class="input-group inputsearch">
+                        <input type="text" class="search-query form-control" placeholder="Search" name="q" value="{{ request.GET.q }}"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger" type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                            {% if request.GET.q %}
+                            <a class="btn btn-success resetsearch" href="{% url "members" %}" title="reset">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                            </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<div class="members">
+    {% for member in members %}
+        <div class="card-group">
+            <img src="{{ '/uploaded/logos/'|add:member.org_acronym|add:'.jpg'|file_exists }}" style="width:100%"/>
+            <div id="card-info">
+                <div class="card-org">
+                    {{ member.organization }}
+                </div>
+                <div class="card-member">
+                    Users : {{ member.total_members }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+  {% if members.has_other_pages %}
+    <ul class="pagination pull-right">
+        {% if members.has_previous %}
+            <li><a href="?{{ page_request_var }}={{ members.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+        {% else %}
+            <li class="disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i></span></li>
+        {% endif %}
+        
+        {% if members.number|add:'-4' > 1 %}
+            <li><a href="?{{ page_request_var }}={{ members.number|add:'-5' }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&hellip;</a></li>
+        {% endif %}
+        
+        {% for i in members.paginator.page_range %}
+            {% if members.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% elif i > members.number|add:'-5' and i < members.number|add:'5' %}
+                <li><a href="?{{ page_request_var }}={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if members.paginator.num_pages > members.number|add:'4' %}
+            <li><a href="?{{ page_request_var }}={{ members.number|add:'5' }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&hellip;</a></li>
+        {% endif %}
+        
+        {% if members.has_next %}
+            <li><a href="?{{ page_request_var }}={{ members.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+        {% else %}
+            <li class="disabled"><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+        {% endif %}
+        </ul>
+  {% endif %}
+  
+{% endblock %}
+

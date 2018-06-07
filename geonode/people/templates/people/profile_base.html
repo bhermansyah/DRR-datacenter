@@ -4,6 +4,10 @@
 
 {% block title %} {{ block.super }} {% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="/static/people/membercount.css"/>
+{% endblock %}
+
 {% block body_class %}people{% endblock %}
 
 {% block body_outer %}
