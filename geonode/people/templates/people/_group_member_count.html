@@ -39,7 +39,7 @@
 <div class="members">
     {% for member in members %}
         <div class="card-group">
-            <img src="{{ '/uploaded/logos/'|add:member.org_acronym|add:'.jpg'|file_exists }}" style="width:100%"/>
+            <img src="{{ '/uploaded/logos/'|add:member.org_acronym|file_exists }}" style="width:100%"/>
             <div id="card-info">
                 <div class="card-org">
                     {{ member.organization }}
