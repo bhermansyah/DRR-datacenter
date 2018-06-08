@@ -6,12 +6,13 @@ register = template.Library()
 
 @register.filter(name='file_exists')
 def file_exists(filepath):
-    # default_path = 'geonode'+filepath
-    default_path = '/home/ubuntu/DRR-datacenter/geonode'+filepath #serverside
+    replaceChar = filepath.replace(u'\xa0', u' ')
+    # default_path = 'geonode'+replaceChar
+    default_path = '/home/ubuntu/DRR-datacenter/geonode'+replaceChar #serverside
     if os.path.exists(default_path+'.png'):
-        return filepath+'.png'
+        return replaceChar+'.png'
     elif os.path.exists(default_path+'.jpg'):
-        return filepath+'.jpg'
+        return replaceChar+'.jpg'
     else:   
         no_image_path =  settings.STATIC_URL+'v2/images/nologo.png'
         return no_image_path
