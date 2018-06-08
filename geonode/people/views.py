@@ -134,7 +134,16 @@ def member_count(request):
             Q(org_acronym__icontains=query)
             ).distinct()
 
-    # page = request.GET.get('page', 1)
+    queryorder = request.GET.get('order_by')
+    if queryorder == 'most_users':
+        queryset = queryset.order_by('-total_members')
+    elif queryorder == 'lowest_users':
+        queryset = queryset.order_by('total_members')
+    elif queryorder == 'z-a':
+        queryset = queryset.order_by('-organization')
+    elif queryorder == 'a-z':
+        queryset = queryset.order_by('organization')
+    
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     paginator = Paginator(queryset, 20)

@@ -134,3 +134,17 @@
 .search-query:focus + button {
     z-index: 3;   
 }
+
+.filtercount {
+    width: 10%;
+}
+
+.filtercount > select {
+    border-radius: 1px !important;
+}
+
+.groups-filter {
+    height: 30px;
+    margin-top: 5px;
+    margin-left: -5px;
+}

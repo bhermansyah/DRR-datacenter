@@ -8,7 +8,6 @@ register = template.Library()
 def file_exists(filepath):
     # default_path = 'geonode'+filepath
     default_path = '/home/ubuntu/DRR-datacenter/geonode'+filepath #serverside
-    print default_path
     if os.path.exists(default_path+'.png'):
         return filepath+'.png'
     elif os.path.exists(default_path+'.jpg'):
