@@ -1,4 +1,5 @@
-import os,sys
+import os, sys
+import traceback
 import csv
 import glob
 
@@ -12,9 +13,11 @@ import geonode.documents.models
 import geonode.documents.views
 import logging
 
+# path_source = '/home/dodi/tmp/uploader/161213/'
 path_source = '/home/uploader/161213/'
-path_dest = '/home/ubuntu/DRR-datacenter/geonode/uploaded/96_Geonode/'
 fin_up_path = '96_Geonode/'
+# path_dest = '/home/dodi/tmp/uploaded/'+fin_up_path
+path_dest = '/home/ubuntu/DRR-datacenter/geonode/uploaded/'+fin_up_path
 u = geonode.documents.views.uploadpdf() # instantiate class to init uploadpdf logging
 logger = logging.getLogger('uploadpdf')
 
@@ -41,58 +44,60 @@ try:
 			first = False
 		else :
 
-			if (Document.objects.filter(doc_file__icontains=row[0])):
-				raise Exception('FileName \'%s\' already exist'%(row[0]))		
+			# if (Document.objects.filter(doc_file__icontains=row[0])):
+			# 	raise Exception('FileName \'%s\' already exist'%(row[0]))		
 
 			# logger.debug(row)
 			if os.path.isfile(os.path.normpath(path_source+row[10]+'/'+row[0])):
-				print os.path.normpath(path_source+row[10]+'/'+row[0])
+				print 'Processing %s.'%(os.path.normpath(path_source+row[10]+'/'+row[0]))
 				kwargs = {
 					'doc_file':os.path.normpath(fin_up_path+row[10]+'/'+row[0]),
 					'title':row[1],
-					'owner':1,
+					'owner_id':1,
 					'papersize':row[8],
 					'datasource':row[2],
-					'subtitle':row[12]
+					'subtitle':row[12],
+					'category_id':row[5],
+					'date':row[9],
+					'abstract':row[14]
 				}
 				if (len(row) > 18) and (row[18]):
-					newdata = Document.objects.filter(doc_file__icontains=row[18])
-					if newdata.count() == 1:
-						newdata.update(**kwargs)
-					elif newdata.count() > 1:
-						raise Exception('previous_file_name \'%s\' returns multiple row'%(row[18]))
-					else:
-						newdata = Document(**kwargs)
+					# prev_file_name exist
+					try:
+						newdata = Document.objects.get(doc_file__icontains=row[18])
+						# alternative to newdata.update(**kwargs)
+						for (key, value) in kwargs.items():
+							setattr(newdata, key, value)
+					except Document.DoesNotExist:
+						raise Exception('previous_file_name \'%s\' not found in database.'%(row[18]))
+					except Document.MultipleObjectsReturned:
+						raise Exception('previous_file_name \'%s\' returns multiple row.'%(row[18]))
 				else:
+					# no prev_file_name
 					newdata = Document(**kwargs)
-				newdata.category_id = row[5]
-				newdata.date = row[9]
-				newdata.abstract = row[14]
 				try:
-					newdata.save()
 					os.rename((os.path.normpath(path_source+row[10]+'/'+row[0])), (os.path.normpath(path_dest+row[10]+'/'+row[0])))
-					# tempKeyword = filter(None, row[7].split("-"))
-					# for xx in tempKeyword :
-					# 	if xx!='':
-					# 		newdata.keywords.add(xx)
+					newdata.save()
 					valid_keywords = filter(None, row[7].split("-"))
 					newdata.keywords.add(*valid_keywords)
 					row[16]=newdata.id
 					loc = Region.objects.get(pk=row[4])
 					newdata.regions.add(loc)
 					del remaining[idx]
-					logger.info('upload pdf succesfull: '+row[0])
+					logger.info('Upload pdf succesfull: '+row[0])
 				except Exception as e:
-					msg = "{0} error...!, {1}".format(row[0], e.message)
+					msg = "Error on row: {0}, {1}".format(row[0], e.message)
 					# print msg
-					logger.error(msg)
+					logger.error(msg+'\n'+traceback.format_exc())
 					sys.exit(msg)
+			else:
+				raise Exception('File \'%s\' not found.'%(os.path.normpath(path_source+row[10]+'/'+row[0])))
 		writer.writerow(row)
-	if idx == 0:
-		raise Exception('No rows data')
+	if first or (idx == 0):
+		raise Exception('No rows data.')
 except Exception as e:
 	# print e.message
-	logger.error(e.message)
+	logger.error(e.message+'\n'+traceback.format_exc())
 	sys.exit(e.message)
 finally:
 
