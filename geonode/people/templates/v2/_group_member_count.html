@@ -1,0 +1,106 @@
+{% extends "v2/profile_base.html" %}
+{% load i18n people_tags %}
+
+{% block body_class %}people people-list explore{% endblock %}
+
+{% block body %} 
+<nav class="navbar navbar-lower affix-top" data-spy="affix" data-offset-top="70">
+    <div class="container">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-lower-collapse">
+            <i class="fa fa-chevron-down center"></i>
+        </button>
+        <div class="collapse navbar-collapse collapse-buttons navbar-lower-collapse boxnav-groups">
+            <ul class="nav navbar-nav">
+                <li style="padding-top: 5px; padding-left: 10px"><span class="infogroup">{% trans "Groups" %}
+                    <span ng-bind="total_counts" class="badge _binfo">{{ members.paginator.count }}</span></span>
+                </li>
+                <li style="padding-top: 5px"><span class="infogroup _infouser">{% trans "Users" %}
+                    <span ng-bind="total_counts" class="badge _binfo">{{ tot_user|length }}</span></span>
+                </li>
+
+                <li class="pull-right">
+                    <form action="" method="GET">
+                        <div id="custom-search-input">
+                            <div class="input-group inputsearch">
+                                <input type="text" class="search-query form-control" placeholder="Search" name="q" value="{{ request.GET.q }}" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="submit">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                    {% if request.GET.q %}
+                                    <a class="btn btn-success resetsearch" href="{% url "members" %}" title="reset">
+                                        <span class="glyphicon glyphicon-refresh"></span>
+                                    </a>
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="pull-right">
+                    <select class="form-control groups-filter">
+                        <option value="" selected disabled>Order by</option>
+                        <option {% ifequal request.GET.order_by "most_users" %}selected{% endifequal %} value="most_users">Most Users</option>
+                        <option {% ifequal request.GET.order_by "lowest_users" %}selected{% endifequal %} value="lowest_users">Lowest Users</option>
+                        <option {% ifequal request.GET.order_by "a-z" %}selected{% endifequal %} value="a-z">A - Z</option>
+                        <option {% ifequal request.GET.order_by "z-a" %}selected{% endifequal %} value="z-a">Z - A</option>
+                    </select>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="members">
+        {% for member in members %}
+            <div class="card-group">
+                <img src="{{ '/uploaded/logos/'|add:member.org_acronym|file_exists }}" style="width:100%"/>
+                <div id="card-info">
+                    <div class="card-org">
+                        {{ member.organization }}
+                    </div>
+                    <div class="card-member">
+                        Users : {{ member.total_members }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+  {% if members.has_other_pages %}
+    <ul class="pagination pull-right">
+        {% if members.has_previous %}
+            <li><a href="?{{ page_request_var }}={{ members.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.order_by %}&order_by={{ request.GET.order_by }}{% endif %}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+        {% else %}
+            <li class="disabled"><span><i class="fa fa-chevron-left" aria-hidden="true"></i></span></li>
+        {% endif %}
+        
+        {% if members.number|add:'-4' > 1 %}
+            <li><a href="?{{ page_request_var }}={{ members.number|add:'-5' }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.order_by %}&order_by={{ request.GET.order_by }}{% endif %}">&hellip;</a></li>
+        {% endif %}
+        
+        {% for i in members.paginator.page_range %}
+            {% if members.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+            {% elif i > members.number|add:'-5' and i < members.number|add:'5' %}
+                <li><a href="?{{ page_request_var }}={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.order_by %}&order_by={{ request.GET.order_by }}{% endif %}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        
+        {% if members.paginator.num_pages > members.number|add:'4' %}
+            <li><a href="?{{ page_request_var }}={{ members.number|add:'5' }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.order_by %}&order_by={{ request.GET.order_by }}{% endif %}">&hellip;</a></li>
+        {% endif %}
+        
+        {% if members.has_next %}
+            <li><a href="?{{ page_request_var }}={{ members.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.order_by %}&order_by={{ request.GET.order_by }}{% endif %}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+        {% else %}
+            <li class="disabled"><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+        {% endif %}
+        </ul>
+  {% endif %}
+</div>
+{% endblock %}
+

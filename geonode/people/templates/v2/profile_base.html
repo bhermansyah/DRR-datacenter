@@ -4,6 +4,9 @@
 
 {% block title %} {{ block.super }} {% endblock %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="/static/people/membercount.css"/>
+{% endblock %}
 {% block body_class %}people{% endblock %}
 
 {% block body_outer %}
@@ -11,3 +14,30 @@
 {% block sidebar %}{% endblock sidebar %}
 
 {% endblock body_outer %}
+
+
+{% block extra_script %}
+<script type="text/javascript">
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+            function (m, key, value) {
+                vars[key] = value;
+            });
+        return vars;
+    }
+
+    var currentLocation = window.location.href;
+    var splitUrl = currentLocation.split("?");
+    
+    $(document).on('change', '.groups-filter', function () {
+        var filter = $(this).val();
+        var getQ = getUrlVars()["q"];
+        if(getQ == undefined) {
+            window.location.href = splitUrl[0] + "?order_by=" + filter;
+        } else {
+            window.location.href = splitUrl[0] +"?q="+ getQ + "&order_by=" + filter;
+        }
+    });
+</script>
+{% endblock extra_script %}

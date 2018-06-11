@@ -5,14 +5,15 @@
 }
 
 .members {
-    clear: both;
 	/* column width */
 	-moz-column-width: 19em;
 	-webkit-column-width: 19em;
 	
 	/* space between columns */
 	-moz-column-gap: 1em;
-	-webkit-column-gap: 1em;
+    -webkit-column-gap: 1em;
+    margin-left: -19px;
+    margin-right: -10px;
 }
 
 .card-group {
@@ -135,16 +136,42 @@
     z-index: 3;   
 }
 
-.filtercount {
-    width: 10%;
-}
-
-.filtercount > select {
-    border-radius: 1px !important;
-}
-
 .groups-filter {
     height: 30px;
-    margin-top: 5px;
+    margin-top: 0px;
     margin-left: -5px;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    /* min-height: 50px; */
+    padding: 0 15px;
+    border: 3px solid #ededed;
+}
+
+.groups-filter:focus {
+    border-color: #a61101;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.boxnav-groups {
+    padding: 7px 8px 6px !important; 
+}
+
+.infogroup {
+    color: #fff;
+    font-size: 12px;
+}
+._infouser {
+    margin-left: 10px;
+    border-left: solid 1px #88326c;
+    padding-left: 10px;
+}
+._binfo{
+    background-color: #630303;
 }

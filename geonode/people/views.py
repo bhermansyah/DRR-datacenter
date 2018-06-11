@@ -160,4 +160,4 @@ def member_count(request):
         "page_request_var" : page_request_var
     }
 
-    return render(request, 'people/_group_member_count.html', context)
+    return render(request, 'v2/_group_member_count.html', context)
