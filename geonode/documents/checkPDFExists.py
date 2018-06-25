@@ -20,6 +20,7 @@ fin_up_path = '96_Geonode/'
 path_dest = '/home/ubuntu/DRR-datacenter/geonode/uploaded/'+fin_up_path
 u = geonode.documents.views.uploadpdf() # instantiate class to init uploadpdf logging
 logger = logging.getLogger('uploadpdf')
+current_folder = os.path.dirname(os.path.realpath(__file__))+'/'
 
 # log error traceback messages
 def exception_hook(exc_type, exc_value, exc_traceback):
@@ -31,8 +32,14 @@ def exception_hook(exc_type, exc_value, exc_traceback):
 
 sys.excepthook = exception_hook
 
-f_IN = open(sys.argv[1], 'r+U')
-f_OUT= open(sys.argv[2], 'wt')
+# hardcoded to simplify
+# fname_csv_in = sys.argv[1]
+# fname_csv_out = sys.argv[2]
+fname_csv_in = path_source+'uploadlist.csv'
+fname_csv_out = current_folder+'uploadedlist.csv'
+
+f_IN = open(fname_csv_in, 'r+U')
+f_OUT= open(fname_csv_out, 'wt')
 first = True
 try:
 	reader = csv.reader(f_IN)
@@ -40,16 +47,19 @@ try:
 	remaining = list(reader)
 	f_IN.seek(0)
 	for idx, row in enumerate(reader):
-		if first:
+		if not row:
+			continue
+		elif first:
 			first = False
-		else :
+		else:
 
 			# if (Document.objects.filter(doc_file__icontains=row[0])):
 			# 	raise Exception('FileName \'%s\' already exist'%(row[0]))		
 
 			# logger.debug(row)
-			if os.path.isfile(os.path.normpath(path_source+row[10]+'/'+row[0])):
-				print 'Processing %s.'%(os.path.normpath(path_source+row[10]+'/'+row[0]))
+			fullpath_source = os.path.normpath(path_source+row[10]+'/'+row[0])
+			if os.path.isfile(fullpath_source):
+				print 'Processing %s.'%(fullpath_source)
 				kwargs = {
 					'doc_file':os.path.normpath(fin_up_path+row[10]+'/'+row[0]),
 					'title':row[1],
@@ -75,21 +85,23 @@ try:
 				else:
 					# no prev_file_name
 					newdata = Document(**kwargs)
-				try:
-					os.rename((os.path.normpath(path_source+row[10]+'/'+row[0])), (os.path.normpath(path_dest+row[10]+'/'+row[0])))
-					newdata.save()
-					valid_keywords = filter(None, row[7].split("-"))
-					newdata.keywords.add(*valid_keywords)
-					row[16]=newdata.id
-					loc = Region.objects.get(pk=row[4])
-					newdata.regions.add(loc)
-					del remaining[idx]
-					logger.info('Upload pdf succesfull: '+row[0])
-				except Exception as e:
-					msg = "Error on row: {0}, {1}".format(row[0], e.message)
-					# print msg
-					logger.error(msg+'\n'+traceback.format_exc())
-					sys.exit(msg)
+
+				os.rename((fullpath_source), (os.path.normpath(path_dest+row[10]+'/'+row[0])))
+				newdata.save()
+				valid_keywords = filter(None, row[7].split("-"))
+				newdata.keywords.add(*valid_keywords)
+				row[16]=newdata.id
+				loc = Region.objects.get(pk=row[4])
+				newdata.regions.add(loc)
+
+				# delete row based on row[0]
+				for delidx, delrow in enumerate(remaining):
+					if delrow and (delrow[0] == row[0]):
+						del remaining[delidx]
+						break
+
+				print 'Upload pdf succesfull: '+row[0]
+				logger.info('Upload pdf succesfull: '+row[0])
 			else:
 				raise Exception('File \'%s\' not found.'%(os.path.normpath(path_source+row[10]+'/'+row[0])))
 		writer.writerow(row)
@@ -98,7 +110,7 @@ try:
 except Exception as e:
 	# print e.message
 	logger.error(e.message+'\n'+traceback.format_exc())
-	sys.exit(e.message)
+	# sys.exit(e.message)
 finally:
 
 	# write remaining list back to f_IN
@@ -108,3 +120,9 @@ finally:
 
 	f_IN.close()
 	f_OUT.close()
+
+	if 'e' in locals():
+		emsg = e.message
+		if 'row' in locals():
+			emsg = "Error on row: {0}, {1}".format(row[0], emsg)
+		sys.exit(emsg)
