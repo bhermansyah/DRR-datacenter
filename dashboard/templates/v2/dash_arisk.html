@@ -11,12 +11,120 @@
 	            	{% include "v2/breadcrumb.html" %}
 	            </div>
 	        </div>
+	        <div class="row hidden-print">
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "Map of Population Living in Avalanche Risk Areas" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox">
+	                            <li class="hidden">
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li class="hidden">
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                            <li>
+	                                <a href="http://asdc.immap.org/maps/708/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	<div class="row">
+		                    	<div class="col-md-3 col-sm-12 col-xs-12">
+		                        	<div id="layercontrol">
+		                        	    <label for="ariskOpt">Choose Layer :</label>
+		                        	    <select id="ariskOpt" class="form-control">
+		                        	      <option value="arisk_checkbox_pop">Population at Avalanches Risk</option>
+		                        	      <option value="arisk_checkbox_build">Building at Avalanches Risk</option>
+		                        	      <option value="arisk_checkbox_area">Area at Avalanches Risk</option>
+		                        	    </select>
+
+		                        	    <label for="WMSLayer">Choose Layer :</label>
+		                        	    <div id="WMSLayer" class="checkbox checkbox-red wms_check">
+		                        	        <label><input type="checkbox" data-type=wms data-layer=arisk checked>Avalanche Risk</label>
+		                        	    </div>
+
+		                        	    <label for="lvl">Choose Level :</label>
+		                        	    <div id="lvl" class="lvl_choice">
+			                        	    <div class="arisk_checkbox_pop arisk_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="arisk_checkbox" value="med_ava_population">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="arisk_checkbox" value="high_ava_population">High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                            		<div style='display:none;' class="arisk_checkbox_build arisk_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="arisk_checkbox" value="med_ava_buildings">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="arisk_checkbox" value="high_ava_buildings">High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                            		<div style='display:none;' class="arisk_checkbox_area arisk_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="arisk_checkbox" value="med_ava_area">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="arisk_checkbox" value="high_ava_area">High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                        	    </div>
+
+	                            		<label for="themes">Pick a theme :</label>
+	                            		<div id="themes">
+	                            		    <button class="theme active" data-btn="YlOrRd"></button>
+	                            		    <button class="theme" data-btn="PuRd"></button>
+	                            		    <button class="theme" data-btn="GnBu"></button>
+	                            		    <button class="theme" data-btn="Blues"></button>
+	                            		    <button class="theme" data-btn="BuGn"></button>
+	                            		    <button class="theme" data-btn="BuPu"></button>
+	                            		    <button class="theme" data-btn="Greens"></button>
+	                            		    <button class="theme" data-btn="Greys"></button>
+	                            		    <button class="theme" data-btn="Oranges"></button>
+	                            		    <button class="theme" data-btn="OrRd"></button>
+	                            		    <button class="theme" data-btn="PuBu"></button>
+	                            		    <button class="theme" data-btn="PuBuGn"></button>
+	                            		    <button class="theme" data-btn="Purples"></button>
+	                            		    <button class="theme" data-btn="RdPu"></button>
+	                            		    <button class="theme" data-btn="Reds"></button>
+	                            		    <button class="theme" data-btn="YlGn"></button>
+	                            		    <button class="theme" data-btn="YlGnBu"></button>
+	                            		    <button class="theme" data-btn="YlOrBr"></button>
+	                            		</div>
+		                        	</div>
+		                        </div>
+		                        <div class="col-md-9 col-sm-12 col-xs-12">
+		                            <div id="leaflet_avarisk_map" class="ch-size-map"></div>
+		                        </div>
+		                        <div class="col-md-12 col-sm-12 col-xs-12">
+		                            <div id="mapInfo"></div>
+		                        </div>
+	                    	</div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 	        <div class="row">
 	        	<div class="col-md-4 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans 'Avalanche Risk Population' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -47,7 +155,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans 'Avalanche Risk Building' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -78,7 +186,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans 'Avalanche Risk Area' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -111,7 +219,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans 'Population and Area of Avalanche Risk' %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -261,4 +369,113 @@
 	// var arisk_low_area = {{ low_risk_area }}
 	var arisk_med_area = {{ med_ava_area }}
 	var arisk_hi_area = {{ high_ava_area }}
+
+	var chosen_label = '{{parent_label}}';
+	var map_category = ['{% trans "Population at Risk" %}', '{% trans "Building at Risk" %}', '{% trans "Area at Risk" %}'];
+	var boundary = {{GeoJson|safe}};
+	var centroid = boundary['centroid'];
+
+	var max_high_ava_population = 0;
+	var max_high_ava_buildings = 0;
+	var max_high_ava_area = 0;
+	var max_med_ava_population = 0;
+	var max_med_ava_buildings = 0;
+	var max_med_ava_area = 0;
+
+	// Add additional data to properties in GeoJSON
+	for (var i = 0; i < boundary.features.length; i++) {
+
+	    // Checking if it's in a district
+	    {% if not additional_child and not lc_child %}
+	    	set_jenk_divider = 1;
+	        boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+	        boundary['features'][i]['properties']['high_ava_population']={{high_ava_population}}
+	        boundary['features'][i]['properties']['high_ava_buildings']={{high_ava_buildings}}
+	        boundary['features'][i]['properties']['high_ava_area']={{high_ava_area}}
+
+	        boundary['features'][i]['properties']['med_ava_population']={{med_ava_population}}
+	        boundary['features'][i]['properties']['med_ava_buildings']={{med_ava_buildings}}
+	        boundary['features'][i]['properties']['med_ava_area']={{med_ava_area}}
+
+	        // Fill the max value of each possible option for the map
+	        max_high_ava_population_temp = {{high_ava_population}}
+	        max_high_ava_buildings_temp = {{high_ava_buildings}}
+	        max_high_ava_area_temp = {{high_ava_area}}
+	        max_med_ava_population_temp = {{med_ava_population}}
+	        max_med_ava_buildings_temp = {{med_ava_buildings}}
+	        max_med_ava_area_temp = {{med_ava_area}}
+
+            if (max_high_ava_population < max_high_ava_population_temp) {
+	        	max_high_ava_population = max_high_ava_population_temp;
+	        }
+            if (max_high_ava_buildings < max_high_ava_buildings_temp) {
+    	    	max_high_ava_buildings = max_high_ava_buildings_temp;
+    	    }
+            if (max_high_ava_area < max_high_ava_area_temp) {
+    	    	max_high_ava_area = max_high_ava_area_temp;
+    	    }
+            if (max_med_ava_population < max_med_ava_population_temp) {
+    	    	max_med_ava_population = max_med_ava_population_temp;
+    	    }
+            if (max_med_ava_buildings < max_med_ava_buildings_temp) {
+    	    	max_med_ava_buildings = max_med_ava_buildings_temp;
+    	    }
+            if (max_med_ava_area < max_med_ava_area_temp) {
+    	    	max_med_ava_area = max_med_ava_area_temp;
+    	    }
+
+	    {% else %}
+	    	set_jenk_divider = 7;
+	        {% for data in lc_child %}
+	            if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+	            	boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+	                boundary['features'][i]['properties']['high_ava_population']={{data.high_ava_population}}
+	                boundary['features'][i]['properties']['high_ava_buildings']={{data.high_ava_buildings}}
+	                boundary['features'][i]['properties']['high_ava_area']={{data.high_ava_area}}
+
+	                boundary['features'][i]['properties']['med_ava_population']={{data.med_ava_population}}
+	                boundary['features'][i]['properties']['med_ava_buildings']={{data.med_ava_buildings}}
+	                boundary['features'][i]['properties']['med_ava_area']={{data.med_ava_area}}
+
+	                max_high_ava_population_temp = {{data.high_ava_population}}
+	                max_high_ava_buildings_temp = {{data.high_ava_buildings}}
+	                max_high_ava_area_temp = {{data.high_ava_area}}
+	                max_med_ava_population_temp = {{data.med_ava_population}}
+	                max_med_ava_buildings_temp = {{data.med_ava_buildings}}
+	                max_med_ava_area_temp = {{data.med_ava_area}}
+
+	                if (max_high_ava_population < max_high_ava_population_temp) {
+        	        	max_high_ava_population = max_high_ava_population_temp;
+        	        }
+	                if (max_high_ava_buildings < max_high_ava_buildings_temp) {
+	        	    	max_high_ava_buildings = max_high_ava_buildings_temp;
+	        	    }
+	                if (max_high_ava_area < max_high_ava_area_temp) {
+	        	    	max_high_ava_area = max_high_ava_area_temp;
+	        	    }
+	                if (max_med_ava_population < max_med_ava_population_temp) {
+	        	    	max_med_ava_population = max_med_ava_population_temp;
+	        	    }
+	                if (max_med_ava_buildings < max_med_ava_buildings_temp) {
+	        	    	max_med_ava_buildings = max_med_ava_buildings_temp;
+	        	    }
+	                if (max_med_ava_area < max_med_ava_area_temp) {
+	        	    	max_med_ava_area = max_med_ava_area_temp;
+	        	    }
+	            }
+
+	        {% endfor %}
+
+	    {% endif %}
+	}
+
+	var max_collection = 
+	{
+		high_ava_population : max_high_ava_population,
+		high_ava_buildings : max_high_ava_buildings,
+		high_ava_area : max_high_ava_area,
+		med_ava_population : max_med_ava_population,
+		med_ava_buildings : max_med_ava_buildings,
+		med_ava_area : max_med_ava_area
+	}
 </script>

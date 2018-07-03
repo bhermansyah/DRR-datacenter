@@ -15,12 +15,90 @@
 	            	</div>
 	            </div>
 	        </div>
+	        <div class="row hidden-print">
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "Map of Incidents Occurrence" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox">
+	                            <li class="hidden">
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li class="hidden">
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                            <li>
+	                                <a href="http://asdc.immap.org/maps/656/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	<div class="row">
+	                    		<div class="col-md-3 col-sm-12 col-xs-12">
+	                    			<div id="layercontrol">
+	                    				<label for="haccessOpt">Choose Layer :</label>
+	                    			    <select id="haccessOpt" class="form-control">
+	                    			      <option value="total_incident">Total Incidents</option>
+	                    			      <option value="total_violent">Violent Incidents</option>
+	                    			      <option value="total_injured">Injured Casualties</option>
+	                    			      <option value="total_dead">Dead Casualties</option>
+	                    			    </select>
+
+	                    			    <label for="slideRange">Range :</label>
+	                    			    <div id="slideRange">
+	                    			        <div id="keypress"></div>
+	                    			        <br>
+	                    			        <div class="row form-group">
+	                    			            <div class="col-md-6 col-xs-6">
+	                    			                <input type="text" id="input-with-keypress-0" class="form-control">
+	                    			            </div>
+	                    			            <div class="col-md-6 col-xs-6">
+	                    			                <input type="text" id="input-with-keypress-1" class="form-control">
+	                    			            </div>
+	                    			        </div>
+	                    			    </div>
+
+	                    			    <label for="themes">Pick a theme :</label>
+	                    			    <div id="themes">
+	                    			        <button class="theme active" data-btn="YlOrRd"></button>
+	                    			        <button class="theme" data-btn="PuRd"></button>
+	                    			        <button class="theme" data-btn="GnBu"></button>
+	                    			        <button class="theme" data-btn="Blues"></button>
+	                    			        <button class="theme" data-btn="BuGn"></button>
+	                    			        <button class="theme" data-btn="BuPu"></button>
+	                    			        <button class="theme" data-btn="Greens"></button>
+	                    			        <button class="theme" data-btn="Greys"></button>
+	                    			        <button class="theme" data-btn="Oranges"></button>
+	                    			        <button class="theme" data-btn="OrRd"></button>
+	                    			        <button class="theme" data-btn="PuBu"></button>
+	                    			        <button class="theme" data-btn="PuBuGn"></button>
+	                    			        <button class="theme" data-btn="Purples"></button>
+	                    			        <button class="theme" data-btn="RdPu"></button>
+	                    			        <button class="theme" data-btn="Reds"></button>
+	                    			        <button class="theme" data-btn="YlGn"></button>
+	                    			        <button class="theme" data-btn="YlGnBu"></button>
+	                    			        <button class="theme" data-btn="YlOrBr"></button>
+	                    			    </div>
+	                    			</div>
+	                    		</div>
+	                    		<div class="col-md-9 col-sm-12 col-xs-12">
+	                    		    <div id="leaflet_haccess_map" class="ch-size-map"></div>
+	                    		</div>
+	                    		<div class="col-md-12 col-sm-12 col-xs-12">
+	                    		    <div id="mapInfo"></div>
+	                    		</div>
+	                    	</div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 	        <div class="row">
 	        	<div class="col-md-12 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
 	                	<h2 class="pull-left">{% trans 'Graph of Incident and Casualties Trend by Incident Type' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -131,119 +209,11 @@
 	                </div>
 	              </div>
 	            </div>
-	            <!-- <div class="col-md-12 col-sm-12 col-xs-12 visible-print-block">
-	              <div class="x_panel">
-	                <div class="x_title">
-                      <h2 class="pull-left">{% trans 'Graph of Incident and Casualties Trend by Incident Type' %}</h2>
-	                  <div class="clearfix"></div>
-	                </div>
-	                <div class="x_content">
-	                    <div class="col-md-8 col-sm-12 col-xs-12">
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar" class="ch-size-radar"></div>
-	                    	</div>
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar_2" class="ch-size-radar"></div>
-	                    	</div>
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar_4" class="ch-size-radar"></div>
-	                    	</div>
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar_5" class="ch-size-radar"></div>
-	                    	</div>
-	                    </div>
-	                    <div class="col-md-4 col-sm-12 col-xs-12">
-	                    	<div class="panel panel-default checkbox-group">
-	                    	    <div class="panel-heading parents-checkbox">
-	                    	    	Select Incident Type
-	                    	    	<div class="pull-right">
-	                    	    		<label class="panel-select-all">
-	                    	    		     <input type="checkbox" id="selecctall1" value="2" checked=""/>&nbsp;&nbsp;Select All
-	                    	    		</label>
-	                    	    		<button class="btn">Apply</button>
-	                    	    	</div>
-	                    	    </div>
-	                    	    <div class="panel-body child-checkbox">
-	                    	    	<div class="col-md-6 col-xs-6 col-sm-6">
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="20" checked="Military/Non-Military Operation"> Military/Non-Military Operation
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Attack" checked="" />Attack
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Kidnapping" checked="" />Kidnapping
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Weapons" checked="" />Weapons
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Murder" checked="" />Murder
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Abandonment" checked="" />Abandonment
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Small Arms Fire" checked="" />Small Arms Fire
-	                    	    			</label>
-	                    	    		</div>
-	                    	    	</div>
-	                    	    	<div class="col-md-6 col-xs-6 col-sm-6">
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Civilian Accident" checked="" />Civilian Accident
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Demonstration" checked="" />Demonstration
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="IED" checked="" />IED
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Arrest" checked="" />Arrest
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="Others" checked="" />Others
-	                    	    			</label>
-	                    	    		</div>
-	                    	    		<div class="checkbox">
-	                    	    			<label>
-	                    	    				<input type="checkbox" value="UXO" checked="" />UXO
-	                    	    			</label>
-	                    	    		</div>
-	                    	    	</div>
-	                    	    </div>
-	                    	</div>
-	                    </div>
-	                </div>
-	              </div>
-	            </div> -->
 	        	<div class="col-md-6 col-sm-12 col-xs-12">
 	        	    <div class="x_panel">
 	        	        <div class="x_title">
 	        	            <h2 class="pull-left">{% trans "Incidents and Casualties by Incident Type" %}</h2>
-	        	            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	            <ul class="nav navbar-right panel_toolbox hidden">
 	        	                <li>
 	        	                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	                </li>
@@ -333,38 +303,40 @@
 	        	    </div>
 	        	</div>
 	        	<div class="col-md-6 col-sm-12 col-xs-12">
-	        	  <div class="x_panel">
-	        	    <div class="x_title">
-	        	        <h2 class="pull-left">{% trans "Number of Casualties by Incident Type" %}</h2>
-		        	    <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
-		        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-		        	        </li>
-		        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
-		        	        </li>
-		        	    </ul>
-	        	      <div class="clearfix"></div>
-	        	    </div>
-	        	    <div class="x_content">
-	        	        <div id="echart_bar_horizontal_casualty_incident" class="ch-size-haccessBar" style="height:480px;"></div>
-	        	    </div>
-	        	  </div>
-	        	</div>
-	        	<div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-6">
-	        	  <div class="x_panel">
-	        	    <div class="x_title">
-        	          	<h2 class="pull-left">{% trans "Number of Incidents by Incident Type" %}</h2>
-		        	    <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
-		        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-		        	        </li>
-		        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
-		        	        </li>
-		        	    </ul>
-		        	    <div class="clearfix"></div>
-	        	    </div>
-	        	    <div class="x_content">
-	        	        <div id="echart_bar_horizontal_incident_incident" class="ch-size-haccessBar" style="height:480px;"></div>
-	        	    </div>
-	        	  </div>
+		        	<div class="">
+		        	  <div class="x_panel">
+		        	    <div class="x_title">
+		        	        <h2 class="pull-left">{% trans "Number of Casualties by Incident Type" %}</h2>
+			        	    <ul class="nav navbar-right panel_toolbox hidden">
+			        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			        	        </li>
+			        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+			        	        </li>
+			        	    </ul>
+		        	      <div class="clearfix"></div>
+		        	    </div>
+		        	    <div class="x_content">
+		        	        <div id="echart_bar_horizontal_casualty_incident" class="ch-size-haccessBar" style="height:480px;"></div>
+		        	    </div>
+		        	  </div>
+		        	</div>
+		        	<div class="">
+		        	  <div class="x_panel">
+		        	    <div class="x_title">
+	        	          	<h2 class="pull-left">{% trans "Number of Incidents by Incident Type" %}</h2>
+			        	    <ul class="nav navbar-right panel_toolbox hidden">
+			        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			        	        </li>
+			        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
+			        	        </li>
+			        	    </ul>
+			        	    <div class="clearfix"></div>
+		        	    </div>
+		        	    <div class="x_content">
+		        	        <div id="echart_bar_horizontal_incident_incident" class="ch-size-haccessBar" style="height:480px;"></div>
+		        	    </div>
+		        	  </div>
+		        	</div>
 	        	</div>
 	        </div>
 	        <div class="row">
@@ -372,7 +344,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
                       <h2 class="pull-left">{% trans 'Graph of Incident and Casualties Trend by Target Type' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -463,49 +435,11 @@
 	                </div>
 	              </div>
 	            </div>
-	            <!-- <div class="col-md-12 col-sm-12 col-xs-12 visible-print-block">
-	              <div class="x_panel">
-	                <div class="x_title">
-                      	<h2 class="pull-left">{% trans 'Graph of Incident and Casualties Trend by Target Type' %}</h2>
-	                  	<div class="clearfix"></div>
-	                </div>
-	                <div class="x_content">
-	                    <div class="col-md-8 col-sm-12 col-xs-12">
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar_7" class="ch-size-radar"></div>
-	                    	</div>
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar_8" class="ch-size-radar"></div>
-	                    	</div>
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar_9" class="ch-size-radar"></div>
-	                    	</div>
-	                    	<div class="col-md-6 col-sm-6 col-xs-12 no-pad">
-	                    		<div id="echart_sonar_10" class="ch-size-radar"></div>
-	                    	</div>
-	                    </div>
-	                    <div class="col-md-4 col-sm-12 col-xs-12">
-	                    	<div class="panel panel-default checkbox-group">
-	                    	    <div class="panel-heading parents-checkbox">
-	                    	    	Select Incident Target
-	                    	    	<div class="pull-right">
-	                    	    		<label class="panel-select-all">
-	                    	    		     <input type="checkbox" id="selecctall1" value="2" checked=""/>&nbsp;&nbsp;Select All
-	                    	    		</label>
-	                    	    		<button class="btn">Apply</button>
-	                    	    	</div>
-	                    	    </div>
-	                    	    <div id="indicatorTarget2" class="panel-body"></div>
-	                    	</div>
-	                    </div>
-	                </div>
-	              </div>
-	            </div> -->
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Incidents and Casualties by Target Type" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -595,42 +529,40 @@
 	                </div>
 	            </div>
 	            <div class="col-md-6 col-sm-12 col-xs-12">
-	              <div class="x_panel">
-	                <div class="x_title">
-	                  <h2 class="pull-left">{% trans "Number of Casualties by Target Type" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
-	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-	                    </li>
-	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-	                    </li>
-	                  </ul>
-	                  <div class="clearfix"></div>
-	                </div>
-	                <div class="x_content">
-
-	                  <div id="echart_bar_horizontal_casualty_target" class="ch-size-haccessBar" style="height:370px;"></div>
-
-	                </div>
-	              </div>
-	            </div>
-	            <div class="col-md-6 col-sm-12 col-xs-12 col-md-offset-6">
-	              <div class="x_panel">
-	                <div class="x_title">
-	                  <h2 class="pull-left">{% trans "Number of Incidents by Target Type" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
-	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-	                    </li>
-	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-	                    </li>
-	                  </ul>
-	                  <div class="clearfix"></div>
-	                </div>
-	                <div class="x_content">
-
-	                  <div id="echart_bar_horizontal_incident_target" class="ch-size-haccessBar" style="height:370px;"></div>
-
-	                </div>
-	              </div>
+	            	<div class="">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2 class="pull-left">{% trans "Number of Casualties by Target Type" %}</h2>
+								<ul class="nav navbar-right panel_toolbox hidden">
+									<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+									<li><a class="close-link"><i class="fa fa-close"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<div id="echart_bar_horizontal_casualty_target" class="ch-size-haccessBar" style="height:370px;"></div>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<div class="x_panel">
+							<div class="x_title">
+								<h2 class="pull-left">{% trans "Number of Incidents by Target Type" %}</h2>
+								<ul class="nav navbar-right panel_toolbox hidden">
+									<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									</li>
+									<li><a class="close-link"><i class="fa fa-close"></i></a>
+									</li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+								<div id="echart_bar_horizontal_incident_target" class="ch-size-haccessBar" style="height:370px;"></div>
+							</div>
+						</div>
+	            	</div>
 	            </div>
 	        </div>
 	        <div class="row">
@@ -638,7 +570,7 @@
 	        	    <div class="x_panel">
 	        	        <div class="x_title">
 	        	            <h2 class="pull-left">{% trans "Number of Incident and Casualties Overview" %}</h2>
-	        	            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	            <ul class="nav navbar-right panel_toolbox hidden">
 	        	                <li>
 	        	                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	                </li>
@@ -727,7 +659,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "List of Latest Incidents" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -818,6 +750,95 @@
 	{% endfor %}
 
 	// console.log(incident_cat);
+
+	var chosen_label = '{{parent_label}}';
+	var map_category = ['{% trans "Total Incidents" %}', '{% trans "Violence Incidents" %}', '{% trans "Injured" %}', '{% trans "Dead" %}'];
+	var boundary = {{GeoJson|safe}};
+	var centroid = boundary['centroid'];
+
+	var max_incident = 0;
+	var max_violent = 0;
+	var max_injured = 0;
+	var max_dead = 0;
+
+	// Add additional data to properties in GeoJSON
+	for (var i = 0; i < boundary.features.length; i++) {
+
+	    // Checking if it's in a district
+	    {% if not additional_child and not lc_child %}
+	    	set_jenk_divider = 1;
+	        boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+	        boundary['features'][i]['properties']['total_incident']={{total_incident}}
+	        boundary['features'][i]['properties']['total_violent']={{total_violent}}
+	        boundary['features'][i]['properties']['total_injured']={{total_injured}}
+	        boundary['features'][i]['properties']['total_dead']={{total_dead}}
+
+	        // Fill the max value of each possible option for the map
+	        max_incident_temp = {{total_incident}};
+	        max_violent_temp = {{total_violent}}
+	        max_injured_temp = {{total_injured}}
+	        max_dead_temp = {{total_dead}}
+
+	        if (max_incident < max_incident_temp) {
+	          max_incident = max_incident_temp;
+	        }
+
+	        if (max_violent < max_violent_temp) {
+	          max_violent = max_violent_temp;
+	        }
+
+	        if (max_injured < max_injured_temp) {
+	          max_injured = max_injured_temp;
+	        }
+
+	        if (max_dead < max_dead_temp) {
+	          max_dead = max_dead_temp;
+	        }
+
+	    {% else %}
+	    	set_jenk_divider = 7;
+	        {% for data in lc_child %}
+	            if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+	            	boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+	                boundary['features'][i]['properties']['total_incident']={{data.total_incident}}
+	                boundary['features'][i]['properties']['total_violent']={{data.total_violent}}
+	                boundary['features'][i]['properties']['total_injured']={{data.total_injured}}
+	                boundary['features'][i]['properties']['total_dead']={{data.total_dead}}
+
+	                max_incident_temp = {{data.total_incident}};
+	                max_violent_temp = {{data.total_violent}}
+	                max_injured_temp = {{data.total_injured}}
+	                max_dead_temp = {{data.total_dead}}
+
+	                if (max_incident < max_incident_temp) {
+	                  max_incident = max_incident_temp;
+	                }
+
+	                if (max_violent < max_violent_temp) {
+	                  max_violent = max_violent_temp;
+	                }
+
+	                if (max_injured < max_injured_temp) {
+	                  max_injured = max_injured_temp;
+	                }
+
+	                if (max_dead < max_dead_temp) {
+	                  max_dead = max_dead_temp;
+	                }
+	            }
+
+	        {% endfor %}
+
+	    {% endif %}
+	}
+
+	var max_collection = 
+	{
+	  total_incident : max_incident,
+	  total_violent : max_violent,
+	  total_injured : max_injured,
+	  total_dead : max_dead
+	}
 
 </script>
 

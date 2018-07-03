@@ -11,12 +11,311 @@
 	            	{% include "v2/breadcrumb.html" %}
 	            </div>
 	        </div>
+	        <div class="row hidden-print">
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "Map of Flood Forecast" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox">
+	                            <li class="hidden">
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li class="hidden">
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+                                <li>
+                                    <a href="http://asdc.immap.org/maps/700/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
+                                </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <div id="layercontrol">
+                                        <label for="fforecastOpt">Choose Layer :</label>
+                                        <select id="fforecastOpt" class="form-control">
+                                          <option value="fforecast_checkbox_flash_pop">Population in Flash Flood</option>
+                                          <option value="fforecast_checkbox_flash_build" hidden>Buildings in Flash Flood</option>
+                                          <option value="fforecast_checkbox_river_gg_pop">Population River Flood (GLOFAS + GFMS)</option>
+                                          <option value="fforecast_checkbox_river_gg_build" hidden>Buildings River Flood (GLOFAS + GFMS)</option>
+                                          <option value="fforecast_checkbox_river_gl_pop">Population River Flood (GLOFAS)</option>
+                                          <option value="fforecast_checkbox_river_gl_build" hidden>Buildings River Flood (GLOFAS)</option>
+                                          <option value="fforecast_checkbox_river_gf_pop">Population River Flood (GFMS)</option>
+                                          <option value="fforecast_checkbox_river_gf_build" hidden>Buildings River Flood (GFMS)</option>
+                                        </select>
+
+                                        <label for="WMSLayer">WMS Layer :</label>
+                                        <div id="WMSLayer" class="checkbox checkbox-red wms_check">
+                                            <label><input type="checkbox" data-type=wms data-layer=fforecast checked>Flood Forecast</label>
+                                        </div>
+
+                                        <label for="lvl">Choose Level :</label>
+                                        <div id="lvl" class="lvl_choice">
+                                            <div class="fforecast_checkbox_flash_pop fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_low_pop">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_med_pop">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_high_pop">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_veryhigh_pop">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_extreme_pop">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div style='display:none;' class="fforecast_checkbox_flash_build fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_low_buildings">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_med_buildings">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_high_buildings">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_veryhigh_buildings">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="flashflood_forecast_extreme_buildings">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div style='display:none;' class="fforecast_checkbox_river_gg_pop fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_low_pop">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_med_pop">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_high_pop">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_veryhigh_pop">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_extreme_pop">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div style='display:none;' class="fforecast_checkbox_river_gg_build fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_low_buildings">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_med_buildings">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_high_buildings">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_veryhigh_buildings">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="gfms_glofas_riverflood_forecast_extreme_buildings">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div style='display:none;' class="fforecast_checkbox_river_gl_pop fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_low_pop">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_med_pop">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_high_pop">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_veryhigh_pop">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_extreme_pop">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div style='display:none;' class="fforecast_checkbox_river_gl_build fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_low_buildings">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_med_buildings">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_high_buildings">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_veryhigh_buildings">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="glofas_riverflood_forecast_extreme_buildings">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div style='display:none;' class="fforecast_checkbox_river_gf_pop fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_low_pop">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_med_pop">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_high_pop">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_veryhigh_pop">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_extreme_pop">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div style='display:none;' class="fforecast_checkbox_river_gf_build fforecast_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_low_buildings">Low
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_med_buildings">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_high_buildings">High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_veryhigh_buildings">Very High
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="fforecast_checkbox" value="riverflood_forecast_extreme_buildings">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <label for="themes">Pick a theme :</label>
+                                        <div id="themes">
+                                            <button class="theme active" data-btn="YlOrRd"></button>
+                                            <button class="theme" data-btn="PuRd"></button>
+                                            <button class="theme" data-btn="GnBu"></button>
+                                            <button class="theme" data-btn="Blues"></button>
+                                            <button class="theme" data-btn="BuGn"></button>
+                                            <button class="theme" data-btn="BuPu"></button>
+                                            <button class="theme" data-btn="Greens"></button>
+                                            <button class="theme" data-btn="Greys"></button>
+                                            <button class="theme" data-btn="Oranges"></button>
+                                            <button class="theme" data-btn="OrRd"></button>
+                                            <button class="theme" data-btn="PuBu"></button>
+                                            <button class="theme" data-btn="PuBuGn"></button>
+                                            <button class="theme" data-btn="Purples"></button>
+                                            <button class="theme" data-btn="RdPu"></button>
+                                            <button class="theme" data-btn="Reds"></button>
+                                            <button class="theme" data-btn="YlGn"></button>
+                                            <button class="theme" data-btn="YlGnBu"></button>
+                                            <button class="theme" data-btn="YlOrBr"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-sm-12 col-xs-12">
+                                    <div id="leaflet_fforecast_map" class="ch-size-map"></div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div id="mapInfo"></div>
+                                </div>
+                            </div>
+	                        
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 	        <div class="row">
 	            <div class="col-md-6 col-sm-12 col-xs-12">
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Flash Flood Likelihood" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -145,7 +444,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Flash Flood Likelihood" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -201,7 +500,7 @@
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                        <ul class="nav navbar-right panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -330,7 +629,7 @@
 			              <div class="x_panel">
 			                <div class="x_title">
 			                  <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS + GLOFAS</small></h2>
-			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                  <ul class="nav navbar-right panel_toolbox hidden">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -373,7 +672,7 @@
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans 'Flood Likelihood Overview' %} <small>GFMS + GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                        <ul class="nav navbar-right panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -500,7 +799,7 @@
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                        <ul class="nav navbar-right panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -629,7 +928,7 @@
 			              <div class="x_panel">
 			                <div class="x_title">
 			                  <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GLOFAS</small></h2>
-			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                  <ul class="nav navbar-right panel_toolbox hidden">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -672,7 +971,7 @@
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans "Flood Likelihood Overview" %}<small>GLOFAS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                        <ul class="nav navbar-right panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -800,7 +1099,7 @@
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                        <ul class="nav navbar-right panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -929,7 +1228,7 @@
 			              <div class="x_panel">
 			                <div class="x_title">
 			                  <h2 class="pull-left">{% trans "River Flood Likelihood" %}<small>GFMS</small></h2>
-			                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                  <ul class="nav navbar-right panel_toolbox hidden">
 			                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                    </li>
 			                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -974,7 +1273,7 @@
 			                <div class="x_panel">
 			                    <div class="x_title">
 			                        <h2>{% trans "Flood Likelihood Overview" %}<small>GFMS</small></h2>
-			                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+			                        <ul class="nav navbar-right panel_toolbox hidden">
 			                            <li>
 			                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			                            </li>
@@ -1122,6 +1421,7 @@
 <script type="text/javascript">
 	var fforecast_cat = [ '{% trans "Low" %}', '{% trans "Moderate" %}', '{% trans "High" %}', '{% trans "Very High" %}', '{% trans "Extreme" %}']
 	var fforecast_legend = ['{% trans "Low" %}', '{% trans "Med" %}', '{% trans "High" %}']
+    var colorFloodLikelihood = [ '#abedfd', '#c8eb8f' , '#ffd300', '#FB8C00', '#e53935' ];
 
 	var fforecast_low_val = [
 		{{ flashflood_forecast_low_risk_low_pop }},
@@ -1210,5 +1510,126 @@
 		{{ riverflood_forecast_veryhigh_risk_high_pop }}, 
 		{{ riverflood_forecast_extreme_risk_high_pop }} 
 	]
+
+	var boundary = {{GeoJson|safe}};
+    var centroid = boundary['centroid'];
+    var chosen_label = '{{parent_label}}';
+    var val_collection = [];
+
+    function checkNull(numb){
+        if (numb == undefined ) {
+            return 0;
+        }else{
+            return numb;
+        }
+    }
+
+    for (var i = 0; i < boundary.features.length; i++) {
+    	// Checking if it's in a district
+    	{% if not glofas_gfms_child and not glofas_child and not lc_child %}
+            set_jenk_divider = 1;
+    		boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+    		boundary['features'][i]['properties']['flashflood_forecast_low_pop']=checkNull({{flashflood_forecast_low_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['flashflood_forecast_med_pop']=checkNull({{flashflood_forecast_med_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['flashflood_forecast_high_pop']=checkNull({{flashflood_forecast_high_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['flashflood_forecast_veryhigh_pop']=checkNull({{flashflood_forecast_veryhigh_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['flashflood_forecast_extreme_pop']=checkNull({{flashflood_forecast_extreme_pop | default_if_none:0}});
+
+    		// boundary['features'][i]['properties']['flashflood_forecast_low_buildings']={{flashflood_forecast_low_buildings}}
+    		// boundary['features'][i]['properties']['flashflood_forecast_med_buildings']={{flashflood_forecast_med_buildings}}
+    		// boundary['features'][i]['properties']['flashflood_forecast_high_buildings']={{flashflood_forecast_high_buildings}}
+    		// boundary['features'][i]['properties']['flashflood_forecast_veryhigh_buildings']={{flashflood_forecast_veryhigh_buildings}}
+    		// boundary['features'][i]['properties']['flashflood_forecast_extreme_buildings']={{flashflood_forecast_extreme_buildings}}
+
+    		boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_low_pop']=checkNull({{gfms_glofas_riverflood_forecast_low_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_med_pop']=checkNull({{gfms_glofas_riverflood_forecast_med_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_high_pop']=checkNull({{gfms_glofas_riverflood_forecast_high_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_veryhigh_pop']=checkNull({{gfms_glofas_riverflood_forecast_veryhigh_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_extreme_pop']=checkNull({{gfms_glofas_riverflood_forecast_extreme_pop | default_if_none:0}});
+
+    		// boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_low_buildings']={{gfms_glofas_riverflood_forecast_low_buildings}}
+    		// boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_med_buildings']={{gfms_glofas_riverflood_forecast_med_buildings}}
+    		// boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_high_buildings']={{gfms_glofas_riverflood_forecast_high_buildings}}
+    		// boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_veryhigh_buildings']={{gfms_glofas_riverflood_forecast_veryhigh_buildings}}
+    		// boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_extreme_buildings']={{gfms_glofas_riverflood_forecast_extreme_buildings}}
+
+    		boundary['features'][i]['properties']['glofas_riverflood_forecast_low_pop']=checkNull({{glofas_riverflood_forecast_low_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['glofas_riverflood_forecast_med_pop']=checkNull({{glofas_riverflood_forecast_med_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['glofas_riverflood_forecast_high_pop']=checkNull({{glofas_riverflood_forecast_high_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['glofas_riverflood_forecast_veryhigh_pop']=checkNull({{glofas_riverflood_forecast_veryhigh_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['glofas_riverflood_forecast_extreme_pop']=checkNull({{glofas_riverflood_forecast_extreme_pop | default_if_none:0}});
+
+    		// boundary['features'][i]['properties']['glofas_riverflood_forecast_low_buildings']={{glofas_riverflood_forecast_low_buildings}}
+    		// boundary['features'][i]['properties']['glofas_riverflood_forecast_med_buildings']={{glofas_riverflood_forecast_med_buildings}}
+    		// boundary['features'][i]['properties']['glofas_riverflood_forecast_high_buildings']={{glofas_riverflood_forecast_high_buildings}}
+    		// boundary['features'][i]['properties']['glofas_riverflood_forecast_veryhigh_buildings']={{glofas_riverflood_forecast_veryhigh_buildings}}
+    		// boundary['features'][i]['properties']['glofas_riverflood_forecast_extreme_buildings']={{glofas_riverflood_forecast_extreme_buildings}}
+
+    		boundary['features'][i]['properties']['riverflood_forecast_low_pop']=checkNull({{riverflood_forecast_low_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['riverflood_forecast_med_pop']=checkNull({{riverflood_forecast_med_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['riverflood_forecast_high_pop']=checkNull({{riverflood_forecast_high_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['riverflood_forecast_veryhigh_pop']=checkNull({{riverflood_forecast_veryhigh_pop | default_if_none:0}});
+    		boundary['features'][i]['properties']['riverflood_forecast_extreme_pop']=checkNull({{riverflood_forecast_extreme_pop | default_if_none:0}});
+
+    		// boundary['features'][i]['properties']['riverflood_forecast_low_buildings']={{riverflood_forecast_low_buildings}}
+    		// boundary['features'][i]['properties']['riverflood_forecast_med_buildings']={{riverflood_forecast_med_buildings}}
+    		// boundary['features'][i]['properties']['riverflood_forecast_high_buildings']={{riverflood_forecast_high_buildings}}
+    		// boundary['features'][i]['properties']['riverflood_forecast_veryhigh_buildings']={{riverflood_forecast_veryhigh_buildings}}
+    		// boundary['features'][i]['properties']['riverflood_forecast_extreme_buildings']={{riverflood_forecast_extreme_buildings}}
+
+    		boundary['features'][i]['properties']['value']=0
+
+    		
+
+    	{% else %}
+            set_jenk_divider = 7;
+    		{% for data in lc_child %}
+    			if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+    				boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+    				boundary['features'][i]['properties']['flashflood_forecast_low_pop']=checkNull({{data.flashflood_forecast_low_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['flashflood_forecast_med_pop']=checkNull({{data.flashflood_forecast_med_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['flashflood_forecast_high_pop']=checkNull({{data.flashflood_forecast_high_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['flashflood_forecast_veryhigh_pop']=checkNull({{data.flashflood_forecast_veryhigh_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['flashflood_forecast_extreme_pop']=checkNull({{data.flashflood_forecast_extreme_pop | default_if_none:0}});
+
+    				boundary['features'][i]['properties']['riverflood_forecast_low_pop']=checkNull({{data.riverflood_forecast_low_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['riverflood_forecast_med_pop']=checkNull({{data.riverflood_forecast_med_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['riverflood_forecast_high_pop']=checkNull({{data.riverflood_forecast_high_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['riverflood_forecast_veryhigh_pop']=checkNull({{data.riverflood_forecast_veryhigh_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['riverflood_forecast_extreme_pop']=checkNull({{data.riverflood_forecast_extreme_pop | default_if_none:0}});
+    				boundary['features'][i]['properties']['value']=0
+
+		    		
+    			}
+    		{% endfor %}
+
+    		{% for data in glofas_gfms_child %}
+    			if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+    				boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_low_pop']=checkNull( {{data.low | default_if_none:0}});
+    				boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_med_pop']=checkNull( {{data.moderate | default_if_none:0}});
+    				boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_high_pop']=checkNull( {{data.high | default_if_none:0}});
+    				boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_veryhigh_pop']=checkNull( {{data.veryhigh | default_if_none:0}});
+    				boundary['features'][i]['properties']['gfms_glofas_riverflood_forecast_extreme_pop']=checkNull( {{data.extreme | default_if_none:0}});
+
+    				
+    			}
+    		{% endfor %}
+
+    		{% for data in glofas_child %}
+    			if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+    				boundary['features'][i]['properties']['glofas_riverflood_forecast_low_pop']=checkNull( {{data.low | default_if_none:0}});
+    				boundary['features'][i]['properties']['glofas_riverflood_forecast_med_pop']=checkNull( {{data.moderate | default_if_none:0}});
+    				boundary['features'][i]['properties']['glofas_riverflood_forecast_high_pop']=checkNull( {{data.high | default_if_none:0}});
+    				boundary['features'][i]['properties']['glofas_riverflood_forecast_veryhigh_pop']=checkNull( {{data.veryhigh | default_if_none:0}});
+    				boundary['features'][i]['properties']['glofas_riverflood_forecast_extreme_pop']=checkNull( {{data.extreme | default_if_none:0}});
+
+    				
+
+    			}
+    		{% endfor %}
+
+    	{% endif %}
+    }
+
 
 </script>

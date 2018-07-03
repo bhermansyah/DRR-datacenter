@@ -10,12 +10,208 @@
 	                {% include "v2/breadcrumb.html" %}
 	            </div>
 	        </div>
+	        <div class="row hidden-print">
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "Map of Landslide Areas" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox">
+	                            <li class="hidden">
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li class="hidden">
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                            <li>
+	                                <a href="http://asdc.immap.org/maps/5632/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	<div class="row">
+		                    	<div class="col-md-3 col-sm-12 col-xs-12">
+		                        	<div id="layercontrol">
+		                        	    <label for="ariskOpt">Choose Layer :</label>
+		                        	    <select id="landslideOpt" class="form-control">
+											<option value="landslide_checkbox_ku">Multi-criteria Susceptibility Index</option>
+											<option value="landslide_checkbox_s1">Landslide Susceptibility (S1)</option>
+											<option value="landslide_checkbox_s2">Landslide Susceptibility (S2)</option>
+											<option value="landslide_checkbox_s3">Landslide Susceptibility (S3)</option>
+											<option value="landslide_checkbox_immap">Landslide Indexes (iMMAP 2017)</option>
+		                        	    </select>
+
+		                        	    <label for="WMSLayer">WMS Layer :</label>
+		                        	    <div id="WMSLayer" class="wms_check">
+		                        	    	<div class="checkbox checkbox-red landslide_checkbox_ku landslide_opt">
+		                        	    	    <label><input type="checkbox" data-type=wms data-layer=ku>Multi-criteria Susceptibility Index</label>
+		                        	    	</div>
+		                        	    	<div style='display:none;' class="checkbox checkbox-red landslide_checkbox_s1 landslide_opt">
+		                        	    	    <label><input type="checkbox" data-type=wms data-layer=s1>Landslide Susceptibility (S1)</label>
+		                        	    	</div>
+		                        	    	<div style='display:none;' class="checkbox checkbox-red landslide_checkbox_s2 landslide_opt">
+		                        	    	    <label><input type="checkbox" data-type=wms data-layer=s2>Landslide Susceptibility (S2)</label>
+		                        	    	</div>
+		                        	    	<div style='display:none;' class="checkbox checkbox-red landslide_checkbox_s3 landslide_opt">
+		                        	    	    <label><input type="checkbox" data-type=wms data-layer=s3>Landslide Susceptibility (S3)</label>
+		                        	    	</div>
+		                        	    </div>
+
+		                        	    <label for="lvl">Choose Level :</label>
+		                        	    <div id="lvl" class="lvl_choice">
+			                        	    <div class="landslide_checkbox_ku landslide_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_ku_low">Low
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_ku_moderate">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_ku_high">High
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_ku_very_high">Very High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                            		<div style='display:none;' class="landslide_checkbox_s1 landslide_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s1_wb_low">Low
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s1_wb_moderate">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s1_wb_high">High
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s1_wb_very_high">Very High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                            		<div style='display:none;' class="landslide_checkbox_s2 landslide_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s2_wb_low">Low
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s2_wb_moderate">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s2_wb_high">High
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s2_wb_very_high">Very High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                            		<div style='display:none;' class="landslide_checkbox_s3 landslide_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s3_wb_low">Low
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s3_wb_moderate">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s3_wb_high">High
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="ls_s3_wb_very_high">Very High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                            		<div style='display:none;' class="landslide_checkbox_immap landslide_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_immap_low">Low
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_immap_moderate">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_immap_high">High
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="landslide_checkbox" value="lsi_immap_very_high">Very High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                        	    </div>
+		                        	    
+
+	                            		<label for="themes">Pick a theme :</label>
+	                            		<div id="themes">
+	                            		    <button class="theme active" data-btn="YlOrRd"></button>
+	                            		    <button class="theme" data-btn="PuRd"></button>
+	                            		    <button class="theme" data-btn="GnBu"></button>
+	                            		    <button class="theme" data-btn="Blues"></button>
+	                            		    <button class="theme" data-btn="BuGn"></button>
+	                            		    <button class="theme" data-btn="BuPu"></button>
+	                            		    <button class="theme" data-btn="Greens"></button>
+	                            		    <button class="theme" data-btn="Greys"></button>
+	                            		    <button class="theme" data-btn="Oranges"></button>
+	                            		    <button class="theme" data-btn="OrRd"></button>
+	                            		    <button class="theme" data-btn="PuBu"></button>
+	                            		    <button class="theme" data-btn="PuBuGn"></button>
+	                            		    <button class="theme" data-btn="Purples"></button>
+	                            		    <button class="theme" data-btn="RdPu"></button>
+	                            		    <button class="theme" data-btn="Reds"></button>
+	                            		    <button class="theme" data-btn="YlGn"></button>
+	                            		    <button class="theme" data-btn="YlGnBu"></button>
+	                            		    <button class="theme" data-btn="YlOrBr"></button>
+	                            		</div>
+		                        	</div>
+		                        </div>
+		                        <div class="col-md-9 col-sm-12 col-xs-12">
+		                            <div id="leaflet_lndslide_map" class="ch-size-map"></div>
+		                        </div>
+		                        <div class="col-md-12 col-sm-12 col-xs-12">
+		                            <div id="mapInfo"></div>
+		                        </div>
+	                    	</div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 	        <div class="row">
 	            <div class="col-md-4 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Indexes (iMMAP 2017)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -36,7 +232,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Multi-criteria Susceptibility Index" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -57,7 +253,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Susceptibility (S1)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -78,7 +274,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Susceptibility (S2)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -99,7 +295,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Susceptibility (S3)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -122,7 +318,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Population by Landslide Indexes (iMMAP 2017)" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -211,7 +407,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Indexes (iMMAP 2017)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -241,7 +437,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Population by Multi-criteria Landslide Susceptibility Index" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -330,7 +526,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Multi-criteria Susceptibility Index" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -360,7 +556,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Population by Landslide susceptibility - bedrock landslides in slow evolution (S1)" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -449,7 +645,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Susceptibility (S1)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -479,7 +675,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Population by Landslide susceptibility - bedrock landslides in rapid evolution (S2)" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -568,7 +764,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Susceptibility (S2)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -598,7 +794,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Population by Landslide susceptibility - cover material in rapid evolution (S3)" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -687,7 +883,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Landslide Susceptibility (S3)" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -727,4 +923,103 @@
 
 	// console.log(ls_s1_wb);
 
+	var chosen_label = '{{parent_label}}';
+	{% if GeoJson %}
+	    var boundary = {{GeoJson|safe}};
+	{% endif %}
+	var centroid = boundary['centroid'];
+	var pop_collection=[];
+
+	var max_lsi_ku_low = 0;
+	var max_lsi_ku_moderate = 0;
+	var max_lsi_ku_high = 0;
+	var max_lsi_ku_very_high = 0;
+	var max_ls_s1_wb_low = 0;
+	var max_ls_s1_wb_moderate = 0;
+	var max_ls_s1_wb_high = 0;
+	var max_ls_s1_wb_very_high = 0;
+	var max_ls_s2_wb_low = 0;
+	var max_ls_s2_wb_moderate = 0;
+	var max_ls_s2_wb_high = 0;
+	var max_ls_s2_wb_very_high = 0;
+	var max_ls_s3_wb_low = 0;
+	var max_ls_s3_wb_moderate = 0;
+	var max_ls_s3_wb_high = 0;
+	var max_ls_s3_wb_very_high = 0;
+	var max_lsi_immap_low = 0;
+	var max_lsi_immap_moderate = 0;
+	var max_lsi_immap_high = 0;
+	var max_lsi_immap_very_high = 0;
+
+	// Add additional data to properties in GeoJSON
+	for (var i = 0; i < boundary.features.length; i++) {
+		// Checking if it's in a district
+		{% if not lc_child %}
+			set_jenk_divider = 1;
+			boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+			boundary['features'][i]['properties']['lsi_ku_low']={{lsi_ku_low}}
+			boundary['features'][i]['properties']['lsi_ku_moderate']={{lsi_ku_moderate}}
+			boundary['features'][i]['properties']['lsi_ku_high']={{lsi_ku_high}}
+			boundary['features'][i]['properties']['lsi_ku_very_high']={{lsi_ku_very_high}}
+
+			boundary['features'][i]['properties']['ls_s1_wb_low']={{ls_s1_wb_low}}
+			boundary['features'][i]['properties']['ls_s1_wb_moderate']={{ls_s1_wb_moderate}}
+			boundary['features'][i]['properties']['ls_s1_wb_high']={{ls_s1_wb_high}}
+			boundary['features'][i]['properties']['ls_s1_wb_very_high']={{ls_s1_wb_very_high}}
+
+			boundary['features'][i]['properties']['ls_s2_wb_low']={{ls_s2_wb_low}}
+			boundary['features'][i]['properties']['ls_s2_wb_moderate']={{ls_s2_wb_moderate}}
+			boundary['features'][i]['properties']['ls_s2_wb_high']={{ls_s2_wb_high}}
+			boundary['features'][i]['properties']['ls_s2_wb_very_high']={{ls_s2_wb_very_high}}
+
+			boundary['features'][i]['properties']['ls_s3_wb_low']={{ls_s3_wb_low}}
+			boundary['features'][i]['properties']['ls_s3_wb_moderate']={{ls_s3_wb_moderate}}
+			boundary['features'][i]['properties']['ls_s3_wb_high']={{ls_s3_wb_high}}
+			boundary['features'][i]['properties']['ls_s3_wb_very_high']={{ls_s3_wb_very_high}}
+
+			boundary['features'][i]['properties']['lsi_immap_low']={{lsi_immap_low}}
+			boundary['features'][i]['properties']['lsi_immap_moderate']={{lsi_immap_moderate}}
+			boundary['features'][i]['properties']['lsi_immap_high']={{lsi_immap_high}}
+			boundary['features'][i]['properties']['lsi_immap_very_high']={{lsi_immap_very_high}}
+
+			
+
+		{% else %}
+			set_jenk_divider = 7;
+			{% for data in lc_child %}
+				if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+					boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+					boundary['features'][i]['properties']['lsi_ku_low']={{data.lsi_ku_low}}
+					boundary['features'][i]['properties']['lsi_ku_moderate']={{data.lsi_ku_moderate}}
+					boundary['features'][i]['properties']['lsi_ku_high']={{data.lsi_ku_high}}
+					boundary['features'][i]['properties']['lsi_ku_very_high']={{data.lsi_ku_very_high}}
+
+					boundary['features'][i]['properties']['ls_s1_wb_low']={{data.ls_s1_wb_low}}
+					boundary['features'][i]['properties']['ls_s1_wb_moderate']={{data.ls_s1_wb_moderate}}
+					boundary['features'][i]['properties']['ls_s1_wb_high']={{data.ls_s1_wb_high}}
+					boundary['features'][i]['properties']['ls_s1_wb_very_high']={{data.ls_s1_wb_very_high}}
+
+					boundary['features'][i]['properties']['ls_s2_wb_low']={{data.ls_s2_wb_low}}
+					boundary['features'][i]['properties']['ls_s2_wb_moderate']={{data.ls_s2_wb_moderate}}
+					boundary['features'][i]['properties']['ls_s2_wb_high']={{data.ls_s2_wb_high}}
+					boundary['features'][i]['properties']['ls_s2_wb_very_high']={{data.ls_s2_wb_very_high}}
+
+					boundary['features'][i]['properties']['ls_s3_wb_low']={{data.ls_s3_wb_low}}
+					boundary['features'][i]['properties']['ls_s3_wb_moderate']={{data.ls_s3_wb_moderate}}
+					boundary['features'][i]['properties']['ls_s3_wb_high']={{data.ls_s3_wb_high}}
+					boundary['features'][i]['properties']['ls_s3_wb_very_high']={{data.ls_s3_wb_very_high}}
+
+					boundary['features'][i]['properties']['lsi_immap_low']={{data.lsi_immap_low}}
+					boundary['features'][i]['properties']['lsi_immap_moderate']={{data.lsi_immap_moderate}}
+					boundary['features'][i]['properties']['lsi_immap_high']={{data.lsi_immap_high}}
+					boundary['features'][i]['properties']['lsi_immap_very_high']={{data.lsi_immap_very_high}}
+
+					
+
+				}
+			{% endfor %}
+		{% endif %}
+	}
+
+	
 </script>

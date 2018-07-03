@@ -44,23 +44,84 @@
                 </div>
             </div>
 
-            <div class="row hidden">
+            <div class="row hidden-print">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Map</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
-                                <li>
+                            <h2 class="pull-left">{% trans "Map" %}</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li class="hidden">
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
-                                <li>
+                                <li class="hidden">
                                     <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                                <li>
+                                    <a href="http://asdc.immap.org/maps/702/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
                                 </li>
                             </ul>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <div id="echart_baseline_map" style="height:350px;" class="ch-size-map"></div>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <div id="layercontrol">
+                                        <div class="form-group">
+                                            <label for="baselineOpt">Choose Layer :</label>
+                                            <select id="baselineOpt" class="form-control">
+                                                <option value="Population">Total Population</option>
+                                                <option value="Buildings">Total Building</option>
+                                                <option value="Area">Total Area</option>
+                                                <option value="hlt_total">Health Facilities</option>
+                                                <option value="road_total">Road Network</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <label for="slideRange">Range :</label>
+                                        <div id="slideRange">
+                                            <div id="keypress"></div>
+                                            <br>
+                                            <div class="row form-group">
+                                                <div class="col-md-6 col-xs-6">
+                                                    <input type="text" id="input-with-keypress-0" class="form-control">
+                                                </div>
+                                                <div class="col-md-6 col-xs-6">
+                                                    <input type="text" id="input-with-keypress-1" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <label for="themes">Pick a theme :</label>
+                                        <div id="themes">
+                                            <button class="theme active" data-btn="YlOrRd"></button>
+                                            <button class="theme" data-btn="PuRd"></button>
+                                            <button class="theme" data-btn="GnBu"></button>
+                                            <button class="theme" data-btn="Blues"></button>
+                                            <button class="theme" data-btn="BuGn"></button>
+                                            <button class="theme" data-btn="BuPu"></button>
+                                            <button class="theme" data-btn="Greens"></button>
+                                            <button class="theme" data-btn="Greys"></button>
+                                            <button class="theme" data-btn="Oranges"></button>
+                                            <button class="theme" data-btn="OrRd"></button>
+                                            <button class="theme" data-btn="PuBu"></button>
+                                            <button class="theme" data-btn="PuBuGn"></button>
+                                            <button class="theme" data-btn="Purples"></button>
+                                            <button class="theme" data-btn="RdPu"></button>
+                                            <button class="theme" data-btn="Reds"></button>
+                                            <button class="theme" data-btn="YlGn"></button>
+                                            <button class="theme" data-btn="YlGnBu"></button>
+                                            <button class="theme" data-btn="YlOrBr"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 col-sm-12 col-xs-12">
+                                    <div id="leaflet_baseline_map_lagi" class="ch-size-map"></div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div id="mapInfo" style="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +132,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans 'Population Graph' %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -100,7 +161,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans 'Building Graph' %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -130,7 +191,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans 'Area Graph' %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -160,7 +221,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans "Overview of Population and Area" %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -292,7 +353,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans "Health Facilities" %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -407,7 +468,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans 'Health Facilities Graph' %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -439,7 +500,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans "Road Network" %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -556,7 +617,7 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2 class="pull-left">{% trans 'Road Network Graph' %}</h2>
-                            <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+                            <ul class="nav navbar-right panel_toolbox hidden">
                                 <li>
                                     <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -635,5 +696,170 @@
     var roadnetwork_category = ['{% trans "Highway" %}', '{% trans "Primary" %}', '{% trans "Secondary" %}', '{% trans "Tertiary" %}', '{% trans "Residential" %}', '{% trans "Track" %}', '{% trans "Path" %}'/*, '{% trans "River Crossing" %}', '{% trans "Bridge" %}'*/];
 
     var roadnetwork = [{{road_highway}}, {{road_primary}}, {{road_secondary}}, {{road_tertiary}}, {{road_residential}}, {{road_track}}, {{road_path}}/*, {{road_river_crossing}}, {{road_bridge}}*/];
+
+    var total_category = ['{% trans "Health Facilities" %}', '{% trans "Road (km)" %}'];
+    var chosen_label = '{{parent_label}}';
+    {% if GeoJson %}
+    var boundary = {{GeoJson|safe}};
+    {% endif %}
+    var centroid = boundary['centroid'];
+    // console.log(boundary['centroid']);
+    // console.log(boundary['features'].length);
+    // console.log(boundary['features']);
+    // console.log(boundary['features'][0]['properties']['code']);
+    // console.log(feature.properties.population)
+
+    // var pop_collection=[];
+    var max_pop = 0;
+    var max_build = 0;
+    var max_area = 0;
+    var max_settl = 0;
+    var max_hlt = 0;
+    var max_road = 0;
+
+    // Add additional data to properties in GeoJSON
+    for (var i = 0; i < boundary.features.length; i++) {
+
+        // Checking if it's in a district
+        {% if not additional_child and not lc_child %}
+            // console.log("kosong");
+            set_jenk_divider = 1;
+            boundary['features'][i]['properties']['Population']={{Population}}
+            boundary['features'][i]['properties']['Buildings']={{Buildings}}
+            boundary['features'][i]['properties']['Area']={{Area}}
+            boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+            boundary['features'][i]['properties']['hlt_h1']={{hlt_h1}}
+            boundary['features'][i]['properties']['hlt_h2']={{hlt_h2}}
+            boundary['features'][i]['properties']['hlt_h3']={{hlt_h3}}
+            boundary['features'][i]['properties']['hlt_chc']={{hlt_chc}}
+            boundary['features'][i]['properties']['hlt_bhc']={{hlt_bhc}}
+            boundary['features'][i]['properties']['hlt_shc']={{hlt_shc}}
+            boundary['features'][i]['properties']['hlt_others']={{hlt_others}}
+            boundary['features'][i]['properties']['hlt_total']={{hltfac}}
+            boundary['features'][i]['properties']['road_highway']={{road_highway}}
+            boundary['features'][i]['properties']['road_primary']={{road_primary}}
+            boundary['features'][i]['properties']['road_secondary']={{road_secondary}}
+            boundary['features'][i]['properties']['road_tertiary']={{road_tertiary}}
+            boundary['features'][i]['properties']['road_residential']={{road_residential}}
+            boundary['features'][i]['properties']['road_track']={{road_track}}
+            boundary['features'][i]['properties']['road_path']={{road_path}}
+            boundary['features'][i]['properties']['road_total']={{roadnetwork}}
+
+            // console.log(boundary['features'][i]['properties']);
+            // pop_collection.push({{Population}});
+            // console.log(pop_collection);
+            // console.log(Math.max(pop_collection));
+
+            // Fill the max value of each possible option for the map
+            // max_pop_temp = {{Population}};
+            // max_build_temp = {{Buildings}}
+            // max_area_temp = {{Area}}
+            // max_settl_temp = {{settlement}}
+            // max_hlt_temp = {{hltfac}};
+            // max_road_temp = {{roadnetwork}}
+            
+            // if (max_pop < max_pop_temp) {
+            //   max_pop = max_pop_temp;
+            // }
+
+            // if (max_build < max_build_temp) {
+            //   max_build = max_build_temp;
+            // }
+
+            // if (max_area < max_area_temp) {
+            //   max_area = max_area_temp;
+            // }
+
+            // if (max_settl < max_settl_temp) {
+            //   max_settl = max_settl_temp;
+            // }
+
+            // if (max_hlt < max_hlt_temp) {
+            //   max_hlt = max_hlt_temp;
+            // }
+
+            // if (max_road < max_road_temp) {
+            //   max_road = max_road_temp;
+            // }
+
+        {% else %}
+            // console.log("tidak kosong");
+            set_jenk_divider = 7;
+
+            boundary['features'][i]['properties']['all_population']={{Population}}
+            boundary['features'][i]['properties']['all_buildings']={{Buildings}}
+            boundary['features'][i]['properties']['all_area']={{Area}}
+
+            {% for data in lc_child %}
+                if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+                    boundary['features'][i]['properties']['Population']={{data.Population}}
+                    boundary['features'][i]['properties']['Buildings']={{data.total_buildings}}
+                    boundary['features'][i]['properties']['Area']={{data.Area}}
+
+                    // pop_collection.push({{data.Population}});
+
+                    // max_pop_temp = {{data.Population}};
+                    // max_build_temp = {{data.total_buildings}}
+                    // max_area_temp = {{data.Area}}
+                    // max_settl_temp = {{data.settlements}}
+                    
+                    // if (max_pop < max_pop_temp) {
+                    //   max_pop = max_pop_temp;
+                    // }
+
+                    // if (max_build < max_build_temp) {
+                    //   max_build = max_build_temp;
+                    // }
+
+                    // if (max_area < max_area_temp) {
+                    //   max_area = max_area_temp;
+                    // }
+
+                    // if (max_settl < max_settl_temp) {
+                    //   max_settl = max_settl_temp;
+                    // }
+                }
+
+            {% endfor %}
+
+            {% for data in additional_child %}
+                if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+                    boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+                    boundary['features'][i]['properties']['hlt_h1']={{data.hlt_h1}}
+                    boundary['features'][i]['properties']['hlt_h2']={{data.hlt_h2}}
+                    boundary['features'][i]['properties']['hlt_h3']={{data.hlt_h3}}
+                    boundary['features'][i]['properties']['hlt_chc']={{data.hlt_chc}}
+                    boundary['features'][i]['properties']['hlt_bhc']={{data.hlt_bhc}}
+                    boundary['features'][i]['properties']['hlt_shc']={{data.hlt_shc}}
+                    boundary['features'][i]['properties']['hlt_others']={{data.hlt_others}}
+                    boundary['features'][i]['properties']['hlt_total']={{data.hlt_total}}
+                    boundary['features'][i]['properties']['road_highway']={{data.road_highway}}
+                    boundary['features'][i]['properties']['road_primary']={{data.road_primary}}
+                    boundary['features'][i]['properties']['road_secondary']={{data.road_secondary}}
+                    boundary['features'][i]['properties']['road_tertiary']={{data.road_tertiary}}
+                    boundary['features'][i]['properties']['road_residential']={{data.road_residential}}
+                    boundary['features'][i]['properties']['road_track']={{data.road_track}}
+                    boundary['features'][i]['properties']['road_path']={{data.road_path}}
+                    boundary['features'][i]['properties']['road_total']={{data.road_total}}
+
+                    // max_hlt_temp = {{data.hlt_total}};
+                    // max_road_temp = {{data.road_total}}
+
+                    // if (max_hlt < max_hlt_temp) {
+                    //   max_hlt = max_hlt_temp;
+                    // }
+
+                    // if (max_road < max_road_temp) {
+                    //   max_road = max_road_temp;
+                    // }
+                }
+
+                // console.log(boundary['features'][i]['properties']);
+            {% endfor %}
+        {% endif %}
+
+
+        // if (boundary.features.properties.population) {}
+    }
 </script>
 

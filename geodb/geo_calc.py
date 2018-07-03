@@ -35,6 +35,14 @@ from geodb.riverflood import getFloodForecastBySource
 from django.utils.translation import ugettext as _
 import pprint
 
+#added by razinal
+import pickle
+import visvalingamwyatt as vw
+from shapely.wkt import loads as load_wkt
+from vectorformats.Formats import Django, GeoJSON
+from vectorformats.Feature import Feature
+from vectorformats.Formats.Format import Format
+
 def include_section(section, includes, excludes):
     """
     check whether section is included or not
@@ -130,7 +138,7 @@ def getCommonUse(request,flag, code):
     #     response['poi_points'].append({'code':i.prov_code,'x':i.wkb_geometry.point_on_surface.x,'y':i.wkb_geometry.point_on_surface.y})
     return response
 
-def getSecurity(request, filterLock, flag, code):
+def getSecurity(request, filterLock, flag, code, includes=[], excludes=[]):
     rawFilterLock = None
     if 'flag' in request.GET:
         rawFilterLock = filterLock
@@ -360,6 +368,9 @@ def getSecurity(request, filterLock, flag, code):
         response['incident_target_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_target':i['main_target'],'child':list(getSAMIncident(request, daterange, rawFilterLock, flag, code, 'target', i['main_target']))})
 
     response['incident_list_100'] = getListIncidents(request, daterange, rawFilterLock, flag, code)
+
+    if include_section('GeoJson', includes, excludes):
+        response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
 
     return response
 
@@ -648,6 +659,9 @@ def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[], eq_
     if include_section('getListEQ', includes, excludes):
         data = getListEQ(filterLock, flag, code, eq_event)
         response['lc_child']=data
+
+    if include_section('GeoJson', includes, excludes):
+        response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
 
     return response
 
@@ -1361,6 +1375,10 @@ def getAccessibility(request, filterLock, flag, code, includes=[], excludes=[]):
 
     data = getListAccesibility(filterLock, flag, code)
     response['lc_child']=data
+
+    if include_section('GeoJson', includes, excludes):
+        response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
+
     return response
 
 def getListAccesibility(filterLock, flag, code):
@@ -1513,6 +1531,9 @@ def getFloodForecast(request, filterLock, flag, code, includes=[], excludes=[]):
             data = getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, int(DAY), True)
             response['glofas_gfms_child']=data
 
+    if include_section('GeoJson', includes, excludes):
+        response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
+
     return response
 
 def getAvalancheForecast(request, filterLock, flag, code):
@@ -1575,6 +1596,9 @@ def getAvalancheForecast(request, filterLock, flag, code):
             i['low_pop_forecast_percent'] = int(round(i['ava_forecast_low_pop']/i['Population']*100,0))
 
         response['lc_child']=data
+
+    #if include_section('GeoJson', includes, excludes):
+    response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
 
     return response
 
@@ -1751,6 +1775,9 @@ def getAvalancheRisk(request, filterLock, flag, code):
 
     response['lc_child']=data
 
+    #if include_section('GeoJson', includes, excludes):
+    response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
+
     return response
 
 def getFloodRisk(request, filterLock, flag, code):
@@ -1867,6 +1894,9 @@ def getFloodRisk(request, filterLock, flag, code):
         i['barren_area_risk_percent'] = int(round((i['barren_area_risk'] or 0)/(i['barren_area'] or 1)*100,0))
 
     response['lc_child']=data
+
+    #if include_section('GeoJson', includes, excludes):
+    response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
 
     return response
 
@@ -2089,6 +2119,9 @@ def getQuickOverview(request, filterLock, flag, code, includes=[], excludes=[]):
             response['incident_type_group'].append({'count':i['count'],'injured':i['injured'],'violent':i['violent']+i['affected'],'dead':i['dead'],'main_type':i['main_type'],'child':list(getSAMIncident(request, daterange, rawFilterLock, flag, code, 'type', i['main_type']))})
         response['main_type_child'] = getSAMParams(request, daterange, rawFilterLock, flag, code, 'main_type', False)
 
+    if include_section('GeoJson', includes, excludes):
+        response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
+
     return response
 
 def getShortCutData(flag, code):
@@ -2288,6 +2321,13 @@ def getBaseline(request, filterLock, flag, code, includes=[], excludes=[], injec
 
     # response['additional_child'] = json.dumps(response['additional_child'])
     # print response['additional_child']
+
+    if include_section('GeoJson', includes, excludes):
+        response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
+        # response['GeoJson'] = getGeoJson(request, flag, code)
+
+    #print 'It took', time.time()-start, 'seconds.'
+
     return response
 
 def getParentRoadNetworkRecap(filterLock, flag, code):
@@ -3068,8 +3108,8 @@ def getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, DAY, merge):
                 c.low, \
                 c.verylow \
                 from afg_admbnda_adm1 b \
-                inner join provincesummary a  on cast(a.province as integer)=b.prov_code \
-                inner join (\
+                left join provincesummary a  on cast(a.province as integer)=b.prov_code \
+                left join (\
                 select \
                 prov_code,\
                 sum(extreme) as extreme,\
@@ -3103,8 +3143,8 @@ def getProvinceSummary_glofas(filterLock, flag, code, YEAR, MONTH, DAY, merge):
                 c.low, \
                 c.verylow \
                 from afg_admbnda_adm2 b \
-                inner join districtsummary a  on cast(a.district as integer)=b.dist_code \
-                inner join (\
+                left join districtsummary a  on cast(a.district as integer)=b.dist_code \
+                left join (\
                 select \
                 dist_code,\
                 sum(extreme) as extreme,\
@@ -3780,4 +3820,60 @@ def getLandslideRisk(request, filterLock, flag, code, includes=[], excludes=[]):
                 'chartArea': {'width': '100%'},
         })
 
+        if include_section('GeoJson', includes, excludes):
+            response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
+
     return response
+
+def getGeoJson (filterLock, flag, code):
+    if flag=='drawArea':
+        getprov = AfgAdmbndaAdm1.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
+        select={
+            'road_length' : 'SUM(  \
+                    case \
+                        when ST_CoveredBy(wkb_geometry'+','+filterLock+') then road_length \
+                        else ST_Length(st_intersection(wkb_geometry::geography'+','+filterLock+')) / road_length end \
+                )/1000'
+        },
+        where = {
+            'ST_Intersects(wkb_geometry'+', '+filterLock+')'
+        }).values('type_update','road_length')
+
+    elif flag=='entireAfg':
+        getprov = AfgAdmbndaAdm1.objects.all().extra(select={'code': 'prov_code', 'centroid': 'ST_AsText(wkb_geometry)'})
+    elif flag=='currentProvince':
+        if len(str(code)) > 2:
+            getprov = AfgAdmbndaAdm2.objects.all().filter(dist_code=code).extra(select={'code': 'dist_code', 'centroid': 'ST_AsText(wkb_geometry)'})
+        else:
+            getprov =  AfgAdmbndaAdm2.objects.all().filter(prov_code=code).extra(select={'code': 'dist_code', 'centroid': 'ST_AsText(wkb_geometry)'})
+    else:
+        getprov = AfgAdmbndaAdm1.objects.all().extra(select={'code': 'prov_code', 'centroid': 'ST_AsText(wkb_geometry)'})
+
+    results = []
+    ctroid = ''
+    for res in getprov:
+        feature = Feature(res.ogc_fid)
+        ctroid += res.centroid
+        geom = res.wkb_geometry
+        geometry = {}
+        geometry['type'] = geom.geom_type
+        geometry['coordinates'] = geom.coords
+        feature.geometry = vw.simplify_geometry(geometry, ratio=0.05)
+
+        feature.properties['code'] = res.code
+        results.append(feature)
+
+    geoj = GeoJSON.GeoJSON()
+    geojsondata = geoj.encode(results, to_string=False)
+    getcentroid = load_wkt(ctroid)
+    dcentroid = getcentroid.centroid.wkt
+    rpoint = dcentroid.replace('POINT ','')
+    rspace = rpoint.replace(' ',', ')
+    afirst = rspace.replace('(','')
+    alast = afirst.replace(')','')
+    fixctr = alast.split(",")
+
+    geojsondata['centroid'] = fixctr
+    # string = json.dumps(geojsondata)
+
+    return geojsondata

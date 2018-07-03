@@ -18,12 +18,296 @@
 	            	</div>
 	            </div>
 	        </div>
+            <div class="row hidden-print">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2 class="pull-left">{% trans "Map of Earthquake" %}</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li class="hidden">
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </li>
+                                <li class="hidden">
+                                    <a class="close-link"><i class="fa fa-close"></i></a>
+                                </li>
+                                <li>
+                                    <a href="http://asdc.immap.org/maps/706/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <div id="layercontrol">
+                                        <label for="haccessOpt">Choose Layer :</label>
+                                        <select id="erthqkOpt" class="form-control">
+                                          <option value="erthqk_checkbox_pop">Population Affected</option>
+                                          <option value="erthqk_checkbox_settl">Settlement Affected</option>
+                                          <option value="erthqk_checkbox_build">Building Affected</option>
+                                        </select>
+
+                                        <!-- data attribute will be used in javascript to know which layer to add or remove from the map -->
+                                        <label for="WMSLayer">WMS Layer :</label>
+                                        <div id="WMSLayer" class="checkbox checkbox-red wms_check">
+                                            <label><input type="checkbox" data-type=wms data-layer=erthqk checked>Earthquake Shakemap</label>
+                                        </div>
+
+                                        <label for="lvl">Choose Level :</label>
+                                        <div id="lvl" class="lvl_choice erthqk_checkbox">
+                                            <div class="erthqk_checkbox_pop erthqk_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_weak">Weak
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_light">Light
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_moderate">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_strong">Strong
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_verystrong">Very-strong
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_severe">Severe
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_violent">Violent
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="pop_shake_extreme">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div style='display:none;' class="erthqk_checkbox_settl erthqk_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_weak">Weak
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_light">Light
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_moderate">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_strong">Strong
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_verystrong">Very-strong
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_severe">Severe
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_violent">Violent
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="settlement_shake_extreme">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div style='display:none;' class="erthqk_checkbox_build erthqk_opt">
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_weak">Weak
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_light">Light
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_moderate">Moderate
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_strong">Strong
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_verystrong">Very-strong
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_severe">Severe
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_violent">Violent
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox checkbox-red">
+                                                    <label>
+                                                      <input type="checkbox" name="erthqk_checkbox" value="buildings_shake_extreme">Extreme
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style='display:none;' class="erthqk_radio_pop erthqk_opt">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_weak" checked>Weak
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_light">Light
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_moderate">Moderate
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_strong">Strong
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_verystrong">Very-strong
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_severe">Severe
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_violent">Violent
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="pop_shake_extreme">Extreme
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div style='display:none;' class="erthqk_radio_settl erthqk_opt">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_weak">Weak
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_light">Light
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_moderate">Moderate
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_strong">Strong
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_verystrong">Very-strong
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_severe">Severe
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_violent">Violent
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="erthqk_radio" value="settlement_shake_extreme">Extreme
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <label for="themes">Pick a theme :</label>
+                                        <div id="themes">
+                                            <button class="theme active" data-btn="YlOrRd"></button>
+                                            <button class="theme" data-btn="PuRd"></button>
+                                            <button class="theme" data-btn="GnBu"></button>
+                                            <button class="theme" data-btn="Blues"></button>
+                                            <button class="theme" data-btn="BuGn"></button>
+                                            <button class="theme" data-btn="BuPu"></button>
+                                            <button class="theme" data-btn="Greens"></button>
+                                            <button class="theme" data-btn="Greys"></button>
+                                            <button class="theme" data-btn="Oranges"></button>
+                                            <button class="theme" data-btn="OrRd"></button>
+                                            <button class="theme" data-btn="PuBu"></button>
+                                            <button class="theme" data-btn="PuBuGn"></button>
+                                            <button class="theme" data-btn="Purples"></button>
+                                            <button class="theme" data-btn="RdPu"></button>
+                                            <button class="theme" data-btn="Reds"></button>
+                                            <button class="theme" data-btn="YlGn"></button>
+                                            <button class="theme" data-btn="YlGnBu"></button>
+                                            <button class="theme" data-btn="YlOrBr"></button>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="col-md-9 col-sm-12 col-xs-12">
+                                    <div id="leaflet_erthqk_map" class="ch-size-map"></div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div id="mapInfo"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 	        <div class="row">
 	            <div class="col-md-4 col-sm-12 col-xs-12">
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Population Affected by Earthquake" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -54,7 +338,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Buildings Affected by Earthquake" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -85,7 +369,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans "Settlements Affected by Earthquake" %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -116,7 +400,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans 'Mercalli Intensity Scale Population' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -135,7 +419,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans 'Mercalli Intensity Scale Buildings' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -154,7 +438,7 @@
 	              <div class="x_panel">
 	                <div class="x_title">
 	                  <h2 class="pull-left">{% trans 'Mercalli Intensity Scale Settlements' %}</h2>
-	                  <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                  <ul class="nav navbar-right panel_toolbox hidden">
 	                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                    </li>
 	                    <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -175,7 +459,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Overview of Earthquake Affecting Population and Settlements" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -420,7 +704,7 @@
 
 <script type="text/javascript">
 	var erthqk_cat = ["{% trans 'Affected' %}", "{% trans 'Not Affected' %}"]
-	var mercalli_cat = ["{% trans 'Weak' %}", "{% trans 'Light' %}", "{% trans 'Moderate' %}", "{% trans 'Strong' %}", "{% trans 'Very Strong' %}", "{% trans 'Severe' %}", "{% trans 'Violent' %}", "{% trans 'Extreme' %}"]
+	var mercalli_cat = ["{% trans 'Weak' %}", "{% trans 'Light' %}", "{% trans 'Moderate' %}", "{% trans 'Strong' %}", "{% trans 'Very Strong' %}", "{% trans 'Severe' %}", "{% trans 'Violent' %}", "{% trans 'Extreme' %}"];
 
 	var pop = {{ Population }}
 	var settl = {{settlement}}
@@ -455,5 +739,387 @@
 	var settlement_severe = {{ settlement_shake_severe }}
 	var settlement_violent = {{ settlement_shake_violent }}
 	var settlement_ext = {{ settlement_shake_extreme }}
+
+	var chosen_label = '{{parent_label}}';
+	{% if GeoJson %}
+		var boundary = {{GeoJson|safe}};
+	{% endif %}
+	var centroid = boundary['centroid'];
+	var erthqk_code = '{{ eq_link | slice:"10:" }}'
+	var erthqk_link = '{{ eq_link | safe }}';
+	console.log(erthqk_code);
+	var val_collection = [];
+
+	var max_pop_shake_weak = 0;
+	var max_pop_shake_light = 0;
+	var max_pop_shake_moderate = 0;
+	var max_pop_shake_strong = 0;
+	var max_pop_shake_verystrong = 0;
+	var max_pop_shake_severe = 0;
+	var max_pop_shake_violent = 0;
+	var max_pop_shake_extreme = 0;
+
+	var max_settlement_shake_weak = 0;
+	var max_settlement_shake_light = 0;
+	var max_settlement_shake_moderate = 0;
+	var max_settlement_shake_strong = 0;
+	var max_settlement_shake_verystrong = 0;
+	var max_settlement_shake_severe = 0;
+	var max_settlement_shake_violent = 0;
+	var max_settlement_shake_extreme = 0;
+
+	var max_buildings_shake_weak = 0;
+	var max_buildings_shake_light = 0;
+	var max_buildings_shake_moderate = 0;
+	var max_buildings_shake_strong = 0;
+	var max_buildings_shake_verystrong = 0;
+	var max_buildings_shake_severe = 0;
+	var max_buildings_shake_violent = 0;
+	var max_buildings_shake_extreme = 0;
+
+	for (var i = 0; i < boundary.features.length; i++) {
+
+	    // Checking if it's in a district
+	    {% if not lc_child %}
+
+            set_jenk_divider = 1;
+	        boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+	        boundary['features'][i]['properties']['pop_shake_weak']={{pop_shake_weak}}
+	        boundary['features'][i]['properties']['pop_shake_light']={{pop_shake_light}}
+	        boundary['features'][i]['properties']['pop_shake_moderate']={{pop_shake_moderate}}
+	        boundary['features'][i]['properties']['pop_shake_strong']={{pop_shake_strong}}
+	        boundary['features'][i]['properties']['pop_shake_verystrong']={{pop_shake_verystrong}}
+	        boundary['features'][i]['properties']['pop_shake_severe']={{pop_shake_severe}}
+	        boundary['features'][i]['properties']['pop_shake_violent']={{pop_shake_violent}}
+	        boundary['features'][i]['properties']['pop_shake_extreme']={{pop_shake_extreme}}
+	        boundary['features'][i]['properties']['settlement_shake_weak']={{settlement_shake_weak}}
+	        boundary['features'][i]['properties']['settlement_shake_light']={{settlement_shake_light}}
+	        boundary['features'][i]['properties']['settlement_shake_moderate']={{settlement_shake_moderate}}
+	        boundary['features'][i]['properties']['settlement_shake_strong']={{settlement_shake_strong}}
+	        boundary['features'][i]['properties']['settlement_shake_verystrong']={{settlement_shake_verystrong}}
+	        boundary['features'][i]['properties']['settlement_shake_severe']={{settlement_shake_severe}}
+	        boundary['features'][i]['properties']['settlement_shake_violent']={{settlement_shake_violent}}
+	        boundary['features'][i]['properties']['settlement_shake_extreme']={{settlement_shake_extreme}}
+	        boundary['features'][i]['properties']['buildings_shake_weak']={{buildings_shake_weak}}
+	        boundary['features'][i]['properties']['buildings_shake_light']={{buildings_shake_light}}
+	        boundary['features'][i]['properties']['buildings_shake_moderate']={{buildings_shake_moderate}}
+	        boundary['features'][i]['properties']['buildings_shake_strong']={{buildings_shake_strong}}
+	        boundary['features'][i]['properties']['buildings_shake_verystrong']={{buildings_shake_verystrong}}
+	        boundary['features'][i]['properties']['buildings_shake_severe']={{buildings_shake_severe}}
+	        boundary['features'][i]['properties']['buildings_shake_violent']={{buildings_shake_violent}}
+	        boundary['features'][i]['properties']['buildings_shake_extreme']={{buildings_shake_extreme}}
+	        boundary['features'][i]['properties']['value']=0
+
+	        // Fill the max value of each possible option for the map
+	        max_pop_shake_weak_temp = {{pop_shake_weak}};
+	        max_pop_shake_light_temp = {{pop_shake_light}}
+	        max_pop_shake_moderate_temp = {{pop_shake_moderate}}
+	        max_pop_shake_strong_temp = {{pop_shake_strong}}
+	        max_pop_shake_verystrong_temp = {{pop_shake_verystrong}};
+	        max_pop_shake_severe_temp = {{pop_shake_severe}}
+	        max_pop_shake_violent_temp = {{pop_shake_violent}}
+	        max_pop_shake_extreme_temp = {{pop_shake_extreme}}
+	        
+	        if (max_pop_shake_weak < max_pop_shake_weak_temp) {
+	          max_pop_shake_weak = max_pop_shake_weak_temp;
+	        }
+
+	        if (max_pop_shake_light < max_pop_shake_light_temp) {
+	          max_pop_shake_light = max_pop_shake_light_temp;
+	        }
+
+	        if (max_pop_shake_moderate < max_pop_shake_moderate_temp) {
+	          max_pop_shake_moderate = max_pop_shake_moderate_temp;
+	        }
+
+	        if (max_pop_shake_strong < max_pop_shake_strong_temp) {
+	          max_pop_shake_strong = max_pop_shake_strong_temp;
+	        }
+
+	        if (max_pop_shake_verystrong < max_pop_shake_verystrong_temp) {
+	          max_pop_shake_verystrong = max_pop_shake_verystrong_temp;
+	        }
+
+	        if (max_pop_shake_severe < max_pop_shake_severe_temp) {
+	          max_pop_shake_severe = max_pop_shake_severe_temp;
+	        }
+
+	        if (max_pop_shake_violent < max_pop_shake_violent_temp) {
+	          max_pop_shake_violent = max_pop_shake_violent_temp;
+	        }
+
+	        if (max_pop_shake_extreme < max_pop_shake_extreme_temp) {
+	          max_pop_shake_extreme = max_pop_shake_extreme_temp;
+	        }
+
+	        max_settlement_shake_weak_temp = {{settlement_shake_weak}};
+	        max_settlement_shake_light_temp = {{settlement_shake_light}}
+	        max_settlement_shake_moderate_temp = {{settlement_shake_moderate}}
+	        max_settlement_shake_strong_temp = {{settlement_shake_strong}}
+	        max_settlement_shake_verystrong_temp = {{settlement_shake_verystrong}};
+	        max_settlement_shake_severe_temp = {{settlement_shake_severe}}
+	        max_settlement_shake_violent_temp = {{settlement_shake_violent}}
+	        max_settlement_shake_extreme_temp = {{settlement_shake_extreme}}
+
+	        if (max_settlement_shake_weak < max_settlement_shake_weak_temp) {
+	          max_settlement_shake_weak = max_settlement_shake_weak_temp;
+	        }
+
+	        if (max_settlement_shake_light < max_settlement_shake_light_temp) {
+	          max_settlement_shake_light = max_settlement_shake_light_temp;
+	        }
+
+	        if (max_settlement_shake_moderate < max_settlement_shake_moderate_temp) {
+	          max_settlement_shake_moderate = max_settlement_shake_moderate_temp;
+	        }
+
+	        if (max_settlement_shake_strong < max_settlement_shake_strong_temp) {
+	          max_settlement_shake_strong = max_settlement_shake_strong_temp;
+	        }
+
+	        if (max_settlement_shake_verystrong < max_settlement_shake_verystrong_temp) {
+	          max_settlement_shake_verystrong = max_settlement_shake_verystrong_temp;
+	        }
+
+	        if (max_settlement_shake_severe < max_settlement_shake_severe_temp) {
+	          max_settlement_shake_severe = max_settlement_shake_severe_temp;
+	        }
+
+	        if (max_settlement_shake_violent < max_settlement_shake_violent_temp) {
+	          max_settlement_shake_violent = max_settlement_shake_violent_temp;
+	        }
+
+	        if (max_settlement_shake_extreme < max_settlement_shake_extreme_temp) {
+	          max_settlement_shake_extreme = max_settlement_shake_extreme_temp;
+	        }
+
+	        max_buildings_shake_weak_temp = {{buildings_shake_weak}};
+	        max_buildings_shake_light_temp = {{buildings_shake_light}}
+	        max_buildings_shake_moderate_temp = {{buildings_shake_moderate}}
+	        max_buildings_shake_strong_temp = {{buildings_shake_strong}}
+	        max_buildings_shake_verystrong_temp = {{buildings_shake_verystrong}};
+	        max_buildings_shake_severe_temp = {{buildings_shake_severe}}
+	        max_buildings_shake_violent_temp = {{buildings_shake_violent}}
+	        max_buildings_shake_extreme_temp = {{buildings_shake_extreme}}
+
+	        if (max_buildings_shake_weak < max_buildings_shake_weak_temp) {
+	          max_buildings_shake_weak = max_buildings_shake_weak_temp;
+	        }
+
+	        if (max_buildings_shake_light < max_buildings_shake_light_temp) {
+	          max_buildings_shake_light = max_buildings_shake_light_temp;
+	        }
+
+	        if (max_buildings_shake_moderate < max_buildings_shake_moderate_temp) {
+	          max_buildings_shake_moderate = max_buildings_shake_moderate_temp;
+	        }
+
+	        if (max_buildings_shake_strong < max_buildings_shake_strong_temp) {
+	          max_buildings_shake_strong = max_buildings_shake_strong_temp;
+	        }
+
+	        if (max_buildings_shake_verystrong < max_buildings_shake_verystrong_temp) {
+	          max_buildings_shake_verystrong = max_buildings_shake_verystrong_temp;
+	        }
+
+	        if (max_buildings_shake_severe < max_buildings_shake_severe_temp) {
+	          max_buildings_shake_severe = max_buildings_shake_severe_temp;
+	        }
+
+	        if (max_buildings_shake_violent < max_buildings_shake_violent_temp) {
+	          max_buildings_shake_violent = max_buildings_shake_violent_temp;
+	        }
+
+	        if (max_buildings_shake_extreme < max_buildings_shake_extreme_temp) {
+	          max_buildings_shake_extreme = max_buildings_shake_extreme_temp;
+	        }
+
+	    {% else %}
+            set_jenk_divider = 7;
+	        {% for data in lc_child %}
+	            if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+	            	boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+	                boundary['features'][i]['properties']['pop_shake_weak']={{data.pop_shake_weak}}
+	                boundary['features'][i]['properties']['pop_shake_light']={{data.pop_shake_light}}
+	                boundary['features'][i]['properties']['pop_shake_moderate']={{data.pop_shake_moderate}}
+	                boundary['features'][i]['properties']['pop_shake_strong']={{data.pop_shake_strong}}
+	                boundary['features'][i]['properties']['pop_shake_verystrong']={{data.pop_shake_verystrong}}
+	                boundary['features'][i]['properties']['pop_shake_severe']={{data.pop_shake_severe}}
+	                boundary['features'][i]['properties']['pop_shake_violent']={{data.pop_shake_violent}}
+	                boundary['features'][i]['properties']['pop_shake_extreme']={{data.pop_shake_extreme}}
+	                boundary['features'][i]['properties']['settlement_shake_weak']={{data.settlement_shake_weak}}
+	                boundary['features'][i]['properties']['settlement_shake_light']={{data.settlement_shake_light}}
+	                boundary['features'][i]['properties']['settlement_shake_moderate']={{data.settlement_shake_moderate}}
+	                boundary['features'][i]['properties']['settlement_shake_strong']={{data.settlement_shake_strong}}
+	                boundary['features'][i]['properties']['settlement_shake_verystrong']={{data.settlement_shake_verystrong}}
+	                boundary['features'][i]['properties']['settlement_shake_severe']={{data.settlement_shake_severe}}
+	                boundary['features'][i]['properties']['settlement_shake_violent']={{data.settlement_shake_violent}}
+	                boundary['features'][i]['properties']['settlement_shake_extreme']={{data.settlement_shake_extreme}}
+	                boundary['features'][i]['properties']['buildings_shake_weak']={{data.buildings_shake_weak}}
+	                boundary['features'][i]['properties']['buildings_shake_light']={{data.buildings_shake_light}}
+	                boundary['features'][i]['properties']['buildings_shake_moderate']={{data.buildings_shake_moderate}}
+	                boundary['features'][i]['properties']['buildings_shake_strong']={{data.buildings_shake_strong}}
+	                boundary['features'][i]['properties']['buildings_shake_verystrong']={{data.buildings_shake_verystrong}}
+	                boundary['features'][i]['properties']['buildings_shake_severe']={{data.buildings_shake_severe}}
+	                boundary['features'][i]['properties']['buildings_shake_violent']={{data.buildings_shake_violent}}
+	                boundary['features'][i]['properties']['buildings_shake_extreme']={{data.buildings_shake_extreme}}
+	                boundary['features'][i]['properties']['value']=0
+
+	                max_pop_shake_weak_temp = {{data.pop_shake_weak}};
+	                max_pop_shake_light_temp = {{data.pop_shake_light}}
+	                max_pop_shake_moderate_temp = {{data.pop_shake_moderate}}
+	                max_pop_shake_strong_temp = {{data.pop_shake_strong}}
+	                max_pop_shake_verystrong_temp = {{data.pop_shake_verystrong}};
+	                max_pop_shake_severe_temp = {{data.pop_shake_severe}}
+	                max_pop_shake_violent_temp = {{data.pop_shake_violent}}
+	                max_pop_shake_extreme_temp = {{data.pop_shake_extreme}}
+	                
+	                if (max_pop_shake_weak < max_pop_shake_weak_temp) {
+	                  max_pop_shake_weak = max_pop_shake_weak_temp;
+	                }
+
+	                if (max_pop_shake_light < max_pop_shake_light_temp) {
+	                  max_pop_shake_light = max_pop_shake_light_temp;
+	                }
+
+	                if (max_pop_shake_moderate < max_pop_shake_moderate_temp) {
+	                  max_pop_shake_moderate = max_pop_shake_moderate_temp;
+	                }
+
+	                if (max_pop_shake_strong < max_pop_shake_strong_temp) {
+	                  max_pop_shake_strong = max_pop_shake_strong_temp;
+	                }
+
+	                if (max_pop_shake_verystrong < max_pop_shake_verystrong_temp) {
+	                  max_pop_shake_verystrong = max_pop_shake_verystrong_temp;
+	                }
+
+	                if (max_pop_shake_severe < max_pop_shake_severe_temp) {
+	                  max_pop_shake_severe = max_pop_shake_severe_temp;
+	                }
+
+	                if (max_pop_shake_violent < max_pop_shake_violent_temp) {
+	                  max_pop_shake_violent = max_pop_shake_violent_temp;
+	                }
+
+	                if (max_pop_shake_extreme < max_pop_shake_extreme_temp) {
+	                  max_pop_shake_extreme = max_pop_shake_extreme_temp;
+	                }
+
+	                max_settlement_shake_weak_temp = {{data.settlement_shake_weak}};
+	                max_settlement_shake_light_temp = {{data.settlement_shake_light}}
+	                max_settlement_shake_moderate_temp = {{data.settlement_shake_moderate}}
+	                max_settlement_shake_strong_temp = {{data.settlement_shake_strong}}
+	                max_settlement_shake_verystrong_temp = {{data.settlement_shake_verystrong}};
+	                max_settlement_shake_severe_temp = {{data.settlement_shake_severe}}
+	                max_settlement_shake_violent_temp = {{data.settlement_shake_violent}}
+	                max_settlement_shake_extreme_temp = {{data.settlement_shake_extreme}}
+
+	                if (max_settlement_shake_weak < max_settlement_shake_weak_temp) {
+	                  max_settlement_shake_weak = max_settlement_shake_weak_temp;
+	                }
+
+	                if (max_settlement_shake_light < max_settlement_shake_light_temp) {
+	                  max_settlement_shake_light = max_settlement_shake_light_temp;
+	                }
+
+	                if (max_settlement_shake_moderate < max_settlement_shake_moderate_temp) {
+	                  max_settlement_shake_moderate = max_settlement_shake_moderate_temp;
+	                }
+
+	                if (max_settlement_shake_strong < max_settlement_shake_strong_temp) {
+	                  max_settlement_shake_strong = max_settlement_shake_strong_temp;
+	                }
+
+	                if (max_settlement_shake_verystrong < max_settlement_shake_verystrong_temp) {
+	                  max_settlement_shake_verystrong = max_settlement_shake_verystrong_temp;
+	                }
+
+	                if (max_settlement_shake_severe < max_settlement_shake_severe_temp) {
+	                  max_settlement_shake_severe = max_settlement_shake_severe_temp;
+	                }
+
+	                if (max_settlement_shake_violent < max_settlement_shake_violent_temp) {
+	                  max_settlement_shake_violent = max_settlement_shake_violent_temp;
+	                }
+
+	                if (max_settlement_shake_extreme < max_settlement_shake_extreme_temp) {
+	                  max_settlement_shake_extreme = max_settlement_shake_extreme_temp;
+	                }
+
+	                max_buildings_shake_weak_temp = {{data.buildings_shake_weak}};
+	                max_buildings_shake_light_temp = {{data.buildings_shake_light}}
+	                max_buildings_shake_moderate_temp = {{data.buildings_shake_moderate}}
+	                max_buildings_shake_strong_temp = {{data.buildings_shake_strong}}
+	                max_buildings_shake_verystrong_temp = {{data.buildings_shake_verystrong}};
+	                max_buildings_shake_severe_temp = {{data.buildings_shake_severe}}
+	                max_buildings_shake_violent_temp = {{data.buildings_shake_violent}}
+	                max_buildings_shake_extreme_temp = {{data.buildings_shake_extreme}}
+
+	                if (max_buildings_shake_weak < max_buildings_shake_weak_temp) {
+	                  max_buildings_shake_weak = max_buildings_shake_weak_temp;
+	                }
+
+	                if (max_buildings_shake_light < max_buildings_shake_light_temp) {
+	                  max_buildings_shake_light = max_buildings_shake_light_temp;
+	                }
+
+	                if (max_buildings_shake_moderate < max_buildings_shake_moderate_temp) {
+	                  max_buildings_shake_moderate = max_buildings_shake_moderate_temp;
+	                }
+
+	                if (max_buildings_shake_strong < max_buildings_shake_strong_temp) {
+	                  max_buildings_shake_strong = max_buildings_shake_strong_temp;
+	                }
+
+	                if (max_buildings_shake_verystrong < max_buildings_shake_verystrong_temp) {
+	                  max_buildings_shake_verystrong = max_buildings_shake_verystrong_temp;
+	                }
+
+	                if (max_buildings_shake_severe < max_buildings_shake_severe_temp) {
+	                  max_buildings_shake_severe = max_buildings_shake_severe_temp;
+	                }
+
+	                if (max_buildings_shake_violent < max_buildings_shake_violent_temp) {
+	                  max_buildings_shake_violent = max_buildings_shake_violent_temp;
+	                }
+
+	                if (max_buildings_shake_extreme < max_buildings_shake_extreme_temp) {
+	                  max_buildings_shake_extreme = max_buildings_shake_extreme_temp;
+	                }
+	            }
+
+	        {% endfor %}
+
+	    {% endif %}
+	}
+
+	var max_collection = 
+	{
+	  pop_shake_weak : max_pop_shake_weak,
+	  pop_shake_light : max_pop_shake_light,
+	  pop_shake_moderate : max_pop_shake_moderate,
+	  pop_shake_strong : max_pop_shake_strong,
+	  pop_shake_verystrong : max_pop_shake_verystrong,
+	  pop_shake_severe : max_pop_shake_severe,
+	  pop_shake_violent : max_pop_shake_violent,
+	  pop_shake_extreme : max_pop_shake_extreme,
+	  settlement_shake_weak : max_settlement_shake_weak,
+	  settlement_shake_light : max_settlement_shake_light,
+	  settlement_shake_moderate : max_settlement_shake_moderate,
+	  settlement_shake_strong : max_settlement_shake_strong,
+	  settlement_shake_verystrong : max_settlement_shake_verystrong,
+	  settlement_shake_severe : max_settlement_shake_severe,
+	  settlement_shake_violent : max_settlement_shake_violent,
+	  settlement_shake_extreme : max_settlement_shake_extreme,
+	  buildings_shake_weak : max_buildings_shake_weak,
+	  buildings_shake_light : max_buildings_shake_light,
+	  buildings_shake_moderate : max_buildings_shake_moderate,
+	  buildings_shake_strong : max_buildings_shake_strong,
+	  buildings_shake_verystrong : max_buildings_shake_verystrong,
+	  buildings_shake_severe :  max_buildings_shake_severe,
+	  buildings_shake_violent : max_buildings_shake_violent,
+	  buildings_shake_extreme : max_buildings_shake_extreme
+	}
 
 </script>

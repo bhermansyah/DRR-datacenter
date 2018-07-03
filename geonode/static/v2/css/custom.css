@@ -304,7 +304,7 @@ html[dir=rtl] .x_title h2 small{
 
 .panel_toolbox {
     float: right;
-    min-width: 55px
+    min-width: 155px
 }
 .panel_toolbox>li {
     float: left;
@@ -874,7 +874,264 @@ html[dir=rtl] .ch-size canvas, html[dir=rtl] .ch-size-fforecast, html[dir=rtl] .
     height: 350px;
 }*/
 
+/*Maps Control*/
+/*Slider*/
+.noUi-horizontal{
+    height: 10px;
+}
+
+.noUi-horizontal .noUi-handle{
+    width: 20px;
+    height: 20px;
+}
+
+.noUi-handle{
+    border-radius: 20px;
+    border: 1px solid #CF000F;
+    box-shadow: none;
+}
+
+.noUi-handle:after, .noUi-handle:before{
+    display: none;
+}
+
+.noUi-target {
+    padding: 0 15px 0 0;
+    background: #f7d2cc;
+    border: none;
+}
+/*.noUi-base:before,
+.noUi-base:after {
+    width: 20px;
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: block;
+}
+.noUi-base:before {
+    left: -20px;
+}
+.noUi-base:after {
+    left: 100%;
+}*/
+
+.noUi-connect{
+    background: #CF000F;
+}
+
+[disabled] .noUi-handle{
+    border: 1px solid #ddd;
+}
+
+#layercontrol select{
+    margin-bottom: 10px;
+}
+
+#layercontrol .checkbox, #layercontrol .radio{
+    margin-top: -5px;
+}
+
+html[dir=ltr] #layercontrol .checkbox-red input[type="checkbox"]{
+    margin-right: 5px;
+}
+
+/*Setting Map Color*/
+#themes{
+    height: 50px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* Make an auto-hiding scroller for the 3 people using a IE */
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    /* For WebKit implementations, provide inertia scrolling */
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    /* Remove the default scrollbar for WebKit implementations */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.theme{
+    height: 35px;
+    width: 35px;
+    border-color: #fff;
+    border-style:none;
+}
+
+button.active{
+    box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.10);
+}
+
+[data-btn="YlOrRd"] {
+    background: -webkit-linear-gradient(
+        -45deg, #800026 0%, #f43d25 50%, #fd8d3c 51%, #ffe692 100%);
+    background: -webkit-linear-gradient(
+        315deg, #800026 0%, #f43d25 50%, #fd8d3c 51%, #ffe692 100%);
+    background: linear-gradient(
+        135deg, #800026 0%, #f43d25 50%, #fd8d3c 51%, #ffe692 100%);
+}
+
+[data-btn="PuRd"] {
+    background: -webkit-linear-gradient(
+        -45deg, #67001f 0%, #df2179 50%, #df65b0 51%, #e1d4e8 100%);
+    background: -webkit-linear-gradient(
+        315deg, #67001f 0%, #df2179 50%, #df65b0 51%, #e1d4e8 100%);
+    background: linear-gradient(
+        135deg, #67001f 0%, #df2179 50%, #df65b0 51%, #e1d4e8 100%);
+}
+
+[data-btn="GnBu"] {
+    background: -webkit-linear-gradient(
+        -45deg, #084081 0%, #42a6cc 50%, #7bccc4 51%, #d9f0d4 100%);
+    background: -webkit-linear-gradient(
+        315deg, #084081 0%, #42a6cc 50%, #7bccc4 51%, #d9f0d4 100%);
+    background: linear-gradient(
+        135deg, #084081 0%, #42a6cc 50%, #7bccc4 51%, #d9f0d4 100%);
+}
+
+[data-btn="Blues"] {
+    background: -webkit-linear-gradient(
+        -45deg, #105ca4 0%, #6baed6 50%, #abd0e6 51%, #d6e6f4 100%);
+    background: -webkit-linear-gradient(
+        315deg, #105ca4 0%, #6baed6 50%, #abd0e6 51%, #d6e6f4 100%);
+    background: linear-gradient(
+        135deg, #105ca4 0%, #6baed6 50%, #abd0e6 51%, #d6e6f4 100%);
+}
+
+[data-btn="BuGn"] {
+    background: -webkit-linear-gradient(
+        -45deg, #0c7734 0%, #66c2a4 50%, #aadfd3 51%, #ddf2f3 100%);
+    background: -webkit-linear-gradient(
+        315deg, #0c7734 0%, #66c2a4 50%, #aadfd3 51%, #ddf2f3 100%);
+    background: linear-gradient(
+        135deg, #0c7734 0%, #66c2a4 50%, #aadfd3 51%, #ddf2f3 100%);
+}
+
+[data-btn="BuPu"] {
+    background: -webkit-linear-gradient(
+        -45deg, #4d004b 0%, #8c96c6 50%, #a9c4de 51%, #d5e4ef 100%);
+    background: -webkit-linear-gradient(
+        315deg, #4d004b 0%, #8c96c6 50%, #a9c4de 51%, #d5e4ef 100%);
+    background: linear-gradient(
+        135deg, #4d004b 0%, #8c96c6 50%, #a9c4de 51%, #d5e4ef 100%);
+}
+
+[data-btn="Greens"] {
+    background: -webkit-linear-gradient(
+        -45deg, #0c7734 0%, #37a055 50%, #379e54 51%, #dbf1d5 100%);
+    background: -webkit-linear-gradient(
+        315deg, #0c7734 0%, #37a055 50%, #379e54 51%, #dbf1d5 100%);
+    background: linear-gradient(
+        135deg, #0c7734 0%, #37a055 50%, #379e54 51%, #dbf1d5 100%);
+}
+
+[data-btn="Greys"] {
+    background: -webkit-linear-gradient(
+        -45deg, #000000 0%, #686868 50%, #969696 51%, #e8e8e8 100%);
+    background: -webkit-linear-gradient(
+        315deg, #000000 0%, #686868 50%, #969696 51%, #e8e8e8 100%);
+    background: linear-gradient(
+        135deg, #000000 0%, #686868 50%, #969696 51%, #e8e8e8 100%);
+}
+
+[data-btn="Oranges"] {
+    background: -webkit-linear-gradient(
+        -45deg, #7f2704 0%, #fd8d3c 50%, #fdb97d 51%, #fedfbf 100%);
+    background: -webkit-linear-gradient(
+        315deg, #7f2704 0%, #fd8d3c 50%, #fdb97d 51%, #fedfbf 100%);
+    background: linear-gradient(
+        135deg, #7f2704 0%, #fd8d3c 50%, #fdb97d 51%, #fedfbf 100%);
+}
+
+[data-btn="OrRd"] {
+    background: -webkit-linear-gradient(
+        -45deg, #7f0000 0%, #e7533a 50%, #fdc38d 51%, #fee1ba 100%);
+    background: -webkit-linear-gradient(
+        315deg, #7f0000 0%, #e7533a 50%, #fdc38d 51%, #fee1ba 100%);
+    background: linear-gradient(
+        135deg, #7f0000 0%, #e7533a 50%, #fdc38d 51%, #fee1ba 100%);
+}
+
+[data-btn="PuBu"] {
+    background: -webkit-linear-gradient(
+        -45deg, #023858 0%, #2685bb 50%, #74a9cf 51%, #e3e0ee 100%);
+    background: -webkit-linear-gradient(
+        315deg, #023858 0%, #2685bb 50%, #74a9cf 51%, #e3e0ee 100%);
+    background: linear-gradient(
+        135deg, #023858 0%, #2685bb 50%, #74a9cf 51%, #e3e0ee 100%);
+}
+
+[data-btn="PuBuGn"] {
+    background: -webkit-linear-gradient(
+        -45deg, #014636 0%, #67a9cf 50%, #b4c4df 51%, #e3dced 100%);
+    background: -webkit-linear-gradient(
+        315deg, #014636 0%, #67a9cf 50%, #b4c4df 51%, #e3dced 100%);
+    background: linear-gradient(
+        135deg, #014636 0%, #67a9cf 50%, #b4c4df 51%, #e3dced 100%);
+}
+
+[data-btn="Purples"] {
+    background: -webkit-linear-gradient(
+        -45deg, #3f007d 0%, #796eb2 50%, #9e9ac8 51%, #e8e7f2 100%);
+    background: -webkit-linear-gradient(
+        315deg, #3f007d 0%, #796eb2 50%, #9e9ac8 51%, #e8e7f2 100%);
+    background: linear-gradient(
+        135deg, #3f007d 0%, #796eb2 50%, #9e9ac8 51%, #e8e7f2 100%);
+}
+
+[data-btn="RdPu"] {
+    background: -webkit-linear-gradient(
+        -45deg, #49006a 0%, #cd238f 50%, #f768a1 51%, #fdd7d3 100%);
+    background: -webkit-linear-gradient(
+        315deg, #49006a 0%, #cd238f 50%, #f768a1 51%, #fdd7d3 100%);
+    background: linear-gradient(
+        135deg, #49006a 0%, #cd238f 50%, #f768a1 51%, #fdd7d3 100%);
+}
+
+[data-btn="Reds"] {
+    background: -webkit-linear-gradient(
+        -45deg, #67000d 0%, #e32f27 50%, #fb6a4a 51%, #fdd4c2 100%);
+    background: -webkit-linear-gradient(
+        315deg, #67000d 0%, #e32f27 50%, #fb6a4a 51%, #fdd4c2 100%);
+    background: linear-gradient(
+        135deg, #67000d 0%, #e32f27 50%, #fb6a4a 51%, #fdd4c2 100%);
+}
+
+[data-btn="YlGn"] {
+    background: -webkit-linear-gradient(
+        -45deg, #004529 0%, #78c679 50%, #bce395 51%, #edf8b2 100%);
+    background: -webkit-linear-gradient(
+        315deg, #004529 0%, #78c679 50%, #bce395 51%, #edf8b2 100%);
+    background: linear-gradient(
+        135deg, #004529 0%, #78c679 50%, #bce395 51%, #edf8b2 100%);
+}
+
+[data-btn="YlGnBu"] {
+    background: -webkit-linear-gradient(
+        -45deg, #081d58 0%, #41b6c4 50%, #97d6b9 51%, #e0f3b2 100%);
+    background: -webkit-linear-gradient(
+        315deg, #081d58 0%, #41b6c4 50%, #97d6b9 51%, #e0f3b2 100%);
+    background: linear-gradient(
+        135deg, #081d58 0%, #41b6c4 50%, #97d6b9 51%, #e0f3b2 100%);
+}
+
+[data-btn="YlOrBr"] {
+    background: -webkit-linear-gradient(
+        -45deg, #662506 0%, #e1640e 50%, #fe9929 51%, #fff0ae 100%);
+    background: -webkit-linear-gradient(
+        315deg, #662506 0%, #e1640e 50%, #fe9929 51%, #fff0ae 100%);
+    background: linear-gradient(
+        135deg, #662506 0%, #e1640e 50%, #fe9929 51%, #fff0ae 100%);
+}
+
 /*Leaflet Maps*/
+
+.ch-size-map{
+    height: 45vh;
+}
+
 .info {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
@@ -888,6 +1145,16 @@ html[dir=rtl] .ch-size canvas, html[dir=rtl] .ch-size-fforecast, html[dir=rtl] .
     color: #777;
 }
 
+.legend span, .legend label { /*css for horizontal legend*/
+  display: block;
+  width: 50px;
+  height: 18px;
+  float: left;
+  opacity: 0.7;
+  text-align: center;
+  font-size: 80%
+}
+
 .legend {
     line-height: 18px;
     color: #555;
@@ -898,6 +1165,77 @@ html[dir=rtl] .ch-size canvas, html[dir=rtl] .ch-size-fforecast, html[dir=rtl] .
     float: left;
     margin-right: 8px;
     opacity: 0.7;
+}
+
+#mapInfo{
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    margin-top: 15px;
+}
+
+.linkPopup{
+    position: absolute;
+    right: 25px;
+    top: 25px;
+}
+
+#mapInfo .chosen_area{
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#mapInfo .circle_container{
+    display: inline-block;
+    width: 90px;
+    text-align: center;
+}
+
+#mapInfo .circle_info{
+    display: inline-block;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    background-color: #CF000F;
+    color: #fff;
+    height: 50px;
+    width: 50px;
+    line-height: 50px; /*Make it centered*/
+    text-align: center;
+    vertical-align: middle;
+}
+
+#mapInfo .circle_data{
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 15px;
+    color: #333;"
+}
+
+#mapInfo .circle_title{
+    color: #666;
+    font-size: 10px;
+}
+
+#access #mapInfo th, #access #mapInfo td,
+#ff #mapInfo th, #ff #mapInfo td,
+#landslide #mapInfo th, #landslide #mapInfo td,
+#erthqk #mapInfo th, #erthqk #mapInfo td
+{
+    border-bottom: none !important;
+    border: 1px solid #fff;
+    text-align: center;
+}
+
+#mapInfo tr:first-child > th{
+    text-align: center;
+    background-color: #ddd;
+    border: 1px solid #d3d3d3;
+}
+
+#mapInfo td{
+    text-align: center;
 }
 
 /*Section*/
@@ -2768,17 +3106,6 @@ html[dir=rtl] .item .carousel-caption{
     padding-right: 0px;
     padding-left: 5px;
 }*/
-
-/*Map in Dashboard*/
-.legend span, .legend label {
-  display: block;
-  width: 50px;
-  height: 18px;
-  float: left;
-  opacity: 0.7;
-  text-align: center;
-  font-size: 80%
-}
 
 /*Section Data Provider and Partners*/
 

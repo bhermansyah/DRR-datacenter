@@ -11,13 +11,101 @@
 	            	{% include "v2/breadcrumb.html" %}
 	            </div>
 	        </div>
+	        <div class="row hidden-print">
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "Map of Avalanches Forecast" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox">
+	                            <li class="hidden">
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li class="hidden">
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                            <li>
+	                                <a href="http://asdc.immap.org/maps/707/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	<div class="row">
+		                    	<div class="col-md-3 col-sm-12 col-xs-12">
+		                        	<div id="layercontrol">
+		                        	    <label for="aforecastOpt">Choose Layer :</label>
+		                        	    <select id="aforecastOpt" class="form-control">
+		                        	      <option value="aforecast_checkbox_pop">Population at Avalanche Forecast</option>
+		                        	      <!-- <option value="total_risk_buildings">Building at Avalanche Forecast</option> -->
+		                        	    </select>
 
+		                        	    <label for="WMSLayer">WMS Layer :</label>
+		                        	    <div id="WMSLayer" class="checkbox checkbox-red wms_check">
+		                        	        <label><input type="checkbox" data-type=wms data-layer=aforecast checked>Avalanche Forecast</label>
+		                        	    </div>
+
+		                        	    <label for="lvl">Choose Level :</label>
+		                        	    <div id="lvl" class="lvl_choice">
+			                        	    <div class="aforecast_checkbox_pop aforecast_opt">
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="aforecast_checkbox" value="ava_forecast_low_pop">Low
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="aforecast_checkbox" value="ava_forecast_med_pop">Moderate
+		    										</label>
+		    									</div>
+		    									<div class="checkbox checkbox-red">
+		    										<label>
+		    										  <input type="checkbox" name="aforecast_checkbox" value="ava_forecast_high_pop">High
+		    										</label>
+		    									</div>
+		                            		</div>
+		                        	    </div>
+		                        	    
+
+	                            		<label for="themes">Pick a theme :</label>
+	                            		<div id="themes">
+	                            		    <button class="theme active" data-btn="YlOrRd"></button>
+	                            		    <button class="theme" data-btn="PuRd"></button>
+	                            		    <button class="theme" data-btn="GnBu"></button>
+	                            		    <button class="theme" data-btn="Blues"></button>
+	                            		    <button class="theme" data-btn="BuGn"></button>
+	                            		    <button class="theme" data-btn="BuPu"></button>
+	                            		    <button class="theme" data-btn="Greens"></button>
+	                            		    <button class="theme" data-btn="Greys"></button>
+	                            		    <button class="theme" data-btn="Oranges"></button>
+	                            		    <button class="theme" data-btn="OrRd"></button>
+	                            		    <button class="theme" data-btn="PuBu"></button>
+	                            		    <button class="theme" data-btn="PuBuGn"></button>
+	                            		    <button class="theme" data-btn="Purples"></button>
+	                            		    <button class="theme" data-btn="RdPu"></button>
+	                            		    <button class="theme" data-btn="Reds"></button>
+	                            		    <button class="theme" data-btn="YlGn"></button>
+	                            		    <button class="theme" data-btn="YlGnBu"></button>
+	                            		    <button class="theme" data-btn="YlOrBr"></button>
+	                            		</div>
+		                        	</div>
+		                        </div>
+		                        <div class="col-md-9 col-sm-12 col-xs-12">
+		                            <div id="leaflet_aforecast_map" class="ch-size-map"></div>
+		                        </div>
+		                        <div class="col-md-12 col-sm-12 col-xs-12">
+		                            <div id="mapInfo"></div>
+		                        </div>
+	                    	</div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 	        <div class="row">
 	        	<div class="col-md-6 col-sm-12 col-xs-12">
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
 	        	      <h2 class="pull-left">{% trans 'Avalanche Prediction Population Graph' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	      <ul class="nav navbar-right panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -48,7 +136,7 @@
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
 	        	      <h2 class="pull-left">{% trans 'Avalanche Prediction Building Graph' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	      <ul class="nav navbar-right panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -79,7 +167,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans 'Population in Predicted Avalanche Risk Area' %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -186,5 +274,68 @@
 	var afo_low_build = {{ ava_forecast_low_buildings }};
 	var afo_med_build = {{ ava_forecast_med_buildings }};
 	var afo_hi_build = {{ ava_forecast_high_buildings }};
+
+	var chosen_label = '{{parent_label}}';
+	{% if GeoJson %}
+	    var boundary = {{GeoJson|safe}};
+	{% endif %}
+	var centroid = boundary['centroid'];
+	var val_collection = [];
+
+	var max_ava_forecast_high_pop = 0;
+	var max_ava_forecast_med_pop = 0;
+	var max_ava_forecast_low_pop = 0;
+
+	// Add additional data to properties in GeoJSON
+	for (var i = 0; i < boundary.features.length; i++) {
+		// Checking if it's in a district
+		{% if not lc_child %}
+			set_jenk_divider = 1;
+			boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+			boundary['features'][i]['properties']['ava_forecast_high_pop']={{ava_forecast_high_pop}}
+			boundary['features'][i]['properties']['ava_forecast_med_pop']={{ava_forecast_med_pop}}
+			boundary['features'][i]['properties']['ava_forecast_low_pop']={{ava_forecast_low_pop}}
+
+			// max_ava_forecast_high_pop_temp = {{ava_forecast_high_pop}}
+			// max_ava_forecast_med_pop_temp = {{ava_forecast_med_pop}}
+			// max_ava_forecast_low_pop_temp = {{ava_forecast_low_pop}}
+			
+			// if (max_ava_forecast_high_pop < max_ava_forecast_high_pop_temp) {
+			// 	max_ava_forecast_high_pop = max_ava_forecast_high_pop_temp;
+			// }
+			// if (max_ava_forecast_med_pop < max_ava_forecast_med_pop_temp) {
+			// 	max_ava_forecast_med_pop = max_ava_forecast_med_pop_temp;
+			// }
+			// if (max_ava_forecast_low_pop < max_ava_forecast_low_pop_temp) {
+			// 	max_ava_forecast_low_pop = max_ava_forecast_low_pop_temp;
+			// }
+
+		{% else %}
+			set_jenk_divider = 7;
+			{% for data in lc_child %}
+				if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+					boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+					boundary['features'][i]['properties']['ava_forecast_high_pop']={{data.ava_forecast_high_pop}}
+					boundary['features'][i]['properties']['ava_forecast_med_pop']={{data.ava_forecast_med_pop}}
+					boundary['features'][i]['properties']['ava_forecast_low_pop']={{data.ava_forecast_low_pop}}
+
+					// max_ava_forecast_high_pop_temp = {{data.ava_forecast_high_pop}}
+					// max_ava_forecast_med_pop_temp = {{data.ava_forecast_med_pop}}
+					// max_ava_forecast_low_pop_temp = {{data.ava_forecast_low_pop}}
+					
+					// if (max_ava_forecast_high_pop < max_ava_forecast_high_pop_temp) {
+					// 	max_ava_forecast_high_pop = max_ava_forecast_high_pop_temp;
+					// }
+					// if (max_ava_forecast_med_pop < max_ava_forecast_med_pop_temp) {
+					// 	max_ava_forecast_med_pop = max_ava_forecast_med_pop_temp;
+					// }
+					// if (max_ava_forecast_low_pop < max_ava_forecast_low_pop_temp) {
+					// 	max_ava_forecast_low_pop = max_ava_forecast_low_pop_temp;
+					// }
+				}
+			{% endfor %}
+		{% endif %}
+	}
+
 
 </script>

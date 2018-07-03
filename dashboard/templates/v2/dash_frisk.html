@@ -11,13 +11,96 @@
 	            	{% include "v2/breadcrumb.html" %}
 	            </div>
 	        </div>
+	        <div class="row hidden-print">
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="x_title">
+	                        <h2 class="pull-left">{% trans "Map of Flood Risk" %}</h2>
+	                        <ul class="nav navbar-right panel_toolbox">
+	                            <li class="hidden">
+	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+	                            </li>
+	                            <li class="hidden">
+	                                <a class="close-link"><i class="fa fa-close"></i></a>
+	                            </li>
+	                            <li>
+	                                <a href="http://asdc.immap.org/maps/700/view" class="btn btn-primary" target="_blank">Visit Interactive Maps</a>
+	                            </li>
+	                        </ul>
+	                        <div class="clearfix"></div>
+	                    </div>
+	                    <div class="x_content">
+	                    	<div class="row">
+                    			<div class="col-md-3 col-sm-12 col-xs-12">
+                    				<div id="layercontrol">
+                    				    <label for="friskOpt">Choose Layer :</label>
+                    				    <select id="friskOpt" class="form-control">
+                    				      <option value="total_risk_population">Population at Flood Risk</option>
+                    				      <option value="total_risk_buildings">Building at Flood Risk</option>
+                    				      <option value="total_risk_area">Area at Flood Risk</option>
+                    				      <option value="settlements_at_risk">Settlements at Flood Risk</option>
+                    				    </select>
 
+                    				    <label for="WMSLayer">WMS Layer :</label>
+                    				    <div id="WMSLayer" class="checkbox checkbox-red">
+                    				        <label><input type="checkbox" data-type=wms data-layer=frisk checked>Flood Risk</label>
+                    				    </div>
+
+                    				    <label for="slideRange">Range :</label>
+                    				    <div id="slideRange">
+                    				        <div id="keypress"></div>
+                    				        <br>
+                    				        <div class="row form-group">
+                    				            <div class="col-md-6 col-xs-6">
+                    				                <input type="text" id="input-with-keypress-0" class="form-control">
+                    				            </div>
+                    				            <div class="col-md-6 col-xs-6">
+                    				                <input type="text" id="input-with-keypress-1" class="form-control">
+                    				            </div>
+                    				        </div>
+                    				    </div>
+
+                    				    <label for="themes">Pick a theme :</label>
+                    				    <div id="themes">
+                    				        <button class="theme active" data-btn="YlOrRd"></button>
+                    				        <button class="theme" data-btn="PuRd"></button>
+                    				        <button class="theme" data-btn="GnBu"></button>
+                    				        <button class="theme" data-btn="Blues"></button>
+                    				        <button class="theme" data-btn="BuGn"></button>
+                    				        <button class="theme" data-btn="BuPu"></button>
+                    				        <button class="theme" data-btn="Greens"></button>
+                    				        <button class="theme" data-btn="Greys"></button>
+                    				        <button class="theme" data-btn="Oranges"></button>
+                    				        <button class="theme" data-btn="OrRd"></button>
+                    				        <button class="theme" data-btn="PuBu"></button>
+                    				        <button class="theme" data-btn="PuBuGn"></button>
+                    				        <button class="theme" data-btn="Purples"></button>
+                    				        <button class="theme" data-btn="RdPu"></button>
+                    				        <button class="theme" data-btn="Reds"></button>
+                    				        <button class="theme" data-btn="YlGn"></button>
+                    				        <button class="theme" data-btn="YlGnBu"></button>
+                    				        <button class="theme" data-btn="YlOrBr"></button>
+                    				    </div>
+                    				</div>
+                    			</div>
+                    			<div class="col-md-9 col-sm-12 col-xs-12">
+                    			    <div id="leaflet_floodrisk_map" class="ch-size-map"></div>
+                    			</div>
+                    		    <div class="col-md-12 col-sm-12 col-xs-12">
+                    		        <div id="mapInfo"></div>
+                    		    </div>
+	                    	</div>
+	                    	
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
 	        <div class="row">
 	        	<div class="col-md-4 col-sm-12 col-xs-12">
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
 	        	      <h2 class="pull-left">{% trans 'Flood Risk Population' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	      <ul class="nav navbar-right panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -48,7 +131,7 @@
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
 	        	      <h2 class="pull-left">{% trans 'Flood Risk Building' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	      <ul class="nav navbar-right panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -79,7 +162,7 @@
 	        	  <div class="x_panel">
 	        	    <div class="x_title">
 	        	      <h2 class="pull-left">{% trans 'Flood Risk Area' %}</h2>
-	        	      <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	        	      <ul class="nav navbar-right panel_toolbox hidden">
 	        	        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	        	        </li>
 	        	        <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -110,7 +193,7 @@
 	                <div class="x_panel">
 	                    <div class="x_title">
 	                        <h2 class="pull-left">{% trans "Population Living in Flood Risk Areas" %}</h2>
-	                        <ul class="nav {{ LANGUAGE_BIDI | yesno:'navbar-left, navbar-right' }} panel_toolbox hidden">
+	                        <ul class="nav navbar-right panel_toolbox hidden">
 	                            <li>
 	                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 	                            </li>
@@ -271,5 +354,54 @@
 	var frisk_low_area = {{ low_risk_area }}
 	var frisk_med_area = {{ med_risk_area }}
 	var frisk_hi_area = {{ high_risk_area }}
+
+	var chosen_label = '{{parent_label}}';
+	var map_category = ['{% trans "Population at Risk" %}', '{% trans "Settlement at Risk" %}', '{% trans "Building at Risk" %}', '{% trans "Area at Risk" %}'];
+	var boundary = {{GeoJson|safe}};
+	var centroid = boundary['centroid'];
+
+	// Add additional data to properties in GeoJSON
+	for (var i = 0; i < boundary.features.length; i++) {
+
+	    // Checking if it's in a district
+	    {% if not additional_child and not lc_child %}
+	    	set_jenk_divider = 1;
+	        boundary['features'][i]['properties']['na_en']="{{parent_label}}"
+	        boundary['features'][i]['properties']['total_risk_population']={{total_risk_population}}
+	        boundary['features'][i]['properties']['total_risk_buildings']={{total_risk_buildings}}
+	        boundary['features'][i]['properties']['settlements_at_risk']={{settlement_at_floodrisk}}
+	        boundary['features'][i]['properties']['total_risk_area']={{total_risk_area}}
+
+	        boundary['features'][i]['properties']['low_risk_population']={{low_risk_population}}
+	        boundary['features'][i]['properties']['med_risk_population']={{med_risk_population}}
+	        boundary['features'][i]['properties']['high_risk_population']={{high_risk_population}}
+
+	        boundary['features'][i]['properties']['low_risk_area']={{low_risk_area}}
+	        boundary['features'][i]['properties']['med_risk_area']={{med_risk_area}}
+	        boundary['features'][i]['properties']['high_risk_area']={{high_risk_area}}
+
+	    {% else %}
+	    	set_jenk_divider = 7;
+	        {% for data in lc_child %}
+	            if (boundary['features'][i]['properties']['code']=={{data.code}}) {
+	            	boundary['features'][i]['properties']['na_en']="{{data.na_en}}"
+	                boundary['features'][i]['properties']['total_risk_population']={{data.total_risk_population}}
+	                boundary['features'][i]['properties']['total_risk_buildings']={{data.total_risk_buildings}}
+	                boundary['features'][i]['properties']['settlements_at_risk']={{data.settlements_at_risk}}
+	                boundary['features'][i]['properties']['total_risk_area']={{data.total_risk_area}}
+
+	                boundary['features'][i]['properties']['low_risk_population']={{data.low_risk_population}}
+	                boundary['features'][i]['properties']['med_risk_population']={{data.med_risk_population}}
+	                boundary['features'][i]['properties']['high_risk_population']={{data.high_risk_population}}
+
+	                boundary['features'][i]['properties']['low_risk_area']={{data.low_risk_area}}
+	                boundary['features'][i]['properties']['med_risk_area']={{data.med_risk_area}}
+	                boundary['features'][i]['properties']['high_risk_area']={{data.high_risk_area}}
+	            }
+
+	        {% endfor %}
+
+	    {% endif %}
+	}
 
 </script>
