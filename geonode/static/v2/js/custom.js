@@ -8887,41 +8887,6 @@ jQuery(function($){
 			return keypressSlider;
 		}
 
-		Highcharts.theme = {
-		    colors: ['#ffaaab', '#ff6264', '#d13c3e', '#b92527'],
-		    chart: {
-		        backgroundColor: {
-		            linearGradient: [0, 0, 500, 500],
-		            stops: [
-		                [0, 'rgb(255, 255, 255)'],
-		                [1, 'rgb(240, 240, 255)']
-		            ]
-		        },
-		    },
-		    title: {
-		        style: {
-		            color: '#408829',
-		            font: 'bold 16px "Arial", Verdana, sans-serif'
-		        }
-		    },
-		    subtitle: {
-		        style: {
-		            color: '#666666',
-		            font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
-		        }
-		    },
-
-		    legend: {
-		        itemStyle: {
-		            font: '9pt Trebuchet MS, Verdana, sans-serif',
-		            color: 'black'
-		        },
-		        itemHoverStyle:{
-		            color: 'gray'
-		        }   
-		    }
-		};
-
 		// Leaflet JS
 		if ($('#leaflet_baseline_map_lama').length ){
 			var geojson;
