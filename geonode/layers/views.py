@@ -292,7 +292,7 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
         "documents": get_related_documents(layer),
         "metadata": metadata,
         "is_layer": True,
-        "wps_enabled": settings.OGC_SERVER['default']['WPS_ENABLED'],
+        "wps_enabled": settings.OGC_SERVER['default']['WPS_ENABLED'], 
     }
 
     context_dict["viewer"] = json.dumps(
@@ -310,6 +310,9 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
             links = layer.link_set.download().filter(
                 name__in=settings.DOWNLOAD_FORMATS_RASTER)
         context_dict["links"] = links
+        #added by razinal
+        queryset = matrix(user=request.user,resourceid=layer,action='Download Layer')
+        queryset.save()
 
     if settings.SOCIAL_ORIGINS:
         context_dict["social_links"] = build_social_links(request, layer)
