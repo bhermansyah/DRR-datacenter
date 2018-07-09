@@ -329,9 +329,6 @@ INSTALLED_APPS = (
     'dataqs.airnow',
     'dataqs.wqp',
 
-    # security patch
-    'debreach',
-
     #custom app
     'geodb',
     'matrix',
@@ -409,13 +406,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # and GEOSERVER_BASE_URL to all pages that use a RequestContext
     'geonode.context_processors.resource_urls',
     'geonode.geoserver.context_processors.geoserver_urls',
-    'debreach.context_processors.csrf',
 )
 
 MIDDLEWARE_CLASSES = (
-    # pip install django-debreach to patch https+gzip breach vulnerability
-    'django.middleware.gzip.GZipMiddleware',
-    'debreach.middleware.RandomCommentMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -423,7 +416,6 @@ MIDDLEWARE_CLASSES = (
     # user depending on things like headers in HTTP requests.
     'django.middleware.locale.LocaleMiddleware',
     'pagination.middleware.PaginationMiddleware',
-    'debreach.middleware.CSRFCryptMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
