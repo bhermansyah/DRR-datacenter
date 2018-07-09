@@ -16,12 +16,17 @@ from django.core import serializers
 import time
 
 from django.contrib.auth.decorators import user_passes_test
+# from django.middleware.gzip import GZipMiddleware
+from django.views.decorators.gzip import gzip_page
 
 @user_passes_test(lambda u: u.is_staff, login_url='/')
+@gzip_page
 def userstatistics(request):
     # has_access = ('geodb.delete_afgincidentoasis' in request.user.get_all_permissions())
     # if not has_access:
     #     return TemplateResponse(request, '401.html', {}, status=401).render()
+
+    # gzip_middleware = GZipMiddleware()
 
     data = {}
     data['jsondata'] = {}
@@ -29,7 +34,7 @@ def userstatistics(request):
     data['jsondata']['user'] = {}
     user_exclude = ['admin', 'dodiws', 'dodiwsreg', 'rafinkanisa', 'boedy1996', 'razinal']
     start = time.time()
-    print 'query start', start
+    # print 'query start', start
     qs_matrix = matrix.objects.exclude(user__username__in=user_exclude).\
     extra(select={'certificate_percentage': 'SELECT percentage FROM matrix_certificate WHERE lower(matrix_certificate.email) = lower(people_profile.email)',
     'certified': 'SELECT (case when CAST (percentage AS FLOAT) >= 75 then \'Yes\' else \'No\' end) AS certified FROM matrix_certificate WHERE lower(matrix_certificate.email) = lower(people_profile.email)'}).\
@@ -51,7 +56,7 @@ def userstatistics(request):
         'certificate_percentage',
         'certified'
     )
-    print qs_matrix.query
+    # print qs_matrix.query
     data['jsondata']['useractivities']['data'] = [
         [
             unicode(r[0]).encode('utf-8').strip(),
@@ -90,7 +95,7 @@ def userstatistics(request):
         'certificate_percentage',
         'certified'
         )
-    print queryset.query
+    # print queryset.query
     data['jsondata']['user']['data'] = [
         [
             unicode(r[0]).encode('utf-8').strip(),
@@ -106,8 +111,8 @@ def userstatistics(request):
     ]
     # data['user']['data'] = get_user_model().objects.all()
     end = time.time()
-    print 'query end', end
-    print 'query time', end - start, 'seconds'
+    # print 'query end', end
+    print 'query end. time:', end - start, 'seconds'
     data['jsondata']['useractivities']['columns'] = [
         str('user'),
         str('first_name'),
@@ -130,12 +135,17 @@ def userstatistics(request):
         str('certified')
     ]
     data['jsondata']['user']['columns'] = [
-    str('username'),
-    str('organization'),
-    str('org_acronym'),
-    str('org_type'),
-    str('org_name_status'),
-    str('date_join'),
-    str('certificate_percentage'),
-    str('certified')]
+        str('username'),
+        str('organization'),
+        str('org_acronym'),
+        str('org_type'),
+        str('org_name_status'),
+        str('date_join'),
+        str('certificate_percentage'),
+        str('certified')
+    ]
+
     return render(request, 'userstatistics.html', data)
+
+    # response = render(request, 'userstatistics.html', data)
+    # return gzip_middleware.process_response(request, response)

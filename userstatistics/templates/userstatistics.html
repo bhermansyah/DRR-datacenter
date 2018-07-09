@@ -1104,6 +1104,7 @@ var dtoptionsbase = {
   autoWidth: false,
   "scrollX": true,
   dom: 'Bfrtip',
+  "deferRender": true,
   buttons: [
     {
       extend: "copy",
@@ -1176,26 +1177,35 @@ function renderoutput(queryopted) {
   // wrap long process in async function call
   setTimeout(function() {
     var strsql = queryopted.sqlfiltered || queryopted.sql;
+
+    console.time('Run query');
     var arvalues = alasql(strsql);
+    console.timeEnd('Run query');
     // console.log(strsql);
 
     // remove previous chart
+    console.time('Destroy chart');
     if ($("#graphuseractivity").highcharts()) {
       $("#graphuseractivity").highcharts().destroy()
     }
+    console.timeEnd('Destroy chart');
 
     // draw graph
+    console.time('Render chart');
     if (!queryopted['nograph'] && (queryopted['fngraph'])) {
       queryopted['fngraph'](arvalues);
     }
+    console.timeEnd('Render chart');
 
     // render datatable
+    console.time('Render datatable');
     if (queryopted['fnfilldatatable']) {
       queryopted['fnfilldatatable'](arvalues);
     }
     else {
       filldatatable(arvalues);
     }
+    console.timeEnd('Render datatable');
 
     // stop load anim
     $(".se-pre-con").fadeOut("slow");
@@ -1280,17 +1290,21 @@ window.onload = function() {
     runasync(function() {
 
       // remove previous chart
+      console.time('Destroy chart');
       if ($("#graphuseractivity").highcharts()) {
         $("#graphuseractivity").highcharts().destroy()
       }
+      console.timeEnd('Destroy chart');
 
       // remove previous datatable
+      console.time('Destroy datatable');
       var tblusac = $('#tbluseractivity');
       if ($.fn.DataTable.isDataTable('#tbluseractivity')) {
         // destroy previous datatable instance
         tblusac.dataTable().api().destroy();
         tblusac.empty(); // empty in case the columns change
       }
+      console.timeEnd('Destroy datatable');
 
       // set filters or render output
       if (queryopted.fnsetfilters) {
