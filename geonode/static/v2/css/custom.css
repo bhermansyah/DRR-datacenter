@@ -403,6 +403,7 @@ html[dir=rtl] tr td:nth-child(1), html[dir=rtl] .list_incident tr td:nth-child(2
 
 .x_content table.table {
     border-collapse: collapse;
+    width: 100% !important;
 }
 
 /*table.road_network{
@@ -428,6 +429,9 @@ th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low {
 
 #access .color_table tbody>tr>td, 
 #landslide .table>tbody>tr>td, 
+#ggfforecast_overview .table>tbody>tr>td, 
+#glfforecast_overview .table>tbody>tr>td, 
+#gffforecast_overview .table>tbody>tr>td, 
 #erthqk .table>tbody>tr>td{
     border-top: none;
     border-right: none;
@@ -520,9 +524,17 @@ th.m8h, td.m8h/*,
     border: 1px solid #fff !important;
 }
 
+table#ffforecast td,
+table#ggfforecast td,
+table#glfforecast td,
+table#gffforecast td
+{
+    /*width: 20%;*/
+}
+
 td.ext, td.vhigh, td.high, td.mod, td.low, td.hi, td.med, td.lo{
     font-weight: bold;
-    width: 20%;
+    /*width: 20%;*/
     /*border: 1px solid #fff !important;*/
 }
 
@@ -3954,7 +3966,8 @@ html[dir=rtl] .side-menu #collapseCategories .side-menu-list ul{
     padding: 15px 0;
 }
 
-html[dir=ltr] .side-menu .checkbox-red input[type="checkbox"]{
+/*html[dir=ltr] .side-menu .checkbox-red input[type="checkbox"],*/
+html[dir=ltr] .checkbox-red input[type="checkbox"]{
     margin-right: 5px;
 }
 

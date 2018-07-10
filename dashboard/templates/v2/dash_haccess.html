@@ -843,18 +843,18 @@
 </script>
 
 	<script type="text/javascript">
-		var icDataIncident = [];
-		var icDataDead = [];
-		var icDataInjured = [];
-		var icDataViolent = [];
-
-		var tcDataIncident = [];
-		var tcDataDead = [];
-		var tcDataInjured = [];
-		var tcDataViolent = [];
-
 		document.addEventListener('DOMContentLoaded', function(){
-			console.log("DOM fully loaded and parsed");
+
+			// Select All/None
+			    $('.checkbox-group .parents-checkbox .panel-select-all :checkbox').change(function () {
+			        $(this).closest('.checkbox-group').find(':checkbox').not(this).prop('checked', this.checked).closest('label');
+			    });
+
+			    $('.child-checkbox :checkbox').change(function () {
+			        var $group = $(this).closest('.checkbox-group');
+			        $group.find('.parents-checkbox .panel-select-all :checkbox').prop('checked', !$group.find('.child-checkbox :checkbox:not(:checked)').length);
+			    });
+			// /Select All/None
 
 			// DateRangePicker
 			var daterange = getParameterByName("daterange");
@@ -899,15 +899,6 @@
 			    }
 			});
 			// /DateRangePicker
-
-			// var tc1=[];
-			// var ic1=[];
-
-			// sebelumnya cari max value dari data trus variabelnya masukin ke tc1 max
-			// var tcMax = 15;
-			// var icData = [68, 3446, 158, 132, 332, 4602, 138, 118, 416, 1232, 1572, 33, 221];
-			// var icMax = Math.max.apply(null, icData);
-			// var icValue = [];
 
 			$( "form.form-inline" ).submit(function( event ) {
 			  event.preventDefault();

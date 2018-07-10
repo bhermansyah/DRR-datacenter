@@ -65,7 +65,7 @@
   {% endif %}
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css?ver=1">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css?ver=1007">
   {% if 'print' in request.build_absolute_uri %}
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/print.css">
   {% endif %}
@@ -467,7 +467,8 @@
   <script src="{{ STATIC_URL }}v2/js/chroma.min.js"></script>
 
   <!-- Custom -->
-  <script src="{{ STATIC_URL }}v2/js/custom.js?ver=2"></script>
+  <script src="{{ STATIC_URL }}v2/js/custom.js?ver=1007"></script>
+  <script src="{{ STATIC_URL }}v2/js/custom-dashboard.js?ver=1007"></script>
 
   {% include 'autocomplete_light/static.html' %}
 

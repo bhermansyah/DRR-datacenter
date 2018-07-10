@@ -41,6 +41,7 @@
 {% endblock %}
 
 {% block extra_script %}
+  <script src="{{ STATIC_URL }}v2/js/custom-layer.js?ver=1007"></script>
   {% if GEONODE_SECURITY_ENABLED %}
     {% include "v2/_permissions_form_js.html" %}
   {% endif %}
