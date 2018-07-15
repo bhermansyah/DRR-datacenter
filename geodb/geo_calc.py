@@ -3827,18 +3827,18 @@ def getLandslideRisk(request, filterLock, flag, code, includes=[], excludes=[]):
 
 def getGeoJson (filterLock, flag, code):
     if flag=='drawArea':
-        getprov = AfgAdmbndaAdm1.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
-        select={
-            'road_length' : 'SUM(  \
-                    case \
-                        when ST_CoveredBy(wkb_geometry'+','+filterLock+') then road_length \
-                        else ST_Length(st_intersection(wkb_geometry::geography'+','+filterLock+')) / road_length end \
-                )/1000'
-        },
-        where = {
-            'ST_Intersects(wkb_geometry'+', '+filterLock+')'
-        }).values('type_update','road_length')
-
+        # getprov = AfgAdmbndaAdm1.objects.all().values('type_update').annotate(counter=Count('ogc_fid')).extra(
+        # select={
+        #     'road_length' : 'SUM(  \
+        #             case \
+        #                 when ST_CoveredBy(wkb_geometry'+','+filterLock+') then road_length \
+        #                 else ST_Length(st_intersection(wkb_geometry::geography'+','+filterLock+')) / road_length end \
+        #         )/1000'
+        # },
+        # where = {
+        #     'ST_Intersects(wkb_geometry'+', '+filterLock+')'
+        # }).values('type_update','road_length')
+        getprov = AfgAdmbndaAdm1.objects.all().extra(select={'code': 'prov_code', 'centroid': 'ST_AsText(wkb_geometry)'})
     elif flag=='entireAfg':
         getprov = AfgAdmbndaAdm1.objects.all().extra(select={'code': 'prov_code', 'centroid': 'ST_AsText(wkb_geometry)'})
     elif flag=='currentProvince':
@@ -3858,7 +3858,7 @@ def getGeoJson (filterLock, flag, code):
         geometry = {}
         geometry['type'] = geom.geom_type
         geometry['coordinates'] = geom.coords
-        feature.geometry = vw.simplify_geometry(geometry, ratio=0.05)
+        feature.geometry = vw.simplify_geometry(geometry, ratio=0.025)
 
         feature.properties['code'] = res.code
         results.append(feature)
