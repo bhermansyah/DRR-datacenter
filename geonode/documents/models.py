@@ -117,7 +117,12 @@ class Document(ResourceBase):
             img = Image.open(filename)
 
         imgfile = StringIO()
-        img.save(imgfile, format='JPG')
+
+        try:
+            img.save(imgfile, format='JPG')
+        except:
+            img.save(imgfile, format='PNG')
+
         return imgfile.getvalue()
 
     @property
