@@ -4827,7 +4827,7 @@ function init_leaflet(){
 		
 		// Check if all val_collection value is 0, if not, delete 0
 		if (val_collection.every(isZero)==false) {
-			// val_collection = val_collection.filter(Number);
+			val_collection = val_collection.filter(Number);
 		}
 
 		// Set jenk number
@@ -5211,7 +5211,7 @@ function init_leaflet(){
 		var input1 = document.getElementById('input-with-keypress-1');
 		var inputs = [input0, input1];
 
-		if (set_jenk_divider<=7) {
+		if (set_jenk_divider<7) {
 			range_slider_divider = 
 			{
 				'min': [0],
@@ -7451,11 +7451,12 @@ function init_leaflet(){
 		    legend.addTo(floodRiskMap);
 		    geojson.setStyle(style);
 
-		    if (legend_num_arr.length<2) {
-		    	updateSliderRange(0,legend_num_arr[0]);
+		    if (legend_num_arr.length<2 || (legend_num_arr.length<8 && legend_num_arr[0]!=0)) {
+		    	updateSliderRange(0,legend_num_arr[legend_num_arr.length-1]);
 		    }else{
 		    	updateSliderRange(legend_num_arr[0],legend_num_arr[legend_num_arr.length-1]);
 		    }
+
 		    group.setStyle(style);
 		    group.addTo(floodRiskMap);
 
@@ -8869,8 +8870,8 @@ function init_leaflet(){
 	        getChroma = chroma.scale(val_theme).classes(legend_num_arr).out("hex");
 	        legend.addTo(haccessMap);
 
-	        if (legend_num_arr.length<2) {
-	        	updateSliderRange(0,legend_num_arr[0]);
+	        if (legend_num_arr.length<2 || (legend_num_arr.length<8 && legend_num_arr[0]!=0)) {
+	        	updateSliderRange(0,legend_num_arr[legend_num_arr.length-1]);
 	        }else{
 	        	updateSliderRange(legend_num_arr[0],legend_num_arr[legend_num_arr.length-1]);
 	        }
