@@ -721,6 +721,14 @@
 	var incident_cat = [];
 	var target_cat = [];
 
+	function checkNull(numb){
+        if (numb == null) {
+            return 0;
+        }else{
+            return numb;
+        }
+    }
+
 	var targetCount = [];
 	var targetDead = [];
 	var targetInjured = [];
@@ -728,10 +736,10 @@
 
 	{% for data in incident_target_group %}
 		target_cat.push('{{data.main_target}}');
-		targetCount.push({{data.count}});
-		targetDead.push({{data.dead}});
-		targetInjured.push({{data.injured}});
-		targetViolent.push({{data.violent}});
+		targetCount.push(checkNull({{data.count}}));
+		targetDead.push(checkNull({{data.dead}}));
+		targetInjured.push(checkNull({{data.injured}}));
+		targetViolent.push(checkNull({{data.violent}}));
 	{% endfor %}
 
 	// console.log(targetDead);
@@ -743,10 +751,10 @@
 
 	{% for data in incident_type_group %}
 		incident_cat.push('{{data.main_type}}');
-		incidentCount.push({{data.count}});
-		incidentDead.push({{data.dead}});
-		incidentInjured.push({{data.injured}});
-		incidentViolent.push({{data.violent}});
+		incidentCount.push(checkNull({{data.count}}));
+		incidentDead.push(checkNull({{data.dead}}));
+		incidentInjured.push(checkNull({{data.injured}}));
+		incidentViolent.push(checkNull({{data.violent}}));
 	{% endfor %}
 
 	// console.log(incident_cat);
