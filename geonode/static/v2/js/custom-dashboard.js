@@ -5211,7 +5211,7 @@ function init_leaflet(){
 		var input1 = document.getElementById('input-with-keypress-1');
 		var inputs = [input0, input1];
 
-		if (set_jenk_divider<7) {
+		if (set_jenk_divider<=7) {
 			range_slider_divider = 
 			{
 				'min': [0],
@@ -6893,7 +6893,7 @@ function init_leaflet(){
 				$(r).closest("div").addClass("disabled");
 			}
 		}
-		
+
 		var fforecastMap = initMap();
 
 	    //Set zoom control with your options
