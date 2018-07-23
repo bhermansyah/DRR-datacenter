@@ -116,17 +116,17 @@ def zonal_stats(vector_path, raster_path, nodata_value=None, global_src_extent=F
             )
         )
 
-        # feature_stats = {
-        #     'min': float(masked.min()),
-        #     'mean': float(masked.mean()),
-        #     'max': float(masked.max()),
-        #     'std': float(masked.std()),
-        #     'sum': float(masked.sum()),
-        #     'count': int(masked.count()),
-        #     'fid': int(feat.GetFID()),
-        #     'basin_id': feat.GetField(2),
-        #     'agg_code': feat.GetField(4)
-        # }
+        feature_stats = {
+            'min': float(masked.min()),
+            'mean': float(masked.mean()),
+            'max': float(masked.max()),
+            'std': float(masked.std()),
+            'sum': float(masked.sum()),
+            'count': int(masked.count()),
+            'fid': int(feat.GetFID()),
+            'basin_id': feat.GetField(2),
+            'agg_code': feat.GetField(4)
+        }
 
         # stats.append(feature_stats)
 
@@ -145,6 +145,8 @@ def zonal_stats(vector_path, raster_path, nodata_value=None, global_src_extent=F
             )
             c.save()
         
+        print feature_stats
+
         rvds = None
         mem_ds = None
         feat = vlyr.GetNextFeature()
