@@ -1933,7 +1933,7 @@ class HistoryDrought(models.Model):
     count = models.FloatField(blank=True, null=True)
     basin_id = models.FloatField(blank=True, null=True)
     agg_code = models.CharField(max_length=50, blank=True)
-    woy = models.CharField(max_length=-1, blank=True)
+    woy = models.CharField(max_length=50, blank=True)
     class Meta:
         managed = False
         db_table = 'history_drought'
