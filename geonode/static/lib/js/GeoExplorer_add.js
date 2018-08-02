@@ -505,6 +505,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
     featureStore: null,
     store: null,
     EQStore: null,
+    DroughtStore: null,
     accessibilityStore: null,
     landslideStore: null,
     active : true,
@@ -935,6 +936,66 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
             }
         });
     },
+    setDroughtFeatureStore: function(filter, flag, code, date_custom){
+        var myObj = {
+            filterdata : filter
+        };
+        var tpl = new Ext.Template(gettext('Please Wait ...'));
+        tpl.overwrite(Ext.getCmp('droughtView').body, {});
+
+        Ext.Ajax.request({
+            url: '../../geoapi/getdrought/',
+            method: 'POST',
+            params: Ext.encode({'spatialfilter':filter, 'flag':flag,'code':code,'date':date_custom }),
+            headers: {"Content-Type": "application/json"},
+            success: function(response) {
+                // myMaskEQ.hide();
+                this.DroughtStore = Ext.decode(response.responseText);
+                if (this.DroughtStore.message){
+                    var tplDrought = new Ext.Template(
+                        '<div class="statisticsPanel">',
+                            '<ul>',
+                                '<li>',
+                                    '<div class="w3-card-4">',
+                                        '<header class="w3-container w3-blue">',
+                                          '<h1 align="center">'+gettext('{message}')+'</h1>',
+                                        '</header>',
+                                    '</div>',
+                                '</li>',
+                            '</ul>',
+                        '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>'
+                    );
+                } else {
+                    var tplDrought = new Ext.XTemplate(
+                        '<div class="statisticsPanel">',
+                            '<ul>',
+                                '<tpl for="record">',
+                                    '<li>',
+                                        '<div class="w3-card-4">',
+                                            '<header class="w3-container w3-blue">',
+                                              '<h1 align="center">{name}</h1>',
+                                            '</header>',
+                                            '<div class="w3-container">',
+                                                '<table style="width:100%"">',
+                                                    '<tr><td align="center" style="padding: 5px;">'+gettext('Drought Risk')+'</td><td style="padding: 5px;" align="right"><img width=40px src="/static/lib/icons/people_affected_population_60px.png" title="'+gettext('Population')+'" /></td><td style="padding: 5px;" align="right"><img width=40px src="/static/lib/icons/infrastructure_house_60px.png" title="'+gettext('Buildings')+'" /></td><td style="padding: 5px;" align="right"><img width=40px src="/static/lib/icons/accommodation_youth_hostel.p.32.gif" title="'+gettext('Area (KM2)')+'" /></td></tr>',
+                                                    '<tr><td colspan="4"><div class="lineCustom4Table"></div></td></tr>',
+                                                    '<tpl for="detail">',
+                                                        '<tr></td><td style="padding: 5px;" align="left">{name}</td><td style="padding: 5px;" align="right">{pop:toMega}</td><td style="padding: 5px;" align="right">{building:toMega}</td><td style="padding: 5px;" align="right">{area:toMega}</td></tr>',
+                                                    '</tpl>',
+                                                '</table>',
+                                            '</div>',
+                                        '</div>',
+                                    '</li>',
+                                '</tpl>',
+                            '</ul>',
+                        '</div><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>'
+                    );
+                }
+                tplDrought.overwrite(Ext.getCmp('droughtView').body, this.DroughtStore);
+                Ext.getCmp('droughtView').body.highlight('#c3daf9', {block:true});
+            }
+        });
+    },
     setFeatureStore: function(filter, flag, code, date) {
         // console.log(Ext.getCmp('statContainer'));
         var myObj = {
@@ -947,6 +1008,7 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
         Ext.getCmp('statContainer').setActiveTab('eqView');
         Ext.getCmp('statContainer').setActiveTab('accessibilitiesView');
         Ext.getCmp('statContainer').setActiveTab('landslideView');
+        Ext.getCmp('statContainer').setActiveTab('droughtView');
         Ext.getCmp('statContainer').setActiveTab('baselineView');
 
         var tpl = new Ext.Template(gettext('Please Wait ...'));

@@ -91267,6 +91267,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
        //      fontSize: "12px"
        //  };
 
+
+
+        var cosmeticStyleMap = new OpenLayers.StyleMap({
+            "default": OpenLayers.Util.applyDefaults({ pointRadius: 2, strokeWidth:1}, OpenLayers.Feature.Vector.style["default"])
+        });
+
+
+
+
+
        var finder_style = new OpenLayers.Style({
             fillColor: "${getFillColor}",
             strokeColor: "#ff9933",
@@ -91348,6 +91358,16 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             graphicYOffset: -20
 
         };
+
+        var cosmetic_layer = new OpenLayers.Layer.Vector("Cosmetic Layer",{
+            'displayInLayerSwitcher':false,
+            rendererOptions: {zIndexing: true},
+             renderers: ['Canvas', 'VML']//,
+            //  styleMap: new OpenLayers.StyleMap({
+            //     "default": cosmeticStyleMap,
+            //     "select" : cosmeticStyleMap
+            // })
+       });
 
        var finder_layer = new OpenLayers.Layer.Vector("Finder Layer",{
             'displayInLayerSwitcher':false,
@@ -91450,8 +91470,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                 andma_createPopup(e.feature);
             }
         });
-        vector_layerANDMA.setVisibility(false);
-
+       vector_layerANDMA.setVisibility(false);
+       this.mapPanel.map.addLayer(cosmetic_layer);
        this.mapPanel.map.addLayer(vector_layer);
        this.mapPanel.map.addLayer(finder_layer);
        this.mapPanel.map.addLayer(mask_layer);
@@ -91475,6 +91495,127 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
             // filtercontrol.deactivate();
         });
        this.mapPanel.map.addControl(filtercontrol);
+
+       function serialize_style_form(feature){
+        // var sliderValue = 100;
+        // if (this.opacityProperty in this.symbolizer) {
+        //     sliderValue = this.symbolizer[this.opacityProperty]*100;
+        // }
+        // else if (OpenLayers.Renderer.defaultSymbolizer[this.opacityProperty]) {
+        //     sliderValue = OpenLayers.Renderer.defaultSymbolizer[this.opacityProperty]*100;
+        // }
+        var item = []
+        // if (feature.geometry.CLASS_NAME == 'OpenLayers.Geometry.Point'){
+
+        //     item.push({
+        //         xtype: "gxp_pointsymbolizer",
+        //         symbolizer: feature.style,
+        //         listeners: {
+        //             "change": function(symbolizer) {
+        //                 symbolizer.graphic = !!symbolizer.graphicName || !!symbolizer.externalGraphic;
+        //                 // this.fireEvent("change", this.symbolizer);
+        //             },
+        //             scope: this
+        //         },
+        //         border: false,
+        //         labelWidth: 70
+        //     });
+
+        // } else if (feature.geometry.CLASS_NAME == 'OpenLayers.Geometry.Polygon'){
+        //     item.push({
+        //         xtype: "gxp_polygonsymbolizer",
+        //         symbolizer: feature.style,
+        //         listeners: {
+        //             "change": function(symbolizer) {
+        //                 // symbolizer.graphic = !!symbolizer.graphicName || !!symbolizer.externalGraphic;
+        //                 // this.fireEvent("change", this.symbolizer);
+        //             },
+        //             scope: this
+        //         },
+        //         border: false,
+        //         labelWidth: 70
+        //     });
+        // } else if (feature.geometry.CLASS_NAME == 'OpenLayers.Geometry.LineString'){
+        //     item.push({
+        //         xtype: "gxp_linesymbolizer",
+        //         symbolizer: feature.style,
+        //         listeners: {
+        //             "change": function(symbolizer) {
+        //                 // symbolizer.graphic = !!symbolizer.graphicName || !!symbolizer.externalGraphic;
+        //                 // this.fireEvent("change", this.symbolizer);
+        //             },
+        //             scope: this
+        //         },
+        //         border: false,
+        //         labelWidth: 70
+        //     });
+
+        //     item.push(
+        //         new gxp.TextSymbolizer({
+        //             symbolizer: feature.style,
+        //             attributes: new GeoExt.data.AttributeStore({
+        //                     url: "http://api.geoext.org/1.1/examples/data/describe_feature_type.xml"
+        //                 }),
+        //             // fonts: this.fonts,
+        //             listeners: {
+        //                 change: function(symbolizer) {
+        //                     // this.fireEvent("change", this, this.rule);
+        //                 },
+        //                 scope: this
+        //             }
+        //         })
+        //     );
+        // }
+
+        item.push(
+            new gxp.TextSymbolizer({
+                symbolizer: feature.style,
+                attributes: new GeoExt.data.AttributeStore({
+                        url: "http://api.geoext.org/1.1/examples/data/describe_feature_type.xml"
+                    }),
+                // fonts: this.fonts,
+                listeners: {
+                    change: function(symbolizer) {
+                        // this.fireEvent("change", this, this.rule);
+                    },
+                    scope: this
+                }
+            })
+        );
+
+        return item;
+       } 
+
+        this.mapPanel.map.addControl(
+            new OpenLayers.Control.ModifyFeature(
+                cosmetic_layer,
+                {
+                    id:'cosmetic_modify_control',
+                    onModificationStart: function(feature){
+                        // console.log(feature);
+                        if (feature.style == null){
+                            // console.log('feature style updated from null');
+                            feature.style = feature.layer.styleMap.styles.default.defaultStyle;
+                        }
+                        // console.log(Ext.getCmp('CosmeticForm')());
+                        Ext.getCmp('CosmeticForm').removeAll();
+                        Ext.getCmp('CosmeticForm').add(serialize_style_form(feature));
+                      
+                        // console.log(Ext.getCmp('CosmeticForm'));
+                        Ext.getCmp('CosmeticForm').doLayout();
+                        // cosmetic_layer.drawFeature(feature);
+                    },
+                    onModification: function(feature){
+                        // console.log('modifying',feature);
+                    },
+                    onModificationEnd: function(feature){
+                        // console.log('default style updated');
+                        // feature.layer.styleMap.styles.default.defaultStyle = feature.style;
+                    }
+                }
+            )
+        );
+        this.mapPanel.map.getControl('cosmetic_modify_control').mode |= OpenLayers.Control.ModifyFeature.DRAG;
 
        var dataSelected = new GeoExt.data.FeatureStore({
             layer : vector_layer,
@@ -91799,6 +91940,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             tpl.overwrite(Ext.getCmp('eqView').body, {});
                             tpl.overwrite(Ext.getCmp('accessibilitiesView').body, {});
                             tpl.overwrite(Ext.getCmp('landslideView').body, {});
+                            tpl.overwrite(Ext.getCmp('droughtView').body, {});
                             Ext.getCmp('baselineView').body.highlight('#c3daf9', {block:true});
                         }
                     },{
@@ -91879,6 +92021,10 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                             _storeCalc.setEarthQuakeFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode, Ext.getCmp('eventsEQSelection').getValue(), Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.title, Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex).data.date_custom);
 
                             _storeCalc.setLandslideStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode);
+
+                            _storeCalc.setDroughtFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode, Ext.getCmp('dateOccurs').getValue().format('Y-m-d'));
+
+                            console.log(Ext.getCmp('dateOccurs').getValue().format('W'));
 
                             _storeCalc.filter = filter;
                             _storeCalc.adminCode = adminCode;
@@ -92139,6 +92285,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                         'select': function(field, newValue, oldValue) {
                                             Ext.getCmp('dateOccurs').setValue(newValue);
                                             Ext.getCmp('dateOccurs2').setValue(newValue);
+                                            Ext.getCmp('dateOccurs3').setValue(newValue);
                                         }
                                     }
                                 },{
@@ -92211,6 +92358,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                         'select': function(field, newValue, oldValue) {
                                             Ext.getCmp('dateOccurs').setValue(newValue);
                                             Ext.getCmp('dateOccurs1').setValue(newValue);
+                                            Ext.getCmp('dateOccurs3').setValue(newValue);
                                         }
                                     }
                                 }]
@@ -92340,6 +92488,43 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                     style:"height:850px;",
                     overflowY: 'scroll',
                     html: gettext('Apply filter to generate the statistics')
+                },{
+                    title: gettext('Drought'),
+                    id: 'droughtView',
+                    defaults: {autoScroll: true},
+                    height : 850,
+                    style:"height:850px;",
+                    overflowY: 'scroll',
+                    html: gettext('Apply filter to generate the statistics'),
+                    tbar: new Ext.Container({
+                        // height: 54,
+                        layout: 'anchor',
+                        xtype: 'container',
+                        defaults: {
+                            anchor: '100%',
+                            height: 27
+                        },
+                        items: [
+                            new Ext.Toolbar({
+                                items:[{
+                                    fieldLabel: gettext('Date'),
+                                    name: 'dateOccurs3',
+                                    id: 'dateOccurs3',
+                                    xtype: 'datefield',
+                                    width: 130,
+                                    value: new Date().format('m/d/y'),
+                                    format: 'd F Y',
+                                    listeners: {
+                                        'select': function(field, newValue, oldValue) {
+                                            Ext.getCmp('dateOccurs').setValue(newValue);
+                                            Ext.getCmp('dateOccurs1').setValue(newValue);
+                                            Ext.getCmp('dateOccurs2').setValue(newValue);
+                                        }
+                                    }
+                                }]
+                            })
+                        ]
+                    })
                 }]
             })]
         });
@@ -93067,8 +93252,139 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                     }]
                                 })
                             ]
+                        },{
+                            title: 'Draw Cosmetic',
+                            id:'cosmeticTabPanel',
+                            items:[
+                                new Ext.Panel({
+                                    // labelWidth: 75, // label settings here cascade unless overridden
+                                    frame:false,
+                                    border:false,
+                                    // title: 'Simple Form',
+                                    bodyStyle:'padding:5px 5px 0',
+                                    autoWidth: true,
+                                    // height:500,
+                                    defaults: {
+                                        width: 250,
+                                        autoScroll: true,
+                                    },
+                                    defaultType: 'textfield',
+                                    // id:'CosmeticForm',
+                                    layout:'fit',
+                                    // autoHeight: true,
+                                    // autoScroll: true,
+                                    // overflow: 'auto',
+                                    // height:400,
+                                    scrollable: true,
+                                    // scroll: 'vertical',
+                                    items: [
+                                        new Ext.Panel({
+                                            // region:'north',
+                                            layout:'fit',
+                                            autoHeight: true,
+                                            id:'CosmeticForm',
+                                            region: 'center',
+                                            autoScroll: true,
+                                            layout: {
+                                                type: 'auto',
+                                                align: 'stretch'
+                                            }
+                                        })
+                                    ],
+                                    tbar: [{
+                                        text: 'Edit',
+                                        enableToggle:true,
+                                        toggleGroup: "DrawInteraction",
+                                        allowDepress: true,
+                                        toggleHandler:function(){
+                                            // console.log(tempMap.getLayersByName('Cosmetic Layer'));
+                                            if (this.pressed){
+                                                tempMap.getControl('cosmetic_modify_control').activate();
+                                            } else {
+                                                tempMap.getControl('cosmetic_modify_control').deactivate();
+                                            }
+                                        }
+                                    },'->',{
+                                        text: 'Polygon',
+                                        enableToggle:true,
+                                        toggleGroup: "DrawInteraction",
+                                        allowDepress: true,
+                                        toggleHandler:function(){
+                                            // console.log(tempMap.getLayersByName('Cosmetic Layer'));
+                                            if (this.pressed){
+                                                var drawcontrol = new OpenLayers.Control.DrawFeature(tempMap.getLayersByName('Cosmetic Layer')[0], OpenLayers.Handler.Polygon,{
+                                                        eventListeners: {
+                                                            "featureadded": function(evt){
+
+                                                            }
+                                                        }
+                                                   });
+                                                drawcontrol.id = 'customDraw';
+                                                // this.setText('Stop Picking');
+                                                tempMap.addControl(drawcontrol);
+                                                drawcontrol.activate();
+                                            } else {
+                                                tempMap.getControl('customDraw').deactivate();
+                                                tempMap.removeControl(tempMap.getControl('customDraw'));
+                                                // this.setText('Pick from Map');
+                                                // console.log(tempMap.getControl('cosmetic_modify_control').mode);
+                                            }
+                                        }
+                                    },{
+                                        text: 'Point',
+                                        enableToggle:true,
+                                        toggleGroup: "DrawInteraction",
+                                        allowDepress: true,
+                                        toggleHandler:function(){
+                                            if (this.pressed){
+                                                var drawcontrol = new OpenLayers.Control.DrawFeature(tempMap.getLayersByName('Cosmetic Layer')[0], OpenLayers.Handler.Point,{
+                                                        eventListeners: {
+                                                            "featureadded": function(evt){
+
+                                                            }
+                                                        }
+                                                   });
+                                                drawcontrol.id = 'customPoint';
+                                                tempMap.addControl(drawcontrol);
+                                                drawcontrol.activate();
+                                            } else {
+                                                tempMap.getControl('customPoint').deactivate();
+                                                tempMap.removeControl(tempMap.getControl('customPoint'));
+                                            }
+                                        }
+                                    },{
+                                        text: 'Line',
+                                        enableToggle:true,
+                                        toggleGroup: "DrawInteraction",
+                                        allowDepress: true,
+                                        toggleHandler:function(){
+                                            if (this.pressed){
+                                                var drawcontrol = new OpenLayers.Control.DrawFeature(tempMap.getLayersByName('Cosmetic Layer')[0], OpenLayers.Handler.Path,{
+                                                        eventListeners: {
+                                                            "featureadded": function(evt){
+
+                                                            }
+                                                        }
+                                                   });
+                                                drawcontrol.id = 'customLine';
+                                                tempMap.addControl(drawcontrol);
+                                                drawcontrol.activate();
+                                            } else {
+                                                tempMap.getControl('customLine').deactivate();
+                                                tempMap.removeControl(tempMap.getControl('customLine'));
+                                            }
+                                        }
+                                    }]
+                                })
+                            ]
+                        }    
+                    ],
+                    listeners: {
+                        'afterrender':function(component){
+                            var tab = Ext.getCmp('cosmeticTabPanel');
+                            component.hideTabStripItem(tab);
                         }
-                    ]
+                    }
                 })
             ]
         });
