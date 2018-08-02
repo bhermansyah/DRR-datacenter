@@ -25,6 +25,7 @@ from geodb.riverflood import getFloodForecastBySource
 import timeago
 from fuzzywuzzy import process, fuzz
 
+
 def query_to_dicts(cursor, query_string, *query_args):
     """Run a simple query and produce a generator
     that returns the results as a bunch of dictionaries
@@ -2555,5 +2556,122 @@ class getLandslide(ModelResource):
         return counts[0]
 
 
+def getDroughtStatistics(filterLock, flag, code, woy, includes=[], excludes=[]):
+    import pandas as pd
+    sql = "select \
+        afg_lndcrva.agg_simplified_description, history_drought.min, \
+        ROUND(sum(afg_lndcrva.area_population)) as pop, \
+        ROUND(sum(afg_lndcrva.area_buildings)) as building, \
+        ROUND(sum(afg_lndcrva.area_sqm)/1000000,1) as area \
+        from afg_lndcrva inner join history_drought on history_drought.ogc_fid=afg_lndcrva.ogc_fid \
+        where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
+        and history_drought.woy='"+woy+"'\
+        group by afg_lndcrva.agg_simplified_description, history_drought.min \
+        order by afg_lndcrva.agg_simplified_description, history_drought.min"
+   
+    cursor = connections['geodb'].cursor()
+    row = query_to_dicts(cursor, sql)
+    counts = []
+    for i in row:
+        counts.append(i)
+    cursor.close()
 
+    df = pd.DataFrame(counts, columns=counts[0].keys())
+
+    d = {}
+    for i in df['agg_simplified_description'].unique():
+        d[i] = [{int(df['min'][j]): {
+                    'pop':df['pop'][j],
+                    'building':df['building'][j],
+                    'area':df['area'][j]
+                } 
+        } for j in df[df['agg_simplified_description']==i].index]
+
+    data = {'record':[]}
+    for i in d:
+        detail = []
+        for det in d[i]:
+            ket = None
+            if det.keys()[0] == 0:
+                ket = 'Abnormally Dry Condition'
+            elif det.keys()[0] == 1:   
+                ket = 'Moderate'
+            elif det.keys()[0] == 2:   
+                ket = 'Severe'
+            elif det.keys()[0] == 3:   
+                ket = 'Extreme'
+            elif det.keys()[0] == 4:   
+                ket = 'Exceptional' 
+
+            val = {}
+            val.update({'name':ket})
+            val.update(det[det.keys()[0]])
+            detail.append(val)
+
+        data['record'].append(
+            {
+                'name':i,
+                'detail': detail,
+                'woy':woy
+            }
+        )
+        
+    return data
+
+def getClosestDroughtWOY(woy):
+    sql = "select distinct woy from history_drought \
+            where to_timestamp(concat(substring(woy,6,2),' ',substring(woy,1,4)), 'W YYYY')::date < to_timestamp(concat(substring('"+woy+"',6,2),' ',substring('"+woy+"',1,4)), 'W YYYY')::date \
+            ORDER BY woy DESC \
+            LIMIT 1"
+    cursor = connections['geodb'].cursor()
+    row = query_to_dicts(cursor, sql)  
+    data = None 
+    for i in row:
+        data = i['woy']
+    cursor.close()    
+    return data
+
+class getDrought(ModelResource):
+    class Meta:
+        resource_name = 'getdrought'
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        cache = SimpleCache() 
+
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        response = self.getData(request)
+        return self.create_response(request, response)   
+
+    def getData(self, request):
+        boundaryFilter = json.loads(request.body)
+
+        temp1 = []
+        for i in boundaryFilter['spatialfilter']:
+            temp1.append('ST_GeomFromText(\''+i+'\',4326)')
+
+        temp2 = 'ARRAY['
+        first=True
+        for i in temp1:
+            if first:
+                 temp2 = temp2 + i
+                 first=False
+            else :
+                 temp2 = temp2 + ', ' + i  
+
+        temp2 = temp2+']'
+        
+        filterLock = 'ST_Union('+temp2+')'
+        flag = boundaryFilter['flag']
+        code = boundaryFilter['code']
+        dateIn = boundaryFilter['date'].split('-')
+
+        print dateIn
+        print dateIn[0] + '%03d' % datetime.date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1]
+
+        closest_woy = getClosestDroughtWOY(dateIn[0] + '%03d' % datetime.date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1])
+
+        response = {}
+        response = getDroughtStatistics(None,None,None, closest_woy)
+        return response
     

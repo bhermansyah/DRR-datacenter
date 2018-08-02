@@ -1,5 +1,5 @@
 from tastypie.api import Api
-from .geoapi import FloodRiskStatisticResource, getProvince, EarthQuakeStatisticResource, getEQEvents, getAccessibilities, getSAMParameters, getIncidentsRaw, getVillages, getLastUpdatedStatus, getLandslide
+from .geoapi import FloodRiskStatisticResource, getProvince, EarthQuakeStatisticResource, getEQEvents, getAccessibilities, getSAMParameters, getIncidentsRaw, getVillages, getLastUpdatedStatus, getLandslide, getDrought
 
 geoapi = Api(api_name='geoapi')
 
@@ -13,4 +13,5 @@ geoapi.register(getIncidentsRaw())
 geoapi.register(getVillages())
 geoapi.register(getLastUpdatedStatus())
 geoapi.register(getLandslide())
+geoapi.register(getDrought())
 
