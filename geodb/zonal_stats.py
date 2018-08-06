@@ -4,6 +4,14 @@ import numpy as np
 import sys
 from django.conf import settings
 from geodb.models import HistoryDrought
+from django.db import connection, connections
+import os
+import time
+import datetime, sys
+import logging
+import logging.config
+from ftplib import FTP
+from geodb.geoapi import query_to_dicts
 
 gdal.PushErrorHandler('CPLQuietErrorHandler')
 # getattr(settings, 'DB_UNAME')
@@ -13,6 +21,111 @@ databaseName = getattr(settings, 'DB_NAME')
 databaseUser = getattr(settings, 'DB_UNAME')
 databasePW = getattr(settings, 'DB_UPASS')
 connString = "PG: host=%s dbname=%s user=%s password=%s" % (databaseServer,databaseName,databaseUser,databasePW)
+
+server = 'ftp.star.nesdis.noaa.gov'
+directory = 'pub/corp/scsb/wyang/data'
+
+# week = datetime.date(int(year), int(month), int(day)).isocalendar()[1]
+
+# local development
+# PATH = '/Users/budi/Documents/test/tif_file/'
+# output = '/Users/budi/Documents/test/reclassify_file/'
+
+# Server
+PATH = '/home/uploader/drought_raster/tif_file/'
+output = '/home/uploader/drought_raster/reclassify_file/'
+
+def downloadtif():
+
+    sql = "select distinct woy from history_drought ORDER BY woy ASC"
+    cursor = connections['geodb'].cursor()
+    row = query_to_dicts(cursor, sql)  
+    woys = [] 
+    for i in row:
+        woys.append(i['woy'])
+    cursor.close()
+
+    ftp = FTP(server)
+    ftp.login()
+
+    # logger.info("changing to directory: "+directory)
+    print "changing to directory: "+directory
+    ftp.cwd(directory)
+    # ftp.retrlines('LIST')
+
+    filenames = []
+    # CountData = []
+    ftp.retrlines('NLST', filenames.append)
+    for filename in filenames:
+        if "VHI" in filename:
+            filecode = filename[-14:-7]
+            if filecode not in woys:
+                # print filename
+                if not os.path.exists(PATH):
+                    os.makedirs(PATH)
+
+                if os.path.exists(PATH+filename):
+                    # logger.info("File already exists")
+                    print "File already exists"
+                else:
+                    # print(PATH)
+                    # logger.debug("starting to download: "+ filename)
+                    print "starting to download: "+ filename
+                    ftp.retrbinary("RETR {}".format(filename), open(PATH+filename, 'wb').write)
+                    reclassify(filename, filecode)
+                    # logger.info("Success")
+                    print "Success"
+
+    # if NoData == True:
+    #     # logger.info("Data Not Found")
+    #     print "Data Not Found"
+    # else:
+    #     # logger.info("Downloading and Reclassify is success")
+    #     print "Downloading and Reclassify is success"
+    ftp.quit()
+
+def reclassify(filename, filecode):
+    Image = gdal.Open(os.path.join(PATH, filename))
+    Driver = gdal.GetDriverByName(Image.GetDriver().ShortName)
+    X_Size = Image.RasterXSize
+    Y_Size = Image.RasterYSize
+    Projection = Image.GetProjectionRef()
+    GeoTransform = Image.GetGeoTransform()
+
+    # Read the first band as a np array
+    Band1 = Image.GetRasterBand(1).ReadAsArray()
+
+    # Create a new array of the same shape and fill with zeros
+    NewClass = np.zeros_like(Band1).astype('uint8')
+
+    # Reclassify using np.where
+    NewClass = np.where(((Band1 >= 0) & (Band1 <= 2.990000)), 4, NewClass) # Reclassify as 4
+    NewClass = np.where(((Band1 >= 3) & (Band1 <= 7.990000)), 3, NewClass) # Reclassify as 3
+    NewClass = np.where(((Band1 >= 8) & (Band1 <= 15.990000)), 2, NewClass) # Reclassify as 2
+    NewClass = np.where(((Band1 >= 16) & (Band1 <= 23.990000)), 1, NewClass) # Reclassify as 1
+    NewClass = np.where(((Band1 >= 24) & (Band1 <= 31.990000)), 0, NewClass) # Reclassify as 1
+    NewClass = np.where(((Band1 >= 32) & (Band1 <= 100)), 5, NewClass) # Reclassify as 5, set it to nodata
+    NewClass = np.where(((Band1 >= -9999) & (Band1 <= -0.010000)), 5, NewClass) # Reclassify as 5, set it to nodata
+    del Band1
+
+    if not os.path.exists(output):
+        os.makedirs(output)
+
+    # Export the new classification:
+    OutImage = Driver.Create(output+'/re_'+filename, X_Size, Y_Size, 1, gdal.GDT_Byte)
+    OutImage.SetProjection(Projection)
+    OutImage.SetGeoTransform(GeoTransform)
+    OutBand = OutImage.GetRasterBand(1)
+    OutBand.SetNoDataValue(5)
+    OutBand.WriteArray(NewClass)
+    OutImage = None
+    del NewClass
+    # logger.debug("Reclassifying : "+filename)
+    print "Reclassifying : "+filename
+
+    zonal_stats('afg_lndcrva', output+'/re_'+filename, filecode, 5)
+
+    print filename + ' added in database'
 
 
 def bbox_to_pixel_offsets(gt, bbox):
@@ -31,7 +144,7 @@ def bbox_to_pixel_offsets(gt, bbox):
     return (x1, y1, xsize, ysize)
 
 
-def zonal_stats(vector_path, raster_path, nodata_value=None, global_src_extent=False):
+def zonal_stats(vector_path, raster_path, filecode, nodata_value=None, global_src_extent=False):
     rds = gdal.Open(raster_path, GA_ReadOnly)
     assert(rds)
     rb = rds.GetRasterBand(1)
@@ -141,11 +254,11 @@ def zonal_stats(vector_path, raster_path, nodata_value=None, global_src_extent=F
                 count=float(masked.count()),
                 basin_id=feat.GetField(2),
                 agg_code=feat.GetField(4),
-                woy='2018028'
+                woy=filecode
             )
             c.save()
+            # print feature_stats
         
-        print feature_stats
 
         rvds = None
         mem_ds = None
@@ -156,4 +269,4 @@ def zonal_stats(vector_path, raster_path, nodata_value=None, global_src_extent=F
 
     conn.Destroy()
 
-    return stats
+    # return stats
