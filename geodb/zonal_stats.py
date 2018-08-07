@@ -60,23 +60,24 @@ def downloadtif():
     for filename in filenames:
         if "VHI" in filename:
             filecode = filename[-14:-7]
-            print filecode, filename
+            # print filecode, filename
             if filecode not in woys:
 
                 if not os.path.exists(PATH):
                     os.makedirs(PATH)
-                print filecode
-            #     if os.path.exists(PATH+filename):
-            #         # logger.info("File already exists")
-            #         print "File already exists"
-            #     else:
-            #         # print(PATH)
-            #         # logger.debug("starting to download: "+ filename)
-            #         print "starting to download: "+ filename
-            #         ftp.retrbinary("RETR {}".format(filename), open(PATH+filename, 'wb').write)
-            #         reclassify(filename, filecode)
-            #         # logger.info("Success")
-            #         print "Success"
+
+                if os.path.exists(PATH+filename):
+                    # logger.info("File already exists")
+                    print filecode
+                    print "File already exists"
+                else:
+                    # print(PATH)
+                    # logger.debug("starting to download: "+ filename)
+                    print "starting to download: "+ filename
+                    ftp.retrbinary("RETR {}".format(filename), open(PATH+filename, 'wb').write)
+                    reclassify(filename, filecode)
+                    # logger.info("Success")
+                    print "Success"
 
     # if NoData == True:
     #     # logger.info("Data Not Found")
