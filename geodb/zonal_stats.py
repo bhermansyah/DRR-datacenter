@@ -62,10 +62,10 @@ def downloadtif():
             filecode = filename[-14:-7]
             print filecode, filename
             if filecode not in woys:
-                print filecode
-            #     if not os.path.exists(PATH):
-            #         os.makedirs(PATH)
 
+                if not os.path.exists(PATH):
+                    os.makedirs(PATH)
+                print filecode
             #     if os.path.exists(PATH+filename):
             #         # logger.info("File already exists")
             #         print "File already exists"
