@@ -66,18 +66,18 @@ def downloadtif():
                 if not os.path.exists(PATH):
                     os.makedirs(PATH)
 
-                if os.path.exists(PATH+filename):
-                    # logger.info("File already exists")
-                    print filecode
-                    print "File already exists"
-                else:
-                    # print(PATH)
-                    # logger.debug("starting to download: "+ filename)
-                    print "starting to download: "+ filename
-                    ftp.retrbinary("RETR {}".format(filename), open(PATH+filename, 'wb').write)
-                    reclassify(filename, filecode)
-                    # logger.info("Success")
-                    print "Success"
+                # if os.path.exists(PATH+filename):
+                #     # logger.info("File already exists")
+                #     print filecode
+                #     print "File already exists"
+                # else:
+                # print(PATH)
+                # logger.debug("starting to download: "+ filename)
+                print "starting to download: "+ filename
+                ftp.retrbinary("RETR {}".format(filename), open(PATH+filename, 'wb').write)
+                reclassify(filename, filecode)
+                # logger.info("Success")
+                print "Success"
 
     # if NoData == True:
     #     # logger.info("Data Not Found")
