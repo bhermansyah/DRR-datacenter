@@ -2558,16 +2558,58 @@ class getLandslide(ModelResource):
 
 def getDroughtStatistics(filterLock, flag, code, woy, includes=[], excludes=[]):
     import pandas as pd
-    sql = "select \
-        afg_lndcrva.agg_simplified_description, history_drought.min, \
-        ROUND(sum(afg_lndcrva.area_population)) as pop, \
-        ROUND(sum(afg_lndcrva.area_buildings)) as building, \
-        ROUND(sum(afg_lndcrva.area_sqm)/1000000,1) as area \
-        from afg_lndcrva inner join history_drought on history_drought.ogc_fid=afg_lndcrva.ogc_fid \
-        where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
-        and history_drought.woy='"+woy+"'\
-        group by afg_lndcrva.agg_simplified_description, history_drought.min \
-        order by afg_lndcrva.agg_simplified_description, history_drought.min"
+
+    if flag=='entireAfg':
+        sql = "select \
+            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
+            from afg_lndcrva inner join history_drought on history_drought.ogc_fid=afg_lndcrva.ogc_fid \
+            where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
+            and history_drought.woy='"+woy+"'\
+            group by afg_lndcrva.agg_simplified_description, history_drought.min \
+            order by afg_lndcrva.agg_simplified_description, history_drought.min"
+    elif flag =='currentProvince':
+        if len(str(code)) > 2:
+            ff0001 =  "afg_lndcrva.dist_code  = '"+str(code)+"'"
+        else :
+            ff0001 =  "afg_lndcrva.prov_code  = '"+str(code)+"'" 
+        sql = "select \
+            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
+            from afg_lndcrva inner join history_drought on history_drought.ogc_fid=afg_lndcrva.ogc_fid \
+            where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
+            and history_drought.woy='"+woy+"'\
+            and "+ff0001+" \
+            group by afg_lndcrva.agg_simplified_description, history_drought.min \
+            order by afg_lndcrva.agg_simplified_description, history_drought.min"
+    elif flag =='drawArea':
+        sql = "select \
+            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
+            from afg_lndcrva inner join history_drought on history_drought.ogc_fid=afg_lndcrva.ogc_fid \
+            where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
+            and history_drought.woy='"+woy+"' \
+            and ST_Intersects(afg_lndcrva.wkb_geometry,"+filterLock+") \
+            group by afg_lndcrva.agg_simplified_description, history_drought.min \
+            order by afg_lndcrva.agg_simplified_description, history_drought.min"
+    else:   
+        sql = "select \
+            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
+            COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
+            from afg_lndcrva inner join history_drought on history_drought.ogc_fid=afg_lndcrva.ogc_fid \
+            where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
+            and history_drought.woy='"+woy+"'\
+            and ST_Intersects(afg_lndcrva.wkb_geometry,"+filterLock+") \
+            group by afg_lndcrva.agg_simplified_description, history_drought.min \
+            order by afg_lndcrva.agg_simplified_description, history_drought.min" 
    
     cursor = connections['geodb'].cursor()
     row = query_to_dicts(cursor, sql)
@@ -2587,7 +2629,9 @@ def getDroughtStatistics(filterLock, flag, code, woy, includes=[], excludes=[]):
                 } 
         } for j in df[df['agg_simplified_description']==i].index]
 
-    data = {'record':[]}
+    selected_date_range = getYearRangeFromWeek(woy)
+
+    data = {'record':[], 'woy':woy, 'start':selected_date_range[0], 'end':selected_date_range[1]}
     for i in d:
         detail = []
         for det in d[i]:
@@ -2666,12 +2710,17 @@ class getDrought(ModelResource):
         code = boundaryFilter['code']
         dateIn = boundaryFilter['date'].split('-')
 
-        print dateIn
-        print dateIn[0] + '%03d' % datetime.date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1]
-
         closest_woy = getClosestDroughtWOY(dateIn[0] + '%03d' % datetime.date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1])
 
         response = {}
-        response = getDroughtStatistics(None,None,None, closest_woy)
+        response = getDroughtStatistics(filterLock,flag,code, closest_woy)
         return response
+
+def getYearRangeFromWeek(woy):
+    year = int(woy[:-3])
+    week = int(woy[4:])
+    d = datetime.date(year,1,1)
+    d = d - datetime.timedelta(d.weekday())
+    dlt = datetime.timedelta(days = (week-1)*7)
+    return str(d + dlt),  str(d + dlt + datetime.timedelta(days=6))
     

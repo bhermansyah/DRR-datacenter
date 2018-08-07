@@ -969,6 +969,13 @@ gxp.plugins.StatFeatureManager = Ext.extend(gxp.plugins.Tool, {
                     var tplDrought = new Ext.XTemplate(
                         '<div class="statisticsPanel">',
                             '<ul>',
+                                '<li>',
+                                    '<div class="w3-card-4">',
+                                        '<header class="w3-container w3-blue">',
+                                          '<h1 align="center">Closest available prediction Period : <br/> {start} to {end}</h1>',
+                                        '</header>',
+                                    '</div>',
+                                '</li>',
                                 '<tpl for="record">',
                                     '<li>',
                                         '<div class="w3-card-4">',

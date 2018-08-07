@@ -92024,7 +92024,7 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
 
                             _storeCalc.setDroughtFeatureStore(filter, Ext.getCmp('filterForm').getForm().getValues()['selectedFilter'], adminCode, Ext.getCmp('dateOccurs').getValue().format('Y-m-d'));
 
-                            console.log(Ext.getCmp('dateOccurs').getValue().format('W'));
+                            // console.log(Ext.getCmp('dateOccurs').getValue().format('W'));
 
                             _storeCalc.filter = filter;
                             _storeCalc.adminCode = adminCode;
