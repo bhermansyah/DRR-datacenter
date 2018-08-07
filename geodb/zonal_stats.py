@@ -60,7 +60,7 @@ def downloadtif():
         if "VHI" in filename:
             filecode = filename[-14:-7]
             if filecode not in woys:
-                # print filename
+                print filecode
                 if not os.path.exists(PATH):
                     os.makedirs(PATH)
 
