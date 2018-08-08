@@ -28794,6 +28794,18 @@ OpenLayers.Layer = OpenLayers.Class({
 
             selectedEQ = Ext.getCmp('eventsEQSelection').getStore().getAt(selIndex);
             if (selectedEQ) this.mergeNewParams({'CQL_FILTER': "event_code='"+selectedEQ.data.event_code+"'"});
+        } else if (this.name == gettext('Drought Prediction')){
+            Ext.Ajax.request({
+                url: '../../geoapi/getdroughtlayer/',
+                method: 'POST',
+                params: Ext.encode({'date': Ext.getCmp('dateOccurs').getValue().format('Y-m-d') }),
+                headers: {"Content-Type": "application/json"},
+                success: function(response) {
+                    woy_data = Ext.decode(response.responseText);
+                    this.mergeNewParams({'viewparams': "woy:"+woy_data.woy+";"});
+                },
+                scope: this
+            });
         } else if (this.name == gettext('Historical Flood Prediction')){
             this.mergeNewParams({'viewparams': "year:"+date_array[0]+";month:"+date_array[1]+";day:"+date_array[2]+";"});
         } else if (this.name == gettext('Flashflood Prediction')){
@@ -92070,6 +92082,20 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
                                 // tempMap.getLayersByName('Glofas Points')[0].drawn = false;
                                 // tempMap.getLayersByName('Glofas Points')[0].setVisibility(true);
                                 // console.log(tempMap.getLayersByName('Glofas Points')[0]);
+                            }
+
+                            if (tempMap.getLayersByName(gettext('Drought Prediction')).length > 0){
+                                Ext.Ajax.request({
+                                    url: '../../geoapi/getdroughtlayer/',
+                                    method: 'POST',
+                                    params: Ext.encode({'date': Ext.getCmp('dateOccurs').getValue().format('Y-m-d') }),
+                                    headers: {"Content-Type": "application/json"},
+                                    success: function(response) {
+                                        woy_data = Ext.decode(response.responseText);
+                                        tempMap.getLayersByName(gettext('Drought Prediction'))[0].mergeNewParams({'viewparams': "woy:"+woy_data.woy+";"});
+                                    },
+                                    scope: this
+                                });
                             }
 
                         }

@@ -2723,4 +2723,25 @@ def getYearRangeFromWeek(woy):
     d = d - datetime.timedelta(d.weekday())
     dlt = datetime.timedelta(days = (week-1)*7)
     return str(d + dlt),  str(d + dlt + datetime.timedelta(days=6))
+
+class getClosestDroughtWOYLayerAPI(ModelResource):
+    class Meta:
+        resource_name = 'getdroughtlayer'
+        allowed_methods = ['post']
+        detail_allowed_methods = ['post']
+        cache = SimpleCache() 
+
+    def post_list(self, request, **kwargs):
+        self.method_check(request, allowed=['post'])
+        response = self.getData(request)
+        return self.create_response(request, response)   
+
+    def getData(self, request):
+        boundaryFilter = json.loads(request.body)
+        dateIn = boundaryFilter['date'].split('-')
+        closest_woy = getClosestDroughtWOY(dateIn[0] + '%03d' % datetime.date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1])
+
+        response = {'woy':closest_woy}
+        return response
+
     
