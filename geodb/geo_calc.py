@@ -21,7 +21,7 @@ from django.http import HttpResponse
 
 from djgeojson.serializers import Serializer as GeoJSONSerializer
 
-from geodb.geoapi import getRiskNumber, getAccessibilities, getEarthQuakeExecuteExternal
+from geodb.geoapi import getRiskNumber, getAccessibilities, getEarthQuakeExecuteExternal, getYearRangeFromWeek
 
 from graphos.sources.model import ModelDataSource
 from graphos.renderers import flot, gchart
@@ -42,6 +42,8 @@ from shapely.wkt import loads as load_wkt
 from vectorformats.Formats import Django, GeoJSON
 from vectorformats.Feature import Feature
 from vectorformats.Formats.Format import Format
+
+import pandas as pd
 
 def include_section(section, includes, excludes):
     """
@@ -3877,3 +3879,242 @@ def getGeoJson (filterLock, flag, code):
     # string = json.dumps(geojsondata)
 
     return geojsondata
+
+def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[]):
+    
+    targetBase = AfgLndcrva.objects.all()
+    response = getCommonUse(request, flag, code)
+
+    if flag not in ['entireAfg','currentProvince']:
+        response['Population']=getTotalPop(filterLock, flag, code, targetBase)
+        response['Area']=getTotalArea(filterLock, flag, code, targetBase)
+        response['Buildings']=getTotalBuildings(filterLock, flag, code, targetBase)
+        response['settlement']=getTotalSettlement(filterLock, flag, code, targetBase)
+    else :
+        tempData = getShortCutData(flag,code)
+        response['Population']= tempData['Population']
+        response['Area']= tempData['Area']
+        response['Buildings']= tempData['total_buildings']
+        response['settlement']= tempData['settlements']
+
+    sql_tpl = '''
+        SELECT
+            afg_lndcrva.agg_simplified_description,
+            {adm_code},
+            {adm_name},
+            history_drought.min,
+            COALESCE(ROUND(SUM(afg_lndcrva.area_population)), 0) AS pop,
+            COALESCE(ROUND(SUM(afg_lndcrva.area_buildings)), 0) AS building,
+            COALESCE(ROUND(SUM(afg_lndcrva.area_sqm) / 1000000, 1), 0) AS area
+        FROM afg_lndcrva
+        INNER JOIN history_drought
+        ON history_drought.ogc_fid = afg_lndcrva.ogc_fid
+        WHERE afg_lndcrva.aggcode_simplified NOT IN ('WAT', 'BRS', 'BSD', 'SNW')
+        AND aggcode NOT IN ('AGR/NHS', 'NHS/NFS', 'NHS/BRS', 'NHS/WAT', 'NHS/URB', 'URB/AGT', 'URB/AGI', 'URB/NHS', 'URB/BRS', 'URB/BSD')
+        AND history_drought.woy = '{woy}'
+        {extra_condition}
+        GROUP BY 
+            afg_lndcrva.agg_simplified_description, 
+            {adm_code},
+            {adm_name},
+            history_drought.min
+        ORDER BY 
+            afg_lndcrva.agg_simplified_description, 
+            {adm_code}, 
+            {adm_name},
+            history_drought.min        
+        '''
+
+    sql_total_tpl = '''
+        SELECT
+            afg_lndcrva.agg_simplified_description,
+            {adm_code},
+            {adm_name},
+            COALESCE(ROUND(SUM(afg_lndcrva.area_population)), 0) AS pop,
+            COALESCE(ROUND(SUM(afg_lndcrva.area_buildings)), 0) AS building,
+            COALESCE(ROUND(SUM(afg_lndcrva.area_sqm) / 1000000, 1), 0) AS area
+        FROM afg_lndcrva
+        WHERE 1 = 1
+        {extra_condition}
+        GROUP BY 
+            afg_lndcrva.agg_simplified_description, 
+            {adm_code},
+            {adm_name}
+        ORDER BY 
+            afg_lndcrva.agg_simplified_description, 
+            {adm_code}, 
+            {adm_name}
+        '''
+
+    sql_extra_condition_tpl = "AND {parent_adm_col} = '{parent_adm_val}'"
+    sql_param = {'woy':woy, 'extra_condition':''}
+
+    if flag=='entireAfg':
+        sql_param.update({'adm_code': 'prov_code', 'adm_name': 'prov_na_en'})
+    elif flag=='currentProvince':
+        sql_param.update({'adm_code': 'dist_code', 'adm_name': 'dist_na_en', 'parent_adm_val':code})
+        if len(str(code)) > 2:
+            sql_param.update({'parent_adm_col':'dist_code'})
+        else:
+            sql_param.update({'parent_adm_col':'prov_code'})
+        sql_param['extra_condition'] = sql_extra_condition_tpl.format(**sql_param)
+    elif flag=='drawArea':
+        sql_param['extra_condition'] = 'AND ST_Intersects(wkb_geometry, %s)' % filterLock
+
+    sql = sql_tpl.format(**sql_param)
+    sql_total = sql_total_tpl.format(**sql_param)
+    # print sql
+
+    cursor = connections['geodb'].cursor()
+
+    row = query_to_dicts(cursor, sql)
+    counts = []
+    for i in row:
+        counts.append(i)
+
+    row_total = query_to_dicts(cursor, sql_total)
+    counts_total = []
+    for i in row_total:
+        counts_total.append(i)
+
+    cursor.close()
+
+    df = pd.DataFrame(counts, columns=counts[0].keys())
+    df_total = pd.DataFrame(counts_total, columns=counts_total[0].keys())
+
+    # enumeration
+    droughtrisks = {
+        0:_('Abnormally Dry Condition'), 
+        1:_('Moderate'), 
+        2:_('Severe'), 
+        3:_('Extreme'), 
+        4:_('Exceptional')
+        }
+    
+    # calculate pop, building, area group by landcover, area, risk 
+    d = {}
+    for lc in df['agg_simplified_description'].unique():
+        d[lc] = {'adm_child':{}}
+        df_lc = df[df['agg_simplified_description']==lc]
+        d[lc]['adm_parent'] = {
+            'code' : code,
+            'label': response['parent_label'],
+            'risk_child' : {}
+            }
+        for risk in df_lc['min'].unique():
+            risk_int = int(risk)
+            df_risk = df_lc[df_lc['min']==risk]
+            df_risk_agg = df_risk.agg({'pop':'sum','building':'sum','area':'sum'})
+            d[lc]['adm_parent']['risk_child'][risk_int] =  {
+                'label': droughtrisks[risk_int],
+                'child': {
+                    'pop':df_risk_agg['pop'],
+                    'building':df_risk_agg['building'],
+                    'area':df_risk_agg['area']
+                    }
+                }
+        for adm in df_lc[sql_param['adm_code']].unique():
+            df_adm = df_lc[df_lc[sql_param['adm_code']]==adm]
+            d[lc]['adm_child'][adm] = {
+                'code' : adm,
+                'label':df_adm.iloc[0][sql_param['adm_name']], 
+                'risk_child':{}
+                }
+            for risk in df_adm['min'].unique():
+                risk_int = int(risk)
+                df_risk = df_adm[df_adm['min']==risk]
+                d[lc]['adm_child'][adm]['risk_child'][risk_int] =  {
+                    'label': droughtrisks[risk_int],
+                    'child': {
+                        'pop':df_risk.iloc[0]['pop'],
+                        'building':df_risk.iloc[0]['building'],
+                        'area':df_risk.iloc[0]['area']
+                        }
+                    }
+
+    # calculate pop, building, area group by risk
+    groupby_risk = {}
+    df_risk = df.groupby(['min'], as_index=False).agg({'pop':'sum','building':'sum','area':'sum'})
+    for idx in df_risk.index:
+        risk_int = int(df_risk['min'][idx])
+        groupby_risk[risk_int] = {
+            'label': droughtrisks[risk_int],
+            'child': {
+                'pop':df_risk['pop'][idx],
+                'building':df_risk['building'][idx],
+                'area':df_risk['area'][idx]
+                }
+            }
+
+    # calculate pop, area group by landcover, risk
+    groupby_lc_risk = {}
+    for lc, lc_group in df.groupby(['agg_simplified_description']):
+        groupby_lc_risk[lc] = {'risk_child':{}}
+        agg = df_total[df_total['agg_simplified_description']==lc].agg({'pop':'sum','building':'sum','area':'sum'})
+        groupby_lc_risk[lc]['total_child'] = {
+            'pop': agg['pop'],
+            'building': agg['building'],
+            'area': agg['area']
+        }        
+        agg_risk = lc_group[lc_group['agg_simplified_description']==lc].agg({'pop':'sum','building':'sum','area':'sum'})
+        groupby_lc_risk[lc]['total_risk_child'] = {
+            'pop': agg_risk['pop'],
+            'building': agg_risk['building'],
+            'area': agg_risk['area']
+        }        
+        for risk, risk_group in lc_group.groupby(['min']):
+            agg = risk_group.agg({'pop':'sum','building':'sum','area':'sum'})
+            risk_int = int(risk)
+            groupby_lc_risk[lc]['risk_child'][risk_int] = {
+                'label': droughtrisks[risk_int],
+                'child': {
+                    'pop': agg['pop'],
+                    'building': agg['building'],
+                    'area': agg['area']
+                }
+            }        
+
+    # calculate pop, building, area group by adm, risk
+    groupby_adm_risk = {'adm_child':{}}
+    for adm, adm_group in df.groupby([sql_param['adm_code'], sql_param['adm_name']]):
+        adm_code, adm_name = adm
+        groupby_adm_risk['adm_child'][adm_code] = {
+            'adm_code': adm_code,
+            'adm_name': adm_name,
+            'risk_child': {}
+        }
+        for risk, risk_group in adm_group.groupby(['min']):
+            agg = risk_group.agg({'pop':'sum','building':'sum','area':'sum'})
+            risk_int = int(risk)
+            groupby_adm_risk['adm_child'][adm_code]['risk_child'][risk_int] = {
+                'label': droughtrisks[risk_int],
+                'child': {
+                    'pop': agg['pop'],
+                    'building': agg['building'],
+                    'area': agg['area']
+                }
+            }        
+
+    
+    # geojson
+    if include_section('GeoJson', includes, excludes):
+        response['GeoJson'] = json.dumps(getGeoJson(request, flag, code))
+
+    woy_datestart, woy_dateend = getYearRangeFromWeek(woy)
+
+    response.update({
+        # 'queryresult':counts,
+        'woy': woy,
+        'woy_datestart': woy_datestart,
+        'woy_dateend': woy_dateend,
+        'drought_data':{
+            'group_by':{
+                'adm_risk': groupby_adm_risk,
+                'landcover_area_risk': {'lc_child':d},
+                'landcover_risk': groupby_lc_risk,
+                'risk': groupby_risk
+                },
+            }
+        })
+
+    return response

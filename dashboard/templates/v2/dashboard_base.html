@@ -51,6 +51,8 @@
         {% include "v2/dash_weather.html" %}
       {% elif request.GET.page == 'landslide' %}
         {% include "v2/dash_landslide.html" %}
+      {% elif request.GET.page == 'drought' %}
+        {% include "v2/dash_drought.html" %}
       {% elif request.GET.page == 'main' %}
         {% include "v2/dash_main.html" %}
     	{% endif %}

@@ -284,6 +284,21 @@ html[dir=rtl] .x_title h2 small{
     font-weight: normal
 }
 
+.date.x_title {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.date.x_title h2{
+    margin-top: 9px;
+}
+
+.date.x_title .input-group-addon {
+    border: 3px solid #ededed;
+    color: #555;
+}
+
 @media (max-width: 1200px) {
     .x_title h2 {
         /*width: 62%;*/
@@ -394,6 +409,7 @@ html[dir=rtl] tr td:nth-child(1), html[dir=rtl] .list_incident tr td:nth-child(2
 
 #access .x_content .table thead>tr>th,
 #landslide .x_content .table thead>tr>th,
+#drought .x_content .table thead>tr>th,
 #erthqk .x_content .table thead>tr>th{
     border-top: none;
     border-right: none;
@@ -412,7 +428,8 @@ html[dir=rtl] tr td:nth-child(1), html[dir=rtl] .list_incident tr td:nth-child(2
 }*/
 
 th.l1h, th.l2h, th.l3h, th.l4h, th.l5h, th.l6h, th.l7h, th.l8h, th.m8h,
-th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low {
+th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low,
+th.drought_ab_dry, th.drought_mod, th.drought_svre, th.drought_extrme, th.drought_excptnal{
     border-bottom: 2px solid #fff !important;
 }
 
@@ -422,13 +439,14 @@ th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low {
     /*border: 1px solid #ddd;*/
 }
 
-#access thead>tr>th, .landslide_table>thead>tr>th, #erthqkTable>thead>tr>th{
+#access thead>tr>th, .landslide_table>thead>tr>th, #drought>thead>tr>th, #erthqkTable>thead>tr>th{
     border-top: none;
     border-bottom: none;
 }
 
 #access .color_table tbody>tr>td, 
 #landslide .table>tbody>tr>td, 
+#drought .table>tbody>tr>td, 
 #ggfforecast_overview .table>tbody>tr>td, 
 #glfforecast_overview .table>tbody>tr>td, 
 #gffforecast_overview .table>tbody>tr>td, 
@@ -441,6 +459,7 @@ th.landslide_vhigh, th.landslide_high, th.landslide_mod, th.landslide_low {
 
 #access .color_table tbody>tr>td:first-child,
 #landslide .table>tbody>tr>td:first-child,
+#drought .table>tbody>tr>td:first-child,
 #erthqk .table>tbody>tr>td:first-child {
     border-bottom: 1px solid #ddd;
     border-left: 1px solid #ddd;
@@ -721,6 +740,32 @@ th.extrme, td.extrme/*,
     background-color: #e84c3d !important;
     /*border: 1px solid #fff !important;*/
 }
+
+.drought_ab_dry{
+    background-color: #fffe7f !important;
+}
+
+.drought_mod{
+    background-color: #d5e25a !important;
+}
+
+.drought_svre{
+    background-color: #ffca28 !important;
+}
+
+.drought_extrme{
+    background-color: #ef5350 !important;
+}
+
+.drought_excptnal{
+    background-color: #212121 !important;
+    color: #fff !important;
+}
+
+#drought table.dataTable thead .sorting:after{
+    opacity: 0.5;
+}
+
 
 
 /*DataTables*/
@@ -1233,6 +1278,7 @@ button.active{
 #access #mapInfo th, #access #mapInfo td,
 #ff #mapInfo th, #ff #mapInfo td,
 #landslide #mapInfo th, #landslide #mapInfo td,
+#drought #mapInfo th,
 #erthqk #mapInfo th, #erthqk #mapInfo td
 {
     border-bottom: none !important;

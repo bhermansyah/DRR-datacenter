@@ -7,7 +7,7 @@
       </button>
       <div class="collapse navbar-collapse collapse-buttons navbar-lower-collapse">
         <ul class="nav navbar-nav">
-          <li><a href="{% url 'v2:dashboard_detail' %}?page=main{{add_link}}"><span>{% trans 'Quick Overview' %}</span></a></li>
+          <li><a href="{% url 'v2:dashboard_detail' %}?page=main{{add_link}}"><span>{% trans 'Overview' %}</span></a></li>
           <li><a href="{% url 'v2:dashboard_detail' %}?page=baseline{{add_link}}"><span>{% trans 'Baseline' %}</span></a></li>
           <li><a href="{% url 'v2:dashboard_detail' %}?page=accessibility{{add_link}}"><span>{% trans 'Accessibility' %}</span></a></li>
           <li class="dropdown">
@@ -27,6 +27,9 @@
           </li>
           <li>
               <a href="{% url 'v2:dashboard_detail' %}?page=landslide{{add_link}}"><span>{% trans 'Landslide' %}</span></a>
+          </li>
+          <li>
+              <a href="{% url 'v2:dashboard_detail' %}?page=drought{{add_link}}"><span>{% trans 'Drought' %}</span></a>
           </li>
           <li>
               <a href="{% url 'v2:dashboard_detail' %}?page=earthquake{{add_link}}"><span>{% trans 'Earthquake' %}</span></a>

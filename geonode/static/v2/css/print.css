@@ -168,6 +168,10 @@
         font-size: 20px;
     }
 
+    .drought_excptnal>i:before{
+        color: #fff !important;
+    }
+
     div.ch-size{
         height: 370px !important;
         /*width: 250px !important;*/

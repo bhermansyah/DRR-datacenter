@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, loader
-from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity, getLandslideRisk, getQuickOverview
+from geodb.geo_calc import getBaseline, getFloodForecast, getFloodRisk, getAvalancheRisk, getAvalancheForecast, getAccessibility, getEarthquake, getSecurity, getLandslideRisk, getQuickOverview, getDroughtRisk
 from geodb.models import AfgAdmbndaAdm1, AfgAdmbndaAdm2
 from django.shortcuts import HttpResponse
 from matrix.models import matrix, MatrixCertificate
@@ -32,8 +32,10 @@ from django.utils import translation
 import time
 import md5
 import calendar
+import datetime
 
 from avatar.templatetags.avatar_tags import avatar_print_url
+from geodb.geoapi import getClosestDroughtWOY
 
 def common(request):
 	response = {}
@@ -89,6 +91,12 @@ def common(request):
 		response = getSecurity(request, rawFilterLock, flag, code)
 	elif request.GET['page'] == 'landslide':
 		response = getLandslideRisk(request, filterLock, flag, code)
+	elif request.GET['page'] == 'drought':
+		dateIn_str = request.GET['date'] if ('date' in request.GET) else str(datetime.date.today())
+		dateIn = dateIn_str.split('-')
+		woy = dateIn[0] + '%03d' % datetime.date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1]
+		closest_woy = getClosestDroughtWOY(woy)
+		response = getDroughtRisk(request, filterLock, flag, code, closest_woy)
 	elif request.GET['page'] == 'main':
 		response = getQuickOverview(request, filterLock, flag, code)
 
@@ -107,12 +115,14 @@ def common(request):
 	            return obj.strftime("%Y-%m-%d")
 	        elif obj.__class__.__name__  == "datetime":
 	            return obj.strftime("%Y-%m-%d %H:%M:%S")
+	        elif obj.__class__.__name__  == "Decimal":
+	            return float(obj)
 	        else:
 	            print 'not converted to json:', obj.__class__.__name__
 	            # return {} # convert un-json-able object to empty object
-	            return 'not converted to json:', obj.__class__.__name__ # convert un-json-able object to empty object
+	            return 'not converted to json: %s' % (obj.__class__.__name__) # convert un-json-able object to empty object
 
-	# response['jsondata'] = json.dumps(response, cls = CustomEncoder)
+	response['jsondata'] = json.dumps(response, cls = CustomEncoder)
 
 	return response
 
@@ -153,7 +163,7 @@ def dashboard_detail(request):
 	if 'pdf' in request.GET:
 		try:
 			domainpath = 'asdc.immap.org'+request.META.get('PATH_INFO')
-			date_string = dateformat.format(datetime.now(), "Y-m-d")
+			date_string = dateformat.format(datetime.date.today(), "Y-m-d")
 
 			# create an API client instance
 			client = pdfcrowd.Client(getattr(settings, 'PDFCROWD_UNAME'), getattr(settings, 'PDFCROWD_UPASS'))
@@ -199,7 +209,7 @@ def dashboard_detail(request):
 			domainpath = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
 			url = 'http://'+str(domainpath)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&'+bodyparam
 			pdf = pdfkit.from_url(url, False, options=options)
-			date_string = dateformat.format(datetime.now(), "Y-m-d")
+			date_string = dateformat.format(datetime.date.today(), "Y-m-d")
 			response = HttpResponse(pdf,content_type='application/pdf')
 			response['Content-Disposition'] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
 

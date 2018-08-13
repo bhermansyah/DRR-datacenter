@@ -139,6 +139,41 @@ function init_echarts() {
 
 	};
 
+	var humTooltipConvertPercent = function(params){
+	    p = params;
+
+	    if (!Array.isArray(params)) {
+	    	params = [params];
+	    }
+
+	    var s = '';
+	    params.forEach(function(item) {
+	    	// console.log(item);
+	    	console.log(AxisName);
+	    	if (AxisName == 'Population') {
+	    		total = drought_total_pop_val[landcover_cat.indexOf(item.axisValue)];
+	    	}else if (AxisName == 'Area'){
+	    		total = drought_total_area_val[landcover_cat.indexOf(item.axisValue)];
+	    	}
+
+	    	real_val = item.value/100 * total;
+
+	    	if(real_val>=1000 && real_val<1000000){
+	    		vN1=((real_val/1000).toFixed(2))+' K'
+	    	}
+	    	if (real_val>=1000000 && real_val<1000000000) {
+	    		vN1=((real_val/1000000).toFixed(2))+' M'
+
+	    	}if (real_val<1000){
+	    		vN1=parseFloat((real_val*1).toPrecision(3));
+	    	}
+	    	s += item.seriesName+' '+vN1+'</br>';
+	    });
+	    // console.log('s', s);
+	    return(params[0].name+'</br>'+ s);
+
+	};
+
 	var humTooltipRadar = function(params){
 	    var s = '';
 	    params.data.value.forEach(function(item, index){
@@ -405,7 +440,7 @@ function init_echarts() {
 		  	fontFamily: 'Arial, Verdana, sans-serif'
 		},
 
-		animation: false
+		animation: true
   	};
 
   	// var w = ['#ffaaab', '#ff6264', '#d13c3e', '#b92527']
@@ -467,6 +502,12 @@ function init_echarts() {
   		function(params){
   			return colorLandslide[params.dataIndex]
   		}
+
+  	//colorDrought = [ '#fffe7f', '#d5e25a' , '#ffca28', '#ef5350', '#212121', '#ccc' ];
+
+  	colorDrought = [ '#ffef00', '#bdda57' , '#ffca28', '#ef5350', '#212121', '#ccc' ];
+
+  	var colorDroughtBar = ['#abd9e9', '#74add1', '#4575b4'];
 
   	colorMercalli = [
   	        // /*'#eeeeee', '#bfccff',*/ '#9999ff', '#88ffff', '#7df894', '#ffff00',
@@ -1426,13 +1467,13 @@ function init_echarts() {
 				    	}
 			      	}
 				},
-			grid: {
-		        left: '1%',
-		        right: '20%',
-		        bottom: '8%',
-		        containLabel: true
-		    },
-		    color: colorFloodRiskForecast,
+				grid: {
+			        left: '1%',
+			        right: '20%',
+			        bottom: '8%',
+			        containLabel: true
+			    },
+			    color: colorFloodRiskForecast,
 				calculable: true,
 				textStyle:{
 					fontSize: '10'
@@ -2517,7 +2558,6 @@ function init_echarts() {
 		  	});
 
 		}
-
 	// break;
 
 	// case "lndslide" :
@@ -3287,6 +3327,636 @@ function init_echarts() {
 		  		echartBarS3.resize();
 		  	});
 
+		}
+	// break
+
+	// case "drought" :
+		if ($('#echart_donut_drought_pop').length ){
+		  	var echartDonutDroughtPop = echarts.init(document.getElementById('echart_donut_drought_pop'), theme, render());
+
+			echartDonutDroughtPop.setOption({
+				tooltip: {
+					trigger: 'item',
+					formatter: humTooltipPie
+				},
+				calculable: true,
+				legend: {
+					x: 'left',
+					y: 'top',
+					orient: 'vertical',
+					data: level_risk_pie
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						restore: {
+						  	show: true,
+						  	title: "Restore"
+						},
+						saveAsImage: {
+						  	show: true,
+						  	title: "Save Image"
+						}
+					}
+				},
+				color: colorDrought,
+				series: [{
+					name: 'Area',
+					type: 'pie',
+					radius: ['35%', '55%'],
+					itemStyle: {
+						normal: {
+							label: {
+								show: true,
+								formatter: humanizePie
+							},
+							labelLine: {
+								show: true
+							}
+						},
+						emphasis: {
+							label: {
+								show: true,
+								textStyle: {
+									fontSize: '14',
+									fontWeight: 'normal'
+								}
+							}
+						}
+					},
+					data: [{
+						value: drought_pop[0],
+						name: level_risk_pie[0]
+					}, {
+						value: drought_pop[1] ,
+						name: level_risk_pie[1]
+					}, {
+						value: drought_pop[2] ,
+						name: level_risk_pie[2]
+					}, {
+						value: drought_pop[3] ,
+						name: level_risk_pie[3]
+					}, {
+						value: drought_pop[4] ,
+						name: level_risk_pie[4]
+					}, {
+						value: pop - (drought_pop[0]+drought_pop[1]+drought_pop[2]+drought_pop[3]+drought_pop[4]),
+						name: level_risk_pie[5]
+					}]
+				}]
+			});
+
+		  	window.onresize = function(){
+		  		echartDonutDroughtPop.resize();
+		  	}
+		}
+
+		if ($('#echart_donut_drought_build').length ){
+		  	var echartDonutDroughtBuild = echarts.init(document.getElementById('echart_donut_drought_build'), theme, render());
+
+			echartDonutDroughtBuild.setOption({
+				tooltip: {
+					trigger: 'item',
+					formatter: humTooltipPie 
+				},
+				calculable: true,
+				legend: {
+					x: 'left',
+					y: 'top',
+					orient: 'vertical',
+					data: level_risk_pie
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						restore: {
+						  	show: true,
+						  	title: "Restore"
+						},
+						saveAsImage: {
+						  	show: true,
+						  	title: "Save Image"
+						}
+					}
+				},
+				color: colorDrought,
+				series: [{
+					name: 'Area',
+					type: 'pie',
+					radius: ['35%', '55%'],
+					itemStyle: {
+						normal: {
+							label: {
+								show: true,
+								formatter: humanizePie
+							},
+							labelLine: {
+								show: true
+							}
+						},
+						emphasis: {
+							label: {
+								show: true,
+								textStyle: {
+									fontSize: '14',
+									fontWeight: 'normal'
+								}
+							}
+						}
+					},
+					data: [{
+						value: drought_build[0],
+						name: level_risk_pie[0]
+					}, {
+						value: drought_build[1] ,
+						name: level_risk_pie[1]
+					}, {
+						value: drought_build[2] ,
+						name: level_risk_pie[2]
+					}, {
+						value: drought_build[3] ,
+						name: level_risk_pie[3]
+					}, {
+						value: drought_build[4] ,
+						name: level_risk_pie[4]
+					}, {
+						value: build - (drought_build[0]+drought_build[1]+drought_build[2]+drought_build[3]+drought_build[4]),
+						name: level_risk_pie[5]
+					}]
+				}]
+			});
+
+		  	window.onresize = function(){
+		  		echartDonutDroughtBuild.resize();
+		  	}
+		}
+
+		if ($('#echart_donut_drought_area').length ){
+			var echartDonutDroughtArea = echarts.init(document.getElementById('echart_donut_drought_area'), theme, render());
+
+			echartDonutDroughtArea.setOption({
+				tooltip: {
+					trigger: 'item',
+					formatter: humTooltipPie 
+				},
+				calculable: true,
+				legend: {
+					x: 'left',
+					y: 'top',
+					orient: 'vertical',
+					data: level_risk_pie
+				},
+				toolbox: {
+					show: true,
+					feature: {
+						restore: {
+						  	show: true,
+						  	title: "Restore"
+						},
+						saveAsImage: {
+						  	show: true,
+						  	title: "Save Image"
+						}
+					}
+				},
+				color: colorDrought,
+				series: [{
+					name: 'Area',
+					type: 'pie',
+					radius: ['35%', '55%'],
+					itemStyle: {
+						normal: {
+							label: {
+								show: true,
+								formatter: humanizePie
+							},
+							labelLine: {
+								show: true
+							}
+						},
+						emphasis: {
+							label: {
+								show: true,
+								textStyle: {
+									fontSize: '14',
+									fontWeight: 'normal'
+								}
+							}
+						}
+					},
+					data: [{
+						value: drought_area[0],
+						name: level_risk_pie[0]
+					}, {
+						value: drought_area[1] ,
+						name: level_risk_pie[1]
+					}, {
+						value: drought_area[2] ,
+						name: level_risk_pie[2]
+					}, {
+						value: drought_area[3] ,
+						name: level_risk_pie[3]
+					}, {
+						value: drought_area[4] ,
+						name: level_risk_pie[4]
+					}, {
+						value: area - (drought_area[0]+drought_area[1]+drought_area[2]+drought_area[3]+drought_area[4]),
+						name: level_risk_pie[5]
+					}]
+				}]
+			});
+
+		  	window.onresize = function(){
+		  		echartDonutDroughtArea.resize();
+		  	}
+		}
+
+		if ($('#echart_bar_horizontal_stack_drought_pop').length ){
+		  	var echartBarDroughtLandcoverPop = echarts.init(document.getElementById('echart_bar_horizontal_stack_drought_pop'), theme, render());
+		  	var AxisName = 'Population';
+
+		  	echartBarDroughtLandcoverPop.setOption({
+				tooltip : {
+				    trigger: 'axis',
+				    axisPointer : {            
+				        type : 'line'        
+				    },
+				    formatter: function(params){
+					    p = params;
+
+					    if (!Array.isArray(params)) {
+					    	params = [params];
+					    }
+
+					    var s = '';
+					    params.forEach(function(item) {
+					    	total = drought_total_pop_val[landcover_cat.indexOf(item.axisValue)];
+					    	real_val = item.value/100 * total;
+
+					    	if(real_val>=1000 && real_val<1000000){
+					    		vN1=((real_val/1000).toFixed(2))+' K'
+					    	}
+					    	if (real_val>=1000000 && real_val<1000000000) {
+					    		vN1=((real_val/1000000).toFixed(2))+' M'
+
+					    	}if (real_val<1000){
+					    		vN1=parseFloat((real_val*1).toPrecision(3));
+					    	}
+					    	s += item.seriesName+' '+vN1+'</br>';
+					    });
+					    return(params[0].name+'</br>'+ s);
+					}
+				},
+				legend: {
+					x: 'center',
+					y: 'bottom',
+				  	data: level_risk_pie
+				},
+				toolbox: {
+			      	show: true,
+			      	feature: {
+			    		magicType: {
+				    	  	show: true,
+				    	  	title: {
+				    			line: 'Line',
+				    			bar: 'Bar',
+				    			stack: 'Stack',
+				    			tiled: 'Tiled'
+				    	  	},
+			    	  		type: ['line', 'bar', 'stack', 'tiled']
+				    	},
+				    	restore: {
+				    	  	show: true,
+				    	  	title: "Restore"
+				    	},
+				    	saveAsImage: {
+				    	  	show: true,
+				    	  	title: "Save Image"
+				    	}
+			      	}
+				},
+				grid: {
+			        left: '1%',
+			        right: '20%',
+			        bottom: '8%',
+			        containLabel: true
+			    },
+			    color: colorDrought,
+				calculable: true,
+				textStyle:{
+					fontSize: '10'
+				},
+				yAxis: [{
+				  	type: 'category',
+				  	name: 'Landcover',
+				  	// nameRotate: 30,
+				  	data: landcover_cat
+				}],
+				xAxis: [{
+					type: 'value',
+					name: 'Population',
+					scale: true,
+					axisLabel:{
+						// rotate: 30,
+						textStyle: {
+							color: '#333',
+							fontSize: '10'
+						},
+						formatter: function (value) {
+							return value + '%'
+						}
+					}
+				}],
+				series: [{
+				  	name: level_risk_pie[0],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_ab_dry_pop_val
+				}, {
+				  	name: level_risk_pie[1],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_mod_pop_val
+				}, {
+				  	name: level_risk_pie[2],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_svre_pop_val
+				}, {
+				  	name: level_risk_pie[3],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_extrme_pop_val
+				}, {
+				  	name: level_risk_pie[4],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_excptnal_pop_val
+				}, {
+				  	name: level_risk_pie[5],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_not_risk_pop_val
+				}]
+			});
+
+		  	window.addEventListener("resize", function(){
+		  		echartBarDroughtLandcoverPop.resize();
+		  	});
+		}
+
+		if ($('#echart_bar_horizontal_stack_drought_area').length ){
+		  	var echartBarDroughtLandcoverArea = echarts.init(document.getElementById('echart_bar_horizontal_stack_drought_area'), theme, render());
+		  	var AxisName = 'Area';
+
+			echartBarDroughtLandcoverArea.setOption({
+				tooltip : {
+				    trigger: 'axis',
+				    axisPointer : {            
+				        type : 'line'        
+				    },
+				    formatter: function(params){
+					    p = params;
+
+					    if (!Array.isArray(params)) {
+					    	params = [params];
+					    }
+
+					    var s = '';
+					    params.forEach(function(item) {
+					    	total = drought_total_area_val[landcover_cat.indexOf(item.axisValue)];
+					    	real_val = item.value/100 * total;
+
+					    	if(real_val>=1000 && real_val<1000000){
+					    		vN1=((real_val/1000).toFixed(2))+' K'
+					    	}
+					    	if (real_val>=1000000 && real_val<1000000000) {
+					    		vN1=((real_val/1000000).toFixed(2))+' M'
+
+					    	}if (real_val<1000){
+					    		vN1=parseFloat((real_val*1).toPrecision(3));
+					    	}
+					    	s += item.seriesName+' '+vN1+'</br>';
+					    });
+					    return(params[0].name+'</br>'+ s);
+					}
+				},
+				legend: {
+					x: 'center',
+					y: 'bottom',
+				  	data: level_risk_pie
+				},
+				toolbox: {
+			      	show: true,
+			      	feature: {
+			    		magicType: {
+				    	  	show: true,
+				    	  	title: {
+				    			line: 'Line',
+				    			bar: 'Bar',
+				    			stack: 'Stack',
+				    			tiled: 'Tiled'
+				    	  	},
+			    	  		type: ['line', 'bar', 'stack', 'tiled']
+				    	},
+				    	restore: {
+				    	  	show: true,
+				    	  	title: "Restore"
+				    	},
+				    	saveAsImage: {
+				    	  	show: true,
+				    	  	title: "Save Image"
+				    	}
+			      	}
+				},
+				grid: {
+			        left: '1%',
+			        right: '20%',
+			        bottom: '8%',
+			        containLabel: true
+			    },
+			    color: colorDrought,
+				calculable: true,
+				textStyle:{
+					fontSize: '10'
+				},
+				yAxis: [{
+				  	type: 'category',
+				  	name: 'Landcover',
+				  	// nameRotate: 30,
+				  	data: landcover_cat
+				}],
+				xAxis: [{
+					type: 'value',
+					name: 'Area',
+					scale: true,
+					axisLabel:{
+						// rotate: 30,
+						textStyle: {
+							color: '#333',
+							fontSize: '10'
+						},
+						formatter: function (value) {
+							return value + '%'
+						}
+					}
+				}],
+				series: [{
+				  	name: level_risk_pie[0],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_ab_dry_area_val
+				}, {
+				  	name: level_risk_pie[1],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_mod_area_val
+				}, {
+				  	name: level_risk_pie[2],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_svre_area_val
+				}, {
+				  	name: level_risk_pie[3],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_extrme_area_val
+				}, {
+				  	name: level_risk_pie[4],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_excptnal_area_val
+				}, {
+				  	name: level_risk_pie[5],
+				  	type: 'bar',
+				  	stack: 'flash',
+				  	// barMinHeight: 20,
+				  	itemStyle:{
+					  	normal:{
+					  		label:{
+					  			// show:true,
+					  			position: 'inside',
+					  			formatter: humanizeBar,
+					  		}
+					  	}
+					},
+				  	data: drought_not_risk_area_val
+				}]
+			});
+
+		  	window.addEventListener("resize", function(){
+		  		echartBarDroughtLandcoverArea.resize();
+		  	});
 		}
 	// break
 
@@ -8457,6 +9127,394 @@ function init_leaflet(){
 	            
 	        } else {
 	            lndslideMap.removeLayer(selected_layer);
+	            // layer.remove();
+	        }
+	    })
+	}
+
+	if ($('#leaflet_drought_map').length ){
+	    // Disabling checkbox if no data available
+	    var droughtCheckbox=document.getElementsByName("drought_checkbox");
+	    for (var i = 0; i < droughtCheckbox.length; i++) {
+	        var r = droughtCheckbox[i];
+	        var terpilih = r.value;
+	        if (getMax(boundary.features, [terpilih])==0) {
+	            droughtCheckbox[i].disabled=true;
+	            $(r).closest("div").addClass("disabled");
+	        }
+	    }
+
+	    var droughtMap = initMap();
+	    //Set zoom control with your options
+	    // droughtMap.zoomControl.setPosition('bottomright');
+
+	    var wmsLayer = 
+
+	    {
+	        "landcover" : L.tileLayer.wms('http://asdc.immap.org/geoserver/wms?', {
+	                    layers: 'geonode:afg_lndcrva',
+	                    format: 'image/png',
+	                    styles: 'afg_lndcrva_main',
+	                    transparent: true
+	        }),
+	        "drought" : L.tileLayer.wms('http://asdc.immap.org/geoserver/wms?', {
+	                    layers: 'geonode:current_drought',
+	                    format: 'image/png',
+	                    viewparams: 'woy:' + woy,
+	                    transparent: true
+	        })
+	    };
+
+	    //Add Layer Control to the map
+	    // L.control.layers(wmsLayer).addTo(droughtMap);
+	    // var controlLayer = L.control.layers({}, wmsLayer, {position: 'topleft', collapsed: false}).addTo(droughtMap);
+
+	    $('.lvl_choice .drought_checkbox_pop :checkbox:enabled').prop('checked', true);
+	    sumValueProp($('.lvl_choice .drought_checkbox_pop :checkbox:enabled'));
+
+	    legend_num_arr = setLegendSeries(val_collection);
+
+	    val_theme = 'YlOrRd';
+	    var getChroma = chroma.scale(val_theme).classes(legend_num_arr).out("hex");
+
+	    legend = createLegend();
+	    legend.addTo(droughtMap);
+
+	    var info = addInfo();
+	    info.update = function (props) {
+	        this._div.innerHTML = 
+	            (props ?
+	                '<span class="chosen_area">' + props.na_en + '</span>'
+	                + '<div class="row">'
+
+	                + '<div style="display:none;" class="col-md-4 col-sm-12 col-xs-12 drought_checkbox_pop"><div id="chart_map_donut_drought_pop" class="ch-map-size" style="height:280px;"></div></div>'
+	                + '<div style="display:none;" class="col-md-4 col-sm-12 col-xs-12 drought_checkbox_build"><div id="chart_map_donut_drought_build" class="ch-map-size" style="height:280px;"></div></div>'
+	                + '<div style="display:none;" class="col-md-4 col-sm-12 col-xs-12 drought_checkbox_area"><div id="chart_map_donut_drought_area" class="ch-map-size" style="height:280px;"></div></div>'
+
+	                + '<div style="display:none;" class="col-md-4 col-sm-12 col-xs-12 drought_checkbox_pop">'
+	                + '<table class="table table-bordered table-condensed"><tr><th>Risk Level</th>'
+	                // + '<th>' + landcover_cat[0] + '</th><th>' 
+	                // + landcover_cat[1] + '</th><th>' 
+	                // + landcover_cat[2] + '</th><th>' 
+	                // + landcover_cat[3] + '</th><th>' 
+	                // + landcover_cat[4] + '</th><th>' 
+	                // + landcover_cat[5] + '</th><th>' 
+	                // + landcover_cat[6] + '</th></tr><tr>'
+	                // + '<td class="drought_ab_dry">' + level_risk_pie[0] 
+	                // + '</td><td class="drought_ab_dry">' + humanizeTableFormatter(props.drought_pop_ab_dry) 
+	                // + '</td><td class="drought_ab_dry">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_ab_dry">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_ab_dry">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_ab_dry">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_ab_dry">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_ab_dry">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td></tr><tr><td class="drought_mod">' + level_risk_pie[1] 
+	                // + '</td><td class="drought_mod">' + humanizeTableFormatter(props.drought_pop_moderate) 
+	                // + '</td><td class="drought_mod">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_mod">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_mod">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_mod">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_mod">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_mod">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td></tr><tr><td class="drought_svre">' + level_risk_pie[2] 
+	                // + '</td><td class="drought_svre">' + humanizeTableFormatter(props.drought_pop_severe) 
+	                // + '</td><td class="drought_svre">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_svre">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_svre">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_svre">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_svre">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_svre">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td></tr><tr><td class="drought_extrme">' + level_risk_pie[3] 
+	                // + '</td><td class="drought_extrme">' + humanizeTableFormatter(props.drought_pop_extreme) 
+	                // + '</td><td class="drought_extrme">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_extrme">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_extrme">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_extrme">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_extrme">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_extrme">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td></tr><tr><td class="drought_excptnal">' + level_risk_pie[4] 
+	                // + '</td><td class="drought_excptnal">' + humanizeTableFormatter(props.drought_pop_exceptional) 
+	                // + '</td><td class="drought_excptnal">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_excptnal">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_excptnal">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_excptnal">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_excptnal">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td><td class="drought_excptnal">' + humanizeTableFormatter(props.lsi_immap_high) 
+	                // + '</td></tr></table></div>'
+	                
+	                + '<th>Population at Risk</th></tr><tr>'
+	                + '<th class="drought_ab_dry">' + level_risk_pie[0]
+	                + '</th><td class="drought_ab_dry">' + humanizeTableFormatter(props.drought_pop_ab_dry)
+	                + '</td></tr><tr><th class="drought_mod">' + level_risk_pie[1]
+	                + '</th><td class="drought_mod">' + humanizeTableFormatter(props.drought_pop_moderate)
+	                + '</td></tr><tr><th class="drought_svre">' + level_risk_pie[2]
+	                + '</th><td class="drought_svre">' + humanizeTableFormatter(props.drought_pop_severe)
+	                + '</td></tr><tr><th class="drought_extrme">' + level_risk_pie[3]
+	                + '</th><td class="drought_extrme">' + humanizeTableFormatter(props.drought_pop_extreme)
+	                + '</td></tr><tr><th class="drought_excptnal">' + level_risk_pie[4]
+	                + '</th><td class="drought_excptnal">' + humanizeTableFormatter(props.drought_pop_exceptional)
+	                + '</td></tr></table></div>'
+
+	                + '<div style="display:none;" class="col-md-4 col-sm-12 col-xs-12 drought_checkbox_build"><table class="table table-bordered table-condensed"><tr><th>Risk Level</th>'
+	                + '<th>Building at Risk</th></tr><tr>'
+	                + '<th class="drought_ab_dry">' + level_risk_pie[0]
+	                + '</th><td class="drought_ab_dry">' + humanizeTableFormatter(props.drought_build_ab_dry)
+	                + '</td></tr><tr><th class="drought_mod">' + level_risk_pie[1]
+	                + '</th><td class="drought_mod">' + humanizeTableFormatter(props.drought_build_moderate)
+	                + '</td></tr><tr><th class="drought_svre">' + level_risk_pie[2]
+	                + '</th><td class="drought_svre">' + humanizeTableFormatter(props.drought_build_severe)
+	                + '</td></tr><tr><th class="drought_extrme">' + level_risk_pie[3]
+	                + '</th><td class="drought_extrme">' + humanizeTableFormatter(props.drought_build_extreme)
+	                + '</td></tr><tr><th class="drought_excptnal">' + level_risk_pie[4]
+	                + '</th><td class="drought_excptnal">' + humanizeTableFormatter(props.drought_build_exceptional)
+	                + '</td></tr></table></div>'
+
+	                + '<div style="display:none;" class="col-md-4 col-sm-12 col-xs-12 drought_checkbox_area"><table class="table table-bordered table-condensed"><tr><th>Risk Level</th>'
+	                + '<th>Area at Risk</th></tr><tr>'
+	                + '<th class="drought_ab_dry">' + level_risk_pie[0]
+	                + '</th><td class="drought_ab_dry">' + humanizeTableFormatter(props.drought_area_ab_dry)
+	                + '</td></tr><tr><th class="drought_mod">' + level_risk_pie[1]
+	                + '</th><td class="drought_mod">' + humanizeTableFormatter(props.drought_area_moderate)
+	                + '</td></tr><tr><th class="drought_svre">' + level_risk_pie[2]
+	                + '</th><td class="drought_svre">' + humanizeTableFormatter(props.drought_area_severe)
+	                + '</td></tr><tr><th class="drought_extrme">' + level_risk_pie[3]
+	                + '</th><td class="drought_extrme">' + humanizeTableFormatter(props.drought_area_extreme)
+	                + '</td></tr><tr><th class="drought_excptnal">' + level_risk_pie[4]
+	                + '</th><td class="drought_excptnal">' + humanizeTableFormatter(props.drought_area_exceptional)
+	                + '</td></tr></table></div>'
+
+	                + '<div>'
+
+	                + '<a class="btn btn-primary linkPopup">Go To ' + (props.na_en) +'</a>'
+	            : '<h4>' + chosen_label + '</h4>' + 'Click on an area to show information');
+	        $('a.linkPopup').on('click', function() {
+	            jump_url(props.code);
+	        });
+	        $('.' + $('select#droughtOpt').val()).show();
+	    };
+
+	    var chart = addChart();
+	    chart.update = function (props) { 
+	        chart_map_donut_drought_pop = new Highcharts.Chart({
+	            chart: {
+	                renderTo: 'chart_map_donut_drought_pop',
+	                type: 'pie',
+	                style: {
+	                    fontFamily: '"Arial", Verdana, sans-serif'
+	                }
+	            },
+	            title: {
+	                text: 'Population at Drought',
+	                verticalAlign: 'top',
+	                style: {
+	                    font: 'bold 13px "Trebuchet MS", Verdana, sans-serif'
+	                }
+	            },
+	            plotOptions: {
+	                pie: {
+	                    shadow: false
+	                }
+	            },
+	            tooltip: {
+	                formatter: function() {
+	                    return '<b>'+ this.point.name +'</b>: '+ humanizeTableFormatter(this.y);
+	                }
+	            },
+	            legend: {
+	                align: 'right',
+	                layout: 'vertical',
+	                verticalAlign: 'bottom'
+	                // x: 40,
+	                // y: 0
+	            },
+	            colors: colorDrought,
+	            credits: {
+	                enabled: false
+	            },
+	            series: [{
+	                name: 'drought',
+	                data: [[level_risk_pie[0],props.drought_pop_ab_dry],[level_risk_pie[1],props.drought_pop_moderate],[level_risk_pie[2],props.drought_pop_severe],[level_risk_pie[3],props.drought_pop_extreme],[level_risk_pie[4],props.drought_pop_exceptional]],
+	                size: '90%',
+	                innerSize: '65%',
+	                showInLegend:true,
+	                dataLabels: {
+	                    enabled: false
+	                }
+	            }]
+	        });
+	        chart_map_donut_drought_build = new Highcharts.Chart({
+	            chart: {
+	                renderTo: 'chart_map_donut_drought_build',
+	                type: 'pie',
+	                style: {
+	                    fontFamily: '"Arial", Verdana, sans-serif'
+	                }
+	            },
+	            title: {
+	                text: 'Building at Drought',
+	                verticalAlign: 'top',
+	                style: {
+	                    font: 'bold 13px "Trebuchet MS", Verdana, sans-serif'
+	                }
+	            },
+	            yAxis: {
+	                title: {
+	                    text: 'Total percent market share'
+	                }
+	            },
+	            plotOptions: {
+	                pie: {
+	                    shadow: false
+	                }
+	            },
+	            tooltip: {
+	                formatter: function() {
+	                    return '<b>'+ this.point.name +'</b>: '+ humanizeTableFormatter(this.y);
+	                }
+	            },
+	            legend: {
+	                align: 'right',
+	                layout: 'vertical',
+	                verticalAlign: 'bottom'
+	                // x: 40,
+	                // y: 0
+	            },
+	            colors: colorDrought,
+	            credits: {
+	                enabled: false
+	            },
+	            series: [{
+	                name: 'drought',
+	                data: [[level_risk_pie[0],props.drought_build_ab_dry],[level_risk_pie[1],props.drought_build_moderate],[level_risk_pie[2],props.drought_build_severe],[level_risk_pie[3],props.drought_build_extreme],[level_risk_pie[4],props.drought_build_exceptional]],
+	                size: '90%',
+	                innerSize: '65%',
+	                showInLegend:true,
+	                dataLabels: {
+	                    enabled: false
+	                }
+	            }]
+	        });
+	        chart_map_donut_drought_area = new Highcharts.Chart({
+	            chart: {
+	                renderTo: 'chart_map_donut_drought_area',
+	                type: 'pie',
+	                style: {
+	                    fontFamily: '"Arial", Verdana, sans-serif'
+	                }
+	            },
+	            title: {
+	                text: 'Area at Drought',
+	                verticalAlign: 'top',
+	                style: {
+	                    font: 'bold 13px "Trebuchet MS", Verdana, sans-serif'
+	                }
+	            },
+	            plotOptions: {
+	                pie: {
+	                    shadow: false
+	                }
+	            },
+	            tooltip: {
+	                formatter: function() {
+	                    return '<b>'+ this.point.name +'</b>: '+ humanizeTableFormatter(this.y);
+	                }
+	            },
+	            legend: {
+	                align: 'right',
+	                layout: 'vertical',
+	                verticalAlign: 'bottom'
+	                // x: 40,
+	                // y: 0
+	            },
+	            colors: colorDrought,
+	            credits: {
+	                enabled: false
+	            },
+	            series: [{
+	                name: 'drought',
+	                data: [[level_risk_pie[0],props.drought_area_ab_dry],[level_risk_pie[1],props.drought_area_moderate],[level_risk_pie[2],props.drought_area_severe],[level_risk_pie[3],props.drought_area_extreme],[level_risk_pie[4],props.drought_area_exceptional]],
+	                size: '90%',
+	                innerSize: '65%',
+	                showInLegend:true,
+	                dataLabels: {
+	                    enabled: false
+	                }
+	            }]
+	        });
+	    }
+
+	    var selected = null;
+
+	    geojson = L.geoJson(boundary, {
+	        style: style,
+	        onEachFeature: onEachFeature
+	    }).addTo(droughtMap);
+
+	    document.getElementById("mapInfo").appendChild(info.onAdd(droughtMap));
+
+	    $('#droughtOpt').on('change', function() {
+	        info.update();
+	        var selected_opt = $(this).val();
+	        $("input[name='drought_checkbox']").each(function () {
+	            $(this).prop('checked', false);
+	        });
+	        $('.drought_opt').hide();
+
+	        // Checked every checkbox which not disabled and change the value
+	        $('.lvl_choice .' + selected_opt + ' :checkbox:enabled').prop('checked', true);
+	        sumValueProp($('.lvl_choice .' + selected_opt + ' :checkbox:enabled'));
+
+	        $('.' + selected_opt).show();
+
+	        legend.remove();
+	        legend_num_arr = setLegendSeries(val_collection);
+	        getChroma = chroma.scale(val_theme).classes(legend_num_arr).out("hex");
+	        legend.addTo(droughtMap);
+	        geojson.setStyle(style);
+	    });
+
+	    $('#themes').on('click','button', function (evt) {
+	        // add active class on selected button
+	        $(this).siblings().removeClass('active')
+	        $(this).addClass('active');
+
+	        val_theme = $(this).data('btn');
+	        getChroma = chroma.scale(val_theme).classes(legend_num_arr).out("hex");
+	        geojson.setStyle(style);
+	        // group.setStyle(style);
+	        legend.addTo(droughtMap);
+	    });
+
+	    $("input[name='drought_checkbox']:checkbox").on("change", function() {
+	        var choosen_cat = $("input[name='drought_checkbox']:checkbox:checked");
+	        if (choosen_cat.length > 0) {
+	            sumValueProp(choosen_cat);
+	            legend.remove();
+	            legend_num_arr = setLegendSeries(val_collection);
+	            getChroma = chroma.scale(val_theme).classes(legend_num_arr).out("hex");
+	            legend.addTo(droughtMap);
+	            geojson.setStyle(style);
+	        }else{
+	            legend.remove();
+	            sumValueProp(choosen_cat);
+	            geojson.setStyle(style);
+	        }
+	        
+	    });
+
+	    // use jQuery to listen for checkbox change event
+	    $('div#layercontrol .wms_check input[type="checkbox"]').on('change', function() {    
+	        var checkbox = $(this);
+	        // lyr = checkbox.data().layer;
+	        var lyr = checkbox.attr('data-layer');
+	        var selected_layer = wmsLayer[lyr];
+
+	        // toggle the layer
+	        if ((checkbox).is(':checked')) {
+	            droughtMap.addLayer(selected_layer);
+	            
+	        } else {
+	            droughtMap.removeLayer(selected_layer);
 	            // layer.remove();
 	        }
 	    })
