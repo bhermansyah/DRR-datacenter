@@ -34945,6 +34945,15 @@ GeoExt.data.PrintProvider = Ext.extend(Ext.util.Observable, {
             "expanded" : false,
             "url":"?page=landslide&pdf=true",
             "children":[]
+        },{
+            "id":"10",
+            "nodeID":"10",
+            "pnodeID":"0",
+            "text":"Drought",
+            "leaf":false,
+            "expanded" : false,
+            "url":"?page=drought&pdf=true",
+            "children":[]
         }
     ],
 
