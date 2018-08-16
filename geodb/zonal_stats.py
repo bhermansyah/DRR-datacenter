@@ -119,7 +119,7 @@ def reclassify(filename, filecode):
     OutImage.SetProjection(Projection)
     OutImage.SetGeoTransform(GeoTransform)
     OutBand = OutImage.GetRasterBand(1)
-    OutBand.SetNoDataValue(5)
+    OutBand.SetNoDataValue(-1)
     OutBand.WriteArray(NewClass)
     OutImage = None
     del NewClass
