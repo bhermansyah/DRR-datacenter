@@ -162,7 +162,7 @@ def dashboard_detail(request):
 	if 'pdf' in request.GET:
 		try:
 			domainpath = 'asdc.immap.org'+request.META.get('PATH_INFO')
-			date_string = dateformat.format(datetime.date.today(), "Y-m-d")
+			date_string = dateformat.format(date.today(), "Y-m-d")
 
 			# create an API client instance
 			client = pdfcrowd.Client(getattr(settings, 'PDFCROWD_UNAME'), getattr(settings, 'PDFCROWD_UPASS'))
@@ -208,7 +208,7 @@ def dashboard_detail(request):
 			domainpath = request.META.get('HTTP_HOST')+request.META.get('PATH_INFO')
 			url = 'http://'+str(domainpath)+'print?'+request.META.get('QUERY_STRING')+'&user='+str(request.user.id)+'&'+bodyparam
 			pdf = pdfkit.from_url(url, False, options=options)
-			date_string = dateformat.format(datetime.date.today(), "Y-m-d")
+			date_string = dateformat.format(date.today(), "Y-m-d")
 			response = HttpResponse(pdf,content_type='application/pdf')
 			response['Content-Disposition'] = 'attachment; filename="'+request.GET['page']+'_'+date_string+'.pdf"'
 
