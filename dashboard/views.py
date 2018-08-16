@@ -32,7 +32,6 @@ from django.utils import translation
 import time
 import md5
 import calendar
-import datetime
 
 from avatar.templatetags.avatar_tags import avatar_print_url
 from geodb.geoapi import getClosestDroughtWOY
