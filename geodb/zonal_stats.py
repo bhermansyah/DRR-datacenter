@@ -107,8 +107,8 @@ def reclassify(filename, filecode):
     NewClass = np.where(((Band1 >= 8) & (Band1 < 16)), 2, NewClass) # Reclassify as 2
     NewClass = np.where(((Band1 >= 16) & (Band1 < 24)), 1, NewClass) # Reclassify as 1
     NewClass = np.where(((Band1 >= 24) & (Band1 < 32)), 0, NewClass) # Reclassify as 1
-    NewClass = np.where(((Band1 >= 32) & (Band1 <= 100)), 5, NewClass) # Reclassify as 5, set it to nodata
-    NewClass = np.where(((Band1 >= -9999) & (Band1 <= -0.010000)),5, NewClass) # Reclassify as 5, set it to nodata
+    NewClass = np.where(((Band1 >= 32) & (Band1 <= 100)), -1, NewClass) # Reclassify as 5, set it to nodata
+    NewClass = np.where(((Band1 >= -9999) & (Band1 <= -0.010000)),-1, NewClass) # Reclassify as 5, set it to nodata
     del Band1
 
     if not os.path.exists(output):
@@ -119,7 +119,7 @@ def reclassify(filename, filecode):
     OutImage.SetProjection(Projection)
     OutImage.SetGeoTransform(GeoTransform)
     OutBand = OutImage.GetRasterBand(1)
-    OutBand.SetNoDataValue(5)
+    # OutBand.SetNoDataValue(-1)
     OutBand.WriteArray(NewClass)
     OutImage = None
     del NewClass
