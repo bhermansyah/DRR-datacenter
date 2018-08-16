@@ -2561,22 +2561,22 @@ def getDroughtStatistics(filterLock, flag, code, woy, includes=[], excludes=[]):
 
     if flag=='entireAfg':
         sql = "select \
-            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) as min, \
             COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
             COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
             COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
             from afg_lndcrva inner join history_drought on history_drought.ogc_fid=afg_lndcrva.ogc_fid \
             where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
             and history_drought.woy='"+woy+"'\
-            group by afg_lndcrva.agg_simplified_description, history_drought.min \
-            order by afg_lndcrva.agg_simplified_description, history_drought.min"
+            group by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) \
+            order by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1)"
     elif flag =='currentProvince':
         if len(str(code)) > 2:
             ff0001 =  "afg_lndcrva.dist_code  = '"+str(code)+"'"
         else :
             ff0001 =  "afg_lndcrva.prov_code  = '"+str(code)+"'" 
         sql = "select \
-            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) as min, \
             COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
             COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
             COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
@@ -2584,11 +2584,11 @@ def getDroughtStatistics(filterLock, flag, code, woy, includes=[], excludes=[]):
             where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
             and history_drought.woy='"+woy+"'\
             and "+ff0001+" \
-            group by afg_lndcrva.agg_simplified_description, history_drought.min \
-            order by afg_lndcrva.agg_simplified_description, history_drought.min"
+            group by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) \
+            order by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1)"
     elif flag =='drawArea':
         sql = "select \
-            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) as min, \
             COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
             COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
             COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
@@ -2596,11 +2596,11 @@ def getDroughtStatistics(filterLock, flag, code, woy, includes=[], excludes=[]):
             where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
             and history_drought.woy='"+woy+"' \
             and ST_Intersects(afg_lndcrva.wkb_geometry,"+filterLock+") \
-            group by afg_lndcrva.agg_simplified_description, history_drought.min \
-            order by afg_lndcrva.agg_simplified_description, history_drought.min"
+            group by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) \
+            order by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1)"
     else:   
         sql = "select \
-            afg_lndcrva.agg_simplified_description, history_drought.min, \
+            afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) as min, \
             COALESCE(ROUND(sum(afg_lndcrva.area_population)),0) as pop, \
             COALESCE(ROUND(sum(afg_lndcrva.area_buildings)),0) as building, \
             COALESCE(ROUND(sum(afg_lndcrva.area_sqm)/1000000,1),0) as area \
@@ -2608,14 +2608,15 @@ def getDroughtStatistics(filterLock, flag, code, woy, includes=[], excludes=[]):
             where afg_lndcrva.aggcode_simplified not in ('WAT','BRS', 'BSD', 'SNW') and aggcode not in ('AGR/NHS','NHS/NFS','NHS/BRS','NHS/WAT','NHS/URB','URB/AGT','URB/AGI','URB/NHS','URB/BRS','URB/BSD') \
             and history_drought.woy='"+woy+"'\
             and ST_Intersects(afg_lndcrva.wkb_geometry,"+filterLock+") \
-            group by afg_lndcrva.agg_simplified_description, history_drought.min \
-            order by afg_lndcrva.agg_simplified_description, history_drought.min" 
+            group by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1) \
+            order by afg_lndcrva.agg_simplified_description, round(history_drought.mean-1)" 
    
     cursor = connections['geodb'].cursor()
     row = query_to_dicts(cursor, sql)
     counts = []
     for i in row:
-        counts.append(i)
+        if i['min']>=0:
+            counts.append(i)
     cursor.close()
 
     df = pd.DataFrame(counts, columns=counts[0].keys())
