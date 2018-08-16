@@ -107,8 +107,8 @@ def reclassify(filename, filecode):
     NewClass = np.where(((Band1 >= 8) & (Band1 <= 15.990000)), 2, NewClass) # Reclassify as 2
     NewClass = np.where(((Band1 >= 16) & (Band1 <= 23.990000)), 1, NewClass) # Reclassify as 1
     NewClass = np.where(((Band1 >= 24) & (Band1 <= 31.990000)), 0, NewClass) # Reclassify as 1
-    NewClass = np.where(((Band1 >= 32) & (Band1 <= 100)), 5, NewClass) # Reclassify as 5, set it to nodata
-    NewClass = np.where(((Band1 >= -9999) & (Band1 <= -0.010000)), 5, NewClass) # Reclassify as 5, set it to nodata
+    NewClass = np.where(((Band1 >= 32) & (Band1 <= 100)), -1, NewClass) # Reclassify as 5, set it to nodata
+    NewClass = np.where(((Band1 >= -9999) & (Band1 <= -0.010000)),-1, NewClass) # Reclassify as 5, set it to nodata
     del Band1
 
     if not os.path.exists(output):
@@ -126,7 +126,7 @@ def reclassify(filename, filecode):
     # logger.debug("Reclassifying : "+filename)
     print "Reclassifying : "+filename
 
-    zonal_stats('afg_lndcrva', output+'/re_'+filename, filecode, 5)
+    zonal_stats('afg_lndcrva', output+'/re_'+filename, filecode)
 
     print filename + ' added in database'
 
