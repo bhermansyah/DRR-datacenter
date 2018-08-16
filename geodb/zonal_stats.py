@@ -188,7 +188,7 @@ def zonal_stats(vector_path, raster_path, filecode, nodata_value=None, global_sr
     driver = gdal.GetDriverByName('MEM')
 
     # Loop through vectors
-    # stats = []
+    stats = []
     feat = vlyr.GetNextFeature()
     while feat is not None:
 
@@ -260,7 +260,7 @@ def zonal_stats(vector_path, raster_path, filecode, nodata_value=None, global_sr
                 woy=filecode
             )
             c.save()
-            # print feature_stats
+            print feature_stats
         
 
         rvds = None
