@@ -3902,7 +3902,7 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
             afg_lndcrva.agg_simplified_description,
             {adm_code},
             {adm_name},
-            history_drought.min,
+            round(history_drought.mean-1) as min,
             COALESCE(ROUND(SUM(afg_lndcrva.area_population)), 0) AS pop,
             COALESCE(ROUND(SUM(afg_lndcrva.area_buildings)), 0) AS building,
             COALESCE(ROUND(SUM(afg_lndcrva.area_sqm) / 1000000, 1), 0) AS area
@@ -3917,12 +3917,12 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
             afg_lndcrva.agg_simplified_description, 
             {adm_code},
             {adm_name},
-            history_drought.min
+            round(history_drought.mean-1)
         ORDER BY 
             afg_lndcrva.agg_simplified_description, 
             {adm_code}, 
             {adm_name},
-            history_drought.min        
+            round(history_drought.mean-1)        
         '''
 
     sql_total_tpl = '''
@@ -3970,7 +3970,8 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
     row = query_to_dicts(cursor, sql)
     counts = []
     for i in row:
-        counts.append(i)
+        if i['min']>=0:
+            counts.append(i)
 
     row_total = query_to_dicts(cursor, sql_total)
     counts_total = []
