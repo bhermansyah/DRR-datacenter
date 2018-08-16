@@ -244,7 +244,7 @@ def zonal_stats(vector_path, raster_path, filecode, nodata_value=None, global_sr
             'agg_code': feat.GetField(4)
         }
 
-        # stats.append(feature_stats)
+        stats.append(feature_stats)
 
         if int(masked.count())>0:
             c = HistoryDrought(
