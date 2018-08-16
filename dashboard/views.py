@@ -15,7 +15,7 @@ import pdfkit
 from geonode.people.models import Profile
 from django.views.decorators.csrf import csrf_exempt
 
-from datetime import datetime
+from datetime import datetime, date
 from django.utils.formats import dateformat
 
 from django.conf import settings
@@ -91,9 +91,9 @@ def common(request):
 	elif request.GET['page'] == 'landslide':
 		response = getLandslideRisk(request, filterLock, flag, code)
 	elif request.GET['page'] == 'drought':
-		dateIn_str = request.GET['date'] if ('date' in request.GET) else str(datetime.date.today())
+		dateIn_str = request.GET['date'] if ('date' in request.GET) else str(date.today())
 		dateIn = dateIn_str.split('-')
-		woy = dateIn[0] + '%03d' % datetime.date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1]
+		woy = dateIn[0] + '%03d' % date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1]
 		closest_woy = getClosestDroughtWOY(woy)
 		response = getDroughtRisk(request, filterLock, flag, code, closest_woy)
 	elif request.GET['page'] == 'main':
