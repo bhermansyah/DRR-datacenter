@@ -1,7 +1,7 @@
 {% extends "v2/site_base.html" %}
 
 {% load i18n %}
-{% block title %} {% trans "About ASDC" %} — {{ block.super }} {% endblock %}
+{% block title %} {% trans "Training" %} — {{ block.super }} {% endblock %}
 {% block body_class %}about training {{ block.super }}{% endblock %}
 {% block body_outer %}
 
@@ -56,6 +56,28 @@
 		<p>&nbsp;</p>
 
 		<div class="row">
+			<div class="col-md-9">
+				<h3>{% trans "ASDC University Certification Program (Introduction to ASDC)" %}</h3>
+				<p>{% trans "In Collaboration with the California University of Pennsylvania and Northeastern University, under the guidance of Professor Dr. Thomas R. Mueller the ASDC is providing testing/certification access to participating universities." %}</p>
+				<a href="../dashboard/classmarker_university" target="_blank">{% trans "Go to University Certification Portal" %}</a>
+
+				<p>&nbsp;</p>
+			</div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="col-md-6 col-xs-6 col-sm-3">
+						<img src="{{ STATIC_URL }}v2/images/partner/calu.png" alt="" class="img-responsive">
+					</div>
+					<div class="col-md-6 col-xs-6 col-sm-3">
+						<img src="{{ STATIC_URL }}v2/images/partner/northeastern.png" alt="" class="img-responsive">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<p>&nbsp;</p>
+
+		<div class="row">
 			<div class="col-md-12">
 				<h3>Videos</h3>
 				<p>{% trans "To facilitate better communication, a Youtube channel has been made to host basic instruction videos on the functionalities of the Afghanistan Spatial Data Center (asdc.immap.org). The instruction videos can be found on YouTube and on the ASDC (available in Dari and English). Currently, there are 11 training videos, in total 1 ½ hours of material." %}</p>
@@ -78,6 +100,23 @@
 				Gambar 2
 			</div> -->
 		</div>
+
+		<p>&nbsp;</p>
+
+		<div class="row">
+			<div class="col-md-6">
+				<h3>{% trans "Flood Hazard Analysis using Afghanistan Spatial Data Center" %}</h3>
+				<p>{% trans "Created by: California University of Pennsylvania Students - Adam Wells, Gabrielle Salerni, John Beattie, and Janay Myers And Thomas R. Mueller, Ph.D., GISP Geography Professor" %}</p>
+				<p>{% trans "Give a structured overview and exercises for geospatial analysis using the ASDC." %}</p>
+			</div>
+			<div class="col-md-6">
+				<center>
+					<iframe src="https://docs.google.com/viewer?srcid=1tJhrtBgXs0TPeCw9gOxHR5bBsDwBMzJI&pid=explorer&efh=false&a=v&  chrome=false&embedded=true" style="width:460px; height:600px;" frameborder="0"></iframe>
+				</center>
+			</div>
+		</div>
+
+		
 	</section>
 
 {% endblock %}
