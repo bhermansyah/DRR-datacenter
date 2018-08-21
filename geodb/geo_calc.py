@@ -3902,10 +3902,10 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
             afg_lndcrva.agg_simplified_description,
             {adm_code},
             {adm_name},
-            round(history_drought.mean-1) as min,
-            COALESCE(ROUND(SUM(afg_lndcrva.area_population)), 0) AS pop,
-            COALESCE(ROUND(SUM(afg_lndcrva.area_buildings)), 0) AS building,
-            COALESCE(ROUND(SUM(afg_lndcrva.area_sqm) / 1000000, 1), 0) AS area
+            round(history_drought.mean-1) as min, 
+            COALESCE(ROUND(SUM({pop_function})), 0) AS pop,
+            COALESCE(ROUND(SUM({building_function})), 0) AS building,
+            COALESCE(ROUND(SUM({area_function}) / 1000000, 1), 0) AS area
         FROM afg_lndcrva
         INNER JOIN history_drought
         ON history_drought.ogc_fid = afg_lndcrva.ogc_fid
@@ -3913,16 +3913,8 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
         AND aggcode NOT IN ('AGR/NHS', 'NHS/NFS', 'NHS/BRS', 'NHS/WAT', 'NHS/URB', 'URB/AGT', 'URB/AGI', 'URB/NHS', 'URB/BRS', 'URB/BSD')
         AND history_drought.woy = '{woy}'
         {extra_condition}
-        GROUP BY 
-            afg_lndcrva.agg_simplified_description, 
-            {adm_code},
-            {adm_name},
-            round(history_drought.mean-1)
-        ORDER BY 
-            afg_lndcrva.agg_simplified_description, 
-            {adm_code}, 
-            {adm_name},
-            round(history_drought.mean-1)        
+        GROUP BY 1, 2, 3, 4
+        ORDER BY 1, 2, 3, 4
         '''
 
     sql_total_tpl = '''
@@ -3930,24 +3922,25 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
             afg_lndcrva.agg_simplified_description,
             {adm_code},
             {adm_name},
-            COALESCE(ROUND(SUM(afg_lndcrva.area_population)), 0) AS pop,
-            COALESCE(ROUND(SUM(afg_lndcrva.area_buildings)), 0) AS building,
-            COALESCE(ROUND(SUM(afg_lndcrva.area_sqm) / 1000000, 1), 0) AS area
+            COALESCE(ROUND(SUM({pop_function})), 0) AS pop,
+            COALESCE(ROUND(SUM({building_function})), 0) AS building,
+            COALESCE(ROUND(SUM({area_function}) / 1000000, 1), 0) AS area
         FROM afg_lndcrva
-        WHERE 1 = 1
+        WHERE afg_lndcrva.aggcode_simplified NOT IN ('WAT', 'BRS', 'BSD', 'SNW')
+        AND aggcode NOT IN ('AGR/NHS', 'NHS/NFS', 'NHS/BRS', 'NHS/WAT', 'NHS/URB', 'URB/AGT', 'URB/AGI', 'URB/NHS', 'URB/BRS', 'URB/BSD')
         {extra_condition}
-        GROUP BY 
-            afg_lndcrva.agg_simplified_description, 
-            {adm_code},
-            {adm_name}
-        ORDER BY 
-            afg_lndcrva.agg_simplified_description, 
-            {adm_code}, 
-            {adm_name}
+        GROUP BY 1, 2, 3
+        ORDER BY 1, 2, 3
         '''
 
     sql_extra_condition_tpl = "AND {parent_adm_col} = '{parent_adm_val}'"
-    sql_param = {'woy':woy, 'extra_condition':''}
+    sql_param = {
+        'woy':woy, 
+        'extra_condition':'',
+        'pop_function' : 'afg_lndcrva.area_population',
+        'building_function' : 'afg_lndcrva.area_buildings',
+        'area_function' : 'afg_lndcrva.area_sqm'
+    }
 
     if flag=='entireAfg':
         sql_param.update({'adm_code': 'prov_code', 'adm_name': 'prov_na_en'})
@@ -3959,7 +3952,18 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
             sql_param.update({'parent_adm_col':'prov_code'})
         sql_param['extra_condition'] = sql_extra_condition_tpl.format(**sql_param)
     elif flag=='drawArea':
+        sql_param['adm_code'] = '0 as area_code'
+        sql_param['adm_name'] = '\'drawarea\' as area_name'
         sql_param['extra_condition'] = 'AND ST_Intersects(wkb_geometry, %s)' % filterLock
+        # sql_param['pop_function'] = 'case \
+        #     when ST_CoveredBy(afg_lndcrva.wkb_geometry ,'+filterLock+') then area_population \
+        #     else ST_Area(ST_Intersection(afg_lndcrva.wkb_geometry,'+filterLock+')) / ST_Area(afg_lndcrva.wkb_geometry)* area_population end'
+        # sql_param['building_function'] = 'case \
+        #     when ST_CoveredBy(afg_lndcrva.wkb_geometry ,'+filterLock+') then area_buildings \
+        #     else ST_Area(ST_Intersection(afg_lndcrva.wkb_geometry,'+filterLock+')) / ST_Area(afg_lndcrva.wkb_geometry)* area_buildings end'
+        # sql_param['area_function'] = 'case \
+        #     when ST_CoveredBy(afg_lndcrva.wkb_geometry ,'+filterLock+') then area_sqm \
+        #     else ST_Area(ST_Intersection(afg_lndcrva.wkb_geometry,'+filterLock+')) / ST_Area(afg_lndcrva.wkb_geometry)* area_sqm end'
 
     sql = sql_tpl.format(**sql_param)
     sql_total = sql_total_tpl.format(**sql_param)
@@ -3980,6 +3984,11 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
 
     cursor.close()
 
+    # after query executed change alias statement to column name only
+    if flag=='drawArea':
+        sql_param['adm_code'] = 'area_code'
+        sql_param['adm_name'] = 'area_name'
+    
     df = pd.DataFrame(counts, columns=counts[0].keys())
     df_total = pd.DataFrame(counts_total, columns=counts_total[0].keys())
 
@@ -4014,24 +4023,25 @@ def getDroughtRisk(request, filterLock, flag, code, woy, includes=[], excludes=[
                     'area':df_risk_agg['area']
                     }
                 }
-        for adm in df_lc[sql_param['adm_code']].unique():
-            df_adm = df_lc[df_lc[sql_param['adm_code']]==adm]
-            d[lc]['adm_child'][adm] = {
-                'code' : adm,
-                'label':df_adm.iloc[0][sql_param['adm_name']], 
-                'risk_child':{}
-                }
-            for risk in df_adm['min'].unique():
-                risk_int = int(risk)
-                df_risk = df_adm[df_adm['min']==risk]
-                d[lc]['adm_child'][adm]['risk_child'][risk_int] =  {
-                    'label': droughtrisks[risk_int],
-                    'child': {
-                        'pop':df_risk.iloc[0]['pop'],
-                        'building':df_risk.iloc[0]['building'],
-                        'area':df_risk.iloc[0]['area']
-                        }
+        if not ((flag=='drawArea') or (flag=='currentProvince' and len(str(code)) > 2)):
+            for adm in df_lc[sql_param['adm_code']].unique():
+                df_adm = df_lc[df_lc[sql_param['adm_code']]==adm]
+                d[lc]['adm_child'][adm] = {
+                    'code' : adm,
+                    'label':df_adm.iloc[0][sql_param['adm_name']], 
+                    'risk_child':{}
                     }
+                for risk in df_adm['min'].unique():
+                    risk_int = int(risk)
+                    df_risk = df_adm[df_adm['min']==risk]
+                    d[lc]['adm_child'][adm]['risk_child'][risk_int] =  {
+                        'label': droughtrisks[risk_int],
+                        'child': {
+                            'pop':df_risk.iloc[0]['pop'],
+                            'building':df_risk.iloc[0]['building'],
+                            'area':df_risk.iloc[0]['area']
+                            }
+                        }
 
     # calculate pop, building, area group by risk
     groupby_risk = {}

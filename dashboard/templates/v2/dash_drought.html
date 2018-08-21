@@ -602,7 +602,32 @@
 	var centroid = boundary['centroid'];
 
 	// Add additional data to properties in GeoJSON
+
 	for (var i = 0; i < boundary.features.length; i++) {
+		{% if parent_label_dash|length_is:"3" or request.GET.flag == 'drawArea' %}
+			set_jenk_divider = 1;
+			{% with map_data=drought_data.group_by.adm_risk.adm_child.0 %}
+				boundary['features'][i]['properties']['na_en']="{{ map_data.adm_name }}"
+
+				boundary['features'][i]['properties']['drought_pop_ab_dry']= checkNull({{ map_data.risk_child.0.child.pop }});
+				boundary['features'][i]['properties']['drought_pop_moderate']= checkNull({{ map_data.risk_child.1.child.pop }});
+				boundary['features'][i]['properties']['drought_pop_severe']= checkNull({{ map_data.risk_child.2.child.pop }});
+				boundary['features'][i]['properties']['drought_pop_extreme']= checkNull({{ map_data.risk_child.3.child.pop }});
+				boundary['features'][i]['properties']['drought_pop_exceptional']= checkNull({{ map_data.risk_child.4.child.pop }});
+
+				boundary['features'][i]['properties']['drought_build_ab_dry']= checkNull({{ map_data.risk_child.0.child.building }});
+				boundary['features'][i]['properties']['drought_build_moderate']= checkNull({{ map_data.risk_child.1.child.building }});
+				boundary['features'][i]['properties']['drought_build_severe']= checkNull({{ map_data.risk_child.2.child.building }});
+				boundary['features'][i]['properties']['drought_build_extreme']= checkNull({{ map_data.risk_child.3.child.building }});
+				boundary['features'][i]['properties']['drought_build_exceptional']= checkNull({{ map_data.risk_child.4.child.building }});
+
+				boundary['features'][i]['properties']['drought_area_ab_dry']= checkNull({{ map_data.risk_child.0.child.area }});
+				boundary['features'][i]['properties']['drought_area_moderate']= checkNull({{ map_data.risk_child.1.child.area }});
+				boundary['features'][i]['properties']['drought_area_severe']= checkNull({{ map_data.risk_child.2.child.area }});
+				boundary['features'][i]['properties']['drought_area_extreme']= checkNull({{ map_data.risk_child.3.child.area }});
+				boundary['features'][i]['properties']['drought_area_exceptional']= checkNull({{ map_data.risk_child.4.child.area }});
+			{% endwith %}
+		{% endif %}
 		{% for idx, map_data in drought_data.group_by.adm_risk.adm_child.items %}
 			if (boundary['features'][i]['properties']['code']=={{ map_data.adm_code }}) {
 				boundary['features'][i]['properties']['na_en']="{{ map_data.adm_name }}"
