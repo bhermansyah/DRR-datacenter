@@ -2412,7 +2412,7 @@ def calculate_glofas_params(date):
 
 
 def get_nc_file_from_ftp(date):
-    # print getattr(settings, 'GLOFAS_FTP_UNAME')
+    # print getattr(settings, ' _FTP_UNAME')
     # print getattr(settings, 'GLOFAS_FTP_UPASS')
     # print Glofasintegrated.objects.latest('datadate').date
     date_arr = date.split('-')
@@ -2442,10 +2442,13 @@ def runGlofasDownloader():
     end_date = datetime.date.today() - delta
 
     while d <= end_date:
-        print d.strftime("%Y-%m-%d")
-        get_nc_file_from_ftp(d.strftime("%Y-%m-%d"))
-        calculate_glofas_params(d.strftime("%Y-%m-%d"))
-        d += delta
+        try:
+            print d.strftime("%Y-%m-%d")
+            get_nc_file_from_ftp(d.strftime("%Y-%m-%d"))
+            calculate_glofas_params(d.strftime("%Y-%m-%d"))
+            d += delta
+        except:
+            d += delta
 
 def getWeatherInfoVillages(request):
     template = './weatherinfo.html'
