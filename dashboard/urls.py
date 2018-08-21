@@ -8,6 +8,7 @@ urlpatterns = patterns(
     url(r'^multiple$', 'dashboard_multiple', name='dashboard_multiple'),
     url(r'^getprovinces$', 'get_provinces', name='get_provinces'),
     url(r'^classmarker$', 'classmarkerRedirect', name='classmarkerRedirect'),
+    url(r'^classmarker_university$', 'classmarkerUnivesityRedirect', name='classmarkerUnivesityRedirect'),
     url(r'^classmarker_insert$', 'classmarkerInsert', name='classmarkerInsert'),
     url(r'^downloadPDFFile$', 'downloadPDFFile', name='downloadPDFFile'),
     

@@ -357,6 +357,9 @@ def downloadPDFFile(request):
 def classmarkerRedirect(request):
 	return redirect('https://www.classmarker.com/online-test/start/?quiz=mft579f02fe604fb&cm_user_id='+request.user.username+'&cm_fn='+request.user.first_name+'&cm_ln='+request.user.last_name+'&cm_e='+request.user.email)
 
+def classmarkerUnivesityRedirect(request):
+	return redirect('https://www.classmarker.com/online-test/start/?quiz=n3b5b768714a11cd&cm_user_id='+request.user.username+'&cm_fn='+request.user.first_name+'&cm_ln='+request.user.last_name+'&cm_e='+request.user.email)
+
 def classmarkerInsert(request):
 	# classmarker
 	# print request.GET
