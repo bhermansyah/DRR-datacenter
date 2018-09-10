@@ -1,4 +1,4 @@
-{% load dialogos_tags %}
+{% load deliverynotes_tags %}
 {% load bootstrap_tags %}
 {% load pagination_tags %}
 {% load url from future %}
@@ -8,8 +8,8 @@
 
 {% load i18n %}
 
-  <div id="comment" class="tab-pane fade">
-    <div id="comments" class="comments">
+  <div id="note" class="tab-pane fade">
+    <div id="Notes" class="comments">
         <!-- {#% if comment_count > 0 %} -->
         <h4>{% comment_count resource %} {% trans 'Comments' %}</h4>
         <!-- {#% else %} -->

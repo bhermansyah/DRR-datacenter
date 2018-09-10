@@ -10,4 +10,10 @@
     {% if GEOGIG_ENABLED and resource.link_set.geogig %}
     <li><a data-toggle="tab" href="#geogig">{% trans "GeoGig" %}</a></li>
     {% endif %}
+    {% if resource.owner == request.user or request.user.org_acronym == "iMMAP" %}
+        {% if resource.polymorphic_ctype.name == 'document' %}
+        <li><a data-toggle="tab" href="#note">{% trans "Delivery Notes" %}</a></li>
+        {% endif %}
+    {% endif %}
+
 </ul>

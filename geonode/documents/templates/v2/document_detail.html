@@ -106,6 +106,9 @@
                   </table>
               </div>
               {% include "v2/_comments.html" %}
+              {% if resource.owner == request.user or request.user.org_acronym == "iMMAP"  %}
+                {% include "v2/_deliverynotes.html" %}
+              {% endif %}
             </div>
           </div>
       </div>

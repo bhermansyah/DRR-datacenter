@@ -1,4 +1,4 @@
-{% load dialogos_tags %}
+{% load deliverynotes_tags %}
 {% load bootstrap_tags %}
 {% load pagination_tags %}
 {% load url from future %}
@@ -8,10 +8,22 @@
 
 {% load i18n %}
 
-  <div id="comment" class="tab-pane fade">
-    <div id="comments" class="comments">
+{% block head %}
+   <!--  <link rel="stylesheet" 
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">
+        <link rel="stylesheet" 
+              href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>
+         -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
+        
+        {{ form.media }}
+{% endblock head %}
+
+  <div id="note" class="tab-pane fade">
+    <div id="Notes" class="comments">
         <!-- {#% if comment_count > 0 %} -->
-        <h4>{% comment_count resource %} {% trans 'Comments' %}</h4>
+        <h4>{% comment_count resource %} {% trans 'Delivery Notes' %}</h4>
         <!-- {#% else %} -->
         <!-- <h4>{#% trans 'No Comments' %}</h4> -->
         <!-- {#% endif %} -->
@@ -25,7 +37,7 @@
                 </div>
                 <div class="media-body">
                     <div>
-                        <strong>{% trans 'Posted by' %}<a href="{{ comment.author.get_absolute_url }}" rel="author"> {{ comment.author }}</a></strong>
+                        <strong>{% trans 'Noted by' %}<a href="{{ comment.author.get_absolute_url }}" rel="author"> {{ comment.author }}</a></strong>
                         <small> on <time>{{ comment.submit_date|date:"M j, Y" }}</time></small>
                         {% if comment|can_delete_comment:request.user %}
                         <div class="pull-right" style="display: inline-block; padding: 0;">
@@ -36,7 +48,9 @@
                         </div>
                         {% endif %}
                     </div>
-                    <p>{{ comment.comment }}</p>
+                    <p>{{ comment.copies }} copies delivered to {{ comment.orgtarget | safe}} <br/>
+                    contact person : {{ comment.orgcontact }}</p>
+                    <p><small>{{ comment.note }}</small></p>
                 </div>
             </div>
               {% endfor %}
@@ -46,8 +60,7 @@
         {% if user.is_authenticated %}
           {% comment_form resource as form %}
         <div class="comment-form">
-            <h4>Leave a Comment</h4>
-            <p class="muted">Make sure you enter the (*) required information where indicated. HTML code is not allowed.</p>
+            <h4>Log your delivery notes</h4>
             <form action="{% comment_target resource %}" method="POST" id="form_post_comment">
               {% csrf_token %}
               {{ form|as_bootstrap }}

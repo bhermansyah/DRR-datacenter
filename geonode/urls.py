@@ -34,6 +34,7 @@ import autocomplete_light
 import dashboard
 import securitydb
 import pushnotif
+import deliverynotes
 
 from geonode.documents.urls_api_checkpdf import api as api_checkpdf
 
@@ -134,6 +135,8 @@ urlpatterns = patterns('',
 
                        # Users statistics
                        url(r'^userstatistics$', 'userstatistics.views.userstatistics', name='userstatistics'),
+
+                      (r'^deliverynotes/', include('deliverynotes.urls')),
 
                        # Accounts
                        url(r'^account/ajax_login$', 'geonode.views.ajax_login', name='account_ajax_login'),
