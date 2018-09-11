@@ -17,7 +17,12 @@
             {% if count > 0 %}
           <li> 
             <div class="checkbox checkbox-red"> 
-              <label><input type="checkbox" id="{{ facet }}" data-value="{{ facet }}" data-filter="{{ filter }}" ng-click="multiple_choice_listener($event)">{{ facet|capfirst }}
+              <label><input type="checkbox" id="{{ facet }}" data-value="{{ facet }}" data-filter="{{ filter }}" ng-click="multiple_choice_listener($event)">
+                {% if facet == "presentation" %} 
+                  {{ "Maps & Infographics" }}
+                {% else %}
+                  {{ facet|capfirst }}
+                {% endif %}
               </label> 
               <span class="badge pull-right">{{ count }}</span>
             </div> 
