@@ -15,6 +15,57 @@ from geonode.groups.models import GroupProfile
 
 register = template.Library()
 
+@register.filter(name='split')
+def split(value, arg):
+
+    category = ''
+    if value.split(arg)[0]=='agr':
+        category = "Agriculture"
+    elif value.split(arg)[0]=='av':
+        category = "Avalanches"   
+    elif value.split(arg)[0]=='bnd':
+        category = "Administrative"   
+    elif value.split(arg)[0]=='dr':
+        category = "Drought"   
+    elif value.split(arg)[0]=='edu':
+        category = "Education"   
+    elif value.split(arg)[0]=='eq':
+        category = "Earthquakes"   
+    elif value.split(arg)[0]=='erm':
+        category = "Emergency Response Mechanism"   
+    elif value.split(arg)[0]=='fl':
+        category = "Flood"   
+    elif value.split(arg)[0]=='geo':
+        category = "Physical Environment"   
+    elif value.split(arg)[0]=='hlt':
+        category = "Health"     
+    elif value.split(arg)[0]=='hydro':
+        category = "Hydrology"     
+    elif value.split(arg)[0]=='hz':
+        category = "Hazard"     
+    elif value.split(arg)[0]=='idp':
+        category = "IDP"     
+    elif value.split(arg)[0]=='img':
+        category = "Imagery"     
+    elif value.split(arg)[0]=='infr':
+        category = "Infrastructure"     
+    elif value.split(arg)[0]=='met':
+        category = "Meteorology"  
+    elif value.split(arg)[0]=='ot':
+        category = "Others"     
+    elif value.split(arg)[0]=='ppl':
+        category = "Settlements"     
+    elif value.split(arg)[0]=='sec':
+        category = "Security"     
+    elif value.split(arg)[0]=='sos':
+        category = "Socio Demographics"
+
+    # return value.split(arg)[0]
+    return category
+
+@register.filter(name='split_value')
+def split_value(value, arg):
+    return value.split(arg)[2]
 
 @register.assignment_tag
 def num_ratings(obj):

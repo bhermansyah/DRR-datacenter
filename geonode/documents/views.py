@@ -209,7 +209,7 @@ class DocumentUpdateView(UpdateView):
 def document_metadata(
         request,
         docid,
-        template='documents/document_metadata.html'):
+        template='v2/document_metadata.html'):
 
     document = None
     try:

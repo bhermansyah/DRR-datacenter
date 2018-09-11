@@ -5862,3 +5862,17 @@ input#villageIDSearchForm.x-form-text.x-form-field.x-form-focus {
     z-index: 9000 !important;
 }
 
+.form-horizontal .form-group {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+
+.bg-line-bottom-custom {
+    border-bottom: solid;
+    border-color: #a61000;
+}
+
+.bg-line-top-custom {
+    border-top: solid;
+    border-color: #a61000;
+}

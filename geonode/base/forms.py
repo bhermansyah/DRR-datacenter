@@ -31,18 +31,22 @@ from modeltranslation.forms import TranslationModelForm
 from geonode.base.models import TopicCategory, Region
 from geonode.people.models import Profile
 
+from django.db.models import Q
+
 
 class CategoryChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-        return '<span class="has-popover" data-container="body" data-toggle="popover" data-placement="top" ' \
-               'data-content="' + obj.description + '" trigger="hover">' + obj.identifier +' - '+ obj.gn_description + '</span>'
+        # return '<span class="has-popover" data-container="body" data-toggle="popover" data-placement="top" ' \
+        #        'data-content="' + obj.description + '" trigger="hover">' + obj.identifier +' - '+ obj.gn_description + '</span>'
+        return obj.identifier +'-'+ obj.gn_description
 
 
 class CategoryForm(forms.Form):
+    
     category_choice_field = CategoryChoiceField(required=False,
                                                 label='*' + _('Category'),
                                                 empty_label=None,
-                                                queryset=TopicCategory.objects.extra(order_by=['description']))
+                                                queryset=TopicCategory.objects.extra(order_by=['identifier']))
 
     def clean(self):
         cleaned_data = self.data
@@ -107,7 +111,7 @@ class ResourceBaseForm(TranslationModelForm):
 
     regions = TreeNodeMultipleChoiceField(
         required=False,
-        queryset=Region.objects.all(),
+        queryset=Region.objects.all().filter(Q(parent_id=8) | Q(pk__gte=260)).exclude(pk__in=[126,130,225,234,245]),
         level_indicator=u'___')
     regions.widget.attrs = {"size": 20}
 

@@ -55,13 +55,40 @@ class DocumentForm(ResourceBaseForm):
 
     class Meta(ResourceBaseForm.Meta):
         model = Document
+        fields = [
+            'owner',
+            'title',
+            'subtitle',
+            'datasource',
+            'papersize',
+            'edition',
+            'date_type',
+            'date',
+            'abstract',
+            'purpose',
+            'regions',
+            'supplemental_information',
+            'category'
+        ]
         exclude = ResourceBaseForm.Meta.exclude + (
             'content_type',
             'object_id',
             'doc_file',
             'extension',
             'doc_type',
-            'doc_url')
+            'doc_url',
+            'temporal_extent_start',
+            'temporal_extent_end',
+            'thumbnail_url',
+            'distribution_url',
+            'distribution_description',
+            'restriction_code_type',
+            'constraints_other',
+            'license',
+            'language',
+            'spatial_representation_type',
+            'data_quality_statement',
+            )
 
 
 class DocumentDescriptionForm(forms.Form):
