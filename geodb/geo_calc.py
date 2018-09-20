@@ -2038,8 +2038,8 @@ def getRawBaseLine(filterLock, flag, code, includes=[], excludes=[]):
 
     temp = dict([(c['agg_simplified_description'], c['houseatrisk']) for c in parent_data])
     response['built_up_buildings'] = temp.get('Build Up', 0) or 0
-    response['cultivated_buildings'] = temp.get('Fruit Trees', 0) or 0+temp.get('Irrigated Agricultural Land', 0) or 0+temp.get('Rainfed', 0) or 0+temp.get('Vineyards', 0) or 0
-    response['barren_buildings'] = temp.get('Water body and Marshland', 0) or 0+temp.get('Barren land', 0) or 0+temp.get('Snow', 0) or 0+temp.get('Rangeland', 0) or 0+temp.get('Sand Covered Areas', 0) or 0+temp.get('Forest & Shrub', 0) or 0+temp.get('Sand Dunes', 0) or 0
+    response['cultivated_buildings'] = (temp.get('Fruit Trees', 0) or 0) + (temp.get('Irrigated Agricultural Land', 0) or 0) + (temp.get('Rainfed', 0) or 0) + (temp.get('Vineyards', 0) or 0)
+    response['barren_buildings'] = (temp.get('Water body and Marshland', 0) or 0) + (temp.get('Barren land', 0) or 0) + (temp.get('Snow', 0) or 0) + (temp.get('Rangeland', 0) or 0) + (temp.get('Sand Covered Areas', 0) or 0) + (temp.get('Forest & Shrub', 0) or 0) + (temp.get('Sand Dunes', 0) or 0)
 
     response['built_up_buildings_build_up'] = round(temp.get('Build Up', 0) or 0,0)
     response['cultivated_buildings_fruit_trees'] = round(temp.get('Fruit Trees', 0) or 0,0)
