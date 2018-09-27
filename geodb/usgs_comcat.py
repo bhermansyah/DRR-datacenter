@@ -3,6 +3,7 @@
 #stdlib imports
 import urllib2
 import urllib
+import urllib3
 import json
 import os.path
 from datetime import datetime,timedelta
@@ -89,17 +90,43 @@ def getUTCTimeStamp(timestamp):
     d = ShakeDateTime(d.year,d.month,d.day,d.hour,d.minute,d.second,d.microsecond)
     return d
 
+# def getURLHandle(url):
+#     try:
+#         fh = urllib2.urlopen(url)
+#     except:
+#         try:
+#             req = urllib2.Request(url)
+#             req.add_unredirected_header('User-Agent', 'Custom User-Agent')
+#             fh = urllib2.urlopen(req)
+#         except:
+#             raise Exception('Could not open url "%s"' % url)
+#     return fh
+
 def getURLHandle(url):
+    '''
+    replacement function using urllib3 
+    reason: urllib2 fail to verify https://usgs.gov 
+    add read() and close() method to maintain code compatibility
+    '''
+    # print os.path.basename(__file__), sys._getframe().f_lineno, 'url', url
+
+    def read(target):
+        return target.data
+
+    def close(target):
+        return
+
+    http = urllib3.PoolManager()
     try:
-        fh = urllib2.urlopen(url)
+        response = http.request('GET', url)
     except:
-        try:
-            req = urllib2.Request(url)
-            req.add_unredirected_header('User-Agent', 'Custom User-Agent')
-            fh = urllib2.urlopen(req)
-        except:
-            raise Exception('Could not open url "%s"' % url)
-    return fh
+        raise Exception('Could not open url "%s"' % url)
+    else:
+        # print os.path.basename(__file__), sys._getframe().f_lineno, 'response.data\n', response.data
+        response.read = types.MethodType(read, response)
+        response.close = types.MethodType(close, response)
+        return response
+    return
 
 def getAllVersions(eventid,productname,contentlist,folder=os.getcwd()):
     url = ALLPRODURL.replace('[EVENTID]',eventid)
