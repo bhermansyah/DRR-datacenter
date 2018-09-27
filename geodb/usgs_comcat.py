@@ -119,7 +119,8 @@ def getURLHandle(url):
     http = urllib3.PoolManager()
     try:
         response = http.request('GET', url)
-    except:
+    except Exception as e:
+        print e.message
         raise Exception('Could not open url "%s"' % url)
     else:
         # print os.path.basename(__file__), sys._getframe().f_lineno, 'response.data\n', response.data
