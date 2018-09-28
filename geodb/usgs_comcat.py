@@ -18,6 +18,7 @@ import calendar
 from neicmap import distance
 from libcomcat import fixed
 import numpy
+import types
 
 DEVSERVER = 'dev-earthquake.cr' #comcat server name
 SERVER = 'earthquake' #comcat server name
