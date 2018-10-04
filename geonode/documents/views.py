@@ -39,6 +39,9 @@ from tastypie.utils import trailing_slash
 import logging
 import os.path
 
+# ASDC
+from django.utils.text import get_valid_filename, slugify
+
 ALLOWED_DOC_TYPES = settings.ALLOWED_DOCUMENT_TYPES
 
 _PERMISSION_MSG_DELETE = _("You are not permitted to delete this document")
@@ -290,6 +293,32 @@ def document_metadata(
                     new_author = author_form.save()
 
             if new_poc is not None and new_author is not None:
+
+                # rename document file if any title fields changed
+                title_fields = ['category', 'regions', 'datasource', 'title', 'subtitle', 'papersize', 'date', 'edition']
+                title_fields_changed = [i for e in title_fields for i in document_form.changed_data if e == i]
+                if title_fields_changed:
+                    doc_file_path = os.path.dirname(document.doc_file.name)
+                    new_filename = '%s.%s' % (
+                        get_valid_filename('_'.join([
+                            'afg',
+                            new_category.identifier,
+                            '-'.join([r.code for r in document_form.cleaned_data['regions']]),
+                            document_form.cleaned_data['datasource'],
+                            slugify(document_form.cleaned_data['title']),
+                            slugify(document_form.cleaned_data['subtitle']),
+                            document_form.cleaned_data['papersize'],
+                            document_form.cleaned_data['date'].strftime('%Y-%m-%d'),
+                            document_form.cleaned_data['edition']])),
+                        document.extension
+                        )
+                    new_doc_file = os.path.join(doc_file_path, new_filename)
+                    old_path = os.path.join(settings.MEDIA_ROOT, document.doc_file.name)
+                    new_path = os.path.join(settings.MEDIA_ROOT, new_doc_file)
+                    os.rename(old_path, new_path)
+                    document.doc_file.name = new_doc_file
+                    document.save()
+
                 the_document = document_form.save()
                 the_document.poc = new_poc
                 the_document.metadata_author = new_author
