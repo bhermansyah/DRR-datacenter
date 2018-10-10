@@ -22,11 +22,11 @@ import types
 
 DEVSERVER = 'dev-earthquake.cr' #comcat server name
 SERVER = 'earthquake' #comcat server name
-URLBASE = 'https://[SERVER].usgs.gov/fdsnws/event/1/query?%s'.replace('[SERVER]',DEVSERVER)
-COUNTBASE = 'https://[SERVER].usgs.gov/fdsnws/event/1/count?%s'.replace('[SERVER]',DEVSERVER)
-CHECKBASE = 'https://[SERVER].usgs.gov/fdsnws/event/1/%s'.replace('[SERVER]',DEVSERVER)
-EVENTURL = 'https://[SERVER].usgs.gov/fdsnws/event/1/query?eventid=[EVENTID]&format=geojson'.replace('[SERVER]',DEVSERVER)
-ALLPRODURL = 'https://[SERVER].usgs.gov/fdsnws/event/1/query?format=geojson&includesuperseded=true&eventid=[EVENTID]'.replace('[SERVER]',DEVSERVER)
+URLBASE = 'https://[SERVER].usgs.gov/fdsnws/event/1/query?%s'.replace('[SERVER]',SERVER)
+COUNTBASE = 'https://[SERVER].usgs.gov/fdsnws/event/1/count?%s'.replace('[SERVER]',SERVER)
+CHECKBASE = 'https://[SERVER].usgs.gov/fdsnws/event/1/%s'.replace('[SERVER]',SERVER)
+EVENTURL = 'https://[SERVER].usgs.gov/fdsnws/event/1/query?eventid=[EVENTID]&format=geojson'.replace('[SERVER]',SERVER)
+ALLPRODURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&includesuperseded=true&eventid=[EVENTID]'
 #EVENTURL = 'https://[SERVER].cr.usgs.gov/fdsnws/event/1/query?eventid=[EVENTID]&format=geojson'.replace('[SERVER]',SERVER)
 TIMEFMT = '%Y-%m-%dT%H:%M:%S'
 NAN = float('nan')
