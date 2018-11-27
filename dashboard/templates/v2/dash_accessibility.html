@@ -557,12 +557,12 @@
                         <div class="col-md-4 col-sm-4 col-xs-12 center">
                             <div class="tile_count">
                                 <div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
-                                    <span class="count_top"><i class="fa fa-tree"></i>&nbsp;{% trans 'Total Area (km)' %}</span>
+                                    <span class="count_top"><i class="fa fa-tree"></i>&nbsp;{% trans 'Total Area ' %}{% blocktrans %}km<sup>2</sup>{% endblocktrans %}</span>
                                     <div class="count red">{% readable Area %}
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-6 tile_stats_count">
-                                    <span class="count_top"><i class="fa fa-signal"></i>&nbsp;{% trans 'GSM Cov. Area (km)' %}</span>
+                                    <span class="count_top"><i class="fa fa-signal"></i>&nbsp;{% trans 'GSM Cov. Area ' %} {% blocktrans %}km<sup>2</sup>{% endblocktrans %}</span>
                                     <div class="count red">{% readable area_on_gsm_coverage %}
                                     </div>
                                 </div>
