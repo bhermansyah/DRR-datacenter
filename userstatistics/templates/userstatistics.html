@@ -1261,6 +1261,8 @@ window.onload = function() {
   alasql.fn.parseInt = function(x) { return parseInt(x); }
   alasql.fn.isoWeek = function(d) { return moment(d).isoWeek(); }
   alasql.fn.isoWeekYear = function(d) { return moment(d).isoWeekYear(); }
+  alasql.fn.YEAR = function(d) { return moment(d).year(); };
+  alasql.fn.MONTH = function(d) { return moment(d).month()+1; }
 
   // Animate loader off screen
   $(".se-pre-con").fadeOut("slow");
