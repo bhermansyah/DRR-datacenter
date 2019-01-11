@@ -67,7 +67,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css?ver=1007">
   {% if 'print' in request.build_absolute_uri %}
-  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/print.css">
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/print.css?ver=1001">
   {% endif %}
 
 
@@ -470,7 +470,7 @@
 
   <!-- Custom -->
   <script src="{{ STATIC_URL }}v2/js/custom.js?ver=1007"></script>
-  <script src="{{ STATIC_URL }}v2/js/custom-dashboard.js?ver=1007"></script>
+  <script src="{{ STATIC_URL }}v2/js/custom-dashboard.js?ver=1001"></script>
   {% if 'print' in request.build_absolute_uri %}
         <script>
             toolbox_charts = false

@@ -440,7 +440,7 @@ function init_echarts() {
 		  	fontFamily: 'Arial, Verdana, sans-serif'
 		},
 
-		animation: true
+		animation: false
   	};
 
   	// var w = ['#ffaaab', '#ff6264', '#d13c3e', '#b92527']
