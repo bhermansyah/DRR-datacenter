@@ -188,6 +188,9 @@ def dashboard_detail(request):
 			options = {
 			    'quiet': '',
 			    'page-size': 'A4',
+				'page-width': '2480px',
+				'page-height': '3508px',
+				'dpi':300,
 			    # 'margin-left': 10,
 			    # 'margin-right': 10,
 			    'margin-bottom':10,
@@ -306,6 +309,9 @@ def dashboard_multiple(request):
 		options = {
 		    'quiet': '',
 		    'page-size': 'A4',
+			'page-width': '2550px',
+			'page-height': '3300px',
+			'dpi':300,
 		    # 'margin-left': 10,
 		    # 'margin-right': 10,
 		    'margin-bottom':10,

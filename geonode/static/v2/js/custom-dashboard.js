@@ -544,17 +544,17 @@ function init_echarts() {
 		  			data: gsm_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
-		  				restore: {
-		  				  	show: true,
-		  				  	title: "Restore"
-		  				},
-		  				saveAsImage: {
-		  				  	show: true,
-		  				  	title: "Save Image"
-		  				}
-		  			}
+						restore: {
+							  show: true,
+							  title: "Restore"
+						},
+						saveAsImage: {
+							  show: true,
+							  title: "Save Image"
+						}
+					}
 		  		},
 		  		series: [{
 		  			name: 'Area',
@@ -617,7 +617,7 @@ function init_echarts() {
 		  			data: gsm_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				restore: {
 		  				  	show: true,
@@ -691,7 +691,7 @@ function init_echarts() {
 					data: gsm_legend
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						// magicType: {
 						// 	show: true,
@@ -777,7 +777,7 @@ function init_echarts() {
 					data: time_legend
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -866,7 +866,7 @@ function init_echarts() {
 		  			data: time_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				magicType: {
 		  					show: true,
@@ -948,7 +948,7 @@ function init_echarts() {
 		  			data: time_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				magicType: {
 		  					show: true,
@@ -1030,7 +1030,7 @@ function init_echarts() {
 		  			data: time_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				magicType: {
 		  					show: true,
@@ -1112,7 +1112,7 @@ function init_echarts() {
 		  			data: time_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				magicType: {
 		  					show: true,
@@ -1194,7 +1194,7 @@ function init_echarts() {
 		  			data: time_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				magicType: {
 		  					show: true,
@@ -1276,7 +1276,7 @@ function init_echarts() {
 		  			data: time_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				magicType: {
 		  					show: true,
@@ -1358,7 +1358,7 @@ function init_echarts() {
 		  			data: time_legend
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				magicType: {
 		  					show: true,
@@ -1445,7 +1445,7 @@ function init_echarts() {
 				  	data: fforecast_legend
 				},
 				toolbox: {
-			      	show: true,
+			      	show: toolbox_charts,
 			      	feature: {
 			    		magicType: {
 				    	  	show: true,
@@ -1576,7 +1576,7 @@ function init_echarts() {
 				  	data: fforecast_legend
 				},
 				toolbox: {
-			      	show: true,
+			      	show: toolbox_charts,
 			      	feature: {
 			    		magicType: {
 				    	  	show: true,
@@ -1711,7 +1711,7 @@ function init_echarts() {
 				  	data: fforecast_legend
 				},
 				toolbox: {
-			      	show: true,
+			      	show: toolbox_charts,
 			      	feature: {
 			    		magicType: {
 				    	  	show: true,
@@ -1844,7 +1844,7 @@ function init_echarts() {
 				  	data: fforecast_legend
 				},
 				toolbox: {
-			      	show: true,
+			      	show: toolbox_charts,
 			      	feature: {
 			    		magicType: {
 				    	  	show: true,
@@ -1977,7 +1977,7 @@ function init_echarts() {
 					data: frisk_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2053,7 +2053,7 @@ function init_echarts() {
 					data: frisk_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2129,7 +2129,7 @@ function init_echarts() {
 					data: frisk_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2208,7 +2208,7 @@ function init_echarts() {
 						data: aforecast_cat
 	  				},
 	  				toolbox: {
-	  					show: true,
+	  					show: toolbox_charts,
 	  					feature: {
 	  						restore: {
 	  						  	show: true,
@@ -2283,7 +2283,7 @@ function init_echarts() {
 					data: aforecast_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2360,7 +2360,7 @@ function init_echarts() {
 					data: arisk_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2431,7 +2431,7 @@ function init_echarts() {
 					data: arisk_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2502,7 +2502,7 @@ function init_echarts() {
 					data: arisk_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2577,7 +2577,7 @@ function init_echarts() {
 					data: level_risk_pie
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -2654,7 +2654,7 @@ function init_echarts() {
 					data: level_risk_pie
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -2731,7 +2731,7 @@ function init_echarts() {
 					data: level_risk_pie
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -2808,7 +2808,7 @@ function init_echarts() {
 					data: level_risk_pie
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2885,7 +2885,7 @@ function init_echarts() {
   					data: level_risk_pie
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						restore: {
   						  	show: true,
@@ -2959,7 +2959,7 @@ function init_echarts() {
 					data: level_risk
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -3035,7 +3035,7 @@ function init_echarts() {
 					data: level_risk
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -3111,7 +3111,7 @@ function init_echarts() {
 					data: level_risk
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -3187,7 +3187,7 @@ function init_echarts() {
 					data: level_risk
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -3265,7 +3265,7 @@ function init_echarts() {
 					data: level_risk
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -3347,7 +3347,7 @@ function init_echarts() {
 					data: level_risk_pie
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -3427,7 +3427,7 @@ function init_echarts() {
 					data: level_risk_pie
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -3507,7 +3507,7 @@ function init_echarts() {
 					data: level_risk_pie
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -3613,7 +3613,7 @@ function init_echarts() {
 				  	data: level_risk_pie
 				},
 				toolbox: {
-			      	show: true,
+			      	show: toolbox_charts,
 			      	feature: {
 			    		magicType: {
 				    	  	show: true,
@@ -3807,7 +3807,7 @@ function init_echarts() {
 				  	data: level_risk_pie
 				},
 				toolbox: {
-			      	show: true,
+			      	show: toolbox_charts,
 			      	feature: {
 			    		magicType: {
 				    	  	show: true,
@@ -3976,7 +3976,7 @@ function init_echarts() {
 					data: erthqk_cat
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -4046,7 +4046,7 @@ function init_echarts() {
 		  			data: erthqk_cat
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				restore: {
 		  				  	show: true,
@@ -4116,7 +4116,7 @@ function init_echarts() {
 		  			data: erthqk_cat
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				restore: {
 		  				  	show: true,
@@ -4186,7 +4186,7 @@ function init_echarts() {
 					data: mercalli_cat
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						restore: {
 						  	show: true,
@@ -4276,7 +4276,7 @@ function init_echarts() {
 		  			data: mercalli_cat
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				restore: {
 		  				  	show: true,
@@ -4366,7 +4366,7 @@ function init_echarts() {
 		  			data: mercalli_cat
 		  		},
 		  		toolbox: {
-		  			show: true,
+		  			show: toolbox_charts,
 		  			feature: {
 		  				restore: {
 		  				  	show: true,
@@ -4642,7 +4642,7 @@ function init_echarts() {
 					data: bar_cas_cat
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -4730,7 +4730,7 @@ function init_echarts() {
 					data: bar_inc_cat
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -4818,7 +4818,7 @@ function init_echarts() {
 					data: bar_cas_cat
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -4906,7 +4906,7 @@ function init_echarts() {
 					data: bar_inc_cat
   				},
   				toolbox: {
-  					show: true,
+  					show: toolbox_charts,
   					feature: {
   						magicType: {
   							show: true,
@@ -4992,7 +4992,7 @@ function init_echarts() {
 					formatter: humTooltipBar
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -5060,7 +5060,7 @@ function init_echarts() {
 					formatter: humTooltipBar
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -5128,7 +5128,7 @@ function init_echarts() {
 					formatter: humTooltipBar
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -5196,7 +5196,7 @@ function init_echarts() {
 					// formatter: humTooltipBar
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,
@@ -5261,7 +5261,7 @@ function init_echarts() {
 					formatter: humTooltipBar
 				},
 				toolbox: {
-					show: true,
+					show: toolbox_charts,
 					feature: {
 						magicType: {
 							show: true,

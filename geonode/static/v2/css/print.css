@@ -185,14 +185,14 @@
 
     div.ch-size-pie{
       height: 370px !important;
-      width: 344px !important;
+      width: 277px !important;
       /*height: 350px !important;
       width: 240px !important;*/
     }
 
     div.ch-size-pie-mercalli{
       height: 370px !important;
-      width: 344px !important;
+      width: 277px !important;
     }
 
     div.ch-size-radar{
@@ -203,6 +203,10 @@
     div.ch-size-haccessBar{
         height: 480px !important;
         width: 544px !important;
+    }
+
+    .tile_count .tile_stats_count span {
+        font-size: 10px;
     }
 
     .checkbox input[type="checkbox"] {

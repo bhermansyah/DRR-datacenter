@@ -471,6 +471,15 @@
   <!-- Custom -->
   <script src="{{ STATIC_URL }}v2/js/custom.js?ver=1007"></script>
   <script src="{{ STATIC_URL }}v2/js/custom-dashboard.js?ver=1007"></script>
+  {% if 'print' in request.build_absolute_uri %}
+        <script>
+            toolbox_charts = false
+        </script>
+  {% else %}
+        <script>
+            toolbox_charts = true
+        </script>
+  {% endif %}
 
   {% include 'autocomplete_light/static.html' %}
 
