@@ -168,6 +168,7 @@ def dashboard_detail(request):
 			client = pdfcrowd.Client(getattr(settings, 'PDFCROWD_UNAME'), getattr(settings, 'PDFCROWD_UPASS'))
 			client.setPageWidth('8.3in')
 			client.setPageHeight('11.7in')
+			# client.setViewport('2480px', '3508px')
 			# client.setPageMargins('1in', '1in', '1in', '1in')
 			client.setVerticalMargin("0.75in")
 			client.setHorizontalMargin("0.25in")

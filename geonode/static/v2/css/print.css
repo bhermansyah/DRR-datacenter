@@ -114,7 +114,8 @@
     }*/
     .table-bordered th,
     .table-bordered td {
-      border: 1px solid #000;
+        border: 1px solid #000;
+        page-break-inside: avoid;
     }
     
     .hidden-print {
@@ -122,6 +123,7 @@
     }
     .visible-print-block {
       display: block !important;
+      border: none !important;
     }
 
     body{
@@ -135,7 +137,6 @@
     .table thead {
         background-color: #ddd !important;
         border: 1px solid #fff !important;
-        display: table-header-group;
     }
 
     tr td:nth-child(1), #incident_list_p {
@@ -185,14 +186,14 @@
 
     div.ch-size-pie{
       height: 370px !important;
-      width: 277px !important;
+      width: 200px !important;
       /*height: 350px !important;
       width: 240px !important;*/
     }
 
     div.ch-size-pie-mercalli{
       height: 370px !important;
-      width: 277px !important;
+      width: 200px !important;
     }
 
     div.ch-size-radar{
@@ -205,8 +206,16 @@
         width: 544px !important;
     }
 
+    .breadcrumb-custom{
+        font-size: 12px;
+    }
+
+    .x_title h2{
+        font-size: 14px;
+    }
+
     .tile_count .tile_stats_count span {
-        font-size: 10px;
+        font-size: 8px;
     }
 
     .checkbox input[type="checkbox"] {
