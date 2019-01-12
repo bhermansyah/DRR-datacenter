@@ -173,6 +173,11 @@
         color: #fff !important;
     }
 
+    select#select_evt{
+        text-align: right;
+        -moz-appearance: none;
+    }
+
     div.ch-size{
         height: 370px !important;
         /*width: 250px !important;*/
