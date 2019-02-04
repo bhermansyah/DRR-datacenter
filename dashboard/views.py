@@ -104,7 +104,7 @@ def common(request):
 
 	response['checked'] = []
 	if '_checked' in request.GET:
-		response['checked'] = request.GET['_checked'].split(",")
+		response['checked'] = filter(None, request.GET['_checked'].split(","))
 
 	class CustomEncoder(json.JSONEncoder):
 	    def default(self, obj):
