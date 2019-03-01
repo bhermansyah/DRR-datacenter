@@ -21,535 +21,620 @@
 var jsondata = {{ jsondata | safe }};
 var config = {};
 config['selectqry'] = [
-  {
-    text: 'User Raw Data',
-    sql: 'SELECT * FROM user;',
-    selected: true,
-    nograph: true
-  },
-  {
-    text: 'User Activity Raw Data',
-    sql: 'SELECT * FROM usac;',
-    // selected: true,
-    nograph: true
-  },
-  {
-    text: 'Number of User Activity Group By Date and Resource',
-    sql: 'SELECT * FROM (SELECT SUBSTRING(actiontime, 1, 10) AS `date`, resource, count(*) AS `count` FROM usac GROUP BY SUBSTRING(actiontime, 1, 10), resource) t1 ORDER BY `date`;',
-    sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, resource, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, resource) t1 ORDER BY `date`;',
-    sqlfiltered: this.sql,
-    filter: {},
-    fnbuildsqlfiltered: function() {
-      var arresource = $('#filterresource option:selected').map(function(a, b) {return '"'+b.value+'"';});
-      var wherein = "WHERE `resource` IN ("+arresource.get().join()+')';
-      var datefunc = 'SUBSTRING(actiontime, 1, 10)';
-      if ($('#periodic').val() == 'weekly') {
-        datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
-      }
-      else if ($('#periodic').val() == 'monthly') {
-        datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
-      }
-      else if ($('#periodic').val() == 'quarterly') {
-        datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
-      }
-      this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
-      this.filter['resource'] = $('#filterresource option:selected').map(function(a, b) {return b.value;}).get();
-      return this.sqlfiltered;
+    {
+      text: 'User Raw Data',
+      sql: 'SELECT * FROM user;',
+      selected: true,
+      nograph: true
     },
-    fnsetfilters: function() {
-      var queryopted = this;
-      var arresource = alasql('SELECT resource, COUNT(*) AS `usercount` FROM usac GROUP BY resource ORDER BY COUNT(*) DESC, resource ASC;');
-      fill_options($('#filterresource'), arresource, function(d) {return d['resource']}, function(d) {return d['resource']+' - '+d['usercount']+' user'});
-      $('#filterresource').multiselect({
-        maxHeight: 200,
-        buttonWidth: '100%',
-        includeSelectAllOption: true
-      });
-      // $('#filterresource').multiselect('select', arresource.slice(0, 3).map(function(r) {return r['resource']}));
-      $('#filterresource').multiselect('selectAll', false);
-      $('#filterresource').multiselect('updateButtonText');
-      var showids = ['blockfilterresource', 'blockperiodic', 'blockbtnfiltersubmit'];
-      $('#blockfilter .form-group').each(function() {
-        if (showids.indexOf(this.id) === -1) {
-          $(this).hide();
+    {
+      text: 'User Activity Raw Data',
+      sql: 'SELECT * FROM usac;',
+      // selected: true,
+      nograph: true
+    },
+    {
+      text: 'Number of User Activity Group By Date and Resource',
+      sql: 'SELECT * FROM (SELECT SUBSTRING(actiontime, 1, 10) AS `date`, resource, count(*) AS `count` FROM usac GROUP BY SUBSTRING(actiontime, 1, 10), resource) t1 ORDER BY `date`;',
+      sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, resource, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, resource) t1 ORDER BY `date`;',
+      sqlfiltered: this.sql,
+      filter: {},
+      fnbuildsqlfiltered: function () {
+        var arresource = $('#filterresource option:selected').map(function (a, b) { return '"' + b.value + '"'; });
+        var wherein = "WHERE `resource` IN (" + arresource.get().join() + ')';
+        var datefunc = 'SUBSTRING(actiontime, 1, 10)';
+        if ($('#periodic').val() == 'weekly') {
+          datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
         }
-        else {
-          $(this).show();
+        else if ($('#periodic').val() == 'monthly') {
+          datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
         }
-      });
-    },
-    fnfilldatatable: function(querydata) {
-      filldatatable(querydata);
-    },
-    fngraph: function(data) {
-      // convert alasql data to plotly format
-      ylabels = [];
-      xlabels = [];
-      yvalues = {};
-      plotlydata = [];
-      xaxiscol = 'date';
-      countcol = 'count';
-      // ylabels = Object.keys(data[0]);
-      qryopted = this;
+        else if ($('#periodic').val() == 'quarterly') {
+          datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
+        }
+        this.sqlfiltered = this.sqltemplate.format({ wherein: wherein, datefunc: datefunc });
+        this.filter['resource'] = $('#filterresource option:selected').map(function (a, b) { return b.value; }).get();
+        return this.sqlfiltered;
+      },
+      fnsetfilters: function () {
+        var queryopted = this;
+        var arresource = alasql('SELECT resource, COUNT(*) AS `activitycount` FROM usac GROUP BY resource ORDER BY COUNT(*) DESC, resource ASC;');
+        fill_options($('#filterresource'), arresource, function (d) { return d['resource'] }, function (d) { return d['resource'] + ' - ' + d['activitycount'] + ' activity' });
+        $('#filterresource').multiselect({
+          maxHeight: 200,
+          buttonWidth: '100%',
+          includeSelectAllOption: true
+        });
+        // $('#filterresource').multiselect('select', arresource.slice(0, 3).map(function(r) {return r['resource']}));
+        $('#filterresource').multiselect('selectAll', false);
+        $('#filterresource').multiselect('updateButtonText');
+        var showids = ['blockfilterresource', 'blockperiodic', 'blockbtnfiltersubmit'];
+        $('#blockfilter .form-group').each(function () {
+          if (showids.indexOf(this.id) === -1) {
+            $(this).hide();
+          }
+          else {
+            $(this).show();
+          }
+        });
+      },
+      fnfilldatatable: function (querydata) {
+        filldatatable(querydata);
+      },
+      fngraph: function (data) {
+        // convert alasql data to plotly format
+        ylabels = [];
+        xlabels = [];
+        yvalues = {};
+        plotlydata = [];
+        xaxiscol = 'date';
+        countcol = 'count';
+        // ylabels = Object.keys(data[0]);
+        qryopted = this;
+        serialdatesvalues = {};
 
-      // find date count
-      // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
-      // var datecount = r[0]['datecount'];
+        // find date count
+        // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
+        // var datecount = r[0]['datecount'];
 
-      // get all distinct resource to make y labels
-      // r = alasql("SELECT resource, COUNT(resource) AS `number of user activity` FROM usac GROUP BY resource ORDER BY COUNT(resource) DESC;");
+        // get all distinct resource to make y labels
+        // r = alasql("SELECT resource, COUNT(resource) AS `number of user activity` FROM usac GROUP BY resource ORDER BY COUNT(resource) DESC;");
 
-      var startdate = data[0]['date'];
-      var enddate = data[data.length-1]['date'];
-      xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
+        var startdate = data[0]['date'];
+        var enddate = data[data.length - 1]['date'];
+        xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
 
-      // limit displayed resources for performance reason
-      var maxresources = 14;
-      for (let i in this['filter']['resource'].slice(0, maxresources)) {
-        var resourcename = this['filter']['resource'][i];
-        ylabels.push(resourcename);
-        yvalues[resourcename] = Array(xlabels.length).fill(0);
-      }
+        for (var i = 0; i < xlabels.length; i++) serialdatesvalues[xlabels[i]] = { values: [], iscached: false };
 
-      // add 'other' for the rest of resources
-      if (this['filter']['resource'].length > maxresources) {
-        ylabels.push('Other');
-        yvalues['Other'] = Array(xlabels.length).fill(0);
-      }
+        // limit displayed resources for performance reason
+        var maxresources = 14;
+        var topresources = this['filter']['resource'].slice(0, maxresources).reverse();
+        for (let i in topresources) {
+          // for (let i in this['filter']['resource'].slice(0, maxresources)) {
+          var resourcename = this['filter']['resource'][i];
+          ylabels.push(resourcename);
+          yvalues[resourcename] = Array(xlabels.length).fill(0);
+        }
 
-      // transfer data to yvalues
-      for (let i in data) {
-        createdate = data[i]['date'];
-        resourcename = data[i]['resource'];
-        createdateidx = xlabels.indexOf(createdate);
-        if (createdateidx === -1) {
-          // only put to x labels if element doesn't exist in array
-          xlabels.push(createdate);
+        // add 'other' for the rest of resources
+        if (this['filter']['resource'].length > maxresources) {
+          ylabels.push('Other');
+          yvalues['Other'] = Array(xlabels.length).fill(0);
+        }
+
+        // transfer data to yvalues
+        for (let i in data) {
+          createdate = data[i]['date'];
+          resourcename = data[i]['resource'];
           createdateidx = xlabels.indexOf(createdate);
-          yvalues[resourcename][createdateidx] = 0;
-        }
-        if (!ylabels.includes(resourcename)) resourcename = 'Other';
-        yvalues[resourcename][createdateidx] += data[i]['count'];
-      }
-
-      // loop y labels to transfer data to chartdata
-      var hichartseries = [];
-      for (let i in ylabels.reverse()) {
-        hichartseries.push({
-          name: ylabels[i],
-          data: yvalues[ylabels[i]],
-        })
-      }
-
-      Highcharts.chart('graphuseractivity', {
-        chart: {
-          type: 'column',
-          zoomType: 'x'
-        },
-        title: {
-          text: '{periodic} Number of User Activity Group By Resource'.format({periodic: $("#periodic option:selected").text()})
-        },
-        xAxis: {
-          categories: xlabels,
-          type: 'date',
-          dateTimeLabelFormats: {
-            day: "%b %e, '%y",
-            week: "%b %e, '%y"
+          if (createdateidx === -1) {
+            // only put to x labels if element doesn't exist in array
+            xlabels.push(createdate);
+            createdateidx = xlabels.indexOf(createdate);
+            yvalues[resourcename][createdateidx] = 0;
           }
-        },
-        yAxis: {
-          min: 0,
+          serialdatesvalues[createdate].values.push({ name: resourcename, count: data[i]['count'] });
+          if (!ylabels.includes(resourcename)) resourcename = 'Other';
+          yvalues[resourcename][createdateidx] += data[i]['count'];
+        }
+
+        // save to global var to be accessed later in tooltip
+        qryopted.serialdatesvalues = serialdatesvalues;
+
+        // loop y labels to transfer data to chartdata
+        var hichartseries = [];
+        for (let i in ylabels) {
+          hichartseries.push({
+            name: ylabels[i],
+            data: yvalues[ylabels[i]],
+          })
+        }
+
+        Highcharts.chart('graphuseractivity', {
+          chart: {
+            type: 'column',
+            zoomType: 'x'
+          },
           title: {
-            text: 'Number of User Activity Group By Resource'
+            text: '{periodic} Number of User Activity Group By Resource'.format({ periodic: $("#periodic option:selected").text() })
           },
-          stackLabels: {
-            enabled: false,
-            style: {
-              fontWeight: 'bold',
-              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+          xAxis: {
+            categories: xlabels,
+            type: 'date',
+            dateTimeLabelFormats: {
+              day: "%b %e, '%y",
+              week: "%b %e, '%y"
             }
-          }
-        },
-        tooltip: {
-          // headerFormat: '<b>{point.x}</b><br/>',
-          // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
-          formatter: function () {
-            // console.log('this', this);
-            var s = '<b>' + this.x + '</b>';
-            var t = 0, b = '';
-            $.each(this.points, function () {
-              if (this.y) {
-                b = '<br/><span style="color:'+this.color+'">◼</span> ' + this.series.name + ': <b>' +this.y + '</b>'+b;
-                t += this.y;
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Number of User Activity'
+            },
+            stackLabels: {
+              enabled: false,
+              style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
               }
-            });
-            s += b+'<br/><b>Total: '+t+'</>';
-            return s;
-          },
-          // footerFormat: '<b>Total: {point.stackTotal}</b>',
-          shared: true
-        },
-        plotOptions: {
-          column: {
-            stacking: 'normal'
-          }
-        },
-        legend: {
-          align: 'right',
-          layout: 'vertical',
-          verticalAlign: 'top',
-          floating: false,
-          width: 300,
-          borderColor: 'None',
-          itemMarginTop: 3,
-          itemMarginBottom: 3,
-          reversed: true,
-          itemStyle: {
-            color: '#000000',
-            fontWeight: 'bold',
-            lineHeight: '1.5em'
-          }
-        },
-        series: hichartseries
-      });
-    }
-  },
-  {
-    text: 'Number of User Activity Group By Date and Organization',
-    sql: 'SELECT * FROM (SELECT SUBSTRING(`actiontime`, 1, 10) AS `date`, organization, count(*) AS `count` FROM usac GROUP BY SUBSTRING(`actiontime`, 1, 10), organization) t1 ORDER BY `date`;',
-    sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, organization, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, organization) t1 ORDER BY `date`;',
-    sqlfiltered: this.sql,
-    filter: {},
-    fnbuildsqlfiltered: function() {
-      var arorganization = $('#filterorganization option:selected').map(function(a, b) {return '"'+b.value+'"';});
-      var wherein = "WHERE `organization` IN ("+arorganization.get().join()+')';
-      var datefunc = 'SUBSTRING(actiontime, 1, 10)';
-      if ($('#periodic').val() == 'weekly') {
-        datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
-      }
-      else if ($('#periodic').val() == 'monthly') {
-        datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
-      }
-      else if ($('#periodic').val() == 'quarterly') {
-        datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
-      }
-      this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
-      this.filter['organization'] = $('#filterorganization option:selected').map(function(a, b) {return b.value;}).get();
-      return this.sqlfiltered;
-    },
-    fnsetfilters: function() {
-      var queryopted = this;
-      var arorganization = alasql('SELECT organization, COUNT(*) AS `usercount` FROM user GROUP BY organization ORDER BY COUNT(*) DESC, organization ASC;');
-      fill_options($('#filterorganization'), arorganization, function(d) {return d['organization']}, function(d) {return d['organization']+' - '+d['usercount']+' activity'});
-      $('#filterorganization').multiselect({
-        maxHeight: 200,
-        buttonWidth: '100%',
-        includeSelectAllOption: true
-      });
-      // $('#filterorganization').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
-      $('#filterorganization').multiselect('selectAll', false);
-      $('#filterorganization').multiselect('updateButtonText');
-      var showids = ['blockfilterorganization', 'blockperiodic', 'blockbtnfiltersubmit'];
-      $('#blockfilter .form-group').each(function() {
-        if (showids.indexOf(this.id) === -1) {
-          $(this).hide();
-        }
-        else {
-          $(this).show();
-        }
-      });
-    },
-    fnfilldatatable: function(querydata) {
-      filldatatable(querydata);
-    },
-    fngraph: function(data) {
-      // convert alasql data to plotly format
-      ylabels = [];
-      xlabels = [];
-      yvalues = {};
-      plotlydata = [];
-      xaxiscol = 'date';
-      countcol = 'count';
-      // ylabels = Object.keys(data[0]);
-      qryopted = this;
-
-      // find date count
-      // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
-      // var datecount = r[0]['datecount'];
-
-      // get all distinct organization to make y labels
-      // r = alasql("SELECT organization, COUNT(organization) AS `number of user activity` FROM usac GROUP BY organization ORDER BY COUNT(organization) DESC;");
-
-      var startdate = data[0]['date'];
-      var enddate = data[data.length-1]['date'];
-      xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
-
-      // limit displayed resources for performance reason
-      var maxresources = 14;
-      for (let i in this['filter']['organization'].slice(0, maxresources)) {
-        var resourcename = this['filter']['organization'][i];
-        ylabels.push(resourcename);
-        yvalues[resourcename] = Array(xlabels.length).fill(0);
-      }
-
-      // add 'other' for the rest of resources
-      if (this['filter']['organization'].length > maxresources) {
-        ylabels.push('Other');
-        yvalues['Other'] = Array(xlabels.length).fill(0);
-      }
-
-      // transfer data to yvalues
-      for (let i in data) {
-        createdate = data[i]['date'];
-        resourcename = data[i]['organization'];
-        createdateidx = xlabels.indexOf(createdate);
-        if (createdateidx === -1) {
-          // only put to x labels if element doesn't exist in array
-          xlabels.push(createdate);
-          createdateidx = xlabels.indexOf(createdate);
-          yvalues[resourcename][createdateidx] = 0;
-        }
-        if (!ylabels.includes(resourcename)) resourcename = 'Other';
-        yvalues[resourcename][createdateidx] += data[i]['count'];
-      }
-
-      // loop y labels to transfer data to chartdata
-      var hichartseries = [];
-      for (let i in ylabels.reverse()) {
-        hichartseries.push({
-          name: ylabels[i],
-          data: yvalues[ylabels[i]],
-        })
-      }
-
-      Highcharts.chart('graphuseractivity', {
-        chart: {
-          type: 'column',
-          zoomType: 'x'
-        },
-        title: {
-          text: '{periodic} Number of User Activity Group By Organization'.format({periodic: $("#periodic option:selected").text()})
-        },
-        xAxis: {
-          categories: xlabels,
-          type: 'date',
-          dateTimeLabelFormats: {
-            day: "%b %e, '%y",
-            week: "%b %e, '%y"
-          }
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Number of User Activity Group By Organization'
-          },
-          stackLabels: {
-            enabled: false,
-            style: {
-              fontWeight: 'bold',
-              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
             }
-          }
-        },
-        tooltip: {
-          // headerFormat: '<b>{point.x}</b><br/>',
-          // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
-          formatter: function () {
-            // console.log('this', this);
-            var s = '<b>' + this.x + '</b>';
-            var t = 0, b = '';
-            $.each(this.points, function () {
-              if (this.y) {
-                b = '<br/><span style="color:'+this.color+'">◼</span> ' + this.series.name + ': <b>' +this.y + '</b>'+b;
-                t += this.y;
-              }
-            });
-            s += b+'<br/><b>Total: '+t+'</>';
-            return s;
           },
-          // footerFormat: '<b>Total: {point.stackTotal}</b>',
-          shared: true
-        },
-        plotOptions: {
-          column: {
-            stacking: 'normal'
-          }
-        },
-        legend: {
-          align: 'right',
-          layout: 'vertical',
-          verticalAlign: 'top',
-          floating: false,
-          // width: 300,
-          borderColor: 'None',
-          itemMarginTop: 3,
-          itemMarginBottom: 3,
-          // reversed: true,
-          // y: 15,
-          itemStyle: {
-            color: '#000000',
-            fontWeight: 'bold',
-            lineHeight: '1.5em'
-          }
-        },
-        series: hichartseries
-      });
-    }
-  },
-  {
-    text: 'Number of User Activity Group By Date and Organization Type',
-    sql: 'SELECT * FROM (SELECT SUBSTRING(`actiontime`, 1, 10) AS `date`, org_type, count(*) AS `count` FROM usac GROUP BY SUBSTRING(`actiontime`, 1, 10), org_type) t1 ORDER BY `date`;',
-    sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, org_type, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, org_type) t1 ORDER BY `date`;',
-    sqlfiltered: this.sql,
-    filter: {},
-    fnbuildsqlfiltered: function() {
-      var arorganization = $('#filterorganizationtype option:selected').map(function(a, b) {return '"'+b.value+'"';});
-      var wherein = "WHERE `org_type` IN ("+arorganization.get().join()+')';
-      var datefunc = 'SUBSTRING(actiontime, 1, 10)';
-      if ($('#periodic').val() == 'weekly') {
-        datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
-      }
-      else if ($('#periodic').val() == 'monthly') {
-        datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
-      }
-      else if ($('#periodic').val() == 'quarterly') {
-        datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
-      }
-      this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
-      this.filter['organization'] = $('#filterorganizationtype option:selected').map(function(a, b) {return b.value;}).get();
-      return this.sqlfiltered;
-    },
-    fnsetfilters: function() {
-      var queryopted = this;
-      var arorganization = alasql('SELECT org_type, COUNT(*) AS `usercount` FROM user GROUP BY org_type ORDER BY COUNT(*) DESC, org_type ASC;');
-      fill_options($('#filterorganizationtype'), arorganization, function(d) {return d['org_type']}, function(d) {return d['org_type']+' - '+d['usercount']+' activity'});
-      $('#filterorganizationtype').multiselect({
-        maxHeight: 200,
-        buttonWidth: '100%',
-        includeSelectAllOption: true
-      });
-      // $('#filterorganizationtype').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
-      $('#filterorganizationtype').multiselect('selectAll', false);
-      $('#filterorganizationtype').multiselect('updateButtonText');
-      var showids = ['blockfilterorganizationtype', 'blockperiodic', 'blockbtnfiltersubmit'];
-      $('#blockfilter .form-group').each(function() {
-        if (showids.indexOf(this.id) === -1) {
-          $(this).hide();
-        }
-        else {
-          $(this).show();
-        }
-      });
-    },
-    fnfilldatatable: function(querydata) {
-      filldatatable(querydata);
-    },
-    fngraph: function(data) {
-      // convert alasql data to plotly format
-      ylabels = [];
-      xlabels = [];
-      yvalues = {};
-      plotlydata = [];
-      xaxiscol = 'date';
-      countcol = 'count';
-      // ylabels = Object.keys(data[0]);
-      qryopted = this;
-
-      // find date count
-      // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
-      // var datecount = r[0]['datecount'];
-
-      // get all distinct organization to make y labels
-      // r = alasql("SELECT organization, COUNT(organization) AS `number of user activity` FROM usac GROUP BY organization ORDER BY COUNT(organization) DESC;");
-
-      var startdate = data[0]['date'];
-      var enddate = data[data.length-1]['date'];
-      xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
-
-      // limit displayed resources for performance reason
-      var maxresources = 14;
-      for (let i in this['filter']['organization'].slice(0, maxresources)) {
-        var resourcename = this['filter']['organization'][i];
-        ylabels.push(resourcename);
-        yvalues[resourcename] = Array(xlabels.length).fill(0);
-      }
-
-      // add 'other' for the rest of resources
-      if (this['filter']['organization'].length > maxresources) {
-        ylabels.push('Other');
-        yvalues['Other'] = Array(xlabels.length).fill(0);
-      }
-
-      // transfer data to yvalues
-      for (let i in data) {
-        createdate = data[i]['date'];
-        resourcename = data[i]['org_type'];
-        createdateidx = xlabels.indexOf(createdate);
-        if (createdateidx === -1) {
-          // only put to x labels if element doesn't exist in array
-          xlabels.push(createdate);
-          createdateidx = xlabels.indexOf(createdate);
-          yvalues[resourcename][createdateidx] = 0;
-        }
-        if (!ylabels.includes(resourcename)) resourcename = 'Other';
-        yvalues[resourcename][createdateidx] += data[i]['count'];
-      }
-
-      // loop y labels to transfer data to chartdata
-      var hichartseries = [];
-      for (let i in ylabels.reverse()) {
-        hichartseries.push({
-          name: ylabels[i],
-          data: yvalues[ylabels[i]],
-        })
-      }
-
-      Highcharts.chart('graphuseractivity', {
-        chart: {
-          type: 'column',
-          zoomType: 'x'
-        },
-        title: {
-          text: '{periodic} Number of User Activity Group By Organization Type'.format({periodic: $("#periodic option:selected").text()})
-        },
-        xAxis: {
-          categories: xlabels,
-          type: 'date',
-          dateTimeLabelFormats: {
-            day: "%b %e, '%y",
-            week: "%b %e, '%y"
-          }
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: 'Number of User Activity Group By Organization Type'
-          },
-          stackLabels: {
-            enabled: false,
-            style: {
-              fontWeight: 'bold',
-              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-            }
-          }
-        },
-        tooltip: {
-          // headerFormat: '<b>{point.x}</b><br/>',
-          // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
-          formatter: function () {
-            // console.log('this', this);
-            var s = '<b>' + this.x + '</b>';
-            var t = 0, b = '';
-            $.each(this.points, function () {
-              if (this.y) {
-                b = '<br/><span style="color:'+this.color+'">◼</span> ' + this.series.name + ': <b>' +this.y + '</b>'+b;
-                t += this.y;
+          tooltip: {
+            // headerFormat: '<b>{point.x}</b><br/>',
+            // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
+            formatter: function () {
+              tooltip = this;
+              var item = qryopted.serialdatesvalues[this.x];
+              if (!item.iscached) {
+                var tooltiphtml = '<b>' + this.x + '</b>';
+                var tooltiphtml_body = '';
+                item.values.sort(function (a, b) {
+                  if (a.count > b.count)
+                    return -1;
+                  if (a.count < b.count)
+                    return 1;
+                  return 0;
+                });
+                item.totalshown = 0;
+                item.total = item.values.reduce((a, b) => a + b.count, 0);
+                var maxlen = Math.min(item.values.length, maxresources);
+                for (i = 0; i < maxlen; i++) {
+                  if (item) {
+                    tooltipitem = this.points.find(point => point.series.name === item.values[i].name);
+                    if (tooltipitem) color = tooltipitem.color; else color = 'gray';
+                    tooltiphtml_body += '<br/><span style="color:' + color + '">◼</span> ' + item.values[i].name + ': <b>' + item.values[i].count + '</b>';
+                    item.totalshown += item.values[i].count;
+                  }
+                }
+                item.totalother = item.total - item.totalshown;
+                if (item.values.length > maxresources)
+                  tooltiphtml_body += '<br/><span style="color:gray">◼</span> Other: <b>' + item.totalother + '</b>';
+                tooltiphtml += tooltiphtml_body + '<br/><b>Total: ' + item.total + '</b>';
+                item.tooltiphtml = tooltiphtml;
+                item.iscached = true;
               }
-            });
-            s += b+'<br/><b>Total: '+t+'</>';
-              return s;
+              return item.tooltiphtml;
             },
             // footerFormat: '<b>Total: {point.stackTotal}</b>',
+            shared: true
+          },
+          plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+          },
+          legend: {
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top',
+            floating: false,
+            width: 300,
+            borderColor: 'None',
+            itemMarginTop: 3,
+            itemMarginBottom: 3,
+            // reversed: true,
+            itemStyle: {
+              color: '#000000',
+              fontWeight: 'bold',
+              lineHeight: '1.5em'
+            }
+          },
+          series: hichartseries
+        });
+      }
+    },
+    {
+      text: 'Number of User Activity Group By Date and Organization',
+      sql: 'SELECT * FROM (SELECT SUBSTRING(`actiontime`, 1, 10) AS `date`, organization, count(*) AS `count` FROM usac GROUP BY SUBSTRING(`actiontime`, 1, 10), organization) t1 ORDER BY `date`;',
+      sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, organization, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, organization) t1 ORDER BY `date`;',
+      sqlfiltered: this.sql,
+      filter: {},
+      fnbuildsqlfiltered: function () {
+        var arorganization = $('#filterorganization option:selected').map(function (a, b) { return '"' + b.value + '"'; });
+        var wherein = "WHERE `organization` IN (" + arorganization.get().join() + ')';
+        var datefunc = 'SUBSTRING(actiontime, 1, 10)';
+        if ($('#periodic').val() == 'weekly') {
+          datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
+        }
+        else if ($('#periodic').val() == 'monthly') {
+          datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
+        }
+        else if ($('#periodic').val() == 'quarterly') {
+          datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
+        }
+        this.sqlfiltered = this.sqltemplate.format({ wherein: wherein, datefunc: datefunc });
+        this.filter['organization'] = $('#filterorganization option:selected').map(function (a, b) { return b.value; }).get();
+        return this.sqlfiltered;
+      },
+      fnsetfilters: function () {
+        var queryopted = this;
+        var arorganization = alasql('SELECT organization, COUNT(*) AS `activitycount` FROM usac GROUP BY organization ORDER BY COUNT(*) DESC, organization ASC;');
+        fill_options($('#filterorganization'), arorganization, function (d) { return d['organization'] }, function (d) { return d['organization'] + ' - ' + d['activitycount'] + ' activity' });
+        $('#filterorganization').multiselect({
+          maxHeight: 200,
+          buttonWidth: '100%',
+          includeSelectAllOption: true
+        });
+        // $('#filterorganization').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
+        $('#filterorganization').multiselect('selectAll', false);
+        $('#filterorganization').multiselect('updateButtonText');
+        var showids = ['blockfilterorganization', 'blockperiodic', 'blockbtnfiltersubmit'];
+        $('#blockfilter .form-group').each(function () {
+          if (showids.indexOf(this.id) === -1) {
+            $(this).hide();
+          }
+          else {
+            $(this).show();
+          }
+        });
+      },
+      fnfilldatatable: function (querydata) {
+        filldatatable(querydata);
+      },
+      fngraph: function (data) {
+        // convert alasql data to plotly format
+        ylabels = [];
+        xlabels = [];
+        yvalues = {};
+        plotlydata = [];
+        xaxiscol = 'date';
+        countcol = 'count';
+        // ylabels = Object.keys(data[0]);
+        qryopted = this;
+        serialdatesvalues = {};
+
+        // find date count
+        // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
+        // var datecount = r[0]['datecount'];
+
+        // get all distinct organization to make y labels
+        // r = alasql("SELECT organization, COUNT(organization) AS `number of user activity` FROM usac GROUP BY organization ORDER BY COUNT(organization) DESC;");
+
+        var startdate = data[0]['date'];
+        var enddate = data[data.length - 1]['date'];
+        xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
+
+        for (var i = 0; i < xlabels.length; i++) serialdatesvalues[xlabels[i]] = { values: [], iscached: false };
+
+        // limit displayed resources for performance reason
+        var maxresources = 14;
+        var topresources = this['filter']['organization'].slice(0, maxresources).reverse();
+        for (let i in topresources) {
+          var resourcename = this['filter']['organization'][i];
+          ylabels.push(resourcename);
+          yvalues[resourcename] = Array(xlabels.length).fill(0);
+        }
+
+        // add 'other' for the rest of resources
+        if (this['filter']['organization'].length > maxresources) {
+          ylabels.push('Other');
+          yvalues['Other'] = Array(xlabels.length).fill(0);
+        }
+
+        // transfer data to yvalues
+        for (let i in data) {
+          createdate = data[i]['date'];
+          resourcename = data[i]['organization'];
+          createdateidx = xlabels.indexOf(createdate);
+          if (createdateidx === -1) {
+            // only put to x labels if element doesn't exist in array
+            xlabels.push(createdate);
+            createdateidx = xlabels.indexOf(createdate);
+            yvalues[resourcename][createdateidx] = 0;
+          }
+          serialdatesvalues[createdate].values.push({ name: resourcename, count: data[i]['count'] });
+          if (!ylabels.includes(resourcename)) resourcename = 'Other';
+          yvalues[resourcename][createdateidx] += data[i]['count'];
+        }
+
+        // save to global var to be accessed later in tooltip
+        qryopted.serialdatesvalues = serialdatesvalues;
+
+        // loop y labels to transfer data to chartdata
+        var hichartseries = [];
+        for (let i in ylabels) {
+          hichartseries.push({
+            name: ylabels[i],
+            data: yvalues[ylabels[i]],
+          })
+        }
+
+        Highcharts.chart('graphuseractivity', {
+          chart: {
+            type: 'column',
+            zoomType: 'x'
+          },
+          title: {
+            text: '{periodic} Number of User Activity Group By Organization'.format({ periodic: $("#periodic option:selected").text() })
+          },
+          xAxis: {
+            categories: xlabels,
+            type: 'date',
+            dateTimeLabelFormats: {
+              day: "%b %e, '%y",
+              week: "%b %e, '%y"
+            }
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Number of User Activity'
+            },
+            stackLabels: {
+              enabled: false,
+              style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+            }
+          },
+          tooltip: {
+            // headerFormat: '<b>{point.x}</b><br/>',
+            // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
+            formatter: function () {
+              tooltip = this;
+              var item = qryopted.serialdatesvalues[this.x];
+              if (!item.iscached) {
+                var tooltiphtml = '<b>' + this.x + '</b>';
+                var tooltiphtml_body = '';
+                item.values.sort(function (a, b) {
+                  if (a.count > b.count)
+                    return -1;
+                  if (a.count < b.count)
+                    return 1;
+                  return 0;
+                });
+                item.totalshown = 0;
+                item.total = item.values.reduce((a, b) => a + b.count, 0);
+                var maxlen = Math.min(item.values.length, maxresources);
+                for (i = 0; i < maxlen; i++) {
+                  if (item) {
+                    tooltipitem = this.points.find(point => point.series.name === item.values[i].name);
+                    if (tooltipitem) color = tooltipitem.color; else color = 'gray';
+                    tooltiphtml_body += '<br/><span style="color:' + color + '">◼</span> ' + item.values[i].name + ': <b>' + item.values[i].count + '</b>';
+                    item.totalshown += item.values[i].count;
+                  }
+                }
+                item.totalother = item.total - item.totalshown;
+                if (item.values.length > maxresources)
+                  tooltiphtml_body += '<br/><span style="color:gray">◼</span> Other: <b>' + item.totalother + '</b>';
+                tooltiphtml += tooltiphtml_body + '<br/><b>Total: ' + item.total + '</b>';
+                item.tooltiphtml = tooltiphtml;
+                item.iscached = true;
+              }
+              return item.tooltiphtml;
+            },
+            // footerFormat: '<b>Total: {point.stackTotal}</b>',
+            shared: true
+          },
+          plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+          },
+          legend: {
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top',
+            floating: false,
+            width: 300,
+            borderColor: 'None',
+            itemMarginTop: 3,
+            itemMarginBottom: 3,
+            // reversed: true,
+            // y: 15,
+            itemStyle: {
+              color: '#000000',
+              fontWeight: 'bold',
+              lineHeight: '1.5em'
+            }
+          },
+          series: hichartseries
+        });
+      }
+    },
+    {
+      text: 'Number of User Activity Group By Date and Organization Type',
+      sql: 'SELECT * FROM (SELECT SUBSTRING(`actiontime`, 1, 10) AS `date`, org_type, count(*) AS `count` FROM usac GROUP BY SUBSTRING(`actiontime`, 1, 10), org_type) t1 ORDER BY `date`;',
+      sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, org_type, count(*) AS `count` FROM usac {wherein} GROUP BY {datefunc}, org_type) t1 ORDER BY `date`;',
+      sqlfiltered: this.sql,
+      filter: {},
+      fnbuildsqlfiltered: function () {
+        var arorganization = $('#filterorganizationtype option:selected').map(function (a, b) { return '"' + b.value + '"'; });
+        var wherein = "WHERE `org_type` IN (" + arorganization.get().join() + ')';
+        var datefunc = 'SUBSTRING(actiontime, 1, 10)';
+        if ($('#periodic').val() == 'weekly') {
+          datefunc = 'isoWeekYear(actiontime)+\'-\'+MID(\'0\'+isoWeek(actiontime),-1)';
+        }
+        else if ($('#periodic').val() == 'monthly') {
+          datefunc = 'YEAR(actiontime)+\'-\'+MID(\'0\'+MONTH(actiontime),-1)';
+        }
+        else if ($('#periodic').val() == 'quarterly') {
+          datefunc = 'YEAR(actiontime)+\'-\'+parseInt((MONTH(actiontime)+2)/3)';
+        }
+        this.sqlfiltered = this.sqltemplate.format({ wherein: wherein, datefunc: datefunc });
+        this.filter['organization'] = $('#filterorganizationtype option:selected').map(function (a, b) { return b.value; }).get();
+        return this.sqlfiltered;
+      },
+      fnsetfilters: function () {
+        var queryopted = this;
+        var arorganization = alasql('SELECT org_type, COUNT(*) AS `activitycount` FROM usac GROUP BY org_type ORDER BY COUNT(*) DESC, org_type ASC;');
+        fill_options($('#filterorganizationtype'), arorganization, function (d) { return d['org_type'] }, function (d) { return d['org_type'] + ' - ' + d['activitycount'] + ' activity' });
+        $('#filterorganizationtype').multiselect({
+          maxHeight: 200,
+          buttonWidth: '100%',
+          includeSelectAllOption: true
+        });
+        // $('#filterorganizationtype').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
+        $('#filterorganizationtype').multiselect('selectAll', false);
+        $('#filterorganizationtype').multiselect('updateButtonText');
+        var showids = ['blockfilterorganizationtype', 'blockperiodic', 'blockbtnfiltersubmit'];
+        $('#blockfilter .form-group').each(function () {
+          if (showids.indexOf(this.id) === -1) {
+            $(this).hide();
+          }
+          else {
+            $(this).show();
+          }
+        });
+      },
+      fnfilldatatable: function (querydata) {
+        filldatatable(querydata);
+      },
+      fngraph: function (data) {
+        // convert alasql data to plotly format
+        ylabels = [];
+        xlabels = [];
+        yvalues = {};
+        plotlydata = [];
+        xaxiscol = 'date';
+        countcol = 'count';
+        // ylabels = Object.keys(data[0]);
+        qryopted = this;
+        serialdatesvalues = {};
+
+        // find date count
+        // r = alasql("SELECT COUNT(DISTINCT(SUBSTRING(actiontime, 1, 10))) AS `datecount` FROM usac;");
+        // var datecount = r[0]['datecount'];
+
+        // get all distinct organization to make y labels
+        // r = alasql("SELECT organization, COUNT(organization) AS `number of user activity` FROM usac GROUP BY organization ORDER BY COUNT(organization) DESC;");
+
+        var startdate = data[0]['date'];
+        var enddate = data[data.length - 1]['date'];
+        xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
+
+        for (var i = 0; i < xlabels.length; i++) serialdatesvalues[xlabels[i]] = { values: [], iscached: false };
+
+        // limit displayed resources for performance reason
+        var maxresources = 14;
+        var topresources = this['filter']['organization'].slice(0, maxresources).reverse();
+        for (let i in topresources) {
+          // for (let i in this['filter']['organization'].slice(0, maxresources)) {
+          var resourcename = this['filter']['organization'][i];
+          ylabels.push(resourcename);
+          yvalues[resourcename] = Array(xlabels.length).fill(0);
+        }
+
+        // add 'other' for the rest of resources
+        if (this['filter']['organization'].length > maxresources) {
+          ylabels.push('Other');
+          yvalues['Other'] = Array(xlabels.length).fill(0);
+        }
+
+        // transfer data to yvalues
+        for (let i in data) {
+          createdate = data[i]['date'];
+          resourcename = data[i]['org_type'];
+          createdateidx = xlabels.indexOf(createdate);
+          if (createdateidx === -1) {
+            // only put to x labels if element doesn't exist in array
+            xlabels.push(createdate);
+            createdateidx = xlabels.indexOf(createdate);
+            yvalues[resourcename][createdateidx] = 0;
+          }
+          serialdatesvalues[createdate].values.push({ name: resourcename, count: data[i]['count'] });
+          if (!ylabels.includes(resourcename)) resourcename = 'Other';
+          yvalues[resourcename][createdateidx] += data[i]['count'];
+        }
+
+        // save to global var to be accessed later in tooltip
+        qryopted.serialdatesvalues = serialdatesvalues;
+
+        // loop y labels to transfer data to chartdata
+        var hichartseries = [];
+        for (let i in ylabels) {
+          hichartseries.push({
+            name: ylabels[i],
+            data: yvalues[ylabels[i]],
+          })
+        }
+
+        Highcharts.chart('graphuseractivity', {
+          chart: {
+            type: 'column',
+            zoomType: 'x'
+          },
+          title: {
+            text: '{periodic} Number of User Activity Group By Organization Type'.format({ periodic: $("#periodic option:selected").text() })
+          },
+          xAxis: {
+            categories: xlabels,
+            type: 'date',
+            dateTimeLabelFormats: {
+              day: "%b %e, '%y",
+              week: "%b %e, '%y"
+            }
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Number of User Activity'
+            },
+            stackLabels: {
+              enabled: false,
+              style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+            }
+          },
+          tooltip: {
+            // headerFormat: '<b>{point.x}</b><br/>',
+            // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
+            formatter: function () {
+              tooltip = this;
+              var item = qryopted.serialdatesvalues[this.x];
+              if (!item.iscached) {
+                var tooltiphtml = '<b>' + this.x + '</b>';
+                var tooltiphtml_body = '';
+                item.values.sort(function (a, b) {
+                  if (a.count > b.count)
+                    return -1;
+                  if (a.count < b.count)
+                    return 1;
+                  return 0;
+                });
+                item.totalshown = 0;
+                item.total = item.values.reduce((a, b) => a + b.count, 0);
+                var maxlen = Math.min(item.values.length, maxresources);
+                for (i = 0; i < maxlen; i++) {
+                  if (item) {
+                    tooltipitem = this.points.find(point => point.series.name === item.values[i].name);
+                    if (tooltipitem) color = tooltipitem.color; else color = 'gray';
+                    tooltiphtml_body += '<br/><span style="color:' + color + '">◼</span> ' + item.values[i].name + ': <b>' + item.values[i].count + '</b>';
+                    item.totalshown += item.values[i].count;
+                  }
+                }
+                item.totalother = item.total - item.totalshown;
+                if (item.values.length > maxresources)
+                  tooltiphtml_body += '<br/><span style="color:gray">◼</span> Other: <b>' + item.totalother + '</b>';
+                tooltiphtml += tooltiphtml_body + '<br/><b>Total: ' + item.total + '</b>';
+                item.tooltiphtml = tooltiphtml;
+                item.iscached = true;
+              }
+              return item.tooltiphtml;
+            },
             shared: true
           },
           plotOptions: {
@@ -578,298 +663,639 @@ config['selectqry'] = [
         });
       }
     },
-    ,
-  {
-    text: 'User Growth Group By Organization',
-    sql: 'SELECT * FROM user;',
-    disabled: false,
-    nograph: false,
-    sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, organization, count(*) AS `count` FROM user {wherein} GROUP BY {datefunc}, organization) t1 ORDER BY `date`;',
-    sqlfiltered: this.sql,
-    filter: {},
-    fnbuildsqlfiltered: function() {
-      var arorganization = $('#filterorganizationgrowth option:selected').map(function(a, b) {return '"'+b.value+'"';});
-      var wherein = "WHERE `organization` IN ("+arorganization.get().join()+')';
-      var datefunc = 'SUBSTRING(date_join, 1, 10)';
-      if ($('#periodic').val() == 'weekly') {
-        datefunc = 'isoWeekYear(date_join)+\'-\'+MID(\'0\'+isoWeek(date_join),-1)';
-      }
-      else if ($('#periodic').val() == 'monthly') {
-        datefunc = 'YEAR(date_join)+\'-\'+MID(\'0\'+MONTH(date_join),-1)';
-      }
-      else if ($('#periodic').val() == 'quarterly') {
-        datefunc = 'YEAR(date_join)+\'-\'+parseInt((MONTH(date_join)+2)/3)';
-      }
-      this.sqlfiltered = this.sqltemplate.format({wherein: wherein, datefunc: datefunc});
-      this.filter['organization'] = $('#filterorganizationgrowth option:selected').map(function(a, b) {return b.value;}).get();
-      return this.sqlfiltered;
-    },
-    fnsetfilters: function() {
-      var queryopted = this;
-      var arorganization = alasql('SELECT organization, COUNT(*) AS `usercount` FROM user GROUP BY organization ORDER BY COUNT(*) DESC;');
-      fill_options($('#filterorganizationgrowth'), arorganization, function(d) {return d['organization']}, function(d) {return d['organization']+' - '+d['usercount']+' user'});
-      $('#filterorganizationgrowth').multiselect({
-        maxHeight: 200,
-        buttonWidth: '100%',
-        includeSelectAllOption: true
-      });
-      // $('#filterorganizationgrowth').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
-      $('#filterorganizationgrowth').multiselect('selectAll', false);
-      $('#filterorganizationgrowth').multiselect('updateButtonText');
-      var showids = ['blockfilterorganizationgrowth', 'blockperiodic', 'blockbtnfiltersubmit'];
-      $('#blockfilter .form-group').each(function() {
-        if (showids.indexOf(this.id) === -1) {
-          $(this).hide();
+    {
+      text: 'Number of New User Group By Organization',
+      sql: 'SELECT * FROM user;',
+      disabled: false,
+      nograph: false,
+      sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, organization, count(*) AS `count` FROM user {wherein} GROUP BY {datefunc}, organization) t1 ORDER BY `date`;',
+      sqlfiltered: this.sql,
+      filter: {},
+      fnbuildsqlfiltered: function () {
+        var arorganization = $('#filterorganizationgrowth option:selected').map(function (a, b) { return '"' + b.value + '"'; });
+        var wherein = "WHERE `organization` IN (" + arorganization.get().join() + ')';
+        var datefunc = 'SUBSTRING(date_join, 1, 10)';
+        if ($('#periodic').val() == 'weekly') {
+          datefunc = 'isoWeekYear(date_join)+\'-\'+MID(\'0\'+isoWeek(date_join),-1)';
         }
-        else {
-          $(this).show();
+        else if ($('#periodic').val() == 'monthly') {
+          datefunc = 'YEAR(date_join)+\'-\'+MID(\'0\'+MONTH(date_join),-1)';
         }
-      });
-    },
-    fngraph: function(data) {
-      // convert alasql data to plotly format
-      ylabels = [];
-      xlabels = [];
-      yvalues = {};
-      plotlydata = [];
-      xaxiscol = 'date';
-      countcol = 'count';
-      // ylabels = Object.keys(data[0]);
-      qryopted = this;
+        else if ($('#periodic').val() == 'quarterly') {
+          datefunc = 'YEAR(date_join)+\'-\'+parseInt((MONTH(date_join)+2)/3)';
+        }
+        this.sqlfiltered = this.sqltemplate.format({ wherein: wherein, datefunc: datefunc });
+        this.filter['organization'] = $('#filterorganizationgrowth option:selected').map(function (a, b) { return b.value; }).get();
+        return this.sqlfiltered;
+      },
+      fnsetfilters: function () {
+        var queryopted = this;
+        var arorganization = alasql('SELECT organization, COUNT(*) AS `usercount` FROM user GROUP BY organization ORDER BY COUNT(*) DESC;');
+        fill_options($('#filterorganizationgrowth'), arorganization, function (d) { return d['organization'] }, function (d) { return d['organization'] + ' - ' + d['usercount'] + ' user' });
+        $('#filterorganizationgrowth').multiselect({
+          maxHeight: 200,
+          buttonWidth: '100%',
+          includeSelectAllOption: true
+        });
+        // $('#filterorganizationgrowth').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
+        $('#filterorganizationgrowth').multiselect('selectAll', false);
+        $('#filterorganizationgrowth').multiselect('updateButtonText');
+        var showids = ['blockfilterorganizationgrowth', 'blockperiodic', 'blockbtnfiltersubmit'];
+        $('#blockfilter .form-group').each(function () {
+          if (showids.indexOf(this.id) === -1) {
+            $(this).hide();
+          }
+          else {
+            $(this).show();
+          }
+        });
+      },
+      fngraph: function (data) {
+        // convert alasql data to plotly format
+        ylabels = [];
+        xlabels = [];
+        yvalues = {};
+        plotlydata = [];
+        xaxiscol = 'date';
+        countcol = 'count';
+        // ylabels = Object.keys(data[0]);
+        qryopted = this;
+        serialdatesvalues = {};
 
-      // find date count
-      // userbyorg = alasql("SELECT `organization`, COUNT(*) AS `count` FROM user GROUP BY `organization` ORDER BY `count` DESC;");
-      // var datecount = r[0]['datecount'];
+        // find date count
+        // userbyorg = alasql("SELECT `organization`, COUNT(*) AS `count` FROM user GROUP BY `organization` ORDER BY `count` DESC;");
+        // var datecount = r[0]['datecount'];
 
-      // get all distinct organization to make y labels
-      // r = alasql("SELECT organization, COUNT(organization) AS `number of user activity` FROM usac GROUP BY organization ORDER BY COUNT(organization) DESC;");
+        // get all distinct organization to make y labels
+        // r = alasql("SELECT organization, COUNT(organization) AS `number of user activity` FROM usac GROUP BY organization ORDER BY COUNT(organization) DESC;");
 
-      var startdate = data[0]['date'];
-      var enddate = data[data.length-1]['date'];
-      xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
+        var startdate = data[0]['date'];
+        var enddate = data[data.length - 1]['date'];
+        xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
 
-      // limit displayed resources for performance reason
-      var maxresources = 14;
-      for (let i in this['filter']['organization'].slice(0, maxresources)) {
-        var resourcename = this['filter']['organization'][i];
-        ylabels.push(resourcename);
-        yvalues[resourcename] = Array(xlabels.length).fill(0);
-      }
+        for (var i = 0; i < xlabels.length; i++) serialdatesvalues[xlabels[i]] = {values: [], iscached: false };
 
-      // add 'other' for the rest of resources
-      if (this['filter']['organization'].length > maxresources) {
-        ylabels.push('Other');
-        yvalues['Other'] = Array(xlabels.length).fill(0);
-      }
+        // limit displayed resources for performance reason
+        var maxresources = 14;
+        var topresources = this['filter']['organization'].slice(0, maxresources).reverse();
+        for (let i in topresources) {
+        // for (let i in this['filter']['organization'].slice(0, maxresources)) {
+          var resourcename = this['filter']['organization'][i];
+          ylabels.push(resourcename);
+          yvalues[resourcename] = Array(xlabels.length).fill(0);
+        }
 
-      // transfer data to yvalues
-      for (let i in data) {
-        createdate = data[i]['date'];
-        resourcename = data[i]['organization'];
-        createdateidx = xlabels.indexOf(createdate);
-        if (createdateidx === -1) {
-          // only put to x labels if element doesn't exist in array
-          xlabels.push(createdate);
+        // add 'other' for the rest of resources
+        if (this['filter']['organization'].length > maxresources) {
+          ylabels.push('Other');
+          yvalues['Other'] = Array(xlabels.length).fill(0);
+        }
+
+        // transfer data to yvalues
+        for (let i in data) {
+          createdate = data[i]['date'];
+          resourcename = data[i]['organization'];
           createdateidx = xlabels.indexOf(createdate);
-          yvalues[resourcename][createdateidx] = 0;
-        }
-        if (!ylabels.includes(resourcename)) resourcename = 'Other';
-        yvalues[resourcename][createdateidx] += data[i]['count'];
-      }
-
-      // accumulated total
-      for (let i in ylabels) {
-        for (var i2 = 0; i2 < yvalues[ylabels[i]].length-1; i2++) {
-          yvalues[ylabels[i]][i2+1] += yvalues[ylabels[i]][i2];
-        }
-      }
-
-      // loop y labels to transfer data to chartdata
-      var hichartseries = [];
-      for (let i in ylabels.reverse()) {
-        hichartseries.push({
-          name: ylabels[i],
-          data: yvalues[ylabels[i]],
-        })
-      }
-
-      Highcharts.chart('graphuseractivity', {
-        chart: {
-          type: 'column',
-          zoomType: 'x'
-        },
-        title: {
-          text: '{periodic} User Growth Group By Organization'.format({periodic: $("#periodic option:selected").text()}),
-        },
-        xAxis: {
-          categories: xlabels,
-          type: 'date',
-          dateTimeLabelFormats: {
-            day: "%b %e, '%y",
-            week: "%b %e, '%y"
+          if (createdateidx === -1) {
+            // only put to x labels if element doesn't exist in array
+            xlabels.push(createdate);
+            createdateidx = xlabels.indexOf(createdate);
+            yvalues[resourcename][createdateidx] = 0;
           }
-        },
-        yAxis: {
-          min: 0,
+          serialdatesvalues[createdate].values.push({ name: resourcename, count: data[i]['count'] });
+          if (!ylabels.includes(resourcename)) resourcename = 'Other';
+          yvalues[resourcename][createdateidx] += data[i]['count'];
+        }
+
+        // // accumulated total
+        // for (let i in ylabels) {
+        //   for (var i2 = 0; i2 < yvalues[ylabels[i]].length - 1; i2++) {
+        //     yvalues[ylabels[i]][i2 + 1] += yvalues[ylabels[i]][i2];
+        //   }
+        // }
+
+        // save to global var to be accessed later in tooltip
+        qryopted.serialdatesvalues = serialdatesvalues;
+
+        // loop y labels to transfer data to chartdata
+        var hichartseries = [];
+        for (let i in ylabels) {
+          hichartseries.push({
+            name: ylabels[i],
+            data: yvalues[ylabels[i]],
+          })
+        }
+
+        Highcharts.chart('graphuseractivity', {
+          chart: {
+            type: 'column',
+            zoomType: 'x'
+          },
           title: {
-            text: 'Number of User'
+            text: '{periodic} Number of New User Group By Organization'.format({ periodic: $("#periodic option:selected").text() }),
           },
-          stackLabels: {
-            enabled: false,
-            style: {
-              fontWeight: 'bold',
-              color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+          xAxis: {
+            categories: xlabels,
+            type: 'date',
+            dateTimeLabelFormats: {
+              day: "%b %e, '%y",
+              week: "%b %e, '%y"
             }
-          }
-        },
-        tooltip: {
-          // headerFormat: '<b>{point.x}</b><br/>',
-          // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
-          formatter: function () {
-            // console.log('this', this);
-            var s = '<b>' + this.x + '</b>';
-            var t = 0, b = '';
-            $.each(this.points, function () {
-              if (this.y) {
-                b = '<br/><span style="color:'+this.color+'">◼</span> ' + this.series.name + ': <b>' +this.y + '</b>'+b;
-                t += this.y;
-              }
-            });
-            s += b+'<br/><b>Total: '+t+'</>';
-            return s;
           },
-          // footerFormat: '<b>Total: {point.stackTotal}</b>',
-          shared: true
-        },
-        plotOptions: {
-          column: {
-            stacking: 'normal'
-          }
-        },
-        legend: {
-          align: 'right',
-          layout: 'vertical',
-          verticalAlign: 'top',
-          floating: false,
-          // width: auto,
-          borderColor: 'None',
-          itemMarginTop: 3,
-          itemMarginBottom: 3,
-          // reversed: true,
-          // y: 15,
-          itemStyle: {
-            color: '#000000',
-            fontWeight: 'bold',
-            lineHeight: '1.5em'
-          }
-        },
-        series: hichartseries
-      });
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Number of User'
+            },
+            stackLabels: {
+              enabled: false,
+              style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+            }
+          },
+          tooltip: {
+            // headerFormat: '<b>{point.x}</b><br/>',
+            // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
+            formatter: function () {
+              tooltip = this;
+              var item = qryopted.serialdatesvalues[this.x];
+              if (!item.iscached) {
+                var tooltiphtml = '<b>' + this.x + '</b>';
+                var tooltiphtml_body = '';
+                item.values.sort(function (a, b) {
+                  if (a.count > b.count)
+                    return -1;
+                  if (a.count < b.count)
+                    return 1;
+                  return 0;
+                });
+                item.totalshown = 0;
+                item.total = item.values.reduce((a, b) => a + b.count, 0);
+                var maxlen = Math.min(item.values.length, maxresources);
+                for (i = 0; i < maxlen; i++) {
+                  if (item) {
+                    tooltipitem = this.points.find(point => point.series.name === item.values[i].name);
+                    if (tooltipitem) color = tooltipitem.color; else color = 'gray';
+                    tooltiphtml_body += '<br/><span style="color:' + color + '">◼</span> ' + item.values[i].name + ': <b>' + item.values[i].count + '</b>';
+                    item.totalshown += item.values[i].count;
+                  }
+                }
+                item.totalother = item.total - item.totalshown;
+                if (item.values.length > maxresources)
+                  tooltiphtml_body += '<br/><span style="color:gray">◼</span> Other: <b>' + item.totalother + '</b>';
+                tooltiphtml += tooltiphtml_body + '<br/><b>Total: ' + item.total + '</b>';
+                item.tooltiphtml = tooltiphtml;
+                item.iscached = true;
+              }
+              return item.tooltiphtml;
+            },
+            // footerFormat: '<b>Total: {point.stackTotal}</b>',
+            shared: true
+          },
+          plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+          },
+          legend: {
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top',
+            floating: false,
+            // width: auto,
+            borderColor: 'None',
+            itemMarginTop: 3,
+            itemMarginBottom: 3,
+            // reversed: true,
+            // y: 15,
+            itemStyle: {
+              color: '#000000',
+              fontWeight: 'bold',
+              lineHeight: '1.5em'
+            }
+          },
+          series: hichartseries
+        });
+      },
+      fngraph2: function (data) {
+        // convert alasql data to chart format
+
+        ylabels = [];
+        xlabels = [];
+        yvalues = {};
+        plotlydata = [];
+        xaxiscol = 'date';
+        countcol = 'count';
+        // ylabels = Object.keys(data[0]);
+
+        // build xlabels
+        r = alasql("SELECT * FROM (SELECT SUBSTRING(date_join, 1, 10) AS `date_join`, COUNT(SUBSTRING(date_join, 1, 10)) AS `newusercount` FROM user GROUP BY SUBSTRING(date_join, 1, 10)) t1 ORDER BY date_join;");
+        var startdate = r[0]['date_join'];
+        var enddate = r[r.length - 1]['date_join'];
+        xlabels = makeserialdates(startdate, enddate);
+
+        // transfer 'newusercount' values to yvalues
+        var idate;
+        ylabels.push('total user');
+        yvalues[ylabels[0]] = Array(xlabels.length).fill(0);
+        for (let i in r) {
+          idate = xlabels.indexOf(r[i]['date_join']);
+          yvalues[ylabels[0]][idate] = r[i]['newusercount'];
+        }
+        // console.log('yvalues', yvalues);
+
+        // replace yvalues values into running total
+        var runningtotal = 0;
+        for (let i in yvalues[ylabels[0]]) {
+          runningtotal += yvalues[ylabels[0]][i];
+          yvalues[ylabels[0]][i] = runningtotal;
+        }
+
+        // save to global var to be accessed later in tooltip
+        qryopted.serialdatesvalues = serialdatesvalues;
+
+        // loop y labels to transfer data to chart data
+        var hichartseries = [];
+        for (let i in ylabels.reverse()) {
+          hichartseries.push({
+            name: ylabels[i],
+            data: yvalues[ylabels[i]],
+          })
+        }
+
+        Highcharts.chart('graphuseractivity', {
+          chart: {
+            // type: 'column',
+            zoomType: 'x'
+          },
+          title: {
+            text: 'User Growth Chart'
+          },
+          xAxis: {
+            categories: xlabels,
+            type: 'date',
+            dateTimeLabelFormats: {
+              day: "%b %e, '%y",
+              week: "%b %e, '%y"
+            }
+          },
+          legend: {
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top',
+            floating: false,
+            borderColor: 'None',
+            itemMarginTop: 3,
+            itemMarginBottom: 3,
+            y: 15,
+            itemStyle: {
+              color: '#000000',
+              fontWeight: 'bold',
+              lineHeight: '1.5em'
+            }
+          },
+          series: hichartseries
+        });
+
+      }
     },
-    fngraph2: function(data) {
-      // convert alasql data to chart format
-
-      ylabels = [];
-      xlabels = [];
-      yvalues = {};
-      plotlydata = [];
-      xaxiscol = 'date';
-      countcol = 'count';
-      // ylabels = Object.keys(data[0]);
-
-      // build xlabels
-      r = alasql("SELECT * FROM (SELECT SUBSTRING(date_join, 1, 10) AS `date_join`, COUNT(SUBSTRING(date_join, 1, 10)) AS `newusercount` FROM user GROUP BY SUBSTRING(date_join, 1, 10)) t1 ORDER BY date_join;");
-      var startdate = r[0]['date_join'];
-      var enddate = r[r.length-1]['date_join'];
-      xlabels = makeserialdates(startdate, enddate);
-
-      // transfer 'newusercount' values to yvalues
-      var idate;
-      ylabels.push('total user');
-      yvalues[ylabels[0]] = Array(xlabels.length).fill(0);
-      for (let i in r) {
-        idate = xlabels.indexOf(r[i]['date_join']);
-        yvalues[ylabels[0]][idate] = r[i]['newusercount'];
-      }
-      // console.log('yvalues', yvalues);
-
-      // replace yvalues values into running total
-      var runningtotal = 0;
-      for (let i in yvalues[ylabels[0]]) {
-        runningtotal += yvalues[ylabels[0]][i];
-        yvalues[ylabels[0]][i] = runningtotal;
-      }
-
-      // loop y labels to transfer data to chart data
-      var hichartseries = [];
-      for (let i in ylabels.reverse()) {
-        hichartseries.push({
-          name: ylabels[i],
-          data: yvalues[ylabels[i]],
-        })
-      }
-
-      Highcharts.chart('graphuseractivity', {
-        chart: {
-          // type: 'column',
-          zoomType: 'x'
-        },
-        title: {
-          text: 'User Growth Chart'
-        },
-        xAxis: {
-          categories: xlabels,
-          type: 'date',
-          dateTimeLabelFormats: {
-            day: "%b %e, '%y",
-            week: "%b %e, '%y"
+    {
+      text: 'User Growth Group By Organization',
+      sql: 'SELECT * FROM user;',
+      disabled: false,
+      nograph: false,
+      sqltemplate: 'SELECT * FROM (SELECT {datefunc} AS `date`, organization, count(*) AS `count` FROM user {wherein} GROUP BY {datefunc}, organization) t1 ORDER BY `date`;',
+      sqlfiltered: this.sql,
+      filter: {},
+      fnbuildsqlfiltered: function () {
+        var arorganization = $('#filterorganizationgrowth option:selected').map(function (a, b) { return '"' + b.value + '"'; });
+        var wherein = "WHERE `organization` IN (" + arorganization.get().join() + ')';
+        var datefunc = 'SUBSTRING(date_join, 1, 10)';
+        if ($('#periodic').val() == 'weekly') {
+          datefunc = 'isoWeekYear(date_join)+\'-\'+MID(\'0\'+isoWeek(date_join),-1)';
+        }
+        else if ($('#periodic').val() == 'monthly') {
+          datefunc = 'YEAR(date_join)+\'-\'+MID(\'0\'+MONTH(date_join),-1)';
+        }
+        else if ($('#periodic').val() == 'quarterly') {
+          datefunc = 'YEAR(date_join)+\'-\'+parseInt((MONTH(date_join)+2)/3)';
+        }
+        this.sqlfiltered = this.sqltemplate.format({ wherein: wherein, datefunc: datefunc });
+        this.filter['organization'] = $('#filterorganizationgrowth option:selected').map(function (a, b) { return b.value; }).get();
+        return this.sqlfiltered;
+      },
+      fnsetfilters: function () {
+        var queryopted = this;
+        var arorganization = alasql('SELECT organization, COUNT(*) AS `usercount` FROM user GROUP BY organization ORDER BY COUNT(*) DESC;');
+        fill_options($('#filterorganizationgrowth'), arorganization, function (d) { return d['organization'] }, function (d) { return d['organization'] + ' - ' + d['usercount'] + ' user' });
+        $('#filterorganizationgrowth').multiselect({
+          maxHeight: 200,
+          buttonWidth: '100%',
+          includeSelectAllOption: true
+        });
+        // $('#filterorganizationgrowth').multiselect('select', arorganization.slice(0, 3).map(function(r) {return r['organization']}));
+        $('#filterorganizationgrowth').multiselect('selectAll', false);
+        $('#filterorganizationgrowth').multiselect('updateButtonText');
+        var showids = ['blockfilterorganizationgrowth', 'blockperiodic', 'blockbtnfiltersubmit'];
+        $('#blockfilter .form-group').each(function () {
+          if (showids.indexOf(this.id) === -1) {
+            $(this).hide();
           }
-        },
-        // yAxis: {
-        //   min: 0,
-        //   title: {
-        //     // text: 'Number of User Activity Group By Resource'
-        //   },
-        //   stackLabels: {
-        //     enabled: false,
-        //     style: {
-        //       fontWeight: 'bold',
-        //       color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-        //     }
-        //   }
-        // },
-        // tooltip: {['user growth']
-        //   headerFormat: '<b>{point.x}</b><br/>',
-        //   pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
-        //   // footerFormat: '<b>Total: {point.stackTotal}</b>',
-        //   shared: true
-        // },
-        // plotOptions: {
-        //   column: {
-        //     stacking: 'normal'
-        //   }
-        // },
-        legend: {
-          align: 'right',
-          layout: 'vertical',
-          verticalAlign: 'top',
-          floating: false,
-          borderColor: 'None',
-          itemMarginTop: 3,
-          itemMarginBottom: 3,
-          y: 15,
-          itemStyle: {
-            color: '#000000',
-            fontWeight: 'bold',
-            lineHeight: '1.5em'
+          else {
+            $(this).show();
           }
-        },
-        series: hichartseries
-      });
+        });
+      },
+      fngraph: function (data) {
+        // convert alasql data to plotly format
+        ylabels = [];
+        xlabels = [];
+        yvalues = {};
+        yaccumulation = {};
+        plotlydata = [];
+        xaxiscol = 'date';
+        countcol = 'count';
+        // ylabels = Object.keys(data[0]);
+        qryopted = this;
+        serialdatesvalues = {};
 
+        // find date count
+        // userbyorg = alasql("SELECT `organization`, COUNT(*) AS `count` FROM user GROUP BY `organization` ORDER BY `count` DESC;");
+        // var datecount = r[0]['datecount'];
+
+        // get all distinct organization to make y labels
+        // r = alasql("SELECT organization, COUNT(organization) AS `number of user activity` FROM usac GROUP BY organization ORDER BY COUNT(organization) DESC;");
+
+        var startdate = data[0]['date'];
+        var enddate = data[data.length - 1]['date'];
+        xlabels = makeserialdates(startdate, enddate, $('#periodic').val());
+
+        for (var i = 0; i < xlabels.length; i++) serialdatesvalues[xlabels[i]] = {values: [], iscached: false };
+
+        // limit displayed resources for performance reason
+        var maxresources = 14;
+        var topresources = this['filter']['organization'].slice(0, maxresources).reverse();
+        for (let i in topresources) {
+        // for (let i in this['filter']['organization'].slice(0, maxresources)) {
+          var resourcename = this['filter']['organization'][i];
+          ylabels.push(resourcename);
+          yvalues[resourcename] = Array(xlabels.length).fill(0);
+        }
+
+        // add 'other' for the rest of resources
+        if (this['filter']['organization'].length > maxresources) {
+          ylabels.push('Other');
+          yvalues['Other'] = Array(xlabels.length).fill(0);
+        }
+
+        // transfer data to yvalues
+        for (let i in data) {
+          createdate = data[i]['date'];
+          resourcename = data[i]['organization'];
+          createdateidx = xlabels.indexOf(createdate);
+          if (createdateidx === -1) {
+            // only put to x labels if element doesn't exist in array
+            xlabels.push(createdate);
+            createdateidx = xlabels.indexOf(createdate);
+            yvalues[resourcename][createdateidx] = 0;
+          }
+          serialdatesvalues[createdate].values.push({name: resourcename, count: data[i]['count']});
+          if (!ylabels.includes(resourcename)) resourcename = 'Other';
+          yvalues[resourcename][createdateidx] += data[i]['count'];
+        }
+
+        // accumulated total
+        for (let i in ylabels) {
+          for (var i2 = 0; i2 < yvalues[ylabels[i]].length - 1; i2++) {
+            yvalues[ylabels[i]][i2 + 1] += yvalues[ylabels[i]][i2];
+          }
+        }
+
+        // accumulated total
+        for (var i = 0; i < xlabels.length; i++) {
+          var values = serialdatesvalues[xlabels[i]].values;
+          for (var i2 = 0; i2 < values.length; i2++) {
+            if (!yaccumulation.hasOwnProperty(values[i2].name)) yaccumulation[values[i2].name] = 0;
+            yaccumulation[values[i2].name] += values[i2].count; 
+            values[i2].count = yaccumulation[values[i2].name];
+          }
+          serialdatesvalues[xlabels[i]].yaccumulation = Object.assign({}, yaccumulation);
+        }
+
+        // save to global var to be accessed later in tooltip
+        qryopted.serialdatesvalues = serialdatesvalues;
+
+        // loop y labels to transfer data to chartdata
+        var hichartseries = [];
+        for (let i in ylabels) {
+          hichartseries.push({
+            name: ylabels[i],
+            data: yvalues[ylabels[i]],
+          })
+        }
+
+        Highcharts.chart('graphuseractivity', {
+          chart: {
+            type: 'column',
+            zoomType: 'x'
+          },
+          title: {
+            text: '{periodic} User Growth Group By Organization'.format({ periodic: $("#periodic option:selected").text() }),
+          },
+          xAxis: {
+            categories: xlabels,
+            type: 'date',
+            dateTimeLabelFormats: {
+              day: "%b %e, '%y",
+              week: "%b %e, '%y"
+            }
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: 'Number of User'
+            },
+            stackLabels: {
+              enabled: false,
+              style: {
+                fontWeight: 'bold',
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+            }
+          },
+          tooltip: {
+            // headerFormat: '<b>{point.x}</b><br/>',
+            // pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
+            formatter: function () {
+              tooltip = this;
+              var item = qryopted.serialdatesvalues[this.x];
+              if (!item.iscached) {
+                var tooltiphtml = '<b>' + this.x + '</b>';
+                var tooltiphtml_body = '';
+                var sortable = [];
+                for (var resourcename in item.yaccumulation) {
+                    sortable.push([resourcename, item.yaccumulation[resourcename]]);
+                }
+                sortable.sort(function(a, b) {
+                    return b[1] - a[1];
+                });
+                item.totalshown = 0;
+                item.total = sortable.reduce((a, b) => a + b[1], 0);
+                var maxlen = Math.min(sortable.length, maxresources);
+                for (i = 0; i < maxlen; i++) {
+                  if (item) {
+                    tooltipitem = this.points.find(point => point.series.name === sortable[i][0]);
+                    if (tooltipitem) color = tooltipitem.color; else color = 'gray';
+                    tooltiphtml_body += '<br/><span style="color:' + color + '">◼</span> ' + sortable[i][0] + ': <b>' + sortable[i][1] + '</b>';
+                    item.totalshown += sortable[i][1];
+                  }
+                }
+                item.totalother = item.total - item.totalshown;
+                if (sortable.length > maxresources)
+                  tooltiphtml_body += '<br/><span style="color:gray">◼</span> Other: <b>' + item.totalother + '</b>';
+                tooltiphtml += tooltiphtml_body + '<br/><b>Total: ' + item.total + '</b>';
+                item.tooltiphtml = tooltiphtml;
+                item.iscached = true;
+              }
+              return item.tooltiphtml;
+            },
+            // footerFormat: '<b>Total: {point.stackTotal}</b>',
+            shared: true
+          },
+          plotOptions: {
+            column: {
+              stacking: 'normal'
+            }
+          },
+          legend: {
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top',
+            floating: false,
+            // width: auto,
+            borderColor: 'None',
+            itemMarginTop: 3,
+            itemMarginBottom: 3,
+            // reversed: true,
+            // y: 15,
+            itemStyle: {
+              color: '#000000',
+              fontWeight: 'bold',
+              lineHeight: '1.5em'
+            }
+          },
+          series: hichartseries
+        });
+      },
+      fngraph2: function (data) {
+        // convert alasql data to chart format
+
+        ylabels = [];
+        xlabels = [];
+        yvalues = {};
+        plotlydata = [];
+        xaxiscol = 'date';
+        countcol = 'count';
+        // ylabels = Object.keys(data[0]);
+
+        // build xlabels
+        r = alasql("SELECT * FROM (SELECT SUBSTRING(date_join, 1, 10) AS `date_join`, COUNT(SUBSTRING(date_join, 1, 10)) AS `newusercount` FROM user GROUP BY SUBSTRING(date_join, 1, 10)) t1 ORDER BY date_join;");
+        var startdate = r[0]['date_join'];
+        var enddate = r[r.length - 1]['date_join'];
+        xlabels = makeserialdates(startdate, enddate);
+
+        // transfer 'newusercount' values to yvalues
+        var idate;
+        ylabels.push('total user');
+        yvalues[ylabels[0]] = Array(xlabels.length).fill(0);
+        for (let i in r) {
+          idate = xlabels.indexOf(r[i]['date_join']);
+          yvalues[ylabels[0]][idate] = r[i]['newusercount'];
+        }
+        // console.log('yvalues', yvalues);
+
+        // replace yvalues values into running total
+        var runningtotal = 0;
+        for (let i in yvalues[ylabels[0]]) {
+          runningtotal += yvalues[ylabels[0]][i];
+          yvalues[ylabels[0]][i] = runningtotal;
+        }
+
+        // save to global var to be accessed later in tooltip
+        qryopted.serialdatesvalues = serialdatesvalues;
+
+        // loop y labels to transfer data to chart data
+        var hichartseries = [];
+        for (let i in ylabels.reverse()) {
+          hichartseries.push({
+            name: ylabels[i],
+            data: yvalues[ylabels[i]],
+          })
+        }
+
+        Highcharts.chart('graphuseractivity', {
+          chart: {
+            // type: 'column',
+            zoomType: 'x'
+          },
+          title: {
+            text: 'User Growth Chart'
+          },
+          xAxis: {
+            categories: xlabels,
+            type: 'date',
+            dateTimeLabelFormats: {
+              day: "%b %e, '%y",
+              week: "%b %e, '%y"
+            }
+          },
+          // yAxis: {
+          //   min: 0,
+          //   title: {
+          //     // text: 'Number of User Activity'
+          //   },
+          //   stackLabels: {
+          //     enabled: false,
+          //     style: {
+          //       fontWeight: 'bold',
+          //       color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+          //     }
+          //   }
+          // },
+          // tooltip: {['user growth']
+          //   headerFormat: '<b>{point.x}</b><br/>',
+          //   pointFormat: '<span style="color:{series.color}">◼</span> {series.name}: <b>{point.y}</b><br/>',
+          //   // footerFormat: '<b>Total: {point.stackTotal}</b>',
+          //   shared: true
+          // },
+          // plotOptions: {
+          //   column: {
+          //     stacking: 'normal'
+          //   }
+          // },
+          legend: {
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top',
+            floating: false,
+            borderColor: 'None',
+            itemMarginTop: 3,
+            itemMarginBottom: 3,
+            y: 15,
+            itemStyle: {
+              color: '#000000',
+              fontWeight: 'bold',
+              lineHeight: '1.5em'
+            }
+          },
+          series: hichartseries
+        });
+
+      }
     }
-  }
-];
+  ];
 function makeserialdates(startdate, enddate, periodic) {
   periodic = periodic || 'daily';
   var arrdates = [];
