@@ -3363,7 +3363,8 @@ function init_echarts() {
 				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
+					center: ['50%', '65%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -3371,7 +3372,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -3408,7 +3411,10 @@ function init_echarts() {
 
 		  	window.onresize = function(){
 		  		echartDonutDroughtPop.resize();
-		  	}
+			}
+		
+			// console.log(echartDonutDroughtPop.getWidth());
+			// console.log(echartDonutDroughtPop.getOption());
 		}
 
 		if ($('#echart_donut_drought_build').length ){
@@ -3443,7 +3449,8 @@ function init_echarts() {
 				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
+					center: ['50%', '65%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -3451,7 +3458,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -3523,7 +3532,8 @@ function init_echarts() {
 				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
+					center: ['50%', '65%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -3531,7 +3541,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -3638,7 +3650,7 @@ function init_echarts() {
 				grid: {
 			        left: '1%',
 			        right: '20%',
-			        bottom: '8%',
+			        bottom: 50,
 			        containLabel: true
 			    },
 			    color: colorDrought,
@@ -3762,7 +3774,11 @@ function init_echarts() {
 
 		  	window.addEventListener("resize", function(){
 		  		echartBarDroughtLandcoverPop.resize();
-		  	});
+			});
+			
+			// console.log(echartBarDroughtLandcoverPop.getWidth());
+			// console.log(echartBarDroughtLandcoverPop.getHeight());
+			// console.log(echartBarDroughtLandcoverPop.getOption());
 		}
 
 		if ($('#echart_bar_horizontal_stack_drought_area').length ){
@@ -3832,7 +3848,7 @@ function init_echarts() {
 				grid: {
 			        left: '1%',
 			        right: '20%',
-			        bottom: '8%',
+			        bottom: 50,
 			        containLabel: true
 			    },
 			    color: colorDrought,
