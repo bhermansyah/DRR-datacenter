@@ -1866,13 +1866,13 @@ class getSAMParameters(ModelResource):
             resource = resource.filter(wkb_geometry__intersects=filterLock[0])
 
         if len(temp_group)==1:
-            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date'])           
+            resource = resource.filter(incident_date__gte=request.POST['start_date'],incident_date__lte=request.POST['end_date'])           
             resource = resource.values(temp_group[0]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0])       
         elif len(temp_group)==2:
             stat_type_filter = dict(request.POST)['incident_type'];
             stat_target_filter = dict(request.POST)['incident_target'];
             
-            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date'])
+            resource = resource.filter(incident_date__gte=request.POST['start_date'],incident_date__lte=request.POST['end_date'])
 
             if stat_type_filter[0]=='':
                 resource = resource
@@ -1957,16 +1957,16 @@ class getIncidentsRaw(ModelResource):
             resource = resource.filter(wkb_geometry__intersects=filterLock[0])
 
         if len(temp_group)==1:
-            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).order_by('-incident_date')
+            resource = resource.filter(incident_date__gte=request.POST['start_date'],incident_date__lte=request.POST['end_date']).order_by('-incident_date')
         elif len(temp_group)==2:
             stat_type_filter = dict(request.POST)['incident_type'];
             stat_target_filter = dict(request.POST)['incident_target'];
             
-            resource = resource.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).order_by('-incident_date')
+            resource = resource.filter(incident_date__gte=request.POST['start_date'],incident_date__lte=request.POST['end_date']).order_by('-incident_date')
 
             if stat_type_filter[0]=='':
                 resource = resource
-                # resource = AfgIncidentOasis.objects.filter(incident_date__gt=request.POST['start_date'],incident_date__lt=request.POST['end_date']).values(temp_group[0],temp_group[1]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0],temp_group[1])
+                # resource = AfgIncidentOasis.objects.filter(incident_date__gte=request.POST['start_date'],incident_date__lte=request.POST['end_date']).values(temp_group[0],temp_group[1]).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(temp_group[0],temp_group[1])
             else:
                 resource = resource.filter(main_type__in=stat_type_filter)
 

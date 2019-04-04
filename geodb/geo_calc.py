@@ -419,7 +419,7 @@ def getListIncidents(request, daterange, filterLock, flag, code):
     if 'incident_target' in request.GET:
         resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1]).order_by('-incident_date')
+    resource = resource.filter(incident_date__gte=date[0],incident_date__lte=date[1]).order_by('-incident_date')
 
     resource = resource.values('incident_date','description')[:100]
     return resource
@@ -452,7 +452,7 @@ def getSAMIncident(request, daterange, filterLock, flag, code, group, filter):
     if 'incident_target' in request.GET:
         resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
+    resource = resource.filter(incident_date__gte=date[0],incident_date__lte=date[1])
     resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group)
 
     return resource
@@ -482,7 +482,7 @@ def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilte
     if includeFilter and request.GET.get('incident_target', ''):
         resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
+    resource = resource.filter(incident_date__gte=date[0],incident_date__lte=date[1])
     resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group)
 
     return resource
@@ -507,7 +507,7 @@ def getIncidentCasualties(request, daterange, filterLock, flag, code):
     if filterLock!='':
         resource = resource.filter(wkb_geometry__intersects=filterLock)
 
-    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
+    resource = resource.filter(incident_date__gte=date[0],incident_date__lte=date[1])
 
     if 'incident_type' in request.GET:
         resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
