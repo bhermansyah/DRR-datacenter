@@ -33,7 +33,6 @@ from geodb.radarchart import RadarChart
 from geodb.riverflood import getFloodForecastBySource
 
 from django.utils.translation import ugettext as _
-from securitydb.models import SecureFeature
 import pprint
 
 #added by razinal
@@ -158,8 +157,6 @@ def getSecurity(request, filterLock, flag, code, includes=[], excludes=[]):
 	if 'daterange' in request.GET:
 		daterange = request.GET['daterange']
 
-	datestart, dateend = daterange.split(',')
-	daterange = ','.join([datestart+' 00:00:00.000000', dateend+' 23:59:59.999999'])
 
 
 	rawCasualties = getIncidentCasualties(request, daterange, rawFilterLock, flag, code)
@@ -397,191 +394,135 @@ def getListIncidentCasualties(request, daterange, filterLock, flag, code):
 	return response
 
 def getListIncidents(request, daterange, filterLock, flag, code):
-	response = {}
+    response = {}
 
-	resource = SecureFeature.objects.all()
-	date = daterange.split(',')
+    resource = AfgIncidentOasis.objects.all()
+    date = daterange.split(',')
 
-	if flag=='entireAfg':
-		filterLock = ''
-	elif flag =='currentProvince':
-		filterLock = ''
-		if len(str(code)) > 2:
-			resource = resource.filter(scre_distid=code)
-		else :
-			resource = resource.filter(scre_provid=code)
-	else:
-		filterLock = filterLock
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
 
-	if filterLock!='':
-		resource = resource.filter(mpoint__contained=filterLock)
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
 
-	if 'incident_type' in request.GET:
-		resource = resource.filter(scre_eventid__evnt_name__in=request.GET['incident_type'].split(','))
+    if 'incident_type' in request.GET:
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
-	if 'incident_target' in request.GET:
-		resource = resource.filter(scre_incidenttarget__inct_name__in=request.GET['incident_target'].split(','))
+    if 'incident_target' in request.GET:
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-	resource = resource.filter(scre_incidentdate__gt=date[0],scre_incidentdate__lt=date[1]).order_by('-scre_incidentdate')
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1]).order_by('-incident_date')
 
-	resource = resource.extra(select={'incident_date': 'scre_incidentdate', 'description': "scre_notes"})
-	resource = resource.values('incident_date','description')[:100]
-	return resource
+    resource = resource.values('incident_date','description')[:100]
+    return resource
 
 def getSAMIncident(request, daterange, filterLock, flag, code, group, filter):
+    response = {}
+    if group == 'type':
+        resource = AfgIncidentOasis.objects.all().filter(main_type=filter)
+    elif group == 'target':
+        resource = AfgIncidentOasis.objects.all().filter(main_target=filter)
+    date = daterange.split(',')
 
-	def newname(oldname):
-		names = {
-			'main_type': 'scre_eventid__evnt_cat__cat_name',
-			'type': 'scre_eventid__evnt_name',
-			'main_target': 'scre_incidenttarget__inct_catid__cat_name',
-			'target': 'scre_incidenttarget__inct_name',
-		}
-		if oldname in names:
-			return names[oldname]
-		else:
-			return oldname
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
 
-	def colname(oldname):
-		names = {
-			'main_type': 'afg_scr_eventtypecat.cat_name',
-			'type': 'afg_scr_eventtype.evnt_name',
-			'main_target': 'afg_scr_incidenttargetcat.cat_name',
-			'target': 'afg_scr_incidenttarget.inct_name',
-		}
-		if oldname in names:
-			return names[oldname]
-		else:
-			return oldname
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
 
-	response = {}
-	if group == 'type':
-		resource = SecureFeature.objects.all().filter(scre_eventid__evnt_cat__cat_name=filter)
-	elif group == 'target':
-		resource = SecureFeature.objects.all().filter(scre_incidenttarget__inct_catid__cat_name=filter)
-	date = daterange.split(',')
+    if 'incident_type' in request.GET:
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
-	if flag=='entireAfg':
-		filterLock = ''
-	elif flag =='currentProvince':
-		filterLock = ''
-		if len(str(code)) > 2:
-			resource = resource.filter(scre_distid=code)
-		else :
-			resource = resource.filter(scre_provid=code)
-	else:
-		filterLock = filterLock
+    if 'incident_target' in request.GET:
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-	if filterLock!='':
-		resource = resource.filter(mpoint__contained=filterLock)
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
+    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group)
 
-	if 'incident_type' in request.GET:
-		resource = resource.filter(scre_eventid__evnt_name__in=request.GET['incident_type'].split(','))
-
-	if 'incident_target' in request.GET:
-		resource = resource.filter(scre_incidenttarget__inct_name__in=request.GET['incident_target'].split(','))
-
-	resource = resource.filter(scre_incidentdate__gt=date[0], scre_incidentdate__lt=date[1])
-	resource = resource.extra(select={group: colname(group), 'violent':"sum(case when scre_violent then 1 else 0 end)", 'affected':'sum(0)'}) # affected is dummy
-	resource = resource.values(newname(group), group, 'violent', 'affected').annotate(count=Count('id'), injured=Sum('scre_injured'), dead=Sum('scre_dead')).order_by(group) # newname(group) to make sql join
-
-	return resource
+    return resource
 
 def getSAMParams(request, daterange, filterLock, flag, code, group, includeFilter):
+    response = {}
+    resource = AfgIncidentOasis.objects.all()
+    date = daterange.split(',')
 
-	def newname(oldname):
-		names = {
-			'main_type': 'scre_eventid__evnt_cat__cat_name',
-			'type': 'scre_eventid__evnt_name',
-			'main_target': 'scre_incidenttarget__inct_catid__cat_name',
-			'target': 'scre_incidenttarget__inct_name',
-		}
-		if oldname in names:
-			return names[oldname]
-		else:
-			return oldname
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
 
-	def colname(oldname):
-		names = {
-			'main_type': 'afg_scr_eventtypecat.cat_name',
-			'type': 'afg_scr_eventtype.evnt_name',
-			'main_target': 'afg_scr_incidenttargetcat.cat_name',
-			'target': 'afg_scr_incidenttarget.inct_name',
-		}
-		if oldname in names:
-			return names[oldname]
-		else:
-			return oldname
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
 
-	response = {}
-	resource = SecureFeature.objects.all()
-	date = daterange.split(',')
+    if includeFilter and request.GET.get('incident_type', ''):
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
-	if flag=='entireAfg':
-		filterLock = ''
-	elif flag =='currentProvince':
-		filterLock = ''
-		if len(str(code)) > 2:
-			resource = resource.filter(scre_distid=code)
-		else :
-			resource = resource.filter(scre_provid=code)
-	else:
-		filterLock = filterLock
+    if includeFilter and request.GET.get('incident_target', ''):
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-	if filterLock!='':
-		resource = resource.filter(mpoint__contained=filterLock)
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
+    resource = resource.values(group).annotate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead')).order_by(group)
 
-	if includeFilter and 'incident_type' in request.GET:
-		resource = resource.filter(scre_eventid__evnt_name__in=request.GET['incident_type'].split(','))
-
-	if includeFilter and 'incident_target' in request.GET:
-		resource = resource.filter(scre_incidenttarget__inct_name__in=request.GET['incident_target'].split(','))
-
-	resource = resource.filter(scre_incidentdate__gt=date[0], scre_incidentdate__lt=date[1])
-	resource = resource.extra(select={group: colname(group), 'violent':"sum(case when scre_violent then 1 else 0 end)", 'affected':'sum(0)'}) # affected is dummy
-	resource = resource.values(newname(group), group, 'violent', 'affected').annotate(count=Count('id'), injured=Sum('scre_injured'), dead=Sum('scre_dead')).order_by(group) # newname(group) to make sql join
-
-	return resource
+    return resource
 
 
 def getIncidentCasualties(request, daterange, filterLock, flag, code):
-	response = {}
-	resource = SecureFeature.objects.all()
-	date = daterange.split(',')
+    response = {}
+    resource = AfgIncidentOasis.objects.all()
+    date = daterange.split(',')
 
-	if flag=='entireAfg':
-		filterLock = ''
-	elif flag =='currentProvince':
-		filterLock = ''
-		if len(str(code)) > 2:
-			resource = resource.filter(scre_distid=code)
-		else :
-			resource = resource.filter(scre_provid=code)
-	else:
-		filterLock = filterLock
+    if flag=='entireAfg':
+        filterLock = ''
+    elif flag =='currentProvince':
+        filterLock = ''
+        if len(str(code)) > 2:
+            resource = resource.filter(dist_code=code)
+        else :
+            resource = resource.filter(prov_code=code)
+    else:
+        filterLock = filterLock
 
-	if filterLock!='':
-		resource = resource.filter(mpoint__contained=filterLock)
+    if filterLock!='':
+        resource = resource.filter(wkb_geometry__intersects=filterLock)
 
-	resource = resource.filter(scre_incidentdate__gt=date[0],scre_incidentdate__lt=date[1])
+    resource = resource.filter(incident_date__gt=date[0],incident_date__lt=date[1])
 
-	if 'incident_type' in request.GET:
-		resource = resource.filter(scre_eventid__evnt_name__in=request.GET['incident_type'].split(','))
+    if 'incident_type' in request.GET:
+        resource = resource.filter(main_type__in=request.GET['incident_type'].split(','))
 
-	if 'incident_target' in request.GET:
-		resource = resource.filter(scre_incidenttarget__inct_name__in=request.GET['incident_target'].split(','))
+    if 'incident_target' in request.GET:
+        resource = resource.filter(main_target__in=request.GET['incident_target'].split(','))
 
-	resource1 = resource.aggregate(count=Count('id'), injured=Sum('scre_injured'), dead=Sum('scre_dead'))
-	print resource.query
-	resource2 = resource.extra(select={'violent':"sum(case when scre_violent then 1 else 0 end)", 'affected':'sum(0)'}).values('violent', 'affected') # affected is dummy
-	# print resource2.query
+    resource = resource.aggregate(count=Count('uid'), affected=Sum('affected'), injured=Sum('injured'), violent=Sum('violent'), dead=Sum('dead'))
 
-	response['total_incident'] = resource1['count'] if resource1['count'] != None else 0
-	response['total_injured'] = resource1['injured'] if resource1['injured'] != None else 0
-	response['total_violent'] = resource2[0]['violent'] if resource2[0]['violent'] != None else 0 +resource2[0]['affected'] if resource2[0]['affected'] != None else 0
-	response['total_dead'] = resource1['dead'] if resource1['dead'] != None else 0
+    response['total_incident'] = resource['count'] if resource['count'] != None else 0
+    response['total_injured'] = resource['injured'] if resource['injured'] != None else 0
+    response['total_violent'] = resource['violent'] if resource['violent'] != None else 0 +resource['affected'] if resource['affected'] != None else 0
+    response['total_dead'] = resource['dead'] if resource['dead'] != None else 0
 
-	return response
+    return response
 
 def getEarthquake(request, filterLock, flag, code, includes=[], excludes=[], eq_event=''):
 
@@ -1114,7 +1055,7 @@ def GetAccesibilityData(filterLock, flag, code, includes=[], excludes=[]):
 			values('dist_code', 'na_en').annotate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 		else :
 			gsm = AfgCapaGsmcvr.objects.filter(prov_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
-			gsm_child = AfgCapaGsmcvr.objects.filter(dist_code=code).extra(select={'na_en': 'SELECT dist_na_en FROM afg_admbnda_adm2 WHERE afg_admbnda_adm2.dist_code = afg_capa_gsmcvr.dist_code'}).\
+			gsm_child = AfgCapaGsmcvr.objects.filter(prov_code=code).extra(select={'na_en': 'SELECT dist_na_en FROM afg_admbnda_adm2 WHERE afg_admbnda_adm2.dist_code = afg_capa_gsmcvr.dist_code'}).\
 			values('dist_code', 'na_en').annotate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 
 	elif flag =='drawArea':
