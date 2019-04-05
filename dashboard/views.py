@@ -323,7 +323,7 @@ def dashboard_multiple(request):
 		    # 'margin-left': 10,
 		    # 'margin-right': 10,
 		    'margin-bottom':10,
-		    'margin-top':25,
+		    'margin-top':30,
 		    # 'viewport-size':'800x600',
 		    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title='+quote(data['mapTitle'].encode('utf-8'))+'&organization='+request.user.organization+'&'+headerparam,
 			# 'lowquality':'-',
