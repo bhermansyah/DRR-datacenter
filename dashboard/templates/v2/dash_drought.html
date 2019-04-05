@@ -14,7 +14,8 @@
 	        	<div class="col-md-12 col-sm-12 col-xs-12">
 	        		<div class="x_panel">
 	        			<div class="date x_title">
-	        			    <h2 class="pull-left">{% trans "Closest Available Prediction Period :" %} {{woy_datestart}} to {{woy_dateend}}</h2>
+	        			    <h2 class="pull-left">{% trans "Closest Available Prediction Period :" %} {% if customperiod %}{{customperiod}}{% else %}{{woy_datestart}} to {{woy_dateend}}{% endif %}
+							</h2>
 	        			    <div class="row">
     	        			    <div class="{% if 'print' in request.build_absolute_uri %}col-md-3{% else %}col-md-2{% endif %}  pull-right">
     	        			    	<div class="input-group">
