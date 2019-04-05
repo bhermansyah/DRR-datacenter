@@ -95,12 +95,19 @@ def common(request):
 		dateIn = dateIn_str.split('-')
 		woy = dateIn[0] + '%03d' % date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1]
 		closest_woy = getClosestDroughtWOY(woy)
+
+		if request.GET.get('woy'):
+			closest_woy = request.GET.get('woy')
+
 		response = getDroughtRisk(request, filterLock, flag, code, closest_woy)
 	elif request.GET['page'] == 'main':
 		response = getQuickOverview(request, filterLock, flag, code)
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)
+
+	if request.GET.get('templatevar'):
+		response.update(json.loads(request.GET.get('templatevar')))
 
 	response['checked'] = []
 	if '_checked' in request.GET:
@@ -195,7 +202,7 @@ def dashboard_detail(request):
 			    # 'margin-left': 10,
 			    # 'margin-right': 10,
 			    'margin-bottom':10,
-			    'margin-top':25,
+			    'margin-top':30,
 			    # 'viewport-size':'800x600',
 			    'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/'+v2_folder+'rep_header.html?onpdf='+user_logo['onpdf']+'&userlogo='+user_logo['logo_url']+'&name='+request.user.first_name+' '+request.user.last_name+'&cust_title=&organization='+request.user.organization+'&'+headerparam,
 			    # 'header-html': 'http://'+request.META.get('HTTP_HOST')+'/static/rep_header(v2).html?name='+request.user.first_name+'-'+request.user.last_name+'&cust_title=&organization='+request.user.organization,
