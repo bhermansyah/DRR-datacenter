@@ -35,7 +35,6 @@ import calendar
 
 from avatar.templatetags.avatar_tags import avatar_print_url
 from geodb.geoapi import getClosestDroughtWOY
-from django.http import Http404
 
 def common(request):
 	response = {}
@@ -60,13 +59,6 @@ def common(request):
 		filterLock = 'ST_GeomFromText(\''+filterLock+'\',4326)'
 		flag = request.GET['flag']
 
-	date_selected = datetime.strptime(request.GET.get('date', datetime.now().strftime("%Y-%m-%d")), "%Y-%m-%d")
-	woy = str(date_selected.year) + '%03d' % date_selected.isocalendar()[1]
-	closest_woy = getClosestDroughtWOY(woy)
-
-	if request.GET.get('woy'):
-		closest_woy = request.GET.get('woy')
-    
 	if 'pdf' in request.GET:
 		mapCode = '700'
 		map_obj = _resolve_map(request, mapCode, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
@@ -80,49 +72,32 @@ def common(request):
 		queryset = matrix(user=request.user,resourceid=map_obj,action='Dashboard '+request.GET['page'])
 		queryset.save()
 
-	import importlib
-	from .enumerations import DASHBOARD_TO_MODULE
-
-	arg = [request, filterLock, flag, code]
-	if request.GET['page'] in ['accessibility', 'security']:
-		arg = [request, rawFilterLock, flag, code]
-	kwarg = {}
-	if request.GET['page'] in ['drought']:
-		kwarg['woy'] = closest_woy
-
-	# if request.GET['page'] in DASHBOARD_TO_MODULE.keys() \
-	# and DASHBOARD_TO_MODULE[request.GET['page']] in settings.DASHBOARD_PAGES:
-	# 	module = importlib.import_module(DASHBOARD_TO_MODULE[request.GET['page']])
-	# 	response = module.views.get_dashboard_method(request.GET['page'])(*arg, **kwarg)
-	# elif request.GET['page'] == 'baseline':
-	# 	response = getBaseline(*arg, **kwarg)
-	# elif request.GET['page'] == 'main':
-	# 	response = getQuickOverview(*arg, **kwarg)
-	# else:
-	# 	raise Http404("Page not found")
-		
 	if request.GET['page'] == 'baseline':
-		response = getBaseline(*arg, **kwarg)
+		response = getBaseline(request, filterLock, flag, code)
 	elif request.GET['page'] == 'floodforecast':
-		response = getFloodForecast(*arg, **kwarg)
+		response = getFloodForecast(request, filterLock, flag, code)
 	elif request.GET['page'] == 'floodrisk':
-		response = getFloodRisk(*arg, **kwarg)
+		response = getFloodRisk(request, filterLock, flag, code)
 	elif request.GET['page'] == 'avalancherisk':
-		response = getAvalancheRisk(*arg, **kwarg)
+		response = getAvalancheRisk(request, filterLock, flag, code)
 	elif request.GET['page'] == 'avalcheforecast':
-		response = getAvalancheForecast(*arg, **kwarg)
+		response = getAvalancheForecast(request, filterLock, flag, code)
 	elif request.GET['page'] == 'accessibility':
-		response = getAccessibility(*arg, **kwarg)
+		response = getAccessibility(request, rawFilterLock, flag, code)
 	elif request.GET['page'] == 'earthquake':
-		response = getEarthquake(*arg, **kwarg)
+		response = getEarthquake(request, filterLock, flag, code)
 	elif request.GET['page'] == 'security':
-		response = getSecurity(*arg, **kwarg)
+		response = getSecurity(request, rawFilterLock, flag, code)
 	elif request.GET['page'] == 'landslide':
-		response = getLandslideRisk(*arg, **kwarg)
+		response = getLandslideRisk(request, filterLock, flag, code)
 	elif request.GET['page'] == 'drought':
-		response = getDroughtRisk(*arg, **kwarg)
+		dateIn_str = request.GET['date'] if ('date' in request.GET) else str(date.today())
+		dateIn = dateIn_str.split('-')
+		woy = dateIn[0] + '%03d' % date(int(dateIn[0]), int(dateIn[1]), int(dateIn[2])).isocalendar()[1]
+		closest_woy = getClosestDroughtWOY(woy)
+		response = getDroughtRisk(request, filterLock, flag, code, closest_woy)
 	elif request.GET['page'] == 'main':
-		response = getQuickOverview(*arg, **kwarg)
+		response = getQuickOverview(request, filterLock, flag, code)
 
 	if 'code' in request.GET:
 		response['add_link'] = '&code='+str(code)
@@ -130,9 +105,6 @@ def common(request):
 	response['checked'] = []
 	if '_checked' in request.GET:
 		response['checked'] = filter(None, request.GET['_checked'].split(","))
-
-	if request.GET.get('templatevar'):
-		response.update(json.loads(request.GET.get('templatevar')))
 
 	class CustomEncoder(json.JSONEncoder):
 	    def default(self, obj):
