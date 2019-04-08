@@ -917,6 +917,10 @@ input[type="search"]:focus{
       height: 370px;
 }
 
+div.ch-size-radar{
+    height: 420px;
+}
+
 @media (max-width: 425px), (min-width: 1024px) {
     .print-no-pad{
         padding: 0;
