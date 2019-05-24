@@ -488,7 +488,7 @@ function init_echarts() {
 	colorFloodRisk = ['#ffaaab', '#ff6264', '#d13c3e', '#b92527'];
 
 	colorList=[
-	    '#c0fee5', /*'#99fcff',*/ '#94fdd5', '#75fcc9', /*'#fffb46',*/ '#fff327', /*'#fffc79', */ /*'#ffdd72',*/
+	    '#daf5fe', /* '#c0fee5', */ /*'#99fcff',*/ '#94fdd5', '#75fcc9', /*'#fffb46',*/ '#fff327', /*'#fffc79', */ /*'#ffdd72',*/
 	    /*'#ffd341',*/ '#ffc43b', '#ff9c00', '#ffc9c7', '#ffa8a4', /*'#fdbbac',*/ '#ff9d99' /*'#ffa19a'*/
 	];
 
@@ -559,15 +559,18 @@ function init_echarts() {
 		  		series: [{
 		  			name: 'Area',
 		  			type: 'pie',
-		  			radius: ['35%', '55%'],
+		  			radius: ['30%', '45%'],
 		  			itemStyle: {
 		  				normal: {
 		  					label: {
-		  						show: true,
+								  show: true,
+								  position: 'outside',
 		  						formatter: humanizePie
 		  					},
 		  					labelLine: {
-		  						show: true
+								  show: true,
+								  length: 10,
+								  length2: 5
 		  					}
 		  				},
 		  				emphasis: {
@@ -632,7 +635,7 @@ function init_echarts() {
 		  		series: [{
 		  			name: 'Area',
 		  			type: 'pie',
-		  			radius: ['35%', '55%'],
+		  			radius: ['30%', '45%'],
 		  			itemStyle: {
 		  				normal: {
 		  					label: {
@@ -640,7 +643,9 @@ function init_echarts() {
 		  						formatter: humanizePie
 		  					},
 		  					labelLine: {
-		  						show: true
+								show: true,
+								length: 10,
+								length2: 5
 		  					}
 		  				},
 		  				emphasis: {
@@ -718,7 +723,7 @@ function init_echarts() {
 				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -726,7 +731,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -2593,7 +2600,7 @@ function init_echarts() {
 				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2601,7 +2608,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -2670,7 +2679,7 @@ function init_echarts() {
 				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2678,7 +2687,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -2747,7 +2758,7 @@ function init_echarts() {
 				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2755,7 +2766,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -2824,7 +2837,7 @@ function init_echarts() {
   				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2832,7 +2845,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -2901,7 +2916,7 @@ function init_echarts() {
   				series: [{
 					name: 'Area',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2909,7 +2924,9 @@ function init_echarts() {
 								formatter: humanizePie
 							},
 							labelLine: {
-								show: true
+								show: true,
+								length: 10,
+								length2: 5
 							}
 						},
 						emphasis: {
@@ -4009,7 +4026,7 @@ function init_echarts() {
 				series: [{
 					name: 'Population Affected',
 					type: 'pie',
-					radius: ['35%', '55%'],
+					radius: ['30%', '45%'],
 					center: ['50%', '48%'],
 					itemStyle: {
 						normal: {

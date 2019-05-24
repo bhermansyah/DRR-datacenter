@@ -481,7 +481,8 @@ th.drought_ab_dry, th.drought_mod, th.drought_svre, th.drought_extrme, th.drough
 
 th.l1h, td.l1h/*,
 #nAirport tr td:nth-child(2), #nHealth1 tr td:nth-child(2), #nHealth2 tr td:nth-child(2), #nHealth3 tr td:nth-child(2), #nHealth4 tr td:nth-child(2), #ProvC tr td:nth-child(2), #nProv tr td:nth-child(2), #nDist tr td:nth-child(2)*/{
-    background-color: #c0fee5 !important;
+    /* background-color: #c0fee5 !important; */
+    background-color: #daf5fe !important;
     /*border: 1px solid #fff !important;*/
 }
 
