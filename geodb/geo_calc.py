@@ -1051,8 +1051,9 @@ def GetAccesibilityData(filterLock, flag, code, includes=[], excludes=[]):
 			})
 		if len(str(code)) > 2:
 			gsm = AfgCapaGsmcvr.objects.filter(dist_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
-			gsm_child = AfgCapaGsmcvr.objects.filter(dist_code=code).extra(select={'na_en': 'SELECT dist_na_en FROM afg_admbnda_adm2 WHERE afg_admbnda_adm2.dist_code = afg_capa_gsmcvr.dist_code'}).\
-			values('dist_code', 'na_en').annotate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
+			# gsm_child = AfgCapaGsmcvr.objects.filter(dist_code=code).extra(select={'na_en': 'SELECT dist_na_en FROM afg_admbnda_adm2 WHERE afg_admbnda_adm2.dist_code = afg_capa_gsmcvr.dist_code'}).\
+			# values('dist_code', 'na_en').annotate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
+			gsm_child = {}
 		else :
 			gsm = AfgCapaGsmcvr.objects.filter(prov_code=code).aggregate(pop=Sum('gsm_coverage_population'),area=Sum('gsm_coverage_area_sqm'),buildings=Sum('area_buildings'))
 			gsm_child = AfgCapaGsmcvr.objects.filter(prov_code=code).extra(select={'na_en': 'SELECT dist_na_en FROM afg_admbnda_adm2 WHERE afg_admbnda_adm2.dist_code = afg_capa_gsmcvr.dist_code'}).\
