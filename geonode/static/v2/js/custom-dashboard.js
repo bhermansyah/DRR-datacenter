@@ -2680,6 +2680,7 @@ function init_echarts() {
 					name: 'Area',
 					type: 'pie',
 					radius: ['30%', '45%'],
+					center: ['50%', '40%'],
 					itemStyle: {
 						normal: {
 							label: {
