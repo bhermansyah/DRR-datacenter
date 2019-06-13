@@ -923,7 +923,8 @@ function init_echarts() {
 		  			label:{
 		  				normal:{
 		  					formatter: humanizeBar,
-		  					position: 'right',
+							  // position: ['100%', '30%'],
+							position: 'right',
 		  					textBorderColor: 'auto',
 		  					color: '#33333352',
 		  					show: true
@@ -2601,6 +2602,7 @@ function init_echarts() {
 					name: 'Area',
 					type: 'pie',
 					radius: ['30%', '45%'],
+					center: ['50%', '60%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2760,6 +2762,7 @@ function init_echarts() {
 					name: 'Area',
 					type: 'pie',
 					radius: ['30%', '45%'],
+					center: ['50%', '60%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2768,7 +2771,7 @@ function init_echarts() {
 							},
 							labelLine: {
 								show: true,
-								length: 10,
+								length: 20,
 								length2: 5
 							}
 						},
@@ -2839,6 +2842,7 @@ function init_echarts() {
 					name: 'Area',
 					type: 'pie',
 					radius: ['30%', '45%'],
+					center: ['50%', '60%'],
 					itemStyle: {
 						normal: {
 							label: {
@@ -2918,6 +2922,7 @@ function init_echarts() {
 					name: 'Area',
 					type: 'pie',
 					radius: ['30%', '45%'],
+					center: ['50%', '60%'],
 					itemStyle: {
 						normal: {
 							label: {
