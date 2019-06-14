@@ -774,8 +774,8 @@
 	                        <p class="text-muted font-13 m-b-30">
 	                        	{% trans "Afghanistan population within landslide susceptibility for cover material landslides in rapid evolution (S3). Indicates the susceptibility for cover material landslides in rapid evolution, including: debris- mud flows. Susceptibility values are represented according the following scale: 0=Null; 1-3=Low; 4-5=Moderate; 6=High; 7-9=Very High" %}
 	                        </p>
-	                        <div class="table-responsive hidden-print">
-	                            <table id="" class="table table-hover online">
+	                        <div class="table-responsive {% if 'print' in request.build_absolute_uri %}visible-print-block{% else %}hidden-print{% endif %}">
+	                            <table id="" class="table {% if 'print' in request.build_absolute_uri %}table-condensed print{% else %}table-hover online{% endif %}">
 	                                <thead>
 	                                    <tr>
 	                                        <th rowspan="2">{% trans "Region" %}</th>
@@ -803,40 +803,6 @@
 	                                        <td class="landslide_high">{{data.ls_s3_wb_high}}</td>
 	                                        <td class="landslide_mod">{{data.ls_s3_wb_moderate}}</td>
 	                                        <td class="landslide_low">{{data.ls_s3_wb_low}}</td>
-	                                    </tr>
-	                                    {% endfor %}
-	                                </tbody>
-	                            </table>
-	                        </div>
-	                        <div class="table-responsive visible-print-block">
-	                            <table class="table table-condensed print">
-	                                <thead>
-	                                    <tr>
-	                                        <th rowspan="2">{% trans "Region" %}</th>
-	                                        <th colspan="4">{% trans "Risk Level" %}</th>
-	                                    </tr>
-	                                    <tr>
-	                                        <th class="landslide_vhigh hum">{% trans "Very High" %}</th>
-	                                        <th class="landslide_high hum">{% trans "High" %}</th>
-	                                        <th class="landslide_mod hum">{% trans "Moderate" %}</th>
-	                                        <th class="landslide_low hum">{% trans "Low" %}</th>
-	                                    </tr>
-	                                </thead>
-	                                <tbody>
-	                                    <tr>
-	                                        <td class="boldRow">{{parent_label}}</td>
-	                                        <td class="boldRow landslide_vhigh">{{lsi_immap_very_high}}</td>
-	                                        <td class="boldRow landslide_high">{{lsi_immap_high}}</td>
-	                                        <td class="boldRow landslide_mod">{{lsi_immap_moderate}}</td>
-	                                        <td class="boldRow landslide_low">{{lsi_immap_low}}</td>
-	                                    </tr>
-	                                    {% for data in lc_child %}
-	                                    <tr>
-	                                        <td>{{data.na_en}}</td>
-	                                        <td class="landslide_vhigh">{{data.lsi_immap_very_high}}</td>
-	                                        <td class="landslide_high">{{data.lsi_immap_high}}</td>
-	                                        <td class="landslide_mod">{{data.lsi_immap_moderate}}</td>
-	                                        <td class="landslide_low">{{data.lsi_immap_low}}</td>
 	                                    </tr>
 	                                    {% endfor %}
 	                                </tbody>
