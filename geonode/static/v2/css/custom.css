@@ -909,7 +909,7 @@ input[type="search"]:focus{
 }
 
 /*Chart*/
-.ch-size, .ch-size-fforecast, .ch-size-pie, .ch-size-bar-landcover{
+.ch-size, .ch-size-fforecast, .ch-size-pie, .ch-size-bar-landcover, .ch-size-bar-landslide{
     height: 370px;
     width: auto;
 }

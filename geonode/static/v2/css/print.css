@@ -184,10 +184,15 @@
         /* width: 344px !important; */
     }
 
+    div.ch-size-bar-landslide{
+      height: 300px !important;
+      width: 190px !important;
+    }
+
     div.ch-size-bar-landcover{
       height: 370px !important;
       width: 344px !important;
-  }
+    }
 
     div.ch-size-fforecast{
         height: 370px !important;
