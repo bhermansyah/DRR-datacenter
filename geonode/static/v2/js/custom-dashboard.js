@@ -3012,6 +3012,7 @@ function init_echarts() {
 				xAxis: [{
 					type: 'value',
 					boundaryGap: [0, 0.01],
+					splitNumber: 2,
 					axisLabel:{
 						rotate: 30,
 						formatter: humanizeFormatter
@@ -3088,6 +3089,7 @@ function init_echarts() {
 				xAxis: [{
 					type: 'value',
 					boundaryGap: [0, 0.01],
+					splitNumber: 2,
 					axisLabel:{
 						rotate: 30,
 						formatter: humanizeFormatter
@@ -3164,6 +3166,7 @@ function init_echarts() {
 				xAxis: [{
 					type: 'value',
 					boundaryGap: [0, 0.01],
+					splitNumber: 2,
 					axisLabel:{
 						rotate: 30,
 						formatter: humanizeFormatter
@@ -3240,6 +3243,7 @@ function init_echarts() {
 				xAxis: [{
 					type: 'value',
 					boundaryGap: [0, 0.01],
+					splitNumber: 2,
 					axisLabel:{
 						rotate: 30,
 						formatter: humanizeFormatter
@@ -3318,6 +3322,7 @@ function init_echarts() {
 				xAxis: [{
 					type: 'value',
 					boundaryGap: [0, 0.01],
+					splitNumber: 2,
 					axisLabel:{
 						rotate: 30,
 						formatter: humanizeFormatter
