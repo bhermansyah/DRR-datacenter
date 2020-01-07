@@ -2539,3 +2539,20 @@ def getDemographicInfo(request):
     context_dict.pop('position')
     return render_to_response(template,
                                   RequestContext(request, context_dict))
+
+def test_getLatestShakemap(includeShakeMap=False):
+    startdate = datetime.datetime.utcnow()
+    startdate = startdate - datetime.timedelta(days=30)
+    contents = getContents('shakemap',['shape.zip'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
+
+    for content in contents:
+        point = Point(x=content['geometry']['coordinates'][0], y=content['geometry']['coordinates'][1],srid=4326)
+        dateofevent = getUTCTimeStamp(content['properties']['time'])
+        shakemaptimestamp = content['shakemap_url'].split('/')[-3]
+        print content
+        print content['shakemap_url']
+        name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
+
+
+
+
