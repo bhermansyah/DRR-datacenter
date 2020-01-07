@@ -62,7 +62,7 @@ GS_TMP_DIR = getattr(settings, 'GS_TMP_DIR', '/tmp')
 initial_data_path = "/home/ubuntu/DRR-datacenter/geodb/initialdata/" # Production
 gdal_path = '/usr/bin/' # production
 
-# initial_data_path = "/Users/budi/Documents/iMMAP/DRR-datacenter/geodb/initialdata/" # in developement
+# initial_data_path = "/Users/immap/DRR-datacenter/geodb/initialdata/" # in developement
 # gdal_path = '/usr/local/bin/' # development
 
 
@@ -118,6 +118,7 @@ def getLatestShakemap(includeShakeMap=False):
 
             filename = mktemp('.zip')
 
+
             name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
             thefile=ZipFile(filename)
             for name in thefile.namelist():
@@ -139,7 +140,7 @@ def getLatestShakemap(includeShakeMap=False):
                 }
 
                 # subprocess.call('%s -f "ESRI Shapefile" %s %s -overwrite -dialect sqlite -sql "select ST_union(ST_MakeValid(Geometry)),GRID_CODE from mi GROUP BY GRID_CODE"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), os.path.join(GS_TMP_DIR,'mi.shp')),shell=True)
-                subprocess.call('%s -f "ESRI Shapefile" %s %s -overwrite -dialect sqlite -sql "select ST_union(Geometry),GRID_CODE from mi GROUP BY GRID_CODE"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), os.path.join(GS_TMP_DIR,'mi.shp')),shell=True)
+                subprocess.call('%s -f "ESRI Shapefile" %s %s -overwrite -dialect sqlite -sql "select ST_union(Geometry),round(PARAMVALUE,0) AS GRID_CODE from mi GROUP BY round(PARAMVALUE,0)"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), os.path.join(GS_TMP_DIR,'mi.shp')),shell=True)
                 earthquake_shakemap.objects.filter(event_code=content['properties']['code']).delete()
                 lm = LayerMapping(earthquake_shakemap, os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), mapping)
                 lm.save(verbose=True)
