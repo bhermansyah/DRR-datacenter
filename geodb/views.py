@@ -40,6 +40,8 @@ from zipfile import ZipFile
 from urllib import urlretrieve
 from tempfile import mktemp
 
+import requests, io
+
 from graphos.sources.model import ModelDataSource
 from graphos.renderers import flot, gchart
 from graphos.sources.simple import SimpleDataSource
@@ -116,11 +118,15 @@ def getLatestShakemap(includeShakeMap=False):
             c.shakemaptimestamp = shakemaptimestamp
             c.save()
 
-            filename = mktemp('.zip')
 
+            # update to make the new SSL on USGS works
+            # filename = mktemp('.zip')
+            # name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
+            # thefile=ZipFile(filename)
 
-            name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
-            thefile=ZipFile(filename)
+            r = requests.get(URL, stream=True)
+            thefile=ZipFile(io.BytesIO(r.content))
+
             for name in thefile.namelist():
                 if name.split('.')[0]=='mi':
                     outfile = open(os.path.join(GS_TMP_DIR,name), 'wb')
@@ -158,10 +164,14 @@ def getLatestShakemap(includeShakeMap=False):
             c.shakemaptimestamp = shakemaptimestamp
             c.save()
 
-            filename = mktemp('.zip')
+            # update to make the new SSL on USGS works
+            # filename = mktemp('.zip')
+            # name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
+            # thefile=ZipFile(filename)
 
-            name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
-            thefile=ZipFile(filename)
+            r = requests.get(URL, stream=True)
+            thefile=ZipFile(io.BytesIO(r.content))
+
             for name in thefile.namelist():
                 if name.split('.')[0]=='mi':
                     outfile = open(os.path.join(GS_TMP_DIR,name), 'wb')
@@ -175,7 +185,7 @@ def getLatestShakemap(includeShakeMap=False):
                     'grid_value':  'GRID_CODE',
                 }
                 # subprocess.call('%s -f "ESRI Shapefile" %s %s -overwrite -dialect sqlite -sql "select ST_union(ST_MakeValid(Geometry)),GRID_CODE from mi GROUP BY GRID_CODE"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), os.path.join(GS_TMP_DIR,'mi.shp')),shell=True)
-                subprocess.call('%s -f "ESRI Shapefile" %s %s -overwrite -dialect sqlite -sql "select ST_union(Geometry),GRID_CODE from mi GROUP BY GRID_CODE"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), os.path.join(GS_TMP_DIR,'mi.shp')),shell=True)
+                subprocess.call('%s -f "ESRI Shapefile" %s %s -overwrite -dialect sqlite -sql "select ST_union(Geometry),round(PARAMVALUE,0) AS GRID_CODE from mi GROUP BY round(PARAMVALUE,0)"' %(os.path.join(gdal_path,'ogr2ogr'), os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), os.path.join(GS_TMP_DIR,'mi.shp')),shell=True)
                 earthquake_shakemap.objects.filter(event_code=content['properties']['code']).delete()
                 lm = LayerMapping(earthquake_shakemap, os.path.join(GS_TMP_DIR,'mi_dissolved.shp'), mapping)
                 lm.save(verbose=True)
@@ -2539,19 +2549,6 @@ def getDemographicInfo(request):
     context_dict.pop('position')
     return render_to_response(template,
                                   RequestContext(request, context_dict))
-
-def test_getLatestShakemap(includeShakeMap=False):
-    startdate = datetime.datetime.utcnow()
-    startdate = startdate - datetime.timedelta(days=30)
-    contents = getContents('shakemap',['shape.zip'],bounds=[60,77,29,45], magrange=[4,9], starttime=startdate, listURL=True, getAll=True)
-
-    for content in contents:
-        point = Point(x=content['geometry']['coordinates'][0], y=content['geometry']['coordinates'][1],srid=4326)
-        dateofevent = getUTCTimeStamp(content['properties']['time'])
-        shakemaptimestamp = content['shakemap_url'].split('/')[-3]
-        print content
-        print content['shakemap_url']
-        name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
 
 
 
