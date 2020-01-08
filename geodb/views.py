@@ -124,7 +124,7 @@ def getLatestShakemap(includeShakeMap=False):
             # name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
             # thefile=ZipFile(filename)
 
-            r = requests.get(URL, stream=True)
+            r = requests.get(content['shakemap_url'], stream=True)
             thefile=ZipFile(io.BytesIO(r.content))
 
             for name in thefile.namelist():
@@ -169,7 +169,7 @@ def getLatestShakemap(includeShakeMap=False):
             # name, hdrs = urllib.urlretrieve(content['shakemap_url'], filename)
             # thefile=ZipFile(filename)
 
-            r = requests.get(URL, stream=True)
+            r = requests.get(content['shakemap_url'], stream=True)
             thefile=ZipFile(io.BytesIO(r.content))
 
             for name in thefile.namelist():
