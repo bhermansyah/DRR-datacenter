@@ -136,10 +136,10 @@
 	            <div class="col-md-4 col-sm-6 col-xs-12 grid">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>{% trans "Current Avalanche" %}
+                            <h2>{% trans "Latest Earthquake" %}
                             	<small>
-                            		{% verbatim %}{{ lastupdatedvalues.avalanche_forecast_last_updated | timeAgo }}{% endverbatim %}
-                            		<a href="" data-toggle="popover" data-trigger="hover" data-placement="auto" data-content="{% trans 'The map and statistics are updated on a daily basis (less than 24 hours).' %}"><sup><i class="fa fa-question-circle"></i></sup></a>
+                            		{% verbatim %}{{ lastupdatedvalues.shakemap_last_updated | timeAgo }}{% endverbatim %}
+                            		<a href="" data-toggle="popover" data-trigger="hover" data-placement="auto" data-content="{% trans 'The map and statistics are updated every 30 mins.' %}"><sup><i class="fa fa-question-circle"></i></sup></a>
                             	</small>
                             </h2>
                             <div class="clearfix"></div>
@@ -147,11 +147,11 @@
                         <div class="x_content">
                     		<a href="./maps/707/view">
                     			<img id="avaSnapshot" src="{{ STATIC_URL }}lib/img/hex-loader2.gif" class="img-responsive">
-                    			<img class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=20&height=20&layer=geonode:current_avalanche_forecast_villages&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
+                    			<img id="eqLegend" class="snapshot-legend" src="../getOverviewMaps/getWMS?request=GetLegendGraphic&width=30&height=20&layer=geonode:earthquake_shakemap&transparent=true&format=image%2Fpng&legend_options=dpi:180;fontAntiAliasing%3Atrue%3BfontSize%3A11%3BfontName%3AArial&SCALE=4367821.451455975" />
                     			<div class="overlay">
                     				<div class="detail">
-                    					<h3>{% trans "Avalanches Prediction" %}</h3>
-                    					<span>{% trans "Click to explore the number of people potentially affected by avalanches" %}</span>
+                    					<h3>{% verbatim %}{{ lastupdatedvalues.shakemap_title }}{% endverbatim %}</h3>
+                    					<span>{% trans "Click to explore for the number of people potentially affected by earthquakes" %}</span>
                     				</div>
                     			</div>
                     		</a>
@@ -691,6 +691,8 @@
 				});
 				$http.get(LAST_UPDATED_URL).success(function(data){
 					$rootScope.lastupdatedvalues = data;
+					var random = Math.floor((Math.random() * 1000) + 1);
+					$( "#avaSnapshot" ).attr("src", "../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=earthquake_shakemap,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&CQL_FILTER=event_code='"+data.shakemap_event_code+"';1=1&_rdm="+random);
 				});
 			});
 			var random = Math.floor((Math.random() * 1000) + 1);
@@ -700,7 +702,7 @@
 			var yyyy = today.getFullYear();
 
 			$( "#floodSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:glofas_gfms_merge,afg_admbnda_adm1&styles=,snapshot_admin1&VIEWPARAMS=year:'+yyyy+';month:'+mm+';day:'+dd+';&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
-			$( "#avaSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_avalanche_forecast_villages,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
+			// $( "#avaSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=earthquake_shakemap,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
 			$( "#scSnapshot" ).attr("src", '../getOverviewMaps/getWMS?service=WMS&version=1.1.0&request=GetMap&layers=geonode:current_snow_depth,afg_admbnda_adm1&styles=,snapshot_admin1&bbox=60.4720890240001,29.3771715570001,74.889451148,38.4907374680001&width=768&height=485&srs=EPSG:4326&format=image%2Fpng&_rdm='+random);
 
 		})();

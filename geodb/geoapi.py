@@ -2142,13 +2142,21 @@ class getLastUpdatedStatus(ModelResource):
         sw = forecastedLastUpdate.objects.filter(forecasttype='snowwater').latest('datadate')
         rf = forecastedLastUpdate.objects.filter(forecasttype='riverflood').latest('datadate')
 
+        eq = earthquake_events.objects.exclude(shakemaptimestamp__isnull=True).latest('dateofevent')
+        # print eq.event_code
+        # print eq.dateofevent
+        # print eq.title
+
+
         # print rf.datadate
         tempRF = rf.datadate + datetime.timedelta(hours=4.5)
         tempSW = sw.datadate + datetime.timedelta(hours=4.5)
+        tempEQ = eq.dateofevent + datetime.timedelta(hours=4.5)
 
         tz = timezone('Asia/Kabul')
         tempRF = tempRF.replace(tzinfo=tz)
         tempSW = tempSW.replace(tzinfo=tz)
+        tempEQ = tempEQ.replace(tzinfo=tz)
 
         stdSC = datetime.datetime.utcnow()
         stdSC = stdSC.replace(hour=10, minute=00, second=00)
@@ -2175,6 +2183,9 @@ class getLastUpdatedStatus(ModelResource):
         response['flood_forecast_last_updated']=tempRF
         response['avalanche_forecast_last_updated']=tempSW
         response['snow_cover_forecast_last_updated']=tempSC
+        response['shakemap_event_code'] = eq.event_code
+        response['shakemap_title'] = eq.title
+        response['shakemap_last_updated'] = tempEQ
         return response
 
     def get_list(self, request, **kwargs):
