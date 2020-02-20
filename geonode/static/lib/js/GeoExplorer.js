@@ -87387,6 +87387,7 @@ gxp.plugins.Print = Ext.extend(gxp.plugins.Tool, {
                                     if (node.component && !node.component.hidden) {
                                         var cmp = node.component;
                                         var encFn = this.encoders.legends[cmp.getXType()];
+                                        console.log(cmp.layerRecord.data.styles);
                                         if (cmp.layerRecord.json.name != 'geonode:afg_elev_dem_30m_aster_hillshade'){
                                             // layers.push(cmp.layerRecord.json.name)
                                             encodedLegends = encodedLegends.concat(
@@ -91849,7 +91850,8 @@ GeoExplorer.Composer = Ext.extend(GeoExplorer, {
         var lastyear = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1500).format('Y-m-d');
         // console.log(lastmonth);
         var dataEQEvents = new Ext.data.JsonStore({
-            url: "../../geoapi/geteqevents/?dateofevent__gte="+lastyear,
+            // url: "../../geoapi/geteqevents/?dateofevent__gte="+lastyear,
+            url: "../../geoapi/geteqevents/",
             root: 'objects',
             totalProperty: 'total_count',
             fields: [
