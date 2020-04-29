@@ -22,7 +22,7 @@ RANGE_NAME = 'afg_covid19_stats'
 
 def get_google_sheet(spreadsheet_id, range_name):
     """ Retrieve sheet data using OAuth credentials and Google Python API. """
-    SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
+    SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
     # Setup the Sheets API
     creds = None
     if os.path.exists(settings.GOOGLE_OAUTH2_TOKEN):
