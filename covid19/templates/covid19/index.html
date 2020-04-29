@@ -63,6 +63,7 @@
         $('#LatestData').DataTable();
     })
 
+    Highcharts.seriesTypes.line.prototype.getPointSpline = Highcharts.seriesTypes.spline.prototype.getPointSpline;
     Highcharts.chart('LineChart', {
         title: {
             text: 'Daily Cumulative Cases by Type in {% if request.GET.code %} {{ request.GET.code }} {% else %} Afghanistan {% endif %}',
@@ -90,9 +91,14 @@
 
        plotOptions: {
             line: {
-                enableMouseTracking: true
+                enableMouseTracking: true,
+                marker:{
+                    enabled:false
+                }
             }
         },
+
+        colors: ['#800080', '#228b22', '#ff0000'],
 
         series:[{{ groupbyDate.DataSeries.cases | jsonify | safe }}, {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, {{ groupbyDate.DataSeries.deaths | jsonify | safe }}],
         credits:{
