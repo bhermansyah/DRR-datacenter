@@ -86,7 +86,7 @@ v2urlpatterns = patterns('',
                        url(r'', include(geoapi.urls)),
                        (r'^getOverviewMaps/', include('geodb.custom_urls')),
                        (r'^people/', include('geonode.people.urls')),
-
+                       (r"^covid19/", include("covid19.urls")),
                        )
 
 urlpatterns = patterns('',

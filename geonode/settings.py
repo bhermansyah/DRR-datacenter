@@ -339,8 +339,8 @@ INSTALLED_APPS = (
     'securitydb',
     'userstatistics',
     'pushnotif',
-
-    'deliverynotes'
+    'deliverynotes',
+    'covid19',
 
 ) + GEONODE_APPS
 

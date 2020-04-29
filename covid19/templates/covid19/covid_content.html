@@ -1,0 +1,120 @@
+{% load humanize %}
+
+<style>
+.case_card {
+    background: purple
+}
+
+.death_card {
+    background: red
+}
+
+.recovery_card {
+    background: forestgreen
+}
+
+.active_card {
+    background: rgb(31, 119, 180)
+}
+
+.case_card, .death_card, .recovery_card, .active_card {
+    color: white
+}
+.value_card {
+    font-size: 38px;
+    font-weight: bold;
+    margin: 0 0 -10px 0;
+    white-space: nowrap;
+    padding: 0;
+}
+.caption{
+    font-size: 15px
+}
+.card-body{
+    padding: 5px 30px;
+}
+.icon i{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 80px;
+    color: rgba(0, 0, 0, 0.15);
+}
+table{
+    font-size: 13px;
+}
+</style>
+
+<div class="row row-cols-1 row-cols-md-4">
+    {% for key, val in total.items  %}
+        <div class="col mb-4">
+            <div class="card  {% if key == 'Cases'%}case_card {% elif key == 'Deaths'%}death_card {% elif key == 'Recoveries'%} recovery_card {% else %} active_card{% endif %}">
+                <div class="card-body">
+                    <p class="card-text value_card">{{ val | intcomma }}</p>
+                    <p class="caption">{{ key }}</h5>
+                    <div class="icon float-right">
+                        {% if key == 'Cases'%}
+                            <i class="fas fa fas fa-user-md"></i>
+                        {% elif key == 'Deaths'%}
+                            <i class="fas fa fas fa-frown-o"></i>
+                        {% elif key == 'Recoveries'%} 
+                            <i class="fas fa fas fa-heartbeat"></i>
+                        {% else %} 
+                            <i class="fas fa fas fa-ambulance"></i>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <hr>
+
+    <div 
+        id='LineChart'
+        class='line-chart'
+    >
+    </div>
+
+    <hr>
+    <h4 style="font-size:14px">Latest Data Updated:<b> {{ latestData.0.Date }}</b></h4>
+    <p style="font-size:12px">
+    Clicking any of the province below will redirect you to the province information
+    </p>
+    <table id="LatestData"  class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Province</th>
+                <th>Cases</th>
+                <th>Deaths</th>
+                <th>Recoveries</th>
+                <th>Active Cases</th>
+                <th>Recovery Rate</th>
+                <th>Death Rate</th>
+            </tr>
+        </thead>
+        <tbody id="latest_data">
+        {% for i in latestData %}
+            <tr>
+                <td onclick="jump_url('{{i.Province}}');"> <b>{{ i.Province }} </b></td>
+                <td>{{ i.Cases }}</td>
+                <td>{{ i.Deaths }}</td>
+                <td>{{ i.Recoveries }}</td>
+                <td>{{ i.Active_Cases }}</td>
+                <td>{{ i.Recovery_Rate | floatformat:2 }} %</td>
+                <td>{{ i.Death_Rate | floatformat:2 }} %</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    <table>
+    
+    <hr>
+    <div class="mt-2 mb-2">
+    <small class="text-secondary text-nowrap mr-3">
+        <i class="fas fa fas fa-table" aria-hidden="true"></i> Data source: <a href="#" class="text-dark">Afghanistan COVID-19 Stats by Province </a>
+    </small>
+
+    <small class="float-right text-secondary text-nowrap mr-3">
+        <i class="fas fa fas fa-code" aria-hidden="true"></i> Developed by <a href="http://immap.org" class="text-dark">iMMAP</a>
+    </small>
+    </div>
