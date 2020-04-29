@@ -86,6 +86,15 @@ def groupByDate(request, code):
     sortedDeaths = Deaths.to_dict(OrderedDict)
     sortedRecoveries = Recoveries.to_dict(OrderedDict)
 
+    diffCases = Cases.diff().fillna(0).reset_index(drop=True).to_dict(OrderedDict)
+    diffDeath = Deaths.diff().fillna(0).reset_index(drop=True).to_dict(OrderedDict)
+    diffRecovery = Recoveries.diff().fillna(0).reset_index(drop=True).to_dict(OrderedDict)
+    
+    # percentGrowthCase = Cases.pct_change().fillna(0).reset_index(drop=True)
+    # percentGrowthDeath = Deaths.pct_change().fillna(0).reset_index(drop=True).to_dict(OrderedDict)
+    # percentGrowthRecovery = Recoveries.pct_change().fillna(0).reset_index(drop=True).to_dict(OrderedDict)
+    # print(percentGrowthCase)
+    
     datelist = []
     series = {}
     series['date'] = []
@@ -94,20 +103,39 @@ def groupByDate(request, code):
     series['cases']['data'] = []
     for i in sortedCases:
         series['date'].append(i)
-        series['cases']['data'].append(Cases[i])
+        series['cases']['data'].append(sortedCases[i])
 
-    
     series['deaths'] = {}
     series['deaths']['name'] = 'Deaths'
     series['deaths']['data'] = []
     for i in sortedDeaths:
-        series['deaths']['data'].append(Deaths[i])
+        series['deaths']['data'].append(sortedDeaths[i])
         
     series['recoveries'] = {}
     series['recoveries']['name'] = 'Recoveries'
     series['recoveries']['data'] = []
     for i in sortedRecoveries:
-        series['recoveries']['data'].append(Recoveries[i])
+        series['recoveries']['data'].append(sortedRecoveries[i])
+
+
+    series['GrowthCase'] = {}
+    series['GrowthCase']['name'] = 'Case Growth'
+    series['GrowthCase']['data'] = []
+    for i in diffCases:
+        series['GrowthCase']['data'].append(diffCases[i])
+
+    series['GrowthDeath'] = {}
+    series['GrowthDeath']['name'] = 'Death Growth'
+    series['GrowthDeath']['data'] = []
+    for i in diffDeath:
+        series['GrowthDeath']['data'].append(diffDeath[i])
+
+    series['GrowthRecovery'] = {}
+    series['GrowthRecovery']['name'] = 'Growth Recovery'
+    series['GrowthRecovery']['data'] = []
+    for i in diffRecovery:
+        series['GrowthRecovery']['data'].append(diffRecovery[i])
+
 
     groupByDateJson['DataSeries'] = series
     return groupByDateJson
