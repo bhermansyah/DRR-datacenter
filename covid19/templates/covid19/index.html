@@ -84,22 +84,26 @@
             crosshair: true
         },
 
-        yAxis: [{ // Primary yAxis
-            title: {
-                text: 'Cumulative Number Of Cases',
-                style: {
-                    color: Highcharts.getOptions().colors[1]
-                }
-            }
-        }, { // Secondary yAxis
-            title: {
-                text: 'New Cases',
-                style: {
-                    color: Highcharts.getOptions().colors[0]
+        yAxis: [
+            { // Primary yAxis
+                title: {
+                    text: 'Cumulative Number Of Cases',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
                 }
             },
-            opposite: true
-        }],
+            { // Secondary yAxis
+                title: {
+                    text: 'Number of New Cases',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                tickInterval: 200,
+                opposite: true
+            }
+        ],
 
         legend: {
             // layout: 'horizontal',
@@ -109,7 +113,7 @@
             layout: 'vertical',
             align: 'left',
             verticalAlign: 'top',
-            x: 120,
+            x: 100,
             y: 35,
             floating: true
         },
@@ -132,19 +136,6 @@
         // series:[{{ groupbyDate.DataSeries.cases | jsonify | safe }}, {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, {{ groupbyDate.DataSeries.deaths | jsonify | safe }}],
         
         series: [
-            // {
-            //     name: {{ groupbyDate.DataSeries.cases.name | jsonify | safe }},
-            //     type: 'line',
-            //     data: {{ groupbyDate.DataSeries.cases.data | jsonify | safe }}
-            // },
-            // {
-            //     type: 'line',
-            //     data: {{ groupbyDate.DataSeries.recoveries.data | jsonify | safe }}
-            // },
-            // {
-            //     type: 'line',
-            //     data: {{ groupbyDate.DataSeries.deaths.data | jsonify | safe }}
-            // },
             {
                 name: {{ groupbyDate.DataSeries.GrowthCase.name | jsonify | safe }},
                 type: 'column',
@@ -154,6 +145,23 @@
             {{ groupbyDate.DataSeries.cases | jsonify | safe }}, 
             {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, 
             {{ groupbyDate.DataSeries.deaths | jsonify | safe }}
+
+            // {
+            //     name: {{ groupbyDate.DataSeries.cases.name | jsonify | safe }},
+            //     type: 'line',
+            //     yAxis: 1,
+            //     data: {{ groupbyDate.DataSeries.cases.data | jsonify | safe }}
+            // },
+            // {
+            //     type: 'line',
+            //     yAxis: 1,
+            //     data: {{ groupbyDate.DataSeries.recoveries.data | jsonify | safe }}
+            // },
+            // {
+            //     type: 'line',
+            //     yAxis: 1,
+            //     data: {{ groupbyDate.DataSeries.deaths.data | jsonify | safe }}
+            // }
         ],
 
         credits:{
