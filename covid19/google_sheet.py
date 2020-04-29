@@ -99,7 +99,7 @@ def groupByDate(request, code):
     series = {}
     series['date'] = []
     series['cases'] = {}
-    series['cases']['name'] = 'Cases'
+    series['cases']['name'] = 'Confirmed Cases'
     series['cases']['data'] = []
     for i in sortedCases:
         series['date'].append(i)
@@ -112,14 +112,14 @@ def groupByDate(request, code):
         series['deaths']['data'].append(sortedDeaths[i])
         
     series['recoveries'] = {}
-    series['recoveries']['name'] = 'Recoveries'
+    series['recoveries']['name'] = 'Recovered'
     series['recoveries']['data'] = []
     for i in sortedRecoveries:
         series['recoveries']['data'].append(sortedRecoveries[i])
 
 
     series['GrowthCase'] = {}
-    series['GrowthCase']['name'] = 'Case Growth'
+    series['GrowthCase']['name'] = 'New Cases'
     series['GrowthCase']['data'] = []
     for i in diffCases:
         series['GrowthCase']['data'].append(diffCases[i])
@@ -161,8 +161,8 @@ def getTotalEntireAfg(request, code):
     TotalDeaths = sum(latest['Deaths'])
     TotalRecoveries = sum(latest['Recoveries'])
 
-    GetTotal['Cases'] = sum(latest['Cases'])
-    GetTotal['Recoveries'] = sum(latest['Recoveries'])
+    GetTotal['Confirmed Cases'] = sum(latest['Cases'])
+    GetTotal['Recovered'] = sum(latest['Recoveries'])
     GetTotal['Deaths'] = sum(latest['Deaths'])
     GetTotal['Active Cases'] = sum(latest['Active_Cases'])
 

@@ -66,27 +66,52 @@
     Highcharts.seriesTypes.line.prototype.getPointSpline = Highcharts.seriesTypes.spline.prototype.getPointSpline;
     Highcharts.chart('LineChart', {
         title: {
-            text: 'Daily Cumulative Cases by Type in {% if request.GET.code %} {{ request.GET.code }} {% else %} Afghanistan {% endif %}',
+            text: 'Daily Cases Update by Type in {% if request.GET.code %} {{ request.GET.code }} {% else %} Afghanistan {% endif %}',
             style: {
                 fontSize: 14,
                 fontWeight: 'bold'
             }
         },
 
-        yAxis: {
-            title: {
-                text: 'Cumulative Number Of Cases'
-            }
-        },
+        // yAxis: {
+        //     title: {
+        //         text: 'Cumulative Number Of Cases'
+        //     }
+        // },
 
         xAxis: {
             categories: {{ groupbyDate.DataSeries.date | jsonify | safe }},
+            crosshair: true
         },
 
+        yAxis: [{ // Primary yAxis
+            title: {
+                text: 'Cumulative Number Of Cases',
+                style: {
+                    color: Highcharts.getOptions().colors[1]
+                }
+            }
+        }, { // Secondary yAxis
+            title: {
+                text: 'New Cases',
+                style: {
+                    color: Highcharts.getOptions().colors[0]
+                }
+            },
+            opposite: true
+        }],
+
         legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
+            // layout: 'horizontal',
+            // align: 'center',
+            // verticalAlign: 'bottom'
+
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 120,
+            y: 35,
+            floating: true
         },
 
        plotOptions: {
@@ -98,9 +123,39 @@
             }
         },
 
-        colors: ['#800080', '#228b22', '#ff0000'],
+        colors: ['#ffc107', '#800080', '#228b22', '#ff0000'],
 
-        series:[{{ groupbyDate.DataSeries.cases | jsonify | safe }}, {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, {{ groupbyDate.DataSeries.deaths | jsonify | safe }}],
+        tooltip: {
+            shared: true
+        },
+
+        // series:[{{ groupbyDate.DataSeries.cases | jsonify | safe }}, {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, {{ groupbyDate.DataSeries.deaths | jsonify | safe }}],
+        
+        series: [
+            // {
+            //     name: {{ groupbyDate.DataSeries.cases.name | jsonify | safe }},
+            //     type: 'line',
+            //     data: {{ groupbyDate.DataSeries.cases.data | jsonify | safe }}
+            // },
+            // {
+            //     type: 'line',
+            //     data: {{ groupbyDate.DataSeries.recoveries.data | jsonify | safe }}
+            // },
+            // {
+            //     type: 'line',
+            //     data: {{ groupbyDate.DataSeries.deaths.data | jsonify | safe }}
+            // },
+            {
+                name: {{ groupbyDate.DataSeries.GrowthCase.name | jsonify | safe }},
+                type: 'column',
+                yAxis: 1,
+                data: {{ groupbyDate.DataSeries.GrowthCase.data | jsonify | safe }}
+            },
+            {{ groupbyDate.DataSeries.cases | jsonify | safe }}, 
+            {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, 
+            {{ groupbyDate.DataSeries.deaths | jsonify | safe }}
+        ],
+
         credits:{
             enabled:false,
         },
