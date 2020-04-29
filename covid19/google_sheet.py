@@ -8,7 +8,6 @@ from collections import OrderedDict
 from .utils import JSONEncoderCustom
 
 from httplib2 import Http
-from oauth2client import file, client, tools
 from django.conf import settings
 
 # google
