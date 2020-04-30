@@ -138,6 +138,18 @@ def Chart(request, code):
         series['GrowthRecovery']['data'].append(diffRecovery[i])
 
 
+    # latest['Active_Cases'] = latest['Cases'] - (latest['Recoveries'] - latest['Deaths'])
+    ActiveCases = Cases - ( Recoveries - Deaths)
+    sortedActiveCases = ActiveCases.to_dict(OrderedDict)
+    
+    series['activecase'] = {}
+    series['activecase']['name'] = 'Active Cases'
+    series['activecase']['data'] = []
+    for i in sortedActiveCases:
+        series['activecase']['data'].append(sortedActiveCases[i])
+    
+
+
     ChartJson['LineChart'] = series
 
     # BarChart
