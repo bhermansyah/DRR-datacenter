@@ -9,19 +9,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <title>Covid19 Information</title>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <script>
-        var googledata = {% if googledata %}{{ googledata|safe }}{% else %}{}{% endif %};
-    </script>
-    <title>Covid19 Information</title>
-    <style>
-    .breadcrumb-item, .breadcrumb-item > a, .breadcrumb-item.active {
-        color: #ffffff
-    }
-    </style>
+    
+    {% include "covid19/covid_css.html" %}
   </head>
  
 <body>
@@ -58,189 +53,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/7.1.0/highstock.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/7.1.0/highcharts-more.js"></script>
 
+<script>
+    var googledata = {% if googledata %}{{ googledata|safe }}{% else %}{}{% endif %};
+</script>
+
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function(){
         $('#LatestData').DataTable();
     })
-
-    Highcharts.seriesTypes.line.prototype.getPointSpline = Highcharts.seriesTypes.spline.prototype.getPointSpline;
-    Highcharts.chart('LineChart', {
-        title: {
-            text: 'Daily Cases Update by Type in {% if request.GET.code %} {{ request.GET.code }} {% else %} Afghanistan {% endif %}',
-            style: {
-                fontSize: 14,
-                fontWeight: 'bold'
-            }
-        },
-
-        // yAxis: {
-        //     title: {
-        //         text: 'Cumulative Number Of Cases'
-        //     }
-        // },
-
-        xAxis: {
-            categories: {{ groupbyDate.DataSeries.date | jsonify | safe }},
-            crosshair: true
-        },
-
-        yAxis: [
-            { // Primary yAxis
-                title: {
-                    text: 'Cumulative Number Of Cases',
-                    style: {
-                        color: Highcharts.getOptions().colors[1]
-                    }
-                }
-            },
-            { // Secondary yAxis
-                title: {
-                    text: 'Number of New Cases',
-                    style: {
-                        color: Highcharts.getOptions().colors[0]
-                    }
-                },
-                tickInterval: 200,
-                opposite: true
-            }
-        ],
-
-        legend: {
-            // layout: 'horizontal',
-            // align: 'center',
-            // verticalAlign: 'bottom'
-
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 35,
-            floating: true
-        },
-
-       plotOptions: {
-            line: {
-                enableMouseTracking: true,
-                marker:{
-                    enabled:false
-                }
-            }
-        },
-
-        colors: ['#ffc107', '#800080', '#228b22', '#ff0000'],
-
-        tooltip: {
-            shared: true
-        },
-
-        // series:[{{ groupbyDate.DataSeries.cases | jsonify | safe }}, {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, {{ groupbyDate.DataSeries.deaths | jsonify | safe }}],
-        
-        series: [
-            {
-                name: {{ groupbyDate.DataSeries.GrowthCase.name | jsonify | safe }},
-                type: 'column',
-                yAxis: 1,
-                data: {{ groupbyDate.DataSeries.GrowthCase.data | jsonify | safe }}
-            },
-            {{ groupbyDate.DataSeries.cases | jsonify | safe }}, 
-            {{ groupbyDate.DataSeries.recoveries | jsonify | safe }}, 
-            {{ groupbyDate.DataSeries.deaths | jsonify | safe }}
-
-            // {
-            //     name: {{ groupbyDate.DataSeries.cases.name | jsonify | safe }},
-            //     type: 'line',
-            //     yAxis: 1,
-            //     data: {{ groupbyDate.DataSeries.cases.data | jsonify | safe }}
-            // },
-            // {
-            //     type: 'line',
-            //     yAxis: 1,
-            //     data: {{ groupbyDate.DataSeries.recoveries.data | jsonify | safe }}
-            // },
-            // {
-            //     type: 'line',
-            //     yAxis: 1,
-            //     data: {{ groupbyDate.DataSeries.deaths.data | jsonify | safe }}
-            // }
-        ],
-
-        credits:{
-            enabled:false,
-        },
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
-
-    });
-
-    function jump_url(code){
-        var url = window.location.href;
-        if (getParameterByName("code") == null){
-            url += '&code='+code;
-        } else {
-            url = updateUrlParameter(url, 'code', code)
-        }
-        if (code == 0){
-            url = removeParam('code', url)
-        }
-        window.document.location = url;
-
-    }
-
-    function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-            results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-    function removeParam(key, sourceURL) {
-        var rtn = sourceURL.split("?")[0],
-            param,
-            params_arr = [],
-            queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
-        if (queryString !== "") {
-            params_arr = queryString.split("&");
-            for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-                param = params_arr[i].split("=")[0];
-                if (param === key) {
-                    params_arr.splice(i, 1);
-                }
-            }
-            rtn = rtn + "?" + params_arr.join("&");
-        }
-        return rtn;
-    }
-
-    function updateUrlParameter(url, param, value){
-        param = encodeURIComponent(param);
-        var r = "([&?]|&amp;)" + param + "\\b(?:=(?:[^&#]*))*";
-        var a = document.createElement('a');
-        var regex = new RegExp(r);
-        var str = param + (value ? "=" + encodeURIComponent(value) : ""); 
-        a.href = url;
-        var q = a.search.replace(regex, "$1"+str);
-        if (q === a.search) {
-            a.search += (a.search ? "&" : "") + str;
-        } else {
-            a.search = q;
-        }
-        return a.href;
-    }
-
 </script>
+
+{% include "covid19/covid_scripts.html" %}
 </html>

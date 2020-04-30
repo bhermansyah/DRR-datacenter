@@ -1,0 +1,899 @@
+<script>
+    function jump_url(code){
+        var url = window.location.href;
+        if (getParameterByName("code") == null){
+            url += '&code='+code;
+        } else {
+            url = updateUrlParameter(url, 'code', code)
+        }
+        if (code == 0){
+            url = removeParam('code', url)
+        }
+        window.document.location = url;
+
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function removeParam(key, sourceURL) {
+        var rtn = sourceURL.split("?")[0],
+            param,
+            params_arr = [],
+            queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+        if (queryString !== "") {
+            params_arr = queryString.split("&");
+            for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+                param = params_arr[i].split("=")[0];
+                if (param === key) {
+                    params_arr.splice(i, 1);
+                }
+            }
+            rtn = rtn + "?" + params_arr.join("&");
+        }
+        return rtn;
+    }
+
+    function updateUrlParameter(url, param, value){
+        param = encodeURIComponent(param);
+        var r = "([&?]|&amp;)" + param + "\\b(?:=(?:[^&#]*))*";
+        var a = document.createElement('a');
+        var regex = new RegExp(r);
+        var str = param + (value ? "=" + encodeURIComponent(value) : ""); 
+        a.href = url;
+        var q = a.search.replace(regex, "$1"+str);
+        if (q === a.search) {
+            a.search += (a.search ? "&" : "") + str;
+        } else {
+            a.search = q;
+        }
+        return a.href;
+    }
+    
+    // Humanizer
+    function humanizeFormatter(value){
+        // console.log(value)
+        var v= value;
+        if(v>=1000 && v<1000000){
+            return (parseFloat((v/1000).toPrecision(3)))+' K'
+            // return (parseFloat((v/1000).toFixed(1)))+' K'
+        }
+        else if (v>=1000000 && v<1000000000) {
+            return (parseFloat((v/1000000).toPrecision(3)))+' M'
+            // return (parseFloat((v/1000000).toFixed(1)))+' M'
+        }else{
+            if (v==null || isNaN(parseFloat(v))) {
+                v=0;
+            }
+            // console.log(parseFloat((v).toPrecision(3)));
+            return (parseFloat((v*1).toPrecision(3)))
+            // return (parseFloat((v).toFixed(1)))
+        }
+    }
+
+    function init_chart(){
+        var colorTimes =
+            function(params){
+                return colorAccessibility[params.dataIndex]
+            }
+
+        colorChart={
+            'colorDefault': ['#800080', '#1f77b4', '#228b22', '#ff0000'],
+            'colorLine' : ['#ffc107', '#228b22', '#ff0000'],
+            'colorLineBar': ['#ffc107', '#800080'],
+            'colorBar': ["#1f77b4"],
+            'colorBarActive' : ["#1f77b4"],
+            'colorBarNew' : ["#ffc107"],
+            'colorBarConfirmed' : ["#800080"],
+            'colorBarRecovered' : ["#228b22"],
+            'colorBarDead' : ["#ff0000"],
+            'colorPiePercent' : ['#1f77b4', '#228b22', '#ff0000']
+        }
+
+        function pie_label() {
+            if (this.y > 0){
+                // return '<b>' + this.key + '</b> : ' + humanizeFormatter(this.y) + '<br/>(' + Highcharts.numberFormat(this.percentage, 2) + '%)';
+                return humanizeFormatter(this.y) + '<br/>(' + Highcharts.numberFormat(this.percentage, 2) + '%)';
+            }
+        }
+
+        // Make the line chart act as spline (ramp curves)
+        Highcharts.seriesTypes.line.prototype.getPointSpline = Highcharts.seriesTypes.spline.prototype.getPointSpline;
+        Highcharts.theme = {
+            chart: {
+                style: {
+                    fontFamily: '"Arial", Verdana, sans-serif'
+                }
+            },
+            title: {
+                text: null,
+                verticalAlign: 'bottom',
+                style: {
+                    color: '#424242',
+                    font: 'bold 13px "Trebuchet MS", Verdana, sans-serif'
+                }
+            },
+            subtitle: {
+                style: {
+                    color: '#424242'
+                }
+            },
+            xAxis: {
+                
+            },
+            yAxis: {
+                labels: {
+                    overflow: 'justify'
+                },
+                title: {
+                    align: 'high',
+                    style: {
+                        // color: '#A0A0A3'
+                    }
+                }
+            },
+            tooltip: {
+                
+            },
+            plotOptions: {
+                series: {
+                    animation: true
+                    // color: '#c62828',
+                },
+                bar: {
+                    // color: '#c62828',
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function() {
+                            // return humanizeFormatter(this.y);
+                        }
+                    }
+                },
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        softConnector: false,
+                        // formatter: function() {
+                        // 	if (this.y > 0){
+                        // 		return humanizeFormatter(this.y) + '<br/>' + Highcharts.numberFormat(this.percentage, 2) + '%';
+                        // 	}
+                        // }
+                        // formatter: pie_label
+                    }
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            credits: {
+                enabled: false
+            },
+            labels: {
+            },
+
+            drilldown: {
+            },
+
+            navigation: {
+            },
+
+            // scroll charts
+            rangeSelector: {
+                
+            },
+
+            navigator: {
+                
+            },
+
+            scrollbar: {
+                
+            }
+
+            // special colors for some of the
+            // legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+            // background2: '#505053',
+            // dataLabelsColor: '#B0B0B3',
+            // textColor: '#C0C0C0',
+            // contrastTextColor: '#F0F0F3',
+            // maskColor: 'rgba(255,255,255,0.3)'
+        };
+
+        // Apply the theme
+        Highcharts.setOptions(Highcharts.theme);
+
+        // Object Line chart
+        function line_chart(id_val, color_val, colorPoint_val, legend_val, y_title, x_title, data_val, title_val, show_title_val, show_marker_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: title_val,
+                    // align: 'center',
+                    style: {
+                        display: show_title_val
+                    }
+                },
+                xAxis: {
+                    // type: 'datetime'
+                    categories: y_title
+                },
+                yAxis: {
+                    title: {
+                        text: x_title
+                    },
+                    // type: 'logarithmic'
+                },
+                tooltip: {
+                    shared: true,
+                    // formatter: function() {
+                    //     return '<b>'+ this.x +'</b>: '+ humanizeFormatter(this.y);
+                    // }
+                },
+                legend:{
+                    enabled: legend_val
+                },
+                plotOptions:{
+                    line: {
+                        enableMouseTracking: true,
+                        marker:{
+                            enabled: show_marker_val
+                        }
+                    }
+                },
+                colors: color_val,
+                series: data_val
+            });
+        }
+
+        // Object Bar chart
+        function bar_chart(id_val, color_val, colorPoint_val, legend_val, y_title, x_title, data_val, title_val, show_title_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: title_val,
+                    style: {
+                        display: show_title_val
+                    }
+                },
+                xAxis: {
+                    categories: y_title
+                },
+                yAxis: {
+                    title: {
+                        text: x_title
+                    },
+                    type: 'logarithmic'
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.x +'</b>: '+ humanizeFormatter(this.y);
+                    }
+                },
+                legend:{
+                    enabled: legend_val
+                },
+                plotOptions:{
+                    bar: {
+                        colorByPoint: colorPoint_val,
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function() {
+                                return humanizeFormatter(this.y);
+                            }
+                        }
+                    }
+                },
+                colors: color_val,
+                // series: [{
+                // 	// name: 'Population',
+                // 	data: data_val
+                // }]
+                series: data_val
+            });
+        }
+
+        // Object Line Bar chart
+        function line_bar_chart(id_val, color_val, colorPoint_val, legend_val, y_title, x_title_0, x_title_1, name_val_0, name_val_1, data_val_0, data_val_1, title_val, show_title_val, show_marker_val, tick_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: title_val,
+                    style: {
+                        // display: show_title_val
+                        display: false
+                    }
+                },
+                xAxis: {
+                    categories: y_title,
+                    crosshair: true
+                },
+                yAxis: [
+                    { // Secondary yAxis
+                        title: {
+                            text: x_title_1,
+                            align: 'middle'
+                        },
+                        // tickInterval: 200
+                        tickInterval: tick_val
+                    },
+                    { // Primary yAxis
+                        title: {
+                            text: x_title_0,
+                            align: 'middle'
+                        },
+                        opposite: true
+                    }
+                ],
+                tooltip: {
+                    shared: true
+                },
+                legend:{
+                    enabled: legend_val,
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 100,
+                    y: 10,
+                    floating: true
+                },
+                plotOptions:{
+                    line: {
+                        enableMouseTracking: true,
+                        marker:{
+                            enabled: show_marker_val
+                        }
+                    }
+                },
+                colors: color_val,
+                series: [
+                    {
+                        name: name_val_0,
+                        type: 'column',
+                        yAxis: 0,
+                        data: data_val_0
+                    },
+                    {
+                        name: name_val_1,
+                        yAxis: 1,
+                        data: data_val_1
+                    }
+                    
+                ]
+            });
+        }
+
+        // Object Donut chart
+        function donut_chart(id_val, color_val, data_val, title_val, show_title_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: title_val,
+                    style: {
+                        display: show_title_val
+                    }
+                },
+                tooltip: {
+                    formatter: pie_label
+                },
+                legend:{
+                    floating: true,
+                    align: 'left',
+                    verticalAlign: 'top',
+                    layout: 'vertical'
+                },
+                colors: color_val,
+                series: [{
+                    name: 'Flood Risk Population',
+                    data: data_val,
+                    dataLabels:{
+                        formatter: pie_label
+                    },
+                    size: '70%',
+                    innerSize: '65%',
+                    showInLegend:true
+                }]
+            });
+        }
+
+        // Object Stacked Bar col chart
+        function bar_stacked_col_chart(id_val, color_val, data_title, data_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'column'
+                },
+                xAxis: {
+                    categories: data_title
+                },
+                yAxis: {
+                    min: 0,
+                    stackLabels:{
+                        enabled: true
+                    },
+                    title: {
+                        enabled: false
+                        // text: 'Population'
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        return '<b>'+ this.x +'</b>: '+ humanizeFormatter(this.y);
+                    }
+                },
+                legend:{
+
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                        }
+                    }
+                },
+                colors: color_val,
+                series: data_val
+            });
+        }
+
+        // Object Stacked Bar horizontal chart
+        function bar_stacked_horizontal_chart(id_val, color_val, data_title, data_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                xAxis: {
+                    categories: data_title
+                },
+                yAxis: {
+                    reversedStacks: false,
+                    min: 0,
+                    stackLabels:{
+                        enabled: true
+                    },
+                    title: {
+                        // text: "Percentage (%)"
+                    }
+                },
+                tooltip: {
+                    // formatter: function() {
+                    //     console.log(this);
+                    //     return '<b>'+ this.x +'</b>: '+ humanizeFormatter(this.y) +' ('+ (this.percentage).toFixed(2) + '%)';
+                    // }
+                },
+                legend:{
+
+                },
+                plotOptions: {
+                    series: {
+                        // stacking: 'normal',
+                        // dataLabels: {
+                        //     enabled: true,
+                            // color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                        // }
+                    },
+                    bar: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true,
+                            allowOverlap: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                        }
+                    }
+                },
+                colors: color_val,
+                series: data_val
+            });
+        }
+
+        // Object Stacked Bar chart in Percent
+        function bar_stacked_percent_chart(id_val, color_val, data_title, data_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'bar'
+                },
+                xAxis: {
+                    categories: data_title
+                },
+                yAxis: {
+                    reversedStacks: false,
+                    min: 0,
+                    title: {
+                        text: "Percentage (%)"
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        console.log(this);
+                        return '<b>'+ this.x +'</b>: '+ humanizeFormatter(this.y) +' ('+ (this.percentage).toFixed(2) + '%)';
+                    }
+                },
+                legend:{
+
+                },
+                plotOptions: {
+                    series: {
+                        stacking: 'percent',
+                        dataLabels: {
+                            enabled: true,
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                        }
+                    }
+                },
+                colors: color_val,
+                series: data_val
+            });
+        }
+
+        // Object Polar chart
+        function polar_chart(id_val, color_val, data_title, data_val){
+            $(id_val).highcharts({
+                chart: {
+                    polar: true
+                },
+                xAxis: {
+                    categories: data_title
+                },
+                yAxis: {
+                    type: 'logarithmic',
+                    tickInterval: 1,
+                    title: {
+                        enabled: false
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        console.log(this);
+                        return '<b>'+ this.x +'</b>: '+ humanizeFormatter(this.y);
+                    }
+                },
+                legend:{
+
+                },
+                plotOptions: {
+                    
+                },
+                colors: color_val,
+                series: data_val
+                
+            });
+        }
+
+        // Object Spline Chart
+        function spline_chart(id_val, color_val, colorPoint_val, legend_val, y_title, x_title, data_val, title_val, show_title_val){
+            $(id_val).highcharts('StockChart',{
+                rangeSelector: {
+                    selected: 5,
+                    // buttonTheme: {
+                    //     width: 60
+                    // },
+                },
+
+                xAxis: {
+                    type: 'datetime',
+                    minTickInterval: moment.duration(1, 'month').milliseconds(),
+                    // dateTimeLabelFormats: {
+                    //     millisecond: '%H:%M:%S.%L'
+                    // },
+                    labels: {
+                        rotation: 35
+                    }
+                },
+
+                time:{
+                    useUTC: false,
+                    // timezoneOffset: 7 * 60
+                },
+
+                tooltip: {
+                    split: true,
+                    // crosshairs: true,
+                    formatter: function() {
+                        var s = [];
+
+                        console.log(this);
+                        // s.push(Highcharts.dateFormat('%A, %b %e, %Y %H:%M', this.x));   // Use UTC
+                        s.push(moment(this.x).format("YYYY-MM-DD HH:mm a"));            // Use Local Time
+
+                        this.points.forEach(function(point) {
+                            s.push('<b>' + point.series.name + '</b>: ' + point.y);
+                        });
+
+                        return s;
+                    },
+                },
+                legend:{
+                    enabled: legend_val
+                },
+
+                // global: {
+                //     useUTC: false
+                // },
+
+                colors: color_val,
+                series: data_val
+            });
+
+            $( ".highcharts-range-selector" ).addClass( "browser-default" );
+
+            // $(id_val).highcharts({
+            // 	chart: {
+            // 		polar: true
+            // 	},
+            // 	xAxis: {
+            // 		categories: data_title
+            // 	},
+            // 	yAxis: {
+            // 		type: 'logarithmic',
+            // 		tickInterval: 1,
+            // 		title: {
+            // 			enabled: false
+            // 		}
+            // 	},
+            // 	tooltip: {
+            // 		formatter: function() {
+            // 			console.log(this);
+            // 			return '<b>'+ this.x +'</b>: '+ humanizeFormatter(this.y);
+            // 		}
+            // 	},
+            // 	legend:{
+
+            // 	},
+            // 	plotOptions: {
+                    
+            // 	},
+            // 	colors: color_val,
+            // 	series: data_val
+                
+            // });
+        }
+
+        $('.line-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var yAxis_chart = $(id_chart).data("yaxis");
+            var xAxis_chart = $(id_chart).data("xaxis");
+            var colorPoint_bool = $(id_chart).data("colorpoint");
+            var legend_bool = $(id_chart).data("legend");
+            var title_chart = $(id_chart).attr('data-title');
+            var show_title_chart = $(id_chart).data('show-title');
+            var show_marker_chart = $(id_chart).data("show-dots");
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(yAxis_chart);
+            console.log(legend_bool);
+            console.log(show_title_chart);
+            console.log(show_marker_chart);
+
+            line_chart(id_chart, selected_color, colorPoint_bool, legend_bool, yAxis_chart, xAxis_chart, data_chart, title_chart, show_title_chart, show_marker_chart);
+
+        });
+
+        $('.spline-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var yAxis_chart = $(id_chart).data("yaxis");
+            var xAxis_chart = $(id_chart).data("xaxis");
+            var colorPoint_bool = $(id_chart).data("colorpoint");
+            var legend_bool = $(id_chart).data("legend");
+            var title_chart = $(id_chart).attr('data-title');
+            var show_title_chart = $(id_chart).attr('data-show-title');
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(yAxis_chart);
+
+            spline_chart(id_chart, selected_color, colorPoint_bool, legend_bool, yAxis_chart, xAxis_chart, data_chart, title_chart, show_title_chart);
+
+        });
+
+        $('.bar-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var yAxis_chart = $(id_chart).data("yaxis");
+            var xAxis_chart = $(id_chart).data("xaxis");
+            var colorPoint_bool = $(id_chart).data("colorpoint");
+            var legend_bool = $(id_chart).data("legend");
+            var title_chart = $(id_chart).attr('data-title');
+            var show_title_chart = $(id_chart).attr('data-show-title');
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(yAxis_chart);
+
+            bar_chart(id_chart, selected_color, colorPoint_bool, legend_bool, yAxis_chart, xAxis_chart, data_chart, title_chart, show_title_chart);
+
+        });
+
+        $('.line-bar-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var name_chart_0 = $(id_chart).attr('data-name0');
+            var name_chart_1 = $(id_chart).attr('data-name1');
+            var data_chart_0 = $(id_chart).data("val0");
+            var data_chart_1 = $(id_chart).data("val1");
+            var yAxis_chart = $(id_chart).data("yaxis");
+            var xAxis_chart_0 = $(id_chart).data("xaxis0");
+            var xAxis_chart_1 = $(id_chart).data("xaxis1");
+            var colorPoint_bool = $(id_chart).data("colorpoint");
+            var legend_bool = $(id_chart).data("legend");
+            var title_chart = $(id_chart).attr('data-title');
+            var show_title_chart = $(id_chart).data('show-title');
+            var show_marker_chart = $(id_chart).data("show-dots");
+            var tick_chart = $(id_chart).data("tick");
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(name_chart_0);
+            console.log(name_chart_1);
+            console.log(color_chart);
+            console.log(selected_color);
+            console.log(yAxis_chart);
+            console.log(legend_bool);
+            console.log(show_title_chart);
+            console.log(show_marker_chart);
+
+            line_bar_chart(id_chart, selected_color, colorPoint_bool, legend_bool, yAxis_chart, xAxis_chart_0, xAxis_chart_1, name_chart_0, name_chart_1, data_chart_0, data_chart_1, title_chart, show_title_chart, show_marker_chart, tick_chart);
+
+        });
+
+        $('.donut-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            // var color_chart = $(id_chart).data("color");
+            var data_chart = $(id_chart).data("val");
+            // id_chart.attr('data-chart');
+            var title_chart = $(id_chart).attr('data-title');
+            var show_title_chart = $(id_chart).attr('data-show-title');
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+
+            donut_chart(id_chart, selected_color, data_chart, title_chart, show_title_chart);
+
+        });
+
+        $('.bar-stacked-col-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var xAxis_chart = $(id_chart).data("xaxis");
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(xAxis_chart);
+
+            bar_stacked_col_chart(id_chart, selected_color, xAxis_chart, data_chart);
+
+        });
+
+        $('.bar-stacked-horizontal-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var xAxis_chart = $(id_chart).data("xaxis");
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(xAxis_chart);
+
+            bar_stacked_horizontal_chart(id_chart, selected_color, xAxis_chart, data_chart);
+
+        });
+
+        $('.bar-stacked-percent-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var xAxis_chart = $(id_chart).data("xaxis");
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(xAxis_chart);
+
+            bar_stacked_percent_chart(id_chart, selected_color, xAxis_chart, data_chart);
+
+        });
+
+        $('.polar-chart').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var xAxis_chart = $(id_chart).data("xaxis");
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(xAxis_chart);
+
+            var isi_fix = [];
+            for (i = 0; i < data_chart.length; i++) { 
+                var isi = {
+                    name: data_chart[i].type,
+                    type: 'scatter',
+                    data: data_chart[i].data.map(function (p) {
+                        var radius = Math.log(p)*1.5;
+                        return {
+                            y: p,
+                            marker: {
+                                radius: (radius),
+                                symbol: 'circle'
+                            }
+                        }
+                    })
+                }
+
+                isi_fix.push(isi);
+            }
+            
+            console.log(isi_fix);
+
+            polar_chart(id_chart, selected_color, xAxis_chart, isi_fix);
+
+        });
+    }
+
+    $(document).ready(function(){
+        init_chart();
+    });
+</script>

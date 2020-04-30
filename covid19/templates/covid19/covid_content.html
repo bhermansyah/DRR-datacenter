@@ -1,49 +1,6 @@
 {% load humanize %}
-
-<style>
-.case_card {
-    background: purple
-}
-
-.death_card {
-    background: red
-}
-
-.recovery_card {
-    background: forestgreen
-}
-
-.active_card {
-    background: rgb(31, 119, 180)
-}
-
-.case_card, .death_card, .recovery_card, .active_card {
-    color: white
-}
-.value_card {
-    font-size: 38px;
-    font-weight: bold;
-    margin: 0 0 -10px 0;
-    white-space: nowrap;
-    padding: 0;
-}
-.caption{
-    font-size: 15px
-}
-.card-body{
-    padding: 5px 30px;
-}
-.icon i{
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 80px;
-    color: rgba(0, 0, 0, 0.15);
-}
-table{
-    font-size: 13px;
-}
-</style>
+{% load covid_filters %}
+{% load url from future %}
 
 <div class="row row-cols-1 row-cols-md-4">
     {% for key, val in total.items  %}
@@ -70,12 +27,49 @@ table{
     </div>
     <hr>
 
-    <div 
-        id='LineChart'
-        class='line-chart'
-    >
-    </div>
+    <div class="row">
 
+        <div class="col-xl-8">
+            <div>
+                <p class="text-center font-weight-bold">Daily Cases Update by Type in {% if request.GET.code %} {{ request.GET.code }} {% else %} Afghanistan {% endif %}</p>
+                <div id="chart_line_daily_update" class="line-chart" data-color="colorDefault" data-colorpoint="false" data-legend="true" data-show-dots="false" data-title="Daily Cases Update by Type in {% if request.GET.code %} {{ request.GET.code }} {% else %} Afghanistan {% endif %}" data-show-title="none" data-xaxis='' data-yaxis='{{ chart.LineChart.date | jsonify | safe }}' data-val='[{{ chart.LineChart.cases | jsonify | safe }}, {{ chart.LineChart.activecase | jsonify | safe }}, {{ chart.LineChart.recoveries | jsonify | safe }}, {{ chart.LineChart.deaths | jsonify | safe }}]' ></div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <p class="text-center font-weight-bold">Positive Case Percentage</p>
+            <div id="{{ chart.PieChart.PercentageCasesData.id }}" class="donut-chart" data-color="colorPiePercent" data-val='{{ chart.PieChart.PercentageCasesData.data | jsonify | safe }}' data-title='{{ chart.PieChart.PercentageCasesData.title }}' data-show-title='none'></div>
+            <!-- <div id="percentage_pos_case_pie" class="donut-chart" data-color=colorDefault data-val='[["Active Cases", 70], ["Recovered", 20], ["Dead", 10]]' data-title='Positive Case Percentage' data-show-title='none'></div> -->
+        </div>
+
+        <br>
+
+        <div class="col-xl-7">
+            <p class="text-center font-weight-bold">Comparison of New Cases Development and Total Cases</p>
+            <div id="chart_line_bar_daily_update" class="line-bar-chart" data-color="colorLineBar" data-colorpoint="false" data-legend="true" data-show-dots="false" data-tick="{% if request.GET.code %}{% else %}200{% endif %}" data-title="" data-show-title="true" data-xaxis0='Cumulative Number Of Cases' data-xaxis1='Number of New Cases' data-yaxis='{{ chart.LineChart.date | jsonify | safe }}' data-name0={{ chart.LineChart.GrowthCase.name | jsonify | safe }} data-name1={{ chart.LineChart.cases.name | jsonify | safe }} data-val0='{{ chart.LineChart.GrowthCase.data | jsonify | safe }}' data-val1='{{ chart.LineChart.cases.data | jsonify | safe }}' ></div>
+            <p class="text-center font-weight-bold">Daily Growth by Type</p>
+            <div id="chart_line_daily_growth" class="line-chart" data-color="colorLine" data-colorpoint="false" data-legend="true" data-show-dots="false" data-title="Daily Growth Update by Type in {% if request.GET.code %} {{ request.GET.code }} {% else %} Afghanistan {% endif %}" data-show-title="none" data-xaxis='' data-yaxis='{{ chart.LineChart.date | jsonify | safe }}' data-val='[{{ chart.LineChart.GrowthCase | jsonify | safe }}, {{ chart.LineChart.GrowthRecovery | jsonify | safe }}, {{ chart.LineChart.GrowthDeath | jsonify | safe }}]' ></div>
+        </div>
+
+        <div class="col-xl-5">
+            <p class="text-center font-weight-bold">Positive Case per Province</p>
+            <!-- <div id="chart_bar_stack_prov_case" class="ch-size-fforecast bar-stacked-horizontal-chart" data-color="colorPiePercent" data-xaxis='{{ chart.BarStackChart.ProvPositiveCasesData.labels | jsonify | safe }}' data-val='{{ chart.BarStackChart.ProvPositiveCasesData.data_val | jsonify | safe }}' ></div> -->
+            <div id="chart_bar_stack_prov_case" class="bar-stacked-horizontal-chart ch-size-big" data-color="colorPiePercent" data-xaxis='{{ chart.BarStackChart.ProvPositiveCasesData.labels | jsonify | safe }}' data-val='[{{ chart.BarStackChart.ProvPositiveCasesData.data_val.active | jsonify | safe }}, {{ chart.BarStackChart.ProvPositiveCasesData.data_val.recovered | jsonify | safe }}, {{ chart.BarStackChart.ProvPositiveCasesData.data_val.death | jsonify | safe }}]' ></div>
+            <!-- <div id="chart_bar_stack_prov_case" class="bar-stacked-horizontal-chart" data-color="colorPiePercent" data-xaxis='["Extreme", "Very High", "High", "Med", "Low"]' data-val='[{"name": "Active Cases", "data": [2,20,40,20,50]}, {"name": "Recovered", "data": [10,20,40,20,50]}, {"name": "Dead", "data": [10,20,40,20,50]}]' ></div> -->
+        </div>
+
+        <br>
+        
+        {% for chart_title, chart_val in chart.BarChart.items %}
+            <div class="col-xl-4">
+                <div id="chart_bar_horizontal_{{chart_title}}" class="bar-chart ch-size-big" data-color="{% if  chart_title == 'ActiveCasesData' %}colorBarActive{% elif  chart_title == 'NewCasesData' %}colorBarNew{% elif  chart_title == 'CasesData' %}colorBarConfirmed{% endif %}" data-colorpoint="false" data-legend="false" data-xaxis='{% if  chart_title == 'ActiveCasesData' %}Active{% elif  chart_title == 'NewCasesData' %}New{% elif  chart_title == 'CasesData' %}Confirmed{% endif %} Cases' data-yaxis='{{ chart_val.name | jsonify | safe }}' data-val='[{"data":{{ chart_val.data | jsonify | safe }}}]' ></div>
+                <!-- <div id="chart_bar_horizontal_{{chart_title}}" class="bar-chart" data-color="colorBar" data-colorpoint="false" data-legend="false" data-xaxis='Active Cases' data-yaxis='["Badakhshan", "Badghis", "Baghlan"]' data-val='[{"data":[73467.0, 388365.0, 29385147.0]}]' ></div> -->
+            </div>
+        {% endfor %}
+
+
+    </div>
+    
     <hr>
     <h3>Case Status Update</h3>
     <h4 style="font-size:14px">Latest Data Updated:<b> {{ latestData.0.Date }}</b></h4>
