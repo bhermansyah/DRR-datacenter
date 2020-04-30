@@ -157,19 +157,29 @@ def Chart(request, code):
     barData['NewCasesData'] = {}
     barData['NewCasesData']['id'] = 'bar_new_cases_data'
     barData['NewCasesData']['name'] = series['date']
-    barData['NewCasesData']['data-val'] = series['GrowthCase']['data']
+    barData['NewCasesData']['data'] = series['GrowthCase']['data']
     
     barData['CasesData'] = {}
     barData['CasesData']['id'] = 'bar_cases_data'
     barData['CasesData']['name'] = [v for k,v in latest['Province'].items()]
-    barData['CasesData']['data-val'] = [v for k,v in latest['Cases'].items()]
+    barData['CasesData']['data'] = [v for k,v in latest['Cases'].items()]
     
     barData['ActiveCasesData'] = {}
     barData['ActiveCasesData']['id'] = 'bar_active_cases_data'
     barData['ActiveCasesData']['name'] = [v for k,v in latest['Province'].items()]
-    barData['ActiveCasesData']['data-val'] = [v for k,v in latest['Active_Cases'].items()]
+    barData['ActiveCasesData']['data'] = [v for k,v in latest['Active_Cases'].items()]
 
     ChartJson['BarChart'] = barData
+
+    pieData = {}
+
+    pieData['PercentageCasesData'] = {}
+    pieData['PercentageCasesData']['id'] = 'pie_pos_case_percent'
+    pieData['PercentageCasesData']['title'] = 'Positive Case Percentage'
+    pieData['PercentageCasesData']['data'] = [["Active Cases", sum(latest['Active_Cases'])], ["Recovered", sum(latest['Recoveries'])], ["Dead", sum(latest['Deaths'])]]
+
+    ChartJson['PieChart'] = pieData
+
     return ChartJson
 
 
