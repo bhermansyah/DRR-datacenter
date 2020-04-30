@@ -192,6 +192,40 @@ def Chart(request, code):
 
     ChartJson['PieChart'] = pieData
 
+    barStackData = {}
+
+    barStackData['ProvPositiveCasesData'] = {}
+    barStackData['ProvPositiveCasesData']['id'] = 'bar_prov_pos_cases_data'
+    barStackData['ProvPositiveCasesData']['labels'] = [v for k,v in latest['Province'].items()]
+    barStackData['ProvPositiveCasesData']['data_val'] = {}
+    barStackData['ProvPositiveCasesData']['data_val']['active'] = {}
+    barStackData['ProvPositiveCasesData']['data_val']['active']['name'] = 'Active Cases'
+    barStackData['ProvPositiveCasesData']['data_val']['active']['data'] = [v for k,v in latest['Active_Cases'].items()]
+    barStackData['ProvPositiveCasesData']['data_val']['recovered'] = {}
+    barStackData['ProvPositiveCasesData']['data_val']['recovered']['name'] = 'Recovered'
+    barStackData['ProvPositiveCasesData']['data_val']['recovered']['data'] = [v for k,v in latest['Recoveries'].items()]
+    barStackData['ProvPositiveCasesData']['data_val']['death'] = {}
+    barStackData['ProvPositiveCasesData']['data_val']['death']['name'] = 'Dead'
+    barStackData['ProvPositiveCasesData']['data_val']['death']['data'] = [v for k,v in latest['Deaths'].items()]
+
+    # gabisa bikinnya -.-
+    # barStackData['ProvPositiveCasesData']['data_val'] = {
+    #     {
+    #         "name": 'Active Cases',
+    #         "data": [v for k,v in latest['Active_Cases'].items()]
+    #     },
+    #     {
+    #         "name": 'Recovered',
+    #         "data": [v for k,v in latest['Recoveries'].items()]
+    #     },
+    #     {
+    #         "name": 'Dead',
+    #         "data": [v for k,v in latest['Deaths'].items()]
+    #     }
+    # }
+
+    ChartJson['BarStackChart'] = barStackData
+
     return ChartJson
 
 
