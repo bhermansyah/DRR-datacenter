@@ -68,11 +68,12 @@ def gsheet2df(gsheet):
         df = pd.concat(all_data, axis=1)
         return df
 
-def groupByDate(request, code):
-    groupByDateJson = {}
+def Chart(request, code):
+    ChartJson = {}
     gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
     df = gsheet2df(gsheet)
 
+    # LineChart
     if code:
         Cases = pd.to_numeric(df.Cases).where(df.Province==code).groupby([df.Date]).sum()
         Deaths = pd.to_numeric(df.Deaths).where(df.Province==code).groupby([df.Date]).sum()
@@ -131,14 +132,45 @@ def groupByDate(request, code):
         series['GrowthDeath']['data'].append(diffDeath[i])
 
     series['GrowthRecovery'] = {}
-    series['GrowthRecovery']['name'] = 'Growth Recovery'
+    series['GrowthRecovery']['name'] = 'Recovery Growth'
     series['GrowthRecovery']['data'] = []
     for i in diffRecovery:
         series['GrowthRecovery']['data'].append(diffRecovery[i])
 
 
-    groupByDateJson['DataSeries'] = series
-    return groupByDateJson
+    ChartJson['LineChart'] = series
+
+    # BarChart
+    barData = {}
+
+    latest = df.groupby('Province').nth(0).reset_index()
+    if code:
+        latest = latest.where(latest['Province']==code)
+        latest = latest[latest['Province'].notna()]
+    
+    latest['Cases'] = latest['Cases'].astype(int)
+    latest['Deaths'] = latest['Deaths'].astype(int)
+    latest['Recoveries'] = latest['Recoveries'].astype(int)
+    latest['Active_Cases'] = latest['Cases'] - (latest['Recoveries'] - latest['Deaths'])
+    latest['Active_Cases'] = latest['Active_Cases'].astype(int)
+
+    barData['NewCasesData'] = {}
+    barData['NewCasesData']['id'] = 'bar_new_cases_data'
+    barData['NewCasesData']['name'] = series['date']
+    barData['NewCasesData']['data-val'] = series['GrowthCase']['data']
+    
+    barData['CasesData'] = {}
+    barData['CasesData']['id'] = 'bar_cases_data'
+    barData['CasesData']['name'] = [v for k,v in latest['Province'].items()]
+    barData['CasesData']['data-val'] = [v for k,v in latest['Cases'].items()]
+    
+    barData['ActiveCasesData'] = {}
+    barData['ActiveCasesData']['id'] = 'bar_active_cases_data'
+    barData['ActiveCasesData']['name'] = [v for k,v in latest['Province'].items()]
+    barData['ActiveCasesData']['data-val'] = [v for k,v in latest['Active_Cases'].items()]
+
+    ChartJson['BarChart'] = barData
+    return ChartJson
 
 
 def getTotalEntireAfg(request, code):
@@ -165,6 +197,7 @@ def getTotalEntireAfg(request, code):
     GetTotal['Recovered'] = sum(latest['Recoveries'])
     GetTotal['Deaths'] = sum(latest['Deaths'])
     GetTotal['Active Cases'] = sum(latest['Active_Cases'])
+    
 
     return GetTotal
 
@@ -194,7 +227,7 @@ def JsonResponse(request):
 
     if request.GET['page'] == 'covid19':
         response['latestData'] = getLatestData(request, code)
-        response['groupbyDate'] = groupByDate(request, code)
+        response['chart'] = Chart(request, code)
         response['total'] = getTotalEntireAfg(request, code)
     
     response['googledata'] = json.dumps(response, cls=JSONEncoderCustom)
