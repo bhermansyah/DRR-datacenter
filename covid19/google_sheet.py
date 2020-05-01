@@ -100,7 +100,7 @@ def Chart(request, code):
     series = {}
     series['date'] = []
     series['cases'] = {}
-    series['cases']['name'] = 'Confirmed Cases'
+    series['cases']['name'] = 'Confirmed'
     series['cases']['data'] = []
     for i in sortedCases:
         series['date'].append(i)
