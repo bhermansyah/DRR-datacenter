@@ -104,8 +104,8 @@
             }
         }
 
-        // Make the line chart act as spline (ramp curves)
-        Highcharts.seriesTypes.line.prototype.getPointSpline = Highcharts.seriesTypes.spline.prototype.getPointSpline;
+        // Make the line chart act as spline (ramp curves) by force
+        // Highcharts.seriesTypes.line.prototype.getPointSpline = Highcharts.seriesTypes.spline.prototype.getPointSpline;
         Highcharts.theme = {
             chart: {
                 style: {
@@ -574,8 +574,47 @@
             });
         }
 
+        // Object Line chart
+        function spline_chart(id_val, color_val, colorPoint_val, legend_val, y_title, x_title, data_val, title_val, show_title_val, show_marker_val){
+            $(id_val).highcharts({
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: title_val,
+                    style: {
+                        display: show_title_val
+                    }
+                },
+                xAxis: {
+                    categories: y_title
+                },
+                yAxis: {
+                    title: {
+                        text: x_title
+                    },
+                },
+                tooltip: {
+                    shared: true,
+                },
+                legend:{
+                    enabled: legend_val
+                },
+                plotOptions:{
+                    spline: {
+                        enableMouseTracking: true,
+                        marker:{
+                            enabled: show_marker_val
+                        }
+                    }
+                },
+                colors: color_val,
+                series: data_val
+            });
+        }
+
         // Object Spline Chart
-        function spline_chart(id_val, color_val, colorPoint_val, legend_val, y_title, x_title, data_val, title_val, show_title_val){
+        function spline_chart_stock(id_val, color_val, colorPoint_val, legend_val, y_title, x_title, data_val, title_val, show_title_val){
             $(id_val).highcharts('StockChart',{
                 rangeSelector: {
                     selected: 5,
@@ -701,6 +740,34 @@
             var colorPoint_bool = $(id_chart).data("colorpoint");
             var legend_bool = $(id_chart).data("legend");
             var title_chart = $(id_chart).attr('data-title');
+            var show_title_chart = $(id_chart).data('show-title');
+            var show_marker_chart = $(id_chart).data("show-dots");
+
+            selected_color = colorChart[color_chart];
+
+            console.log(id_chart);
+            console.log(color_chart);
+            console.log(data_chart);
+            console.log(selected_color);
+            console.log(yAxis_chart);
+            console.log(legend_bool);
+            console.log(show_title_chart);
+            console.log(show_marker_chart);
+
+            spline_chart(id_chart, selected_color, colorPoint_bool, legend_bool, yAxis_chart, xAxis_chart, data_chart, title_chart, show_title_chart, show_marker_chart);
+
+        });
+
+        $('.spline-chart-stock').each(function(){
+            console.log(this.id);
+            var id_chart = '#' + this.id;
+            color_chart = $(id_chart).attr('data-color'); 
+            var data_chart = $(id_chart).data("val");
+            var yAxis_chart = $(id_chart).data("yaxis");
+            var xAxis_chart = $(id_chart).data("xaxis");
+            var colorPoint_bool = $(id_chart).data("colorpoint");
+            var legend_bool = $(id_chart).data("legend");
+            var title_chart = $(id_chart).attr('data-title');
             var show_title_chart = $(id_chart).attr('data-show-title');
 
             selected_color = colorChart[color_chart];
@@ -711,7 +778,7 @@
             console.log(selected_color);
             console.log(yAxis_chart);
 
-            spline_chart(id_chart, selected_color, colorPoint_bool, legend_bool, yAxis_chart, xAxis_chart, data_chart, title_chart, show_title_chart);
+            spline_chart_stock(id_chart, selected_color, colorPoint_bool, legend_bool, yAxis_chart, xAxis_chart, data_chart, title_chart, show_title_chart);
 
         });
 
