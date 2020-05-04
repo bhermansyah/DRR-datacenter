@@ -7,8 +7,18 @@
         <div class="col mb-4">
             <div class="card  {% if key == 'Confirmed Cases'%}case_card {% elif key == 'Deaths'%}death_card {% elif key == 'Recovered'%} recovery_card {% else %} active_card{% endif %}">
                 <div class="card-body">
-                    <p class="card-text value_card">{{ val | intcomma }}</p>
+                    <p class="card-text value_card">{{ val.0 | intcomma }}</p>
                     <p class="caption">{{ key }}</h5>
+                    {% if key == 'Confirmed Cases'%}
+                        <br>{{ val.1.GrowthCases | intcomma }} 
+                    {% elif key == 'Deaths'%}
+                        <br>{{ val.1.GrowthDeaths | intcomma }}
+                    {% elif key == 'Recovered'%} 
+                        <br>{{ val.1.GrowthRecoveries | intcomma }} 
+                    {% else %} 
+                        <br>{{ val.1.GrowthActiveCase | intcomma }}
+                    {% endif %}
+                    
                     <div class="icon float-right">
                         {% if key == 'Confirmed Cases'%}
                             <i class="fas fa fas fa-user-md"></i>
@@ -97,10 +107,10 @@
         {% for i in latestData %}
             <tr>
                 <td onclick="jump_url('{{i.Province}}');"> <b>{{ i.Province }} </b></td>
-                <td>{{ i.Cases }}</td>
-                <td>{{ i.Active_Cases }}</td>
-                <td>{{ i.Recoveries }}</td>
-                <td>{{ i.Deaths }}</td>
+                <td>{{ i.Cases }}  <div class="float-right">({{ i.GrowthCases }})</div></td>
+                <td>{{ i.Active_Cases}} <div class="float-right">({{ i.GrowthActive_Cases }})</div></td>
+                <td>{{ i.Recoveries }} <div class="float-right">({{ i.GrowthRecoveries }})</div></td>
+                <td>{{ i.Deaths }} <div class="float-right">({{ i.GrowthDeaths }})</div></td>
                 <td>{{ i.Recovery_Rate | floatformat:2 }} %</td>
                 <td>{{ i.Death_Rate | floatformat:2 }} %</td>
             </tr>
