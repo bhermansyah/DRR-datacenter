@@ -3,6 +3,7 @@ import json
 import pickle
 import pandas as pd
 import numpy as np
+import datetime
 
 from collections import OrderedDict
 from .utils import JSONEncoderCustom
@@ -39,7 +40,7 @@ def get_google_sheet(spreadsheet_id, range_name):
         with open(settings.GOOGLE_OAUTH2_TOKEN, 'wb') as token:
             pickle.dump(creds, token)
 
-    service = build('sheets', 'v4', credentials=creds)
+    service = build('sheets', 'v4', credentials=creds, cache_discovery=False)
 
     # Call the Sheets API
     sheet = service.spreadsheets()
@@ -208,22 +209,6 @@ def Chart(request, code):
     barStackData['ProvPositiveCasesData']['data_val']['death']['name'] = 'Dead'
     barStackData['ProvPositiveCasesData']['data_val']['death']['data'] = [v for k,v in latest['Deaths'].items()]
 
-    # gabisa bikinnya -.-
-    # barStackData['ProvPositiveCasesData']['data_val'] = {
-    #     {
-    #         "name": 'Active Cases',
-    #         "data": [v for k,v in latest['Active_Cases'].items()]
-    #     },
-    #     {
-    #         "name": 'Recovered',
-    #         "data": [v for k,v in latest['Recoveries'].items()]
-    #     },
-    #     {
-    #         "name": 'Dead',
-    #         "data": [v for k,v in latest['Deaths'].items()]
-    #     }
-    # }
-
     ChartJson['BarStackChart'] = barStackData
 
     return ChartJson
@@ -235,11 +220,12 @@ def getTotalEntireAfg(request, code):
     gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
     df = gsheet2df(gsheet)
 
+    latest = df.groupby('Province').nth(0).reset_index()
+    previous = df.groupby('Province').nth(1).reset_index()
     if code:
-        latest = df[df['Province'].isin([code])].head(1)
-    else:
-        latest = df.groupby('Province').nth(0).reset_index()
-    
+        latest = latest[latest['Province'].isin([code])]
+        previous = previous[previous['Province'].isin([code])]
+
     latest['Cases'] = latest['Cases'].astype(int)
     latest['Deaths'] = latest['Deaths'].astype(int)
     latest['Recoveries'] = latest['Recoveries'].astype(int)
@@ -249,11 +235,21 @@ def getTotalEntireAfg(request, code):
     TotalDeaths = sum(latest['Deaths'])
     TotalRecoveries = sum(latest['Recoveries'])
 
-    GetTotal['Confirmed Cases'] = sum(latest['Cases'])
-    GetTotal['Recovered'] = sum(latest['Recoveries'])
-    GetTotal['Deaths'] = sum(latest['Deaths'])
-    GetTotal['Active Cases'] = sum(latest['Active_Cases'])
-    
+    GetTotal['Confirmed Cases'] = [sum(latest['Cases'])]
+    GetTotal['Recovered'] = [sum(latest['Recoveries'])]
+    GetTotal['Deaths'] = [sum(latest['Deaths'])]
+    GetTotal['Active Cases'] = [sum(latest['Active_Cases'])]
+
+
+    GrowthCases = sum(latest['Cases'] - previous['Cases'].astype(int))
+    GrowthDeaths = sum(latest['Deaths'] - previous['Deaths'].astype(int))
+    GrowthRecoveries = sum(latest['Recoveries'] - previous['Recoveries'].astype(int))
+    GrowthActiveCase = GrowthCases - (GrowthRecoveries - GrowthDeaths)
+
+    GetTotal['Confirmed Cases'].append({'GrowthCases': GrowthCases})
+    GetTotal['Deaths'].append({'GrowthDeaths': GrowthDeaths})
+    GetTotal['Recovered'].append({'GrowthRecoveries': GrowthRecoveries})
+    GetTotal['Active Cases'].append({'GrowthActiveCase': GrowthActiveCase})
 
     return GetTotal
 
@@ -263,7 +259,13 @@ def getLatestData(request, code):
     df = gsheet2df(gsheet)
 
     latest = df.groupby('Province').nth(0).reset_index()
-            
+    previous = df.groupby('Province').nth(1).reset_index()
+    
+    latest['GrowthCases'] = latest['Cases'].astype(int) - previous['Cases'].astype(int)
+    latest['GrowthDeaths'] = latest['Deaths'].astype(int) - previous['Deaths'].astype(int)
+    latest['GrowthRecoveries'] = latest['Recoveries'].astype(int) - previous['Recoveries'].astype(int)
+    latest['GrowthActive_Cases'] = latest['GrowthCases']  - (latest['GrowthRecoveries'] - latest['GrowthDeaths'])
+
     latest['Cases'] = latest['Cases'].astype(int)
     latest['Deaths'] = latest['Deaths'].astype(int)
     latest['Recoveries'] = latest['Recoveries'].astype(int)
