@@ -69,10 +69,21 @@ def gsheet2df(gsheet):
         df = pd.concat(all_data, axis=1)
         return df
 
-def Chart(request, code):
-    ChartJson = {}
+def Common(request, code):
     gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
     df = gsheet2df(gsheet)
+    Common = {}
+
+    Common['latestData'] = getLatestData(df, request, code)
+    Common['chart'] = Chart(df, request, code)
+    Common['total'] = getTotalEntireAfg(df, request, code)
+
+    return Common
+
+def Chart(df, request, code):
+    ChartJson = {}
+    # gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
+    # df = gsheet2df(gsheet)
 
     # LineChart
     if code:
@@ -214,11 +225,11 @@ def Chart(request, code):
     return ChartJson
 
 
-def getTotalEntireAfg(request, code):
+def getTotalEntireAfg(df, request, code):
     GetTotal = {}
 
-    gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
-    df = gsheet2df(gsheet)
+    # gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
+    # df = gsheet2df(gsheet)
 
     latest = df.groupby('Province').nth(0).reset_index()
     previous = df.groupby('Province').nth(1).reset_index()
@@ -254,9 +265,9 @@ def getTotalEntireAfg(request, code):
     return GetTotal
 
 
-def getLatestData(request, code):
-    gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
-    df = gsheet2df(gsheet)
+def getLatestData(df, request, code):
+    # gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
+    # df = gsheet2df(gsheet)
 
     latest = df.groupby('Province').nth(0).reset_index()
     previous = df.groupby('Province').nth(1).reset_index()
@@ -284,9 +295,7 @@ def JsonResponse(request):
         code = request.GET['code']
 
     if request.GET['page'] == 'covid19':
-        response['latestData'] = getLatestData(request, code)
-        response['chart'] = Chart(request, code)
-        response['total'] = getTotalEntireAfg(request, code)
+        response = Common(request, code)
     
     response['googledata'] = json.dumps(response, cls=JSONEncoderCustom)
 
