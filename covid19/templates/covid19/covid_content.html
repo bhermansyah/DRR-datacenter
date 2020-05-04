@@ -10,13 +10,13 @@
                     <p class="card-text value_card">{{ val.0 | intcomma }}</p>
                     <p class="caption">{{ key }}</h5>
                     {% if key == 'Confirmed Cases'%}
-                        <br>{{ val.1.GrowthCases | intcomma }} 
+                        (+{{ val.1.GrowthCases | intcomma }}) 
                     {% elif key == 'Deaths'%}
-                        <br>{{ val.1.GrowthDeaths | intcomma }}
+                        (+{{ val.1.GrowthDeaths | intcomma }})
                     {% elif key == 'Recovered'%} 
-                        <br>{{ val.1.GrowthRecoveries | intcomma }} 
+                        (+{{ val.1.GrowthRecoveries | intcomma }})
                     {% else %} 
-                        <br>{{ val.1.GrowthActiveCase | intcomma }}
+                        (+{{ val.1.GrowthActiveCase | intcomma }})
                     {% endif %}
                     
                     <div class="icon float-right">
@@ -91,7 +91,7 @@
     <p style="font-size:12px">
     Clicking any of the province below will redirect you to the province detail information
     </p>
-    <table id="LatestData"  class="table table-striped table-bordered">
+    <table id="LatestData"  class="table table-striped table-bordered table-hover">
         <thead>
             <tr>
                 <th>Province</th>
@@ -105,12 +105,12 @@
         </thead>
         <tbody id="latest_data">
         {% for i in latestData %}
-            <tr>
-                <td onclick="jump_url('{{i.Province}}');"> <b>{{ i.Province }} </b></td>
-                <td>{{ i.Cases }}  <div class="float-right">({{ i.GrowthCases }})</div></td>
-                <td>{{ i.Active_Cases}} <div class="float-right">({{ i.GrowthActive_Cases }})</div></td>
-                <td>{{ i.Recoveries }} <div class="float-right">({{ i.GrowthRecoveries }})</div></td>
-                <td>{{ i.Deaths }} <div class="float-right">({{ i.GrowthDeaths }})</div></td>
+            <tr onclick="jump_url('{{i.Province}}');">
+                <td> <b>{{ i.Province }} </b></td>
+                <td>{{ i.Cases }}  <div class="float-right {% if i.GrowthCases == 0 %}{% else %}added{% endif %}">({% if i.GrowthCases == 0 %}{% else %}+{% endif %}{{ i.GrowthCases }})</div></td>
+                <td>{{ i.Active_Cases}} <div class="float-right {% if i.GrowthActive_Cases == 0 %}{% else %}added{% endif %}">({% if i.GrowthActive_Cases == 0 %}{% else %}+{% endif %}{{ i.GrowthActive_Cases }})</div></td>
+                <td>{{ i.Recoveries }} <div class="float-right {% if i.GrowthRecoveries == 0 %}{% else %}added{% endif %}">({% if i.GrowthRecoveries == 0 %}{% else %}+{% endif %}{{ i.GrowthRecoveries }})</div></td>
+                <td>{{ i.Deaths }} <div class="float-right {% if i.GrowthDeaths == 0 %}{% else %}added{% endif %}">({% if i.GrowthDeaths == 0 %}{% else %}+{% endif %}{{ i.GrowthDeaths }})</div></td>
                 <td>{{ i.Recovery_Rate | floatformat:2 }} %</td>
                 <td>{{ i.Death_Rate | floatformat:2 }} %</td>
             </tr>
