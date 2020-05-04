@@ -59,7 +59,16 @@
 
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function(){
-        $('#LatestData').DataTable();
+        $('#LatestData').DataTable({
+          rowReorder: true,
+          columnDefs: [
+              { orderable: true, className: 'reorder', targets: 0 },
+              { orderable: false, targets: '_all' }
+          ]
+          // columnDefs: [
+          //   { targets: 'no-sort', orderable: false }
+          // ]
+        });
     })
 </script>
 
