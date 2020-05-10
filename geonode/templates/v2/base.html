@@ -51,9 +51,6 @@
         <link href="{{ STATIC_URL }}geonode/css/font-awesome-rtl.css" rel="stylesheet" />
         {% endif %}
 
-        <!-- Custom CSS -->
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css?ver=1007">
-
         <!-- If you'd like to support IE8 -->
         <!-- <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
         <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
@@ -63,6 +60,11 @@
         <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}
         </style>
 
+        {% block extra_head_dashboard %}
+        {% endblock extra_head_dashboard%}
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/custom.css?ver=1007">
 
         {% block extra_head %}
         {% endblock %}
@@ -71,6 +73,7 @@
   </head>
 
   <body class="{% block body_class %}{% endblock %}" {% block body_extra_attr %}{% endblock %}>
+        {% block extra_loading %}{% endblock %}
     {% block header %}
     <!-- Navbar -->
     <nav class="navbar navbar-fixed-top navbar-upper">
@@ -266,10 +269,10 @@
             <div class="row">
                 <div class="col-md-5 cp">
                     &copy; 2016
-                    <a target="_blank" href="http://immap.org/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">{% trans "iMMAP" %}</a>. All Rights Reserved.
+                    <a target="_blank" href="http://immap.org/" title="iMMAP">{% trans "iMMAP" %}</a>. All Rights Reserved.
                 </div>
                 <!--/Copyright-->
-                <div class="col-md-6">
+                <div class="col-md-6 hidden-print">
                     <ul class="social pull-right">
                         <li>
                             <a href="mailto:admin.geonode@immap.org"><i class="fa fa-envelope"></i></a>
@@ -288,7 +291,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-1 hidden-print">
                     <a id="gototop" class="gototop pull-right" href="#"><i class="fa fa-angle-up"></i></a>
                 </div>
                 <!--/Goto Top-->
@@ -406,6 +409,8 @@
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
     {% include 'autocomplete_light/static.html' %}
+    {% block dashboard_script %}
+    {% endblock dashboard_script %}
     {% block extra_script %}
     {% endblock extra_script %}
     <script type="text/javascript">
