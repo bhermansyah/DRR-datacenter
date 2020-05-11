@@ -26,6 +26,8 @@
     {% block dashboard_script_custom %}
         {% include "covid19/covid_scripts.html" %}
         <script type="text/javascript">
+            var googledata = {% if googledata %}{{ googledata|safe }}{% else %}{}{% endif %};
+
             document.addEventListener('DOMContentLoaded', function(){
                 $('#LatestData').DataTable({
                   rowReorder: true,

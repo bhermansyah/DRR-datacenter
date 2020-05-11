@@ -62,7 +62,7 @@ def gsheet2df(gsheet):
                 if col_name == 'Province':
                     provinceName.append(row[col_id].replace(' Province',''))    
                 else:
-                    column_data.append(row[col_id])
+                    column_data.append(row[col_id].replace(',', ''))
             combineData = provinceName + column_data
             ds = pd.Series(data=combineData, name=col_name.replace(" ", "_"))
             all_data.append(ds)
@@ -82,9 +82,6 @@ def Common(request, code):
 
 def Chart(df, request, code):
     ChartJson = {}
-    # gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
-    # df = gsheet2df(gsheet)
-
     # LineChart
     if code:
         Cases = pd.to_numeric(df.Cases).where(df.Province==code).groupby([df.Date]).sum()
@@ -148,7 +145,6 @@ def Chart(df, request, code):
     series['GrowthRecovery']['data'] = []
     for i in diffRecovery:
         series['GrowthRecovery']['data'].append(diffRecovery[i])
-
 
     # latest['Active_Cases'] = latest['Cases'] - (latest['Recoveries'] - latest['Deaths'])
     ActiveCases = Cases - ( Recoveries - Deaths)
@@ -228,11 +224,9 @@ def Chart(df, request, code):
 def getTotalEntireAfg(df, request, code):
     GetTotal = {}
 
-    # gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
-    # df = gsheet2df(gsheet)
-
     latest = df.groupby('Province').nth(0).reset_index()
     previous = df.groupby('Province').nth(1).reset_index()
+
     if code:
         latest = latest[latest['Province'].isin([code])]
         previous = previous[previous['Province'].isin([code])]
@@ -252,9 +246,9 @@ def getTotalEntireAfg(df, request, code):
     GetTotal['Active Cases'] = [sum(latest['Active_Cases'])]
 
 
-    GrowthCases = sum(latest['Cases'] - previous['Cases'].astype(int))
-    GrowthDeaths = sum(latest['Deaths'] - previous['Deaths'].astype(int))
-    GrowthRecoveries = sum(latest['Recoveries'] - previous['Recoveries'].astype(int))
+    GrowthCases = sum(latest['Cases']) - sum(previous['Cases'].astype(int))
+    GrowthDeaths = sum(latest['Deaths']) - sum(previous['Deaths'].astype(int))
+    GrowthRecoveries = sum(latest['Recoveries']) - sum(previous['Recoveries'].astype(int))
     GrowthActiveCase = GrowthCases - (GrowthRecoveries - GrowthDeaths)
 
     GetTotal['Confirmed Cases'].append({'GrowthCases': GrowthCases})
@@ -266,15 +260,14 @@ def getTotalEntireAfg(df, request, code):
 
 
 def getLatestData(df, request, code):
-    # gsheet = get_google_sheet(SPREADSHEET_ID, RANGE_NAME)
-    # df = gsheet2df(gsheet)
-
     latest = df.groupby('Province').nth(0).reset_index()
     previous = df.groupby('Province').nth(1).reset_index()
-    
-    latest['GrowthCases'] = latest['Cases'].astype(int) - previous['Cases'].astype(int)
-    latest['GrowthDeaths'] = latest['Deaths'].astype(int) - previous['Deaths'].astype(int)
-    latest['GrowthRecoveries'] = latest['Recoveries'].astype(int) - previous['Recoveries'].astype(int)
+
+    growthData = pd.merge(latest, previous, left_on='Province', right_on='Province', how='left').fillna(0)
+
+    latest['GrowthCases'] = growthData['Cases_x'].astype(int) - growthData['Cases_y'].astype(int)
+    latest['GrowthDeaths'] = growthData['Deaths_x'].astype(int) - growthData['Deaths_y'].astype(int)
+    latest['GrowthRecoveries'] = growthData['Recoveries_x'].astype(int) - growthData['Recoveries_y'].astype(int)
     latest['GrowthActive_Cases'] = latest['GrowthCases']  - (latest['GrowthRecoveries'] - latest['GrowthDeaths'])
 
     latest['Cases'] = latest['Cases'].astype(int)
