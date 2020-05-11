@@ -135,10 +135,10 @@
                                 {% for i in latestData %}
                                 <tr onclick="jump_url('{{i.Province}}');">
                                     <td> <b>{{ i.Province }} </b></td>
-                                    <td>{{ i.Cases }}  <span class="pull-right no-sort {% if i.GrowthCases == 0 %}{% else %}added{% endif %}">({% if i.GrowthCases == 0 %}{% else %}+{% endif %}{{ i.GrowthCases }})</span></td>
+                                    <td>{{ i.Cases }}  <span class="pull-right no-sort {% if i.GrowthCases == 0 %}{% else %}minuses{% endif %}">({% if i.GrowthCases == 0 %}{% else %}+{% endif %}{{ i.GrowthCases }})</span></td>
                                     <td>{{ i.Active_Cases }}</td>
                                     <td>{{ i.Recoveries }} <span class="pull-right no-sort {% if i.GrowthRecoveries == 0 %}{% else %}added{% endif %}">({% if i.GrowthRecoveries == 0 %}{% else %}+{% endif %}{{ i.GrowthRecoveries }})</span></td>
-                                    <td>{{ i.Deaths }} <span class="pull-right no-sort {% if i.GrowthDeaths == 0 %}{% else %}added{% endif %}">({% if i.GrowthDeaths == 0 %}{% else %}+{% endif %}{{ i.GrowthDeaths }})</span></td>
+                                    <td>{{ i.Deaths }} <span class="pull-right no-sort {% if i.GrowthDeaths == 0 %}{% else %}minuses{% endif %}">({% if i.GrowthDeaths == 0 %}{% else %}+{% endif %}{{ i.GrowthDeaths }})</span></td>
                                     <td>{{ i.Recovery_Rate | floatformat:2 }} %</td>
                                     <td>{{ i.Death_Rate | floatformat:2 }} %</td>
                                 </tr>
