@@ -50,7 +50,7 @@ def get_google_sheet(spreadsheet_id, range_name):
 
 def gsheet2df(gsheet):
     header = gsheet.get('values', [])[0]   
-    values = gsheet.get('values', [])[1:] 
+    values = gsheet.get('values', [])[2:] 
     if not values:
         print('No data found.')
     else:
