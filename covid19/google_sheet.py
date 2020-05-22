@@ -47,6 +47,10 @@ def get_google_sheet(spreadsheet_id, range_name):
     gsheet = sheet.values().get(spreadsheetId=spreadsheet_id, range=range_name).execute()
     return gsheet
 
+def replace_charts(value):
+    if value == u'\u2013':
+        return value.replace(u'\u2013', "0")
+    return value.replace(',', "")
 
 def gsheet2df(gsheet):
     header = gsheet.get('values', [])[0]   
@@ -61,8 +65,10 @@ def gsheet2df(gsheet):
             for row in values:
                 if col_name == 'Province':
                     provinceName.append(row[col_id].replace(' Province',''))    
+                elif col_name == 'Cases' or col_name == 'Deaths' or col_name == 'Recoveries':
+                    column_data.append(replace_charts(row[col_id]))
                 else:
-                    column_data.append(row[col_id].replace(',', ''))
+                    column_data.append(row[col_id])
             combineData = provinceName + column_data
             ds = pd.Series(data=combineData, name=col_name.replace(" ", "_"))
             all_data.append(ds)
