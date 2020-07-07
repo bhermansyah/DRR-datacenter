@@ -1,385 +1,306 @@
 {
-   "units":"m",
-   "srs":"EPSG:900913",
-   "layout":"A1 landscape",
-   "dpi":150,
-   "outputFilename":"\"iMMAP_AFG_Travel time from facilities/locations_A1 landscape_map_2017-12-20\"",
-   "mapTitle":"Travel time from facilities/locations",
-   "comment":"Here multiple maps show the travel time by road in hours from/to the nearest e.g. Hospital, airport, district center. \nAdditional features will be added in the future, e.g. warehouses, schools.\nFor each travel region, the details of the nearest facility are knows. e.g. Not only is the nearest hospital more than 3 hours away, the name will also be shown.",
-   "layers":[
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":0,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_ppla"
-         ],
-         "format":"image/png8",
-         "styles":[
-            "polygon_nothing"
-         ],
-         "customParams":{
-            "TRANSPARENT":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_elev_dem_30m_aster_hillshade"
-         ],
-         "format":"image/png8",
-         "styles":[
-            ""
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_capa_hltfac_tierall"
-         ],
-         "format":"image/png8",
-         "styles":[
-            ""
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_admbnda_adm2"
-         ],
-         "format":"image/png8",
-         "styles":[
-            ""
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_admbnda_adm1"
-         ],
-         "format":"image/png8",
-         "styles":[
-            ""
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_rdsl"
-         ],
-         "format":"image/png",
-         "styles":[
-            ""
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_riv"
-         ],
-         "format":"image/png8",
-         "styles":[
-            ""
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-     
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_hltfac"
-         ],
-         "format":"image/png8",
-         "styles":[
-            "afg_hltfac_tier3"
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_hltfac"
-         ],
-         "format":"image/png8",
-         "styles":[
-            "afg_hltfac_tier3_bhc"
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "minScaleDenominator":0.520684892112729,
-         "maxScaleDenominator":559081145.7863648,
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_hltfac"
-         ],
-         "format":"image/png8",
-         "styles":[
-            "afg_hltfac_0d5a9a45"
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_hltfac"
-         ],
-         "format":"image/png8",
-         "styles":[
-            ""
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-      {
-         "baseURL":"http://asdc.immap.org/geoserver/wms",
-         "opacity":1,
-         "singleTile":false,
-         "type":"WMS",
-         "layers":[
-            "geonode:afg_pplp"
-         ],
-         "format":"image/png8",
-         "styles":[
-            "afg_pplp_simply"
-         ],
-         "customParams":{
-            "TRANSPARENT":true,
-            "TILED":true
-         }
-      },
-       {
-         "baseURL": "http://asdc.immap.org/geoserver/wms",
-         "opacity": 1,
-         "singleTile": false,
-         "type": "WMS",
-         "layers": [
-           "$adm_layer_name"
-         ],
-         "format": "image/png8",
-         "customParams": {
-           "TRANSPARENT": true,
-           "SLD_BODY": "$mask_sld",
-           "CQL_FILTER": "$key_adm_code<>$area_code"
-         }
-       },
-       {
-         "baseURL": "http://asdc.immap.org/geoserver/wms",
-         "opacity": 1,
-         "singleTile": false,
-         "type": "WMS",
-         "layers": [
-           "$adm_layer_name"
-         ],
-         "format": "image/png8",
-         "customParams": {
-           "TRANSPARENT": true,
-           "SLD_BODY": "$outline_sld",
-           "CQL_FILTER": "$key_adm_code=$area_code"
-         }
-       }
-   ],
-   "pages":[
-      {
-         "center":[
-            7747678.0031001,
-            4158460.8049929
-         ],
-         "scale":150000,
-         "bbox":[
-            7692168.3087474,
-            4117450.3063052,
-            7803187.6974528,
-            4199471.3036806
-         ],
-         "rotation":0
-      }
-   ],
-   "legends":[
-       {  
-         "name":"Health facilities Others",
-         "classes":[  
-            {  
-               "name":"",
-               "icons":[  
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_hltfac&style=afg_hltfac_tier3&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+    "units": "m",
+    "srs": "EPSG:900913",
+    "layout": "A1 landscape",
+    "dpi": 150,
+    "outputFilename": "\"iMMAP_AFG_Travel time from facilities/locations_A1 landscape_map_2017-12-20\"",
+    "mapTitle": "Travel time from facilities/locations",
+    "comment": "Here multiple maps show the travel time by road in hours from/to the nearest e.g. Hospital, airport, district center. \nAdditional features will be added in the future, e.g. warehouses, schools.\nFor each travel region, the details of the nearest facility are knows. e.g. Not only is the nearest hospital more than 3 hours away, the name will also be shown.",
+    "layers": [
+        {
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 0,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_ppla"
+            ],
+            "format": "image/png8",
+            "styles": [
+                "polygon_nothing"
+            ],
+            "customParams": {
+                "TRANSPARENT": true
             }
-         ]
-      },
-      {
-         "name":"Health facilities Tier 1",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_hltfac&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+        },
+        {
+            "minScaleDenominator": 0.520684892112729,
+            "maxScaleDenominator": 559081145.7863648,
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_elev_dem_30m_aster_hillshade"
+            ],
+            "format": "image/png",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-      {
-         "name":"Health facilities Tier 2",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_hltfac&style=afg_hltfac_0d5a9a45&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+        },
+        {
+            "minScaleDenominator": 0.520684892112729,
+            "maxScaleDenominator": 559081145.7863648,
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_airdrmp"
+            ],
+            "format": "image/png8",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-      {
-         "name":"Health facilities Tier 3",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_hltfac&style=afg_hltfac_tier3_bhc&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+        },
+        {
+            "minScaleDenominator": 0.520684892112729,
+            "maxScaleDenominator": 559081145.7863648,
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_fldzonea_100k_risk_landcover_pop"
+            ],
+            "format": "image/png8",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-
-      {
-         "name":"Settlements",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_pplp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000&STYLE=afg_pplp_simply"
-               ]
+        },
+        {
+            "minScaleDenominator": 0.520684892112729,
+            "maxScaleDenominator": 559081145.7863648,
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_riv"
+            ],
+            "format": "image/png8",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-      
-      {
-         "name":"Road network",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?EXCEPTIONS=application%2Fvnd.ogc.se_xml&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TILED=true&LAYER=geonode%3Aafg_rdsl&STYLE=afg_rdsl_legend_osm&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000&width=12&height=12"
-               ]
+        },
+        {
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_rdsl"
+            ],
+            "format": "image/png8",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-      
-      {
-         "name":"Rivers",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_riv&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+        },
+        {
+            "minScaleDenominator": 0.520684892112729,
+            "maxScaleDenominator": 559081145.7863648,
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_admbnda_adm2"
+            ],
+            "format": "image/png8",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-
-     
-      {
-         "name":"Provincial boundaries",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm1&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+        },
+        {
+            "minScaleDenominator": 0.520684892112729,
+            "maxScaleDenominator": 559081145.7863648,
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_admbnda_adm1"
+            ],
+            "format": "image/png8",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-      {
-         "name":"District boundaries",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm2&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+        },
+        {
+            "minScaleDenominator": 0.520684892112729,
+            "maxScaleDenominator": 559081145.7863648,
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "geonode:afg_pplp"
+            ],
+            "format": "image/png8",
+            "styles": [
+                ""
+            ],
+            "customParams": {
+                "TRANSPARENT": true,
+                "TILED": true
             }
-         ]
-      },
-      
-      {
-         "name":"Travel time to nearest hospital (All)",
-         "classes":[
-            {
-               "name":"",
-               "icons":[
-                  "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_capa_hltfac_tierall&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=150000"
-               ]
+        },
+        {
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "$adm_layer_name"
+            ],
+            "format": "image/png8",
+            "customParams": {
+                "TRANSPARENT": true,
+                "SLD_BODY": "$mask_sld",
+                "CQL_FILTER": "$key_adm_code<>$area_code"
             }
-         ]
-      }
-   ],
-   "selectedBox":"69.09992360729478,34.65762326568585%2070.09722774451028,34.65762326568585%2070.09722774451028,35.26147305003297%2069.09992360729478,35.26147305003297%2069.09992360729478,34.65762326568585",
-   "showRiskTable":false,
-   "mapID":"723"
+        },
+        {
+            "baseURL": "http://asdc.immap.org/geoserver/wms",
+            "opacity": 1,
+            "singleTile": false,
+            "type": "WMS",
+            "layers": [
+                "$adm_layer_name"
+            ],
+            "format": "image/png8",
+            "customParams": {
+                "TRANSPARENT": true,
+                "SLD_BODY": "$outline_sld",
+                "CQL_FILTER": "$key_adm_code=$area_code"
+            }
+        }
+    ],
+    "pages": [
+        {
+            "center": [
+                7747678.0031001,
+                4158460.8049929
+            ],
+            "scale": 150000,
+            "bbox": [
+                7692168.3087474,
+                4117450.3063052,
+                7803187.6974528,
+                4199471.3036806
+            ],
+            "rotation": 0
+        }
+    ],
+    "legends": [
+        {
+            "name": "Settlements",
+            "classes": [
+                {
+                    "name": "",
+                    "icons": [
+                        "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_pplp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=250000"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Provincial boundaries",
+            "classes": [
+                {
+                    "name": "",
+                    "icons": [
+                        "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm1&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=250000"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "District boundaries",
+            "classes": [
+                {
+                    "name": "",
+                    "icons": [
+                        "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_admbnda_adm2&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=250000"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Road network",
+            "classes": [
+                {
+                    "name": "",
+                    "icons": [
+                        "http://asdc.immap.org/geoserver/wms?EXCEPTIONS=application%2Fvnd.ogc.se_xml&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetLegendGraphic&TILED=true&LAYER=geonode%3Aafg_rdsl&STYLE=afg_rdsl_legend_osm&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=725000&width=12&height=12"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Rivers",
+            "classes": [
+                {
+                    "name": "",
+                    "icons": [
+                        "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_riv&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=250000"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Flood risk zones (100 year interval)",
+            "classes": [
+                {
+                    "name": "",
+                    "icons": [
+                        "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_fldzonea_100k_risk_landcover_pop&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=250000"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Airports/Airfields",
+            "classes": [
+                {
+                    "name": "",
+                    "icons": [
+                        "http://asdc.immap.org/geoserver/wms?request=GetLegendGraphic&width=12&height=12&layer=geonode%3Aafg_airdrmp&transparent=true&format=image%2Fpng&Language=en&legend_options=fontSize%3A5%3Bdpi%3A300&SCALE=250000"
+                    ]
+                }
+            ]
+        }
+    ],
+    "selectedBox": "69.09992360729478,34.65762326568585%2070.09722774451028,34.65762326568585%2070.09722774451028,35.26147305003297%2069.09992360729478,35.26147305003297%2069.09992360729478,34.65762326568585",
+    "showRiskTable": false,
+    "mapID": "723",
+    "contributors": "iMMAP,AGCHO"
 }
