@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
 {% load i18n %}
 {% load url from future %}
 
@@ -6,18 +6,28 @@
 
 {% block body_class %}data{% endblock %}
 
-{% comment %}
-{% block body_outer %}
-<div class="row">
-  <div class="col-md-12">
-    <ul class="nav nav-tabs" id="subnav-tabs">
-      <li><a href="{% url "layer_browse" %}" class="explore">{% trans "Explore Layers" %}</a></li>
-      <li><a href="{% url "data_upload" %}" class="upload">{% trans "Upload Layers" %}</a></li>
-    </ul>
-  </div>
-</div>
-{% block body %}{% endblock body %}
-{% block sidebar %}{% endblock sidebar %}
 
+{% block body_outer %}
+    <!-- Title -->
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    {% block title_content %}{% endblock title_content %}
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li><a href="{% url 'services' %}">{% trans 'Remote Services' %}</a></li>
+                        {% block breadcrumb %}{% endblock breadcrumb %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-height-empty">
+        <div class="container">
+            {% block content %}{% endblock content %}
+        </div>
+    </section>
 {% endblock body_outer %}
-{% endcomment %}

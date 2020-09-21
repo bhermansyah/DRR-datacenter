@@ -1,10 +1,10 @@
 {% load i18n %}
 
-<div class="panel-group" id="accordion">
+<div class="panel-group" id="permissions-body">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#perm_view">
+        <a data-toggle="collapse" data-parent="#permissions-body" href="#perm_view">
         {% trans "Who can view it?" %}</a>
       </h4>
     </div>
@@ -33,7 +33,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#perm_download">
+        <a data-toggle="collapse" data-parent="#permissions-body" href="#perm_download">
         {% trans "Who can download it?" %}</a>
       </h4>
     </div>
@@ -62,7 +62,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#perm_change">
+        <a data-toggle="collapse" data-parent="#permissions-body" href="#perm_change">
         {% trans "Who can change metadata for it?" %}</a>
       </h4>
     </div>
@@ -75,9 +75,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="view_resourcebase_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
+          <label for="change_resourcebase_metadata_groups" class="control-label col-md-4">{% trans "Following Groups" %}</label>
           <div class="col-md-8">
-            <input class="group-select form-control" type="text" name="view_resourcebase" id="view_resourcebase_groups" />
+            <input class="group-select form-control" type="text" name="change_resourcebase_metadata" id="change_resourcebase_metadata_groups" />
           </div>
         </div>
       </div>
@@ -88,7 +88,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#perm_data_edit">
+        <a data-toggle="collapse" data-parent="#permissions-body" href="#perm_data_edit">
         {% trans "Who can edit data for this layer?" %}</a>
       </h4>
     </div>
@@ -113,7 +113,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#perm_style_edit">
+        <a data-toggle="collapse" data-parent="#permissions-body" href="#perm_style_edit">
         {% trans "Who can edit styles for this layer?" %}</a>
       </h4>
     </div>
@@ -138,7 +138,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#perm_manage">
+        <a data-toggle="collapse" data-parent="#permissions-body" href="#perm_manage">
         {% trans "Who can manage it? (update, delete, change permissions, publish/unpublish it)" %}</a>
       </h4>
     </div>

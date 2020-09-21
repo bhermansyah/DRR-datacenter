@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
 
 {% load url from future %}
 {% load i18n %}
@@ -7,24 +7,41 @@
 {% block head_title %}{% trans "Log in" %}{% endblock %}
 
 {% block body_outer %}
-<div class="page-header">
-  <h2>{% trans "Log in to an existing account" %}</h2>
-</div>
-<div class="row">
-  <div class="col-md-8">
-    <form role="form" method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-      {% csrf_token %}
-      {{ form|as_bootstrap }}
-      {% if redirect_field_value %}
-      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-      {% endif %}
-      <div class="form-group">
-        <p><a href="{% url "forgot_username" %}">{% trans "Forgot your username?" %}</a></p>
-        <p><a href="{% url "account_password_reset" %}">{% trans "Forgot your password?" %}</a></p>
-        <p><a href="{% url "account_signup" %}">{% trans "Not yet registered?" %}</a></p>
-      </div>
-      <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
-    </form>
-  </div>
-</div>
+    <!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>{% trans "Login" %}</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li class="active">{% trans "Login" %}</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+    <section id="login-page" class="container">
+        <div class="row">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <form role="form" method="POST" action="{% url "account_login" %}" autocapitalize="off"
+                    {% if form.is_multipart %} enctype="multipart/form-data" {% endif %}>
+                    {% csrf_token %}
+                    {{ form|as_bootstrap }}
+                    {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <div class="form-group">
+                        <p><a href="{% url "forgot_username" %}">{% trans "Forgot your username?" %}</a></p>
+                        <p><a href="{% url "account_password_reset" %}">{% trans "Forgot your password?" %}</a></p>
+                        <p><a href="{% url "account_signup" %}">{% trans "Not yet registered?" %}</a></p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
+                </form>
+            </div>
+        </div>
+        
+    </section>
 {% endblock %}

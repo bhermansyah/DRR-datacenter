@@ -207,35 +207,33 @@
                 <div class="product-btn-group"> 
                   {% if resource.storeType != "remoteStore" %}
                     {% get_obj_perms request.user for resource.get_self_resource as "perms" %}
-                  <!-- Need to be checked later -->
                     {% if links %}
-                  <button class="btn btn-primary" data-toggle="modal" data-target="#download-layer">{% trans "Download" %}</button>
-                  <div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
-                        </div>
-                        <div class="modal-body">
-                          {% if links %}
-                          <ul>
-                            {% for link in links %}
-                            <li><a href="{{ link.url }}">{% trans link.name %}</a></li>
-                            {% endfor %}
-                          </ul>
-                          {% endif %}
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                      <button class="btn btn-primary" data-toggle="modal" data-target="#download-layer">{% trans "Download" %}</button>
+                      <div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
+                            </div>
+                            <div class="modal-body">
+                              {% if links %}
+                              <ul>
+                                {% for link in links %}
+                                <li><a href="{{ link.url }}">{% trans link.name %}</a></li>
+                                {% endfor %}
+                              </ul>
+                              {% endif %}
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
                     {% else %}
-                  <!-- /Need to be checked later -->
                       {% if request.user.is_authenticated %}
-                  <button class="btn btn-primary" id="request-download">{% trans "Request Download" %}</button>
+                        <button class="btn btn-primary" id="request-download">{% trans "Request Download" %}</button>
                       {% endif %}
                     {% endif %}
                   {% endif %}
@@ -262,7 +260,6 @@
                     </div>
                   </div>
 
-                  <!-- Need to be checked later -->
                   {% if GEOSERVER_BASE_URL %}
                     {% get_obj_perms request.user for resource.layer as "layer_perms" %}
                   {% endif %}
@@ -328,40 +325,32 @@
                     </div>
                   </div>
                   {% endif %}
-                  <!-- /Need to be checked later -->
                 </div> 
               </div>
-              <!-- Need to be checked later -->
+              
               {% if "change_resourcebase_permissions" in perms %}
               <div>
                 <h4>{% trans "Permissions" %}</h4>
-                <p>{% trans "Specify which users can view or modify this map" %}</p>
-                <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#_permissions">{% trans "Change Permissions of this Map" %}</button>
+                <p>{% trans "Specify which users can view or modify this layer" %}</p>
+                <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#_permissions">{% trans "Change Permissions of this Layer" %}</button>
                 {% include "v2/_permissions_form.html" %}
               </div>
               {% endif %}
               {% if user.is_superuser %}
               <div>
-                <h4>{% trans "Copy this map" %}</h4>
-                <p>{% trans "Duplicate this map and modify it for your own purposes" %}</p>
-                <a href="{% url "new_map" %}?copy={{ resource.id }}" class="btn btn-primary btn-md btn-block">{% trans "Create a New Map" %}</a>
+                <h4>{% trans "Copy this layer" %}</h4>
+                <p>{% trans "Generate a new map based on this layer" %}</p>
+                <a href="{% url "new_map" %}?layer={{resource.service_typename}}" class="btn btn-primary btn-md btn-block">{% trans "Create New Map" %}</a>
               </div>
               {% endif %}
-              {% if resource.is_public and "change_resourcebase" in perms or resource.layer_group %}
+              {% if resource.storeType == "remoteStore" %}
               <div>
-                <h4>{% trans "Map WMS" %}</h4>
-                <dl>{% if resource.layer_group %}
-                  <dt>{% trans "WMS layer group for local map layers" %}:</dt>
-                  <dd><em>{{ resource.layer_group.name }}</em> ({% trans "on" %} <a href="{{ ows }}?service=WMS&request=GetCapabilities">{% trans "local OWS" %}</a>)</dd>
-                  {% endif %}
-                </dl>
-                {% if "change_resourcebase" in perms %}
-                <p>{% trans "Publish local map layers as WMS layer group" %}</p>
-                <a href="{%url "map_wms" resource.id %}" class="btn btn-primary btn-md btn-block">{% trans "Publish Map WMS" %}</a>
-                {% endif %}
+                <h4>{% trans "External service layer" %}</h4>
+                <div>{% trans "Source" %}: <a href="/services/{{resource.service.id}}">{{ resource.service.title }}</a></div>
+                <div>{% trans "Type" %}: {{ resource.service.type }}</div>
               </div>
               {% endif %}
-              <!-- /Need to be checked later -->
+
               <div class="share" style="">
                 {% include "v2/social_links.html" %}
               </div>

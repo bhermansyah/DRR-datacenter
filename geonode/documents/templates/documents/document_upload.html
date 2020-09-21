@@ -12,63 +12,84 @@
     {{ block.super }}
 {% endblock %}
 
-{% block body %}
+{% block body_outer %}
 
-<div class="col-md-8">
-  <form id="upload_form"  method="post" enctype="multipart/form-data" action="{% url "document_upload" %}">
-    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
-    {{ form|as_bootstrap }}
-    <button type="submit" id="upload-button" class="btn btn-danger">Upload</button>
-  </form>
+    <!-- Title -->
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{% trans "Upload Documents" %}</h1>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li>{% trans 'Maps' %}</li>
+                        <li><a href="{% url 'v2:document_browse' %}">{% trans "Static Maps" %}</a></li>
+                        <li class="active">{% trans "Upload Static Maps" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-</div>
-
-{% endblock %}
-
-{% block sidebar %}
-
-<div class="col-md-4">
-  <h3>{% trans "Permissions"  %}</h3>
-  <form id="permission_form">
-    {% include "_permissions.html" %}
-  </form>
-</div>
-
+    <section>
+        <div class="container">
+            <div class="col-md-8 col-xs-12">
+                <p>Allowed document types:
+                    {% for doc in ALLOWED_DOC_TYPES %}
+                    .{{ doc }}
+                    {% endfor %}
+                </p>
+                <form id="upload_form" method="post" enctype="multipart/form-data" action="{% url "document_upload" %}">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+                    {{ form|as_bootstrap }}
+                    <button type="submit" id="upload-button" class="btn btn-danger">Upload</button>
+                </form>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <h3>{% trans "Permissions"  %}</h3>
+                <form id="permission_form" class="form-horizontal">
+                    {% include "v2/_permissions_simple.html" %}
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}
 
 {% block extra_script %}
-{% include "_permissions_form_js.html" %}
+    {% include "_permissions_form_js.html" %}
 
-<script type="text/javascript">
-    $('#id_doc_file').on('change', function(){
-        if($('#id_title').val() == ''){
-            $('#id_title').val($('#id_doc_file').val().replace("C:\\fakepath\\", ""));
-        }
-    });
-    $("#resource").select2({
-        minimumInputLength: 1,
-        placeholder: 'Select layer, map or empty',
-        width: 'element',
-        ajax: {
-          traditional: true,
-          url: '{% url 'api_dispatch_list' api_name='api' resource_name='base' %}',
-          data: function(term,page){
-            return {
-              type__in: ['layer','map'],
-              title__contains: term.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+    <script type="text/javascript">
+        $('#id_doc_file').on('change', function(){
+            if($('#id_title').val() == ''){
+                $('#id_title').val($('#id_doc_file').val().replace("C:\\fakepath\\", ""));
             }
-          },
-          results: function(data) {
-            return {
-              results: $.map(data.objects,function(object){
-                return {id: object.id, text: object.title};
-              })
+        });
+        $("#resource").select2({
+            minimumInputLength: 1,
+            placeholder: 'Select layer, map or empty',
+            width: 'element',
+            ajax: {
+            traditional: true,
+            url: '{% url 'api_dispatch_list' api_name='api' resource_name='base' %}',
+            data: function(term,page){
+                return {
+                type__in: ['layer','map'],
+                title__contains: term.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+                }
+            },
+            results: function(data) {
+                return {
+                results: $.map(data.objects,function(object){
+                    return {id: object.id, text: object.title};
+                })
+                }
+            }          
             }
-          }          
-        }
-      });
-    $('#upload_form').submit(function(){
-      $('#permissions').val(JSON.stringify(permissionsString($('#permission_form'),'base')));
-    });
-</script>
+        });
+        $('#upload_form').submit(function(){
+            $('#permissions').val(JSON.stringify(permissionsString($('#permission_form'),'base')));
+        });
+    </script>
 {% endblock extra_script %}
+

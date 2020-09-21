@@ -126,9 +126,9 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 
 @login_required
 def layer_upload(request, template='upload/layer_upload.html'):
-    # ubah
+    # change
     # if (request.resolver_match.namespace == 'v2'): template = 'v2/upload/layer_upload.html'
-    # /ubah
+    # /change
 
     if request.method == 'GET':
         ctx = {
@@ -224,9 +224,9 @@ def layer_upload(request, template='upload/layer_upload.html'):
 
 
 def layer_detail(request, layername, template='layers/layer_detail.html'):
-    # ubah
+    # change
     if (request.resolver_match.namespace == 'v2'): template = 'v2/layer_detail.html'
-    # /ubah
+    # /change
 
     layer = _resolve_layer(
         request,
@@ -322,6 +322,9 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
 
 @login_required
 def layer_metadata(request, layername, template='layers/layer_metadata.html'):
+    # change
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/layer_metadata.html'
+    # /change
     layer = _resolve_layer(
         request,
         layername,
@@ -462,6 +465,9 @@ def layer_change_poc(request, ids, template='layers/layer_change_poc.html'):
 
 @login_required
 def layer_replace(request, layername, template='layers/layer_replace.html'):
+    # change
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/layer_replace.html'
+    # /change
     layer = _resolve_layer(
         request,
         layername,
@@ -533,6 +539,9 @@ def layer_replace(request, layername, template='layers/layer_replace.html'):
 
 @login_required
 def layer_remove(request, layername, template='layers/layer_remove.html'):
+    # change
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/layer_remove.html'
+    # /change
     layer = _resolve_layer(
         request,
         layername,

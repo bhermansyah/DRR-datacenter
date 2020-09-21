@@ -1,33 +1,54 @@
-{% extends "site_base.html" %}
+
+{% extends "v2/site_base.html" %}
 
 {% load i18n %}
 {% load avatar_tags %}
 
 {% block title %}{{ thread.subject }} — {{ block.super }}{% endblock %}
 
-{% block body %}
-<h3>{{ thread.subject }}</h3>
-<hr />
-{% for message in thread.messages.all %}
-  <div class="well">
-    {% avatar message.sender 50 %}
-    {{ message.sent_at }} by {% ifequal request.user message.sender %}{% trans "me" %}{% else %}<a href="{{ message.sender.get_absolute_url }}">{{ message.sender }}</a>{% endifequal %}
-    <p>{{ message.content }}</p>
-  </div>
-  {% empty %}
-  You have no messages.
-{% endfor %}
-<div>
-  <form action="{{ thread.get_absolute_url }}" method="post">
-    {% csrf_token %}
-    <fieldset>
-      <textarea name="content"></textarea>
-    </fieldset>
-    <input type="submit" value="{% trans "Send Reply" %}" class="btn btn-primary" type="button"/>
-  </form>
-</div>
-{% endblock %}
 
-{% block sidebar %}
-<a href="{% url "messages_inbox" %}" class="btn btn-primary" type="button">{% trans "Back to Inbox" %}</a>
+{% block body_outer %}
+    <!-- Title -->
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{% trans "Message" %}</h1>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li><a href="{% url 'messages_inbox' %}">{% trans 'Inbox' %}</a></li>
+                        <li class="active">{% trans "Message" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="min-height-empty">
+        <div class="container">
+            <h3>{{ thread.subject }}</h3>
+            <hr />
+            {% for message in thread.messages.all %}
+            <div class="well">
+                {% avatar message.sender 50 %}
+                {{ message.sent_at }} by {% ifequal request.user message.sender %}{% trans "me" %}{% else %}<a
+                    href="{{ message.sender.get_absolute_url }}">{{ message.sender }}</a>{% endifequal %}
+                <p>{{ message.content }}</p>
+            </div>
+            {% empty %}
+            You have no messages.
+            {% endfor %}
+            <div>
+                <form action="{{ thread.get_absolute_url }}" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        <textarea name="content"></textarea>
+                    </fieldset>
+                    <input type="submit" value="{% trans "Send Reply" %}" class="btn btn-primary pull-right" type="button" />
+                </form>
+            </div>
+            <a href="{% url "messages_inbox" %}" class="btn btn-default" type="button">{% trans "Back to Inbox" %}</a>
+        </div>
+    </section>
 {% endblock %}

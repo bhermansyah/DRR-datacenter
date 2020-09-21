@@ -1,13 +1,33 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
 
 {% load url from future %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Account Pending Approval" %}{% endblock %}
 
-{% block body %}
-    <h2>{% trans "Account Pending Approval" %}</h2>
+{% block body_outer %}
+    <!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>{% trans "Account Pending Approval" %}</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li class="active">{% trans "Account Pending Approval" %}</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+    </section>
 
-    <p>{% blocktrans %}We have sent the administrators a notice to approve your account associated with <b>{{ email }}</b>. If the account is approved, you will receive a confirmation notice.{% endblocktrans %}</p>
-    <p><a href="{{ success_url }}">Go back</a></p>
+    <section class="min-height-empty">
+        <div class="container">
+            <div class="center vertical-center">
+                <p class="lead">{% blocktrans %}We have sent the administrators a notice to approve your account associated with <b>{{ email }}</b>.<br>If the account is approved, you will receive a confirmation notice.{% endblocktrans %}</p>
+                <a href="{{ success_url }}" class="btn btn-primary">Go back</a>
+            </div>
+        </div>
+    </section>
 {% endblock %}

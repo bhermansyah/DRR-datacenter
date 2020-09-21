@@ -1,4 +1,4 @@
-{% extends "maps/map_base.html" %}
+{% extends "v2/map_base.html" %}
 
 {% load i18n %}
 {% load bootstrap_tags %}
@@ -7,17 +7,44 @@
 
 {% block body_class %}maps{% endblock %}
 
-{% block body %}
-<form action="{% url "map_remove" map.id %}" method="POST">
-  <legend>
-    {% blocktrans with map.title as map_title %}
-        Are you sure you want to remove {{ map_title }}?
-    {% endblocktrans %}
-  </legend>
-  {% csrf_token %}
-  <div class="form-actions">
-    <input type="submit" class="btn btn-danger" value="{% trans "Yes, I am sure"  %}" />
-    <a href="{{ map.get_absolute_url }}" class="btn btn-default">{% trans "No, don't remove it" %}</a>
-  </div>
-</form>
+{% block body_outer %}
+    <!-- Title -->
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{% trans "Remove" %}</h1>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li>{% trans 'Maps' %}</li>
+                        <li><a href="{% url 'v2:maps_browse' %}">{% trans "Interactive Maps" %}</a></li> 
+                        <li><a href="{{ map.get_absolute_url }}">{{ map.title }}</a></li> 
+                        <li class="active">{% trans "Remove" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="vertical-center">
+                <div class="center">
+                    <form action="{% url "map_remove" map.id %}" method="POST">
+                        <p class="lead">
+                            {% blocktrans with map.title as map_title %}
+                            Are you sure you want to remove {{ map_title }}?
+                            {% endblocktrans %}
+                        </p>
+                        {% csrf_token %}
+                        <div class="form-actions">
+                            <input type="submit" class="btn btn-danger" value="{% trans "Yes, I am sure"  %}" />
+                            <a href="{{ map.get_absolute_url }}" class="btn btn-default">{% trans "No, don't remove it" %}</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

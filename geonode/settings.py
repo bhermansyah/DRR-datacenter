@@ -342,6 +342,8 @@ INSTALLED_APPS = (
     'deliverynotes',
     'covid19',
 
+    'widget_tweaks',
+
 ) + GEONODE_APPS
 
 LOGGING = {

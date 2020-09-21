@@ -1,4 +1,4 @@
-{% extends 'site_base.html' %}
+{% extends 'v2/site_base.html' %}
 {% load activity_tags social_tags i18n %}
 
 {% block extra_head %}
@@ -14,20 +14,34 @@
 {% endblock %}
 {% endcomment %}
 
-{% block body %}
-<div class="page-header">
-  <h2>{%  trans "Activity Feed for"  %} {{ actor }}</h2>
-</div>
+{% block body_outer %}
+    <!-- Title -->
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{%  trans "Activity Feed for"  %} {{ actor }}</h1>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li class="active">{% trans "My Activity" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="row">
-  <div class="col-md-12">
-    <ul class="no-style-list">
-      {% for action in action_list %}
-      {% activity_item action %}
-      {% empty %}
-      <p>{% trans "No actions yet" %}</p>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
+    <section class="min-height-empty">
+        <div class="container">
+            <div>
+                <ul class="no-style-list">
+                    {% for action in action_list %}
+                    {% activity_item action %}
+                    {% empty %}
+                    <p>{% trans "No actions yet" %}</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
 {% endblock %}

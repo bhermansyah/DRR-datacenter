@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
 {% load i18n %}
 {% load url from future %}
 
@@ -7,17 +7,9 @@
 {% block body_class %}documents{% endblock %}
 
 {% block body_outer %}
-<div class="page-header">
-  <a href="{% url "document_browse" %}" class="btn btn-primary pull-right">{% trans "Explore Documents" %}</a>
-  <h2 class="page-title">{% trans "Upload Documents" %}</h2>
-	<p>Allowed document types:
-	{% for doc in ALLOWED_DOC_TYPES %}
-		.{{ doc }}
-	{% endfor %}
-	</p>
-</div>
-<div class="row">    
-  {% block body %}{% endblock body %}
-  {% block sidebar %}{% endblock sidebar %}
-</div>
+
+
+	{% block body %}{% endblock body %}
+	{% block sidebar %}{% endblock sidebar %}
+
 {% endblock body_outer %}

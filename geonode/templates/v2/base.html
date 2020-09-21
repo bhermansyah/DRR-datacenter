@@ -44,6 +44,8 @@
         <!-- <link rel="stylesheet" type="text/css" href="css/select2-bootstrap.min.css"> -->
         <!-- Printing -->
         <!-- <link rel="stylesheet" type="text/css" href="css/gistfile1.css"> -->
+        <!-- JQuery Multiselect -->
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/multi-select.css">
 
         {% if LANGUAGE_BIDI %}
         <!-- <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}v2/css/bootstrap.rtl.full.min.css" media="all"> -->
@@ -54,7 +56,7 @@
         <!-- If you'd like to support IE8 -->
         <!-- <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
         <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
-        <!-- <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" /> -->
+        <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
         <!-- <link href="{{ STATIC_URL }}lib/css/custom.css" rel="stylesheet" /> -->
 
         <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}
@@ -73,7 +75,7 @@
   </head>
 
   <body class="{% block body_class %}{% endblock %}" {% block body_extra_attr %}{% endblock %}>
-        {% block extra_loading %}{% endblock %}
+    
     {% block header %}
     <!-- Navbar -->
     <nav class="navbar navbar-fixed-top navbar-upper">
@@ -223,6 +225,9 @@
     </nav>
     {% endblock header %}
 
+    {% block extra_loading %}
+    {% endblock extra_loading %}
+
     <div class="alert alert-danger alert-dismissible" role="alert" id="ieflag" style="display:none">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <h1>You are using an outdated browser that is not supported by GeoNode.</h1>
@@ -316,20 +321,32 @@
                     <form class="center" action="{% url "account_login" %}?next={{ request.path }}" method="post" id="form-login">
                         {% csrf_token %}
                         <fieldset class="login-form">
-                            <!-- Username -->
-                            <div class="form-group group-login">
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <a href="{% url 'forgot_username' %}">{% trans "Forgot Username" %}</a>
+                                </div>
+                                <input id="id_username" class="form-control" name="username" placeholder="{% trans "Username" %}" type="text" />
+                            </div>
+                            <div class="form-group">
+                                <div class="pull-right">
+                                    <a href="{% url 'account_password_reset' %}">{% trans "Forgot Password" %}</a>
+                                </div>
+                                <input id="id_password" class="form-control" name="password" placeholder="{% trans "Password" %}" type="password" />
+                            </div>
+
+                            <!-- <div class="form-group group-login">
                                 <input type="text" id="id_username" name="username" placeholder="{% trans 'Username' %}" class="login-input">
                                 <div class="login-forgot">
                                     <a href="{% url 'forgot_username' %}">{% trans "Forgot?" %}</a>
                                 </div>
                             </div>
-                            <!-- Password-->
                             <div class="form-group group-login">
                                 <input type="password" id="id_password" name="password" placeholder="{% trans 'Password' %}" class="login-input">
                                 <div class="login-forgot">
                                     <a href="{% url 'account_password_reset' %}">{% trans "Forgot?" %}</a>
                                 </div>
-                            </div>
+                            </div> -->
+
                             <div class="form-group" style="text-align: left;">
                                 <div class="checkbox">
                                     <label><input type="checkbox"> {% trans "Remember Me" %}</label>
@@ -382,8 +399,15 @@
     <!-- Time Ago -->
     <script src="{{ STATIC_URL }}v2/js/jquery.timeago.js"></script>
 
+    <!-- jQuery Ajax -->
+    <script src="{{ STATIC_URL }}v2/js/jquery.ajaxprogress.js"></script>
+    <script src="{{ STATIC_URL }}v2/js/jquery.ajaxQueue.min.js"></script>
+
     <!-- jQuery Marquee -->
     <script src="{{ STATIC_URL }}v2/js/jquery.marquee.min.js"></script>
+
+    <!-- jQuery Multiselect -->
+    <script src="{{ STATIC_URL }}lib/js/jquery.multi-select.js"></script>
 
     <!-- Select2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>

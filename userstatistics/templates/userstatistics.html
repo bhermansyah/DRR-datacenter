@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
 
 {% load i18n %}
 {% block title %} {% trans "User Statistics" %} — {{ block.super }} {% endblock %}
@@ -1371,9 +1371,6 @@ function makeserialdates(startdate, enddate, periodic) {
 {% endblock %}
 
 {% block header %}
-<div class="se-pre-con">
-  <span class=""><i id="spinner" class="fa fa-spinner fa-spin fa-1x fa-fw" style=""></i>&nbsp;Loading ...</span>
-</div>
 <style>
 /* Paste this css to your style sheet file or under head tag */
 /* This only works with JavaScript,
@@ -1420,87 +1417,105 @@ background-color: rgba(255, 255, 255, 0.5);
 {% endblock %}
 
 {% block body_outer %}
-<div class="page-header">
-  <h2>{% trans "User Statistics" %}</h2>
-</div>
+    <!-- Title -->
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{% trans "User Statistics" %}</h1>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li class="active">{% trans "User Statistics" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="row">
-  <div class="col-md-12">
-    <p class="lead">{% trans "Query" %}</p>
-    <form class="">
-      <!-- <div class="form-group">
-      <label for="selectsql" class="col-sm-2 control-label">Select Query</label>
-      <div class="col-sm-3">
-      <select id="selectsql" class="form-control">
-      <option selected="selected">Raw Data</option>
-      <option>Group By Resource</option>
-    </select>
-  </div>
-</div> -->
-<div class="form-group">
-  <label for="selectsql">Select Query</label>
-  <select id="selectsql" class="form-control">
-    <option selected="selected"></option>
-  </select>
-</div>
-</form>
-</div>
-<div id="blockfilter" class="col-md-12">
-  <p class="lead">{% trans "Filter" %}</p>
-  <form class="">
-    <div id="blockfilterresource" class="form-group">
-      <label for="filterresource">Resource</label>
-      <select id="filterresource" class="form-control" multiple="multiple">
-      </select>
-      <span id="filterorganizationoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></span>
-    </div>
-    <div id="blockfilterorganization" class="form-group">
-      <label for="filterorganization">Organization</label>
-      <select id="filterorganization" class="form-control" multiple="multiple">
-      </select>
-      <p id="filterorganizationoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
-    </div>
-    <div id="blockfilterorganizationtype" class="form-group">
-      <label for="filterorganizationtype">Organization Type</label>
-      <select id="filterorganizationtype" class="form-control" multiple="multiple">
-      </select>
-      <p id="filterorganizationtypeoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
-    </div>
-    <div id="blockfilterorganizationgrowth" class="form-group">
-      <label for="filterorganizationgrowth">Organization</label>
-      <select id="filterorganizationgrowth" class="form-control" multiple="multiple">
-      </select>
-      <p id="filterorganizationgrowthoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
-    </div>
-    <div id="blockperiodic" class="form-group">
-      <label for="periodic">Periodic</label>
-      <select id="periodic" class="form-control">
-        <option selected="selected" value="daily">Daily</option>
-        <option value="weekly">Weekly</option>
-        <option value="monthly">Monthly</option>
-        <option value="quarterly">Quarterly</option>
-      </select>
-    </div>
-    <div id="blockbtnfiltersubmit" class="form-group">
-      <button id="btnfiltersubmit" class="btn btn-primary" type="button">Filter</button>
-    </div>
-  </form>
-</div>
-<div class="col-md-12">
-  <p class="lead">{% trans "Chart" %}</p>
-  <!-- <div id="graphuseractivity" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div> -->
-  <div id="graphuseractivity"></div>
-  <!-- <canvas id="canvasuseractivity" width="100%" height="482" style="display: block; width: 100%; height: 482px;"></canvas> -->
-  <!-- <table id="tblgraphdetail" class="stripe row-border order-column" role="grid" aria-describedby="" style=""> -->
-</div>
-<div class="col-md-12">
-  <p class="lead">{% trans "Table" %}</p>
-  <table id="tbluseractivity" class="stripe row-border order-column" role="grid" aria-describedby="" style="">
-  </table>
-</div>
-<!-- <div class="col-md-4">
-</div> -->
-</div>
+    <section class="min-height-empty">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <p class="lead">{% trans "Query" %}</p>
+                <form class="">
+                  <!-- <div class="form-group">
+                  <label for="selectsql" class="col-sm-2 control-label">Select Query</label>
+                  <div class="col-sm-3">
+                  <select id="selectsql" class="form-control">
+                  <option selected="selected">Raw Data</option>
+                  <option>Group By Resource</option>
+                </select>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label for="selectsql">Select Query</label>
+              <select id="selectsql" class="form-control">
+                <option selected="selected"></option>
+              </select>
+            </div>
+            </form>
+            </div>
+            <div id="blockfilter" class="col-md-12">
+              <p class="lead">{% trans "Filter" %}</p>
+              <form class="">
+                <div id="blockfilterresource" class="form-group">
+                  <label for="filterresource">Resource</label>
+                  <select id="filterresource" class="form-control" multiple="multiple">
+                  </select>
+                  <span id="filterorganizationoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></span>
+                </div>
+                <div id="blockfilterorganization" class="form-group">
+                  <label for="filterorganization">Organization</label>
+                  <select id="filterorganization" class="form-control" multiple="multiple">
+                  </select>
+                  <p id="filterorganizationoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
+                </div>
+                <div id="blockfilterorganizationtype" class="form-group">
+                  <label for="filterorganizationtype">Organization Type</label>
+                  <select id="filterorganizationtype" class="form-control" multiple="multiple">
+                  </select>
+                  <p id="filterorganizationtypeoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
+                </div>
+                <div id="blockfilterorganizationgrowth" class="form-group">
+                  <label for="filterorganizationgrowth">Organization</label>
+                  <select id="filterorganizationgrowth" class="form-control" multiple="multiple">
+                  </select>
+                  <p id="filterorganizationgrowthoption"><span id="setsort">Sort by: <a id="sortbyname">Name</a>, <a id="sortbynumber">Number of User</a></span>, <span id="setselect">Select: <a id="selectall">All</a>, <a id="selectnone">None</a></span></p>
+                </div>
+                <div id="blockperiodic" class="form-group">
+                  <label for="periodic">Periodic</label>
+                  <select id="periodic" class="form-control">
+                    <option selected="selected" value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                  </select>
+                </div>
+                <div id="blockbtnfiltersubmit" class="form-group">
+                  <button id="btnfiltersubmit" class="btn btn-primary" type="button">Filter</button>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-12">
+              <p class="lead">{% trans "Chart" %}</p>
+              <!-- <div id="graphuseractivity" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div> -->
+              <div id="graphuseractivity"></div>
+              <!-- <canvas id="canvasuseractivity" width="100%" height="482" style="display: block; width: 100%; height: 482px;"></canvas> -->
+              <!-- <table id="tblgraphdetail" class="stripe row-border order-column" role="grid" aria-describedby="" style=""> -->
+            </div>
+            <div class="col-md-12">
+              <p class="lead">{% trans "Table" %}</p>
+              <table id="tbluseractivity" class="stripe row-border order-column" role="grid" aria-describedby="" style="">
+              </table>
+            </div>
+            <!-- <div class="col-md-4">
+            </div> -->
+            </div>
+        </div>
+    </section>
+
+
 {% endblock %}
 {% block extra_script %}
 {{ block.super }}

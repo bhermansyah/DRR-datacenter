@@ -1,20 +1,38 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
+
 {% load i18n %}
 {% load bootstrap_tags %}
 
-{% block body %}
+{% block body_outer %}
+    <!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>{% trans "Invite User" %}</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li class="active">{% trans "Invite User" %}</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+    </section>
 
-  <h2>{% trans "Invite User" %}</h2>
-  
-  <form action="" class="form-horizontal" method="post">
-    
-    {% csrf_token %}
-      {{ form|as_bootstrap }}
-    <div class="form-actions">
-      <input type="submit" value="{% trans "Invite User" %}" class="btn btn-primary"/>
-    </div>
-    
-  </form>
-  
+    <section class="min-height-empty">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <form action="" class="form-horizontal" method="post">
+                        {% csrf_token %}
+                        {{ form|as_bootstrap }}
+                        <div class="form-actions">
+                            <input type="submit" value="{% trans "Invite User" %}" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
-

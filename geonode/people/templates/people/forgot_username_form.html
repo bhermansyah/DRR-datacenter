@@ -1,24 +1,46 @@
-{% extends "site_base.html" %}
+{% extends "v2/site_base.html" %}
 {% load i18n %}
+{% load widget_tweaks %}
 
 {% block body_outer %}
-<div class="page-header">
-  <h2>{% trans "Forgot Username" %}</h2>
-</div>
-<div class="row">
-  <div class="col-md-8">
-    <p class="lead">{% trans "Enter your email address and click the submit button. <br />Your username will be sent to you." %}</p>
-    <form method="post" action="">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <div class="form-actions">
-        <input class="btn btn-primary" type="submit" value="{% trans 'Submit' %}" />
-      </div>
-    </form>
-    {% if message %}
-    <div class="alert alert-danger grid-spacer">{{ message }}</div>
-    {% endif %}
-  </div>
-</div>
-{% endblock %}
+    <!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>{% trans "Forgot Username" %}</h1>
+	            </div>
+	            <div class="col-md-6">
+	                <ul class="breadcrumb pull-right">
+	                    <li class="active">{% trans "Forgot Username" %}</li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</section>
 
+    <section>
+        <div class="container">
+            <div class="center vertical-center">
+                <fieldset class="login-form">
+                    <div class="alert alert-info">
+                        {% trans "Submit your email linked to ASDC and we will send your username to you." %}
+                    </div>
+                    {% if message %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <!-- <label for="{{ form.email.id_for_label }}" class="control-label">{{ form.email.label }}</label> -->
+                            {{ form.email |attr:"class:form-control" |attr:"placeholder:E-mail" }}
+                        </div>
+                        <div class="form-actions">
+                            <input class="btn btn-primary btn-block" type="submit" value="{% trans 'Submit' %}" />
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+        </div>
+    </section>
+{% endblock %}

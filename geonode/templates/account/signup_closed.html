@@ -1,0 +1,43 @@
+{% extends "v2/site_base.html" %}
+
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block head_title %}{% trans "Sign up" %}{% endblock %}
+
+{% block body_outer %}
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>{% trans "Sign Up" %}</h1>
+                </div>
+                <div class="col-md-6">
+                    <ul class="breadcrumb pull-right">
+                        <li class="active">{% trans "Sign Up" %}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="center vertical-center">
+                <p class="lead">{% trans "Sorry, currently this site is running in private mode." %}</p>
+                <p>{% blocktrans %}If you have signup code you can enter it below.{% endblocktrans %}</p>
+                <form method="get" action="" class="">
+                    <div class="form-group">
+                        <div class="col-sm-offset-8 col-sm-4 col-sm-pull-4">
+                            <input type="text" class="form-control" name="code" placeholder="Enter Signup Code" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">{% trans "Submit" %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

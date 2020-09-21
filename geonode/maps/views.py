@@ -103,9 +103,9 @@ def map_detail(request, mapid, snapshot=None, template='maps/map_detail.html'):
     '''
     The view that show details of each map
     '''
-    # ubah
+    # change
     if (request.resolver_match.namespace == 'v2'): template = 'v2/map_detail.html'
-    # /ubah
+    # /change
 
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
 
@@ -145,6 +145,9 @@ def map_detail(request, mapid, snapshot=None, template='maps/map_detail.html'):
 
 @login_required
 def map_metadata(request, mapid, template='maps/map_metadata.html'):
+    # change
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/map_metadata.html'
+    # /change
 
     map_obj = _resolve_map(request, mapid, 'base.change_resourcebase_metadata', _PERMISSION_MSG_VIEW)
 
@@ -248,6 +251,10 @@ def map_metadata(request, mapid, template='maps/map_metadata.html'):
 
 @login_required
 def map_remove(request, mapid, template='maps/map_remove.html'):
+    # change
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/map_remove.html'
+    # /change
+
     ''' Delete a map, and its constituent layers. '''
     map_obj = _resolve_map(request, mapid, 'base.delete_resourcebase', _PERMISSION_MSG_VIEW)
 
@@ -290,9 +297,9 @@ def map_view(request, mapid, snapshot=None, template='maps/map_view.html'):
     The view that returns the map composer opened to
     the map with the given map ID.
     """
-    # ubah
+    # change
     if (request.resolver_match.namespace == 'v2'): template = 'v2/map_view.html'
-    # /ubah
+    # /change
 
     map_obj = _resolve_map(request, mapid, 'base.view_resourcebase', _PERMISSION_MSG_VIEW)
     if request.user != map_obj.owner and not request.user.is_superuser:
@@ -407,6 +414,10 @@ def clean_config(conf):
 
 
 def new_map(request, template='maps/map_view.html'):
+    # change
+    if (request.resolver_match.namespace == 'v2'): template = 'v2/map_view.html'
+    # /change
+    
     config = new_map_config(request)
     if isinstance(config, HttpResponse):
         return config

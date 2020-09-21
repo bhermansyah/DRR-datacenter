@@ -1,24 +1,45 @@
-{% extends "documents/document_base.html" %}
+{% extends "v2/document_base.html" %}
 {% load i18n %}
 
 {% block title %}{{ document.title }} — {{ block.super }}{% endblock %}
 
-{% block body %}
-<div class="row">
-  <div class="col-md-8">
-    <form action="{% url "document_remove" document.id %}" method="POST">
-      <h2>
-        {% blocktrans with document.title as document_title %}
-          Are you sure you want to remove {{ document_title }}?
-        {% endblocktrans %}
-      </h2>
-      {% csrf_token %}
-      <input type="hidden" value="{{ document.typename }}" /> 
-      <div class="form-actions">
-        <input type="submit" value="{% trans "Yes, I am sure" %}" class="btn btn-danger" />
-        <a href="{{ document.get_absolute_url }}" class="btn btn-info">{% trans "No, don't remove it" %}</a>
+{% block body_outer %}
+  <!-- Title -->
+  <section class="title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>{% trans "Remove" %}</h1>
+            </div>
+            <div class="col-md-6">
+                <ul class="breadcrumb pull-right">
+                    <li>{% trans 'Maps' %}</li>
+                    <li><a href="{% url 'v2:document_browse' %}">{% trans "Static Maps" %}</a></li> 
+                    <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a></li> 
+                    <li class="active">{% trans "Remove" %}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <section>
+      <div class="container">
+        <div class="center vertical-center">
+          <form action="{% url "document_remove" document.id %}" method="POST">
+            <h2>
+              {% blocktrans with document.title as document_title %}
+              Are you sure you want to remove {{ document_title }}?
+              {% endblocktrans %}
+            </h2>
+            {% csrf_token %}
+            <input type="hidden" value="{{ document.typename }}" />
+            <div class="form-actions">
+              <input type="submit" value="{% trans "Yes, I am sure" %}" class="btn btn-danger" />
+              <a href="{{ document.get_absolute_url }}" class="btn btn-info">{% trans "No, don't remove it" %}</a>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
-  </div>
-</div>
+  </section>
 {% endblock %}
