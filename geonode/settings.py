@@ -493,7 +493,7 @@ ACCOUNT_EMAIL_CONFIRMATION_REQUIRED = False
 ACCOUNT_APPROVAL_REQUIRED = False
 
 # Email for users to contact admins.
-THEME_ACCOUNT_CONTACT_EMAIL = 'admin@example.com'
+THEME_ACCOUNT_CONTACT_EMAIL = 'afghanistan@immap.org'
 
 #
 # Test Settings
@@ -788,7 +788,9 @@ LOCKDOWN_GEONODE = True
 
 # Add additional paths (as regular expressions) that don't require
 # authentication.
-AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps','/account/signup','/geoapi', '/dashboard/print', '/about', '/disclaimer', '/partners', '/video', '/training', '/dashboard/classmarker_insert', '/v2/dashboard/print', '/uploaded/logos', '/documents/api')
+# AUTH_EXEMPT_URLS = (r'^/?$','/api','/getOverviewMaps','/account/signup','/geoapi', '/dashboard/print', '/about', '/disclaimer', '/partners', '/video', '/training', '/dashboard/classmarker_insert', '/v2/dashboard/print', '/uploaded/logos', '/documents/api')
+AUTH_EXEMPT_URLS = ('/api','/getOverviewMaps','/account/signup','/geoapi', '/dashboard/print', '/about', '/disclaimer', '/partners', '/video', '/training', '/dashboard/classmarker_insert', '/v2/dashboard/print', '/uploaded/logos', '/documents/api')
+
 
 if LOCKDOWN_GEONODE:
     MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \

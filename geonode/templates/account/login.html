@@ -6,42 +6,123 @@
 
 {% block head_title %}{% trans "Log in" %}{% endblock %}
 
-{% block body_outer %}
+
+
+{% block header %}
+
+<style type="text/css">
+    body{
+        padding-top: 0 !important;
+    }
+
+    .title {
+        background: rgb(167 40 36 / 1);
+        color: #fff;
+        padding: 20px 0;
+    }
+
+    .jumbotron {
+        background: rgb(128 130 133 / 1);
+        color: white;
+        padding: 40px 0 60px;
+        text-shadow: none;
+        margin-top: -10px;
+    }
+
+    .jumbotron p {
+        font-size: 14px !important;
+        margin-bottom: 10px;
+    }
+
+    #bottom {
+        background: rgb(167 40 36 / 1);
+        color: #999;
+    }
+
+    .jumbotron a {
+        color: #a61102;
+        font-weight: bolder;
+    }
+
+    a:hover, a:focus {
+        color: #ffffff !important;
+    }
+</style>
+
     <!-- Title -->
-	<section class="title">
-	    <div class="container">
-	        <div class="row">
-	            <div class="col-md-6">
-	                <h1>{% trans "Login" %}</h1>
-	            </div>
-	            <div class="col-md-6">
-	                <ul class="breadcrumb pull-right">
-	                    <li class="active">{% trans "Login" %}</li>
-	                </ul>
-	            </div>
-	        </div>
-	    </div>
-	</section>
+    <section class="title">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-11">
+                    <h1>{% trans "iMMAP Afghanistan Data Repository" %}</h1>
+                </div>
+                <div class="col-md-1">
+                    <img style="height: 65px" src="/static/v2/images/iMMAP_White_monochrome.png">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="login-page" class="container">
         <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <form role="form" method="POST" action="{% url "account_login" %}" autocapitalize="off"
-                    {% if form.is_multipart %} enctype="multipart/form-data" {% endif %}>
-                    {% csrf_token %}
-                    {{ form|as_bootstrap }}
-                    {% if redirect_field_value %}
-                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                    {% endif %}
-                    <div class="form-group">
-                        <p><a href="{% url "forgot_username" %}">{% trans "Forgot your username?" %}</a></p>
-                        <p><a href="{% url "account_password_reset" %}">{% trans "Forgot your password?" %}</a></p>
-                        <p><a href="{% url "account_signup" %}">{% trans "Not yet registered?" %}</a></p>
+                    <div class="jumbotron">
+                        <h2 class="display-4">From ASDC to ANHDC</h2>
+                        <p>
+                            {% blocktrans %}
+                                The Afghanistan Spatial Data Center (ASDC), online from 2015 to 2020, has changed its name and purpose to better meet the needs of the Afghanistan National Disaster Management Authority (ANDMA). 
+                            {% endblocktrans %}
+                        </p>
+                        <p>
+                            {% blocktrans %}
+                                Under its new identity as the Afghanistan Natural Hazards Data Center (ANHDC) it has been handed over to ANDMA. To access the ANHDC and its disaster risk reduction functionalities please register through the following link: <a href="http://anhdc.andma.gov.af/" target="_blank">http://anhdc.andma.gov.af</a>
+                        {% endblocktrans %}
+                        </p>
+                        <p>
+                            {% blocktrans %}
+                                Some ASDC information related to humanitarian coordination and information management are now available in the iMMAP Afghanistan Data Repository, such as map catalogs.
+                        {% endblocktrans %}
+                        </p>    
+                        
                     </div>
-                    <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
-                </form>
+
+                    <div class="jumbotron">
+                        <h2 class="display-4">iMMAP Afghanistan Data Repository</h2>
+                        <p>
+                            {% trans "If you already have an account to access the iMMAP Afghanistan Data Repository, please sign in using your credentials on the provided Login form." %}
+                        </p>
+                        <p style="font-size: 14px;">
+                            {% trans "Otherwise, please submit an access request along with your details and reasons to access the portal and send by email to " %} <a href="mailto:{{ THEME_ACCOUNT_CONTACT_EMAIL }}">{{ THEME_ACCOUNT_CONTACT_EMAIL }}</a>
+                        </p>
+                    </div>
             </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="jumbotron">
+                    <h2 class="display-4">Sign in</h2>
+                    <form role="form" method="POST" action="{% url "account_login" %}" autocapitalize="off"
+                        {% if form.is_multipart %} enctype="multipart/form-data" {% endif %}>
+                        {% csrf_token %}
+                        {{ form|as_bootstrap }}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary btn-block">{% trans "Log in" %}</button>
+                    </form>
+            
+                    <br>
+                    
+                    <div class="form-group">
+                        <p style="font-size: 14px;"><a href="{% url "forgot_username" %}">{% trans "Forgot your username?" %}</a></p>
+                        <p style="font-size: 14px;"><a href="{% url "account_password_reset" %}">{% trans "Forgot your password?" %}</a></p>
+                        {% comment %}
+                        <p style="font-size: 14px;"><a href="{% url "account_signup" %}">{% trans "Not yet registered?" %}</a></p>
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+            
         </div>
-        
     </section>
 {% endblock %}
+
+{% block bottom_class %}hide{% endblock %}
