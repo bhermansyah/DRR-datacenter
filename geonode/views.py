@@ -103,4 +103,4 @@ def err403(request):
             '?next=' +
             request.get_full_path())
     else:
-        return TemplateResponse(request, '401.html', {}, status=401).render()
+        return TemplateResponse(request, 'v2/401.html', {}, status=401).render()

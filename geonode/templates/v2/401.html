@@ -1,0 +1,40 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+
+{% block body %}
+    <!-- Title -->
+	<section class="title">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-md-6">
+	                <h1>{% if error_title %}{{ error_title }}{% else %}{% trans "Not Permitted" %}{% endif %}</h1>
+	            </div>
+	        </div>
+	    </div>
+    </section>
+
+    <section class="min-height-empty">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                  <p>
+                    {% if error_message %}
+                      {{ error_message }}
+                    {% else %}
+                      {% blocktrans %}
+                          You are not allowed to perform this operation.  
+                      {% endblocktrans %}
+                    {% endif %}
+                    </p>
+                    <p>
+                    {% if not request.user.is_anonymous %}
+                    {% blocktrans %}Please verify that you are logged in as the correct user.{%endblocktrans%}
+                    {% else %}
+                    {% blocktrans %}Please login or register and retry.{% endblocktrans %}
+                    {% endif %}
+                    </p>    
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

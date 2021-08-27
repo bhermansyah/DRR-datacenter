@@ -40,6 +40,7 @@ import re
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count, Q
 
+from geonode.people.decorators import owner_or_staff_member_required
 
 @login_required
 def profile_edit(request, username=None):
@@ -74,6 +75,7 @@ def profile_edit(request, username=None):
             'You are not allowed to edit other users profile')
 
 
+@owner_or_staff_member_required
 def profile_detail(request, username):
     profile = get_object_or_404(Profile, username=username)
     # combined queryset from each model content type

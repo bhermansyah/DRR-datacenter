@@ -83,7 +83,7 @@ def document_detail(request, docid):
     except PermissionDenied:
         return HttpResponse(
             loader.render_to_string(
-                '401.html', RequestContext(
+                'v2/401.html', RequestContext(
                     request, {
                         'error_message': _("You are not allowed to view this document.")})), status=403)
 
@@ -142,7 +142,7 @@ def document_download(request, docid):
             obj=document.get_self_resource()):
         return HttpResponse(
             loader.render_to_string(
-                '401.html', RequestContext(
+                'v2/401.html', RequestContext(
                     request, {
                         'error_message': _("You are not allowed to view this document.")})), status=401)
     return DownloadResponse(document.doc_file)
@@ -232,7 +232,7 @@ def document_metadata(request, docid, template='documents/document_metadata.html
     except PermissionDenied:
         return HttpResponse(
             loader.render_to_string(
-                '401.html', RequestContext(
+                'v2/401.html', RequestContext(
                     request, {
                         'error_message': _("You are not allowed to edit this document.")})), status=403)
 

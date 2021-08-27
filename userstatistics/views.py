@@ -24,7 +24,7 @@ from django.views.decorators.gzip import gzip_page
 def userstatistics(request):
     # has_access = ('geodb.delete_afgincidentoasis' in request.user.get_all_permissions())
     # if not has_access:
-    #     return TemplateResponse(request, '401.html', {}, status=401).render()
+    #     return TemplateResponse(request, 'v2/401.html', {}, status=401).render()
 
     # gzip_middleware = GZipMiddleware()
 
